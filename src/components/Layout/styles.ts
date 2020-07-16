@@ -15,10 +15,6 @@ export const Wrapper = styled.div`
   > span {
     font-size: 30px;
   }
-
-  > ul {
-    list-style: none;
-  }
 `;
 
 export const NavBar = styled.nav`
@@ -50,4 +46,11 @@ export const NavBar = styled.nav`
     font-size: 20px;
     padding-left: 5px;
   }
+`;
+
+export const GridSection = styled.section`
+  display: grid;
+  gap: 1rem;
+
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
 `;
