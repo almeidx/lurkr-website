@@ -22,4 +22,8 @@ export const Input = styled.input`
   ::-placeholder {
     color: var(--gray);
   }
+
+  &:focus {
+    outline: none;
+  }
 `;

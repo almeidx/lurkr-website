@@ -13,7 +13,11 @@ export const Wrapper = styled.div`
   justify-content: center;
 
   > span {
-    font-size: 25px;
+    font-size: 30px;
+  }
+
+  > ul {
+    list-style: none;
   }
 `;
 
@@ -24,7 +28,26 @@ export const NavBar = styled.nav`
 
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: left;
 
   font-size: 20px;
+
+  > img {
+    width: 50px;
+    height: auto;
+
+    border-radius: 25%;
+
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE10+ / Edge */
+    user-select: none; /* Standard */
+
+    -webkit-user-drag: none;
+  }
+
+  > span {
+    font-size: 20px;
+    padding-left: 5px;
+  }
 `;
