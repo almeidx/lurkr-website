@@ -30,22 +30,23 @@ export const Input = styled.input`
 `;
 
 export const EmojiContainer = styled.div`
-  display: flex;
-  flex-direction: row;
+  display: block;
   align-items: center;
   justify-content: center;
 
-  > img {
-    width: 3rem;
-    height: 3rem;
-    min-height: 3rem;
+  > a {
+    > img {
+      width: 3rem;
+      height: 3rem;
+      min-height: 3rem;
 
-    border-radius: 3px;
+      border-radius: 3px;
 
-    flex-shrink: 0;
-  }
+      flex-shrink: 0;
+    }
 
-  > img + img {
-    padding-left: 5px;
+    > img + img {
+      padding-left: 5px;
+    }
   }
 `;

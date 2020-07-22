@@ -10,16 +10,31 @@ interface Emoji {
   url: string;
 }
 
+interface Guild {
+  id: string;
+  name: string;
+  memberCount: number;
+  icon: string;
+  invite: string;
+  emojis: Emoji[]
+}
+
 const SearchBar: FC = () => {
   const [emojis, setEmojis] = useState<Emoji[]>([]);
+  const [guilds, setGuilds] = useState<Guild[]>([]);
   const [wantedEmojis, setWantedEmojis] = useState<Emoji[]>([]);
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
 
-    const found = emojis.filter((e) => e.name.toLowerCase().includes(value.toLowerCase()))
+    const input = value.toLowerCase();
+    if (!input) {
+      setWantedEmojis([]);
+    } else {
+      const found = emojis.filter((e) => e.name.toLowerCase().includes(value.toLowerCase()))
 
-    setWantedEmojis(found);
+      setWantedEmojis(found);
+    }
   };
 
   useEffect(() => {
@@ -28,16 +43,22 @@ const SearchBar: FC = () => {
     });
   }, []);
 
+  useEffect(() => {
+    api.get<Guild[]>('guilds').then((r) => {
+      setGuilds(r.data);
+    })
+  }, []);
+
   return (
     <Container>
       <Input type="text" onChange={handleInputChange} placeholder="Search for Pepe emojis and servers" />
       <br />
       <EmojiContainer>
-        {wantedEmojis.map((e) => {
-          return (
+        {wantedEmojis.map((e) => (
+          <a href={`https://discord.gg/${guilds.find((g) => g.emojis.some((em) => em.id === e.id))?.invite}`}>
             <img key={e.id} src={e.url} alt={e.name} />
-          );
-        })}
+          </a>
+        ))}
       </EmojiContainer>
     </Container>
   );
