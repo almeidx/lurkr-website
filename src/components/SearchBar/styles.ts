@@ -28,3 +28,24 @@ export const Input = styled.input`
     outline: none;
   }
 `;
+
+export const EmojiContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+
+  > img {
+    width: 3rem;
+    height: 3rem;
+    min-height: 3rem;
+
+    border-radius: 3px;
+
+    flex-shrink: 0;
+  }
+
+  > img + img {
+    padding-left: 5px;
+  }
+`;
