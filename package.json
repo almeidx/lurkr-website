@@ -1,6 +1,6 @@
 {
   "name": "pepe",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "homepage": "https://pepe.almeidx.me",
   "dependencies": {
@@ -17,13 +17,13 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.1",
-    "styled-components": "^5.1.1",
     "typescript": "~3.7.2"
   },
   "scripts": {
     "predeploy": "yarn run build",
     "deploy": "gh-pages -b master -d build",
     "start": "react-scripts start",
+    "lint:fix": "eslint src --fix --ext ts,tsx",
     "build": "cross-env GENERATE_SOURCEMAP=false react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -42,8 +42,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "@types/styled-components": "^5.1.1"
   }
 }

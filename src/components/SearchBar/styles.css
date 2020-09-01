@@ -1,0 +1,50 @@
+.searchbar-container {
+  padding-top: 47px;
+}
+
+.searchbar-input {
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+
+  width: 40%;
+  height: 40px;
+  max-width: 601px;
+
+  padding: 0 10px;
+  border-radius: 7px;
+
+  font-size: 17px;
+  color: var(--white);
+  background-color: var(--chat-input);
+}
+
+.searchbar-input::placeholder {
+  color: var(--gray);
+}
+
+.searchbar-input:focus {
+  outline: none;
+}
+
+.searchbar-emoji-container {
+  display: block;
+  align-items: center;
+  justify-content: center;
+  padding-left: 30%;
+  padding-right: 30%;
+}
+
+.searchbar-emoji-container a img {
+  width: 3rem;
+  height: 3rem;
+  min-height: 3rem;
+
+  border-radius: 3px;
+
+  flex-shrink: 0;
+}
+
+.searchbar-emoji-container img + img {
+  padding-left: 5px;
+}

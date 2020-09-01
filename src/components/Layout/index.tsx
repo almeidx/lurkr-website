@@ -6,7 +6,7 @@ import api from '../../services/api';
 import SearchBar from '../SearchBar';
 import GuildBox from '../GuildBox';
 
-import { Container, GridSection, NavBar, Wrapper } from './styles';
+import './styles.css';
 
 interface Guild {
   id: string;
@@ -14,7 +14,7 @@ interface Guild {
   memberCount: number;
   icon: string;
   invite: string;
-  emojis: Emoji[]
+  emojis: Emoji[];
 }
 
 interface Emoji {
@@ -25,45 +25,41 @@ interface Emoji {
 }
 
 const Layout: FC = () => {
-  const [guilds, setGuilds] = useState<Guild[]>([])
+  const [guilds, setGuilds] = useState<Guild[]>([]);
 
   useEffect(() => {
-    api.get<Guild[]>('guilds').then((r) => {
-      setGuilds(r.data);
-    });
-  }, [])
+    api.get<Guild[]>('guilds').then((r) => setGuilds(r.data));
+  }, []);
 
   return (
-    <Container>
+    <div className='container'>
       <br />
-      <Wrapper>
-        <NavBar>
+      <div className='wrapper'>
+        <nav className='nav'>
           <img src={NitroHover} alt='Pepe' />
           <span>Pepe Emoji Server</span>
-        </NavBar>
-      </Wrapper>
+        </nav>
+      </div>
       <br />
       <br />
-      <Wrapper>
-        <span>1,017 unique Pepe emojis</span>
-      </Wrapper>
+      <div className='wrapper'>
+        <span>{guilds.reduce((g, a) => g + a.emojis.length, 0).toLocaleString()} unique Pepe emojis</span>
+      </div >
       <br />
       <SearchBar />
       <br />
-      <Wrapper>
+      <div className='wrapper'>
         <h2>The official Pepe Emoji Servers</h2>
-      </Wrapper>
+      </div>
       <br />
-      <Wrapper>
-        <GridSection>
-          {guilds.map((g: Guild) => {
-            return (
-              <GuildBox key={g.id} name={g.name} icon={g.icon} invite={g.invite} />
-            );
-          })}
-        </GridSection>
-      </Wrapper>
-    </Container>
+      <div className='wrapper'>
+        <section className='grid-section'>
+          {guilds.map((g: Guild) => (
+            <GuildBox key={g.id} name={g.name} icon={g.icon} invite={g.invite} />
+          ))}
+        </section>
+      </div>
+    </div>
   );
 }
 

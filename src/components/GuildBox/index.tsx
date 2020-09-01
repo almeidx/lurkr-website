@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 
-import { Container, GuildIcon, JoinButton, NavContainer } from './styles';
+import './styles.css';
 
 interface GuildBoxOptions {
   icon: string;
@@ -10,18 +10,23 @@ interface GuildBoxOptions {
 
 const GuildBox: FC<GuildBoxOptions> = (opts) => {
   return (
-    <Container>
-      <NavContainer>
-        <GuildIcon src={opts.icon} alt="Guild Icon" />
-          <span>{opts.name}</span>
-      </NavContainer>
+    <div className='guildbox-container'>
+      <div className='guildbox-div-container'>
+        <img className='guild-icon' src={opts.icon} alt="Guild Icon" />
+        <span>{opts.name}</span>
+      </div>
 
       {/* <Emojis>
 
       </Emojis> */}
 
-      <JoinButton onClick={() => window.location.href = `https://discord.gg/${opts.invite}`}>Join Server</JoinButton>
-    </Container>
+      <button
+        className='guild-join-button'
+        onClick={() => window.location.href = `https://discord.gg/${opts.invite}`}
+      >
+        Join Server
+      </button>
+    </div>
   );
 }
 

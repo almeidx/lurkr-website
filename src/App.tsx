@@ -1,16 +1,8 @@
 import React from 'react';
 
-import GlobalStyles from './styles/globals';
 import Layout from './components/Layout';
+import './styles/global.css';
 
-function App() {
-  return (
-    <>
-      <Layout />
-
-      <GlobalStyles />
-    </>
-  );
-}
+const App: React.FC = () => <Layout />;
 
 export default App;

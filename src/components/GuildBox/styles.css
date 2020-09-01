@@ -1,6 +1,4 @@
-import styled from 'styled-components';
-
-export const Container = styled.div`
+.guildbox-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -18,14 +16,14 @@ export const Container = styled.div`
   background-repeat: no-repeat;
 
   border: 1px solid var(--gray);
+}
 
-  &:hover {
-    box-shadow: rgba(2, 8, 20, 0.1) 0px 0.35em 1.175em, rgba(2, 8, 20, 0.08) 0px 0.175em 0.5em;
-    transform: translateY(-3px) scale(1.1);
-  }
-`;
+.guildbox-container:hover {
+  box-shadow: rgba(2, 8, 20, 0.1) 0px 0.35em 1.175em, rgba(2, 8, 20, 0.08) 0px 0.175em 0.5em;
+  transform: translateY(-3px) scale(1.1);
+}
 
-export const NavContainer = styled.nav`
+.guildbox-div-container {
   height: 50px;
   width: 100%;
   color: var(--white);
@@ -35,32 +33,32 @@ export const NavContainer = styled.nav`
   justify-content: left;
 
   font-size: 20px;
+}
 
-  > img {
-    width: 50px;
-    height: auto;
+.guildbox-div-container img {
+  width: 50px;
+  height: auto;
 
-    border-radius: 25%;
+  border-radius: 25%;
 
-    -webkit-user-select: none; /* Safari */
-    -moz-user-select: none; /* Firefox */
-    -ms-user-select: none; /* IE10+ / Edge */
-    user-select: none; /* Standard */
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+ / Edge */
+  user-select: none; /* Standard */
 
-    -webkit-user-drag: none;
-  }
+  -webkit-user-drag: none;
+}
 
-  > span {
-    font-size: 20px;
-    padding-left: 5px;
-  }
-`;
+.guildbox-div-container span {
+  font-size: 10px;
+  padding-left: 5px;
+}
 
-export const GuildIcon = styled.img`
+.guild-icon {
   display: flex;
-`;
+}
 
-export const JoinButton = styled.button`
+.guild-join-button {
   background-color: green;
 
   display: flex;
@@ -69,4 +67,4 @@ export const JoinButton = styled.button`
 
   padding-bottom: 2px;
   padding-left: 2px;
-`;
+}

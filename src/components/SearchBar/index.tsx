@@ -1,7 +1,7 @@
 import React, { ChangeEvent, FC, useEffect, useState } from 'react';
 import api from '../../services/api';
 
-import { Container, EmojiContainer, Input } from './styles';
+import './styles.css';
 
 interface Emoji {
   animated: boolean;
@@ -16,7 +16,7 @@ interface Guild {
   memberCount: number;
   icon: string;
   invite: string;
-  emojis: Emoji[]
+  emojis: Emoji[];
 }
 
 const SearchBar: FC = () => {
@@ -31,36 +31,31 @@ const SearchBar: FC = () => {
     if (!input) {
       setWantedEmojis([]);
     } else {
-      const found = emojis.filter((e) => e.name.toLowerCase().includes(value.toLowerCase()))
-
+      const found = emojis.filter((e) => e.name.toLowerCase().includes(value.toLowerCase()));
       setWantedEmojis(found);
     }
   };
 
   useEffect(() => {
-    api.get<Emoji[]>('emojis').then((r) => {
-      setEmojis(r.data);
-    });
+    api.get<Emoji[]>('emojis').then((r) => setEmojis(r.data));
   }, []);
 
   useEffect(() => {
-    api.get<Guild[]>('guilds').then((r) => {
-      setGuilds(r.data);
-    })
+    api.get<Guild[]>('guilds').then((r) => setGuilds(r.data));
   }, []);
 
   return (
-    <Container>
-      <Input type="text" onChange={handleInputChange} placeholder="Search for Pepe emojis and servers" />
+    <div className='searchbar-container'>
+      <input className='searchbar-input' type="text" onChange={handleInputChange} placeholder="Search for Pepe emojis and servers" />
       <br />
-      <EmojiContainer>
+      <div className='searchbar-emoji-container'>
         {wantedEmojis.map((e) => (
           <a href={`https://discord.gg/${guilds.find((g) => g.emojis.some((em) => em.id === e.id))?.invite}`}>
             <img key={e.id} src={e.url} alt={e.name} />
           </a>
         ))}
-      </EmojiContainer>
-    </Container>
+      </div>
+    </div>
   );
 }
 
