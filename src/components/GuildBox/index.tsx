@@ -1,4 +1,4 @@
-import React, { FC } from 'react' 
+import React, { FC } from 'react'
 import { FaSignInAlt } from 'react-icons/fa';
 
 import './styles.css';
@@ -13,13 +13,9 @@ const GuildBox: FC<GuildBoxOptions> = (opts) => {
   return (
     <div className='guildbox-container'>
       <div className='guildbox-div-container'>
-        <img className='guild-icon' src={opts.icon} alt="Guild Icon" />
+        <img className='guild-icon' src={opts.icon} alt='Guild Icon' />
         <p>{opts.name}</p>
       </div>
-
-      {/* <Emojis>
-
-      </Emojis> */}
 
       <button
         className='guild-join-button'

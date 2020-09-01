@@ -38,8 +38,6 @@ const Layout: FC = () => {
     });
   }, []);
 
-  console.log(isLoading);
-
   return (
     <div className='container'>
       <br />
@@ -75,7 +73,7 @@ const Layout: FC = () => {
             guilds.map((g: Guild) => (
               <GuildBox key={g.id} name={g.name} icon={g.icon} invite={g.invite} />
             ))
-          } 
+          }
         </section>
       </div>
     </div>

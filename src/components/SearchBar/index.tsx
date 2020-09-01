@@ -49,8 +49,8 @@ const SearchBar: FC = () => {
     <div className='searchbar-container'>
       <input
         className='searchbar-input'
-        type="text"
-        onChange={handleInputChange} placeholder="Search for Pepe emojis and servers"
+        type='text'
+        onChange={handleInputChange} placeholder='Search for Pepe emojis and servers'
       />
       <br />
       <div className='searchbar-emoji-container'>
