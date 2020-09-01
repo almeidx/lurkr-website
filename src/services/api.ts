@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'https://pepe-api.almeidx.me'
+  baseURL: 'https://api.pepe-is.life'
 });
 
 export default api;
