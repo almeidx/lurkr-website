@@ -13,7 +13,12 @@ html, body, #root {
 *, button, input {
   border: 0;
   background: none;
-  font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Ubuntu, Arial, sans-serif
+  font-family: 'Noto Sans KR', Whitney, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: 500;
+}
+
+ul {
+  list-style: none;
 }
 
 html {

@@ -1,0 +1,3 @@
+.guild-icon-container-skeleton {
+  
+}

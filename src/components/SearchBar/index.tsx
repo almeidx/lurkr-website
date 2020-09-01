@@ -1,4 +1,5 @@
 import React, { ChangeEvent, FC, useEffect, useState } from 'react';
+import Tooltip from 'react-tooltip-lite';
 import api from '../../services/api';
 
 import './styles.css';
@@ -46,13 +47,19 @@ const SearchBar: FC = () => {
 
   return (
     <div className='searchbar-container'>
-      <input className='searchbar-input' type="text" onChange={handleInputChange} placeholder="Search for Pepe emojis and servers" />
+      <input
+        className='searchbar-input'
+        type="text"
+        onChange={handleInputChange} placeholder="Search for Pepe emojis and servers"
+      />
       <br />
       <div className='searchbar-emoji-container'>
         {wantedEmojis.map((e) => (
-          <a href={`https://discord.gg/${guilds.find((g) => g.emojis.some((em) => em.id === e.id))?.invite}`}>
-            <img key={e.id} src={e.url} alt={e.name} />
-          </a>
+          <Tooltip content={`:${e.name}:`} color='#fff' background='#000' >
+            <a href={`https://discord.gg/${guilds.find((g) => g.emojis.some(({ id }) => id === e.id))?.invite}`}>
+              <img key={e.id} src={e.url} alt={e.name} />
+            </a>
+          </Tooltip>
         ))}
       </div>
     </div>

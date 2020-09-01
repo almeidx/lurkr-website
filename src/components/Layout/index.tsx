@@ -3,6 +3,7 @@ import React, { FC, useEffect, useState } from 'react';
 import NitroHover from '../../assets/NitroHover.gif';
 import api from '../../services/api';
 
+import LoadingGuildBox from '../Shimmer/LoadingGuildBox';
 import SearchBar from '../SearchBar';
 import GuildBox from '../GuildBox';
 
@@ -25,11 +26,19 @@ interface Emoji {
 }
 
 const Layout: FC = () => {
+  const [totalEmojis, setTotalEmojis] = useState<string>('Many');
   const [guilds, setGuilds] = useState<Guild[]>([]);
+  const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
-    api.get<Guild[]>('guilds').then((r) => setGuilds(r.data));
+    api.get<Guild[]>('guilds').then((r) => {
+      setLoading(false);
+      setGuilds(r.data);
+      setTotalEmojis(r.data.reduce((g, a) => g + a.emojis.length, 0).toLocaleString());
+    });
   }, []);
+
+  console.log(isLoading);
 
   return (
     <div className='container'>
@@ -43,7 +52,7 @@ const Layout: FC = () => {
       <br />
       <br />
       <div className='wrapper'>
-        <span>{guilds.reduce((g, a) => g + a.emojis.length, 0).toLocaleString()} unique Pepe emojis</span>
+        <span>{totalEmojis} unique Pepe emojis</span>
       </div >
       <br />
       <SearchBar />
@@ -54,9 +63,19 @@ const Layout: FC = () => {
       <br />
       <div className='wrapper'>
         <section className='grid-section'>
-          {guilds.map((g: Guild) => (
-            <GuildBox key={g.id} name={g.name} icon={g.icon} invite={g.invite} />
-          ))}
+          {isLoading ? (
+            <>
+              <LoadingGuildBox />
+              <LoadingGuildBox />
+              <LoadingGuildBox />
+              <LoadingGuildBox />
+              <LoadingGuildBox />
+            </>
+          ) :
+            guilds.map((g: Guild) => (
+              <GuildBox key={g.id} name={g.name} icon={g.icon} invite={g.invite} />
+            ))
+          } 
         </section>
       </div>
     </div>
