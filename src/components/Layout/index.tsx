@@ -1,6 +1,6 @@
 import React, { FC, useEffect, useState } from 'react';
 
-import NitroHover from '../../assets/NitroHover.gif';
+import NitroHover from '../../assets/nitro-hover.gif';
 import api from '../../services/api';
 
 import LoadingGuildBox from '../Shimmer/LoadingGuildBox';
