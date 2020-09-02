@@ -1,29 +1,13 @@
 import React, { FC, useEffect, useState } from 'react';
-
+import { Guild } from '../../@types';
 import NitroHover from '../../assets/nitro-hover.gif';
 import api from '../../services/api';
 
-import LoadingGuildBox from '../Shimmer/LoadingGuildBox';
-import SearchBar from '../SearchBar';
 import GuildBox from '../GuildBox';
+import SearchBar from '../SearchBar';
+import LoadingGuildBox from '../Shimmer/LoadingGuildBox';
 
 import './styles.css';
-
-interface Guild {
-  id: string;
-  name: string;
-  memberCount: number;
-  icon: string;
-  invite: string;
-  emojis: Emoji[];
-}
-
-interface Emoji {
-  animated: boolean;
-  name: string;
-  id: string;
-  url: string;
-}
 
 const Layout: FC = () => {
   const [totalEmojis, setTotalEmojis] = useState<string>('Many');
@@ -50,8 +34,12 @@ const Layout: FC = () => {
       <br />
       <br />
       <div className='wrapper'>
-        <span>{totalEmojis} unique Pepe emojis</span>
-      </div >
+        <span>
+          {totalEmojis}
+          {' '}
+          unique Pepe emojis
+        </span>
+      </div>
       <br />
       <SearchBar />
       <br />
@@ -69,15 +57,11 @@ const Layout: FC = () => {
               <LoadingGuildBox />
               <LoadingGuildBox />
             </>
-          ) :
-            guilds.map((g: Guild) => (
-              <GuildBox key={g.id} name={g.name} icon={g.icon} invite={g.invite} />
-            ))
-          }
+          ) : guilds.map((g: Guild) => <GuildBox key={g.id} name={g.name} icon={g.icon} invite={g.invite} />)}
         </section>
       </div>
     </div>
   );
-}
+};
 
 export default Layout;

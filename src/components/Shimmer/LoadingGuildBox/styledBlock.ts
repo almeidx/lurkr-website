@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const Block = styled.div`
+export default styled.div`
   display: block!important;
   width: 280px;
   height: 90px;

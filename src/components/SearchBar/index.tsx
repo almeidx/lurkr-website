@@ -1,25 +1,12 @@
-import React, { ChangeEvent, FC, useEffect, useState } from 'react';
+import React, {
+  ChangeEvent, FC, useEffect, useState,
+} from 'react';
 import Tooltip from 'react-tooltip-lite';
-import api from '../../services/api';
 
+import { Guild, Emoji } from '../../@types';
 import loadingGif from '../../assets/loading.gif';
+import api from '../../services/api';
 import './styles.css';
-
-interface Emoji {
-  animated: boolean;
-  id: string;
-  name: string;
-  url: string;
-}
-
-interface Guild {
-  id: string;
-  name: string;
-  memberCount: number;
-  icon: string;
-  invite: string;
-  emojis: Emoji[];
-}
 
 const SearchBar: FC = () => {
   const [guilds, setGuilds] = useState<Guild[]>([]);
@@ -28,7 +15,7 @@ const SearchBar: FC = () => {
   const [timeout, setTimer] = useState<number>(0);
   const [isLoading, setLoading] = useState<boolean>(false);
 
-  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (event: ChangeEvent<HTMLInputElement>): void => {
     if (!guilds.length) return setInput('');
 
     const { value } = event.target;
@@ -47,13 +34,11 @@ const SearchBar: FC = () => {
         setWantedEmojis([]);
         setLoading(true);
 
-        console.log('calling api for: ', inputLower);
-
-        api.get('search', { params: { q: inputLower } }).then((res) => {
+        api.get<Emoji[]>('search', { params: { q: inputLower } }).then((res) => {
           setLoading(false);
           setWantedEmojis(res.data);
         });
-      }, 750)
+      }, 750),
     );
   };
 
@@ -74,19 +59,21 @@ const SearchBar: FC = () => {
       />
       <br />
       <div className='searchbar-emoji-container'>
-        {isLoading && <img src={loadingGif} alt="Loading" />} 
+        {isLoading && <img src={loadingGif} alt='Loading' />}
         {(wantedEmojis.length && wantedEmojis.map((e) => (
-          <Tooltip key={e.id} content={`:${e.name}:`} color='#fff' background='#000' >
-            <a href={`https://discord.gg/${guilds.find((g) => g.emojis.some(({ id }) => id === e.id))?.invite}`}>
+          <Tooltip key={e.id} content={`:${e.name}:`} color='#fff' background='#000'>
+            <a
+              target='_blank'
+              rel='noopener noreferrer'
+              href={`https://discord.gg/${guilds.find((g) => g.emojis.some(({ id }) => id === e.id))?.invite}`}
+            >
               <img src={e.url} alt={e.name} onLoad={handleImageLoad} />
             </a>
           </Tooltip>
-        ))) || (input && !isLoading && !timeout && (
-          <p>Could not find anything</p>
-        ))}
+        ))) || (input && !isLoading && !timeout && <p>Could not find anything</p>)}
       </div>
     </div>
   );
-}
+};
 
 export default SearchBar;
