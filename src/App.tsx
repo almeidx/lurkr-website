@@ -1,8 +1,8 @@
 import React from 'react';
 
-import Layout from './components/Layout';
+import Routes from './routes';
 import './styles/global.css';
 
-const App: React.FC = () => <Layout />;
+const App: React.FC = () => <Routes />;
 
 export default App;
