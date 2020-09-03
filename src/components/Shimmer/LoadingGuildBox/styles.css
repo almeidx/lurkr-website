@@ -9,19 +9,21 @@
   );
   background-repeat: no-repeat;
   background-size: 800px 104px;
+
   border-radius: 4px;
   display: inline-block;
   position: relative;
 
   animation-duration: 1.75s;
-  -webkit-animation-duration: 1.75s;
   animation-fill-mode: forwards;
-  -webkit-animation-fill-mode: forwards;
   animation-iteration-count: infinite;
-  -webkit-animation-iteration-count: infinite;
   animation-name: shimmer;
-  -webkit-animation-name: shimmer;
   animation-timing-function: linear;
+
+  -webkit-animation-duration: 1.75s;
+  -webkit-animation-fill-mode: forwards;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-name: shimmer;
   -webkit-animation-timing-function: linear;
 }
 

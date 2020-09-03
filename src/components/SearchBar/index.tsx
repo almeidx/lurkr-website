@@ -1,21 +1,21 @@
 import React, {
-  ChangeEvent, FC, useEffect, useState,
+  ChangeEvent, FC, useCallback, useEffect, useState,
 } from 'react';
 import Tooltip from 'react-tooltip-lite';
+import api from '../../services/api';
 
 import { Guild, Emoji } from '../../@types';
-import loadingGif from '../../assets/loading.gif';
-import api from '../../services/api';
 import './styles.css';
+import loadingGif from '../../assets/loading.gif';
 
 const SearchBar: FC = () => {
   const [guilds, setGuilds] = useState<Guild[]>([]);
-  const [input, setInput] = useState<string>('');
+  const [input, setInput] = useState('');
   const [wantedEmojis, setWantedEmojis] = useState<Emoji[]>([]);
-  const [timeout, setTimer] = useState<number>(0);
-  const [isLoading, setLoading] = useState<boolean>(false);
+  const [timeout, setTimer] = useState(0);
+  const [isLoading, setLoading] = useState(false);
 
-  const handleInputChange = (event: ChangeEvent<HTMLInputElement>): void => {
+  const handleInputChange = useCallback((event: ChangeEvent<HTMLInputElement>): void => {
     if (!guilds.length) return setInput('');
 
     const { value } = event.target;
@@ -40,13 +40,13 @@ const SearchBar: FC = () => {
         });
       }, 750),
     );
-  };
+  }, [timeout, guilds.length]);
 
   useEffect(() => {
     api.get<Guild[]>('guilds').then((r) => setGuilds(r.data));
   }, []);
 
-  const handleImageLoad = () => setLoading(false);
+  const handleImageLoad = useCallback(() => setLoading(false), []);
 
   return (
     <div className='searchbar-container'>

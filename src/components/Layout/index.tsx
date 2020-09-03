@@ -1,16 +1,16 @@
 import React, { FC, useEffect, useState } from 'react';
 import { Guild } from '../../@types';
-import NitroHover from '../../assets/nitro-hover.gif';
 import api from '../../services/api';
 
-import GuildBox from '../GuildBox';
 import SearchBar from '../SearchBar';
 import LoadingGuildBox from '../Shimmer/LoadingGuildBox';
+import GuildBox from '../GuildBox';
+import nitroHoverGif from '../../assets/nitro-hover.gif';
 
 import './styles.css';
 
 const Layout: FC = () => {
-  const [totalEmojis, setTotalEmojis] = useState<string>('Many');
+  const [totalEmojis, setTotalEmojis] = useState('Many');
   const [guilds, setGuilds] = useState<Guild[]>([]);
   const [isLoading, setLoading] = useState(true);
 
@@ -27,7 +27,7 @@ const Layout: FC = () => {
       <br />
       <div className='wrapper'>
         <nav className='nav'>
-          <img src={NitroHover} alt='Pepe' />
+          <img src={nitroHoverGif} alt='Pepe Nitro Hover' />
           <span>Pepe Emoji Server</span>
         </nav>
       </div>
@@ -57,7 +57,9 @@ const Layout: FC = () => {
               <LoadingGuildBox />
               <LoadingGuildBox />
             </>
-          ) : guilds.map((g: Guild) => <GuildBox key={g.id} name={g.name} icon={g.icon} invite={g.invite} />)}
+          ) : guilds.map((g: Guild) => (
+            <GuildBox key={g.id} name={g.name} icon={g.icon} invite={g.invite} />
+          ))}
         </section>
       </div>
     </div>
