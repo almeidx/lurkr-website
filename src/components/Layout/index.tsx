@@ -56,6 +56,7 @@ const Layout: FC = () => {
               <LoadingGuildBox />
               <LoadingGuildBox />
               <LoadingGuildBox />
+              <LoadingGuildBox />
             </>
           ) : guilds.map((g: Guild) => (
             <GuildBox key={g.id} name={g.name} icon={g.icon} invite={g.invite} />
