@@ -1,5 +1,5 @@
 {
-  "name": "pepe",
+  "name": "pepe-website",
   "version": "1.0.0",
   "private": true,
   "author": {
@@ -27,11 +27,8 @@
     "predeploy": "yarn run build",
     "deploy": "gh-pages -b master -d build",
     "start": "react-scripts start",
-    "lint": "eslint src --ext ts,tsx",
-    "lint:fix": "eslint src --fix --ext ts,tsx",
-    "build": "cross-env GENERATE_SOURCEMAP=false react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "lint": "eslint src --fix --ext ts,tsx",
+    "build": "cross-env GENERATE_SOURCEMAP=false react-scripts build"
   },
   "browserslist": {
     "production": [
