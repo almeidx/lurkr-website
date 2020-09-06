@@ -12,7 +12,7 @@ const SearchBar: FC = () => {
   const [guilds, setGuilds] = useState<Guild[]>([]);
   const [input, setInput] = useState('');
   const [wantedEmojis, setWantedEmojis] = useState<Emoji[]>([]);
-  const [timeout, setTimer] = useState(0);
+  const [timeout, setTimer] = useState<NodeJS.Timeout | null>(null);
   const [isLoading, setLoading] = useState(false);
 
   const handleInputChange = useCallback((event: ChangeEvent<HTMLInputElement>): void => {
@@ -24,13 +24,13 @@ const SearchBar: FC = () => {
 
     if (timeout) {
       clearTimeout(timeout);
-      setTimer(0);
+      setTimer(null);
     }
     if (!inputLower) return setWantedEmojis([]);
 
     setTimer(
       setTimeout(() => {
-        setTimer(0);
+        setTimer(null);
         setWantedEmojis([]);
         setLoading(true);
 

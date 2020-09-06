@@ -30,6 +30,7 @@
     "lint": "eslint src --ext ts,tsx",
     "lint:fix": "eslint src --fix --ext ts,tsx",
     "build": "cross-env GENERATE_SOURCEMAP=false react-scripts build",
+    "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
   "browserslist": {
