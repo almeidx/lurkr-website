@@ -1,7 +1,7 @@
 .searchbar-container {
   padding-top: 55px;
   padding-bottom: 23px;
-  min-width: 20px;
+  min-width: 40px;
 }
 
 .searchbar-input {
@@ -19,6 +19,13 @@
   font-size: 14px;
   color: var(--white);
   background-color: var(--chat-input);
+
+}
+
+@media (max-width: 1000px) {
+  .searchbar-input {
+    width: 90%;
+  }
 }
 
 .searchbar-input::placeholder {
