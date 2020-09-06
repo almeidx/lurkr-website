@@ -1,4 +1,5 @@
 import React, { FC, useEffect, useState } from 'react';
+import AnimatedNumber from 'react-animated-number';
 import { Guild } from '../../@types';
 import api from '../../services/api';
 
@@ -10,7 +11,7 @@ import nitroHoverGif from '../../assets/nitro-hover.gif';
 import './styles.css';
 
 const Layout: FC = () => {
-  const [totalEmojis, setTotalEmojis] = useState('Many');
+  const [totalEmojis, setTotalEmojis] = useState(0);
   const [guilds, setGuilds] = useState<Guild[]>([]);
   const [isLoading, setLoading] = useState(true);
 
@@ -18,7 +19,7 @@ const Layout: FC = () => {
     api.get<Guild[]>('guilds').then((r) => {
       setLoading(false);
       setGuilds(r.data);
-      setTotalEmojis(r.data.reduce((g, a) => g + a.emojis.length, 0).toLocaleString());
+      setTotalEmojis(r.data.reduce((g, a) => g + a.emojis.length, 0));
     });
   }, []);
 
@@ -32,9 +33,17 @@ const Layout: FC = () => {
       </div>
       <div className='wrapper'>
         <span>
-          {totalEmojis}
-          {' '}
-          unique Pepe emojis
+          <AnimatedNumber
+            style={{
+              transition: '0.8s ease-out',
+              transitionProperty: 'background-color, color, opacity',
+            }}
+            frameStyle={(p) => (p === 100 ? {} : { opacity: 0.25 })}
+            stepPrecision={0}
+            value={totalEmojis}
+            duration={1e3}
+            formatValue={(n) => `${n.toLocaleString('en')} unique Pepe emojis`}
+          />
         </span>
       </div>
       <SearchBar />
