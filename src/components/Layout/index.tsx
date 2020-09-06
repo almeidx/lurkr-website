@@ -24,15 +24,12 @@ const Layout: FC = () => {
 
   return (
     <div className='container'>
-      <br />
       <div className='wrapper'>
         <nav className='nav'>
           <img src={nitroHoverGif} alt='Pepe Nitro Hover' />
           <span>Pepe Emoji Server</span>
         </nav>
       </div>
-      <br />
-      <br />
       <div className='wrapper'>
         <span>
           {totalEmojis}
@@ -40,29 +37,24 @@ const Layout: FC = () => {
           unique Pepe emojis
         </span>
       </div>
-      <br />
       <SearchBar />
-      <br />
       <div className='wrapper'>
         <h2>The official Pepe Emoji Servers</h2>
       </div>
-      <br />
-      <div className='wrapper'>
-        <section className='grid-section'>
-          {isLoading ? (
-            <>
-              <LoadingGuildBox />
-              <LoadingGuildBox />
-              <LoadingGuildBox />
-              <LoadingGuildBox />
-              <LoadingGuildBox />
-              <LoadingGuildBox />
-            </>
-          ) : guilds.map((g: Guild) => (
-            <GuildBox key={g.id} name={g.name} icon={g.icon} invite={g.invite} />
-          ))}
-        </section>
-      </div>
+      <section className='grid-section'>
+        {isLoading ? (
+          <>
+            <LoadingGuildBox />
+            <LoadingGuildBox />
+            <LoadingGuildBox />
+            <LoadingGuildBox />
+            <LoadingGuildBox />
+            <LoadingGuildBox />
+          </>
+        ) : guilds.map((g: Guild) => (
+          <GuildBox key={g.id} name={g.name} icon={g.icon} invite={g.invite} memberCount={g.memberCount} />
+        ))}
+      </section>
     </div>
   );
 };

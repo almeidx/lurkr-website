@@ -57,7 +57,6 @@ const SearchBar: FC = () => {
         onChange={handleInputChange}
         placeholder='Search for Pepe emojis'
       />
-      <br />
       <div className='searchbar-emoji-container'>
         {isLoading && <img src={loadingGif} alt='Loading' />}
         {(wantedEmojis.length && wantedEmojis.map((e) => (

@@ -1,8 +1,7 @@
 import React, { FC } from 'react';
 
-import Block from './styledBlock';
 import './styles.css';
 
-const LoadingGuildBox: FC = () => <Block className='shimmer' />;
+const LoadingGuildBox: FC = () => <div className='block shimmer' />;
 
 export default LoadingGuildBox;

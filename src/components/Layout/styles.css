@@ -1,5 +1,6 @@
 .container {
   background: var(--background);
+  padding-top: 10px;
 }
 
 .wrapper {
@@ -9,6 +10,10 @@
 
   display: flex;
   justify-content: center;
+}
+
+.wrapper + .wrapper {
+  padding-top: 40px;
 }
 
 .wrapper span {
@@ -48,8 +53,10 @@
 .grid-section {
   display: grid;
   gap: 1rem;
-
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
 
+  margin: 0 auto;
+  max-width: 601px;
   padding-bottom: 15px;
+  padding-top: 15px;
 }

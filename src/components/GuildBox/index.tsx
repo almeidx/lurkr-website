@@ -7,14 +7,22 @@ interface GuildBoxProps {
   icon: string;
   name: string;
   invite: string;
+  memberCount: number;
 }
 
-const GuildBox: FC<GuildBoxProps> = ({ icon, invite, name }) => (
+const GuildBox: FC<GuildBoxProps> = ({
+  icon, invite, memberCount, name,
+}) => (
   <div className='guildbox-container'>
     <div className='guildbox-div-container'>
       <img className='guild-icon' src={icon} alt='Guild Icon' />
       <p>{name}</p>
     </div>
+    <p className='guildbox-guild-memberCount'>
+      {memberCount.toLocaleString('en')}
+      {' '}
+      members
+    </p>
 
     <button
       className='guild-join-button'
