@@ -3,6 +3,7 @@ export interface Emoji {
   id: string;
   name: string;
   url: string;
+  invite: string;
 }
 
 export interface Guild {

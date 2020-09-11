@@ -1,23 +1,20 @@
 import React, {
-  ChangeEvent, FC, useCallback, useEffect, useState,
+  ChangeEvent, FC, useCallback, useState,
 } from 'react';
 import Tooltip from 'react-tooltip-lite';
 import api from '../../services/api';
 
-import { Guild, Emoji } from '../../@types';
+import { Emoji } from '../../@types';
 import './styles.css';
 import loadingGif from '../../assets/loading.gif';
 
 const SearchBar: FC = () => {
-  const [guilds, setGuilds] = useState<Guild[]>([]);
   const [input, setInput] = useState('');
   const [wantedEmojis, setWantedEmojis] = useState<Emoji[]>([]);
   const [timeout, setTimer] = useState<NodeJS.Timeout | null>(null);
   const [isLoading, setLoading] = useState(false);
 
   const handleInputChange = useCallback((event: ChangeEvent<HTMLInputElement>): void => {
-    if (!guilds.length) return setInput('');
-
     const { value } = event.target;
     setInput(value);
     const inputLower = value.toLowerCase();
@@ -40,11 +37,7 @@ const SearchBar: FC = () => {
         });
       }, 750),
     );
-  }, [timeout, guilds.length]);
-
-  useEffect(() => {
-    api.get<Guild[]>('guilds').then((r) => setGuilds(r.data));
-  }, []);
+  }, [timeout]);
 
   const handleImageLoad = useCallback(() => setLoading(false), []);
 
@@ -64,7 +57,7 @@ const SearchBar: FC = () => {
             <a
               target='_blank'
               rel='noopener noreferrer'
-              href={`https://discord.gg/${guilds.find((g) => g.emojis.some(({ id }) => id === e.id))?.invite}`}
+              href={`https://discord.gg/${e.invite}`}
             >
               <img src={e.url} alt={e.name} onLoad={handleImageLoad} />
             </a>
