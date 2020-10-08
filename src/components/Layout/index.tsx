@@ -29,6 +29,14 @@ const Layout: FC = () => {
         <nav className='nav'>
           <img src={nitroHoverGif} alt='Pepe Nitro Hover' />
           <span>Pepe Emoji Server</span>
+
+          <button
+            className='leaderboard-button'
+            onClick={() => window.open('https://arcanebot.xyz/leaderboard/pepeemoji')}
+            type='button'
+          >
+            Leaderboard
+          </button>
         </nav>
       </div>
       <div className='wrapper'>

@@ -31,6 +31,8 @@
   justify-content: left;
 
   font-size: 20px;
+
+  white-space: nowrap;
 }
 
 .nav img {
@@ -61,4 +63,23 @@
   max-width: 601px;
   padding-bottom: 15px;
   padding-top: 15px;
+}
+
+.leaderboard-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-left: 42%;
+  font-size: 20px;
+
+  transition: all 500ms;
+  content: 10px;
+  border-radius: 3px;
+
+  outline: 0;
+}
+
+.leaderboard-button:hover {
+  transform: translateY(-1px) scale(1.1);
 }
