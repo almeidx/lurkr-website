@@ -19,7 +19,7 @@ const Layout: FC = () => {
     api.get<Guild[]>('guilds').then((r) => {
       setLoading(false);
       setGuilds(r.data);
-      setTotalEmojis(r.data.reduce((g, a) => g + a.emojis.length, 0));
+      setTotalEmojis(r.data.reduce((a, g) => a + g.emojiCount, 0));
     });
   }, []);
 

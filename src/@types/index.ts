@@ -1,16 +1,15 @@
 export interface Emoji {
-  animated: boolean;
   id: string;
+  invite: string;
   name: string;
   url: string;
-  invite: string;
 }
 
 export interface Guild {
-  id: string;
-  name: string;
-  memberCount: number;
+  emojiCount: number;
   icon: string;
+  id: string;
   invite: string;
-  emojis: Emoji[];
+  memberCount: number;
+  name: string;
 }
