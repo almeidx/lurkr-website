@@ -1,8 +1,12 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 
-const Leaderboard: React.FC = () => {
-  window.open('https://arcanebot.xyz/leaderboard/pepeemoji');
+interface RedirectProps {
+  url: string;
+}
+
+const Leaderboard: React.FC<RedirectProps> = ({ url }) => {
+  window.open(url);
 
   const history = useHistory();
   history.push('/');
