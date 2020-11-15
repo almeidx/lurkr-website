@@ -1,58 +1,26 @@
 {
-  "name": "pepe-website",
-  "version": "1.0.0",
-  "private": true,
-  "author": {
-    "name": "almeidx",
-    "email": "almeidx@pm.me",
-    "url": "https://almeidx.me"
+  "name": "pepe-next",
+  "version": "0.1.0",
+  "author": "almeidx <almeidx@pm.me> (https://almeidx.me)",
+  "homepage": "http://pepe-is.life",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
   },
-  "homepage": "https://pepe-is.life",
   "dependencies": {
-    "axios": "^0.19.2",
-    "cross-env": "^7.0.2",
-    "gh-pages": "^3.1.0",
-    "react": "^16.13.1",
+    "next": "10.0.0",
+    "react": "17.0.1",
     "react-animated-number": "^0.4.4",
-    "react-dom": "^16.13.1",
+    "react-dom": "17.0.1",
     "react-icons": "^3.11.0",
-    "react-router-dom": "^5.2.0",
-    "react-scripts": "3.4.1",
     "react-tooltip-lite": "^1.12.0"
   },
-  "scripts": {
-    "build": "cross-env GENERATE_SOURCEMAP=false react-scripts build",
-    "deploy": "gh-pages -b master -d build",
-    "lint": "eslint src --fix --ext ts,tsx",
-    "predeploy": "yarn run build",
-    "start": "react-scripts start"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
   "devDependencies": {
-    "@types/node": "^12.0.0",
-    "@types/react": "^16.9.0",
-    "@types/react-dom": "^16.9.0",
-    "@types/react-router-dom": "^5.1.5",
-    "@typescript-eslint/eslint-plugin": "^4.0.1",
-    "@typescript-eslint/parser": "^4.0.1",
-    "eslint-config-airbnb": "^18.2.0",
-    "eslint-config-react-app": "^5.2.1",
-    "eslint-plugin-flowtype": "^5.2.0",
-    "eslint-plugin-import": "2.21.2",
-    "eslint-plugin-jsx-a11y": "6.3.0",
-    "eslint-plugin-react": "7.20.0",
-    "eslint-plugin-react-hooks": "4",
-    "typescript": "~3.7.2"
-  }
+    "@types/node": "^14.14.6",
+    "@types/react": "^16.9.55",
+    "typescript": "^4.0.5"
+  },
+  "license": "MIT",
+  "private": true
 }
