@@ -1,37 +1,39 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import Image from 'next/image'
 import AnimatedNumber from 'react-animated-number';
-import { Guild } from '../../@types';
-import api from '../../services/api';
+import { Guild } from '../@types';
 
-import SearchBar from '../SearchBar';
-import LoadingGuildBox from '../Shimmer/LoadingGuildBox';
-import GuildBox from '../GuildBox';
-import nitroHoverGif from '../../assets/nitro-hover.gif';
+import SearchBar from '../components/SearchBar';
+import LoadingGuildBox from '../components/LoadingGuildBox';
+import GuildBox from '../components/GuildBox';
 
-import './styles.css';
+import styles from '../styles/Home.module.css';
 
-const Layout: FC = () => {
+export default function Home() {
   const [totalEmojis, setTotalEmojis] = useState(0);
   const [guilds, setGuilds] = useState<Guild[]>([]);
   const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
-    api.get<Guild[]>('guilds').then((r) => {
-      setLoading(false);
-      setGuilds(r.data);
-      setTotalEmojis(r.data.reduce((a, g) => a + g.emojiCount, 0));
-    });
+    fetch('https://api.pepe-is.life/guilds')
+      .then((r) => r.json())
+      .then((r: Guild[]) => {
+        console.log(r);
+        setLoading(false);
+        setGuilds(r);
+        setTotalEmojis(r.reduce((a, g) => a + g.emojiCount, 0));
+      });
   }, []);
 
   return (
-    <div className='container'>
-      <div className='wrapper'>
-        <nav className='nav'>
-          <img src={nitroHoverGif} alt='Pepe Nitro Hover' />
+    <div className={styles['container']} >
+      <div className={styles['wrapper']} >
+        <nav className={styles['nav']} >
+          <Image width={50} height={50} src='/nitro-hover.gif' alt='Pepe Nitro Hover' />
           <span>Pepe Emoji Server</span>
 
           <button
-            className='leaderboard-button'
+            className={styles['leaderboard-button']}
             onClick={() => window.open('https://arcanebot.xyz/leaderboard/pepeemoji')}
             type='button'
           >
@@ -39,7 +41,7 @@ const Layout: FC = () => {
           </button>
         </nav>
       </div>
-      <div className='wrapper'>
+      <div className={styles['wrapper']} >
         <span>
           <AnimatedNumber
             style={{
@@ -55,10 +57,10 @@ const Layout: FC = () => {
         </span>
       </div>
       <SearchBar />
-      <div className='wrapper'>
+      <div className={styles['wrapper']} >
         <h2>The official Pepe Emoji Servers</h2>
       </div>
-      <section className='grid-section'>
+      <section className={styles['grid-section']} >
         {isLoading ? (
           <>
             <LoadingGuildBox />
@@ -74,6 +76,4 @@ const Layout: FC = () => {
       </section>
     </div>
   );
-};
-
-export default Layout;
+}

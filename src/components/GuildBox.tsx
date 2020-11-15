@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { FaSignInAlt } from 'react-icons/fa';
 
-import './styles.css';
+import styles from './GuildBox.module.css';
 
 interface GuildBoxProps {
   icon: string;
@@ -13,25 +13,25 @@ interface GuildBoxProps {
 const GuildBox: FC<GuildBoxProps> = ({
   icon, invite, memberCount, name,
 }) => (
-  <div className='guildbox-container'>
-    <div className='guildbox-div-container'>
-      <img className='guild-icon' src={icon} alt='Guild Icon' />
+  <div className={styles['guildbox-container']} >
+    <div className={styles['guildbox-div-container']} >
+      <img className={styles['guild-icon']} src={icon} alt='Guild Icon' />
       <p>{name}</p>
     </div>
-    <p className='guildbox-guild-memberCount'>
+    <p className={styles['guildbox-guild-memberCount']} >
       {memberCount.toLocaleString('en')}
       {' '}
       members
     </p>
 
     <button
-      className='guild-join-button'
+      className={styles['guild-join-button']}
       onClick={() => window.open(`https://discord.gg/${invite}`)}
       type='button'
     >
       Join
       {' '}
-      <FaSignInAlt className='guildbox-join-icon' />
+      <FaSignInAlt className={styles['guildbox-join-icon']} />
     </button>
   </div>
 );

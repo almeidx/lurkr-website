@@ -1,14 +1,11 @@
-import React, {
-  ChangeEvent, FC, useCallback, useState,
-} from 'react';
+import React, { ChangeEvent, useCallback, useState } from 'react';
+import Image from 'next/image';
 import Tooltip from 'react-tooltip-lite';
-import api from '../../services/api';
+import { Emoji } from '../@types';
 
-import { Emoji } from '../../@types';
-import './styles.css';
-import loadingGif from '../../assets/loading.gif';
+import styles from './SearchBar.module.css';
 
-const SearchBar: FC = () => {
+const SearchBar = () => {
   const [input, setInput] = useState('');
   const [wantedEmojis, setWantedEmojis] = useState<Emoji[]>([]);
   const [timeout, setTimer] = useState<NodeJS.Timeout | null>(null);
@@ -31,9 +28,11 @@ const SearchBar: FC = () => {
         setWantedEmojis([]);
         setLoading(true);
 
-        api.get<Emoji[]>('search', { params: { q: inputLower } }).then((res) => {
+      fetch(`https://api.pepe-is.life/search?q=${encodeURIComponent(inputLower)}`)
+        .then((r) => r.json())
+        .then((r: Emoji[]) => {
           setLoading(false);
-          setWantedEmojis(res.data);
+          setWantedEmojis(r);
         });
       }, 750),
     );
@@ -42,16 +41,16 @@ const SearchBar: FC = () => {
   const handleImageLoad = useCallback(() => setLoading(false), []);
 
   return (
-    <div className='searchbar-container'>
+    <div className={styles['searchbar-container']} >
       <input
-        className='searchbar-input'
+        className={styles['searchbar-input']}
         type='text'
         value={input}
         onChange={handleInputChange}
         placeholder='Search for Pepe emojis'
       />
-      <div className='searchbar-emoji-container'>
-        {isLoading && <img src={loadingGif} alt='Loading' />}
+      <div className={styles['searchbar-emoji-container']} >
+        {isLoading && <Image width={45} height={50} src='/loading.gif' alt='Loading GIF' />}
         {(wantedEmojis.length && wantedEmojis.map((e) => (
           <Tooltip key={e.id} content={`:${e.name}:`} color='#fff' background='#000'>
             <a
@@ -59,7 +58,7 @@ const SearchBar: FC = () => {
               rel='noopener noreferrer'
               href={`https://discord.gg/${e.invite}`}
             >
-              <img src={e.url} alt={e.name} onLoad={handleImageLoad} />
+              <Image width={64} height={58} src={e.url} alt={e.name} onLoad={handleImageLoad} />
             </a>
           </Tooltip>
         ))) || (input && !isLoading && !timeout && <p>Could not find anything</p>)}
