@@ -1,8 +1,6 @@
 /// <reference types="next" />
 /// <reference types="next/types/global" />
 
-declare module '*.gif';
-
 declare module 'react-animated-number' {
   import * as React from 'react';
 
@@ -18,6 +16,5 @@ declare module 'react-animated-number' {
     style: any;
   }
 
-  // eslint-disable-next-line react/prefer-stateless-function
   export default class AnimatedNumber extends React.Component<AnimatedNumberProps> {}
 }

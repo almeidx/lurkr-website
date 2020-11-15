@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Image from 'next/image'
 import AnimatedNumber from 'react-animated-number';
 import { Guild } from '../@types';
+import axios from 'axios';
 
 import SearchBar from '../components/SearchBar';
 import LoadingGuildBox from '../components/LoadingGuildBox';
@@ -15,14 +16,11 @@ export default function Home() {
   const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch('https://api.pepe-is.life/guilds')
-      .then((r) => r.json())
-      .then((r: Guild[]) => {
-        console.log(r);
-        setLoading(false);
-        setGuilds(r);
-        setTotalEmojis(r.reduce((a, g) => a + g.emojiCount, 0));
-      });
+    axios.get<Guild[]>('/api/guilds').then((r) => {
+      setLoading(false);
+      setGuilds(r.data);
+      setTotalEmojis(r.data.reduce((a, g) => a + g.emojiCount, 0));
+    });
   }, []);
 
   return (

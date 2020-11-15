@@ -2,6 +2,7 @@ import React, { ChangeEvent, useCallback, useState } from 'react';
 import Image from 'next/image';
 import Tooltip from 'react-tooltip-lite';
 import { Emoji } from '../@types';
+import axios from 'axios';
 
 import styles from './SearchBar.module.css';
 
@@ -28,11 +29,13 @@ const SearchBar = () => {
         setWantedEmojis([]);
         setLoading(true);
 
-      fetch(`https://api.pepe-is.life/search?q=${encodeURIComponent(inputLower)}`)
-        .then((r) => r.json())
-        .then((r: Emoji[]) => {
+        axios.get<Emoji[]>('/api/search', {
+          params: {
+            q: inputLower,
+          },
+        }).then((r) => {
           setLoading(false);
-          setWantedEmojis(r);
+          setWantedEmojis(r.data);
         });
       }, 750),
     );
@@ -58,7 +61,7 @@ const SearchBar = () => {
               rel='noopener noreferrer'
               href={`https://discord.gg/${e.invite}`}
             >
-              <Image width={64} height={58} src={e.url} alt={e.name} onLoad={handleImageLoad} />
+              <img width={64} height={58} src={e.url} alt={e.name} onLoad={handleImageLoad} />
             </a>
           </Tooltip>
         ))) || (input && !isLoading && !timeout && <p>Could not find anything</p>)}
