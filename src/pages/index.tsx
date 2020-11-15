@@ -14,16 +14,16 @@ export default function Home() {
   const [guilds, setGuilds] = useState<Guild[]>([]);
   const [isLoading, setLoading] = useState(true);
 
-  // useEffect(() => {
-  //   fetch('https://api.pepe-is.life/guilds')
-  //     .then((r) => r.json())
-  //     .then((r: Guild[]) => {
-  //       console.log(r);
-  //       setLoading(false);
-  //       setGuilds(r);
-  //       setTotalEmojis(r.reduce((a, g) => a + g.emojiCount, 0));
-  //     });
-  // }, []);
+  useEffect(() => {
+    fetch('https://api.pepe-is.life/guilds')
+      .then((r) => r.json())
+      .then((r: Guild[]) => {
+        console.log(r);
+        setLoading(false);
+        setGuilds(r);
+        setTotalEmojis(r.reduce((a, g) => a + g.emojiCount, 0));
+      });
+  }, []);
 
   return (
     <div className={styles['container']} >
