@@ -42,8 +42,8 @@
   border-radius: 25%;
 
   user-select: none;
-  -webkit-user-select: none; /* Safari */
-  -moz-user-select: none; /* Firefox */
+  -webkit-user-select: none;
+  -moz-user-select: none;
 
   -webkit-user-drag: none;
 }
@@ -82,4 +82,68 @@
 
 .leaderboard-button:hover {
   transform: translateY(-1px) scale(1.1);
+}
+
+.searchbar-container {
+  padding-top: 55px;
+  padding-bottom: 23px;
+  min-width: 40px;
+}
+
+.searchbar-input {
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+
+  width: 40%;
+  height: 40px;
+  max-width: 601px;
+
+  padding: 0 10px;
+  border-radius: 7px;
+
+  font-size: 14px;
+  color: var(--white);
+  background-color: var(--chat-input);
+}
+
+@media (max-width: 1000px) {
+  .searchbar-input {
+    width: 90%;
+  }
+}
+
+.searchbar-input::placeholder {
+  color: var(--gray);
+}
+
+.searchbar-input:focus {
+  outline: none;
+}
+
+.searchbar-emoji-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  max-width: 601px;
+  padding-top: 15px;
+  flex-wrap: wrap;
+}
+
+.searchbar-emoji-container a img {
+  width: 4rem;
+  height: auto;
+  max-height: 4rem;
+
+  border-radius: 3px;
+  flex-shrink: 0;
+
+  padding-left: 3px;
+  padding-right: 3px;
+}
+
+.react-tooltip-lite {
+  border-radius: 7px;
+  font-size: 15px;
 }

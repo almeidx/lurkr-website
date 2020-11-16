@@ -1,4 +1,4 @@
-.guildbox-container {
+.container {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -17,12 +17,12 @@
   background-repeat: no-repeat;
 }
 
-.guildbox-container:hover {
+.container:hover {
   box-shadow: rgba(2, 8, 20, 0.1) 0px 0.35em 1.175em, rgba(2, 8, 20, 0.08) 0px 0.175em 0.5em;
   transform: translateY(-3px) scale(1.1);
 }
 
-.guildbox-div-container {
+.div-container {
   width: 280px;
   height: 50px;
   color: var(--white);
@@ -34,7 +34,7 @@
   font-size: 10px;
 }
 
-.guildbox-div-container img {
+.div-container img {
   width: 50px;
   height: auto;
 
@@ -50,7 +50,7 @@
   -webkit-user-drag: none;
 }
 
-.guildbox-div-container p {
+.div-container p {
   font-size: 20px;
   padding-left: 4px;
 }
@@ -89,12 +89,12 @@
   background-color: #3ca374;
 }
 
-.guildbox-guild-memberCount {
+.guild-memberCount {
   font-size: 13px;
   font-weight: 400;
   color: grey;
 }
 
-.guildbox-join-icon {
+.join-icon {
   padding-left: 3px;
 }

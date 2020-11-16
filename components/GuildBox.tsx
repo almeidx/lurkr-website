@@ -10,15 +10,13 @@ interface GuildBoxProps {
   memberCount: number;
 }
 
-const GuildBox: FC<GuildBoxProps> = ({
-  icon, invite, memberCount, name,
-}) => (
-  <div className={styles['guildbox-container']} >
-    <div className={styles['guildbox-div-container']} >
+const GuildBox: FC<GuildBoxProps> = ({ icon, invite, memberCount, name }) => (
+  <div className={styles['container']} >
+    <div className={styles['div-container']} >
       <img className={styles['guild-icon']} src={icon} alt='Guild Icon' />
       <p>{name}</p>
     </div>
-    <p className={styles['guildbox-guild-memberCount']} >
+    <p className={styles['guild-memberCount']} >
       {memberCount.toLocaleString('en')}
       {' '}
       members
@@ -31,7 +29,7 @@ const GuildBox: FC<GuildBoxProps> = ({
     >
       Join
       {' '}
-      <FaSignInAlt className={styles['guildbox-join-icon']} />
+      <FaSignInAlt className={styles['join-icon']} />
     </button>
   </div>
 );

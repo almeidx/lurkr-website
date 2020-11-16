@@ -1,23 +1,57 @@
-import React, { useEffect, useState } from 'react';
+import React, { ChangeEvent, useCallback, useEffect, useState } from 'react';
 import Image from 'next/image'
 import AnimatedNumber from 'react-animated-number';
-import { Guild } from '../@types';
+import Tooltip from 'react-tooltip-lite';
 import axios from 'axios';
 
-import SearchBar from '../components/SearchBar';
 import LoadingGuildBox from '../components/LoadingGuildBox';
 import GuildBox from '../components/GuildBox';
-
+import { Emoji, Guild } from '../@types';
 import styles from '../styles/Home.module.css';
 
 export default function Home() {
   const [totalEmojis, setTotalEmojis] = useState(0);
   const [guilds, setGuilds] = useState<Guild[]>([]);
-  const [isLoading, setLoading] = useState(true);
+  const [areGuildsLoading, setGuildsLoading] = useState(true);
+  const [input, setInput] = useState('');
+  const [wantedEmojis, setWantedEmojis] = useState<Emoji[]>([]);
+  const [timeout, setTimer] = useState<NodeJS.Timeout | null>(null);
+  const [isSearchLoading, setSearchLoading] = useState(false);
+
+  const handleInputChange = useCallback((event: ChangeEvent<HTMLInputElement>): void => {
+    const { value } = event.target;
+    setInput(value);
+    const inputLower = value.toLowerCase();
+
+    if (timeout) {
+      clearTimeout(timeout);
+      setTimer(null);
+    }
+    if (!inputLower) return setWantedEmojis([]);
+
+    setTimer(
+      setTimeout(() => {
+        setTimer(null);
+        setWantedEmojis([]);
+        setSearchLoading(true);
+
+        axios.get<Emoji[]>('/api/search', {
+          params: {
+            q: inputLower,
+          },
+        }).then((r) => {
+          setSearchLoading(false);
+          setWantedEmojis(r.data);
+        });
+      }, 750),
+    );
+  }, [timeout]);
+
+  const handleImageLoad = useCallback(() => setSearchLoading(false), []);
 
   useEffect(() => {
     axios.get<Guild[]>('/api/guilds').then((r) => {
-      setLoading(false);
+      setGuildsLoading(false);
       setGuilds(r.data);
       setTotalEmojis(r.data.reduce((a, g) => a + g.emojiCount, 0));
     });
@@ -54,12 +88,34 @@ export default function Home() {
           />
         </span>
       </div>
-      <SearchBar />
+      <div className={styles['searchbar-container']} >
+        <input
+          className={styles['searchbar-input']}
+          type='text'
+          value={input}
+          onChange={handleInputChange}
+          placeholder='Search for Pepe emojis'
+        />
+        <div className={styles['searchbar-emoji-container']} >
+          {isSearchLoading && <Image width={45} height={50} src='/loading.gif' alt='Loading GIF' />}
+          {(wantedEmojis.length && wantedEmojis.map((e) => (
+            <Tooltip key={e.id} content={`:${e.name}:`} color='#fff' background='#000'>
+              <a
+                target='_blank'
+                rel='noopener noreferrer'
+                href={`https://discord.gg/${e.invite}`}
+              >
+                <img width={64} height={58} src={e.url} alt={e.name} onLoad={handleImageLoad} />
+              </a>
+            </Tooltip>
+          ))) || (input && !isSearchLoading && !timeout && <p>Could not find anything</p>)}
+        </div>
+      </div>
       <div className={styles['wrapper']} >
         <h2>The official Pepe Emoji Servers</h2>
       </div>
       <section className={styles['grid-section']} >
-        {isLoading ? (
+        {areGuildsLoading ? (
           <>
             <LoadingGuildBox />
             <LoadingGuildBox />
