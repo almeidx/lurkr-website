@@ -1,0 +1,47 @@
+.container {
+  height: 100%;
+  max-width: 601px;
+  margin: 0 auto;
+
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 1rem;
+  color: var(--white);
+}
+
+.item-list {
+  position: absolute;
+  top: 8rem;
+  bottom: 50%;
+}
+
+.list-item {
+  background: var(--search);
+  border-radius: 15px;
+  width: 24rem;
+  display: flex;
+  transition: all .5s ease-out;
+}
+
+.list-item:hover {
+  cursor: pointer;
+  background: var(--secondary);
+}
+
+.list-item + .list-item {
+  margin-top: 1rem;
+}
+
+.list-item span {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-size: 24px;
+  margin-left: 2rem;
+}
+
+.icon {
+  height: 50px;
+  width: 50px;
+  margin: 1rem;
+}
