@@ -4,17 +4,17 @@ import AnimatedNumber from 'react-animated-number';
 import Tooltip from 'react-tooltip-lite';
 import axios from 'axios';
 
+import type { IEmoji, IGuild } from '../@types';
 import LoadingGuildBox from '../components/LoadingGuildBox';
 import GuildBox from '../components/GuildBox';
-import { Emoji, Guild } from '../@types';
 import styles from '../styles/Home.module.css';
 
 export default function Home() {
   const [totalEmojis, setTotalEmojis] = useState(0);
-  const [guilds, setGuilds] = useState<Guild[]>([]);
+  const [guilds, setGuilds] = useState<IGuild[]>([]);
   const [areGuildsLoading, setGuildsLoading] = useState(true);
   const [input, setInput] = useState('');
-  const [wantedEmojis, setWantedEmojis] = useState<Emoji[]>([]);
+  const [wantedEmojis, setWantedEmojis] = useState<IEmoji[]>([]);
   const [timeout, setTimer] = useState<NodeJS.Timeout | null>(null);
   const [isSearchLoading, setSearchLoading] = useState(false);
 
@@ -35,7 +35,7 @@ export default function Home() {
         setWantedEmojis([]);
         setSearchLoading(true);
 
-        axios.get<Emoji[]>('/api/search', {
+        axios.get<IEmoji[]>('/api/search', {
           params: {
             q: inputLower,
           },
@@ -50,7 +50,7 @@ export default function Home() {
   const handleImageLoad = useCallback(() => setSearchLoading(false), []);
 
   useEffect(() => {
-    axios.get<Guild[]>('/api/guilds').then((r) => {
+    axios.get<IGuild[]>('/api/guilds').then((r) => {
       setGuildsLoading(false);
       setGuilds(r.data);
       setTotalEmojis(r.data.reduce((a, g) => a + g.emojiCount, 0));
@@ -124,7 +124,7 @@ export default function Home() {
             <LoadingGuildBox />
             <LoadingGuildBox />
           </>
-        ) : guilds.map((g: Guild) => (
+        ) : guilds.map((g) => (
           <GuildBox key={g.id} name={g.name} icon={g.icon} invite={g.invite} memberCount={g.memberCount} />
         ))}
       </section>

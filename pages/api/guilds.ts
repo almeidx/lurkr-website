@@ -1,12 +1,12 @@
 import { NowRequest, NowResponse } from '@vercel/node';
 import axios from 'axios';
-import { Guild } from '../../@types';
+import type { IGuild } from '../../@types';
 
-let cachedGuilds: Guild[] | null = null;
+let cachedGuilds: IGuild[] | null = null;
 
 export default async (request: NowRequest, response: NowResponse) => {
   if (!cachedGuilds) {
-    const { data } = await axios.get<Guild[]>('https://api.pepe-is.life/guilds');
+    const { data } = await axios.get<IGuild[]>('https://api.pepe-is.life/guilds');
     cachedGuilds = data;
     return response.json(data);
   }
