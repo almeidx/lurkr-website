@@ -15,7 +15,7 @@ export default function Bot() {
           <Image src='/static/pepe-manager.png' width={80} height={80} alt='Pepe Manager icon' />
         </div>
         <h1>Pepe Manager Dashboard</h1>
-        <div className={styles['icon-container']} style={{ cursor: 'pointer' }} onClick={() => window.open('https://discord.gg/pepe')} >
+        <div className={styles['icon-container']} style={{ background: 'unset', cursor: 'pointer' }} onClick={() => window.open('https://discord.gg/pepe')} >
           <FaDiscord style={{ fill: '#5c6bc0', height: '90px', width: '90px' }} />
         </div>
       </nav>
