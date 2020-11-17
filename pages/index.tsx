@@ -61,7 +61,7 @@ export default function Home() {
     <div className={styles['container']} >
       <div className={styles['wrapper']} >
         <nav className={styles['nav']} >
-          <Image width={50} height={50} src='/nitro-hover.gif' alt='Pepe Nitro Hover' />
+          <Image width={50} height={50} src='/static/nitro-hover.gif' alt='Pepe Nitro Hover' />
           <span>Pepe Emoji Server</span>
 
           <button
@@ -97,7 +97,7 @@ export default function Home() {
           placeholder='Search for Pepe emojis'
         />
         <div className={styles['searchbar-emoji-container']} >
-          {isSearchLoading && <Image width={45} height={50} src='/loading.gif' alt='Loading GIF' />}
+          {isSearchLoading && <Image width={45} height={50} src='/static/loading.gif' alt='Loading GIF' />}
           {(wantedEmojis.length && wantedEmojis.map((e) => (
             <Tooltip key={e.id} content={`:${e.name}:`} color='#fff' background='#000'>
               <a

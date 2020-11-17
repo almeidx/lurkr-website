@@ -1,6 +1,6 @@
 .container {
   height: 100%;
-  max-width: 601px;
+  max-width: 700px;
   margin: 0 auto;
 
   display: flex;
@@ -10,9 +10,33 @@
   color: var(--white);
 }
 
+.container nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%
+}
+
+.container nav h1 {
+  margin-left: 50px;
+  margin-right: 50px;
+  font-size: 30px;
+  color: #fff;
+}
+
+.icon-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100px;
+  height: 100px;
+  background: var(--search);
+  border-radius: 15px;
+}
+
 .item-list {
   position: absolute;
-  top: 8rem;
+  top: 10rem;
   bottom: 50%;
 }
 
@@ -22,6 +46,9 @@
   width: 24rem;
   display: flex;
   transition: all .5s ease-out;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .list-item:hover {
@@ -37,11 +64,12 @@
   margin-top: 10px;
   margin-bottom: 10px;
   font-size: 24px;
-  margin-left: 2rem;
+  margin-right: 20px;
+  /* margin-left: 2rem; */
 }
 
 .icon {
-  height: 50px;
-  width: 50px;
+  height: 40px;
+  width: 40px;
   margin: 1rem;
 }
