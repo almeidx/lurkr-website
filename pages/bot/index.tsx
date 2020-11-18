@@ -5,7 +5,6 @@ import { MdLibraryAdd, MdLayers } from 'react-icons/md';
 import { RiShieldStarFill } from 'react-icons/ri';
 import { FaDiscord } from 'react-icons/fa';
 
-//@ts-ignore
 import styles from '../../styles/Bot.module.css';
 
 export default function Bot() {

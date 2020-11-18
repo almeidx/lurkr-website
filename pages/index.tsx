@@ -1,18 +1,20 @@
-import React, { ChangeEvent, useCallback, useEffect, useState } from 'react';
-import Image from 'next/image'
+import React, { ChangeEvent, useCallback, useState } from 'react';
 import AnimatedNumber from 'react-animated-number';
 import Tooltip from 'react-tooltip-lite';
+import { GetStaticProps } from 'next';
+import Image from 'next/image'
 import axios from 'axios';
 
 import type { IEmoji, IGuild } from '../@types';
-import LoadingGuildBox from '../components/LoadingGuildBox';
 import GuildBox from '../components/GuildBox';
 import styles from '../styles/Home.module.css';
 
-export default function Home() {
-  const [totalEmojis, setTotalEmojis] = useState(0);
-  const [guilds, setGuilds] = useState<IGuild[]>([]);
-  const [areGuildsLoading, setGuildsLoading] = useState(true);
+interface StaticProps {
+  emojiCount: number;
+  guilds: IGuild[];
+}
+
+export default function Home({ emojiCount, guilds }: StaticProps) {
   const [input, setInput] = useState('');
   const [wantedEmojis, setWantedEmojis] = useState<IEmoji[]>([]);
   const [timeout, setTimer] = useState<NodeJS.Timeout | null>(null);
@@ -47,16 +49,6 @@ export default function Home() {
     );
   }, [timeout]);
 
-  const handleImageLoad = useCallback(() => setSearchLoading(false), []);
-
-  useEffect(() => {
-    axios.get<IGuild[]>('/api/guilds').then((r) => {
-      setGuildsLoading(false);
-      setGuilds(r.data);
-      setTotalEmojis(r.data.reduce((a, g) => a + g.emojiCount, 0));
-    });
-  }, []);
-
   return (
     <div className={styles['container']} >
       <div className={styles['wrapper']} >
@@ -82,7 +74,7 @@ export default function Home() {
             }}
             frameStyle={(p) => (p === 100 ? {} : { opacity: 0.25 })}
             stepPrecision={0}
-            value={totalEmojis}
+            value={emojiCount}
             duration={1e3}
             formatValue={(n) => `${n.toLocaleString('en')} unique Pepe emojis`}
           />
@@ -97,7 +89,7 @@ export default function Home() {
           placeholder='Search for Pepe emojis'
         />
         <div className={styles['searchbar-emoji-container']} >
-          {isSearchLoading && <Image width={45} height={50} src='/static/loading.gif' alt='Loading GIF' />}
+          {isSearchLoading && <Image width={48} height={48} src='/static/loading.gif' alt='Loading GIF' />}
           {(wantedEmojis.length && wantedEmojis.map((e) => (
             <Tooltip key={e.id} content={`:${e.name}:`} color='#fff' background='#000'>
               <a
@@ -105,7 +97,7 @@ export default function Home() {
                 rel='noopener noreferrer'
                 href={`https://discord.gg/${e.invite}`}
               >
-                <img width={64} height={58} src={e.url} alt={e.name} onLoad={handleImageLoad} />
+                <img width={48} height={48} src={e.url} alt={e.name} onLoad={() => setSearchLoading(false)} />
               </a>
             </Tooltip>
           ))) || (input && !isSearchLoading && !timeout && <p>Could not find anything</p>)}
@@ -115,19 +107,30 @@ export default function Home() {
         <h2>The official Pepe Emoji Servers</h2>
       </div>
       <section className={styles['grid-section']} >
-        {areGuildsLoading ? (
-          <>
-            <LoadingGuildBox />
-            <LoadingGuildBox />
-            <LoadingGuildBox />
-            <LoadingGuildBox />
-            <LoadingGuildBox />
-            <LoadingGuildBox />
-          </>
-        ) : guilds.map((g) => (
+        {guilds.map((g) => (
           <GuildBox key={g.id} name={g.name} icon={g.icon} invite={g.invite} memberCount={g.memberCount} />
         ))}
       </section>
     </div>
   );
+}
+
+export const getStaticProps: GetStaticProps<StaticProps> = async () => {
+  const { data } = await axios.get<IGuild[]>('/api/guilds', {
+    baseURL: process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://pepe-is.life'
+  });
+
+  if (!data) {
+    return {
+      notFound: true,
+    };
+  }
+
+  return {
+    props: {
+      emojiCount: data.reduce((a, g) => a + g.emojiCount, 0),
+      guilds: data,
+    },
+    revalidate: 60,
+  };
 }

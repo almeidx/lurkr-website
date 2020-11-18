@@ -1,4 +1,3 @@
-//@ts-ignore
 import styles from '../../styles/Commands.module.css';
 
 export default function Commands() {
