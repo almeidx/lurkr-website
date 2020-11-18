@@ -13,7 +13,7 @@ interface GuildBoxProps {
 const GuildBox: FC<GuildBoxProps> = ({ icon, invite, memberCount, name }) => (
   <div className={styles['container']} >
     <div className={styles['div-container']} >
-      <img className={styles['guild-icon']} src={icon} alt='Guild Icon' />
+      <img width={50} height={50} className={styles['guild-icon']} src={icon} alt='Guild Icon' />
       <p>{name}</p>
     </div>
     <p className={styles['guild-memberCount']} >

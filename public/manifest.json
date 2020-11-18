@@ -1,8 +1,22 @@
 {
   "short_name": "Pepe Emoji Server",
   "name": "Pepe emojis for Discord",
-  "start_url": ".",
-  "display": "standalone",
   "theme_color": "#00a81a",
-  "background_color": "#ffffff"
+  "background_color": "#282b30",
+  "start_url": ".",
+  "display": "minimal-ui",
+  "icons": [
+    {
+      "src": "./static/nitro-hover.png",
+      "sizes": "128x128",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./static/pepe-manager.png",
+      "sizes": "1024x1024",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
 }

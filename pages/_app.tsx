@@ -14,6 +14,9 @@ export default function MyApp({ Component, pageProps }) {
         <meta property='og:type' content='website' />
         <meta name='theme-color' content='#00a81a' />
         <meta name='description' content='Pepe Emojis for Discord' />
+        <meta name="viewport" content="width=device-width,initial-scale=1" />
+        <link rel="apple-touch-icon" href="/static/nitro-hover.png" />
+        <link rel="manifest" href="/manifest.json" />
       </Main>
       <Component {...pageProps} />
     </>
