@@ -57,11 +57,11 @@ export default function Home({ emojiCount, guilds }: StaticProps) {
           <span>Pepe Emoji Server</span>
 
           <button
-            className={styles['leaderboard-button']}
-            onClick={() => window.open('https://arcanebot.xyz/leaderboard/pepeemoji')}
+            className={styles['merch-button']}
+            onClick={() => window.open(process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://pepe-is.life' + '/merch')}
             type='button'
           >
-            Leaderboard
+            Merch
           </button>
         </nav>
       </div>

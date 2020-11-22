@@ -11,6 +11,11 @@ module.exports = {
         destination: 'https://top.gg/bot/506186003816513538/vote',
         permanent: true,
       },
+      {
+        source: '/merch',
+        destination: 'https://teespring.com/stores/pepe-emoji-server',
+        permanent: true,
+      },
     ];
   },
 };
