@@ -7,7 +7,7 @@ module.exports = {
         permanent: true,
       },
       {
-        source: '/bot-vote',
+        source: '/vote',
         destination: 'https://top.gg/bot/506186003816513538/vote',
         permanent: true,
       },
