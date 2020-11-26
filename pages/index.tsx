@@ -14,6 +14,8 @@ interface StaticProps {
   guilds: IGuild[];
 }
 
+const MAIN_DOMAIN = process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://pepe-is.life';
+
 export default function Home({ emojiCount, guilds }: StaticProps) {
   const [input, setInput] = useState('');
   const [wantedEmojis, setWantedEmojis] = useState<IEmoji[]>([]);
@@ -53,12 +55,12 @@ export default function Home({ emojiCount, guilds }: StaticProps) {
     <div className={styles['container']} >
       <div className={styles['wrapper']} >
         <nav className={styles['nav']} >
-          <Image width={50} height={50} src='/static/nitro-hover.gif' alt='Pepe Nitro Hover' />
+          <Image width={68} height={68} src='/static/nitro-hover.gif' alt='Pepe Nitro Hover' />
           <span>Pepe Emoji Server</span>
 
           <button
             className={styles['merch-button']}
-            onClick={() => window.open(process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://pepe-is.life' + '/merch')}
+            onClick={() => window.open(`${MAIN_DOMAIN}/merch`)}
             type='button'
           >
             Merch
@@ -69,13 +71,13 @@ export default function Home({ emojiCount, guilds }: StaticProps) {
         <span>
           <AnimatedNumber
             style={{
-              transition: '0.8s ease-out',
+              transition: '250ms ease-out',
               transitionProperty: 'background-color, color, opacity',
             }}
             frameStyle={(p) => (p === 100 ? {} : { opacity: 0.25 })}
             stepPrecision={0}
             value={emojiCount}
-            duration={1e3}
+            duration={250}
             formatValue={(n) => `${n.toLocaleString('en')} unique Pepe emojis`}
           />
         </span>
@@ -117,13 +119,11 @@ export default function Home({ emojiCount, guilds }: StaticProps) {
 
 export const getStaticProps: GetStaticProps<StaticProps> = async () => {
   const { data } = await axios.get<IGuild[]>('/api/guilds', {
-    baseURL: process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://pepe-is.life'
+    baseURL: MAIN_DOMAIN
   });
 
   if (!data) {
-    return {
-      notFound: true,
-    };
+    return { notFound: true };
   }
 
   return {
