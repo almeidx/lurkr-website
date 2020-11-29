@@ -99,7 +99,7 @@ export default function Home({ emojiCount, guilds }: StaticProps) {
                 rel='noopener noreferrer'
                 href={`https://discord.gg/${e.invite}`}
               >
-                <img width={48} height={48} src={e.url} alt={e.name} onLoad={() => setSearchLoading(false)} />
+                <img width={48} height={48} src={`https://cdn.discordapp.com/emojis/${e.id}.png?v=1`} alt={e.name} onLoad={() => setSearchLoading(false)} />
               </a>
             </Tooltip>
           ))) || (input && !isSearchLoading && !timeout && <p>Could not find anything</p>)}
@@ -110,7 +110,7 @@ export default function Home({ emojiCount, guilds }: StaticProps) {
       </div>
       <section className={styles['grid-section']} >
         {guilds.map((g) => (
-          <GuildBox key={g.id} name={g.name} icon={g.icon} invite={g.invite} memberCount={g.memberCount} />
+          <GuildBox key={g.id} id={g.id} name={g.name} icon={g.icon} invite={g.invite} memberCount={g.memberCount} />
         ))}
       </section>
     </div>

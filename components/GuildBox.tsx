@@ -5,15 +5,16 @@ import styles from './GuildBox.module.css';
 
 interface GuildBoxProps {
   icon: string;
+  id: string;
   name: string;
   invite: string;
   memberCount: number;
 }
 
-const GuildBox: FC<GuildBoxProps> = ({ icon, invite, memberCount, name }) => (
+const GuildBox: FC<GuildBoxProps> = ({ id, icon, invite, memberCount, name }) => (
   <div className={styles['container']} >
     <div className={styles['div-container']} >
-      <img width={50} height={50} className={styles['guild-icon']} src={icon} alt='Guild Icon' />
+      <img width={50} height={50} className={styles['guild-icon']} src={`https://cdn.discordapp.com/icons/${id}/${icon}.${icon.startsWith('a_') ? 'gif' : 'webm'}?size=128`} alt='Guild Icon' />
       <p>{name}</p>
     </div>
     <p className={styles['guild-memberCount']} >

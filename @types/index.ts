@@ -11,5 +11,4 @@ export interface IEmoji {
   id: string;
   invite: string;
   name: string;
-  url: string;
 }
