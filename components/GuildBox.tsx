@@ -14,7 +14,7 @@ interface GuildBoxProps {
 const GuildBox: FC<GuildBoxProps> = ({ id, icon, invite, memberCount, name }) => (
   <div className={styles['container']} >
     <div className={styles['div-container']} >
-      <img width={50} height={50} className={styles['guild-icon']} src={`https://cdn.discordapp.com/icons/${id}/${icon}.${icon.startsWith('a_') ? 'gif' : 'webm'}?size=128`} alt='Guild Icon' />
+      <img width={50} height={50} className={styles['guild-icon']} src={`https://cdn.discordapp.com/icons/${id}/${icon}.${icon.startsWith('a_') ? 'gif' : 'webp'}?size=128`} alt='Guild Icon' />
       <p>{name}</p>
     </div>
     <p className={styles['guild-memberCount']} >
