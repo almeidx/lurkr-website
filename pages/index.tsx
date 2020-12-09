@@ -55,7 +55,7 @@ export default function Home({ emojiCount, guilds }: StaticProps) {
     <div className={styles['container']} >
       <div className={styles['wrapper']} >
         <nav className={styles['nav']} >
-          <Image width={68} height={68} src='/static/nitro-hover.gif' alt='Pepe Nitro Hover' />
+          <Image width={100} height={100} src='/static/nitro-hover.gif' alt='Pepe Nitro Hover' />
           <span>Pepe Emoji Server</span>
 
           <button
