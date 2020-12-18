@@ -99,7 +99,7 @@ export default function Home({ emojiCount, guilds }: StaticProps) {
                 rel='noopener noreferrer'
                 href={`https://discord.gg/${e.invite}`}
               >
-                <img width={48} height={48} src={`https://cdn.discordapp.com/emojis/${e.id}.png?v=1`} alt={e.name} onLoad={() => setSearchLoading(false)} />
+                <img width={48} height={48} src={`https://cdn.discordapp.com/emojis/${e.id}.${e.name.startsWith('a') ? 'gif' : 'png'}?v=1`} alt={e.name} onLoad={() => setSearchLoading(false)} />
               </a>
             </Tooltip>
           ))) || (input && !isSearchLoading && !timeout && <p>Could not find anything</p>)}
