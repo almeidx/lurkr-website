@@ -12,3 +12,9 @@ export interface IEmoji {
   invite: string;
   name: string;
 }
+
+export interface ILevel {
+  id: string;
+  level: number;
+  xp: number;
+}
