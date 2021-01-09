@@ -21,6 +21,11 @@ module.exports = {
         permanent: true,
         source: '/patreon',
       },
+      {
+        destination: 'https://docs.pepe-is.life/',
+        permanent: true,
+        source: '/docs',
+      },
     ];
   },
 };
