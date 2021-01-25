@@ -129,7 +129,7 @@ export const getStaticProps: GetStaticProps<StaticProps> = async () => {
   return {
     props: {
       emojiCount: data.reduce((a, g) => a + g.emojiCount, 0),
-      guilds: data,
+      guilds: data.sort((a, b) => b.memberCount - a.memberCount),
     },
     revalidate: 60,
   };
