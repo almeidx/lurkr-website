@@ -14,7 +14,17 @@ export interface IEmoji {
 }
 
 export interface ILevel {
+  avatar: string | null;
   id: string;
   level: number;
+  tag: string | null;
   xp: number;
+}
+
+export interface LevelsType {
+  guild: {
+    name: string;
+    icon: string;
+  };
+  levels: ILevel[];
 }
