@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { useRouter } from "next/router";
-import Head from "next/head";
-import axios from "axios";
+import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
+import Head from 'next/head';
+import axios from 'axios';
 
-import type { LevelsType } from "../../@types";
-import LevelCard from "../../components/LevelCard";
+import type { LevelsType } from '../../@types';
+import LevelCard from '../../components/LevelCard';
 
 export default function Leaderboard() {
   const router = useRouter();
@@ -36,15 +36,7 @@ export default function Leaderboard() {
 
       <h1>Guild ID: {router.query.id}</h1>
       {data.levels.map((l, i) => (
-        <LevelCard
-          key={i}
-          avatar={l.avatar}
-          id={l.id}
-          index={i}
-          level={l.level}
-          tag={l.tag}
-          xp={l.xp}
-        />
+        <LevelCard key={i} avatar={l.avatar} id={l.id} index={i} level={l.level} tag={l.tag} xp={l.xp} />
       ))}
     </>
   );

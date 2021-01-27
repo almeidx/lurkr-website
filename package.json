@@ -35,5 +35,14 @@
     "prettier": "^2.2.1",
     "typescript": "^4.0.5"
   },
-  "private": true
+  "private": true,
+  "prettier": {
+    "printWidth": 120,
+    "useTabs": false,
+    "tabWidth": 2,
+    "singleQuote": true,
+    "quoteProps": "as-needed",
+    "trailingComma": "all",
+    "endOfLine": "lf"
+  }
 }

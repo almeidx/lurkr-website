@@ -3,29 +3,29 @@ module.exports = {
     return [
       {
         destination:
-          "https://discord.com/oauth2/authorize?client_id=506186003816513538&permissions=1611000960&scope=bot",
+          'https://discord.com/oauth2/authorize?client_id=506186003816513538&permissions=1611000960&scope=bot',
         permanent: true,
-        source: "/bot-invite",
+        source: '/bot-invite',
       },
       {
-        destination: "https://top.gg/bot/506186003816513538/vote",
+        destination: 'https://top.gg/bot/506186003816513538/vote',
         permanent: true,
-        source: "/vote",
+        source: '/vote',
       },
       {
-        destination: "https://teespring.com/stores/pepe-emoji-server",
+        destination: 'https://teespring.com/stores/pepe-emoji-server',
         permanent: true,
-        source: "/merch",
+        source: '/merch',
       },
       {
-        destination: "https://patreon.com/pepemanager",
+        destination: 'https://patreon.com/pepemanager',
         permanent: true,
-        source: "/patreon",
+        source: '/patreon',
       },
       {
-        destination: "https://docs.pepe-is.life/",
+        destination: 'https://docs.pepe-is.life/',
         permanent: true,
-        source: "/docs",
+        source: '/docs',
       },
     ];
   },

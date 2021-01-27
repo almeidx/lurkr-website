@@ -1,5 +1,5 @@
-declare module "react-animated-number" {
-  import * as React from "react";
+declare module 'react-animated-number' {
+  import * as React from 'react';
 
   export interface AnimatedNumberProps {
     value: number;
