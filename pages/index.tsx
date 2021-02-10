@@ -4,7 +4,6 @@ import Tooltip from 'react-tooltip-lite';
 import { GetStaticProps } from 'next';
 import Image from 'next/image';
 import axios from 'axios';
-
 import type { IEmoji, IGuild } from '../@types';
 import GuildBox from '../components/GuildBox';
 import styles from '../styles/Home.module.css';
@@ -80,7 +79,7 @@ export default function Home({ emojiCount, guilds }: StaticProps) {
             stepPrecision={0}
             value={emojiCount}
             duration={250}
-            formatValue={(n) => `${n.toLocaleString('en')} unique Pepe emojis`}
+            formatValue={(n) => `${n.toLocaleString()} unique Pepe emojis`}
           />
         </span>
       </div>

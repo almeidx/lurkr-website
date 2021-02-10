@@ -24,7 +24,7 @@ export interface ILevel {
 export interface LevelsType {
   guild: {
     name: string;
-    icon: string;
+    icon: string | null;
   };
   levels: ILevel[];
 }

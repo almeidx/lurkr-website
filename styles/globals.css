@@ -4,7 +4,6 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-
   --background: #2f3336;
   --primary: #000;
   --secondary: #15181c;
@@ -13,7 +12,6 @@
   --grey: #7a7a7a;
   --gray: #8a8c90;
   --chat-input: rgb(64, 68, 75);
-
   color: var(--white);
 }
 
@@ -38,10 +36,4 @@ ul {
 
 html {
   background: var(--background);
-}
-
-br {
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  user-select: none;
 }

@@ -7,7 +7,6 @@
   height: 100%;
   max-width: 601px;
   margin: 0 auto;
-
   display: flex;
   justify-content: center;
 }
@@ -25,26 +24,20 @@
   height: 50px;
   width: 100%;
   color: var(--white);
-
   display: flex;
   align-items: center;
   justify-content: left;
-
   font-size: 20px;
-
   white-space: nowrap;
 }
 
 .nav img {
   width: 100px;
   height: auto;
-
   border-radius: 25%;
-
   user-select: none;
   -webkit-user-select: none;
   -moz-user-select: none;
-
   -webkit-user-drag: none;
 }
 
@@ -58,7 +51,6 @@
   display: grid;
   gap: 1rem;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-
   margin: 0 auto;
   max-width: 601px;
   padding-bottom: 15px;
@@ -69,14 +61,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
-
   margin-left: 55%;
   font-size: 20px;
-
   transition: all 500ms;
   content: 10px;
   border-radius: 3px;
-
   outline: 0;
 }
 
@@ -94,14 +83,11 @@
   display: block;
   margin-right: auto;
   margin-left: auto;
-
   width: 40%;
   height: 40px;
   max-width: 601px;
-
   padding: 0 10px;
   border-radius: 7px;
-
   font-size: 14px;
   color: var(--white);
   background-color: var(--chat-input);
@@ -135,10 +121,8 @@
   width: 4rem;
   height: auto;
   max-height: 4rem;
-
   border-radius: 3px;
   flex-shrink: 0;
-
   padding-left: 3px;
   padding-right: 3px;
 }

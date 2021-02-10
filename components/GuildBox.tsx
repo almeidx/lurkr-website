@@ -1,6 +1,5 @@
 import React, { FC } from 'react';
 import { FaSignInAlt } from 'react-icons/fa';
-
 import styles from './GuildBox.module.css';
 
 interface GuildBoxProps {
@@ -23,7 +22,7 @@ const GuildBox: FC<GuildBoxProps> = ({ id, icon, invite, memberCount, name }) =>
       />
       <p>{name}</p>
     </div>
-    <p className={styles['guild-memberCount']}>{memberCount.toLocaleString('en')} members</p>
+    <p className={styles['guild-memberCount']}>{memberCount.toLocaleString()} members</p>
 
     <button
       className={styles['guild-join-button']}

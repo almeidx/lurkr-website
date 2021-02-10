@@ -1,17 +1,33 @@
 import React from 'react';
 import Main from 'next/head';
-
 import '../styles/globals.css';
+
+const keywords = [
+  'Pepe',
+  'Pepe Discord',
+  'Pepe Discord Server',
+  'Pepe Discord Guild',
+  'Pepe Emoji Server',
+  'Pepe Emojis',
+  'Pepe Emotes',
+  'Pepe Server Invite',
+  'Peepo Server Invite',
+  'Peepo Discord Server',
+  'Nitro',
+  'Discord Nitro',
+  'Peepo Emoji Server',
+  'Peeepo Emoji Guild',
+  'Discord',
+  'Emotes',
+  'Emojis',
+];
 
 export default function MyApp({ Component, pageProps }) {
   return (
     <>
       <Main>
         <title>Pepe Emoji Server</title>
-        <meta
-          name="keywords"
-          content="Pepe, Pepe Discord, Pepe Discord Server, Pepe Discord Guild, Pepe Emoji Server, Pepe Emojis, Pepe Emotes, Pepe Server Invite, Peepo Server Invite, Peepo Discord Server, Nitro, Discord Nitro, Peepo Emoji Server, Peeepo Emoji Guild, Discord"
-        />
+        <meta name="keywords" content={keywords.join(', ')} />
         <meta property="og:title" content="Pepe Emoji Server" />
         <meta property="og:description" content="More than 1,000 custom emojis for you to use on Discord!" />
         <meta property="og:type" content="website" />
