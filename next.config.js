@@ -1,4 +1,3 @@
-
 module.exports = {
   redirects() {
     return [
@@ -30,5 +29,4 @@ module.exports = {
       },
     ];
   },
-  poweredByHeader: true,
 };

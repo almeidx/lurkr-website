@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import axios from 'axios';
-import styles from '../../styles/Leaderboard.module.css';
+import styles from '../../styles/Levels.module.css';
 import type { LevelsType } from '../../@types';
 import LevelCard, { Colors } from '../../components/LevelCard';
 import { BallTriangle } from '@agney/react-loading';
 
-export default function Leaderboard() {
+export default function Levels() {
   const router = useRouter();
   const [loaded, setLoaded] = useState<boolean>(false);
   const [data, setData] = useState<LevelsType | null>(null);
@@ -60,7 +60,7 @@ export default function Leaderboard() {
             level={l.level}
             tag={l.tag}
             xp={l.xp}
-            colour={i === 0 ? Colors.GOLD : i === 1 ? Colors.SILVER : Colors.BRONZE}
+            colour={i === 0 ? Colors.GOLD : i === 1 ? Colors.SILVER : i === 2 ? Colors.BRONZE : Colors.REST}
           />
         ))}
       </main>

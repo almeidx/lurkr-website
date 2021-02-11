@@ -10,6 +10,7 @@ export enum Colors {
   GOLD = '#faa61a',
   SILVER = '#cad5db',
   BRONZE = '#a54e00',
+  REST = '#15181c',
 }
 
 /**
@@ -25,9 +26,7 @@ const LevelCard: FC<ILevel & { index: number; colour: Colors }> = ({ avatar, col
 
   const currentLevelRequiredXp = XP(level);
   const nextLevelRequiredXp = XP(level + 1);
-  const levelXp = nextLevelRequiredXp - currentLevelRequiredXp;
-  const userXp = xp - currentLevelRequiredXp;
-  const percentage = userXp / levelXp;
+  const percentage = (xp - currentLevelRequiredXp) / (nextLevelRequiredXp - currentLevelRequiredXp);
 
   const tagSplit = tag?.split('#');
   const discriminator = tagSplit && parseInt(tagSplit[tagSplit.length - 1], 10);

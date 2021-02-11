@@ -1,0 +1,64 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+}
+
+.grid {
+  display: grid;
+  width: 50%;
+  max-width: 720px;
+  grid-template-areas: 'input input input input input input input input submit';
+  grid-template-columns: repeat(9, 1fr);
+  align-items: center;
+  justify-items: left;
+}
+
+.server-label {
+  font-size: 20px;
+  margin-bottom: 1rem;
+}
+
+.server-input {
+  grid-area: input;
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+  width: 100%;
+  height: 40px;
+  max-width: 601px;
+  padding: 0 10px;
+  border-radius: 7px;
+  font-size: 14px;
+  color: var(--white);
+  background-color: var(--chat-input);
+  outline: 0;
+}
+
+.server-input::-webkit-outer-spin-button,
+.server-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
+.server-input[type='number'] {
+  -moz-appearance: textfield;
+}
+
+.server-input:focus {
+  box-shadow: rgba(3, 8, 20, 0.1) 0px 0.15rem 0.5rem, rgba(2, 8, 20, 0.1) 0px 0.075rem 0.175rem;
+}
+
+.submit-container {
+  grid-area: submit;
+  background-color: var(--chat-input);
+  border-radius: 5px;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
