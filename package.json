@@ -6,8 +6,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "lint": "eslint @types pages --ext .ts,.tsx",
-    "lint:fix": "eslint @types pages --ext .ts,.tsx --fix",
+    "lint": "eslint @types components pages util --ext .ts,.tsx",
+    "lint:fix": "eslint @types components pages util --ext .ts,.tsx --fix",
     "start": "next start",
     "prettier": "prettier --write **/*.{js,ts,tsx,json,yml,yaml,css}"
   },
@@ -37,6 +37,68 @@
     "eslint-plugin-react-hooks": "^4.2.0",
     "prettier": "^2.2.1",
     "typescript": "^4.0.5"
+  },
+  "eslintConfig": {
+    "extends": "marine/prettier/react",
+    "env": {
+      "node": true
+    },
+    "globals": {
+      "NodeJS": "readonly",
+      "JSX": "readonly"
+    },
+    "rules": {
+      "@typescript-eslint/naming-convention": [
+        2,
+        {
+          "format": ["PascalCase", "UPPER_CASE", "camelCase"],
+          "leadingUnderscore": "allow",
+          "selector": "variable"
+        },
+        {
+          "format": ["PascalCase"],
+          "leadingUnderscore": "allow",
+          "selector": "typeLike"
+        },
+        {
+          "format": ["camelCase", "PascalCase"],
+          "leadingUnderscore": "allow",
+          "selector": "function"
+        }
+      ],
+      "@typescript-eslint/no-extraneous-class": 0,
+      "@typescript-eslint/no-non-null-assertion": 0,
+      "no-implicit-coercion": 0,
+      "no-negated-condition": 0,
+      "prettier/prettier": [
+        2,
+        {
+          "printWidth": 120,
+          "useTabs": false,
+          "tabWidth": 2,
+          "singleQuote": true,
+          "quoteProps": "as-needed",
+          "trailingComma": "all",
+          "endOfLine": "lf"
+        }
+      ],
+      "no-use-before-define": "off",
+      "@typescript-eslint/no-use-before-define": 2,
+      "react/prop-types": 0,
+      "react/jsx-filename-extension": [
+        2,
+        {
+          "extensions": [".tsx"]
+        }
+      ],
+      "no-unused-vars": 0
+    },
+    "settings": {
+      "react": {
+        "version": "detect"
+      }
+    },
+    "ignorePatterns": [".next/*", ".vercel/*", "node_modules/*"]
   },
   "private": true,
   "prettier": {
