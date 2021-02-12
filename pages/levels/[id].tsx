@@ -6,11 +6,14 @@ import styles from '../../styles/Levels.module.css';
 import type { LevelsType } from '../../@types';
 import LevelCard, { Colors } from '../../components/LevelCard';
 import { BallTriangle } from '@agney/react-loading';
+import Navbar from '../../components/Navbar';
+import ErrorPage from '../../components/ErrorPage';
 
 export default function Levels() {
   const router = useRouter();
-  const [loaded, setLoaded] = useState<boolean>(false);
+  const [loaded, setLoaded] = useState(false);
   const [data, setData] = useState<LevelsType | null>(null);
+  const [errored, setErrored] = useState(false);
 
   /* router.query is only loaded on the second hydration for some reason */
 
@@ -25,9 +28,18 @@ export default function Levels() {
         .then((res) => {
           setData(res.data);
         })
-        .catch(() => null);
+        .catch(() => setErrored(true));
     }
   }, [router.query.id]);
+
+  if (errored) {
+    return (
+      <ErrorPage
+        message="Failed to retreive level information. Perhaps that server does not exist or doesn't have the leveling system enabled."
+        statusCode={400}
+      />
+    );
+  }
 
   if (!loaded || !data) {
     return (
@@ -42,6 +54,8 @@ export default function Levels() {
       <Head>
         <title>{data.guild.name} Leaderboard | Pepe Manager</title>
       </Head>
+
+      <Navbar />
 
       <nav className={styles.navbar}>
         <div className={styles['icon-container']}>

@@ -9,30 +9,6 @@
   color: var(--white);
 }
 
-.container nav {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-}
-
-.container nav h1 {
-  margin-left: 50px;
-  margin-right: 50px;
-  font-size: 30px;
-  color: #fff;
-}
-
-.icon-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100px;
-  height: 100px;
-  background: var(--search);
-  border-radius: 15px;
-}
-
 .item-list {
   position: absolute;
   top: 10rem;

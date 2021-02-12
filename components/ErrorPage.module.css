@@ -1,6 +1,6 @@
 .container {
   color: #000;
-  height: 100vh;
+  height: calc(100vh - 4rem);
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -10,13 +10,15 @@
 
 .status-code {
   display: inline-block;
-  border-right: 1px solid var(--white);
+  border-right: 1px solid #fff;
   margin: 0;
   margin-right: 20px;
   padding: 10px 23px 10px 0;
   font-size: 24px;
   font-weight: 500;
   vertical-align: top;
+  color: #fff;
+  font-weight: bold;
 }
 
 .description-container {
@@ -33,4 +35,5 @@
   line-height: inherit;
   margin: 0;
   padding: 0;
+  color: #fff;
 }

@@ -3,6 +3,7 @@ import React, { ChangeEvent, useEffect, useState } from 'react';
 import styles from '../../styles/LevelsIndex.module.css';
 import { BsArrowReturnLeft } from 'react-icons/bs';
 import { isValidSnowflake } from '../../util/util';
+import Navbar from '../../components/Navbar';
 
 export default function LevelsIndex() {
   const [server, setServer] = useState('');
@@ -32,23 +33,26 @@ export default function LevelsIndex() {
   });
 
   return (
-    <div className={styles.container}>
-      <label className={styles['server-label']} htmlFor="input">
-        Leaderboard
-      </label>
-      <div className={styles.grid}>
-        <input
-          className={styles['server-input']}
-          type="number"
-          id="input"
-          value={server}
-          onChange={handleInputChange}
-          placeholder="Input a server ID"
-        />
-        <div className={styles['submit-container']} onClick={handleSubmit}>
-          <BsArrowReturnLeft fill={arrowColour} />
+    <>
+      <Navbar />
+      <div className={styles.container}>
+        <label className={styles['server-label']} htmlFor="input">
+          Leaderboard
+        </label>
+        <div className={styles.grid}>
+          <input
+            className={styles['server-input']}
+            type="number"
+            id="input"
+            value={server}
+            onChange={handleInputChange}
+            placeholder="Input a server ID to view it's leaderboard"
+          />
+          <div className={styles['submit-container']} onClick={handleSubmit}>
+            <BsArrowReturnLeft fill={arrowColour} size={100} />
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }

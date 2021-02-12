@@ -3,8 +3,7 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  width: 100vw;
-  height: 100vh;
+  height: calc(100vh - 4rem); /* The navbar has 4rem height */
 }
 
 .grid {
