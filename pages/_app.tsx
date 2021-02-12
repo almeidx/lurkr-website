@@ -1,4 +1,5 @@
 import React from 'react';
+import type { AppProps } from 'next/app';
 import Main from 'next/head';
 import '../styles/globals.css';
 
@@ -22,7 +23,7 @@ const keywords = [
   'Emojis',
 ];
 
-export default function MyApp({ Component, pageProps }) {
+export default function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
       <Main>

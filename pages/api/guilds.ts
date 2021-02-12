@@ -1,4 +1,4 @@
-import { NowRequest, NowResponse } from '@vercel/node';
+import type { NowRequest, NowResponse } from '@vercel/node';
 import axios from 'axios';
 import type { IGuild } from '../../@types';
 
