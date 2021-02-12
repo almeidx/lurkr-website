@@ -50,7 +50,17 @@
     "typescript": "^4.0.5"
   },
   "eslintConfig": {
+    "root": true,
     "extends": "marine/prettier/react",
+    "parserOptions": {
+      "project": "./tsconfig.eslint.json"
+    },
+    "ignorePatterns": [
+      "node_modules/*",
+      ".vercel/*",
+      ".next/*",
+      ".yarn/*"
+    ],
     "env": {
       "node": true
     },
@@ -108,8 +118,7 @@
       "react": {
         "version": "detect"
       }
-    },
-    "ignorePatterns": [".next/*", ".vercel/*", "node_modules/*"]
+    }
   },
   "prettier": {
     "printWidth": 120,
