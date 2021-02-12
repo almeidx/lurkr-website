@@ -72,17 +72,26 @@
       "@typescript-eslint/naming-convention": [
         2,
         {
-          "format": ["PascalCase", "UPPER_CASE", "camelCase"],
+          "format": [
+            "PascalCase",
+            "UPPER_CASE",
+            "camelCase"
+          ],
           "leadingUnderscore": "allow",
           "selector": "variable"
         },
         {
-          "format": ["PascalCase"],
+          "format": [
+            "PascalCase"
+          ],
           "leadingUnderscore": "allow",
           "selector": "typeLike"
         },
         {
-          "format": ["camelCase", "PascalCase"],
+          "format": [
+            "camelCase",
+            "PascalCase"
+          ],
           "leadingUnderscore": "allow",
           "selector": "function"
         }
@@ -109,7 +118,9 @@
       "react/jsx-filename-extension": [
         2,
         {
-          "extensions": [".tsx"]
+          "extensions": [
+            ".tsx"
+          ]
         }
       ],
       "no-unused-vars": 0
