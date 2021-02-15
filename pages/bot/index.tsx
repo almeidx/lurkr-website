@@ -25,7 +25,10 @@ export default function Bot() {
             <MdLayers className={styles.icon} style={{ fill: '#4181ee' }} />
             <span>Documentation</span>
           </li>
-          <li className={styles['list-item']}>
+          <li
+            className={styles['list-item']}
+            onClick={() => window.open('https://www.youtube.com/playlist?list=PLeDA5I-uV0EcC1FDT6JufwxMjBun9iMx2')}
+          >
             <AiFillYoutube className={styles.icon} style={{ fill: '#ff3b3b' }} />
             <span>Tutorials</span>
           </li>
