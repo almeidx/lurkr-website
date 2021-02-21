@@ -11,40 +11,9 @@
   justify-content: center;
 }
 
-.wrapper + .wrapper {
-  padding-top: 40px;
-}
-
 .wrapper span {
   font-size: 30px;
   margin: 0 auto;
-}
-
-.nav {
-  height: 50px;
-  width: 100%;
-  color: var(--white);
-  display: flex;
-  align-items: center;
-  justify-content: left;
-  font-size: 20px;
-  white-space: nowrap;
-}
-
-.nav img {
-  width: 100px;
-  height: auto;
-  border-radius: 25%;
-  user-select: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -webkit-user-drag: none;
-}
-
-.nav span {
-  font-size: 20px;
-  padding-left: 5px;
-  margin: unset;
 }
 
 .grid-section {
@@ -55,22 +24,6 @@
   max-width: 601px;
   padding-bottom: 15px;
   padding-top: 15px;
-}
-
-.merch-button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-left: 55%;
-  font-size: 20px;
-  transition: all 500ms;
-  content: 10px;
-  border-radius: 3px;
-  outline: 0;
-}
-
-.merch-button:hover {
-  transform: translateY(-1px) scale(1.1);
 }
 
 .searchbar-container {
@@ -125,9 +78,4 @@
   flex-shrink: 0;
   padding-left: 3px;
   padding-right: 3px;
-}
-
-.react-tooltip-lite {
-  border-radius: 7px;
-  font-size: 15px;
 }

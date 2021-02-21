@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import Head from 'next/head';
 import axios from 'axios';
 import styles from '../../styles/Levels.module.css';
-import type { LevelsType } from '../../@types';
+import type { LevelsType } from '../../typings';
 import LevelCard, { Colors } from '../../components/LevelCard';
 import { BallTriangle } from '@agney/react-loading';
 import Navbar from '../../components/Navbar';

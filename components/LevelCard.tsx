@@ -1,5 +1,5 @@
 import React, { ChangeEvent, FC, useEffect, useRef } from 'react';
-import type { ILevel } from '../@types';
+import type { ILevel } from '../typings';
 import styles from './LevelCard.module.css';
 
 const CDN_BASE = 'https://cdn.discordapp.com/avatars';

@@ -1,6 +1,6 @@
 import type { NowRequest, NowResponse } from '@vercel/node';
 import axios from 'axios';
-import type { IGuild } from '../../@types';
+import type { IGuild } from '../../typings';
 
 let cachedGuilds: IGuild[] | null = null;
 

@@ -1,6 +1,6 @@
 import type { NowRequest, NowResponse } from '@vercel/node';
 import axios from 'axios';
-import type { IEmoji } from '../../@types';
+import type { IEmoji } from '../../typings';
 
 export default async (request: NowRequest, response: NowResponse) => {
   const { q } = request.query;

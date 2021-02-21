@@ -3,7 +3,7 @@ import AnimatedNumber from 'react-animated-number';
 import Tooltip from 'react-tooltip-lite';
 import Image from 'next/image';
 import axios from 'axios';
-import type { IEmoji, IGuild } from '../@types';
+import type { IEmoji, IGuild } from '../typings';
 import GuildBox from '../components/GuildBox';
 import styles from '../styles/Home.module.css';
 import Navbar from '../components/Navbar';
@@ -118,20 +118,19 @@ export default function Home({ emojiCount, guilds }: StaticProps) {
 }
 
 export const getStaticProps: GetStaticProps<StaticProps> = async () => {
-  const { data } = await axios.get<IGuild[]>('/api/guilds', {
-    baseURL: MAIN_DOMAIN,
-  });
+  try {
+    const { data } = await axios.get<IGuild[]>('/api/guilds', {
+      baseURL: MAIN_DOMAIN,
+    });
 
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-  if (!data) {
+    return {
+      props: {
+        emojiCount: data.reduce((a, g) => a + g.emojiCount, 0),
+        guilds: data.sort((a, b) => b.memberCount - a.memberCount),
+      },
+      revalidate: 60,
+    };
+  } catch {
     return { notFound: true };
   }
-
-  return {
-    props: {
-      emojiCount: data.reduce((a, g) => a + g.emojiCount, 0),
-      guilds: data.sort((a, b) => b.memberCount - a.memberCount),
-    },
-    revalidate: 60,
-  };
 };

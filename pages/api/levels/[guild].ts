@@ -1,6 +1,6 @@
 import type { NowRequest, NowResponse } from '@vercel/node';
 import axios from 'axios';
-import type { ILevel } from '../../../@types';
+import type { ILevel } from '../../../typings';
 
 export default async (request: NowRequest, response: NowResponse) => {
   const {
