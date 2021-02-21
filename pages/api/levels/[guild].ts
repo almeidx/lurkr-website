@@ -2,12 +2,11 @@ import type { NowRequest, NowResponse } from '@vercel/node';
 import axios from 'axios';
 import type { ILevel } from '../../../typings';
 
-export default async (request: NowRequest, response: NowResponse) => {
+export default async (req: NowRequest, res: NowResponse) => {
   const {
     query: { guild },
-  } = request;
+  } = req;
 
-  const res = await axios.get<ILevel[]>(`https://api.pepe-is.life/levels/${guild as string}`);
-
-  return response.status(200).json(res.data);
+  const { data } = await axios.get<ILevel[]>(`https://api.pepe-is.life/levels/${guild as string}`);
+  return res.status(200).json(data);
 };

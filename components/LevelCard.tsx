@@ -31,7 +31,7 @@ const LevelCard: FC<ILevel & { index: number; colour: Colors }> = ({ avatar, col
   const tagSplit = tag?.split('#');
   const discriminator = tagSplit && parseInt(tagSplit[tagSplit.length - 1], 10);
   const avatarURL = avatar
-    ? `${CDN_BASE}/${id}/${avatar}.${avatar.startsWith('a_') ? 'gif' : 'png'}?size=128`
+    ? `${CDN_BASE}/${id}/${avatar}.${avatar.startsWith('a_') ? 'gif' : 'webp'}?size=64`
     : tag && discriminator
     ? `${DEFAULT_AVATAR_CDN}/${discriminator % 5}.png`
     : FALLBACK_AVATAR_PATH;

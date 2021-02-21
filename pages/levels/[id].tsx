@@ -26,6 +26,7 @@ export default function Levels() {
       axios
         .get<LevelsType>(`/api/levels/${router.query.id as string}`)
         .then((res) => {
+          console.log(res.data);
           setData(res.data);
         })
         .catch(() => setErrored(true));

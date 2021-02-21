@@ -4,12 +4,12 @@ import type { IGuild } from '../../typings';
 
 let cachedGuilds: IGuild[] | null = null;
 
-export default async (request: NowRequest, response: NowResponse) => {
+export default async (req: NowRequest, res: NowResponse) => {
   if (!cachedGuilds) {
     const { data } = await axios.get<IGuild[]>('https://api.pepe-is.life/guilds');
     cachedGuilds = data;
-    return response.json(data);
+    return res.json(data);
   }
 
-  return response.json(cachedGuilds);
+  return res.status(200).json(cachedGuilds);
 };

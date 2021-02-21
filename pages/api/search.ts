@@ -2,14 +2,12 @@ import type { NowRequest, NowResponse } from '@vercel/node';
 import axios from 'axios';
 import type { IEmoji } from '../../typings';
 
-export default async (request: NowRequest, response: NowResponse) => {
-  const { q } = request.query;
+export default async (req: NowRequest, res: NowResponse) => {
+  const { q } = req.query;
 
-  const res = await axios.get<IEmoji[]>('https://api.pepe-is.life/search', {
-    params: {
-      q,
-    },
+  const { data } = await axios.get<IEmoji[]>('https://api.pepe-is.life/search', {
+    params: { q },
   });
 
-  return response.status(200).json(res.data);
+  return res.status(200).json(data);
 };
