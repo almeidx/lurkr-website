@@ -68,9 +68,9 @@ export default function Levels() {
       <main className={styles.container}>
         {data.levels.map((l, i) => (
           <LevelCard
+            _id={l._id}
             key={i}
             avatar={l.avatar}
-            id={l.id}
             index={i}
             level={l.level}
             tag={l.tag}

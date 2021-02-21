@@ -21,7 +21,15 @@ export enum Colors {
  */
 const XP = (n: number): number => (n === 0 ? 0 : 100 + 50 * (n - 1) ** 2);
 
-const LevelCard: FC<ILevel & { index: number; colour: Colors }> = ({ avatar, colour, id, level, tag, xp, index }) => {
+const LevelCard: FC<ILevel & { index: number; colour: Colors }> = ({
+  avatar,
+  colour,
+  _id: id,
+  level,
+  tag,
+  xp,
+  index,
+}) => {
   const progressRef = useRef<HTMLDivElement>(null);
 
   const currentLevelRequiredXp = XP(level);

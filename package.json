@@ -10,9 +10,9 @@
     "dev": "next dev",
     "build": "next build",
     "lint": "eslint @types components pages util --ext .ts,.tsx",
-    "lint:fix": "eslint @types components pages util --ext .ts,.tsx --fix",
+    "lint:fix": "eslint components pages typings util --ext .ts,.tsx --fix",
     "start": "next start",
-    "prettier": "prettier --write **/*.{js,ts,tsx,json,yml,yaml,css}"
+    "prettier": "prettier --write **/*.{js,ts,tsx,json,yml,yaml,css,svg}"
   },
   "repository": {
     "type": "git",

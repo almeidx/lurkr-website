@@ -14,8 +14,8 @@ export interface IEmoji {
 }
 
 export interface ILevel {
+  _id: string;
   avatar: string | null;
-  id: string;
   level: number;
   tag: string | null;
   xp: number;
