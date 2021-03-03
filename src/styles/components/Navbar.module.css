@@ -1,8 +1,8 @@
 .navbarContainer {
   height: 4rem;
   display: grid;
-  grid-template-areas: 'brand links links links login';
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-areas: 'brand links login';
+  grid-template-columns: 1fr 3fr 1fr;
   align-items: center;
   background-color: var(--background);
 }
@@ -53,16 +53,17 @@
 .navbarContainer > div button {
   color: var(--white);
   border-radius: 5px;
-  background: var(--blue-twitter);
+  background: var(--blurple);
   border: 0;
   font-size: 1rem;
   padding: 0.3rem 1rem;
   outline: 0;
   transition: background 0.2s;
+  transition: filter 0.2s;
 }
 
 .navbarContainer > div button:hover {
   /* TODO: Change to pointer whenever the auth system is made */
   cursor: not-allowed;
-  background: var(--blue);
+  filter: brightness(1.5);
 }

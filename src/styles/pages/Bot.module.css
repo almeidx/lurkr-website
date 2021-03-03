@@ -36,6 +36,60 @@
   border-radius: 7px;
 }
 
+.container > div a:last-of-type {
+  /* TODO: Remove this once the dashboard gets implemented */
+  cursor: not-allowed;
+}
+
 .container > div a:first-of-type {
   margin-right: 0.5rem;
+}
+
+.container main {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+}
+
+.container main div {
+  display: grid;
+  grid-template-rows: 1fr 2.5fr;
+  gap: 1rem;
+  width: 100%;
+  margin: 3rem 0;
+}
+
+.container main div.leftAlignedShowcase {
+  grid-template-columns: 1fr auto;
+  grid-template-areas:
+    'title video'
+    'description video';
+}
+
+.container main div.rightAlignedShowcase {
+  grid-template-columns: auto 1fr;
+  grid-template-areas:
+    'video title'
+    'video description';
+}
+
+.container main div span {
+  grid-area: title;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  color: var(--white);
+  font-size: 1.75rem;
+  font-weight: 600;
+}
+
+.container main div p {
+  grid-area: description;
+  color: var(--text);
+}
+
+.container main div video {
+  grid-area: video;
+  width: 30rem;
+  height: auto;
 }
