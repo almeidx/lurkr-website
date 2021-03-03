@@ -1,0 +1,41 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.container header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  color: var(--white);
+}
+
+.container header h1 {
+  margin: 1.25rem 0;
+}
+
+.container header p {
+  color: var(--text);
+}
+
+.container > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 1.5rem 0;
+}
+
+.container > div a {
+  padding: 0.75rem;
+  color: var(--white);
+  background: var(--blue);
+  border: 0;
+  border-radius: 7px;
+}
+
+.container > div a:first-of-type {
+  margin-right: 0.5rem;
+}
