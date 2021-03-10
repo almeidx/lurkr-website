@@ -1,0 +1,42 @@
+.container {
+  display: grid;
+  grid-template-rows: 1fr 2.5fr;
+  gap: 1rem;
+  width: 100%;
+  margin: 3rem 0;
+}
+
+.leftAlignedShowcase {
+  grid-template-columns: 1fr auto;
+  grid-template-areas:
+    'title video'
+    'description video';
+}
+
+.rightAlignedShowcase {
+  grid-template-columns: auto 1fr;
+  grid-template-areas:
+    'video title'
+    'video description';
+}
+
+.container span {
+  grid-area: title;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  color: var(--white);
+  font-size: 1.75rem;
+  font-weight: 600;
+}
+
+.container p {
+  grid-area: description;
+  color: var(--text);
+}
+
+.container video {
+  grid-area: video;
+  width: 30rem;
+  height: auto;
+}
