@@ -1,9 +1,8 @@
 import axios from 'axios';
+import type { GetStaticPaths, GetStaticProps } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
 
-import Error from '../../components/Error';
 import Level, { Colours, LevelInfo } from '../../components/Level';
 import styles from '../../styles/pages/Leaderboard.module.css';
 import { API_BASE_URL } from '../../utils/constants';
@@ -16,39 +15,36 @@ interface Levels {
   levels: LevelInfo[];
 }
 
-export default function Leaderboard() {
-  const router = useRouter();
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+  if (typeof params?.id !== 'string') return { notFound: true };
 
-  const [hasLoaded, setHasLoaded] = useState(false);
-  const [hasErrored, setHasErrored] = useState(false);
-  const [id, setId] = useState<string | null>(null);
-  const [levelsData, setLevelsData] = useState<Levels | null>(null);
+  try {
+    const { data, status } = await axios.get<Levels>(`/levels/${params.id}`, { baseURL: API_BASE_URL });
+    if (status !== 200) return { notFound: true };
 
-  /* Router query isn't available on server */
-  useEffect(() => {
-    if (Object.keys(router.query).length) {
-      setHasLoaded(true);
-      if (typeof router.query.id === 'string') setId(router.query.id);
-    }
-  }, [router.query]);
-
-  if (!hasLoaded) return <h1>Loading...</h1>;
-
-  if (!id || hasErrored) {
-    return (
-      <Error
-        message="Failed to retreive level information. Perhaps that server does not exist or doesn't have the leveling system enabled."
-        statusCode={400}
-      />
-    );
+    return {
+      props: {
+        data,
+      },
+      revalidate: 60,
+    };
+  } catch (err) {
+    return { notFound: true };
   }
+};
 
-  axios
-    .get<Levels>(`/levels/${id}`, { baseURL: API_BASE_URL })
-    .then(({ data }) => setLevelsData(data))
-    .catch(() => setHasErrored(true));
+// eslint-disable-next-line @typescript-eslint/require-await
+export const getStaticPaths: GetStaticPaths = async () => {
+  return {
+    fallback: true,
+    paths: [{ params: { id: '493351982887862283' } }],
+  };
+};
 
-  if (!levelsData) return <h1>loading data</h1>;
+export default function Leaderboard({ data }: { data: Levels }) {
+  const { isFallback } = useRouter();
+
+  if (isFallback) return <h1>Loading...</h1>;
 
   function resolveUserColour(index: number) {
     return index === 0 ? Colours.GOLD : index === 1 ? Colours.SILVER : index === 2 ? Colours.BRONZE : Colours.REST;
@@ -57,17 +53,17 @@ export default function Leaderboard() {
   return (
     <div className={styles.container}>
       <Head>
-        <title>{levelsData.guild.name} Leaderboard | Pepe Manager</title>
+        <title>{data.guild.name} Leaderboard | Pepe Manager</title>
       </Head>
 
       <header>
-        <img src={levelsData.guild.icon} alt={`${levelsData.guild.name} server icon`} />
-        <span>{levelsData.guild.name}</span>
+        <img src={data.guild.icon} alt={`${data.guild.name} server icon`} />
+        <span>{data.guild.name}</span>
       </header>
 
       <main>
         <div className={styles.leaderboardContainer}>
-          {levelsData.levels.map(({ avatar, level, tag, userID, xp }, i) => (
+          {data.levels.map(({ avatar, level, tag, userID, xp }, i) => (
             <>
               <Level
                 key={i}
@@ -79,7 +75,7 @@ export default function Leaderboard() {
                 userID={userID}
                 xp={xp}
               />
-              {i + 1 !== levelsData.levels.length && <hr />}
+              {i + 1 !== data.levels.length && <hr />}
             </>
           ))}
         </div>
