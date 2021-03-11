@@ -1,11 +1,12 @@
-import { useEffect, useState } from 'react';
+import axios from 'axios';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import axios from 'axios';
-import { API_BASE_URL } from '../../utils/constants';
-import Level, { Colours, Level as LevelInfo } from '../../components/Level';
-import styles from '../../styles/pages/Leaderboard.module.css';
+import { useEffect, useState } from 'react';
+
 import Error from '../../components/Error';
+import Level, { Colours, LevelInfo } from '../../components/Level';
+import styles from '../../styles/pages/Leaderboard.module.css';
+import { API_BASE_URL } from '../../utils/constants';
 
 interface Levels {
   guild: {

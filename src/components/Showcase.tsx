@@ -1,5 +1,6 @@
 import { useRef } from 'react';
 import VisibilitySensor from 'react-visibility-sensor';
+
 import styles from '../styles/components/Showcase.module.css';
 
 export interface ShowcaseProps {

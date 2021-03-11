@@ -28,10 +28,10 @@ export default function SearchBarProvider({ children }: SearchBarProviderProps) 
   return (
     <SearchBarContext.Provider
       value={{
-        searchTerm,
         isSearchLoading,
-        updateSearchTerm,
+        searchTerm,
         updateSearchLoading,
+        updateSearchTerm,
       }}
     >
       {children}

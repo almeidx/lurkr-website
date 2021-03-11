@@ -1,4 +1,5 @@
 import { FaSignInAlt } from 'react-icons/fa';
+
 import styles from '../styles/components/GuildBox.module.css';
 import { DISCORD_GUILD_CDN, Snowflake } from '../utils/constants';
 

@@ -1,10 +1,12 @@
+import '../styles/global.css';
+
+import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import Link from 'next/link';
-import type { AppProps } from 'next/app';
 import { useRouter } from 'next/router';
 import { Scrollbars } from 'react-custom-scrollbars';
+
 import SearchBarProvider from '../contexts/SearchBarContext';
-import '../styles/global.css';
 
 export default function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
@@ -15,7 +17,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
       autoHideTimeout={1000}
       autoHideDuration={200}
       universal
-      style={{ width: '100vw', height: '100vh' }}
+      style={{ height: '100vh', width: '100vw' }}
       renderThumbVertical={({ style, ...props }) => <div {...props} style={{ ...style, background: 'var(--black)' }} />}
     >
       <Head>

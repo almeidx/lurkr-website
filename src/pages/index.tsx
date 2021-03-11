@@ -1,13 +1,14 @@
+import { BallTriangle } from '@agney/react-loading';
+import axios from 'axios';
 import type { GetStaticProps } from 'next';
 import Head from 'next/head';
 import { useContext, useEffect, useState } from 'react';
-import axios from 'axios';
+
 import Emoji from '../components/Emoji';
-import styles from '../styles/pages/Home.module.css';
-import { SearchBarContext } from '../contexts/SearchBarContext';
-import { BallTriangle } from '@agney/react-loading';
-import { API_BASE_URL, Snowflake } from '../utils/constants';
 import GuildBox from '../components/GuildBox';
+import { SearchBarContext } from '../contexts/SearchBarContext';
+import styles from '../styles/pages/Home.module.css';
+import { API_BASE_URL, Snowflake } from '../utils/constants';
 
 interface Guild {
   emojiCount: number;
@@ -18,7 +19,7 @@ interface Guild {
   name: string;
 }
 
-interface Emoji {
+interface EmojiInfo {
   id: Snowflake;
   invite: string;
   name: string;
@@ -32,7 +33,7 @@ interface HomeProps {
 export default function Home({ emojiCount, guilds }: HomeProps) {
   const { isSearchLoading, searchTerm, updateSearchLoading, updateSearchTerm } = useContext(SearchBarContext);
 
-  const [requestedEmojis, setRequestedEmojis] = useState<Emoji[]>([]);
+  const [requestedEmojis, setRequestedEmojis] = useState<EmojiInfo[]>([]);
   const [isTimeoutRunning, setIsTimeoutRunning] = useState(false);
 
   useEffect(() => {

@@ -1,8 +1,9 @@
 import { useRouter } from 'next/router';
 import { ChangeEvent, useEffect, useState } from 'react';
+import { BsArrowReturnLeft } from 'react-icons/bs';
+
 import styles from '../../styles/pages/Levels.module.css';
 import { isValidSnowflake } from '../../utils/utils';
-import { BsArrowReturnLeft } from 'react-icons/bs';
 
 export default function Levels() {
   const [server, setServer] = useState('');

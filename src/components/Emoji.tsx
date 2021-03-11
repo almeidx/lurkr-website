@@ -1,9 +1,10 @@
-import { useContext } from 'react';
 import Link from 'next/link';
-import { SearchBarContext } from '../contexts/SearchBarContext';
-import { DISCORD_EMOJI_CDN, Snowflake } from '../utils/constants';
-import styles from '../styles/components/Emoji.module.css';
+import { useContext } from 'react';
 import Tooltip from 'react-tooltip-lite';
+
+import { SearchBarContext } from '../contexts/SearchBarContext';
+import styles from '../styles/components/Emoji.module.css';
+import { DISCORD_EMOJI_CDN, Snowflake } from '../utils/constants';
 
 interface EmojiProps {
   invite: string;

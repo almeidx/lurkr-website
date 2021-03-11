@@ -1,13 +1,14 @@
 import type { ChangeEvent } from 'react';
+
+import styles from '../styles/components/Level.module.css';
 import {
   DISCORD_USER_AVATAR_CDN,
   DISCORD_USER_DEFAULT_AVATAR_CDN,
   FALLBACK_AVATAR,
   Snowflake,
 } from '../utils/constants';
-import styles from '../styles/components/Level.module.css';
 
-export interface Level {
+export interface LevelInfo {
   avatar: string | null;
   level: number;
   tag: string | null;
@@ -22,7 +23,7 @@ export enum Colours {
   REST = '#15181c',
 }
 
-interface LevelProps extends Level {
+interface LevelProps extends LevelInfo {
   colour: Colours;
   index: number;
 }
