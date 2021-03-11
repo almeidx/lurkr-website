@@ -10,3 +10,20 @@ export function isValidSnowflake(str: string) {
   if (BigInt(str) > MAX_SNOWFLAKE) return false;
   return true;
 }
+
+/**
+ * Gets the XP required to achieve a level
+ * @info un = 100 + 50 * (n - 1) ** 2
+ * @param n The level
+ * @returns The XP required
+ */
+export function XP(n: number) {
+  return n === 0 ? 0 : 100 + 50 * (n - 1) ** 2;
+}
+
+/**
+ * No operation.
+ */
+export function noop(): void {
+  return void 0;
+}

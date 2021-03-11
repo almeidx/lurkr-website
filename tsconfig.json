@@ -8,7 +8,11 @@
     "importsNotUsedAsValues": "error",
     "isolatedModules": true,
     "jsx": "preserve",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "module": "esnext",
     "moduleResolution": "node",
     "newLine": "lf",
@@ -16,17 +20,24 @@
     "noEmitHelpers": true,
     "noImplicitAny": true,
     "noImplicitThis": true,
-    "noUnusedLocals": false,
+    "noUnusedLocals": true,
     "preserveConstEnums": true,
     "pretty": true,
     "removeComments": true,
     "resolveJsonModule": true,
     "skipLibCheck": true,
-    "strict": false,
+    "sourceMap": true,
+    "strict": true,
     "strictNullChecks": true,
     "strictPropertyInitialization": true,
     "target": "es5"
   },
-  "exclude": ["node_modules"],
-  "include": ["**/*.ts", "**/*.tsx", "next-env.d.ts"]
+  "include": [
+    "**/*.ts",
+    "**/*.tsx",
+    "next-env.d.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }

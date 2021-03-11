@@ -1,0 +1,45 @@
+.container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.container div.userInfo {
+  display: flex;
+  align-items: center;
+  margin: 1rem;
+}
+
+.container div.userInfo span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 0.025rem;
+  height: 0.025rem;
+  padding: 1rem;
+  border-radius: 50%;
+  color: var(--white);
+}
+
+.container div.userInfo img {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  margin: 0 1rem;
+}
+
+.container div.userInfo p {
+  color: var(--white);
+}
+
+.container div.levelInfo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container div.levelInfo span {
+  margin: 1rem;
+  font-size: 1.25rem;
+}
