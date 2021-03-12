@@ -15,32 +15,6 @@ interface Levels {
   levels: LevelInfo[];
 }
 
-export const getStaticProps: GetStaticProps = async ({ params }) => {
-  if (typeof params?.id !== 'string') return { notFound: true };
-
-  try {
-    const { data, status } = await axios.get<Levels>(`/levels/${params.id}`, { baseURL: API_BASE_URL });
-    if (status !== 200) return { notFound: true };
-
-    return {
-      props: {
-        data,
-      },
-      revalidate: 60,
-    };
-  } catch (err) {
-    return { notFound: true };
-  }
-};
-
-// eslint-disable-next-line @typescript-eslint/require-await
-export const getStaticPaths: GetStaticPaths = async () => {
-  return {
-    fallback: true,
-    paths: [{ params: { id: '493351982887862283' } }],
-  };
-};
-
 export default function Leaderboard({ data }: { data: Levels }) {
   const { isFallback } = useRouter();
 
@@ -94,3 +68,29 @@ export default function Leaderboard({ data }: { data: Levels }) {
     </div>
   );
 }
+
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+  if (typeof params?.id !== 'string') return { notFound: true };
+
+  try {
+    const { data, status } = await axios.get<Levels>(`/levels/${params.id}`, { baseURL: API_BASE_URL });
+    if (status !== 200) return { notFound: true };
+
+    return {
+      props: {
+        data,
+      },
+      revalidate: 60,
+    };
+  } catch (err) {
+    return { notFound: true };
+  }
+};
+
+// eslint-disable-next-line @typescript-eslint/require-await
+export const getStaticPaths: GetStaticPaths = async () => {
+  return {
+    fallback: true,
+    paths: [],
+  };
+};
