@@ -1,4 +1,4 @@
-import { BallTriangle } from '@agney/react-loading';
+import { TailSpin } from '@agney/react-loading';
 import axios from 'axios';
 import type { GetStaticProps } from 'next';
 import Head from 'next/head';
@@ -96,7 +96,7 @@ export default function Home({ emojiCount, guilds }: HomeProps) {
         />
 
         <div className={styles.requestedEmojisContainer}>
-          {isSearchLoading && <BallTriangle width="48px" height="48px" />}
+          {isSearchLoading && <TailSpin width="48px" height="48px" />}
 
           {requestedEmojis.length !== 0
             ? requestedEmojis.map(({ id, invite, name }) => <Emoji key={id} invite={invite} id={id} name={name} />)

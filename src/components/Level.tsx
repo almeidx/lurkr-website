@@ -1,19 +1,25 @@
 import type { ChangeEvent } from 'react';
 
 import styles from '../styles/components/Level.module.css';
-import {
-  DISCORD_USER_AVATAR_CDN,
-  DISCORD_USER_DEFAULT_AVATAR_CDN,
-  FALLBACK_AVATAR,
-  Snowflake,
-} from '../utils/constants';
+import { DISCORD_USER_AVATAR_CDN, DISCORD_USER_DEFAULT_AVATAR_CDN, FALLBACK_AVATAR } from '../utils/constants';
 
 export interface LevelInfo {
   avatar: string | null;
   level: number;
   tag: string | null;
-  userID: Snowflake;
+  userID: string;
   xp: number;
+}
+
+export interface Role {
+  color: number;
+  id: string;
+  name: string;
+}
+
+export interface LevelRoles {
+  level: number;
+  roles: Role[];
 }
 
 export enum Colours {
@@ -26,9 +32,10 @@ export enum Colours {
 interface LevelProps extends LevelInfo {
   colour: Colours;
   index: number;
+  totalLevels: number;
 }
 
-export default function Level({ avatar, colour, index, level, tag, userID }: LevelProps) {
+export default function Level({ avatar, colour, index, level, tag, totalLevels, userID }: LevelProps) {
   function handleImageError(event: ChangeEvent<HTMLImageElement>) {
     event.target.onerror = null;
     event.target.src = FALLBACK_AVATAR;
@@ -41,16 +48,19 @@ export default function Level({ avatar, colour, index, level, tag, userID }: Lev
     : FALLBACK_AVATAR;
 
   return (
-    <div className={styles.container}>
-      <div className={styles.userInfo}>
-        <span style={{ backgroundColor: colour }}>{index + 1}</span>
-        <img src={avatarURL} alt={`${tag ?? userID} avatar icon`} height={64} width={64} onError={handleImageError} />
-        <p>{tag ?? userID}</p>
-      </div>
+    <>
+      <div className={styles.container}>
+        <div className={styles.userInfo}>
+          <span style={{ backgroundColor: colour }}>{index + 1}</span>
+          <img src={avatarURL} alt={`${tag ?? userID} avatar icon`} height={64} width={64} onError={handleImageError} />
+          <p>{tag ?? userID}</p>
+        </div>
 
-      <div className={styles.levelInfo}>
-        <span>Level {level}</span>
+        <div className={styles.levelInfo}>
+          <span>Level {level}</span>
+        </div>
       </div>
-    </div>
+      {index + 1 !== totalLevels && <hr />}
+    </>
   );
 }

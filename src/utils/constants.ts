@@ -13,8 +13,8 @@ export const DISCORD_EMOJI_CDN = (id: Snowflake, animated: boolean) =>
  * @param id The Snowflake for the guild
  * @param icon The icon hash
  */
-export const DISCORD_GUILD_CDN = (id: Snowflake, icon: string) =>
-  `https://cdn.discordapp.com/icons/${id}/${icon}.${icon.startsWith('a_') ? 'gif' : 'webp'}?size=128`;
+export const DISCORD_GUILD_CDN = (id: Snowflake, icon: string | null) =>
+  icon ? `https://cdn.discordapp.com/icons/${id}/${icon}.${icon.startsWith('a_') ? 'gif' : 'webp'}?size=128` : null;
 
 /**
  * Resolves a user avatar url

@@ -1,24 +1,34 @@
+import { TailSpin } from '@agney/react-loading';
 import axios from 'axios';
 import type { GetStaticPaths, GetStaticProps } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 
-import Level, { Colours, LevelInfo } from '../../components/Level';
+import Level, { Colours, LevelInfo, LevelRoles } from '../../components/Level';
+import Role from '../../components/Role';
 import styles from '../../styles/pages/Leaderboard.module.css';
-import { API_BASE_URL } from '../../utils/constants';
+import { API_BASE_URL, DISCORD_GUILD_CDN, FALLBACK_AVATAR } from '../../utils/constants';
 
 interface Levels {
   guild: {
-    icon: string;
+    icon: string | null;
+    id: string;
     name: string;
   };
   levels: LevelInfo[];
+  roles: LevelRoles[] | null;
 }
 
 export default function Leaderboard({ data }: { data: Levels }) {
   const { isFallback } = useRouter();
 
-  if (isFallback) return <h1>Loading...</h1>;
+  if (isFallback) {
+    return (
+      <div className={styles.loadingContainer}>
+        <TailSpin width="128px" height="128px" />
+      </div>
+    );
+  }
 
   function resolveUserColour(index: number) {
     return index === 0 ? Colours.GOLD : index === 1 ? Colours.SILVER : index === 2 ? Colours.BRONZE : Colours.REST;
@@ -31,39 +41,43 @@ export default function Leaderboard({ data }: { data: Levels }) {
       </Head>
 
       <header>
-        <img src={data.guild.icon} alt={`${data.guild.name} server icon`} />
+        <img
+          src={DISCORD_GUILD_CDN(data.guild.id, data.guild.icon) ?? FALLBACK_AVATAR}
+          alt={`${data.guild.name} server icon`}
+        />
         <span>{data.guild.name}</span>
       </header>
 
       <main>
         <div className={styles.leaderboardContainer}>
           {data.levels.map(({ avatar, level, tag, userID, xp }, i) => (
-            <>
-              <Level
-                key={i}
-                avatar={avatar}
-                colour={resolveUserColour(i)}
-                index={i}
-                level={level}
-                tag={tag}
-                userID={userID}
-                xp={xp}
-              />
-              {i + 1 !== data.levels.length && <hr />}
-            </>
+            <Level
+              key={userID}
+              avatar={avatar}
+              colour={resolveUserColour(i)}
+              index={i}
+              level={level}
+              tag={tag}
+              totalLevels={data.levels.length}
+              userID={userID}
+              xp={xp}
+            />
           ))}
         </div>
 
-        <div className={styles.xpRolesContainer}>
-          <span>XP Roles</span>
+        {data.roles && (
+          <div className={styles.xpRolesContainer}>
+            <span>XP Roles</span>
 
-          <div>
-            <span>Level 123</span>
-            <p>
-              <div>yeeter</div>
-            </p>
+            <hr />
+
+            {data.roles
+              .sort((a, b) => b.level - a.level)
+              .map(({ level, roles: levelRoles }) => (
+                <Role key={level} level={level} roles={levelRoles} />
+              ))}
           </div>
-        </div>
+        )}
       </main>
     </div>
   );

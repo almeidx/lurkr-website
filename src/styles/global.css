@@ -20,6 +20,7 @@
   --blue-twitter: #2aa9e0;
   --black: #000;
   --blurple: #7289da;
+  --discord-role: #b9bbbe;
 }
 
 @media (max-width: 1080px) {
@@ -58,6 +59,14 @@ a {
 
 li {
   list-style: none;
+}
+
+hr {
+  border: 0;
+  border-top: 2px solid #bbb;
+  border-radius: 5px;
+  margin: 0 auto;
+  width: 98%;
 }
 
 ::selection {

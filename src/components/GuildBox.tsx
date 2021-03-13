@@ -1,7 +1,7 @@
 import { FaSignInAlt } from 'react-icons/fa';
 
 import styles from '../styles/components/GuildBox.module.css';
-import { DISCORD_GUILD_CDN, Snowflake } from '../utils/constants';
+import { DISCORD_GUILD_CDN, FALLBACK_AVATAR, Snowflake } from '../utils/constants';
 
 interface GuildBoxProps {
   id: Snowflake;
@@ -15,7 +15,7 @@ export default function GuildBox({ icon, id, invite, memberCount, name }: GuildB
   return (
     <div className={styles.container}>
       <div>
-        <img width={50} height={50} src={DISCORD_GUILD_CDN(id, icon)} alt={`${name} icon`} />
+        <img width={50} height={50} src={DISCORD_GUILD_CDN(id, icon) ?? FALLBACK_AVATAR} alt={`${name} icon`} />
         <p>{name}</p>
       </div>
 
