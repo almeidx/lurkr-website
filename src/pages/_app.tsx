@@ -4,12 +4,15 @@ import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { Provider as AuthProvider, signIn, signOut, useSession } from 'next-auth/client';
 import { Scrollbars } from 'react-custom-scrollbars';
 
 import SearchBarProvider from '../contexts/SearchBarContext';
+import UserProvider from '../contexts/UserContext';
 
 export default function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
+  const [session] = useSession();
 
   return (
     <Scrollbars
@@ -45,11 +48,21 @@ export default function MyApp({ Component, pageProps }: AppProps) {
           </li>
         </ul>
         <div>
-          <button>Login</button>
+          {session ? (
+            <button onClick={() => signOut({ callbackUrl: window.location.href })}>
+              {session.user.name} - Sign out
+            </button>
+          ) : (
+            <button onClick={() => signIn('discord')}>Sign in</button>
+          )}
         </div>
       </nav>
       <SearchBarProvider>
-        <Component {...pageProps} />
+        <AuthProvider session={pageProps.session}>
+          <UserProvider>
+            <Component {...pageProps} />
+          </UserProvider>
+        </AuthProvider>
       </SearchBarProvider>
     </Scrollbars>
   );

@@ -25,7 +25,9 @@
   "dependencies": {
     "@agney/react-loading": "^0.1.2",
     "axios": "^0.21.1",
+    "mongodb": "^3.6.4",
     "next": "10.0.7",
+    "next-auth": "^3.11.2",
     "react": "17.0.1",
     "react-custom-scrollbars": "^4.2.1",
     "react-dom": "17.0.1",
@@ -35,12 +37,15 @@
     "tslib": "^2.1.0"
   },
   "devDependencies": {
+    "@types/mongodb": "^3.6.10",
+    "@types/next-auth": "^3.7.1",
     "@types/node": "^14.14.33",
     "@types/react": "^17.0.2",
     "@types/react-custom-scrollbars": "^4.0.7",
     "@types/react-dom": "^17.0.1",
     "@typescript-eslint/eslint-plugin": "^4.17.0",
     "@typescript-eslint/parser": "^4.17.0",
+    "discord-api-types": "^0.12.1",
     "eslint": "^7.7.0",
     "eslint-config-marine": "^8.1.0",
     "eslint-config-prettier": "^8.1.0",

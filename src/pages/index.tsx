@@ -1,5 +1,4 @@
 import { TailSpin } from '@agney/react-loading';
-import axios from 'axios';
 import type { GetStaticProps } from 'next';
 import Head from 'next/head';
 import { useContext, useEffect, useState } from 'react';
@@ -7,8 +6,9 @@ import { useContext, useEffect, useState } from 'react';
 import Emoji from '../components/Emoji';
 import GuildBox from '../components/GuildBox';
 import { SearchBarContext } from '../contexts/SearchBarContext';
+import api from '../services/api';
 import styles from '../styles/pages/Home.module.css';
-import { API_BASE_URL, Snowflake } from '../utils/constants';
+import type { Snowflake } from '../utils/constants';
 
 interface Guild {
   emojiCount: number;
@@ -51,7 +51,8 @@ export default function Home({ emojiCount, guilds }: HomeProps) {
         setRequestedEmojis([]);
         updateSearchLoading(true);
 
-        axios('/search', { baseURL: API_BASE_URL, params: { q: searchTerm } })
+        api
+          .get('/search', { params: { q: searchTerm } })
           .then(({ data }) => {
             if (!data.length) return updateSearchLoading(false);
             setRequestedEmojis(data);
@@ -117,9 +118,7 @@ export default function Home({ emojiCount, guilds }: HomeProps) {
 
 export const getStaticProps: GetStaticProps<HomeProps> = async () => {
   try {
-    const { data } = await axios.get<Guild[]>('/guilds', {
-      baseURL: API_BASE_URL,
-    });
+    const { data } = await api.get<Guild[]>('/guilds');
 
     return {
       props: {

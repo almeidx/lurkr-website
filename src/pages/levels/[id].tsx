@@ -1,13 +1,13 @@
 import { TailSpin } from '@agney/react-loading';
-import axios from 'axios';
 import type { GetStaticPaths, GetStaticProps } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 
 import Level, { Colours, LevelInfo, LevelRoles } from '../../components/Level';
 import Role from '../../components/Role';
+import api from '../../services/api';
 import styles from '../../styles/pages/Leaderboard.module.css';
-import { API_BASE_URL, DISCORD_GUILD_CDN, FALLBACK_AVATAR } from '../../utils/constants';
+import { DISCORD_GUILD_CDN, FALLBACK_AVATAR } from '../../utils/constants';
 
 interface Levels {
   guild: {
@@ -87,7 +87,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   if (typeof params?.id !== 'string') return { notFound: true };
 
   try {
-    const { data, status } = await axios.get<Levels>(`/levels/${params.id}`, { baseURL: API_BASE_URL });
+    const { data, status } = await api.get<Levels>(`/levels/${params.id}`);
     if (status !== 200) return { notFound: true };
 
     return {
