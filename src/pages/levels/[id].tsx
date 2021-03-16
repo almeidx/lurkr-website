@@ -1,5 +1,5 @@
 import { TailSpin } from '@agney/react-loading';
-import type { GetStaticPaths, GetStaticProps } from 'next';
+import type { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 
@@ -19,7 +19,33 @@ interface Levels {
   roles: LevelRoles[] | null;
 }
 
-export default function Leaderboard({ data }: { data: Levels }) {
+export const getStaticProps: GetStaticProps<{ levels: Levels }> = async ({ params }) => {
+  if (typeof params?.id !== 'string') return { notFound: true };
+
+  try {
+    const { data: levels, status } = await api.get<Levels>(`/levels/${params.id}`);
+    if (status !== 200) return { notFound: true };
+
+    return {
+      props: {
+        levels,
+      },
+      revalidate: 60,
+    };
+  } catch {
+    return { notFound: true };
+  }
+};
+
+// eslint-disable-next-line @typescript-eslint/require-await
+export const getStaticPaths: GetStaticPaths = async () => {
+  return {
+    fallback: true,
+    paths: [],
+  };
+};
+
+export default function Leaderboard({ levels }: InferGetStaticPropsType<typeof getStaticProps>) {
   const { isFallback } = useRouter();
 
   if (isFallback) {
@@ -37,20 +63,20 @@ export default function Leaderboard({ data }: { data: Levels }) {
   return (
     <div className={styles.container}>
       <Head>
-        <title>{data.guild.name} Leaderboard | Pepe Manager</title>
+        <title>{levels.guild.name} Leaderboard | Pepe Manager</title>
       </Head>
 
       <header>
         <img
-          src={DISCORD_GUILD_CDN(data.guild.id, data.guild.icon) ?? FALLBACK_AVATAR}
-          alt={`${data.guild.name} server icon`}
+          src={DISCORD_GUILD_CDN(levels.guild.id, levels.guild.icon) ?? FALLBACK_AVATAR}
+          alt={`${levels.guild.name} server icon`}
         />
-        <span>{data.guild.name}</span>
+        <span>{levels.guild.name}</span>
       </header>
 
       <main>
         <div className={styles.leaderboardContainer}>
-          {data.levels.map(({ avatar, level, tag, userID, xp }, i) => (
+          {levels.levels.map(({ avatar, level, tag, userID, xp }, i) => (
             <Level
               key={userID}
               avatar={avatar}
@@ -58,20 +84,20 @@ export default function Leaderboard({ data }: { data: Levels }) {
               index={i}
               level={level}
               tag={tag}
-              totalLevels={data.levels.length}
+              totalLevels={levels.levels.length}
               userID={userID}
               xp={xp}
             />
           ))}
         </div>
 
-        {data.roles && (
+        {levels.roles && (
           <div className={styles.xpRolesContainer}>
             <span>XP Roles</span>
 
             <hr />
 
-            {data.roles
+            {levels.roles
               .sort((a, b) => b.level - a.level)
               .map(({ level, roles: levelRoles }) => (
                 <Role key={level} level={level} roles={levelRoles} />
@@ -82,29 +108,3 @@ export default function Leaderboard({ data }: { data: Levels }) {
     </div>
   );
 }
-
-export const getStaticProps: GetStaticProps = async ({ params }) => {
-  if (typeof params?.id !== 'string') return { notFound: true };
-
-  try {
-    const { data, status } = await api.get<Levels>(`/levels/${params.id}`);
-    if (status !== 200) return { notFound: true };
-
-    return {
-      props: {
-        data,
-      },
-      revalidate: 60,
-    };
-  } catch (err) {
-    return { notFound: true };
-  }
-};
-
-// eslint-disable-next-line @typescript-eslint/require-await
-export const getStaticPaths: GetStaticPaths = async () => {
-  return {
-    fallback: true,
-    paths: [],
-  };
-};

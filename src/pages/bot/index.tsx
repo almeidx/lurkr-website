@@ -59,8 +59,7 @@ export default function Bot() {
 
       <div>
         <Link href="/bot-invite">Invite the bot</Link>
-        {/* TODO: Change this href to /bot/dashboard once the dashboard is implemented */}
-        <Link href="#">Go to dashboard</Link>
+        <Link href="/bot/guilds">Go to dashboard</Link>
       </div>
 
       <main>

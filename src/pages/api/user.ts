@@ -1,5 +1,4 @@
 import axios from 'axios';
-import type { GuildFeature } from 'discord-api-types/v8';
 import { ObjectId } from 'mongodb';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import type Adapters from 'next-auth/adapters';
@@ -11,14 +10,16 @@ import { noop } from '../../utils/utils';
 
 type AccountSchema = Adapters['TypeORM']['Models']['Account']['model'];
 
-export interface Guild {
+export interface User {
   id: string;
-  name: string;
-  icon: string | null;
-  owner: boolean;
-  permissions: number;
-  features: GuildFeature[];
-  permissions_new: string;
+  username: string;
+  avatar: string | null;
+  discriminator: string;
+  public_flags: number;
+  flags: number;
+  locale: string;
+  mfa_enabled: boolean;
+  premium_type: boolean;
 }
 
 export default async function guilds(req: NextApiRequest, res: NextApiResponse) {
@@ -38,7 +39,7 @@ export default async function guilds(req: NextApiRequest, res: NextApiResponse) 
   }
 
   const response = await axios
-    .get<Guild[]>('/users/@me/guilds', {
+    .get<User>('/users/@me', {
       baseURL: DISCORD_API_BASE_URL,
       headers: {
         Authorization: `Bearer ${account.accessToken}`,
