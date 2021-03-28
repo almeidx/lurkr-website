@@ -9,8 +9,9 @@ declare module 'next-auth' {
 
 export default NextAuth({
   callbacks: {
+    // @ts-expect-error
     async session(session, user) {
-      session.user.id = user.id;
+      session.user.id = user.id as string;
       return Promise.resolve(session);
     },
   },
