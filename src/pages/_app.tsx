@@ -7,7 +7,6 @@ import { Scrollbars } from 'react-custom-scrollbars';
 
 import Navbar from '../components/Navbar';
 import SearchBarProvider from '../contexts/SearchBarContext';
-import UserProvider from '../contexts/UserContext';
 
 export default function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -28,9 +27,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
 
       <SearchBarProvider>
         <AuthProvider session={pageProps.session}>
-          <UserProvider>
-            <Component {...pageProps} />
-          </UserProvider>
+          <Component {...pageProps} />
         </AuthProvider>
       </SearchBarProvider>
     </Scrollbars>
