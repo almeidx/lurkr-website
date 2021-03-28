@@ -7,7 +7,6 @@ import { getSession } from 'next-auth/client';
 
 import { DISCORD_API_BASE_URL } from '../../utils/constants';
 import { connectToDatabase } from '../../utils/mongodb';
-import { noop } from '../../utils/utils';
 
 type AccountSchema = Adapters['TypeORM']['Models']['Account']['model'];
 
@@ -34,7 +33,7 @@ export default async function guilds(req: NextApiRequest, res: NextApiResponse) 
   });
 
   if (!account || !account.accessToken) {
-    return res.status(400).json({ message: 'Could not resolve a valid account for this session.' });
+    return res.status(500).json({ message: 'Could not resolve a valid account for this session.' });
   }
 
   const response = await axios
@@ -44,7 +43,7 @@ export default async function guilds(req: NextApiRequest, res: NextApiResponse) 
         Authorization: `Bearer ${account.accessToken}`,
       },
     })
-    .catch(noop);
+    .catch((err) => console.error(err));
 
   if (!response) return res.status(400).json({ message: 'The request towards Discord failed.' });
 

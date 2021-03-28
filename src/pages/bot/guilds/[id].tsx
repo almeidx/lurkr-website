@@ -1,13 +1,13 @@
-import axios from 'axios';
+import { TailSpin } from '@agney/react-loading';
+import type { APIGuild } from 'discord-api-types/v8';
 import type { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from 'next';
 import { useRouter } from 'next/router';
 import { useSession } from 'next-auth/client';
-import { useEffect, useState } from 'react';
+import { useRef, useState } from 'react';
 
-import Error from '../../../components/Error';
 import api from '../../../services/api';
+// import styles from '../../../styles/pages/Guild.module.css';
 import { DISCORD_GUILD_CDN, FALLBACK_AVATAR } from '../../../utils/constants';
-import type { Guild as DiscordGuild } from '../../api/guilds';
 
 interface DatabaseGuild {
   _id: string;
@@ -38,17 +38,21 @@ interface DatabaseGuild {
   xpWhitelistedChannels: string[] | null;
 }
 
-export const getStaticProps: GetStaticProps<{ dbGuild: DatabaseGuild; id: string }> = async ({ params }) => {
+interface APIResponse {
+  db: DatabaseGuild;
+  guild: APIGuild;
+}
+
+export const getStaticProps: GetStaticProps<APIResponse> = async ({ params }) => {
   if (typeof params?.id !== 'string') return { notFound: true };
 
   try {
-    const dbGuild = await api.get<DatabaseGuild>(`/database/guilds/${params.id}`).catch(() => null);
-    if (!dbGuild?.data) return { notFound: true };
+    const response = await api.get<APIResponse>(`/guilds/${params.id}`).catch(() => null);
+    if (!response?.data) return { notFound: true };
 
     return {
       props: {
-        dbGuild: dbGuild.data,
-        id: params.id,
+        ...response.data,
       },
       revalidate: 60,
     };
@@ -65,42 +69,67 @@ export const getStaticPaths: GetStaticPaths = async () => {
   };
 };
 
-export default function Guild({ dbGuild, id }: InferGetStaticPropsType<typeof getStaticProps>) {
-  const [guild, setGuild] = useState<DiscordGuild | null>(null);
-  const [hasFailedToResolveGuild, setHasFailedToResolveGuild] = useState(false);
-  const [session] = useSession();
+export default function Guild({ db, guild }: InferGetStaticPropsType<typeof getStaticProps>) {
   const { isFallback } = useRouter();
+  const [session] = useSession();
+  const prefixRef = useRef<HTMLInputElement>(null);
+  const [localDb, setLocalDb] = useState<DatabaseGuild | undefined>(db);
 
-  useEffect(() => {
-    if (id) {
-      axios
-        .get<DiscordGuild[]>('/api/guilds')
-        .then(({ data }) => {
-          const guild = data.find((g) => g.id === id);
-          if (!guild) setHasFailedToResolveGuild(true);
-          else setGuild(guild);
-        })
-        .catch(() => setHasFailedToResolveGuild(true));
-    }
-  }, [id]);
-
-  if (hasFailedToResolveGuild) {
-    return <Error message="Failed to resolve guild." statusCode={500} />;
-  }
-
-  if (isFallback || !guild) {
-    return <h1>loading</h1>;
+  if (isFallback) {
+    return (
+      <div className="loadingContainer">
+        <TailSpin width="128px" height="128px" />
+      </div>
+    );
   }
 
   if (!session) {
     return <h1>not logged in lul</h1>;
   }
 
+  function updateLocalDb<T extends keyof DatabaseGuild>(key: T, value: DatabaseGuild[T]) {
+    const clone = Object.assign({}, localDb);
+    clone[key] = value;
+    setLocalDb(clone);
+  }
+
+  console.log(guild);
+
   return (
     <div>
-      <img src={DISCORD_GUILD_CDN(guild.id, guild.icon) ?? FALLBACK_AVATAR} alt={`${guild.name} icon`} />
+      <div>
+        <img src={DISCORD_GUILD_CDN(guild.id, guild.icon) ?? FALLBACK_AVATAR} alt={`${guild.name} icon`} />
+        <span>{guild.name}</span>
+      </div>
 
-      {JSON.stringify(dbGuild)}
+      <main>
+        <section>
+          <label htmlFor="prefix">Prefix</label>
+          <input id="prefix" defaultValue={db.prefix} ref={prefixRef} type="text" />
+        </section>
+
+        <section>
+          <h1>Levelling</h1>
+          <label htmlFor="levelling">Enabled</label>
+          <input
+            id="levelling"
+            type="checkbox"
+            name="Enabled"
+            checked={localDb?.levels}
+            onChange={(e) => updateLocalDb('levels', e.target.checked)}
+          />
+
+          <label htmlFor="xpChannels">XP Channels</label>
+          <input list="channels" name="channel" id="xpChannels" />
+          <datalist id="channels">
+            {guild.channels
+              ?.filter((c) => c.type === 0)
+              .map((c) => (
+                <option key={c.id} value={`#${c.name!}`} />
+              ))}
+          </datalist>
+        </section>
+      </main>
     </div>
   );
 }

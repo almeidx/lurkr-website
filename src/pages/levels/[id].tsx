@@ -50,7 +50,7 @@ export default function Leaderboard({ levels }: InferGetStaticPropsType<typeof g
 
   if (isFallback) {
     return (
-      <div className={styles.loadingContainer}>
+      <div className="loadingContainer">
         <TailSpin width="128px" height="128px" />
       </div>
     );
