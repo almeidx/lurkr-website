@@ -3,7 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import Showcase, { ShowcaseProps } from '../../components/Showcase';
-import styles from '../../styles/pages/Bot.module.css';
+import styles from '../../styles/pages/bot/Bot.module.css';
 
 const showcases: ShowcaseProps[] = [
   {

@@ -1,12 +1,12 @@
-import { TailSpin } from '@agney/react-loading';
 import type { APIGuild } from 'discord-api-types/v8';
 import type { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from 'next';
 import { useRouter } from 'next/router';
 import { useSession } from 'next-auth/client';
 import { useRef, useState } from 'react';
 
+import Loading from '../../../components/Loading';
 import api from '../../../services/api';
-// import styles from '../../../styles/pages/Guild.module.css';
+// import styles from '../../../styles/pages/bot/guilds/Guild.module.css';
 import { DISCORD_GUILD_CDN, FALLBACK_AVATAR } from '../../../utils/constants';
 
 interface DatabaseGuild {
@@ -76,11 +76,7 @@ export default function Guild({ db, guild }: InferGetStaticPropsType<typeof getS
   const [localDb, setLocalDb] = useState<DatabaseGuild | undefined>(db);
 
   if (isFallback) {
-    return (
-      <div className="loadingContainer">
-        <TailSpin width="128px" height="128px" />
-      </div>
-    );
+    return <Loading />;
   }
 
   if (!session) {

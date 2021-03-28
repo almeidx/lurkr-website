@@ -1,5 +1,5 @@
 import { TailSpin } from '@agney/react-loading';
-import type { GetStaticProps } from 'next';
+import type { GetStaticProps, InferGetStaticPropsType } from 'next';
 import Head from 'next/head';
 import { useContext, useEffect, useState } from 'react';
 
@@ -30,7 +30,23 @@ interface HomeProps {
   guilds: Guild[];
 }
 
-export default function Home({ emojiCount, guilds }: HomeProps) {
+export const getStaticProps: GetStaticProps<HomeProps> = async () => {
+  try {
+    const { data } = await api.get<Guild[]>('/guilds');
+
+    return {
+      props: {
+        emojiCount: data.reduce((a, g) => a + g.emojiCount, 0),
+        guilds: data.sort((a, b) => b.memberCount - a.memberCount),
+      },
+      revalidate: 60,
+    };
+  } catch {
+    return { notFound: true };
+  }
+};
+
+export default function Home({ emojiCount, guilds }: InferGetStaticPropsType<typeof getStaticProps>) {
   const { isSearchLoading, searchTerm, updateSearchLoading, updateSearchTerm } = useContext(SearchBarContext);
 
   const [requestedEmojis, setRequestedEmojis] = useState<EmojiInfo[]>([]);
@@ -115,19 +131,3 @@ export default function Home({ emojiCount, guilds }: HomeProps) {
     </div>
   );
 }
-
-export const getStaticProps: GetStaticProps<HomeProps> = async () => {
-  try {
-    const { data } = await api.get<Guild[]>('/guilds');
-
-    return {
-      props: {
-        emojiCount: data.reduce((a, g) => a + g.emojiCount, 0),
-        guilds: data.sort((a, b) => b.memberCount - a.memberCount),
-      },
-      revalidate: 60,
-    };
-  } catch {
-    return { notFound: true };
-  }
-};

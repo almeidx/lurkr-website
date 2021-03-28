@@ -19,6 +19,11 @@ export default function Navbar() {
         <li>
           <Link href="/bot">Bot</Link>
         </li>
+        {session && (
+          <li>
+            <Link href="/bot/guilds">Dashboard</Link>
+          </li>
+        )}
         <li>
           <Link href="/levels">Levels</Link>
         </li>

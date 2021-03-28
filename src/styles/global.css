@@ -70,23 +70,9 @@ hr {
 }
 
 ::selection {
-  background: #388bfd; /* WebKit/Blink Browsers */
+  background: #388bfd;
 }
+
 ::-moz-selection {
-  background: #388bfd; /* Gecko Browsers */
-}
-
-.loadingContainer {
-  position: relative;
-  width: 100%;
-  height: calc(100vh - 4rem);
-}
-
-.loadingContainer svg {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 100%;
-  text-align: center;
+  background: #388bfd;
 }

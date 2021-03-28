@@ -1,12 +1,12 @@
-import { TailSpin } from '@agney/react-loading';
 import type { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 
 import Level, { Colours, LevelInfo, LevelRoles } from '../../components/Level';
+import Loading from '../../components/Loading';
 import Role from '../../components/Role';
 import api from '../../services/api';
-import styles from '../../styles/pages/Leaderboard.module.css';
+import styles from '../../styles/pages/levels/Leaderboard.module.css';
 import { DISCORD_GUILD_CDN, FALLBACK_AVATAR } from '../../utils/constants';
 
 interface Levels {
@@ -49,11 +49,7 @@ export default function Leaderboard({ levels }: InferGetStaticPropsType<typeof g
   const { isFallback } = useRouter();
 
   if (isFallback) {
-    return (
-      <div className="loadingContainer">
-        <TailSpin width="128px" height="128px" />
-      </div>
-    );
+    return <Loading />;
   }
 
   function resolveUserColour(index: number) {

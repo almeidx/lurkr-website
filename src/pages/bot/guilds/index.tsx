@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { useSession } from 'next-auth/client';
 import { useEffect, useState } from 'react';
 
-import styles from '../../../styles/pages/Guilds.module.css';
+import styles from '../../../styles/pages/bot/guilds/Guilds.module.css';
 import { DISCORD_GUILD_CDN, DISCORD_PERMISSIONS, FALLBACK_AVATAR } from '../../../utils/constants';
 import type { Guild } from '../../api/guilds';
 
