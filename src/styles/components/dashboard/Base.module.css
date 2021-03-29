@@ -28,7 +28,6 @@
 .container main {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
   margin: 0 2rem;
 }
 
@@ -39,4 +38,38 @@
   margin: 0 2rem 2rem 2rem;
   flex-direction: column;
   border-radius: 15px;
+}
+
+.container main section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  margin-left: 3rem;
+}
+
+.container main section label {
+  color: var(--text);
+}
+
+.container main section input {
+  background: var(--lighter-background);
+  color: var(--white);
+  border-radius: 10px;
+  height: 2.5rem;
+  border: 0;
+  outline: 0;
+  padding: 0.5rem;
+}
+
+/* Checkbox container */
+.container main section div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+}
+
+.container main section div label {
+  margin-right: 1rem;
 }

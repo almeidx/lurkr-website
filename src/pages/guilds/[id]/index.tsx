@@ -2,7 +2,7 @@ import type { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import { useRouter } from 'next/router';
 import type { Session } from 'next-auth';
 import { getSession } from 'next-auth/client';
-import { useContext } from 'react';
+import { ChangeEvent, useContext, useState } from 'react';
 
 import Base from '../../../components/dashboard/Base';
 import Loading from '../../../components/Loading';
@@ -46,15 +46,33 @@ export const getServerSideProps: GetServerSideProps<APIResponse> = async (ctx) =
 
 export default function Guild({ db, guild }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const { isFallback } = useRouter();
-  const { updateGuild } = useContext(GuildContext);
+  const { addChange, updateGuild } = useContext(GuildContext);
+  const [prefix, setPrefix] = useState(db.prefix);
+  const [storeCounts, setStoreCounts] = useState(db.storeCounts);
 
   if (isFallback) return <Loading />;
+
+  function handlePrefixChange(event: ChangeEvent<HTMLInputElement>) {
+    setPrefix(event.target.value);
+    addChange('prefix', event.target.value);
+  }
+
+  function handleStoreCountsChange(event: ChangeEvent<HTMLInputElement>) {
+    setStoreCounts(event.target.checked);
+    addChange('storeCounts', event.target.checked);
+  }
 
   updateGuild(guild, db);
 
   return (
     <Base guild={guild}>
-      <h1>test</h1>
+      <label htmlFor="prefix">Prefix</label>
+      <input value={prefix} onChange={handlePrefixChange} id="prefix" type="text" maxLength={5} />
+
+      <div>
+        <label htmlFor="storeCounts">Store Member Counts</label>
+        <input checked={storeCounts} onChange={handleStoreCountsChange} id="storeCounts" type="checkbox" />
+      </div>
     </Base>
   );
 }

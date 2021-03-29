@@ -38,7 +38,7 @@ interface GuildContextData {
   db: DatabaseGuild | null;
   selectedOption: string;
   updateSelectedOption(value: string): void;
-  addChange<T extends keyof DatabaseGuild>(key: T, value: DatabaseGuild[T]): void;
+  addChange<T extends keyof DatabaseGuild>(key: T, value: DatabaseGuild[T]): boolean;
   updateGuild(discordGuild: GuildWithChannels, databaseGuild: DatabaseGuild): void;
 }
 
@@ -52,15 +52,35 @@ export default function GuildProvider({ children }: GuildProviderProps) {
   const [guild, setGuild] = useState<GuildWithChannels | null>(null);
   const [db, setDb] = useState<DatabaseGuild | null>(null);
   const [selectedOption, setSelectedOption] = useState<string>('general');
-  const [changes, setChanges] = useState<Record<string, unknown>[]>([]);
+  const [changes, setChanges] = useState<{ key: string; value: unknown }[]>([]);
 
   function updateGuild(discordGuild: GuildWithChannels, databaseGuild: DatabaseGuild) {
     if (guild !== discordGuild) setGuild(discordGuild);
     if (db !== databaseGuild) setDb(databaseGuild);
   }
 
-  function addChange<T extends keyof DatabaseGuild>(key: T, value: DatabaseGuild[T]) {
+  function addChange<T extends keyof DatabaseGuild>(key: T, value: DatabaseGuild[T]): boolean {
+    if (db?.[key] === value) {
+      const existingIndex = changes.findIndex((c) => c.key === key);
+      if (existingIndex !== -1) {
+        const clone = [...changes];
+        clone.splice(existingIndex, 1);
+        setChanges(clone);
+      }
+
+      return true;
+    }
+
+    const existingIndex = changes.findIndex((c) => c.key === key);
+    if (existingIndex !== -1) {
+      const clone = [...changes];
+      clone[existingIndex] = { key, value };
+      setChanges(clone);
+      return true;
+    }
+
     setChanges([...changes, { key, value }]);
+    return true;
   }
 
   function updateSelectedOption(value: string) {
