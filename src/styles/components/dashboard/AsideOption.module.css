@@ -1,0 +1,26 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 15px;
+  padding: 0.5rem 2rem;
+  background: var(--gray);
+  color: var(--white);
+  margin: 0.5rem 0;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.container svg {
+  fill: gray;
+  margin-right: 0.25rem;
+}
+
+.container:hover {
+  background: var(--background);
+}
+
+.selected {
+  background: #fff;
+  color: black;
+}

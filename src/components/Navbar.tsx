@@ -21,7 +21,7 @@ export default function Navbar() {
         </li>
         {session && (
           <li>
-            <Link href="/bot/guilds">Dashboard</Link>
+            <Link href="/guilds">Dashboard</Link>
           </li>
         )}
         <li>

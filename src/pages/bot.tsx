@@ -2,8 +2,8 @@ import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import Showcase, { ShowcaseProps } from '../../components/Showcase';
-import styles from '../../styles/pages/bot/Bot.module.css';
+import Showcase, { ShowcaseProps } from '../components/Showcase';
+import styles from '../styles/pages/Bot.module.css';
 
 const showcases: ShowcaseProps[] = [
   {
@@ -59,7 +59,7 @@ export default function Bot() {
 
       <div>
         <Link href="/bot-invite">Invite the bot</Link>
-        <Link href="/bot/guilds">Go to dashboard</Link>
+        <Link href="/guilds">Go to dashboard</Link>
       </div>
 
       <main>

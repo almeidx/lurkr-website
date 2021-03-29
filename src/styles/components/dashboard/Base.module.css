@@ -1,0 +1,42 @@
+.container {
+  display: flex;
+  margin: 0 auto;
+  flex-direction: column;
+}
+
+.container header {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  flex-direction: row;
+  margin: 2rem;
+}
+
+.container header img {
+  display: flex;
+  width: 64px;
+  height: auto;
+  border-radius: 25%;
+  margin: 1rem;
+}
+
+.container header span {
+  font-size: 1rem;
+  color: var(--white);
+}
+
+.container main {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 0 2rem;
+}
+
+.container main aside {
+  display: flex;
+  padding: 1rem;
+  background: var(--lighter-background);
+  margin: 0 2rem 2rem 2rem;
+  flex-direction: column;
+  border-radius: 15px;
+}

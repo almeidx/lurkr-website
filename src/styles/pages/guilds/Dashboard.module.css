@@ -2,7 +2,7 @@
   width: 100%;
 }
 
-.container main {
+.container {
   margin: 0 auto;
   display: flex;
   justify-content: center;
@@ -12,7 +12,7 @@
   margin-bottom: 5rem;
 }
 
-.container main a {
+.container a {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -22,13 +22,13 @@
   height: 8rem;
 }
 
-.container main a img {
+.container a img {
   width: 6rem;
   height: 6rem;
   border-radius: 15px;
 }
 
-.container main a span {
+.container a span {
   margin: 0 auto;
   text-align: center;
 }

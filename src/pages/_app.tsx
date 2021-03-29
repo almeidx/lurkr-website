@@ -6,6 +6,8 @@ import { Provider as AuthProvider } from 'next-auth/client';
 import { Scrollbars } from 'react-custom-scrollbars';
 
 import Navbar from '../components/Navbar';
+import GuildProvider from '../contexts/GuildContext';
+import GuildsStoreProvider from '../contexts/GuildsStoreContext';
 import SearchBarProvider from '../contexts/SearchBarContext';
 
 export default function MyApp({ Component, pageProps }: AppProps) {
@@ -27,7 +29,11 @@ export default function MyApp({ Component, pageProps }: AppProps) {
 
       <SearchBarProvider>
         <AuthProvider session={pageProps.session}>
-          <Component {...pageProps} />
+          <GuildsStoreProvider>
+            <GuildProvider>
+              <Component {...pageProps} />
+            </GuildProvider>
+          </GuildsStoreProvider>
         </AuthProvider>
       </SearchBarProvider>
     </Scrollbars>
