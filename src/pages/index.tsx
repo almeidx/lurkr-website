@@ -28,25 +28,27 @@ interface EmojiInfo {
 interface HomeProps {
   emojiCount: number;
   guilds: Guild[];
+  otherGuilds: Guild[];
 }
 
 export const getStaticProps: GetStaticProps<HomeProps> = async () => {
   try {
-    const { data } = await api.get<Guild[]>('/guilds');
+    const { data } = await api.get<{ guilds: Guild[]; otherGuilds: Guild[] }>('/guilds');
 
     return {
       props: {
-        emojiCount: data.reduce((a, g) => a + g.emojiCount, 0),
-        guilds: data.sort((a, b) => b.memberCount - a.memberCount),
+        emojiCount: data.guilds.reduce((a, g) => a + g.emojiCount, 0),
+        guilds: data.guilds.sort((a, b) => b.memberCount - a.memberCount),
+        otherGuilds: data.otherGuilds.sort((a, b) => b.memberCount - a.memberCount),
       },
-      revalidate: 60,
+      revalidate: 300,
     };
   } catch {
     return { notFound: true };
   }
 };
 
-export default function Home({ emojiCount, guilds }: InferGetStaticPropsType<typeof getStaticProps>) {
+export default function Home({ emojiCount, guilds, otherGuilds }: InferGetStaticPropsType<typeof getStaticProps>) {
   const { isSearchLoading, searchTerm, updateSearchLoading, updateSearchTerm } = useContext(SearchBarContext);
 
   const [requestedEmojis, setRequestedEmojis] = useState<EmojiInfo[]>([]);
@@ -124,6 +126,14 @@ export default function Home({ emojiCount, guilds }: InferGetStaticPropsType<typ
 
         <div className={styles.guildsContainer}>
           {guilds.map((g) => (
+            <GuildBox key={g.id} id={g.id} name={g.name} icon={g.icon} invite={g.invite} memberCount={g.memberCount} />
+          ))}
+        </div>
+
+        <span>Other Emoji servers</span>
+
+        <div className={styles.guildsContainer}>
+          {otherGuilds.map((g) => (
             <GuildBox key={g.id} id={g.id} name={g.name} icon={g.icon} invite={g.invite} memberCount={g.memberCount} />
           ))}
         </div>
