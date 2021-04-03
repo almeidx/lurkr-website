@@ -1,6 +1,8 @@
 import type { APIChannel, APIGuild } from 'discord-api-types/v8';
 import { createContext, ReactNode, useState } from 'react';
 
+import api from '../services/api';
+
 export type GuildWithChannels = APIGuild & { channels: APIChannel[] };
 
 export interface DatabaseGuild {
@@ -40,6 +42,7 @@ interface GuildContextData {
   updateSelectedOption(value: string): void;
   addChange<T extends keyof DatabaseGuild>(key: T, value: DatabaseGuild[T]): boolean;
   updateGuild(discordGuild: GuildWithChannels, databaseGuild: DatabaseGuild): void;
+  saveGuildChanges(): void;
 }
 
 interface GuildProviderProps {
@@ -87,6 +90,11 @@ export default function GuildProvider({ children }: GuildProviderProps) {
     setSelectedOption(value);
   }
 
+  function saveGuildChanges() {
+    void api.post(`/guilds/${guild!.id}`, changes);
+    setChanges([]);
+  }
+
   return (
     <GuildContext.Provider
       value={{
@@ -94,6 +102,7 @@ export default function GuildProvider({ children }: GuildProviderProps) {
         changes,
         db,
         guild,
+        saveGuildChanges,
         selectedOption,
         updateGuild,
         updateSelectedOption,

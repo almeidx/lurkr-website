@@ -1,7 +1,8 @@
-import type { ReactNode } from 'react';
+import { ReactNode, useContext } from 'react';
+import { BsConeStriped, BsFillShiftFill, BsPersonPlusFill } from 'react-icons/bs';
 import { RiSoundModuleFill } from 'react-icons/ri';
 
-import type { GuildWithChannels } from '../../contexts/GuildContext';
+import { GuildContext, GuildWithChannels } from '../../contexts/GuildContext';
 import styles from '../../styles/components/dashboard/Base.module.css';
 import { DISCORD_GUILD_CDN, FALLBACK_AVATAR } from '../../utils/constants';
 import AsideOption, { AsideOptionOptions } from './AsideOption';
@@ -19,19 +20,19 @@ const asideOptions: AsideOptionOptions[] = [
     path: '',
   },
   {
-    Icon: RiSoundModuleFill,
+    Icon: BsFillShiftFill,
     id: 'leveling',
     name: 'Leveling',
     path: 'leveling',
   },
   {
-    Icon: RiSoundModuleFill,
+    Icon: BsPersonPlusFill,
     id: 'autorole',
     name: 'Autorole',
     path: 'autorole',
   },
   {
-    Icon: RiSoundModuleFill,
+    Icon: BsConeStriped,
     id: 'misc',
     name: 'Miscellaneous',
     path: 'misc',
@@ -39,12 +40,16 @@ const asideOptions: AsideOptionOptions[] = [
 ];
 
 export default function Base({ children, guild }: BaseOptions) {
+  const { changes, saveGuildChanges } = useContext(GuildContext);
+
   return (
     <div className={styles.container}>
       <header>
         <img src={DISCORD_GUILD_CDN(guild.id, guild.icon) ?? FALLBACK_AVATAR} alt={`${guild.name} icon`} />
         <span>{guild.name}</span>
       </header>
+
+      {changes.length ? <button onClick={() => saveGuildChanges()}>Save</button> : null}
 
       <main>
         <aside>

@@ -8,19 +8,29 @@
   color: var(--white);
   margin: 0.5rem 0;
   cursor: pointer;
-  transition: background 0.2s;
+  transition: background 0.2s, color 0.2s;
 }
 
 .container svg {
-  fill: gray;
+  fill: #e2e2e2;
   margin-right: 0.25rem;
+  transition: fill 0.2s;
 }
 
 .container:hover {
   background: var(--background);
+  color: var(--white);
+}
+
+.container:hover svg {
+  fill: #e2e2e2;
 }
 
 .selected {
-  background: #fff;
+  background: #f2f2f2;
   color: black;
+}
+
+.selected svg {
+  fill: #1d1d1d;
 }
