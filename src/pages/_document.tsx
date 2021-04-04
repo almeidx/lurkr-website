@@ -133,7 +133,7 @@ const appleIcons: { href: string; media: string }[] = [
   },
 ];
 
-const keywords = [
+const keywords: string[] = [
   'Pepe',
   'Pepe Discord',
   'Pepe Discord Server',
@@ -147,7 +147,7 @@ const keywords = [
   'Nitro',
   'Discord Nitro',
   'Peepo Emoji Server',
-  'Peeepo Emoji Guild',
+  'Peepo Emoji Guild',
   'Discord',
   'Emotes',
   'Emojis',
@@ -162,7 +162,7 @@ export default class MyDocument extends Document {
           <link rel="shortcut icon" href="/favicon.png" type="image/png" />
           <meta name="theme-color" content="#00a81a" />
 
-          {/* <link rel="preconnect" href="https://fonts.gstatic.com" /> */}
+          <link rel="preconnect" href="https://fonts.gstatic.com" />
           <link
             href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600&display=swap"
             rel="stylesheet"

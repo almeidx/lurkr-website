@@ -70,7 +70,7 @@ export default function Home({ emojiCount, guilds, otherGuilds }: InferGetStatic
         updateSearchLoading(true);
 
         api
-          .get('/search', { params: { q: searchTerm } })
+          .post('/search', { params: { q: searchTerm } })
           .then(({ data }) => {
             if (!data.length) return updateSearchLoading(false);
             setRequestedEmojis(data);
@@ -110,6 +110,7 @@ export default function Home({ emojiCount, guilds, otherGuilds }: InferGetStatic
           type="text"
           autoComplete="off"
           value={searchTerm}
+          maxLength={32}
           onChange={(e) => updateSearchTerm(e.target.value)}
           placeholder="Search for Pepe Emojis"
         />

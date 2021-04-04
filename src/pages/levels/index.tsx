@@ -43,6 +43,7 @@ export default function Levels() {
           onChange={handleInputChange}
           placeholder="Input a server ID to view it's leaderboard"
           autoComplete="off"
+          maxLength={19}
         />
         <div onClick={handleSubmit}>
           <BsArrowReturnLeft fill={arrowColour} size={100} />

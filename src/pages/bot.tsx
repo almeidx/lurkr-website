@@ -54,7 +54,7 @@ export default function Bot() {
         <Image src="/assets/avatar.png" width={64} height={64} alt="Pepe Manager bot avatar image" />
 
         <h1>Pepe Manager</h1>
-        <p>A Discord bot with focous on automation, leveling, emoji management, and image manipulation</p>
+        <p>A Discord bot with focus on automation, leveling, emoji management, and image manipulation</p>
       </header>
 
       <div>

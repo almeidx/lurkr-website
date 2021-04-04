@@ -10,7 +10,7 @@ import { DatabaseGuild, GuildContext, GuildWithChannels } from '../../../context
 import api from '../../../services/api';
 import retrieveUserGuilds from '../../../utils/retrieveUserGuilds';
 
-interface APIResponse {
+export interface APIResponse {
   db: DatabaseGuild;
   guild: GuildWithChannels;
   session: Session;
