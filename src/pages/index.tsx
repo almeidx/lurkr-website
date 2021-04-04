@@ -92,7 +92,7 @@ export default function Home({ emojiCount, guilds, otherGuilds }: InferGetStatic
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const query = urlParams.get('q');
-    if (query) updateSearchTerm(query);
+    if (query) updateSearchTerm(decodeURIComponent(query));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
