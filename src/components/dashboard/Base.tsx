@@ -1,18 +1,23 @@
-import { ReactNode, useContext } from 'react';
+import { ReactNode, useContext, useState } from 'react';
 import { BsConeStriped, BsFillShiftFill, BsPersonPlusFill } from 'react-icons/bs';
 import { RiSoundModuleFill } from 'react-icons/ri';
 
-import { GuildContext, GuildWithChannels } from '../../contexts/GuildContext';
+import { GuildContext } from '../../contexts/GuildContext';
 import styles from '../../styles/components/dashboard/Base.module.css';
 import { DISCORD_GUILD_CDN, FALLBACK_AVATAR } from '../../utils/constants';
-import AsideOption, { AsideOptionOptions } from './AsideOption';
+import AsideOption, { AsideOptionOptions, Option } from './AsideOption';
 
 interface BaseOptions {
   children: ReactNode;
-  guild: GuildWithChannels;
+  option: Option;
+  guild: {
+    id: string;
+    name: string;
+    icon: string | null;
+  };
 }
 
-const asideOptions: AsideOptionOptions[] = [
+const asideOptions: Omit<AsideOptionOptions, 'selected'>[] = [
   {
     Icon: RiSoundModuleFill,
     id: 'general',
@@ -39,8 +44,16 @@ const asideOptions: AsideOptionOptions[] = [
   },
 ];
 
-export default function Base({ children, guild }: BaseOptions) {
+export default function Base({ children, guild, option }: BaseOptions) {
   const { changes, saveGuildChanges } = useContext(GuildContext);
+  const [saveButtonContent, setSaveButtonContent] = useState<string>('Save');
+
+  async function handleSaveButtonClick() {
+    setSaveButtonContent('Saving...');
+    await saveGuildChanges();
+    setSaveButtonContent('Saved!');
+    setTimeout(() => setSaveButtonContent('Save'), 5000);
+  }
 
   return (
     <div className={styles.container}>
@@ -49,12 +62,21 @@ export default function Base({ children, guild }: BaseOptions) {
         <span>{guild.name}</span>
       </header>
 
-      {changes.length ? <button onClick={() => saveGuildChanges()}>Save</button> : null}
+      <button disabled={!Object.keys(changes).length} onClick={handleSaveButtonClick}>
+        {saveButtonContent}
+      </button>
 
       <main>
         <aside>
           {asideOptions.map(({ Icon, id, name, path }) => (
-            <AsideOption key={id} Icon={Icon} id={id} name={name} path={`/${guild.id}/${path}`} />
+            <AsideOption
+              key={id}
+              Icon={Icon}
+              id={id}
+              name={name}
+              path={`/${guild.id}/${path}`}
+              selected={option === id}
+            />
           ))}
         </aside>
 

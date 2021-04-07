@@ -26,6 +26,9 @@
 }
 
 .container button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background: #276749;
   padding: 0.5rem 1rem;
   margin: -1rem 0 2rem 4rem;
@@ -34,10 +37,19 @@
   border-radius: 5px;
   color: var(--white);
   width: 5rem;
+  transition: background 0.1s;
 }
 
 .container button:hover {
   background: #2f855a;
+}
+
+.container button[disabled] {
+  cursor: not-allowed;
+}
+
+.container button[disabled]:hover {
+  background: #276749 !important;
 }
 
 .container main {

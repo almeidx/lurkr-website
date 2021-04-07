@@ -1,50 +1,50 @@
+import { PermissionFlagsBits } from 'discord-api-types/v8';
 import type { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import Link from 'next/link';
-import { getSession } from 'next-auth/client';
 import { useContext } from 'react';
 
+import { initializeApollo } from '../../apollo/client';
 import Error from '../../components/Error';
-import { GuildsStoreContext } from '../../contexts/GuildsStoreContext';
+import { UserContext } from '../../contexts/UserContext';
+import USER_GUILDS, { UserGuilds } from '../../graphql/UserGuilds';
 import styles from '../../styles/pages/guilds/Dashboard.module.css';
 import { DISCORD_GUILD_CDN, FALLBACK_AVATAR } from '../../utils/constants';
-import retrieveUserGuilds, { PartialGuild } from '../../utils/retrieveUserGuilds';
+
+const { MANAGE_GUILD } = PermissionFlagsBits;
 
 interface DashboardProps {
-  guilds: PartialGuild[] | null;
+  guilds: UserGuilds['getUserGuilds'] | null;
 }
 
 export const getServerSideProps: GetServerSideProps<DashboardProps> = async (ctx) => {
-  const session = await getSession(ctx);
+  ctx.req.headers.accept = '';
 
-  if (!session) {
-    return {
-      props: {
-        guilds: null,
-      },
-    };
-  }
+  const apolloClient = initializeApollo(null, ctx.req.headers);
 
-  const guilds = await retrieveUserGuilds(session);
-
-  if (!guilds) {
-    return { notFound: true };
-  }
+  const { data } = await apolloClient.query<UserGuilds>({
+    query: USER_GUILDS,
+  });
 
   return {
     props: {
-      guilds,
+      guilds:
+        data.getUserGuilds
+          ?.filter((g) => (BigInt(g.permissions) & MANAGE_GUILD) === MANAGE_GUILD)
+          .sort((a, b) => a.name.localeCompare(b.name)) ?? null,
     },
   };
 };
 
 export default function Dashboard({ guilds }: InferGetServerSidePropsType<typeof getServerSideProps>) {
-  const { updateGuilds } = useContext(GuildsStoreContext);
+  const { authenticated } = useContext(UserContext);
 
-  if (!guilds) {
+  if (!authenticated || !guilds) {
     return <Error message="You need to be logged in to view this page." statusCode={401} />;
   }
 
-  updateGuilds(guilds);
+  if (!guilds.length) {
+    return <h1>You have no servers</h1>;
+  }
 
   return (
     <div className={styles.container}>

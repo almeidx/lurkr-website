@@ -1,56 +1,51 @@
 import type { GetServerSideProps, InferGetServerSidePropsType } from 'next';
-import { useRouter } from 'next/router';
-import type { Session } from 'next-auth';
-import { getSession } from 'next-auth/client';
 import { ChangeEvent, useContext, useState } from 'react';
 
+import { initializeApollo } from '../../../apollo/client';
 import Base from '../../../components/dashboard/Base';
-import Loading from '../../../components/Loading';
-import { DatabaseGuild, GuildContext, GuildWithChannels } from '../../../contexts/GuildContext';
-import api from '../../../services/api';
-import retrieveUserGuilds from '../../../utils/retrieveUserGuilds';
+import Error from '../../../components/Error';
+import { GuildContext } from '../../../contexts/GuildContext';
+import { UserContext } from '../../../contexts/UserContext';
+import USER_GUILD, { UserGuild } from '../../../graphql/UserGuild';
 
-export interface APIResponse {
-  db: DatabaseGuild;
-  guild: GuildWithChannels;
-  session: Session;
+export interface GuildProps {
+  db: UserGuild['getDatabaseGuild'];
+  guild: UserGuild['getDiscordGuild'];
 }
 
-export const getServerSideProps: GetServerSideProps<APIResponse> = async (ctx) => {
-  if (!ctx.params || typeof ctx.params.id !== 'string') return { notFound: true };
+export const getServerSideProps: GetServerSideProps<GuildProps> = async ({ params, req }) => {
+  if (typeof params?.id !== 'string') return { notFound: true };
 
-  try {
-    const session = await getSession(ctx);
+  req.headers.accept = '';
 
-    if (!session) {
-      return { notFound: true };
-    }
+  const apolloClient = initializeApollo(null, req.headers);
 
-    const userGuilds = await retrieveUserGuilds(session);
-    if (!userGuilds?.some((g) => g.id === ctx.params!.id)) {
-      return { notFound: true };
-    }
+  const { data } = await apolloClient.query<UserGuild>({
+    query: USER_GUILD,
+    variables: { id: params.id },
+  });
 
-    const response = await api.get<APIResponse>(`/guilds/${ctx.params.id}`).catch(() => null);
-    if (!response?.data) return { notFound: true };
-
-    return {
-      props: {
-        ...response.data,
-      },
-    };
-  } catch {
-    return { notFound: true };
-  }
+  return {
+    props: {
+      db: data.getDatabaseGuild,
+      guild: data.getDiscordGuild,
+    },
+  };
 };
 
 export default function Guild({ db, guild }: InferGetServerSidePropsType<typeof getServerSideProps>) {
-  const { isFallback } = useRouter();
-  const { addChange, updateGuild } = useContext(GuildContext);
-  const [prefix, setPrefix] = useState(db.prefix);
-  const [storeCounts, setStoreCounts] = useState(db.storeCounts);
+  const { addChange, changes, updateGuild } = useContext(GuildContext);
+  const { authenticated } = useContext(UserContext);
+  const [prefix, setPrefix] = useState(db?.prefix);
+  const [storeCounts, setStoreCounts] = useState(db?.storeCounts);
 
-  if (isFallback) return <Loading />;
+  if (!authenticated) {
+    return <Error message="You need to be logged in to view this page." statusCode={401} />;
+  }
+
+  if (!db || !guild) {
+    return <Error message="Count not find the guild you're looking for" statusCode={403} />;
+  }
 
   function handlePrefixChange(event: ChangeEvent<HTMLInputElement>) {
     setPrefix(event.target.value);
@@ -62,17 +57,33 @@ export default function Guild({ db, guild }: InferGetServerSidePropsType<typeof 
     addChange('storeCounts', event.target.checked);
   }
 
-  updateGuild(guild, db);
+  updateGuild(guild.id);
 
   return (
-    <Base guild={guild}>
+    <Base guild={guild} option="general">
       <label htmlFor="prefix">Prefix</label>
-      <input value={prefix} onChange={handlePrefixChange} id="prefix" type="text" maxLength={5} />
+      <input
+        autoComplete="off"
+        autoCapitalize="off"
+        autoCorrect="off"
+        id="prefix"
+        maxLength={5}
+        onChange={handlePrefixChange}
+        type="text"
+        value={changes.prefix ?? prefix}
+      />
 
       <div>
         <label htmlFor="storeCounts">Store Member Counts</label>
-        <input checked={storeCounts} onChange={handleStoreCountsChange} id="storeCounts" type="checkbox" />
+        <input
+          checked={changes.storeCounts ?? storeCounts}
+          onChange={handleStoreCountsChange}
+          id="storeCounts"
+          type="checkbox"
+        />
       </div>
+
+      <p>{JSON.stringify(changes)}</p>
     </Base>
   );
 }

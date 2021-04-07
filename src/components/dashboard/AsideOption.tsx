@@ -1,30 +1,29 @@
 import Link from 'next/link';
-import { useContext, useEffect, useRef } from 'react';
+import { useContext } from 'react';
 import type { IconType } from 'react-icons/lib';
 
 import { GuildContext } from '../../contexts/GuildContext';
 import styles from '../../styles/components/dashboard/AsideOption.module.css';
 
+export type Option = 'general' | 'leveling' | 'autorole' | 'misc';
+
 export interface AsideOptionOptions {
   Icon: IconType;
-  id: string;
+  id: Option;
   name: string;
   path: string;
+  selected: boolean;
 }
 
-export default function AsideOption({ Icon, id, name, path }: AsideOptionOptions) {
-  const { selectedOption, updateSelectedOption } = useContext(GuildContext);
-  const spanRef = useRef<HTMLSpanElement>(null);
-
-  useEffect(() => {
-    if (spanRef.current && selectedOption === id) {
-      spanRef.current.classList.add(styles.selected);
-    }
-  }, [spanRef, id, selectedOption]);
+export default function AsideOption({ Icon, id, name, path, selected }: AsideOptionOptions) {
+  const { updateSelectedOption } = useContext(GuildContext);
 
   return (
     <Link href={`/guilds${path}`}>
-      <span className={styles.container} ref={spanRef} onClick={() => updateSelectedOption(id)}>
+      <span
+        className={`${styles.container} ${selected ? styles.selected : ''}`}
+        onClick={() => updateSelectedOption(id)}
+      >
         <Icon /> {name}
       </span>
     </Link>

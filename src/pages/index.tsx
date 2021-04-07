@@ -3,55 +3,44 @@ import type { GetStaticProps, InferGetStaticPropsType } from 'next';
 import Head from 'next/head';
 import { useContext, useEffect, useState } from 'react';
 
+import { initializeApollo } from '../apollo/client';
 import Emoji from '../components/Emoji';
 import GuildBox from '../components/GuildBox';
 import { SearchBarContext } from '../contexts/SearchBarContext';
-import api from '../services/api';
+import ALL_GUILDS, { AllGuilds } from '../graphql/AllGuilds';
+import FIND_EMOJIS, { FindEmojis } from '../graphql/FindEmojis';
 import styles from '../styles/pages/Home.module.css';
-import type { Snowflake } from '../utils/constants';
-
-interface Guild {
-  emojiCount: number;
-  icon: string;
-  id: Snowflake;
-  invite: string;
-  memberCount: number;
-  name: string;
-}
-
-interface EmojiInfo {
-  id: Snowflake;
-  invite: string;
-  name: string;
-}
 
 interface HomeProps {
   emojiCount: number;
-  guilds: Guild[];
-  otherGuilds: Guild[];
+  guilds: AllGuilds['allOfficialGuilds'];
+  otherGuilds: AllGuilds['allOtherGuilds'];
 }
 
 export const getStaticProps: GetStaticProps<HomeProps> = async () => {
-  try {
-    const { data } = await api.get<{ guilds: Guild[]; otherGuilds: Guild[] }>('/guilds');
+  const apolloClient = initializeApollo();
 
-    return {
-      props: {
-        emojiCount: data.guilds.reduce((a, g) => a + g.emojiCount, 0),
-        guilds: data.guilds.sort((a, b) => b.memberCount - a.memberCount),
-        otherGuilds: data.otherGuilds.sort((a, b) => b.memberCount - a.memberCount),
-      },
-      revalidate: 300,
-    };
-  } catch {
-    return { notFound: true };
-  }
+  const { data } = await apolloClient.query<AllGuilds>({
+    query: ALL_GUILDS,
+  });
+
+  const officialGuildsClone = [...data.allOfficialGuilds];
+  const otherGuildsClone = [...data.allOtherGuilds];
+
+  return {
+    props: {
+      emojiCount: officialGuildsClone.reduce((a, g) => a + g.emojiCount, 0),
+      guilds: officialGuildsClone.sort((a, b) => b.memberCount - a.memberCount),
+      otherGuilds: otherGuildsClone.sort((a, b) => b.memberCount - a.memberCount),
+    },
+    revalidate: 300,
+  };
 };
 
 export default function Home({ emojiCount, guilds, otherGuilds }: InferGetStaticPropsType<typeof getStaticProps>) {
   const { isSearchLoading, searchTerm, updateSearchLoading, updateSearchTerm } = useContext(SearchBarContext);
 
-  const [requestedEmojis, setRequestedEmojis] = useState<EmojiInfo[]>([]);
+  const [requestedEmojis, setRequestedEmojis] = useState<FindEmojis['findEmojis']>([]);
   const [isTimeoutRunning, setIsTimeoutRunning] = useState(false);
 
   useEffect(() => {
@@ -69,11 +58,15 @@ export default function Home({ emojiCount, guilds, otherGuilds }: InferGetStatic
         setRequestedEmojis([]);
         updateSearchLoading(true);
 
-        api
-          .post('/search', { params: { q: searchTerm } })
+        const apolloClient = initializeApollo();
+        apolloClient
+          .query<FindEmojis>({
+            query: FIND_EMOJIS,
+            variables: { query: searchTerm },
+          })
           .then(({ data }) => {
-            if (!data.length) return updateSearchLoading(false);
-            setRequestedEmojis(data);
+            if (!data.findEmojis.length) return updateSearchLoading(false);
+            setRequestedEmojis(data.findEmojis);
           })
           .catch(() => {
             updateSearchLoading(false);
@@ -106,13 +99,15 @@ export default function Home({ emojiCount, guilds, otherGuilds }: InferGetStatic
         <span>{emojiCount.toLocaleString()} unique Pepe Emojis</span>
 
         <input
-          autoFocus
-          type="text"
           autoComplete="off"
-          value={searchTerm}
+          autoCapitalize="off"
+          autoCorrect="on"
+          autoFocus
           maxLength={32}
           onChange={(e) => updateSearchTerm(e.target.value)}
           placeholder="Search for Pepe Emojis"
+          type="text"
+          value={searchTerm}
         />
 
         <div className={styles.requestedEmojisContainer}>

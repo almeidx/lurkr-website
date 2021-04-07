@@ -1,10 +1,9 @@
-import { createContext, ReactNode, useState } from 'react';
-
-import type { PartialGuild } from '../utils/retrieveUserGuilds';
+import type { RESTAPIPartialCurrentUserGuild } from 'discord-api-types/v8';
+import { createContext, ReactNode, useCallback, useState } from 'react';
 
 interface GuildsStoreContextData {
-  guilds: PartialGuild[];
-  updateGuilds(value: PartialGuild[]): void;
+  guilds: RESTAPIPartialCurrentUserGuild[];
+  updateGuilds(value: RESTAPIPartialCurrentUserGuild[]): void;
 }
 
 interface GuildsStoreProviderProps {
@@ -14,11 +13,11 @@ interface GuildsStoreProviderProps {
 export const GuildsStoreContext = createContext({} as GuildsStoreContextData);
 
 export default function GuildsStoreProvider({ children }: GuildsStoreProviderProps) {
-  const [guilds, setGuilds] = useState<PartialGuild[]>([]);
+  const [guilds, setGuilds] = useState<RESTAPIPartialCurrentUserGuild[]>([]);
 
-  function updateGuilds(value: PartialGuild[]) {
+  const updateGuilds = useCallback((value: RESTAPIPartialCurrentUserGuild[]) => {
     setGuilds(value);
-  }
+  }, []);
 
   return (
     <GuildsStoreContext.Provider

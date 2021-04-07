@@ -1,7 +1,9 @@
+import { useMutation } from '@apollo/client';
 import type { APIChannel, APIGuild } from 'discord-api-types/v8';
 import { createContext, ReactNode, useState } from 'react';
 
-import api from '../services/api';
+import type { Option } from '../components/dashboard/AsideOption';
+import UPDATE_DATABASE_GUILD, { UpdateDatabaseGuild } from '../graphql/UpdateDatabaseGuild';
 
 export type GuildWithChannels = APIGuild & { channels: APIChannel[] };
 
@@ -35,14 +37,13 @@ export interface DatabaseGuild {
 }
 
 interface GuildContextData {
-  guild: GuildWithChannels | null;
-  changes: Record<string, unknown>[];
-  db: DatabaseGuild | null;
-  selectedOption: string;
-  updateSelectedOption(value: string): void;
-  addChange<T extends keyof DatabaseGuild>(key: T, value: DatabaseGuild[T]): boolean;
-  updateGuild(discordGuild: GuildWithChannels, databaseGuild: DatabaseGuild): void;
-  saveGuildChanges(): void;
+  guildId: string | null;
+  changes: Partial<DatabaseGuild>;
+  selectedOption: Option;
+  updateSelectedOption(value: Option): void;
+  addChange<T extends keyof DatabaseGuild>(key: T, value: DatabaseGuild[T]): void;
+  updateGuild(id: string): void;
+  saveGuildChanges(): Promise<boolean>;
 }
 
 interface GuildProviderProps {
@@ -52,47 +53,30 @@ interface GuildProviderProps {
 export const GuildContext = createContext({} as GuildContextData);
 
 export default function GuildProvider({ children }: GuildProviderProps) {
-  const [guild, setGuild] = useState<GuildWithChannels | null>(null);
-  const [db, setDb] = useState<DatabaseGuild | null>(null);
-  const [selectedOption, setSelectedOption] = useState<string>('general');
-  const [changes, setChanges] = useState<{ key: string; value: unknown }[]>([]);
+  const [guildId, setGuildId] = useState<string | null>(null);
+  const [selectedOption, setSelectedOption] = useState<Option>('general');
+  const [changes, setChanges] = useState<Partial<DatabaseGuild>>({});
+  const [update] = useMutation<UpdateDatabaseGuild>(UPDATE_DATABASE_GUILD);
 
-  function updateGuild(discordGuild: GuildWithChannels, databaseGuild: DatabaseGuild) {
-    if (guild !== discordGuild) setGuild(discordGuild);
-    if (db !== databaseGuild) setDb(databaseGuild);
+  function updateGuild(id: string) {
+    if (guildId !== id) setGuildId(id);
   }
 
-  function addChange<T extends keyof DatabaseGuild>(key: T, value: DatabaseGuild[T]): boolean {
-    if (db?.[key] === value) {
-      const existingIndex = changes.findIndex((c) => c.key === key);
-      if (existingIndex !== -1) {
-        const clone = [...changes];
-        clone.splice(existingIndex, 1);
-        setChanges(clone);
-      }
-
-      return true;
-    }
-
-    const existingIndex = changes.findIndex((c) => c.key === key);
-    if (existingIndex !== -1) {
-      const clone = [...changes];
-      clone[existingIndex] = { key, value };
-      setChanges(clone);
-      return true;
-    }
-
-    setChanges([...changes, { key, value }]);
-    return true;
+  function addChange<T extends keyof DatabaseGuild>(key: T, value: DatabaseGuild[T]) {
+    const clone = Object.assign({}, changes);
+    clone[key] = value;
+    setChanges(clone);
   }
 
-  function updateSelectedOption(value: string) {
+  function updateSelectedOption(value: Option) {
     setSelectedOption(value);
   }
 
-  function saveGuildChanges() {
-    void api.post(`/guilds/${guild!.id}`, changes);
-    setChanges([]);
+  async function saveGuildChanges() {
+    const clone = Object.assign({}, changes);
+    setChanges({});
+    await update({ variables: { data: clone, id: guildId } });
+    return true;
   }
 
   return (
@@ -100,8 +84,7 @@ export default function GuildProvider({ children }: GuildProviderProps) {
       value={{
         addChange,
         changes,
-        db,
-        guild,
+        guildId,
         saveGuildChanges,
         selectedOption,
         updateGuild,

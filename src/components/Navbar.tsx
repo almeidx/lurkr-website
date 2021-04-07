@@ -1,13 +1,25 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { signIn, signOut, useSession } from 'next-auth/client';
+import { useContext } from 'react';
+// import { signIn, signOut, useSession } from 'next-auth/client';
 import { FaDiscord } from 'react-icons/fa';
 
+import { UserContext } from '../contexts/UserContext';
 import styles from '../styles/components/Navbar.module.css';
+import { API_BASE_URL, DISCORD_USER_AVATAR_CDN } from '../utils/constants';
 
 export default function Navbar() {
   const router = useRouter();
-  const [session] = useSession();
+  const { authenticated, avatar, id, username, discriminator } = useContext(UserContext);
+  // const [session] = useSession();
+
+  const handleSignInClick = () => {
+    window.open(`${API_BASE_URL}/auth`, '_self');
+  };
+
+  const handleLogoutClick = () => {
+    window.open(`${API_BASE_URL}/auth/logout`, '_self');
+  };
 
   return (
     <nav className={styles.navbarContainer}>
@@ -19,7 +31,7 @@ export default function Navbar() {
         <li>
           <Link href="/bot">Bot</Link>
         </li>
-        {session && (
+        {authenticated && (
           <li>
             <Link href="/guilds">Dashboard</Link>
           </li>
@@ -35,15 +47,20 @@ export default function Navbar() {
         </li>
       </ul>
       <div>
-        {session ? (
-          <button className={styles.signOutButton} onClick={() => signOut({ callbackUrl: window.location.href })}>
-            {session.user.image && (
-              <img width={'1rem'} height={'1rem'} src={session.user.image} alt="Your profile picture" />
+        {authenticated ? (
+          <button className={styles.signOutButton} onClick={handleLogoutClick}>
+            {avatar && (
+              <img
+                width={'1rem'}
+                height={'1rem'}
+                src={DISCORD_USER_AVATAR_CDN(id, avatar)}
+                alt="Your profile picture"
+              />
             )}
-            {session.user.name} - Sign out
+            {username}#{discriminator} - Sign out
           </button>
         ) : (
-          <button className={styles.signInButton} onClick={() => signIn('discord')}>
+          <button className={styles.signInButton} onClick={handleSignInClick}>
             <FaDiscord /> Sign in
           </button>
         )}
