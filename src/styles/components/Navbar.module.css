@@ -17,28 +17,30 @@
   font-size: 1.25rem;
   color: var(--white);
   font-weight: 600;
+
+  cursor: pointer;
 }
 
-.navbarContainer ul {
+.linksContainer {
   grid-area: links;
 }
 
-.navbarContainer ul li {
+.linksContainer > li {
   display: inline;
   margin-right: 1rem;
 }
 
-.navbarContainer ul li:last-of-type {
+.linksContainer > li:last-of-type {
   margin-right: 0;
 }
 
-.navbarContainer ul li a {
+.linksContainer > li a {
   color: var(--text);
   font-size: 1rem;
   transition: color 0.2s;
 }
 
-.navbarContainer ul li a:hover {
+.linksContainer > li a:hover {
   color: var(--gray-line);
 }
 

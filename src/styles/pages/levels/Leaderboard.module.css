@@ -4,7 +4,7 @@
   flex-direction: column;
 }
 
-.container header {
+.container > header {
   display: flex;
   justify-content: left;
   align-items: center;
@@ -12,7 +12,7 @@
   margin: 2rem;
 }
 
-.container header img {
+.container > header img {
   display: flex;
   width: 96px;
   height: auto;
@@ -20,18 +20,18 @@
   margin: 1rem;
 }
 
-.container header span {
+.container > header span {
   font-size: 2rem;
   color: var(--white);
 }
 
-.container main {
+.mainContent {
   display: flex;
   justify-content: space-between;
   flex-direction: row;
 }
 
-.container div.leaderboardContainer {
+.mainContent div.leaderboardContainer {
   background: var(--lighter-background);
   margin: 0 2rem 2rem 2rem;
   flex-direction: column;
@@ -39,7 +39,7 @@
   border-radius: 15px;
 }
 
-.container div.xpRolesContainer {
+.mainContent div.xpRolesContainer {
   display: flex;
   align-items: center;
   justify-content: left;
@@ -51,7 +51,7 @@
   padding-bottom: 1rem;
 }
 
-.container div.xpRolesContainer > span {
+.mainContent div.xpRolesContainer > span {
   color: var(--white);
   font-size: 1.25rem;
   font-weight: 500;

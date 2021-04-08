@@ -62,12 +62,12 @@ export default function Base({ children, guild, option }: BaseOptions) {
         <span>{guild.name}</span>
       </header>
 
-      <button disabled={!Object.keys(changes).length} onClick={handleSaveButtonClick}>
+      <button className={styles.saveButton} disabled={!Object.keys(changes).length} onClick={handleSaveButtonClick}>
         {saveButtonContent}
       </button>
 
-      <main>
-        <aside>
+      <main className={styles.mainContent}>
+        <aside className={styles.asideOptionsContainer}>
           {asideOptions.map(({ Icon, id, name, path }) => (
             <AsideOption
               key={id}
@@ -80,7 +80,7 @@ export default function Base({ children, guild, option }: BaseOptions) {
           ))}
         </aside>
 
-        <section>{children}</section>
+        <section className={styles.childrenContainer}>{children}</section>
       </main>
     </div>
   );

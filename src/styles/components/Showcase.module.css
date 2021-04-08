@@ -20,7 +20,7 @@
     'video description';
 }
 
-.container span {
+.container > span {
   grid-area: title;
   display: flex;
   align-items: center;
@@ -30,12 +30,12 @@
   font-weight: 600;
 }
 
-.container p {
+.container > p {
   grid-area: description;
   color: var(--text);
 }
 
-.container video {
+.container > video {
   grid-area: video;
   width: 30rem;
   height: auto;

@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useContext } from 'react';
-// import { signIn, signOut, useSession } from 'next-auth/client';
 import { FaDiscord } from 'react-icons/fa';
 
 import { UserContext } from '../contexts/UserContext';
@@ -11,20 +10,11 @@ import { API_BASE_URL, DISCORD_USER_AVATAR_CDN } from '../utils/constants';
 export default function Navbar() {
   const router = useRouter();
   const { authenticated, avatar, id, username, discriminator } = useContext(UserContext);
-  // const [session] = useSession();
-
-  const handleSignInClick = () => {
-    window.open(`${API_BASE_URL}/auth`, '_self');
-  };
-
-  const handleLogoutClick = () => {
-    window.open(`${API_BASE_URL}/auth/logout`, '_self');
-  };
 
   return (
     <nav className={styles.navbarContainer}>
       <span onClick={() => router.push('/')}>PEPE MANAGER</span>
-      <ul>
+      <ul className={styles.linksContainer}>
         <li>
           <Link href="/">Home</Link>
         </li>
@@ -48,7 +38,7 @@ export default function Navbar() {
       </ul>
       <div>
         {authenticated ? (
-          <button className={styles.signOutButton} onClick={handleLogoutClick}>
+          <button className={styles.signOutButton} onClick={() => window.open(`${API_BASE_URL}/auth/logout`, '_self')}>
             {avatar && (
               <img
                 width={'1rem'}
@@ -60,7 +50,7 @@ export default function Navbar() {
             {username}#{discriminator} - Sign out
           </button>
         ) : (
-          <button className={styles.signInButton} onClick={handleSignInClick}>
+          <button className={styles.signInButton} onClick={() => window.open(`${API_BASE_URL}/auth`, '_self')}>
             <FaDiscord /> Sign in
           </button>
         )}

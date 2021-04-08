@@ -57,12 +57,12 @@ export default function Bot() {
         <p>A Discord bot with focus on automation, leveling, emoji management, and image manipulation</p>
       </header>
 
-      <div>
+      <div className={styles.linkContainer}>
         <Link href="/bot-invite">Invite the bot</Link>
         <Link href="/guilds">Go to dashboard</Link>
       </div>
 
-      <main>
+      <main className={styles.showcaseContainer}>
         {showcases.map(({ align, description, path, title }, i) => (
           <Showcase key={i} align={align} description={description} path={path} title={title} />
         ))}

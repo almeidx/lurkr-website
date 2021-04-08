@@ -5,13 +5,13 @@
   align-items: center;
 }
 
-.container div.userInfo {
+.userInfo {
   display: flex;
   align-items: center;
   margin: 1rem;
 }
 
-.container div.userInfo span {
+.userInfo > span {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -22,24 +22,24 @@
   color: var(--white);
 }
 
-.container div.userInfo img {
+.userInfo > img {
   width: 64px;
   height: 64px;
   border-radius: 50%;
   margin: 0 1rem;
 }
 
-.container div.userInfo p {
+.userInfo p {
   color: var(--white);
 }
 
-.container div.levelInfo {
+.levelInfo {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.container div.levelInfo span {
+.levelInfo > span {
   margin: 1rem;
   font-size: 1.25rem;
 }

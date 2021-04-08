@@ -5,7 +5,7 @@
   flex-direction: column;
 }
 
-.container header {
+.container > header {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -13,22 +13,22 @@
   color: var(--white);
 }
 
-.container header h1 {
+.container > header h1 {
   margin: 1.25rem 0;
 }
 
-.container header p {
+.container > header p {
   color: var(--text);
 }
 
-.container > div {
+.linkContainer {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin: 1.5rem 0;
 }
 
-.container > div a {
+.linkContainer a {
   padding: 0.75rem;
   color: var(--white);
   background: var(--blurple);
@@ -36,11 +36,11 @@
   border-radius: 7px;
 }
 
-.container > div a:first-of-type {
+.linkContainer a:first-of-type {
   margin-right: 0.5rem;
 }
 
-.container main {
+.showcaseContainer {
   display: flex;
   flex-direction: column;
   width: 80%;

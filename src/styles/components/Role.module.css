@@ -7,7 +7,7 @@
   margin: 0.25rem 0;
 }
 
-.container div {
+.rolesContainer {
   display: flex;
   justify-content: left;
   align-items: center;
@@ -15,7 +15,7 @@
   flex-direction: row;
 }
 
-.container div span {
+.rolesContainer > span {
   color: var(--discord-role);
   font-size: 0.75rem;
   border: 1px solid var(--discord-role);
@@ -24,6 +24,6 @@
   margin-right: 0.5rem;
 }
 
-.container div span:last-of-type {
+.rolesContainer > span:last-of-type {
   margin-right: 0;
 }

@@ -95,7 +95,7 @@ export default function Home({ emojiCount, guilds, otherGuilds }: InferGetStatic
         <title>Pepe Emoji</title>
       </Head>
 
-      <section>
+      <section className={styles.mainContent}>
         <span>{emojiCount.toLocaleString()} unique Pepe Emojis</span>
 
         <input

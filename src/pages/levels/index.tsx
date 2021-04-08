@@ -35,15 +35,17 @@ export default function Levels() {
   return (
     <div className={styles.container}>
       <label htmlFor="input">Leaderboard</label>
-      <div>
+      <div className={styles.inputContainer}>
         <input
-          type="number"
+          autoComplete="off"
+          autoCorrect="off"
+          autoCapitalize="off"
           id="input"
-          value={server}
+          maxLength={19}
           onChange={handleInputChange}
           placeholder="Input a server ID to view it's leaderboard"
-          autoComplete="off"
-          maxLength={19}
+          type="number"
+          value={server}
         />
         <div onClick={handleSubmit}>
           <BsArrowReturnLeft fill={arrowColour} size={100} />

@@ -25,7 +25,7 @@
   color: var(--white);
 }
 
-.container button {
+.saveButton {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -40,25 +40,25 @@
   transition: background 0.1s;
 }
 
-.container button:hover {
+.saveButton:hover {
   background: #2f855a;
 }
 
-.container button[disabled] {
+.saveButton[disabled] {
   cursor: not-allowed;
 }
 
-.container button[disabled]:hover {
+.saveButton[disabled]:hover {
   background: #276749 !important;
 }
 
-.container main {
+.mainContent {
   display: flex;
   flex-direction: row;
   margin: 0 2rem;
 }
 
-.container main aside {
+.asideOptionsContainer {
   display: flex;
   padding: 1rem;
   background: var(--lighter-background);
@@ -67,7 +67,7 @@
   border-radius: 15px;
 }
 
-.container main section {
+.childrenContainer {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -75,11 +75,11 @@
   margin-left: 3rem;
 }
 
-.container main section label {
+.childrenContainer > label {
   color: var(--text);
 }
 
-.container main section input {
+.childrenContainer > input {
   background: var(--lighter-background);
   color: var(--white);
   border-radius: 10px;
@@ -90,13 +90,13 @@
 }
 
 /* Checkbox container */
-.container main section > div {
+.childrenContainer > div {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: row;
 }
 
-.container main section > div label {
+.childrenContainer > div label {
   margin-right: 1rem;
 }

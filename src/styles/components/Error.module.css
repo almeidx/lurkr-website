@@ -8,7 +8,7 @@
   justify-content: center;
 }
 
-.container div h1 {
+.innerContainer > h1 {
   display: inline-block;
   border-right: 1px solid #fff;
   margin: 0;
@@ -21,7 +21,7 @@
   font-weight: bold;
 }
 
-.container div div {
+.innerContainer > div {
   display: inline-block;
   text-align: left;
   line-height: 49px;
@@ -29,7 +29,7 @@
   vertical-align: middle;
 }
 
-.container div h2 {
+.innerContainer > div h2 {
   font-size: 14px;
   font-weight: normal;
   line-height: inherit;

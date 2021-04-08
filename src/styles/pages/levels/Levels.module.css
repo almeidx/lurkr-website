@@ -6,7 +6,7 @@
   height: calc(100vh - 4rem); /* The navbar has 4rem height */
 }
 
-.container div {
+.inputContainer {
   display: grid;
   width: 50%;
   max-width: 720px;
@@ -23,7 +23,7 @@
   font-weight: 600;
 }
 
-.container div input {
+.inputContainer input {
   grid-area: input;
   display: block;
   margin-right: auto;
@@ -40,20 +40,20 @@
   border: 0;
 }
 
-.container div input::-webkit-outer-spin-button,
-.container div input::-webkit-inner-spin-button {
+.inputContainer input::-webkit-outer-spin-button,
+.inputContainer input::-webkit-inner-spin-button {
   -webkit-appearance: none;
 }
 
-.container div input[type='number'] {
+.inputContainer input[type='number'] {
   -moz-appearance: textfield;
 }
 
-.container div input:focus {
+.inputContainer input:focus {
   box-shadow: 0 0 60px rgba(0, 0, 0, 0.05);
 }
 
-.container div div {
+.inputContainer div {
   grid-area: submit;
   background: #2f3136;
   border-radius: 5px;

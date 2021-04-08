@@ -45,7 +45,7 @@
   color: var(--gray-line);
 }
 
-.container > button {
+.joinButton {
   background-color: #43b581;
   display: flex;
   align-items: center;
@@ -61,12 +61,12 @@
   color: var(--white);
 }
 
-.container > button:hover {
+.joinButton:hover {
   transform: translateY(-3px) scale(1.1);
   background: #3ca374;
 }
 
-.container > button svg {
+.joinButton svg {
   color: var(--white);
   padding-left: 3px;
 }

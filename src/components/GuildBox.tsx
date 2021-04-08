@@ -21,7 +21,7 @@ export default function GuildBox({ icon, id, invite, memberCount, name }: GuildB
 
       <p>{memberCount.toLocaleString()} members</p>
 
-      <button onClick={() => window.open(`https://discord.gg/${invite}`)} type="button">
+      <button className={styles.joinButton} onClick={() => window.open(`https://discord.gg/${invite}`)} type="button">
         Join <FaSignInAlt />
       </button>
     </div>

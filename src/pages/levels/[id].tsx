@@ -68,7 +68,7 @@ export default function Leaderboard({ guild, levels, roles }: InferGetStaticProp
         <span>{guild.name}</span>
       </header>
 
-      <main>
+      <main className={styles.mainContent}>
         <div className={styles.leaderboardContainer}>
           {levels.map(({ avatar, level, tag, userID, xp }, i) => (
             <Level

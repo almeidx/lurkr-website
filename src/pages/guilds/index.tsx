@@ -50,7 +50,7 @@ export default function Dashboard({ guilds }: InferGetServerSidePropsType<typeof
     <div className={styles.container}>
       {guilds.map(({ icon, id, name }) => (
         <Link href={`/guilds/${id}`} key={id}>
-          <a>
+          <a className={styles.guildContainer}>
             <img src={DISCORD_GUILD_CDN(id, icon, false) ?? FALLBACK_AVATAR} alt={`${name} guild icon`} />
             <span>{name}</span>
           </a>
