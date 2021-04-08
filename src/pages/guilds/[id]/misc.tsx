@@ -5,7 +5,7 @@ import Base from '../../../components/dashboard/Base';
 import Error from '../../../components/Error';
 import { GuildContext } from '../../../contexts/GuildContext';
 import { UserContext } from '../../../contexts/UserContext';
-import type { UserGuild } from '../../../graphql/UserGuild';
+import type { UserGuild } from '../../../graphql/dashboard/UserGuild';
 
 export interface GuildMiscProps {
   db: UserGuild['getDatabaseGuild'];

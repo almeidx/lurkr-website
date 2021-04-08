@@ -90,13 +90,13 @@
 }
 
 /* Checkbox container */
-.container main section div {
+.container main section > div {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: row;
 }
 
-.container main section div label {
+.container main section > div label {
   margin-right: 1rem;
 }

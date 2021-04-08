@@ -14,7 +14,6 @@ interface Guild {
 }
 
 interface DatabaseGuild {
-  _id: Snowflake;
   prefix: string;
   storeCounts: boolean;
 }
@@ -37,7 +36,6 @@ export default gql`
     }
 
     getDatabaseGuild(id: $id) {
-      _id
       prefix
       storeCounts
     }
