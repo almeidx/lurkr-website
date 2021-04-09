@@ -1,7 +1,6 @@
 import type { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import { useRouter } from 'next/router';
 import { ChangeEvent, useContext, useEffect, useState } from 'react';
-import Select from 'react-select';
 
 import { initializeApollo } from '../../../apollo/client';
 import Base from '../../../components/dashboard/Base';
@@ -67,8 +66,8 @@ export default function GuildLeveling({ db, guild }: InferGetServerSidePropsType
         <input checked={changes.levels ?? levels} onChange={handleLevelsChange} id="levels" type="checkbox" />
       </div>
 
-      <label htmlFor="xpRoles">No XP Roles</label>
-      <Select data={guild.roles.map(({ color, id, name }) => ({ color, label: name, value: id }))} />
+      {/* <label htmlFor="xpRoles">No XP Roles</label> */}
+      {/* <Select data={guild.roles.map(({ color, id, name }) => ({ color, label: name, value: id }))} /> */}
 
       <p>{JSON.stringify(changes)}</p>
     </Base>
