@@ -1,4 +1,4 @@
-import type { GetServerSideProps } from 'next';
+import type { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import { useRouter } from 'next/router';
 import { ChangeEvent, useContext, useEffect, useState } from 'react';
 import Select from 'react-select';
@@ -8,26 +8,21 @@ import Base from '../../../components/dashboard/Base';
 import Error from '../../../components/Error';
 import { GuildContext } from '../../../contexts/GuildContext';
 import { UserContext } from '../../../contexts/UserContext';
-import LEVELING, { LevelingGuild } from '../../../graphql/dashboard/Leveling';
+import LEVELING, { Leveling } from '../../../graphql/dashboard/Leveling';
 
-export interface GuildLevelingProps {
-  db: LevelingGuild['getDatabaseGuild'];
-  guild: LevelingGuild['getDiscordGuild'];
+interface GuildLevelingProps {
+  db: Leveling['getDatabaseGuild'];
+  guild: Leveling['getDiscordGuild'];
 }
 
-export interface GuildProps {
-  db: LevelingGuild['getDatabaseGuild'];
-  guild: LevelingGuild['getDiscordGuild'];
-}
-
-export const getServerSideProps: GetServerSideProps<GuildProps> = async ({ params, req }) => {
+export const getServerSideProps: GetServerSideProps<GuildLevelingProps> = async ({ params, req }) => {
   if (typeof params?.id !== 'string') return { notFound: true };
 
   req.headers.accept = '';
 
   const apolloClient = initializeApollo(null, req.headers);
 
-  const { data } = await apolloClient.query<LevelingGuild>({
+  const { data } = await apolloClient.query<Leveling>({
     query: LEVELING,
     variables: { id: params.id },
   });
@@ -40,7 +35,7 @@ export const getServerSideProps: GetServerSideProps<GuildProps> = async ({ param
   };
 };
 
-export default function GuildLeveling({ db, guild }: GuildLevelingProps) {
+export default function GuildLeveling({ db, guild }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const { addChange, updateGuild, changes, updateSelectedOption } = useContext(GuildContext);
   const { authenticated } = useContext(UserContext);
   const router = useRouter();

@@ -1,23 +1,48 @@
+import type { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import { initializeApollo } from '../../../apollo/client';
+import Select, { OptionsType, OptionTypeBase } from 'react-select';
 
 import Base from '../../../components/dashboard/Base';
 import Error from '../../../components/Error';
 import { GuildContext } from '../../../contexts/GuildContext';
 import { UserContext } from '../../../contexts/UserContext';
-import type { UserGuild } from '../../../graphql/dashboard/UserGuild';
+import AUTOROLE, { Autorole, Role } from '../../../graphql/dashboard/Autorole';
+import styles from '../../../styles/pages/guilds/Autorole.module.css';
+import MultiSelect from 'react-multi-select-component';
+import type { Option } from 'react-multi-select-component/dist/lib/interfaces';
 
 export interface GuildAutoroleProps {
-  db: UserGuild['getDatabaseGuild'];
-  guild: UserGuild['getDiscordGuild'];
+  db: Autorole['getDatabaseGuild'];
+  guild: Autorole['getDiscordGuild'];
 }
 
-export { getServerSideProps } from '.';
+export const getServerSideProps: GetServerSideProps<GuildAutoroleProps> = async ({ params, req }) => {
+  if (typeof params?.id !== 'string') return { notFound: true };
+
+  req.headers.accept = '';
+
+  const apolloClient = initializeApollo(null, req.headers);
+
+  const { data } = await apolloClient.query<Autorole>({
+    query: AUTOROLE,
+    variables: { id: params.id },
+  });
+
+  return {
+    props: {
+      db: data.getDatabaseGuild,
+      guild: data.getDiscordGuild,
+    },
+  };
+};
 
 export default function GuildAutorole({ db, guild }: GuildAutoroleProps) {
   const { changes, updateGuild, updateSelectedOption } = useContext(GuildContext);
   const { authenticated } = useContext(UserContext);
   const router = useRouter();
+  const [selectedAutoroles, setSelectedAutoroles] = useState<Option[]>([]);
 
   useEffect(() => {
     if (!authenticated && guild) {
@@ -30,12 +55,38 @@ export default function GuildAutorole({ db, guild }: GuildAutoroleProps) {
     return <Error message="Count not find the guild you're looking for" statusCode={403} />;
   }
 
+  useEffect(() => {
+    if (!db?.autoRole?.length || !guild) return;
+
+    const guildRoles = db.autoRole.map((i) => guild.roles.find((r) => r.id === i)).filter((r) => r) as Role[];
+
+    if (guildRoles.length) {
+      setSelectedAutoroles(guildRoles.map(({ id, name }) => ({ label: name, value: id })));
+    }
+  }, []);
+
+  function handleSelectedRolesChange(values: Option[]) {
+    if (selectedAutoroles.length >= 5) return;
+
+    setSelectedAutoroles(values);
+  }
+
   updateSelectedOption('autorole');
   updateGuild(guild.id);
 
   return (
     <Base guild={guild} option="autorole">
-      <h1>autorole</h1>
+      <label htmlFor="autoRole"></label>
+
+      <MultiSelect
+        className={styles.autoroleSelector}
+        options={guild.roles.map((r) => ({ label: r.name, value: r.id }))}
+        value={selectedAutoroles}
+        onChange={handleSelectedRolesChange}
+        labelledBy="Selected the autoroles"
+        hasSelectAll={false}
+      />
+
       <p>{JSON.stringify(changes)}</p>
     </Base>
   );

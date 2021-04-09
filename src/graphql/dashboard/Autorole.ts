@@ -6,10 +6,11 @@ interface Channel {
   name: string;
 }
 
-interface Role {
+export interface Role {
   color: number;
   id: Snowflake;
   name: string;
+  position: number;
 }
 
 interface Guild {
@@ -21,17 +22,11 @@ interface Guild {
 }
 
 interface DatabaseGuild {
-  levels: boolean;
-  noXpRoles: string[] | null;
-  topXpRole: string | null;
-  xpBlacklistedChannels: string[] | null;
-  xpMessage: string;
-  xpResponseType: 'dm' | 'channel' | string | null;
-  xpRoles: Map<string, string[]>;
-  xpWhitelistedChannels: string[] | null;
+  autoRole: string[] | null;
+  autoRoleTimeout: number | null;
 }
 
-export interface Leveling {
+export interface Autorole {
   getDiscordGuild: Guild | null;
   getDatabaseGuild: DatabaseGuild | null;
 }
@@ -39,10 +34,6 @@ export interface Leveling {
 export default gql`
   query getDiscordGuild($id: String!) {
     getDiscordGuild(id: $id, includeChannels: true) {
-      channels {
-        id
-        name
-      }
       icon
       id
       name
@@ -50,19 +41,13 @@ export default gql`
         color
         id
         name
+        position
       }
     }
 
     getDatabaseGuild(id: $id) {
-      levels
-      noXpRoles
-      stackXpRoles
-      topXpRole
-      xpBlacklistedChannels
-      xpMessage
-      xpResponseType
-      xpRoles
-      xpWhitelistedChannels
+      autoRole
+      autoRoleTimeout
     }
   }
 `;
