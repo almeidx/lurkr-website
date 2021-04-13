@@ -1,4 +1,4 @@
-import type { Snowflake } from 'discord-api-types/common';
+import type { Snowflake } from 'discord-api-types/v8';
 import gql from 'graphql-tag';
 
 interface Emoji {

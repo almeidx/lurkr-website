@@ -1,4 +1,4 @@
-import type { Snowflake } from 'discord-api-types/common';
+import type { Snowflake } from 'discord-api-types/v8';
 import type { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import { useRouter } from 'next/router';
 import { ChangeEvent, SetStateAction, useContext, useEffect, useMemo, useState } from 'react';

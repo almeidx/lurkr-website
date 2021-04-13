@@ -1,5 +1,5 @@
 import ms from '@almeidx/ms';
-import type { Snowflake } from 'discord-api-types/common';
+import type { Snowflake } from 'discord-api-types/v8';
 import type { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import { ChangeEvent, useContext, useEffect, useMemo, useState } from 'react';

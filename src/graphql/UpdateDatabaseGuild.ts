@@ -1,5 +1,5 @@
 import { gql } from '@apollo/client';
-import type { Snowflake } from 'discord-api-types/common';
+import type { Snowflake } from 'discord-api-types/v8';
 
 interface DatabaseGuild {
   _id: Snowflake;
