@@ -19,11 +19,6 @@ module.exports = {
         source: '/vote',
       },
       {
-        destination: 'https://teespring.com/stores/pepe-emoji-server',
-        permanent: true,
-        source: '/merch',
-      },
-      {
         destination: 'https://patreon.com/pepemanager',
         permanent: true,
         source: '/patreon',

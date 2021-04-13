@@ -30,12 +30,16 @@ export default function Navbar() {
           <Link href="/levels">Levels</Link>
         </li>
         <li>
-          <Link href="/merch">Merch</Link>
-        </li>
-        <li>
           <Link href="https://discord.gg/pepe">Support Server</Link>
         </li>
+        <li>
+          <Link href="/privacy">Privacy</Link>
+        </li>
+        <li>
+          <Link href="/terms">Terms</Link>
+        </li>
       </ul>
+
       <div>
         {authenticated ? (
           <button className={styles.signOutButton} onClick={() => window.open(`${API_BASE_URL}/auth/logout`, '_self')}>
