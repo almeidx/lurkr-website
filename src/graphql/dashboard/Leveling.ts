@@ -1,39 +1,21 @@
 import { gql } from '@apollo/client';
-import type { Snowflake } from 'discord-api-types/common';
 
-interface Channel {
-  id: Snowflake;
-  name: string;
-}
-
-interface Role {
-  color: number;
-  id: Snowflake;
-  name: string;
-}
-
-interface Guild {
-  channels: Channel[];
-  icon: string | null;
-  id: Snowflake;
-  name: string;
-  roles: Role[];
-}
-
-interface DatabaseGuild {
-  levels: boolean;
-  noXpRoles: string[] | null;
-  topXpRole: string | null;
-  xpBlacklistedChannels: string[] | null;
-  xpMessage: string;
-  xpResponseType: 'dm' | 'channel' | string | null;
-  xpRoles: Map<string, string[]>;
-  xpWhitelistedChannels: string[] | null;
-}
+import type { DatabaseGuild } from '../../contexts/GuildContext';
+import type { Guild, Role } from './General';
 
 export interface Leveling {
-  getDiscordGuild: Guild | null;
-  getDatabaseGuild: DatabaseGuild | null;
+  getDiscordGuild: (Guild & { roles: Role[] }) | null;
+  getDatabaseGuild: Pick<
+    DatabaseGuild,
+    | 'levels'
+    | 'noXpRoles'
+    | 'topXpRole'
+    | 'xpBlacklistedChannels'
+    | 'xpMessage'
+    | 'xpResponseType'
+    | 'xpRoles'
+    | 'xpWhitelistedChannels'
+  > | null;
 }
 
 export default gql`
@@ -50,6 +32,7 @@ export default gql`
         color
         id
         name
+        position
       }
     }
 

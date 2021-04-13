@@ -6,11 +6,12 @@ import Base from '../../../components/dashboard/Base';
 import Error from '../../../components/Error';
 import { GuildContext } from '../../../contexts/GuildContext';
 import { UserContext } from '../../../contexts/UserContext';
-import USER_GUILD, { UserGuild } from '../../../graphql/dashboard/UserGuild';
+import USER_GUILD, { General as GeneralReq } from '../../../graphql/dashboard/General';
+import styles from '../../../styles/pages/guilds/General.module.css';
 
 export interface GuildProps {
-  db: UserGuild['getDatabaseGuild'];
-  guild: UserGuild['getDiscordGuild'];
+  db: GeneralReq['getDatabaseGuild'];
+  guild: GeneralReq['getDiscordGuild'];
 }
 
 export const getServerSideProps: GetServerSideProps<GuildProps> = async ({ params, req }) => {
@@ -20,7 +21,7 @@ export const getServerSideProps: GetServerSideProps<GuildProps> = async ({ param
 
   const apolloClient = initializeApollo(null, req.headers);
 
-  const { data } = await apolloClient.query<UserGuild>({
+  const { data } = await apolloClient.query<GeneralReq>({
     query: USER_GUILD,
     variables: { id: params.id },
   });
@@ -33,11 +34,10 @@ export const getServerSideProps: GetServerSideProps<GuildProps> = async ({ param
   };
 };
 
-export default function Guild({ db, guild }: InferGetServerSidePropsType<typeof getServerSideProps>) {
+export default function General({ db, guild }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const { addChange, changes, updateGuild } = useContext(GuildContext);
   const { authenticated } = useContext(UserContext);
   const [prefix, setPrefix] = useState(db?.prefix);
-  const [storeCounts, setStoreCounts] = useState(db?.storeCounts);
 
   if (!authenticated) {
     return <Error message="You need to be logged in to view this page." statusCode={401} />;
@@ -52,34 +52,21 @@ export default function Guild({ db, guild }: InferGetServerSidePropsType<typeof 
     addChange('prefix', event.target.value);
   }
 
-  function handleStoreCountsChange(event: ChangeEvent<HTMLInputElement>) {
-    setStoreCounts(event.target.checked);
-    addChange('storeCounts', event.target.checked);
-  }
-
   updateGuild(guild.id);
 
   return (
     <Base guild={guild} option="general">
-      <label htmlFor="prefix">Prefix</label>
-      <input
-        autoComplete="off"
-        autoCapitalize="off"
-        autoCorrect="off"
-        id="prefix"
-        maxLength={5}
-        onChange={handlePrefixChange}
-        type="text"
-        value={changes.prefix ?? prefix}
-      />
-
-      <div>
-        <label htmlFor="storeCounts">Store Member Counts</label>
+      <div className={styles.verticalSection}>
+        <label htmlFor="prefix">Prefix</label>
         <input
-          checked={changes.storeCounts ?? storeCounts}
-          onChange={handleStoreCountsChange}
-          id="storeCounts"
-          type="checkbox"
+          autoComplete="off"
+          autoCapitalize="off"
+          autoCorrect="off"
+          id="prefix"
+          maxLength={5}
+          onChange={handlePrefixChange}
+          type="text"
+          value={changes.prefix ?? prefix}
         />
       </div>
 

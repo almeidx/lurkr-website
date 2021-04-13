@@ -65,6 +65,7 @@
   margin: 0 2rem 2rem 2rem;
   flex-direction: column;
   border-radius: 15px;
+  height: fit-content;
 }
 
 .childrenContainer {
@@ -73,46 +74,4 @@
   align-items: flex-start;
   width: 100%;
   margin-left: 3rem;
-}
-
-.childrenContainer > label {
-  color: var(--text);
-}
-
-.childrenContainer > label {
-  margin-top: 1.5rem;
-}
-
-.childrenContainer > label:first-of-type {
-  margin-top: 0;
-}
-
-.childrenContainer > input {
-  background: var(--lighter-background);
-  color: var(--white);
-  border-radius: 10px;
-  height: 2.5rem;
-  border: 0;
-  outline: 0;
-  padding: 0.5rem;
-}
-
-/* Checkbox container */
-.childrenContainer > div {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: row;
-}
-
-.childrenContainer > div {
-  margin-top: 1.5rem;
-}
-
-.childrenContainer > div:first-child {
-  margin-top: 0;
-}
-
-.childrenContainer > div label {
-  margin-right: 1rem;
 }

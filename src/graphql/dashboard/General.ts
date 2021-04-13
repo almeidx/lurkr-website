@@ -1,26 +1,30 @@
 import { gql } from '@apollo/client';
 import type { Snowflake } from 'discord-api-types/common';
 
-interface Channel {
+import type { DatabaseGuild } from '../../contexts/GuildContext';
+
+export interface Channel {
   id: Snowflake;
   name: string;
 }
 
-interface Guild {
+export interface Role {
+  color: number;
+  id: Snowflake;
+  name: string;
+  position: number;
+}
+
+export interface Guild {
   icon: string | null;
   id: Snowflake;
   name: string;
   channels: Channel[];
 }
 
-interface DatabaseGuild {
-  prefix: string;
-  storeCounts: boolean;
-}
-
-export interface UserGuild {
+export interface General {
   getDiscordGuild: Guild | null;
-  getDatabaseGuild: DatabaseGuild | null;
+  getDatabaseGuild: Pick<DatabaseGuild, 'prefix'> | null;
 }
 
 export default gql`
@@ -37,7 +41,6 @@ export default gql`
 
     getDatabaseGuild(id: $id) {
       prefix
-      storeCounts
     }
   }
 `;

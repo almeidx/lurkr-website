@@ -32,6 +32,8 @@ export interface DatabaseGuild {
   topXp: string | null;
   topXpRole: string | null;
   xpBlacklistedChannels: string[] | null;
+  xpMessage: string;
+  xpResponseType: 'dm' | 'channel' | string | null;
   xpRoles: Map<string, string[]>;
   xpWhitelistedChannels: string[] | null;
 }

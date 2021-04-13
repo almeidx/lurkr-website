@@ -1,0 +1,14 @@
+.horizontalSection {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 1.75rem;
+}
+
+.horizontalSection label {
+  color: var(--text);
+  margin-right: 0.5rem;
+}
+
+.horizontalSection input {
+  cursor: pointer;
+}

@@ -1,11 +1,11 @@
 import { gql } from '@apollo/client';
 
 import type { DatabaseGuild } from '../../contexts/GuildContext';
-import type { Guild as BaseGuild, Role } from './General';
+import type { Guild } from './General';
 
-export interface Autorole {
-  getDiscordGuild: (BaseGuild & { roles: Role[] }) | null;
-  getDatabaseGuild: Pick<DatabaseGuild, 'autoRole' | 'autoRoleTimeout'> | null;
+export interface Misc {
+  getDiscordGuild: Guild | null;
+  getDatabaseGuild: Pick<DatabaseGuild, 'storeCounts' | 'storeMilestones'> | null;
 }
 
 export default gql`
@@ -14,17 +14,15 @@ export default gql`
       icon
       id
       name
-      roles {
-        color
+      channels {
         id
         name
-        position
       }
     }
 
     getDatabaseGuild(id: $id) {
-      autoRole
-      autoRoleTimeout
+      storeCounts
+      storeMilestones
     }
   }
 `;
