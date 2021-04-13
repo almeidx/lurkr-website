@@ -1,9 +1,5 @@
 .autoRoleSelectorContainer {
   width: 30rem;
-  display: flex;
-  justify-content: left;
-  align-items: center;
-  flex-wrap: wrap;
   margin-bottom: 1.75rem;
 }
 
@@ -11,31 +7,6 @@
   color: var(--text);
   margin-bottom: 0.25rem;
 }
-
-.autoRoleSelectorContainer > div {
-  width: 100%;
-}
-
-/*
-.autoRoleSelectorContainer input:not(input[type='checkbox']) {
-  background: var(--lighter-background);
-  color: var(--white);
-  border-radius: 10px;
-  height: 2.5rem;
-  border: 0;
-  outline: 0;
-}
-.autoRoleSelectorContainer div {
-  background: var(--lighter-background);
-  width: 100%;
-  outline: 0;
-  border: 0;
-}
-
-.autoRoleSelectorContainer input:not(input[type='checkbox']):hover {
-  outline: 0;
-  border: 0;
-} */
 
 .autoRoleTimeoutContainer {
   display: flex;

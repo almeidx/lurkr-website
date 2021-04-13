@@ -3,16 +3,14 @@ import type { Snowflake } from 'discord-api-types/v8';
 import type { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import { ChangeEvent, useContext, useEffect, useMemo, useState } from 'react';
-import MultiSelect from 'react-multi-select-component';
-import type { Option } from 'react-multi-select-component/dist/lib/interfaces';
 
 import { initializeApollo } from '../../../apollo/client';
 import Base from '../../../components/dashboard/Base';
 import Error from '../../../components/Error';
+import Selector from '../../../components/Selector';
 import { GuildContext } from '../../../contexts/GuildContext';
 import { UserContext } from '../../../contexts/UserContext';
 import AUTOROLE, { Autorole } from '../../../graphql/dashboard/Autorole';
-import type { Role } from '../../../graphql/dashboard/General';
 import styles from '../../../styles/pages/guilds/Autorole.module.css';
 
 export interface GuildAutoroleProps {
@@ -46,13 +44,21 @@ export default function GuildAutorole({ db, guild }: GuildAutoroleProps) {
   const router = useRouter();
   const [autoRoleTimeoutRaw, setAutoRoleTimeoutRaw] = useState(db?.autoRoleTimeout ? ms(db.autoRoleTimeout) : ms(0));
   const [autoRoleTimeout, setAutoRoleTimeout] = useState(db?.autoRoleTimeout ? String(db.autoRoleTimeout) : undefined);
-  const [selectedAutoroles, setSelectedAutoroles] = useState<Option[]>([]);
+  // const [autoRoles, setAutoRoles] = useState<Snowflake[]>([]);
 
+  // const memoizedRoles = useMemo(
+  //   () =>
+  //     (guild &&
+  //       // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+  //       [...guild.roles].sort((a, b) => b.position - a.position).map((r) => ({ label: r.name, value: r.id }))) ||
+  //     null,
+  //   [guild],
+  // );
   const memoizedRoles = useMemo(
     () =>
       (guild &&
         // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-        [...guild.roles].sort((a, b) => b.position - a.position).map((r) => ({ label: r.name, value: r.id }))) ||
+        [...guild.roles].sort((a, b) => b.position - a.position)) ||
       null,
     [guild],
   );
@@ -64,29 +70,18 @@ export default function GuildAutorole({ db, guild }: GuildAutoroleProps) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  useEffect(() => {
-    if (!db?.autoRole?.length || !guild) return;
+  // useEffect(() => {
+  //   if (!db?.autoRole?.length || !guild) return;
 
-    const autoGuildRoles = db.autoRole.map((i) => guild.roles.find((r) => r.id === i)).filter((r) => r) as Role[];
-    if (autoGuildRoles.length) {
-      setSelectedAutoroles(autoGuildRoles.map(({ id, name }) => ({ label: name, value: id })));
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  //   const autoGuildRoles = db.autoRole.map((i) => guild.roles.find((r) => r.id === i)).filter((r) => r) as Role[];
+  //   if (autoGuildRoles.length) {
+  //     setAutoRoles(autoGuildRoles.map(({ id }) => id));
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
 
   if (!db || !guild) {
     return <Error message="Count not find the guild you're looking for" statusCode={403} />;
-  }
-
-  function handleSelectedRolesChange(values: Option[]) {
-    if (values.length > 5) return;
-
-    setSelectedAutoroles(values);
-
-    addChange(
-      'autoRole',
-      values.map((o) => o.value as Snowflake),
-    );
   }
 
   function handleAutoRoleTimeoutChange(event: ChangeEvent<HTMLInputElement>) {
@@ -98,6 +93,11 @@ export default function GuildAutorole({ db, guild }: GuildAutoroleProps) {
     addChange('autoRoleTimeout', timeoutConvertedToMs);
   }
 
+  function handleRoleSelectorUpdate(state: Snowflake[]) {
+    // setAutoRoles(state);
+    addChange('autoRole', state);
+  }
+
   updateSelectedOption('autorole');
   updateGuild(guild.id);
 
@@ -105,16 +105,7 @@ export default function GuildAutorole({ db, guild }: GuildAutoroleProps) {
     <Base guild={guild} option="autorole">
       <div className={styles.autoRoleSelectorContainer}>
         <label htmlFor="autoRole">Auto Roles</label>
-
-        {memoizedRoles && (
-          <MultiSelect
-            options={memoizedRoles}
-            value={selectedAutoroles}
-            onChange={handleSelectedRolesChange}
-            labelledBy="Select the auto roles"
-            hasSelectAll={false}
-          />
-        )}
+        {memoizedRoles && <Selector roles={memoizedRoles} onSelect={handleRoleSelectorUpdate} />}
       </div>
 
       <div className={styles.autoRoleTimeoutContainer}>

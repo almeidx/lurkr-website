@@ -8,9 +8,10 @@ import type { Option } from 'react-multi-select-component/dist/lib/interfaces';
 import { initializeApollo } from '../../../apollo/client';
 import Base from '../../../components/dashboard/Base';
 import Error from '../../../components/Error';
+import Selector from '../../../components/Selector';
 import { DatabaseGuild, GuildContext } from '../../../contexts/GuildContext';
 import { UserContext } from '../../../contexts/UserContext';
-import type { Channel, Role } from '../../../graphql/dashboard/General';
+import type { Channel } from '../../../graphql/dashboard/General';
 import LEVELING, { Leveling } from '../../../graphql/dashboard/Leveling';
 import styles from '../../../styles/pages/guilds/Leveling.module.css';
 
@@ -55,16 +56,16 @@ export default function GuildLeveling({ db, guild }: InferGetServerSidePropsType
   const router = useRouter();
   const [levels, setLevels] = useState(db?.levels);
   const [xpMessage, setXpMessage] = useState<string>(db?.xpMessage ?? '');
-  const [selectedTopXpRole, setSelectedTopXpRole] = useState<Option | null>(null);
-  const [selectedNoXpRoles, setSelectedNoXpRoles] = useState<Option[]>([]);
+  // const [topXpRole, setTopXpRole] = useState<Snowflake | null>(db?.topXpRole ?? null);
+  // const [noXpRoles, setNoXpRoles] = useState<Snowflake[] | null>(null);
   const [selectedXpWhitelistedChannels, setSelectedXpWhitelistedChannels] = useState<Option[]>([]);
   const [selectedXpBlacklistedChannels, setSelectedXpBlacklistedChannels] = useState<Option[]>([]);
 
-  const memoizedRoles = useMemo<SortedStructures>(
+  const memoizedRoles = useMemo(
     () =>
       (guild &&
         // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-        [...guild.roles].sort((a, b) => b.position - a.position).map((r) => ({ label: r.name, value: r.id }))) ||
+        [...guild.roles].sort((a, b) => b.position - a.position)) ||
       null,
     [guild],
   );
@@ -92,20 +93,6 @@ export default function GuildLeveling({ db, guild }: InferGetServerSidePropsType
 
   useEffect(() => {
     if (!guild) return;
-
-    if (db?.topXpRole) {
-      const topXpGuildRole = guild.roles.find((r) => r.id === db.topXpRole);
-      if (topXpGuildRole) {
-        setSelectedTopXpRole({ label: topXpGuildRole.name, value: topXpGuildRole.id });
-      }
-    }
-
-    if (db?.noXpRoles) {
-      const noXpGuildRoles = db.noXpRoles.map((i) => guild.roles.find((r) => r.id === i)).filter((r) => r) as Role[];
-      if (noXpGuildRoles.length) {
-        setSelectedNoXpRoles(castToOptionArray(noXpGuildRoles));
-      }
-    }
 
     if (db?.xpBlacklistedChannels) {
       const xpBlacklistedGuildChannels = db.xpBlacklistedChannels
@@ -145,12 +132,12 @@ export default function GuildLeveling({ db, guild }: InferGetServerSidePropsType
     addChange('xpMessage', value);
   }
 
-  function handleSelectedTopXpRoleChange(values: Option[]) {
-    if (values.length > 1) return;
+  function handleTopXpChange(state: Snowflake[]) {
+    addChange('topXpRole', state[0]);
+  }
 
-    setSelectedTopXpRole(values[0] ?? null);
-
-    addChange('topXpRole', values[0]?.value ?? null);
+  function handleNoXpRolesChange(state: Snowflake[]) {
+    addChange('noXpRoles', state);
   }
 
   function handleGeneralOptionsChange(
@@ -188,23 +175,11 @@ export default function GuildLeveling({ db, guild }: InferGetServerSidePropsType
         <>
           <div className={styles.multipleSelectorContainer}>
             <label htmlFor="topXpRole">Top XP Role</label>
-            <MultiSelect
-              options={memoizedRoles}
-              value={selectedTopXpRole ? [selectedTopXpRole] : []}
-              onChange={handleSelectedTopXpRoleChange}
-              labelledBy="Select the Top XP Role"
-              hasSelectAll={false}
-            />
+            <Selector roles={memoizedRoles} onSelect={handleTopXpChange} />
           </div>
           <div className={styles.multipleSelectorContainer}>
             <label htmlFor="noXpRoles">No XP Roles</label>
-            <MultiSelect
-              options={memoizedRoles}
-              value={selectedNoXpRoles}
-              onChange={(v: Option[]) => handleGeneralOptionsChange(v, 'noXpRoles', 5, setSelectedNoXpRoles)}
-              labelledBy="Select the No XP Roles"
-              hasSelectAll={false}
-            />
+            <Selector roles={memoizedRoles} onSelect={handleNoXpRolesChange} />
           </div>
         </>
       )}
