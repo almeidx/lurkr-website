@@ -79,6 +79,14 @@
   color: var(--text);
 }
 
+.childrenContainer > label {
+  margin-top: 1.5rem;
+}
+
+.childrenContainer > label:first-of-type {
+  margin-top: 0;
+}
+
 .childrenContainer > input {
   background: var(--lighter-background);
   color: var(--white);
@@ -95,6 +103,14 @@
   justify-content: center;
   align-items: center;
   flex-direction: row;
+}
+
+.childrenContainer > div {
+  margin-top: 1.5rem;
+}
+
+.childrenContainer > div:first-child {
+  margin-top: 0;
 }
 
 .childrenContainer > div label {

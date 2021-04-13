@@ -53,7 +53,7 @@ export default function GuildLeveling({ db, guild }: InferGetServerSidePropsType
 
   function handleLevelsChange(event: ChangeEvent<HTMLInputElement>) {
     setLevels(event.target.checked);
-    addChange('storeCounts', event.target.checked);
+    addChange('levels', event.target.checked);
   }
 
   updateSelectedOption('leveling');
