@@ -1,0 +1,39 @@
+---
+id: moderation
+title: Moderation
+---
+
+:::info
+
+`<>` means the variable is **required**<br />
+`[]` means the variable is **optional**
+
+**Observation:** You should not include the `<>` or `[]` when typing out the variables
+
+:::
+
+## Purge
+
+To use the purge command, type `p!purge <amount> [--channel] [--user] [--bots]`
+
+The purge command will remove all messages within the specified variables.
+
+The amount variable specifies how many messages will be purged, starting from the last message to be sent.
+
+The amount variable is limited to messages between 1 and 100. If more messages need purging, the command needs to be run again.the
+
+The channel variable is a <u>declaration</u> variable, and requires you to include it and the channel you want to target.
+
+**Example:** `p!purge 10 --channel #general`
+
+The user variable is a <u>declaration</u> variable, and requires you to include it and the user you want to target.
+
+The user variable also requires either a user mention or a user ID to work.
+
+**Example:** `p!purge 10 --user @User` or `p!purge 10 --user 99787644430475264`
+
+The bot variable is a <u>declaration</u> variable, but doesn't require you to include anything after it.
+
+The bot variable will only target messages within the already specified variables, and onl if they have been sent mby a bot.
+
+**Example:** `p!purge 10 --bot`

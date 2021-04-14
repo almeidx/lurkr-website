@@ -1,0 +1,234 @@
+---
+id: configuration
+title: Configuration
+---
+
+:::info
+
+`<>` means the variable is **required**<br />
+`[]` means the variable is **optional**
+
+**Observation:** You should not include the `<>` or `[]` when typing out the variables
+
+:::
+
+:::warning BEFORE YOU CONTINUE
+In order to set the configuration, you need to include sub-commands before the config option you want to change.
+
+**Example:** `p!config set autoRole <roles>`
+
+The `set` in this example is the first sub-command, the `autoRole` is the key and the `<roles>` is the variable
+
+:::
+
+## Check
+
+To use the check sub-command, type `p!config check`
+
+The check sub-command allows you to double-check if you've setup your config correctly by displaying all config relevant information.
+
+## Delete
+
+To use the delete sub-command, type `p!config delete <key>`
+
+The key variable is the config option you want to delete.
+
+Each key variable (though the key name might be similar) is seperate from the rest, thus deleting one key will not affection the config of any other key.
+
+**Example:** `p!config delete autoRole` Doing this will not affect the `autoRoleTimeout` key.
+
+The available keys are:
+
+- autoRoleTimeout
+- blacklistedChannels
+- emojiListChannel
+- milestonesChannel
+- modRole
+- xpWhitelistedChannels
+
+## Delete All
+
+To use the delete all sub-command, type `p!config deleteAll`
+
+Contrary to the delete sub-command, this in fact will delete all of your previously set keys.
+
+This command has a confirmation message before it deletes anything.
+
+## Reset
+
+To use the reset sub-command, type `p!config reset <key>`
+
+The key variable is the config option you want to reset.
+
+Each key variable (though the key name might be similar) is seperate from the rest, thus deleting one key will not affection the config of any other key.
+
+**Example:** `p!config reset counts`
+
+The available keys are:
+
+- counts
+- levels
+- milestones
+
+## Set
+
+To use the set sub-command, type `p!config set <key> <arguments>`
+
+The key variable is the config option you want to reset.
+
+Each key variable (though the key name might be similar) is seperate from the rest, thus deleting one key will not affection the config of any other key.
+
+**Example:** `p!config set autoRole @Role @Role2 @Role3`
+
+The arguments variable is a key specific variable that changes depending which key you want to set. Please check below for the the correct key + argument combination.
+
+### autoRole
+
+:::note WHAT DOES THIS MEAN?
+
+The autorole(s) is the role(s) that will be given to a new user when they join the server.
+
+:::
+
+To use the set autoRole sub-sub-command, type `p!config set autoRole <role> [roles]`
+
+The role variable is the role which will be given to every new user who joins the server.
+
+The role variable allows you to enter a role mention, the role ID or the role name.
+
+The optional roles variable allows you to enter multiple roles to be given at the same time, should you need this.
+
+**Example:** `p!config set autoRole @Role @Role2 @Role3`
+
+### autoRoleTimeout
+
+:::note WHAT DOES THIS MEAN?
+
+The autorole timeout is the time delay between when a user joins and when they receive the autorole(s). If this isn't set, the delay is none.
+
+:::
+
+To use the set autoRoleTimeout sub-sub-command, type `p!config set autoRoleTimeout <time>`
+
+The time variable can be any valid time constant, such as:
+
+- 15m
+- 10 mins
+- 10 minutes
+- 15m5s
+- 300s
+
+If the time is only given as a number, the bot will default to milliseconds.
+
+The minimum time delay is 1 minute, the maximum delay is 30 minutes.
+
+**Example:** `p!config set autoRoleTimeout 10m`
+
+### blacklistedChannels
+
+:::note WHAT DOES THIS MEAN?
+
+Prevents commands from being run in blacklisted channels.
+
+:::
+
+To use the set blacklistedChannels sub-sub-command, type `p!config set blacklistedChannels <channels>`
+
+**Example:** `p!config set blacklistedChannels #general #images`
+
+The command allows for multiple channels to be set at ones, seperated by spaces.
+
+The command can be used with channel ID's or channel mentions.
+
+### emojiListChannel
+
+:::note WHAT DOES THIS MEAN?
+
+Sets the channel in which the emoji list will be posted for that server.
+
+:::
+
+To use the set emojiListChannel sub-sub-command, type `p!config set emojiListChannel <channel>`
+
+**Example:** `p!config set emojiListChannel #emojis`
+
+The command can be used with channel ID's or channel mentions.
+
+The command will not activate emoji listings. You must toggle the `emojiList` key on in order for the bot to start sending the list in the channel you've set.
+
+### milestonesChannel
+
+:::note WHAT DOES THIS MEAN?
+
+Sets the channel in which member milestones will be posted. A milestone is every 1,000 members.
+
+:::
+
+To use the set milestonesChannel sub-sub-command, type `p!config set milestonesChannel <channel>`
+
+**Example:** `p!config set milestonesChannel #milestones`
+
+The command can be used with channel ID's or channel mentions.
+
+The command will not activate milestone announcements. You must toggle the `milestones` key on in order for the bot to start sending milestones in the channel you've set.
+
+### modRole
+
+:::note WHAT DOES THIS MEAN?
+
+Sets the mod role in the server. When set, if the given role is mentioned the bot will remove the mentionability of the role for 10 minutes to avoid mention spam.
+
+:::
+
+To use the set modRole sub-sub-command, type `p!config set modRole <role>`
+
+**Example:** `p!config set modRole Moderator`
+
+The command can be used with role ID's or role names. (Names are Case Sensitive)
+
+Currently, setting the modrole doesn't grant users with the role any special permissions to use certain commands yet.
+
+### xpWhitelistedChannels
+
+:::note WHAT DOES THIS MEAN?
+
+Sets the channels in which XP can be gained. All other channels will be ignored, even if users actively chat in them.
+
+:::
+
+To use the set xpWhitelistedChannels sub-sub-command, type `p!config set xpWhitelistedChannels <channels>`
+
+**Example:** `p!config set xpWhitelistedChannels #general #off-topic`
+
+The command allows for multiple channels to be set at ones, seperated by spaces.
+
+The command can be used with channel ID's or channel mentions.
+
+The command will not activate leveling. You must toggle the `levels` key on in order for the bot to start logging leveling statistics.
+
+## Toggle
+
+To use the toggle sub-command, type `p!config toggle <key>`
+
+**Example:** `p!config toggle counts`
+
+Toggling the keys will not necessarily activate the corresponding configuration. Please make sure that if a toggle key has a `set` key associated with it, that this key needs to be set correctly aswell.
+
+The available keys are:
+
+- counts
+- emojiList (Corresponds to `emojiListChannel`)
+- levels (Corresponds to `xpWhitelistedChannels`)
+- milestones (Corresponds to `milestonesChannel`)
+
+### counts
+
+:::note WHAT DOES THIS MEAN?
+
+Stores the total server member count everyday for use in making predictions for `p!predict <number>`
+
+:::
+
+To use the toggle sub-sub-command, type `p!config toggle counts`
+
+This toggle key does not correspond to any `set` key.

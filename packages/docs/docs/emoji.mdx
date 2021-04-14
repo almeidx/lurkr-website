@@ -1,0 +1,83 @@
+---
+id: emoji
+title: Emoji
+---
+
+:::info
+
+`<>` means the variable is **required**<br />
+`[]` means the variable is **optional**
+
+**Observation:** You should not include the `<>` or `[]` when typing out the variables
+
+:::
+
+## Create an Emoji
+
+To create an emoji, type `p!emoji create <name> <image>` (or `p!createemoji <name> <image>`)
+
+The name variabe will be the final name of the emoji, including special characters and capitalization.
+
+The image variable will the final image of the emoji without any editing. If you want your emoji to include transparency, you must upload an image with transparency already.
+
+This command will work for both static (Non-moving) and animated emojis.
+
+:::note TIP
+
+You can either include a direct image URL (Which ends in an image format such as `.png`, `.jpg` or `.gif`) or you can use Discord's image upload tool to directly attach the image.
+
+:::
+
+## Delete an Emoji
+
+To delete an emoji that you've already uploaded, type `p!emoji delete <emoji/name>` (or `p!deleteemoji <emoji/name>`)
+
+The command can be used by either including the actual emoji you want to delete, or by writing it's name.
+
+When using the name variable, the name does not have to be complete, as the bot will search for the closest emoji name to what you have entered.
+
+**Example:** `p!emoji delete Not` will delete an emoji if it is named `:NotCool:`
+
+## Download an Emoji
+
+To download an emoji, or to get the image URL of an emoji, type `p!emoji download <emoji/name>` (or `p!downloademoji <emoji/name>`)
+
+The command can be used by either including the actual emoji you want to download, or by writing it's name.
+
+The command supports downloading up to **9** different emojis in the same comm and (The attachment limit of Discord). If you want to download more than 9 emojis, you need to run the command again.
+
+When using the name variable, the name does not have to be complete, as the bot will search for the closest emoji name to what you have entered.
+
+:::note TIP
+
+The bot can download any valid emoji you input, including custom server emojis from servers in which the bot isn't in, as long as you have a Discord Nitro subscription!
+
+:::
+
+## Rename an Emoji
+
+To rename an existing emoji, type `p!emoji rename <emoji/name> <new-name>` (or `p!renameemoji <emoji/name> <new-name>`)
+
+The command can be used by either including the actual emoji you want to rename, or by writing it's name.
+
+The new-name variabe will be the final name of the emoji, including special characters and capitalization.
+
+When using the name variable, the name does not have to be complete, as the bot will search for the closest emoji name to what you have entered.
+
+## Search for an Emoji
+
+To search for an existing emoji, type `p!emoji search <keywords>` (or `p!search <keywords>`)
+
+The command will look for emojis in the server in which the command was execute that match your specified keywords, and return all matching emojis in a list.
+
+The keywords are not searched 'loosely' meaning that the order of the letters matters when the bot performs a search.
+
+**Example:** To search for the emoji `:NotCool:` the keywords 'Not, Cool, tC, ool' etc. will all work, however keywords such as 'CoolNot or Ct' will not since they're in the wrong order.
+
+:::caution NOTE
+
+The search command will not search through all servers, only the server in which the command was executed in!
+
+However when executing the command in any one of the official **[Pepe Emoji Servers](https://discord.gg/pepe)**, it will search through the entire catalog of emojis, excluding emojis from other servers. This also applies when using the command in the bots DM's.
+
+:::
