@@ -1,18 +1,17 @@
 {
   "$schema": "http://json.schemastore.org/package",
-  "name": "pepe-website",
-  "version": "3.0.0",
+  "name": "website",
+  "version": "4.0.0",
   "description": "Pepe Emoji offers a powerful Discord bot to manage your server and unique Pepe emojis for you to use on Discord",
   "author": "almeidx <almeidx@pm.me> (https://almeidx.dev)",
   "license": "ISC",
   "private": true,
   "scripts": {
-    "build": "next build",
-    "dev": "next dev",
-    "lint": "eslint src --ext .ts,.tsx",
-    "lint:fix": "eslint src --ext .ts,.tsx --fix",
-    "start": "next start",
-    "prettier": "prettier --write **/*.{js,ts,tsx,json,css,yml}"
+    "bot": "yarn workspace @website/bot",
+    "lint": "eslint packages --ext .ts,.tsx",
+    "lint:fix": "eslint packages --ext .ts,.tsx --fix",
+    "main": "yarn workspace @manager/main",
+    "prettier": "prettier --write **/*.{ts,tsx,js,json,yml}"
   },
   "repository": {
     "type": "git",
@@ -21,31 +20,20 @@
   "bugs": {
     "url": "https://github.com/almeidx/pepe-website/issues"
   },
-  "homepage": "https://pepe-is.life",
   "dependencies": {
-    "@agney/react-loading": "^0.1.2",
-    "@almeidx/ms": "^1.2.1",
-    "@apollo/client": "^3.3.14",
-    "axios": "^0.21.1",
-    "deepmerge": "^4.2.2",
-    "graphql": "^15.5.0",
-    "next": "10.0.7",
-    "react": "17.0.1",
-    "react-custom-scrollbars": "^4.2.1",
-    "react-dom": "17.0.1",
-    "react-icons": "^4.2.0",
-    "react-multi-select-component": "^4.0.0",
-    "react-tooltip-lite": "^1.12.0",
-    "react-visibility-sensor": "^5.1.1",
-    "tslib": "^2.1.0"
+    "cross-env": "^7.0.3",
+    "next": "^10.1.3",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "reflect-metadata": "^0.1.13",
+    "tslib": "^2.2.0"
   },
   "devDependencies": {
-    "@types/node": "^14.14.33",
-    "@types/react": "^17.0.2",
-    "@types/react-custom-scrollbars": "^4.0.7",
-    "@types/react-dom": "^17.0.1",
-    "@typescript-eslint/eslint-plugin": "^4.17.0",
-    "@typescript-eslint/parser": "^4.17.0",
+    "@types/node": "^14.14.37",
+    "@types/react": "^17.0.3",
+    "@types/react-dom": "^17.0.3",
+    "@typescript-eslint/eslint-plugin": "^4.21.0",
+    "@typescript-eslint/parser": "^4.21.0",
     "discord-api-types": "^0.15.1",
     "eslint": "^7.7.0",
     "eslint-config-marine": "^8.1.0",
@@ -55,8 +43,17 @@
     "eslint-plugin-react": "^7.22.0",
     "eslint-plugin-react-hooks": "^4.2.0",
     "eslint-plugin-simple-import-sort": "^7.0.0",
-    "prettier": "^2.2.1",
-    "typescript": "4.1.5"
+    "prettier": "^2.1.1",
+    "rimraf": "^3.0.2",
+    "typescript": "4.2.4"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ]
   },
   "eslintConfig": {
     "root": true,

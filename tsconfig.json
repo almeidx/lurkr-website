@@ -28,6 +28,6 @@
     "strictPropertyInitialization": true,
     "target": "es5"
   },
-  "include": ["**/*.ts", "**/*.tsx", "next-env.d.ts"],
+  "include": ["**/*.ts", "**/*.tsx", "packages/**/next-env.d.ts"],
   "exclude": ["node_modules"]
 }
