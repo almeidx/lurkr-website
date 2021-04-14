@@ -1,0 +1,31 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 90%;
+}
+
+.container p {
+  width: 50rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+}
+
+.largeAnchor {
+  color: var(--white);
+  font-size: 2.5rem;
+}
+
+.mediumAnchor {
+  color: #dbdbdb;
+  font-size: 2rem;
+}
+
+.smallAnchor {
+  font-size: 1.5rem;
+}
+
+.mailAnchor {
+  text-decoration: underline;
+}

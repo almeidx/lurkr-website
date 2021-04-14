@@ -1,0 +1,73 @@
+.roleSelector {
+  cursor: pointer;
+  user-select: none;
+  color: #e4e4e4;
+  position: relative;
+  width: 20rem;
+  font-size: 0.85rem;
+}
+
+.roleSelectorBase {
+  background: #101010;
+  padding: 0.75rem 1rem;
+}
+
+.roleSelectorInline {
+  display: inline-block;
+  border: 1px solid #636363;
+  border-radius: 2rem;
+  padding: 0.35rem 0.5rem;
+  margin: 0.125rem;
+  line-height: 0.75rem;
+  font-size: 0.75rem;
+}
+
+.roleSelectorInline .roleSelectorCircle {
+  display: inline-block;
+  width: 0.75rem;
+  height: 0.75rem;
+  margin-right: 0.25rem;
+}
+
+.roleSelectorInline span {
+  vertical-align: top;
+}
+
+.roleSelectorInput {
+  display: inline-block;
+  outline: 0;
+  padding: 0.5rem 0.25rem;
+}
+
+.roleSelectorList::-webkit-scrollbar {
+  background: 0;
+  width: 0.15rem;
+}
+
+.roleSelectorList::-webkit-scrollbar-thumb {
+  background: #e4e4e4;
+}
+
+.roleSelectorList {
+  overflow: overlay;
+  background: #131313;
+  position: absolute;
+  transform: translateY(100%);
+  left: 0;
+  bottom: 1px;
+  width: 100%;
+  max-height: 300px;
+}
+
+.roleSelectorRole {
+  display: flex;
+  padding: 1rem;
+}
+
+.roleSelectorCircle {
+  background-color: #fff;
+  border-radius: 50%;
+  width: 1rem;
+  height: 1rem;
+  margin-right: 1rem;
+}
