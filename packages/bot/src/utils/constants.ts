@@ -26,7 +26,7 @@ export const DISCORD_USER_DEFAULT_AVATAR_CDN = (discriminator: number) =>
   `'https://cdn.discordapp.com/embed/avatars/${discriminator % 5}.png`;
 
 export const API_BASE_URL =
-  process.env.NODE_ENV === 'development' ? 'http://localhost:3333' : 'https://api.pepe-is.life';
+  process.env.NODE_ENV === 'development' ? 'http://localhost:3333' : 'https://api.pepemanager.com';
 
 // https://discord.com/developers/docs/reference#snowflakes
 export const MIN_SNOWFLAKE = 0b000000000000000000000000000000000000000000_00001_00001_000000000001;

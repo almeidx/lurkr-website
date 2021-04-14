@@ -19,6 +19,6 @@ export const DISCORD_GUILD_CDN = (id: Snowflake, icon: string | null, allowGif =
     : null;
 
 export const API_BASE_URL =
-  process.env.NODE_ENV === 'development' ? 'http://localhost:3333' : 'https://api.pepe-is.life';
+  process.env.NODE_ENV === 'development' ? 'http://localhost:3333' : 'https://api.pepemanager.com';
 
 export const FALLBACK_AVATAR = '/assets/fallback-avatar.png';
