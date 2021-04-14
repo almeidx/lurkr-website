@@ -1,3 +1,4 @@
+import type { Snowflake } from 'discord-api-types';
 import { ReactNode, useContext, useState } from 'react';
 import { BsConeStriped, BsFillShiftFill, BsPersonPlusFill } from 'react-icons/bs';
 import { RiSoundModuleFill } from 'react-icons/ri';
@@ -11,7 +12,7 @@ interface BaseOptions {
   children: ReactNode;
   option: Option;
   guild: {
-    id: string;
+    id: Snowflake;
     name: string;
     icon: string | null;
   };

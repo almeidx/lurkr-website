@@ -37,7 +37,7 @@ jobs:
           NODE_OPTIONS: --max-old-space-size=4096
 
       - name: Run TypeScript compiler
-        run: yarn build
+        run: yarn workspaces run build
 
   lint:
     name: ESLint

@@ -1,3 +1,4 @@
+import type { Snowflake } from 'discord-api-types';
 import type { ChangeEvent } from 'react';
 
 import styles from '../styles/components/Level.module.css';
@@ -7,7 +8,7 @@ export interface LevelInfo {
   avatar: string | null;
   level: number;
   tag: string | null;
-  userID: string;
+  userID: Snowflake;
   xp: number;
 }
 
