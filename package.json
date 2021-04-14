@@ -10,7 +10,7 @@
     "bot": "yarn workspace @website/bot",
     "lint": "eslint packages --ext .ts,.tsx",
     "lint:fix": "eslint packages --ext .ts,.tsx --fix",
-    "main": "yarn workspace @manager/main",
+    "main": "yarn workspace @website/main",
     "prettier": "prettier --write **/*.{ts,tsx,js,json,yml}"
   },
   "repository": {

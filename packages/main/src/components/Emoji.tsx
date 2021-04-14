@@ -1,10 +1,11 @@
+import type { Snowflake } from 'discord-api-types';
 import Link from 'next/link';
 import { useContext } from 'react';
 import Tooltip from 'react-tooltip-lite';
 
 import { SearchBarContext } from '../contexts/SearchBarContext';
 import styles from '../styles/components/Emoji.module.css';
-import { DISCORD_EMOJI_CDN, Snowflake } from '../utils/constants';
+import { DISCORD_EMOJI_CDN } from '../utils/constants';
 
 interface EmojiProps {
   invite: string;

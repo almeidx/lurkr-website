@@ -1,8 +1,9 @@
 import { gql } from '@apollo/client';
+import type { Snowflake } from 'discord-api-types';
 
 interface Guild {
   icon: string | null;
-  id: string;
+  id: Snowflake;
   name: string;
   permissions: string;
 }
