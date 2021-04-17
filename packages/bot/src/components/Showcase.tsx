@@ -19,12 +19,12 @@ export default function Showcase({ align, description, path, title }: ShowcasePr
   }
 
   return (
-    <VisibilitySensor onChange={onVisibilityChange}>
-      <div className={`${styles.container} ${styles[`${align}AlignedShowcase`]}`}>
-        <span>{title}</span>
-        <p>{description}</p>
-        <video autoPlay loop src={path} ref={videoRef} />
-      </div>
-    </VisibilitySensor>
+    <div className={`${styles.container} ${styles[`${align}AlignedShowcase`]}`}>
+      <span>{title}</span>
+      <p>{description}</p>
+      <VisibilitySensor onChange={onVisibilityChange}>
+        <video autoPlay loop muted playsInline src={path} ref={videoRef} />
+      </VisibilitySensor>
+    </div>
   );
 }
