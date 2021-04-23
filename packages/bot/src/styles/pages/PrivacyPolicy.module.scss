@@ -4,12 +4,25 @@
   align-items: center;
   flex-direction: column;
   width: 90%;
-}
 
-.container p {
-  width: 50rem;
-  flex-wrap: wrap;
-  margin-bottom: 1.5rem;
+  > h1 {
+    color: var(--white);
+  }
+
+  > p {
+    width: 50rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.5rem;
+  }
+
+  > ul {
+    > li {
+      margin-left: 2.75rem;
+      width: 50rem;
+      margin-bottom: 1.5rem;
+      list-style: circle;
+    }
+  }
 }
 
 .largeAnchor {

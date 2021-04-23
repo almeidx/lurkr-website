@@ -1,6 +1,5 @@
+import styles from '@styles/pages/Terms.module.scss';
 import Head from 'next/head';
-
-import styles from '../styles/pages/Terms.module.css';
 
 export default function Terms() {
   return (

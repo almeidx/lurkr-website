@@ -1,17 +1,16 @@
 import ms from '@almeidx/ms';
+import Base from '@components/dashboard/Base';
+import Error from '@components/Error';
+import Selector from '@components/Selector';
+import { GuildContext } from '@contexts/GuildContext';
+import { UserContext } from '@contexts/UserContext';
+import { initializeApollo } from '@graphql/client';
+import AUTOROLE, { Autorole } from '@graphql/dashboard/Autorole';
+import styles from '@styles/pages/guilds/Autorole.module.scss';
 import type { Snowflake } from 'discord-api-types/v8';
 import type { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import { ChangeEvent, useContext, useEffect, useMemo, useState } from 'react';
-
-import { initializeApollo } from '../../../apollo/client';
-import Base from '../../../components/dashboard/Base';
-import Error from '../../../components/Error';
-import Selector from '../../../components/Selector';
-import { GuildContext } from '../../../contexts/GuildContext';
-import { UserContext } from '../../../contexts/UserContext';
-import AUTOROLE, { Autorole } from '../../../graphql/dashboard/Autorole';
-import styles from '../../../styles/pages/guilds/Autorole.module.css';
 
 export interface GuildAutoroleProps {
   db: Autorole['getDatabaseGuild'];
@@ -105,7 +104,7 @@ export default function GuildAutorole({ db, guild }: GuildAutoroleProps) {
     <Base guild={guild} option="autorole">
       <div className={styles.autoRoleSelectorContainer}>
         <label htmlFor="autoRole">Auto Roles</label>
-        {memoizedRoles && <Selector roles={memoizedRoles} onSelect={handleRoleSelectorUpdate} />}
+        {memoizedRoles && <Selector roles={memoizedRoles} onSelect={handleRoleSelectorUpdate} limit={5} />}
       </div>
 
       <div className={styles.autoRoleTimeoutContainer}>

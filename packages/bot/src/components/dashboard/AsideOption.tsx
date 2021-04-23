@@ -3,7 +3,7 @@ import { useContext } from 'react';
 import type { IconType } from 'react-icons/lib';
 
 import { GuildContext } from '../../contexts/GuildContext';
-import styles from '../../styles/components/dashboard/AsideOption.module.css';
+import styles from '../../styles/components/dashboard/AsideOption.module.scss';
 
 export type Option = 'general' | 'leveling' | 'autorole' | 'misc';
 

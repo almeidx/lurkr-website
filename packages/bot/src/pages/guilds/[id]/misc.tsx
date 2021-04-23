@@ -1,14 +1,13 @@
+import Base from '@components/dashboard/Base';
+import Error from '@components/Error';
+import { GuildContext } from '@contexts/GuildContext';
+import { UserContext } from '@contexts/UserContext';
+import { initializeApollo } from '@graphql/client';
+import MISC, { Misc } from '@graphql/dashboard/Misc';
+import styles from '@styles/pages/guilds/Misc.module.scss';
 import type { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import { useRouter } from 'next/router';
 import { ChangeEvent, useContext, useEffect, useState } from 'react';
-
-import { initializeApollo } from '../../../apollo/client';
-import Base from '../../../components/dashboard/Base';
-import Error from '../../../components/Error';
-import { GuildContext } from '../../../contexts/GuildContext';
-import { UserContext } from '../../../contexts/UserContext';
-import MISC, { Misc } from '../../../graphql/dashboard/Misc';
-import styles from '../../../styles/pages/guilds/Misc.module.css';
 
 export interface GuildMiscProps {
   db: Misc['getDatabaseGuild'];

@@ -1,14 +1,13 @@
+import Error from '@components/Error';
+import { UserContext } from '@contexts/UserContext';
+import { initializeApollo } from '@graphql/client';
+import USER_GUILDS, { UserGuilds } from '@graphql/UserGuilds';
+import styles from '@styles/pages/guilds/Dashboard.module.scss';
+import { DISCORD_GUILD_CDN, FALLBACK_AVATAR } from '@utils/constants';
 import { PermissionFlagsBits } from 'discord-api-types/v8';
 import type { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import Link from 'next/link';
 import { useContext } from 'react';
-
-import { initializeApollo } from '../../apollo/client';
-import Error from '../../components/Error';
-import { UserContext } from '../../contexts/UserContext';
-import USER_GUILDS, { UserGuilds } from '../../graphql/UserGuilds';
-import styles from '../../styles/pages/guilds/Dashboard.module.css';
-import { DISCORD_GUILD_CDN, FALLBACK_AVATAR } from '../../utils/constants';
 
 const { MANAGE_GUILD } = PermissionFlagsBits;
 

@@ -1,4 +1,4 @@
-import styles from '../styles/components/Role.module.css';
+import styles from '../styles/components/Role.module.scss';
 import type { Role as RoleInfo } from './Level';
 
 interface RoleProps {

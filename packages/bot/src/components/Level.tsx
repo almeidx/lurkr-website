@@ -1,7 +1,7 @@
 import type { Snowflake } from 'discord-api-types';
 import type { ChangeEvent } from 'react';
 
-import styles from '../styles/components/Level.module.css';
+import styles from '../styles/components/Level.module.scss';
 import { DISCORD_USER_AVATAR_CDN, DISCORD_USER_DEFAULT_AVATAR_CDN, FALLBACK_AVATAR } from '../utils/constants';
 
 export interface LevelInfo {

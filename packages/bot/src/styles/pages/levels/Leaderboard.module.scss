@@ -2,27 +2,27 @@
   display: flex;
   margin: 0 auto;
   flex-direction: column;
-}
 
-.container > header {
-  display: flex;
-  justify-content: left;
-  align-items: center;
-  flex-direction: row;
-  margin: 2rem;
-}
+  > header {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    flex-direction: row;
+    margin: 2rem;
 
-.container > header img {
-  display: flex;
-  width: 96px;
-  height: auto;
-  border-radius: 25%;
-  margin: 1rem;
-}
+    > img {
+      display: flex;
+      width: 96px;
+      height: auto;
+      border-radius: 25%;
+      margin: 1rem;
+    }
 
-.container > header span {
-  font-size: 2rem;
-  color: var(--white);
+    > span {
+      font-size: 2rem;
+      color: var(--white);
+    }
+  }
 }
 
 .mainContent {
@@ -31,7 +31,7 @@
   flex-direction: row;
 }
 
-.mainContent div.leaderboardContainer {
+.leaderboardContainer {
   background: var(--lighter-background);
   margin: 0 2rem 2rem 2rem;
   flex-direction: column;
@@ -39,7 +39,7 @@
   border-radius: 15px;
 }
 
-.mainContent div.xpRolesContainer {
+.xpRolesContainer {
   display: flex;
   align-items: center;
   justify-content: left;
@@ -49,11 +49,11 @@
   border-radius: 15px;
   height: fit-content;
   padding-bottom: 1rem;
-}
 
-.mainContent div.xpRolesContainer > span {
-  color: var(--white);
-  font-size: 1.25rem;
-  font-weight: 500;
-  margin: 0.25rem 0;
+  > span {
+    color: var(--white);
+    font-size: 1.25rem;
+    font-weight: 500;
+    margin: 0.25rem 0;
+  }
 }

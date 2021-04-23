@@ -4,7 +4,7 @@ import { useContext } from 'react';
 import { FaDiscord } from 'react-icons/fa';
 
 import { UserContext } from '../contexts/UserContext';
-import styles from '../styles/components/Navbar.module.css';
+import styles from '../styles/components/Navbar.module.scss';
 import { API_BASE_URL, DISCORD_USER_AVATAR_CDN } from '../utils/constants';
 
 // const popup = (url: string, title: string, w: number, h: number) => {

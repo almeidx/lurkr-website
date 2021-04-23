@@ -1,4 +1,4 @@
-import styles from '../styles/components/Error.module.css';
+import styles from '../styles/components/Error.module.scss';
 
 interface ErrorProps {
   message?: string;

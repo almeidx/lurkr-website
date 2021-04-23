@@ -1,0 +1,47 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  > header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: var(--white);
+
+    > h1 {
+      margin: 1.25rem 0;
+    }
+
+    > p {
+      color: var(--text);
+    }
+  }
+}
+
+.linkContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 1.5rem 0;
+
+  > a {
+    padding: 0.75rem;
+    color: var(--white);
+    background: var(--blurple);
+    border: 0;
+    border-radius: 7px;
+
+    &:first-of-type {
+      margin-right: 0.5rem;
+    }
+  }
+}
+
+.showcaseContainer {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+}

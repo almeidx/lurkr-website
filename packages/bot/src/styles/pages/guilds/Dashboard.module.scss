@@ -1,8 +1,4 @@
 .container {
-  width: 100%;
-}
-
-.container {
   margin: 0 auto;
   display: flex;
   justify-content: center;
@@ -20,15 +16,15 @@
   margin: 1rem;
   width: 8rem;
   height: 8rem;
-}
 
-.guildContainer > img {
-  width: 6rem;
-  height: 6rem;
-  border-radius: 15px;
-}
+  > img {
+    width: 6rem;
+    height: 6rem;
+    border-radius: 15px;
+  }
 
-.guildContainer > span {
-  margin: 0 auto;
-  text-align: center;
+  > span {
+    margin: 0 auto;
+    text-align: center;
+  }
 }

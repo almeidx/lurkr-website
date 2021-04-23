@@ -1,15 +1,14 @@
-import '../styles/global.css';
+import '@styles/global.scss';
 
 import { ApolloProvider } from '@apollo/client';
+import Navbar from '@components/Navbar';
+import GuildProvider from '@contexts/GuildContext';
+import GuildsStoreProvider from '@contexts/GuildsStoreContext';
+import UserProvider from '@contexts/UserContext';
+import { useApollo } from '@graphql/client';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import { Scrollbars } from 'react-custom-scrollbars';
-
-import { useApollo } from '../apollo/client';
-import Navbar from '../components/Navbar';
-import GuildProvider from '../contexts/GuildContext';
-import GuildsStoreProvider from '../contexts/GuildsStoreContext';
-import UserProvider from '../contexts/UserContext';
 
 export default function MyApp({ Component, pageProps }: AppProps) {
   const apolloClient = useApollo(pageProps.initialApolloState);

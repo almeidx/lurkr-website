@@ -1,14 +1,13 @@
+import Level, { Colours } from '@components/Level';
+import Loading from '@components/Loading';
+import Role from '@components/Role';
+import { initializeApollo } from '@graphql/client';
+import GUILD_LEVELS, { Guild, GuildLevels, Levels } from '@graphql/GuildLevels';
+import styles from '@styles/pages/levels/Leaderboard.module.scss';
+import { DISCORD_GUILD_CDN, FALLBACK_AVATAR } from '@utils/constants';
 import type { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-
-import { initializeApollo } from '../../apollo/client';
-import Level, { Colours } from '../../components/Level';
-import Loading from '../../components/Loading';
-import Role from '../../components/Role';
-import GUILD_LEVELS, { Guild, GuildLevels, Levels } from '../../graphql/GuildLevels';
-import styles from '../../styles/pages/levels/Leaderboard.module.css';
-import { DISCORD_GUILD_CDN, FALLBACK_AVATAR } from '../../utils/constants';
 
 interface LeaderboardProps {
   guild: Guild;

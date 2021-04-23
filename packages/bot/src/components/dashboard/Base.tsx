@@ -4,7 +4,7 @@ import { BsConeStriped, BsFillShiftFill, BsPersonPlusFill } from 'react-icons/bs
 import { RiSoundModuleFill } from 'react-icons/ri';
 
 import { GuildContext } from '../../contexts/GuildContext';
-import styles from '../../styles/components/dashboard/Base.module.css';
+import styles from '../../styles/components/dashboard/Base.module.scss';
 import { DISCORD_GUILD_CDN, FALLBACK_AVATAR } from '../../utils/constants';
 import AsideOption, { AsideOptionOptions, Option } from './AsideOption';
 

@@ -4,6 +4,28 @@
   gap: 1rem;
   width: 100%;
   margin: 3rem 0;
+
+  > span {
+    grid-area: title;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    color: var(--white);
+    font-size: 1.75rem;
+    font-weight: 600;
+  }
+
+  > p {
+    grid-area: description;
+    color: var(--text);
+  }
+
+  > video {
+    grid-area: video;
+    width: 30rem;
+    height: auto;
+    border-radius: 15px;
+  }
 }
 
 .leftAlignedShowcase {
@@ -18,26 +40,4 @@
   grid-template-areas:
     'video title'
     'video description';
-}
-
-.container > span {
-  grid-area: title;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  color: var(--white);
-  font-size: 1.75rem;
-  font-weight: 600;
-}
-
-.container > p {
-  grid-area: description;
-  color: var(--text);
-}
-
-.container > video {
-  grid-area: video;
-  width: 30rem;
-  height: auto;
-  border-radius: 15px;
 }

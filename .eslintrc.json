@@ -1,0 +1,115 @@
+{
+  "root": true,
+  "extends": "marine/prettier/react",
+  "parserOptions": {
+    "project": "./tsconfig.eslint.json"
+  },
+  "plugins": [
+    "simple-import-sort"
+  ],
+  "ignorePatterns": [
+    ".next/*",
+    ".vercel/*",
+    ".yarn/*",
+    "node_modules/*"
+  ],
+  "env": {
+    "node": true
+  },
+  "globals": {
+    "NodeJS": "readonly",
+    "JSX": "readonly"
+  },
+  "rules": {
+    "@typescript-eslint/indent": 0,
+    "@typescript-eslint/naming-convention": [
+      2,
+      {
+        "format": [
+          "PascalCase",
+          "UPPER_CASE",
+          "camelCase"
+        ],
+        "leadingUnderscore": "allow",
+        "selector": "variable"
+      },
+      {
+        "format": [
+          "PascalCase"
+        ],
+        "leadingUnderscore": "allow",
+        "selector": "typeLike"
+      },
+      {
+        "format": [
+          "camelCase",
+          "PascalCase"
+        ],
+        "leadingUnderscore": "allow",
+        "selector": "function"
+      }
+    ],
+    "@typescript-eslint/no-extraneous-class": 0,
+    "@typescript-eslint/no-non-null-assertion": 0,
+    "@typescript-eslint/space-before-function-paren": 0,
+    "@typescript-eslint/restrict-template-expressions": 0,
+    "no-implicit-coercion": 0,
+    "no-negated-condition": 0,
+    "no-undef": 0,
+    "no-unused-vars": 0,
+    "prettier/prettier": [
+      2,
+      {
+        "printWidth": 120,
+        "useTabs": false,
+        "tabWidth": 2,
+        "singleQuote": true,
+        "quoteProps": "as-needed",
+        "trailingComma": "all",
+        "endOfLine": "lf"
+      }
+    ],
+    "react/jsx-filename-extension": [
+      2,
+      {
+        "extensions": [
+          ".tsx"
+        ]
+      }
+    ],
+    "react/react-in-jsx-scope": 0,
+    "simple-import-sort/exports": 2,
+    "simple-import-sort/imports": 2,
+    "spaced-comment": [
+      1,
+      "always",
+      {
+        "line": {
+          "markers": [
+            "#region",
+            "#endregion",
+            "region",
+            "endregion",
+            "/"
+          ]
+        }
+      }
+    ],
+    "sort-imports": 0,
+    "sort-keys": 2,
+    "sort-vars": 2
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
+  "overrides": [
+    {
+      "files": "*.js",
+      "rules": {
+        "simple-import-sort/imports": 0
+      }
+    }
+  ]
+}

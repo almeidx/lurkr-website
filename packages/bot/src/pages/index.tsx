@@ -1,9 +1,8 @@
+import Showcase, { ShowcaseProps } from '@components/Showcase';
+import styles from '@styles/pages/Home.module.scss';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
-
-import Showcase, { ShowcaseProps } from '../components/Showcase';
-import styles from '../styles/pages/Home.module.css';
 
 const showcases: ShowcaseProps[] = [
   {

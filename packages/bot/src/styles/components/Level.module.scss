@@ -1,0 +1,45 @@
+.container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.userInfo {
+  display: flex;
+  align-items: center;
+  margin: 1rem;
+
+  > span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 0.025rem;
+    height: 0.025rem;
+    padding: 1rem;
+    border-radius: 50%;
+    color: var(--white);
+  }
+
+  > img {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    margin: 0 1rem;
+  }
+
+  > p {
+    color: var(--white);
+  }
+}
+
+.levelInfo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  > span {
+    margin: 1rem;
+    font-size: 1.25rem;
+  }
+}

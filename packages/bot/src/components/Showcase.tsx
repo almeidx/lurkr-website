@@ -1,7 +1,7 @@
 import { useRef } from 'react';
 import VisibilitySensor from 'react-visibility-sensor';
 
-import styles from '../styles/components/Showcase.module.css';
+import styles from '../styles/components/Showcase.module.scss';
 
 export interface ShowcaseProps {
   align: 'left' | 'right';

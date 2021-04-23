@@ -1,6 +1,6 @@
 import { TailSpin } from '@agney/react-loading';
 
-import styles from '../styles/components/Loading.module.css';
+import styles from '../styles/components/Loading.module.scss';
 
 export default function Loading() {
   return (
