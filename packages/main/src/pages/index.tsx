@@ -28,6 +28,7 @@ export const getStaticProps: GetStaticProps<HomeProps> = async () => {
 
   return {
     props: {
+      // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
       emojiCount: officialGuildsClone.reduce((a, g) => a + g.emojiCount, 0),
       guilds: officialGuildsClone.sort((a, b) => b.memberCount - a.memberCount),
       otherGuilds: otherGuildsClone.sort((a, b) => b.memberCount - a.memberCount),
