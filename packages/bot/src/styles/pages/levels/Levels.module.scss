@@ -47,7 +47,7 @@
       -moz-appearance: textfield;
     }
 
-    &.focus {
+    &:focus {
       box-shadow: 0 0 60px rgba(0, 0, 0, 0.05);
     }
   }

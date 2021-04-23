@@ -1,3 +1,13 @@
 {
+  "compilerOptions": {
+    "baseUrl": "src",
+    "paths": {
+      "@components/*": ["components/*"],
+      "@contexts/*": ["contexts/*"],
+      "@graphql/*": ["graphql/*"],
+      "@styles/*": ["styles/*"],
+      "@utils/*": ["utils/*"],
+    }
+  },
   "extends": "../../tsconfig.json"
 }

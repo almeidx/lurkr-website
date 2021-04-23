@@ -64,7 +64,7 @@
     display: inline;
     margin-right: 1rem;
 
-    &.last-of-type {
+    &:last-of-type {
       margin-right: 0;
     }
 
@@ -73,7 +73,7 @@
       font-size: 1rem;
       transition: color 0.2s;
 
-      &.hover {
+      &:hover {
         color: var(--gray-line);
       }
     }
@@ -83,7 +83,7 @@
 .signOutButton {
   background: var(--background);
 
-  &.hover {
+  &:hover {
     background: #da3940;
   }
 }
@@ -91,7 +91,7 @@
 .signInButton {
   background: var(--blurple);
 
-  &.hover {
+  &:hover {
     background: #5a6db0;
   }
 }

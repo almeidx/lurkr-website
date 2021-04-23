@@ -1,6 +1,5 @@
+import styles from '@styles/pages/PrivacyPolicy.module.scss';
 import Head from 'next/head';
-
-import styles from '../styles/pages/PrivacyPolicy.module.css';
 
 export default function PrivacyPolicy() {
   return (
