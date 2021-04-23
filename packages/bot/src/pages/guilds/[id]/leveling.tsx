@@ -174,11 +174,11 @@ export default function GuildLeveling({ db, guild }: InferGetServerSidePropsType
         <>
           <div className={styles.multipleSelectorContainer}>
             <label htmlFor="topXpRole">Top XP Role</label>
-            <Selector roles={memoizedRoles} onSelect={handleTopXpChange} />
+            <Selector limit={1} roles={memoizedRoles} onSelect={handleTopXpChange} />
           </div>
           <div className={styles.multipleSelectorContainer}>
             <label htmlFor="noXpRoles">No XP Roles</label>
-            <Selector roles={memoizedRoles} onSelect={handleNoXpRolesChange} />
+            <Selector limit={30} roles={memoizedRoles} onSelect={handleNoXpRolesChange} />
           </div>
         </>
       )}
