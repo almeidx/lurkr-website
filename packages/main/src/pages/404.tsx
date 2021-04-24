@@ -1,4 +1,4 @@
-import styles from '@styles/pages/404.module.scss';
+import styles from '../styles/pages/404.module.scss';
 
 export default function _404() {
   return (

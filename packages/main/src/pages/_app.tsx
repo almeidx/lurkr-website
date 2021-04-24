@@ -1,12 +1,13 @@
 import '../styles/global.scss';
 
 import { ApolloProvider } from '@apollo/client';
-import Navbar from '@components/Navbar';
-import SearchBarProvider from '@contexts/SearchBarContext';
-import { useApollo } from '@graphql/client';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import { Scrollbars } from 'react-custom-scrollbars';
+
+import Navbar from '../components/Navbar';
+import SearchBarProvider from '../contexts/SearchBarContext';
+import { useApollo } from '../graphql/client';
 
 export default function MyApp({ Component, pageProps }: AppProps) {
   const apolloClient = useApollo(pageProps.initialApolloState);

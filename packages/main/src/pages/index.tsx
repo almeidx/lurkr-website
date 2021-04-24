@@ -1,14 +1,15 @@
 import { TailSpin } from '@agney/react-loading';
-import Emoji from '@components/Emoji';
-import GuildBox from '@components/GuildBox';
-import { SearchBarContext } from '@contexts/SearchBarContext';
-import ALL_GUILDS, { AllGuilds } from '@graphql/AllGuilds';
-import { initializeApollo } from '@graphql/client';
-import FIND_EMOJIS, { FindEmojis } from '@graphql/FindEmojis';
-import styles from '@styles/pages/Home.module.scss';
 import type { GetStaticProps, InferGetStaticPropsType } from 'next';
 import Head from 'next/head';
 import { useContext, useEffect, useState } from 'react';
+
+import Emoji from '../components/Emoji';
+import GuildBox from '../components/GuildBox';
+import { SearchBarContext } from '../contexts/SearchBarContext';
+import ALL_GUILDS, { AllGuilds } from '../graphql/AllGuilds';
+import { initializeApollo } from '../graphql/client';
+import FIND_EMOJIS, { FindEmojis } from '../graphql/FindEmojis';
+import styles from '../styles/pages/Home.module.scss';
 
 interface HomeProps {
   emojiCount: number;

@@ -1,7 +1,8 @@
 import { ApolloClient, HttpLink, InMemoryCache, NormalizedCacheObject } from '@apollo/client';
-import { API_BASE_URL } from '@utils/constants';
 import merge from 'deepmerge';
 import { useMemo } from 'react';
+
+import { API_BASE_URL } from '../utils/constants';
 
 let apolloClient: ApolloClient<NormalizedCacheObject> | null = null;
 

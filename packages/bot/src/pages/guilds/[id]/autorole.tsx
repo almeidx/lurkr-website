@@ -1,16 +1,17 @@
 import ms from '@almeidx/ms';
-import Base from '@components/dashboard/Base';
-import Error from '@components/Error';
-import Selector from '@components/Selector';
-import { GuildContext } from '@contexts/GuildContext';
-import { UserContext } from '@contexts/UserContext';
-import { initializeApollo } from '@graphql/client';
-import AUTOROLE, { Autorole } from '@graphql/dashboard/Autorole';
 import styles from '@styles/pages/guilds/Autorole.module.scss';
 import type { Snowflake } from 'discord-api-types/v8';
 import type { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import { ChangeEvent, useContext, useEffect, useMemo, useState } from 'react';
+
+import Base from '../../../components/dashboard/Base';
+import Error from '../../../components/Error';
+import Selector from '../../../components/Selector';
+import { GuildContext } from '../../../contexts/GuildContext';
+import { UserContext } from '../../../contexts/UserContext';
+import { initializeApollo } from '../../../graphql/client';
+import AUTOROLE, { Autorole } from '../../../graphql/dashboard/Autorole';
 
 export interface GuildAutoroleProps {
   db: Autorole['getDatabaseGuild'];

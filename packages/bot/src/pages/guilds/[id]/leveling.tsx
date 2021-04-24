@@ -1,18 +1,19 @@
-import Base from '@components/dashboard/Base';
-import Error from '@components/Error';
-import Selector from '@components/Selector';
-import { DatabaseGuild, GuildContext } from '@contexts/GuildContext';
-import { UserContext } from '@contexts/UserContext';
-import { initializeApollo } from '@graphql/client';
-import type { Channel } from '@graphql/dashboard/General';
-import LEVELING, { Leveling } from '@graphql/dashboard/Leveling';
-import styles from '@styles/pages/guilds/Leveling.module.scss';
 import type { Snowflake } from 'discord-api-types/v8';
 import type { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import { useRouter } from 'next/router';
 import { ChangeEvent, SetStateAction, useContext, useEffect, useMemo, useState } from 'react';
 import MultiSelect from 'react-multi-select-component';
 import type { Option } from 'react-multi-select-component/dist/lib/interfaces';
+
+import Base from '../../../components/dashboard/Base';
+import Error from '../../../components/Error';
+import Selector from '../../../components/Selector';
+import { DatabaseGuild, GuildContext } from '../../../contexts/GuildContext';
+import { UserContext } from '../../../contexts/UserContext';
+import { initializeApollo } from '../../../graphql/client';
+import type { Channel } from '../../../graphql/dashboard/General';
+import LEVELING, { Leveling } from '../../../graphql/dashboard/Leveling';
+import styles from '../../../styles/pages/guilds/Leveling.module.scss';
 
 interface GuildLevelingProps {
   db: Leveling['getDatabaseGuild'];

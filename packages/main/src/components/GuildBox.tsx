@@ -1,7 +1,8 @@
-import styles from '@styles/components/GuildBox.module.scss';
-import { DISCORD_GUILD_CDN, FALLBACK_AVATAR } from '@utils/constants';
 import type { Snowflake } from 'discord-api-types';
 import { FaSignInAlt } from 'react-icons/fa';
+
+import styles from '../styles/components/GuildBox.module.scss';
+import { DISCORD_GUILD_CDN, FALLBACK_AVATAR } from '../utils/constants';
 
 interface GuildBoxProps {
   id: Snowflake;

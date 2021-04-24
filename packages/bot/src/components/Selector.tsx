@@ -1,6 +1,7 @@
-import styles from '@styles/components/Selector.module.scss';
 import type { Snowflake } from 'discord-api-types';
 import { KeyboardEvent, useRef, useState } from 'react';
+
+import styles from '../styles/components/Selector.module.scss';
 
 const colorToRGB = (color: number) => {
   const r = (color >> 16) & 0xff;

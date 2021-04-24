@@ -1,5 +1,5 @@
+import { gql } from '@apollo/client';
 import type { Snowflake } from 'discord-api-types/v8';
-import gql from 'graphql-tag';
 
 interface Emoji {
   animated: boolean;
