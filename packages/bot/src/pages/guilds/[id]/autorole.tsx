@@ -1,5 +1,4 @@
 import ms from '@almeidx/ms';
-import styles from '@styles/pages/guilds/Autorole.module.scss';
 import type { Snowflake } from 'discord-api-types/v8';
 import type { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
@@ -12,6 +11,7 @@ import { GuildContext } from '../../../contexts/GuildContext';
 import { UserContext } from '../../../contexts/UserContext';
 import { initializeApollo } from '../../../graphql/client';
 import AUTOROLE, { Autorole } from '../../../graphql/dashboard/Autorole';
+import styles from '../../../styles/pages/guilds/Autorole.module.scss';
 
 export interface GuildAutoroleProps {
   db: Autorole['getDatabaseGuild'];
