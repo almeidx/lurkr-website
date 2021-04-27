@@ -1,9 +1,9 @@
 require('dotenv/config');
 
 module.exports = {
-  title: 'Pepe Manager Docs',
-  tagline: 'Documentation for Pepe Manager, the Discord bot',
-  url: 'https://docs.pepe-is.life',
+  title: 'Pepe Manager',
+  tagline: 'Documentation for Pepe Manager, a Discord bot with focus on automation, leveling, emoji management, and image manipulation.',
+  url: 'https://docs.pepemanager.com',
   baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
@@ -18,59 +18,13 @@ module.exports = {
     navbar: {
       title: 'Pepe Manager',
       logo: {
-        alt: 'Pepe Manager',
+        alt: 'Pepe Manager icon',
         src: 'img/pepe-manager.png',
       },
-      items: [
-        {
-          to: 'docs/',
-          activeBasePath: 'docs',
-          label: 'Docs',
-          position: 'left',
-        },
-        {
-          href: 'https://pepe-is.life/bot',
-          label: 'Website',
-          position: 'left',
-        },
-        {
-          href: 'https://discord.gg/pepe',
-          label: 'Discord',
-          position: 'left',
-        },
-        {
-          href: 'https://discord.com/api/oauth2/authorize?client_id=506186003816513538&permissions=1611000960&scope=bot',
-          label: 'Invite',
-          position: 'right',
-        },
-        {
-          href: 'https://top.gg/bot/506186003816513538/vote',
-          label: 'Vote',
-          position: 'right',
-        },
-        {
-          href: 'https://github.com/almeidx/pepe-docs',
-          label: 'GitHub',
-          position: 'right',
-        },
-      ],
     },
     footer: {
       style: 'dark',
       links: [
-        {
-          title: 'Docs',
-          items: [
-            {
-              label: 'Introduction',
-              to: 'docs/',
-            },
-            {
-              label: 'Inviting the bot',
-              to: 'docs/#inviting-the-bot',
-            },
-          ],
-        },
         {
           title: 'Community',
           items: [
@@ -81,20 +35,37 @@ module.exports = {
           ],
         },
         {
+          title: 'Find Us Online',
+          items: [
+            {
+              label: 'Top.gg',
+              href: 'https://top.gg/bot/506186003816513538',
+            },
+            {
+              label: 'Bots.gg',
+              href: 'https://discord.bots.gg/bots/506186003816513538',
+            },
+          ],
+        },
+        {
           title: 'More',
           items: [
             {
-              label: 'GitHub',
-              href: 'https://github.com/almeidx/pepe-docs',
+              label: 'Dashboard',
+              href: 'https://pepemanager.com',
             },
             {
-              label: 'Website',
-              href: 'https://pepe-is.life/bot',
-            }
+              label: 'Terms',
+              href: 'https://pepemanager.com/terms',
+            },
+            {
+              label: 'Privacy Policy',
+              href: 'https://pepemanager.com/privacy',
+            },
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} Pepe Emoji Server, Inc. Built with Docusaurus.`,
+      copyright: `Copyright © ${new Date().getFullYear()} Pepe Emoji. Built with Docusaurus.`,
     },
   },
   presets: [
