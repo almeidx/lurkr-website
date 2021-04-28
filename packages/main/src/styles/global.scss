@@ -38,15 +38,13 @@
 body {
   background: var(--background);
   color: var(--text);
-  font-family: 'Noto Sans KR';
 }
 
 body,
 input,
 textarea,
 button {
-  /* font: 400 1rem 'Inter', sans-serif; */
-  font: 400 1rem 'Noto Sans KR', 'Whitney', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+  font: 400 1rem 'Noto Sans KR', sans-serif;
 }
 
 button {
