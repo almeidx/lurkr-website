@@ -1,7 +1,4 @@
 module.exports = {
-  future: {
-    webpack5: true,
-  },
   poweredByHeader: false,
   /*
    * TODO: Enable this whenever react-visibility-sensor updates to not use the findDOMNode function
