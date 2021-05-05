@@ -24,7 +24,7 @@ module.exports = {
         source: '/patreon',
       },
       {
-        destination: 'https://docs.pepe-is.life/',
+        destination: 'https://docs.pepemanager.com/',
         permanent: true,
         source: '/docs',
       },

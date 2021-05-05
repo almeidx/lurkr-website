@@ -67,10 +67,13 @@ export default function Navbar() {
           <Link href="/levels">Levels</Link>
         </li>
         <li>
-          <Link href="https://discord.gg/pepe">Support Server</Link>
+          <Link href="https://www.youtube.com/playlist?list=PLeDA5I-uV0EcC1FDT6JufwxMjBun9iMx2">Tutorials</Link>
         </li>
         <li>
-          <Link href="https://pepe-is.life">Pepe Emojis</Link>
+          <Link href="/docs">Documentation</Link>
+        </li>
+        <li>
+          <Link href="https://discord.gg/pepe">Support Server</Link>
         </li>
         <li>
           <Link href="/privacy">Privacy</Link>
