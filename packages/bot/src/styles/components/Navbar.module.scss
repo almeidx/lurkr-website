@@ -4,7 +4,6 @@
   grid-template-areas: 'brand links login';
   grid-template-columns: 1fr 3fr 1fr;
   align-items: center;
-  background-color: var(--background);
 
   > span {
     grid-area: brand;

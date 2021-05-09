@@ -47,6 +47,17 @@ import { API_BASE_URL, DISCORD_USER_AVATAR_CDN } from '../utils/constants';
 //   newWindow?.focus();
 // };
 
+const links: { auth?: boolean; href: string; name: string }[] = [
+  { href: '/', name: 'Home' },
+  { auth: true, href: '/guilds', name: 'Dashboard' },
+  { href: '/levels', name: 'Levels' },
+  { href: 'https://www.youtube.com/playlist?list=PLeDA5I-uV0EcC1FDT6JufwxMjBun9iMx2', name: 'Tutorials' },
+  { href: '/docs', name: 'Documentation' },
+  { href: 'https://discord.gg/pepe', name: 'Support Server' },
+  { href: '/privacy', name: 'Privacy' },
+  { href: '/terms', name: 'Terms' },
+];
+
 export default function Navbar() {
   const router = useRouter();
   const { authenticated, avatar, id, username, discriminator } = useContext(UserContext);
@@ -55,32 +66,14 @@ export default function Navbar() {
     <nav className={styles.navbarContainer}>
       <span onClick={() => router.push('/')}>PEPE MANAGER</span>
       <ul className={styles.linksContainer}>
-        <li>
-          <Link href="/">Home</Link>
-        </li>
-        {authenticated && (
-          <li>
-            <Link href="/guilds">Dashboard</Link>
-          </li>
-        )}
-        <li>
-          <Link href="/levels">Levels</Link>
-        </li>
-        <li>
-          <Link href="https://www.youtube.com/playlist?list=PLeDA5I-uV0EcC1FDT6JufwxMjBun9iMx2">Tutorials</Link>
-        </li>
-        <li>
-          <Link href="/docs">Documentation</Link>
-        </li>
-        <li>
-          <Link href="https://discord.gg/pepe">Support Server</Link>
-        </li>
-        <li>
-          <Link href="/privacy">Privacy</Link>
-        </li>
-        <li>
-          <Link href="/terms">Terms</Link>
-        </li>
+        {links.map(({ auth, href, name }, i) => {
+          if (auth && !authenticated) return null;
+          return (
+            <li key={i}>
+              <Link href={href}>{name}</Link>
+            </li>
+          );
+        })}
       </ul>
 
       <div>
