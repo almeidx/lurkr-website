@@ -4,15 +4,8 @@
   "parserOptions": {
     "project": "./tsconfig.eslint.json"
   },
-  "plugins": [
-    "simple-import-sort"
-  ],
-  "ignorePatterns": [
-    ".next/*",
-    ".vercel/*",
-    ".yarn/*",
-    "node_modules/*"
-  ],
+  "plugins": ["simple-import-sort"],
+  "ignorePatterns": [".next/*", ".vercel/*", ".yarn/*", "node_modules/*"],
   "env": {
     "node": true
   },
@@ -25,26 +18,17 @@
     "@typescript-eslint/naming-convention": [
       2,
       {
-        "format": [
-          "PascalCase",
-          "UPPER_CASE",
-          "camelCase"
-        ],
+        "format": ["PascalCase", "UPPER_CASE", "camelCase"],
         "leadingUnderscore": "allow",
         "selector": "variable"
       },
       {
-        "format": [
-          "PascalCase"
-        ],
+        "format": ["PascalCase"],
         "leadingUnderscore": "allow",
         "selector": "typeLike"
       },
       {
-        "format": [
-          "camelCase",
-          "PascalCase"
-        ],
+        "format": ["camelCase", "PascalCase"],
         "leadingUnderscore": "allow",
         "selector": "function"
       }
@@ -72,9 +56,7 @@
     "react/jsx-filename-extension": [
       2,
       {
-        "extensions": [
-          ".tsx"
-        ]
+        "extensions": [".tsx"]
       }
     ],
     "react/react-in-jsx-scope": 0,
@@ -85,13 +67,7 @@
       "always",
       {
         "line": {
-          "markers": [
-            "#region",
-            "#endregion",
-            "region",
-            "endregion",
-            "/"
-          ]
+          "markers": ["#region", "#endregion", "region", "endregion", "/"]
         }
       }
     ],
