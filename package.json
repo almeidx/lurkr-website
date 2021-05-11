@@ -8,7 +8,6 @@
   "private": true,
   "scripts": {
     "bot": "yarn workspace @website/bot",
-    "docs": "yarn workspace @website/docs",
     "lint": "eslint packages --ext .ts,.tsx",
     "lint:fix": "eslint packages --ext .ts,.tsx --fix",
     "main": "yarn workspace @website/main",
