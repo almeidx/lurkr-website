@@ -1,5 +1,5 @@
 .container {
-  color: #000;
+  color: var(--black);
   height: calc(100vh - 4rem);
   text-align: center;
   display: flex;
@@ -11,14 +11,14 @@
 .innerContainer {
   > h1 {
     display: inline-block;
-    border-right: 1px solid #fff;
+    border-right: 1px solid var(--white);
     margin: 0;
     margin-right: 20px;
     padding: 10px 23px 10px 0;
     font-size: 24px;
     font-weight: 500;
     vertical-align: top;
-    color: #fff;
+    color: var(--white);
     font-weight: bold;
   }
 
@@ -35,7 +35,7 @@
       line-height: inherit;
       margin: 0;
       padding: 0;
-      color: #fff;
+      color: var(--white);
     }
   }
 }

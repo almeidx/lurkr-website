@@ -1,10 +1,9 @@
 import { TailSpin } from '@agney/react-loading';
 import type { GetStaticProps, InferGetStaticPropsType } from 'next';
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import Emoji from '../components/Emoji';
 import GuildBox from '../components/GuildBox';
-import { SearchBarContext } from '../contexts/SearchBarContext';
 import ALL_GUILDS, { AllGuilds } from '../graphql/AllGuilds';
 import { initializeApollo } from '../graphql/client';
 import FIND_EMOJIS, { FindEmojis } from '../graphql/FindEmojis';
@@ -28,7 +27,6 @@ export const getStaticProps: GetStaticProps<HomeProps> = async () => {
 
   return {
     props: {
-      // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
       emojiCount: officialGuildsClone.reduce((a, g) => a + g.emojiCount, 0),
       guilds: officialGuildsClone.sort((a, b) => b.memberCount - a.memberCount),
       otherGuilds: otherGuildsClone.sort((a, b) => b.memberCount - a.memberCount),
@@ -38,15 +36,15 @@ export const getStaticProps: GetStaticProps<HomeProps> = async () => {
 };
 
 export default function Home({ emojiCount, guilds, otherGuilds }: InferGetStaticPropsType<typeof getStaticProps>) {
-  const { isSearchLoading, searchTerm, updateSearchLoading, updateSearchTerm } = useContext(SearchBarContext);
-
   const [requestedEmojis, setRequestedEmojis] = useState<FindEmojis['findEmojis']>([]);
+  const [searchTerm, setSearchTerm] = useState('');
   const [isTimeoutRunning, setIsTimeoutRunning] = useState(false);
+  const [isSearchLoading, setIsSearchLoading] = useState(false);
 
   useEffect(() => {
     if (!searchTerm) {
-      updateSearchLoading(false);
-      updateSearchTerm('');
+      setIsSearchLoading(false);
+      setSearchTerm('');
       setRequestedEmojis([]);
       return () => void 0;
     }
@@ -56,7 +54,7 @@ export default function Home({ emojiCount, guilds, otherGuilds }: InferGetStatic
       setIsTimeoutRunning(false);
       if (searchTerm) {
         setRequestedEmojis([]);
-        updateSearchLoading(true);
+        setIsSearchLoading(true);
 
         const apolloClient = initializeApollo();
         apolloClient
@@ -65,11 +63,11 @@ export default function Home({ emojiCount, guilds, otherGuilds }: InferGetStatic
             variables: { query: searchTerm },
           })
           .then(({ data }) => {
-            if (!data.findEmojis.length) return updateSearchLoading(false);
+            setIsSearchLoading(false);
             setRequestedEmojis(data.findEmojis);
           })
           .catch(() => {
-            updateSearchLoading(false);
+            setIsSearchLoading(false);
             setRequestedEmojis([]);
           });
       }
@@ -79,14 +77,12 @@ export default function Home({ emojiCount, guilds, otherGuilds }: InferGetStatic
       setIsTimeoutRunning(false);
       clearTimeout(typingTimeout);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchTerm]);
 
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const query = urlParams.get('q');
-    if (query) updateSearchTerm(decodeURIComponent(query));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    if (query) setSearchTerm(decodeURIComponent(query));
   }, []);
 
   return (
@@ -100,7 +96,7 @@ export default function Home({ emojiCount, guilds, otherGuilds }: InferGetStatic
           autoCorrect="on"
           autoFocus
           maxLength={32}
-          onChange={(e) => updateSearchTerm(e.target.value)}
+          onChange={(e) => setSearchTerm(e.target.value)}
           placeholder="Search for Pepe Emojis"
           type="text"
           value={searchTerm}

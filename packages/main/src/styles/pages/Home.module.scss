@@ -36,9 +36,9 @@
     color: var(--white);
     background: #2f3136;
     border: 0;
-    box-shadow: 0 0 60px rgba(0, 0, 0, 0.05);
 
     &:focus {
+      box-shadow: 0 0 30px rgba(0, 0, 0, 0.01);
       outline: 0;
     }
   }

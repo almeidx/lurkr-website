@@ -11,15 +11,8 @@
   --gray: #40444b;
   --gray-line: #dcdde0;
   --text: #666;
-  --text-highlight: #b3b9ff;
-  --title: #2e384d;
-  --red: #e83f5b;
-  --green: #4cd62b;
-  --blue: #5965e0;
-  --blue-dark: #4953b8;
-  --blue-twitter: #2aa9e0;
   --black: #000;
-  --blurple: #7289da;
+  --blurple: #5865f2;
   --discord-role: #b9bbbe;
 }
 
@@ -70,9 +63,19 @@ hr {
 }
 
 ::selection {
-  background: #388bfd;
+  background: #add8e6;
+}
+::-moz-selection {
+  background: #add8e6;
 }
 
-::-moz-selection {
-  background: #388bfd;
+/* Scrollbar */
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #56595e;
+  border-radius: 10px;
 }
