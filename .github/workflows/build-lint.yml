@@ -10,7 +10,8 @@ jobs:
 
     strategy:
       matrix:
-        node: 14
+        node:
+          - 14
 
     steps:
       - uses: actions/checkout@v2
@@ -46,7 +47,8 @@ jobs:
 
     strategy:
       matrix:
-        node: 14
+        node:
+          - 14
 
     steps:
       - uses: actions/checkout@v2

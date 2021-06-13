@@ -1,23 +1,23 @@
 version: 2
 
 updates:
-  - package-ecosystem: 'npm'
-    directory: '/'
+  - package-ecosystem: npm
+    directory: /
     schedule:
-      interval: 'daily'
+      interval: daily
 
-  - package-ecosystem: 'npm'
-    directory: '/packages/bot'
+  - package-ecosystem: npm
+    directory: /packages/bot
     schedule:
-      interval: 'daily'
+      interval: daily
 
-  - package-ecosystem: 'npm'
-    directory: '/packages/main'
+  - package-ecosystem: npm
+    directory: /packages/main
     schedule:
-      interval: 'daily'
+      interval: daily
 
   - package-ecosystem: github-actions
-    directory: '/.github'
+    directory: /.github
     schedule:
       interval: daily
     open-pull-requests-limit: 10
