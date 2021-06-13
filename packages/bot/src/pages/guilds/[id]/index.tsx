@@ -44,7 +44,7 @@ export default function General({ db, guild }: InferGetServerSidePropsType<typeo
   }
 
   if (!db || !guild) {
-    return <Error message="Count not find the guild you're looking for" statusCode={403} />;
+    return <Error message="Could not not find the guild you're looking for" statusCode={403} />;
   }
 
   function handlePrefixChange(event: ChangeEvent<HTMLInputElement>) {

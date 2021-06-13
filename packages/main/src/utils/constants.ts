@@ -12,6 +12,7 @@ export const DISCORD_EMOJI_CDN = (id: Snowflake, animated: boolean) =>
  * Resolves a guild icon url
  * @param id The Snowflake for the guild
  * @param icon The icon hash
+ * @param allowGif Whether a GIF should be returned if the hash is for an animated icon.
  */
 export const DISCORD_GUILD_CDN = (id: Snowflake, icon: string | null, allowGif = true) =>
   icon
