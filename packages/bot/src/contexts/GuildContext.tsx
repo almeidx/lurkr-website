@@ -1,6 +1,6 @@
 import { useMutation } from '@apollo/client';
 import type { APIChannel, APIGuild } from 'discord-api-types/v8';
-import { createContext, ReactNode, useState } from 'react';
+import { createContext, ReactNode, useCallback, useState } from 'react';
 
 import type { Option } from '../components/dashboard/AsideOption';
 import UPDATE_DATABASE_GUILD, { UpdateDatabaseGuild } from '../graphql/UpdateDatabaseGuild';
@@ -60,26 +60,32 @@ export default function GuildProvider({ children }: GuildProviderProps) {
   const [changes, setChanges] = useState<Partial<DatabaseGuild>>({});
   const [update] = useMutation<UpdateDatabaseGuild>(UPDATE_DATABASE_GUILD);
 
-  function updateGuild(id: string) {
-    if (guildId !== id) setGuildId(id);
-  }
+  const updateGuild = useCallback(
+    (id: string) => {
+      if (guildId !== id) setGuildId(id);
+    },
+    [guildId],
+  );
 
-  function addChange<T extends keyof DatabaseGuild>(key: T, value: DatabaseGuild[T]) {
-    const clone = Object.assign({}, changes);
-    clone[key] = value;
-    setChanges(clone);
-  }
+  const addChange = useCallback(
+    <T extends keyof DatabaseGuild>(key: T, value: DatabaseGuild[T]) => {
+      const clone = Object.assign({}, changes);
+      clone[key] = value;
+      setChanges(clone);
+    },
+    [changes],
+  );
 
-  function updateSelectedOption(value: Option) {
+  const updateSelectedOption = useCallback((value: Option) => {
     setSelectedOption(value);
-  }
+  }, []);
 
-  async function saveGuildChanges() {
+  const saveGuildChanges = useCallback(async () => {
     const clone = Object.assign({}, changes);
     setChanges({});
     await update({ variables: { data: clone, id: guildId } });
     return true;
-  }
+  }, [changes, guildId, update]);
 
   return (
     <GuildContext.Provider

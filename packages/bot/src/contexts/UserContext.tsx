@@ -44,15 +44,13 @@ export default function UserProvider({ children }: UserContextProps) {
         })
         .then((res) => {
           if (res.status === 200) {
-            console.log(res.data.user);
-
             setUserData({
               authenticated: true,
               ...res.data.user,
             });
           } else {
-            console.error('failed to authenticate', res);
-            throw new Error('failed to authenticate user');
+            console.error('Failed to authenticate', res);
+            throw new Error('Failed to authenticate user');
           }
         })
         .catch((err) => console.error(err));
