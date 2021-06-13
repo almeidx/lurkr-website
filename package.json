@@ -8,10 +8,12 @@
   "private": true,
   "scripts": {
     "bot": "yarn workspace @website/bot",
+    "build": "yarn workspaces run build",
     "lint": "eslint packages --ext .ts,.tsx",
     "lint:fix": "eslint packages --ext .ts,.tsx --fix",
     "main": "yarn workspace @website/main",
-    "prettier": "prettier --write **/*.{ts,tsx,js,json,yml}"
+    "prettier:check": "prettier --check **/*.{ts,tsx,js,json,yml}",
+    "prettier:fix": "prettier --write **/*.{ts,tsx,js,json,yml}"
   },
   "repository": {
     "type": "git",

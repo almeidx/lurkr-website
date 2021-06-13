@@ -1,9 +1,10 @@
-name: "CodeQL"
+name: CodeQL
 
 on:
   push:
-    branches: [main]
-    
+    branches:
+      - main
+
 jobs:
   analyze:
     name: Analyze
@@ -16,7 +17,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        language: [ 'javascript' ]
+        language:
+          - javascript
 
     steps:
       - uses: actions/checkout@v2
@@ -26,7 +28,7 @@ jobs:
         with:
           languages: ${{ matrix.language }}
 
-      - name: Autobuild
+      - name: Auto build
         uses: github/codeql-action/autobuild@v1
 
       - name: Perform CodeQL Analysis

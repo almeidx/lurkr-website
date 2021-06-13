@@ -1,9 +1,8 @@
 ---
 name: Bug report
-about: Report incorrect or unexpected behavior of the website.
+about: Report incorrect or unexpected behavior of one of the websites.
 title: ''
 labels: 'type: bug'
-assignees: almeidx
 ---
 
 **Describe the bug**

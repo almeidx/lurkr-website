@@ -1,9 +1,8 @@
 ---
 name: Feature request
-about: Request a feature for the website
+about: Request a feature for one of the websites
 title: ''
 labels: 'type: enhancement'
-assignees: almeidx
 ---
 
 **Is your feature request related to a problem? Please describe.**
