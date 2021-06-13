@@ -102,7 +102,7 @@ export default function GuildAutorole({ db, guild }: GuildAutoroleProps) {
   updateGuild(guild.id);
 
   return (
-    <Base guild={guild} option="autorole">
+    <Base guild={guild} option="autorole" title="Autorole Settings - Pepe Manager">
       <div className={styles.autoRoleSelectorContainer}>
         <label htmlFor="autoRole">Auto Roles</label>
         {memoizedRoles && <Selector roles={memoizedRoles} onSelect={handleRoleSelectorUpdate} limit={5} />}

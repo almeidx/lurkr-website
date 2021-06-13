@@ -1,6 +1,5 @@
 import { TailSpin } from '@agney/react-loading';
 import type { GetStaticProps, InferGetStaticPropsType } from 'next';
-import Head from 'next/head';
 import { useContext, useEffect, useState } from 'react';
 
 import Emoji from '../components/Emoji';
@@ -92,10 +91,6 @@ export default function Home({ emojiCount, guilds, otherGuilds }: InferGetStatic
 
   return (
     <div className={styles.container}>
-      <Head>
-        <title>Pepe Emoji</title>
-      </Head>
-
       <section className={styles.mainContent}>
         <span>{emojiCount.toLocaleString()} unique Pepe Emojis</span>
 

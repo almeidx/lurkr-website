@@ -1,5 +1,6 @@
 import { PermissionFlagsBits } from 'discord-api-types/v8';
 import type { GetServerSideProps, InferGetServerSidePropsType } from 'next';
+import Head from 'next/head';
 import Link from 'next/link';
 import { useContext } from 'react';
 
@@ -48,6 +49,10 @@ export default function Dashboard({ guilds }: InferGetServerSidePropsType<typeof
 
   return (
     <div className={styles.container}>
+      <Head>
+        <title>Dashboard - Pepe Manager</title>
+      </Head>
+
       {guilds.map(({ icon, id, name }) => (
         <Link href={`/guilds/${id}`} key={id}>
           <a className={styles.guildContainer}>

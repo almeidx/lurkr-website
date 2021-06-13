@@ -6,7 +6,7 @@ export default function PrivacyPolicy() {
   return (
     <div className={styles.container}>
       <Head>
-        <title>Privacy Policy | Pepe Manager</title>
+        <title>Privacy Policy - Pepe Emoji</title>
       </Head>
 
       <a id="#privacy-policy" className={styles.largeAnchor}>

@@ -160,7 +160,7 @@ export default function GuildLeveling({ db, guild }: InferGetServerSidePropsType
   updateGuild(guild.id);
 
   return (
-    <Base guild={guild} option="leveling">
+    <Base guild={guild} option="leveling" title="Leveling Settings - Pepe Manager">
       <div className={styles.horizontalSection}>
         <label htmlFor="levels">Levels</label>
         <input checked={changes.levels ?? levels} onChange={handleLevelsChange} id="levels" type="checkbox" />

@@ -67,7 +67,7 @@ export default function GuildMisc({ db, guild }: InferGetServerSidePropsType<typ
   updateGuild(guild.id);
 
   return (
-    <Base guild={guild} option="misc">
+    <Base guild={guild} option="misc" title="Miscellaneous Settings - Pepe Manager">
       <div className={styles.horizontalSection}>
         <label htmlFor="storeCounts">Store Member Counts</label>
         <input

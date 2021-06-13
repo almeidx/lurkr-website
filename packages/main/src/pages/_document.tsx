@@ -172,8 +172,8 @@ export default class MyDocument extends Document {
 
           <meta name="title" content="Pepe Emoji" />
           <meta property="og:title" content="Pepe Emoji" />
-          <meta name="description" content="More than 1,400 unique Pepe emojis for you to use on Discord" />
-          <meta property="og:description" content="More than 1,400 unique Pepe emojis for you to use on Discord" />
+          <meta name="description" content="More than 1,500 unique Pepe emojis for you to use on Discord" />
+          <meta property="og:description" content="More than 1,500 unique Pepe emojis for you to use on Discord" />
           <meta property="og:type" content="website" />
           <meta
             property="og:description"

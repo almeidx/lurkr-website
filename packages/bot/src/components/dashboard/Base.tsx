@@ -1,4 +1,5 @@
 import type { Snowflake } from 'discord-api-types';
+import Head from 'next/head';
 import { ReactNode, useContext, useState } from 'react';
 import { BsConeStriped, BsFillShiftFill, BsPersonPlusFill } from 'react-icons/bs';
 import { RiSoundModuleFill } from 'react-icons/ri';
@@ -16,6 +17,7 @@ interface BaseOptions {
     name: string;
     icon: string | null;
   };
+  title: string;
 }
 
 const asideOptions: Omit<AsideOptionOptions, 'selected'>[] = [
@@ -45,7 +47,7 @@ const asideOptions: Omit<AsideOptionOptions, 'selected'>[] = [
   },
 ];
 
-export default function Base({ children, guild, option }: BaseOptions) {
+export default function Base({ children, guild, option, title }: BaseOptions) {
   const { changes, saveGuildChanges } = useContext(GuildContext);
   const [saveButtonContent, setSaveButtonContent] = useState<string>('Save');
 
@@ -58,6 +60,10 @@ export default function Base({ children, guild, option }: BaseOptions) {
 
   return (
     <div className={styles.container}>
+      <Head>
+        <title>{title}</title>
+      </Head>
+
       <header>
         <img src={DISCORD_GUILD_CDN(guild.id, guild.icon) ?? FALLBACK_AVATAR} alt={`${guild.name} icon`} />
         <span>{guild.name}</span>

@@ -55,7 +55,7 @@ export default function General({ db, guild }: InferGetServerSidePropsType<typeo
   updateGuild(guild.id);
 
   return (
-    <Base guild={guild} option="general">
+    <Base guild={guild} option="general" title="General Settings - Pepe Manager">
       <div className={styles.verticalSection}>
         <label htmlFor="prefix">Prefix</label>
         <input

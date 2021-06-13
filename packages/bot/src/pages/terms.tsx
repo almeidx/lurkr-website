@@ -6,7 +6,7 @@ export default function Terms() {
   return (
     <div className={styles.container}>
       <Head>
-        <title>Terms and Conditions | Pepe Manager</title>
+        <title>Terms and Conditions - Pepe Manager</title>
       </Head>
 
       <a href="#terms-and-conditions" className={styles.largeAnchor}>

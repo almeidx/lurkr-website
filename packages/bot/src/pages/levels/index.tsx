@@ -1,3 +1,4 @@
+import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { ChangeEvent, useEffect, useState } from 'react';
 import { BsArrowReturnLeft } from 'react-icons/bs';
@@ -34,6 +35,10 @@ export default function Levels() {
 
   return (
     <div className={styles.container}>
+      <Head>
+        <title>Leveling - Pepe Manager</title>
+      </Head>
+
       <label htmlFor="input">Leaderboard</label>
       <div className={styles.inputContainer}>
         <input

@@ -1,8 +1,14 @@
+import Head from 'next/head';
+
 import styles from '../styles/pages/404.module.scss';
 
 export default function _404() {
   return (
     <div className={styles.container}>
+      <Head>
+        <title>Not Found - Pepe Emoji</title>
+      </Head>
+
       <div className={styles.innerContainer}>
         <h1>404</h1>
         <div>
