@@ -38,8 +38,7 @@ export const getStaticProps: GetStaticProps<LeaderboardProps> = async ({ params 
   };
 };
 
-// eslint-disable-next-line @typescript-eslint/require-await
-export const getStaticPaths: GetStaticPaths = async () => {
+export const getStaticPaths: GetStaticPaths = () => {
   return {
     fallback: true,
     paths: [],
