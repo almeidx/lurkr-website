@@ -1,6 +1,8 @@
-import { TailSpin } from '@agney/react-loading';
+import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
+
 import type { GetStaticProps, InferGetStaticPropsType } from 'next';
 import { useEffect, useState } from 'react';
+import Loader from 'react-loader-spinner';
 
 import Emoji from '../components/Emoji';
 import GuildBox from '../components/GuildBox';
@@ -103,7 +105,7 @@ export default function Home({ emojiCount, guilds, otherGuilds }: InferGetStatic
         />
 
         <div className={styles.requestedEmojisContainer}>
-          {isSearchLoading && <TailSpin width="48px" height="48px" />}
+          {isSearchLoading && <Loader color="var(--white)" type="TailSpin" width={48} height={48} />}
 
           {requestedEmojis.length !== 0
             ? requestedEmojis.map(({ id, invite, name }) => <Emoji key={id} invite={invite} id={id} name={name} />)

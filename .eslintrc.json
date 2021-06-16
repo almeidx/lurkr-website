@@ -1,9 +1,6 @@
 {
   "root": true,
   "extends": "marine/prettier/react",
-  "parserOptions": {
-    "project": "./tsconfig.eslint.json"
-  },
   "plugins": ["simple-import-sort"],
   "ignorePatterns": [".next/*", ".vercel/*", ".yarn/*", "node_modules/*"],
   "env": {
