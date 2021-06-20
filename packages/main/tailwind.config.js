@@ -4,7 +4,7 @@ module.exports = {
   darkMode: false,
   theme: {
     fontFamily: {
-      sans: ['"Noto Sans"', 'sans-serif'],
+      sans: ['"Noto Sans KR"', 'sans-serif'],
     },
     extend: {
       backgroundColor: {
