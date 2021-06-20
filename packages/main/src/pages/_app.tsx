@@ -1,4 +1,5 @@
 import 'tailwindcss/tailwind.css';
+import '../styles/font.css';
 
 import { ApolloProvider } from '@apollo/client';
 import type { AppProps } from 'next/app';
