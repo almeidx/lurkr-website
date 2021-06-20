@@ -3,8 +3,6 @@ import Link from 'next/link';
 const links: { name: string; url: string }[] = [
   { name: 'Home', url: '/' },
   { name: 'Pepe Manager', url: '/bot' },
-  { name: 'Privacy', url: '/privacy' },
-  { name: 'Terms', url: '/terms' },
 ];
 
 export default function Navbar() {
