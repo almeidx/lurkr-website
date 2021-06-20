@@ -14,9 +14,6 @@ module.exports = {
         'discord-green': '#3ea25e',
         'discord-lighter-green': '#24c558',
       },
-      gridTemplateColumns: {
-        '1fr-4fr': '1fr 4fr',
-      },
       textColor: {
         'discord-red': '#ED4245',
       },
