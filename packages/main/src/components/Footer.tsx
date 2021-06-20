@@ -2,18 +2,18 @@ import Link from 'next/link';
 
 const sections = [
   {
-    title: 'About Us',
     links: [
       { href: 'https://discord.gg/pepe', name: 'Discord' },
       { href: '/bot', name: 'Pepe Manager' },
     ],
+    title: 'About Us',
   },
   {
-    title: 'Legal',
     links: [
       { href: '/privacy', name: 'Privacy Policy' },
       { href: '/terms', name: 'Terms and Conditions' },
     ],
+    title: 'Legal',
   },
 ];
 
