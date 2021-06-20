@@ -9,6 +9,7 @@ module.exports = {
     extend: {
       backgroundColor: {
         'discord-dark': '#202327',
+        'discord-slightly-darker': '#1B1E21',
         'discord-not-quite-black': '#2f3136',
         'discord-green': '#3ea25e',
         'discord-lighter-green': '#24c558',

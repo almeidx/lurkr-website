@@ -5,6 +5,7 @@ import { ApolloProvider } from '@apollo/client';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
 
+import Footer from '../components/Footer';
 import Navbar from '../components/Navbar';
 import { useApollo } from '../graphql/client';
 
@@ -19,6 +20,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
 
       <Navbar />
       <Component {...pageProps} />
+      <Footer />
     </ApolloProvider>
   );
 }

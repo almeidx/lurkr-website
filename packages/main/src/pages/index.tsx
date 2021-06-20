@@ -150,7 +150,7 @@ export default function Home({ emojiCount, guilds, otherGuilds }: InferGetStatic
 
       <h2 className="text-white text-2xl sm:text-3xl my-6 font-bold">Other official Emoji servers</h2>
 
-      <div className="flex flex-col flex-wrap lg:grid lg:grid-row-2 lg:grid-cols-2 gap-3 mb-16 lg:place-items-center">
+      <div className="flex flex-col flex-wrap lg:grid lg:grid-row-2 lg:grid-cols-2 gap-3 lg:place-items-center mb-8">
         {otherGuilds.map(({ icon, id, invite, memberCount, name }, i) => (
           <Guild
             icon={icon}
