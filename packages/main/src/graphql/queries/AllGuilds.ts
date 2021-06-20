@@ -1,5 +1,5 @@
 import { gql } from '@apollo/client';
-import type { Snowflake } from 'discord-api-types/v8';
+import type { Snowflake } from 'discord-api-types';
 
 interface Guild {
   emojiCount: number;
