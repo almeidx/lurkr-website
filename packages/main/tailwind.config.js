@@ -10,7 +10,7 @@ module.exports = {
       backgroundColor: {
         'discord-dark': '#202327',
         'discord-not-quite-black': '#2f3136',
-        'discord-green': '#57F287',
+        'discord-green': '#3ea25e',
       },
       gridTemplateColumns: {
         '1fr-4fr': '1fr 4fr',
