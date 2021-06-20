@@ -4,7 +4,7 @@ module.exports = {
   darkMode: false,
   theme: {
     fontFamily: {
-      sans: ['Poppins', 'sans-serif'],
+      sans: ['"Noto Sans"', 'sans-serif'],
     },
     extend: {
       backgroundColor: {
