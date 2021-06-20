@@ -1,15 +1,12 @@
-import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
-
 import type { GetStaticProps, InferGetStaticPropsType } from 'next';
 import { useEffect, useState } from 'react';
-import Loader from 'react-loader-spinner';
 
 import Emoji from '../components/Emoji';
-import GuildBox from '../components/GuildBox';
-import ALL_GUILDS, { AllGuilds } from '../graphql/AllGuilds';
+import Guild from '../components/Guild';
+import Spinner from '../components/Spinner';
 import { initializeApollo } from '../graphql/client';
-import FIND_EMOJIS, { FindEmojis } from '../graphql/FindEmojis';
-import styles from '../styles/pages/Home.module.scss';
+import ALL_GUILDS, { AllGuilds } from '../graphql/queries/AllGuilds';
+import FIND_EMOJIS, { FindEmojis } from '../graphql/queries/FindEmojis';
 
 interface HomeProps {
   emojiCount: number;
@@ -43,11 +40,15 @@ export default function Home({ emojiCount, guilds, otherGuilds }: InferGetStatic
   const [isTimeoutRunning, setIsTimeoutRunning] = useState(false);
   const [isSearchLoading, setIsSearchLoading] = useState(false);
 
+  const cancelSearch = () => {
+    setIsSearchLoading(false);
+    setSearchTerm('');
+    setRequestedEmojis([]);
+  };
+
   useEffect(() => {
     if (!searchTerm) {
-      setIsSearchLoading(false);
-      setSearchTerm('');
-      setRequestedEmojis([]);
+      cancelSearch();
       return () => void 0;
     }
 
@@ -88,15 +89,19 @@ export default function Home({ emojiCount, guilds, otherGuilds }: InferGetStatic
   }, []);
 
   return (
-    <div className={styles.container}>
-      <section className={styles.mainContent}>
-        <span>{emojiCount.toLocaleString()} unique Pepe Emojis</span>
+    <div className="bg-discord-dark min-h-screen flex items-center flex-col">
+      <header className="py-5 font-bold">
+        <h1 className="text-white text-2xl sm:text-4xl">{emojiCount.toLocaleString('en')} unique Pepe Emojis</h1>
+      </header>
 
+      <div className="relative flex justify-center items-center my-5 w-1/4 min-w-max h-12">
         <input
-          autoComplete="off"
           autoCapitalize="off"
-          autoCorrect="on"
+          autoComplete="off"
+          autoCorrect="off"
           autoFocus
+          className="text-white bg-discord-not-quite-black px-5 py-3 focus:outline-none rounded-md shadow w-full"
+          id="searchTerm"
           maxLength={32}
           onChange={(e) => setSearchTerm(e.target.value)}
           placeholder="Search for Pepe Emojis"
@@ -104,30 +109,61 @@ export default function Home({ emojiCount, guilds, otherGuilds }: InferGetStatic
           value={searchTerm}
         />
 
-        <div className={styles.requestedEmojisContainer}>
-          {isSearchLoading && <Loader color="var(--white)" type="TailSpin" width={48} height={48} />}
+        {searchTerm && (
+          <label
+            className="absolute right-0 min-w-max my-auto mx-4 text-2xl text-discord-red active:text-red-600 transition-colors h-full cursor-pointer"
+            onClick={() => cancelSearch()}
+          >
+            <span className="inline-block align-middle h-10 leading-10">x</span>
+          </label>
+        )}
+      </div>
 
-          {requestedEmojis.length !== 0
-            ? requestedEmojis.map(({ id, invite, name }) => <Emoji key={id} invite={invite} id={id} name={name} />)
-            : searchTerm && !isSearchLoading && !isTimeoutRunning && <p>Could not find anything</p>}
-        </div>
+      <section className="flex flex-row flex-wrap max-w-2xl gap-2">
+        {isSearchLoading && <Spinner />}
 
-        <span>The official Pepe Emoji servers</span>
-
-        <div className={styles.guildsContainer}>
-          {guilds.map((g) => (
-            <GuildBox key={g.id} id={g.id} name={g.name} icon={g.icon} invite={g.invite} memberCount={g.memberCount} />
-          ))}
-        </div>
-
-        <span>Other Emoji servers</span>
-
-        <div className={styles.guildsContainer}>
-          {otherGuilds.map((g) => (
-            <GuildBox key={g.id} id={g.id} name={g.name} icon={g.icon} invite={g.invite} memberCount={g.memberCount} />
-          ))}
-        </div>
+        {requestedEmojis.length !== 0
+          ? requestedEmojis.map(({ id, invite, name }) => (
+              <Emoji animated={name.startsWith('a')} key={id} invite={invite} id={id} name={name} />
+            ))
+          : searchTerm &&
+            !isSearchLoading &&
+            !isTimeoutRunning && <p className="text-white">Could not find anything</p>}
       </section>
+
+      <h2 className="text-white text-2xl sm:text-3xl my-6 font-bold">Official Pepe Emoji servers</h2>
+
+      <div className="flex flex-col flex-wrap lg:grid lg:grid-row-2 lg:grid-cols-2 gap-3 lg:place-items-center">
+        {guilds.map(({ icon, id, invite, memberCount, name }, i) => (
+          <Guild
+            icon={icon}
+            id={id}
+            index={i}
+            invite={invite}
+            key={i}
+            memberCount={memberCount}
+            name={name}
+            total={guilds.length}
+          />
+        ))}
+      </div>
+
+      <h2 className="text-white text-2xl sm:text-3xl my-6 font-bold">Other official Emoji servers</h2>
+
+      <div className="flex flex-col flex-wrap lg:grid lg:grid-row-2 lg:grid-cols-2 gap-3 lg:place-items-center mb-8">
+        {otherGuilds.map(({ icon, id, invite, memberCount, name }, i) => (
+          <Guild
+            icon={icon}
+            id={id}
+            index={i}
+            invite={invite}
+            key={i}
+            memberCount={memberCount}
+            name={name}
+            total={otherGuilds.length}
+          />
+        ))}
+      </div>
     </div>
   );
 }

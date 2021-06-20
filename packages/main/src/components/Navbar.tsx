@@ -1,28 +1,24 @@
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 
-import styles from '../styles/components/Navbar.module.scss';
+const links: { name: string; url: string }[] = [
+  { name: 'Home', url: '/' },
+  { name: 'Pepe Manager', url: '/bot' },
+];
 
 export default function Navbar() {
-  const router = useRouter();
-
   return (
-    <nav className={styles.navbarContainer}>
-      <span onClick={() => router.push('/')}>PEPE EMOJIS</span>
-      <ul className={styles.linksContainer}>
-        <li>
-          <Link href="/">Home</Link>
-        </li>
-        <li>
-          <Link href="https://pepemanager.com">Pepe Manager</Link>
-        </li>
-        <li>
-          <Link href="/privacy">Privacy</Link>
-        </li>
-        <li>
-          <Link href="/terms">Terms</Link>
-        </li>
-      </ul>
+    <nav className="grid h-16 bg-discord-dark grid-cols-1fr-4fr gap-6">
+      <span className="text-white flex justify-center items-center text-center uppercase font-bold text-base sm:text-xl">
+        Pepe Emoji
+      </span>
+
+      <div className="text-gray-400 w-full flex justify-flex-start items-center flex-row gap-4">
+        {links.map(({ name, url }, i) => (
+          <Link key={i} href={url}>
+            <a className="duration-150 hover:text-gray-300 text-sm sm:text-base">{name}</a>
+          </Link>
+        ))}
+      </div>
     </nav>
   );
 }
