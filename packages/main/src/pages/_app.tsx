@@ -4,8 +4,8 @@ import { ApolloProvider } from '@apollo/client';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
 
-import { useApollo } from '../graphql/client';
 import Navbar from '../components/Navbar';
+import { useApollo } from '../graphql/client';
 
 export default function MyApp({ Component, pageProps }: AppProps) {
   const apolloClient = useApollo(pageProps.initialApolloState);

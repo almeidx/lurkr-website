@@ -1,11 +1,12 @@
 import type { GetStaticProps, InferGetStaticPropsType } from 'next';
 import { useEffect, useState } from 'react';
+
 import Emoji from '../components/Emoji';
 import Guild from '../components/Guild';
+import Spinner from '../components/Spinner';
 import { initializeApollo } from '../graphql/client';
 import ALL_GUILDS, { AllGuilds } from '../graphql/queries/AllGuilds';
 import FIND_EMOJIS, { FindEmojis } from '../graphql/queries/FindEmojis';
-import Spinner from '../components/Spinner';
 
 interface HomeProps {
   emojiCount: number;
