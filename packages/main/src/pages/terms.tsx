@@ -8,13 +8,13 @@ export default function Terms() {
         <title>Terms and Conditions - Pepe Emoji</title>
       </Head>
 
-      <header className="flex flex-col items-center justify-center">
-        <h1 className="text-white font-bold text-4xl">Terms and Conditions</h1>
+      <header className="flex flex-col items-center justify-center pt-3 sm:pt-1">
+        <h1 className="text-white font-bold text-3xl sm:text-4xl">Terms and Conditions</h1>
         <span className="text-gray-400 mt-3">Last modified: June 20, 2021.</span>
       </header>
 
       <main className="max-w-4xl">
-        <p className="text-gray-400 font-light mt-6 mb-9">
+        <p className="text-gray-400 font-light mt-6 mb-9 mx-3 sm:mx-0">
           These terms and conditions (&quot;Agreement&quot;) set forth the general terms and conditions of your use of
           the{' '}
           <Link href="https://pepe-is.life">
@@ -36,19 +36,19 @@ export default function Terms() {
         </p>
 
         <Link href="#age-requirement">
-          <a className="text-gray-200 font-bold text-3xl uppercase">Age requirement</a>
+          <a className="text-gray-200 font-bold text-xl sm:text-3xl uppercase mx-3 sm:mx-0">Age requirement</a>
         </Link>
 
-        <p className="text-gray-400 font-light mt-6 mb-9">
+        <p className="text-gray-400 font-light mt-6 mb-9 mx-3 sm:mx-0">
           You must be at least 13 years of age to use the Website and Services. By using the Website and Services and by
           agreeing to this Agreement you warrant and represent that you are at least 13 years of age.
         </p>
 
         <Link href="#links-to-other-resources">
-          <a className="text-gray-200 font-bold text-3xl uppercase">Links to other resources</a>
+          <a className="text-gray-200 font-bold text-xl sm:text-3xl uppercase mx-3 sm:mx-0">Links to other resources</a>
         </Link>
 
-        <p className="text-gray-400 font-light mt-6 mb-9">
+        <p className="text-gray-400 font-light mt-6 mb-9 mx-3 sm:mx-0">
           Although the Website and Services may link to other resources (such as websites, mobile applications, etc.),
           we are not, directly or indirectly, implying any approval, association, sponsorship, endorsement, or
           affiliation with any linked resource, unless specifically stated herein. We are not responsible for examining
@@ -60,10 +60,10 @@ export default function Terms() {
         </p>
 
         <Link href="#prohibited-uses">
-          <a className="text-gray-200 font-bold text-3xl uppercase">Prohibited uses</a>
+          <a className="text-gray-200 font-bold text-xl sm:text-3xl uppercase mx-3 sm:mx-0">Prohibited uses</a>
         </Link>
 
-        <p className="text-gray-400 font-light mt-6 mb-9">
+        <p className="text-gray-400 font-light mt-6 mb-9 mx-3 sm:mx-0">
           In addition to other terms as set forth in the Agreement, you are prohibited from using the Website and
           Services or Content: (a) for any unlawful purpose; (b) to solicit others to perform or participate in any
           unlawful acts; (c) to violate any international, federal, provincial or state regulations, rules, laws, or
@@ -79,10 +79,12 @@ export default function Terms() {
         </p>
 
         <Link href="#intellectual-property-rights">
-          <a className="text-gray-200 font-bold text-3xl uppercase">Intellectual property rights</a>
+          <a className="text-gray-200 font-bold text-xl sm:text-3xl uppercase mx-3 sm:mx-0">
+            Intellectual property rights
+          </a>
         </Link>
 
-        <p className="text-gray-400 font-light mt-6 mb-9">
+        <p className="text-gray-400 font-light mt-6 mb-9 mx-3 sm:mx-0">
           &quot;Intellectual Property Rights&quot; means all present and future rights conferred by statute, common law
           or equity in or in relation to any copyright and related rights, trademarks, designs, patents, inventions,
           goodwill and the right to sue for passing off, rights to inventions, rights to use, and all other intellectual
@@ -99,10 +101,10 @@ export default function Terms() {
         </p>
 
         <Link href="#severability">
-          <a className="text-gray-200 font-bold text-3xl uppercase">Severability</a>
+          <a className="text-gray-200 font-bold text-xl sm:text-3xl uppercase mx-3 sm:mx-0">Severability</a>
         </Link>
 
-        <p className="text-gray-400 font-light mt-6 mb-9">
+        <p className="text-gray-400 font-light mt-6 mb-9 mx-3 sm:mx-0">
           All rights and restrictions contained in this Agreement may be exercised and shall be applicable and binding
           only to the extent that they do not violate any applicable laws and are intended to be limited to the extent
           necessary so that they will not render this Agreement illegal, invalid or unenforceable. If any provision or
@@ -113,10 +115,10 @@ export default function Terms() {
         </p>
 
         <Link href="#changes">
-          <a className="text-gray-200 font-bold text-3xl uppercase">Changes and amendments</a>
+          <a className="text-gray-200 font-bold text-xl sm:text-3xl uppercase mx-3 sm:mx-0">Changes and amendments</a>
         </Link>
 
-        <p className="text-gray-400 font-light mt-6 mb-9">
+        <p className="text-gray-400 font-light mt-6 mb-9 mx-3 sm:mx-0">
           We reserve the right to modify this Agreement or its terms relating to the Website and Services at any time,
           effective upon posting of an updated version of this Agreement on the Website. When we do, we will revise the
           updated date at the bottom of this page. Continued use of the Website and Services after any such changes
@@ -124,20 +126,22 @@ export default function Terms() {
         </p>
 
         <Link href="#acceptance">
-          <a className="text-gray-200 font-bold text-3xl uppercase">Acceptance of these terms</a>
+          <a className="text-gray-200 font-bold text-xl sm:text-3xl uppercase mx-3 sm:mx-0">
+            Acceptance of these terms
+          </a>
         </Link>
 
-        <p className="text-gray-400 font-light mt-6 mb-9">
+        <p className="text-gray-400 font-light mt-6 mb-9 mx-3 sm:mx-0">
           You acknowledge that you have read this Agreement and agree to all its terms and conditions. By accessing and
           using the Website and Services you agree to be bound by this Agreement. If you do not agree to abide by the
           terms of this Agreement, you are not authorized to access or use the Website and Services.
         </p>
 
         <Link href="#contact">
-          <a className="text-gray-200 font-bold text-3xl uppercase">Contacting us</a>
+          <a className="text-gray-200 font-bold text-xl sm:text-3xl uppercase mx-3 sm:mx-0">Contacting us</a>
         </Link>
 
-        <p className="text-gray-400 font-light mt-6 mb-9">
+        <p className="text-gray-400 font-light mt-6 mb-9 mx-3 sm:mx-0">
           If you would like to contact us to understand more about this Agreement or wish to contact us concerning any
           matter relating to it, you may send an email to{' '}
           <a href="mailto:admin@almeidx.dev" className="text-blue-300">
