@@ -30,5 +30,5 @@ module.exports = {
   variants: {
     extend: {},
   },
-  plugins: [require('@savvywombat/tailwindcss-grid-areas'), require('tailwind-scrollbar')],
+  plugins: [require('@savvywombat/tailwindcss-grid-areas')],
 };
