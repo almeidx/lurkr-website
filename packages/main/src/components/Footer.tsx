@@ -1,6 +1,14 @@
 import Link from 'next/link';
 
-const sections = [
+interface Section {
+  links: {
+    href: string;
+    name: string;
+  }[];
+  title: string;
+}
+
+const sections: Section[] = [
   {
     links: [
       { href: 'https://discord.gg/pepe', name: 'Discord' },
