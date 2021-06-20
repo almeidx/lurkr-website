@@ -15,22 +15,24 @@ export default function Terms() {
 
       <main className="max-w-4xl">
         <p className="text-gray-400 font-light mt-6 mb-9">
-          These terms and conditions ("Agreement") set forth the general terms and conditions of your use of the{' '}
+          These terms and conditions (&quot;Agreement&quot;) set forth the general terms and conditions of your use of
+          the{' '}
           <Link href="https://pepe-is.life">
             <a target="_blank" rel="nofollow noreferrer" className="text-blue-300">
               pepe-is.life
             </a>
           </Link>{' '}
-          website ("Website" or "Service") and any of its related products and services (collectively, "Services"). This
-          Agreement is legally binding between you ("User", "you" or "your") and this Website operator ("Operator",
-          "we", "us" or "our"). By accessing and using the Website and Services, you acknowledge that you have read,
-          understood, and agree to be bound by the terms of this Agreement. If you are entering into this Agreement on
-          behalf of a business or other legal entity, you represent that you have the authority to bind such entity to
-          this Agreement, in which case the terms "User", "you" or "your" shall refer to such entity. If you do not have
-          such authority, or if you do not agree with the terms of this Agreement, you must not accept this Agreement
-          and may not access and use the Website and Services. You acknowledge that this Agreement is a contract between
-          you and the Operator, even though it is electronic and is not physically signed by you, and it governs your
-          use of the Website and Services.
+          website (&quot;Website&quot; or &quot;Service&quot;) and any of its related products and services
+          (collectively, &quot;Services&quot;). This Agreement is legally binding between you (&quot;User&quot;,
+          &quot;you&quot; or &quot;your&quot;) and this Website operator (&quot;Operator&quot;, &quot;we&quot;,
+          &quot;us&quot; or &quot;our&quot;). By accessing and using the Website and Services, you acknowledge that you
+          have read, understood, and agree to be bound by the terms of this Agreement. If you are entering into this
+          Agreement on behalf of a business or other legal entity, you represent that you have the authority to bind
+          such entity to this Agreement, in which case the terms &quot;User&quot;, &quot;you&quot; or &quot;your&quot;
+          shall refer to such entity. If you do not have such authority, or if you do not agree with the terms of this
+          Agreement, you must not accept this Agreement and may not access and use the Website and Services. You
+          acknowledge that this Agreement is a contract between you and the Operator, even though it is electronic and
+          is not physically signed by you, and it governs your use of the Website and Services.
         </p>
 
         <Link href="#age-requirement">

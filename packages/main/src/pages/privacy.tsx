@@ -41,9 +41,9 @@ export default function Privacy() {
         <p className="text-gray-400 font-light mt-6 mb-9">
           We want to inform you that whenever you use our Service, in a case of an error in the app we collect data and
           information (through third party products) on your phone called Log Data. This Log Data may include
-          information such as your device Internet Protocol (“IP”) address, device name, operating system version, the
-          configuration of the app when utilizing our Service, the time and date of your use of the Service, and other
-          statistics.
+          information such as your device Internet Protocol (&quot;IP&quot;) address, device name, operating system
+          version, the configuration of the app when utilizing our Service, the time and date of your use of the
+          Service, and other statistics.
         </p>
 
         <Link href="#cookies">
@@ -52,13 +52,14 @@ export default function Privacy() {
 
         <p className="text-gray-400 font-light mt-6">
           Cookies are files with a small amount of data that are commonly used as anonymous unique identifiers. These
-          are sent to your browser from the websites that you visit and are stored on your device's internal memory.
+          are sent to your browser from the websites that you visit and are stored on your device&apos;s internal
+          memory.
         </p>
         <p className="text-gray-400 font-light mt-3 mb-9">
-          This Service does not use these “cookies” explicitly. However, the app may use third party code and libraries
-          that use “cookies” to collect information and improve their services. You have the option to either accept or
-          refuse these cookies and know when a cookie is being sent to your device. If you choose to refuse our cookies,
-          you may not be able to use some portions of this Service.
+          This Service does not use these &quot;cookies&quot; explicitly. However, the app may use third party code and
+          libraries that use &quot;cookies&quot; to collect information and improve their services. You have the option
+          to either accept or refuse these cookies and know when a cookie is being sent to your device. If you choose to
+          refuse our cookies, you may not be able to use some portions of this Service.
         </p>
 
         <Link href="#security">
@@ -83,7 +84,7 @@ export default function Privacy() {
         </p>
 
         <Link href="#children-privacy">
-          <a className="text-gray-200 font-bold text-3xl uppercase">Children's Privacy</a>
+          <a className="text-gray-200 font-bold text-3xl uppercase">Children&apos;s Privacy</a>
         </Link>
 
         <p className="text-gray-400 font-light mt-3 mb-9">
