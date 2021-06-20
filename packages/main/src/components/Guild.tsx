@@ -43,7 +43,9 @@ export default function Guild({ icon, id, index, invite, memberCount, name, tota
 
       <div className="grid-in-join flex justify-self-end items-center">
         <Link href={`https://discord.gg/${invite}`}>
-          <a className="text-white bg-discord-green px-4 py-2 rounded-sm text-xs sm:text-sm">Join</a>
+          <a className="text-white bg-discord-green hover:bg-discord-lighter-green duration-100 px-4 py-2 rounded-sm text-xs sm:text-sm">
+            Join
+          </a>
         </Link>
       </div>
     </div>
