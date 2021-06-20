@@ -90,7 +90,7 @@ export default function Home({ emojiCount, guilds, otherGuilds }: InferGetStatic
 
   return (
     <div className="bg-discord-dark min-h-screen flex items-center flex-col">
-      <header className="py-5">
+      <header className="py-5 font-bold">
         <h1 className="text-white text-2xl sm:text-4xl">{emojiCount.toLocaleString('en')} unique Pepe Emojis</h1>
       </header>
 
@@ -131,7 +131,7 @@ export default function Home({ emojiCount, guilds, otherGuilds }: InferGetStatic
             !isTimeoutRunning && <p className="text-white">Could not find anything</p>}
       </section>
 
-      <span className="text-white text-2xl sm:text-3xl my-6">Official Pepe Emoji servers</span>
+      <h2 className="text-white text-2xl sm:text-3xl my-6 font-bold">Official Pepe Emoji servers</h2>
 
       <div className="flex flex-col flex-wrap lg:grid lg:grid-row-2 lg:grid-cols-2 gap-3 lg:place-items-center">
         {guilds.map(({ icon, id, invite, memberCount, name }, i) => (
@@ -148,7 +148,7 @@ export default function Home({ emojiCount, guilds, otherGuilds }: InferGetStatic
         ))}
       </div>
 
-      <span className="text-white text-2xl sm:text-3xl my-6">Other official Emoji servers</span>
+      <h2 className="text-white text-2xl sm:text-3xl my-6 font-bold">Other official Emoji servers</h2>
 
       <div className="flex flex-col flex-wrap lg:grid lg:grid-row-2 lg:grid-cols-2 gap-3 mb-16 lg:place-items-center">
         {otherGuilds.map(({ icon, id, invite, memberCount, name }, i) => (
