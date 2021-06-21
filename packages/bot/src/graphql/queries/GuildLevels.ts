@@ -37,8 +37,8 @@ export interface GuildLevels {
 }
 
 export default gql`
-  query getGuildLevelsInfo($id: String!) {
-    getGuildLevels(id: $id) {
+  query getGuildLevelsInfo($id: String!, $requireAuth: Boolean = true) {
+    getGuildLevels(id: $id, requireAuth: $requireAuth) {
       levels {
         avatar
         level
@@ -57,7 +57,7 @@ export default gql`
       }
     }
 
-    getDiscordGuild(id: $id) {
+    getDiscordGuild(id: $id, requireAuth: $requireAuth) {
       id
       icon
       name

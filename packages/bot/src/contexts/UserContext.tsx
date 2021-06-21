@@ -38,7 +38,6 @@ export default function UserProvider({ children }: UserContextProps) {
             Accept: 'application/json',
             'Access-Control-Allow-Credentials': 'true',
             'Access-Control-Allow-Origin': '*',
-            'Content-Type': 'application/json',
           },
           withCredentials: true,
         })

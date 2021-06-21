@@ -5,7 +5,6 @@ interface Guild {
   icon: string | null;
   id: Snowflake;
   name: string;
-  permissions: string;
 }
 
 export interface UserGuilds {
@@ -13,12 +12,11 @@ export interface UserGuilds {
 }
 
 export default gql`
-  query {
-    getUserGuilds {
+  query getUserGuilds($withPermissions: Boolean = true) {
+    getUserGuilds(withPermissions: $withPermissions) {
       icon
       id
       name
-      permissions
     }
   }
 `;

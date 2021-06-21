@@ -1,60 +1,93 @@
-import Head from 'next/head';
-import { useRouter } from 'next/router';
-import { ChangeEvent, useEffect, useState } from 'react';
-import { BsArrowReturnLeft } from 'react-icons/bs';
+import type { Snowflake } from 'discord-api-types';
+import type { GetServerSideProps, InferGetServerSidePropsType } from 'next';
+import Image from 'next/image';
+import Link from 'next/link';
+import { useState } from 'react';
 
-import styles from '../../styles/pages/levels/Levels.module.scss';
-import { isValidSnowflake } from '../../utils/utils';
+import { initializeApollo } from '../../graphql/client';
+import USER_GUILDS, { UserGuilds } from '../../graphql/queries/UserGuilds';
 
-export default function Levels() {
-  const [server, setServer] = useState('');
-  const [arrowColour, setArrowColour] = useState('var(--white)');
-  const router = useRouter();
+export const getServerSideProps: GetServerSideProps<{ guilds: UserGuilds['getUserGuilds'] }> = async (ctx) => {
+  ctx.req.headers.accept = '';
 
-  const handleSubmit = () => {
-    if (!server || !isValidSnowflake(server)) return;
-    void router.push(`/levels/${server}`);
-  };
+  const apolloClient = initializeApollo(null, ctx.req.headers);
 
-  function handleInputChange({ target }: ChangeEvent<HTMLInputElement>) {
-    setServer(target.value);
-
-    if (isValidSnowflake(target.value)) setArrowColour('green');
-    else setArrowColour('red');
-  }
-
-  useEffect(() => {
-    const enterLogic = ({ code }: KeyboardEvent) => {
-      if (code === 'Enter' || code === 'NumpadEnter') handleSubmit();
-    };
-
-    document.addEventListener('keydown', enterLogic);
-
-    return () => document.removeEventListener('keydown', enterLogic);
+  const { data } = await apolloClient.query<UserGuilds>({
+    query: USER_GUILDS,
+    variables: { withPermissions: false },
   });
 
-  return (
-    <div className={styles.container}>
-      <Head>
-        <title>Leveling - Pepe Manager</title>
-      </Head>
+  return {
+    props: {
+      guilds: data.getUserGuilds ? [...data.getUserGuilds].sort((a, b) => a.name.localeCompare(b.name)) : null,
+    },
+  };
+};
 
-      <label htmlFor="input">Leaderboard</label>
-      <div className={styles.inputContainer}>
+const resolveGuildIcon = (id: Snowflake, hash: string) =>
+  `https://cdn.discordapp.com/icons/${id}/${hash}.${hash.startsWith('a_') ? 'gif' : 'webp'}?size=128`;
+
+export default function Levels({ guilds }: InferGetServerSidePropsType<typeof getServerSideProps>) {
+  const [serverId, setServerId] = useState<string>('');
+
+  return (
+    <div className="flex flex-col justify-center items-center min-h-screen bg-discord-dark gap-y-8">
+      {guilds && (
+        <>
+          <h1 className="text-white font-bold text-2xl md:text-4xl text-center">Pick a server to view the levels of</h1>
+          <main className="flex flex-row flex-wrap justify-center items-start gap-6 max-w-7xl">
+            {guilds.map(({ icon, id, name }) => (
+              <Link href={`/levels/${id}`} key={id}>
+                <a className="flex flex-col flex-wrap gap-2 px-6 py-4 bg-discord-slightly-darker rounded-2xl w-40 h-44 text-center relative">
+                  {icon ? (
+                    <img
+                      alt={`${name} server icon`}
+                      className="rounded-lg"
+                      height={128}
+                      src={resolveGuildIcon(id, icon)}
+                      width={128}
+                    />
+                  ) : (
+                    <Image className="rounded-lg" height={128} src="/static/fallback-avatar.png" width={128} />
+                  )}
+
+                  <span className="text-white w-[calc(100%-1rem)] absolute left-0 bottom-4 mx-2 truncate">{name}</span>
+                </a>
+              </Link>
+            ))}
+          </main>
+        </>
+      )}
+
+      <h1 className="text-white font-bold text-center text-2xl md:text-4xl">
+        {guilds ? 'Alternatively, enter a server ID' : 'Enter the ID of the server you want to view'}
+      </h1>
+
+      <div className="relative flex justify-center items-center my-5 w-1/4 min-w-max h-12">
         <input
+          autoCapitalize="off"
           autoComplete="off"
           autoCorrect="off"
-          autoCapitalize="off"
-          id="input"
-          maxLength={19}
-          onChange={handleInputChange}
-          placeholder="Input a server ID to view it's leaderboard"
-          type="number"
-          value={server}
+          autoFocus
+          className="text-white bg-discord-not-quite-black px-5 py-3 focus:outline-none rounded-md shadow w-full"
+          id="searchTerm"
+          maxLength={20}
+          onChange={(e) =>
+            e.target.value ? /^[\d]+$/.test(e.target.value) && setServerId(e.target.value) : setServerId(e.target.value)
+          }
+          placeholder="Enter a server ID"
+          type="text"
+          value={serverId}
         />
-        <div onClick={handleSubmit}>
-          <BsArrowReturnLeft fill={arrowColour} size={100} />
-        </div>
+
+        {serverId && (
+          <label
+            className="absolute right-0 min-w-max my-auto mx-4 text-2xl text-discord-red active:text-red-600 transition-colors h-full cursor-pointer"
+            onClick={() => setServerId('')}
+          >
+            <span className="inline-block align-middle h-10 leading-10">x</span>
+          </label>
+        )}
       </div>
     </div>
   );

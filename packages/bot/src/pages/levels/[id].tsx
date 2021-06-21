@@ -1,29 +1,27 @@
-import type { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from 'next';
-import Head from 'next/head';
+import type { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import { useRouter } from 'next/router';
 
-import Level, { Colours } from '../../components/Level';
-import Loading from '../../components/Loading';
-import Role from '../../components/Role';
+import Spinner from '../../components/Spinner';
 import { initializeApollo } from '../../graphql/client';
-import GUILD_LEVELS, { Guild, GuildLevels, Levels } from '../../graphql/GuildLevels';
-import styles from '../../styles/pages/levels/Leaderboard.module.scss';
-import { DISCORD_GUILD_CDN, FALLBACK_AVATAR } from '../../utils/constants';
+import GUILD_LEVELS, { GuildLevels, Levels } from '../../graphql/queries/GuildLevels';
+import { isValidSnowflake } from '../../utils/utils';
 
 interface LeaderboardProps {
-  guild: Guild;
+  guild: GuildLevels['getDiscordGuild'];
   levels: Levels['levels'];
-  roles: Levels['roles'] | null;
+  roles: Levels['roles'];
 }
 
-export const getStaticProps: GetStaticProps<LeaderboardProps> = async ({ params }) => {
-  if (typeof params?.id !== 'string') return { notFound: true };
+export const getServerSideProps: GetServerSideProps<LeaderboardProps> = async (ctx) => {
+  if (typeof ctx.params?.id !== 'string' || !isValidSnowflake(ctx.params.id)) return { notFound: true };
 
-  const apolloClient = initializeApollo();
+  ctx.req.headers.accept = '';
+
+  const apolloClient = initializeApollo(null, ctx.req.headers);
 
   const { data } = await apolloClient.query<GuildLevels>({
     query: GUILD_LEVELS,
-    variables: { id: params.id },
+    variables: { id: ctx.params.id, requireAuth: false },
   });
 
   if (!data.getDiscordGuild || !data.getGuildLevels) return { notFound: true };
@@ -32,72 +30,41 @@ export const getStaticProps: GetStaticProps<LeaderboardProps> = async ({ params 
     props: {
       guild: data.getDiscordGuild,
       levels: data.getGuildLevels.levels,
-      roles: data.getGuildLevels.roles ?? null,
+      roles: data.getGuildLevels.roles,
     },
-    revalidate: 60,
   };
 };
 
-export const getStaticPaths: GetStaticPaths = () => {
-  return {
-    fallback: true,
-    paths: [],
-  };
-};
+// export const getStaticPaths: GetStaticPaths = () => ({ fallback: true, paths: [] });
 
-export default function Leaderboard({ guild, levels, roles }: InferGetStaticPropsType<typeof getStaticProps>) {
+export default function Leaderboard({ guild, levels }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const { isFallback } = useRouter();
 
   if (isFallback) {
-    return <Loading />;
+    return (
+      <div className="min-h-screen bg-discord-dark flex justify-center items-center">
+        <Spinner className="w-60 h-auto" />
+      </div>
+    );
   }
 
-  function resolveUserColour(index: number) {
-    return index === 0 ? Colours.GOLD : index === 1 ? Colours.SILVER : index === 2 ? Colours.BRONZE : Colours.REST;
+  if (!guild || !levels.length) {
+    return (
+      <div className="min-h-screen bg-discord-dark flex justify-center items-center">
+        <h1 className="text-white font-bold text-center text-xl sm:text-3xl">
+          The guild you&apos;re trying to view either doesn&apos;t exist or does not have the leveling system enabled.
+        </h1>
+      </div>
+    );
   }
 
   return (
-    <div className={styles.container}>
-      <Head>
-        <title>{guild.name} Leaderboard | Pepe Manager</title>
-      </Head>
-
-      <header>
-        <img src={DISCORD_GUILD_CDN(guild.id, guild.icon) ?? FALLBACK_AVATAR} alt={`${guild.name} server icon`} />
-        <span>{guild.name}</span>
+    <div className="flex flex-col justify-center items-center min-h-screen bg-discord-dark">
+      <header className="flex flex-row justify-center">
+        <img src="" alt="" />
+        <p>{guild.name}</p>
       </header>
-
-      <main className={styles.mainContent}>
-        <div className={styles.leaderboardContainer}>
-          {levels.map(({ avatar, level, tag, userID, xp }, i) => (
-            <Level
-              key={userID}
-              avatar={avatar}
-              colour={resolveUserColour(i)}
-              index={i}
-              level={level}
-              tag={tag}
-              totalLevels={levels.length}
-              userID={userID}
-              xp={xp}
-            />
-          ))}
-        </div>
-
-        {roles && (
-          <div className={styles.xpRolesContainer}>
-            <span>XP Roles</span>
-
-            <hr />
-
-            {roles
-              .sort((a, b) => b.level - a.level)
-              .map(({ level, roles: levelRoles }) => (
-                <Role key={level} level={level} roles={levelRoles} />
-              ))}
-          </div>
-        )}
-      </main>
+      <main></main>
     </div>
   );
 }
