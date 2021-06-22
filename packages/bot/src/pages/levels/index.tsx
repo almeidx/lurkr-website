@@ -6,6 +6,7 @@ import { useState } from 'react';
 
 import { initializeApollo } from '../../graphql/client';
 import USER_GUILDS, { UserGuilds } from '../../graphql/queries/UserGuilds';
+import { FALLBACK_AVATAR_PATH } from '../../utils/constants';
 
 export const getServerSideProps: GetServerSideProps<{ guilds: UserGuilds['getUserGuilds'] }> = async (ctx) => {
   ctx.req.headers.accept = '';
@@ -48,7 +49,7 @@ export default function Levels({ guilds }: InferGetServerSidePropsType<typeof ge
                       width={128}
                     />
                   ) : (
-                    <Image className="rounded-lg" height={128} src="/static/fallback-avatar.png" width={128} />
+                    <Image className="rounded-lg" height={128} src={FALLBACK_AVATAR_PATH} width={128} />
                   )}
 
                   <span className="text-white w-[calc(100%-1rem)] absolute left-0 bottom-4 mx-2 truncate">{name}</span>
