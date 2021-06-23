@@ -15,7 +15,7 @@ interface Role {
   color: number;
 }
 
-interface GuildLevelRoles {
+export interface GuildLevelRoles {
   level: number;
   roles: Role[];
 }

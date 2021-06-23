@@ -196,3 +196,13 @@ export const MIN_SNOWFLAKE = 0b000000000000000000000000000000000000000000_00001_
 export const MAX_SNOWFLAKE = BigInt('0b1111111111111111111111111111111111111111111111111111111111111111');
 
 export const FALLBACK_AVATAR_PATH = '/static/fallback-avatar.png';
+
+export const DEFAULT_ROLE_COLOUR = '#b9bbbe';
+
+/**
+ * Gets the XP required to achieve a level
+ * @info un = 100 + 50 * (n - 1) ** 2
+ * @param n The level
+ * @returns The XP required
+ */
+export const XP = (n: number): number => (n === 0 ? 0 : 100 + 50 * (n - 1) ** 2);
