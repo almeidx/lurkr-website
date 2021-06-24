@@ -1,8 +1,8 @@
 import type { Snowflake } from 'discord-api-types';
 import Image from 'next/image';
 import type { ChangeEvent } from 'react';
-import useWindowDimensions from '../../hooks/useWindowDimensions';
 
+import useWindowDimensions from '../../hooks/useWindowDimensions';
 import { FALLBACK_AVATAR_PATH, XP } from '../../utils/constants';
 
 interface UserProps {

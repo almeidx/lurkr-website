@@ -1,11 +1,11 @@
-import { useEffect, useRef, useState } from 'react';
 import type { Snowflake } from 'discord-api-types';
-import { IoMdSend } from 'react-icons/io';
 import type { GetServerSideProps, InferGetServerSidePropsType } from 'next';
+import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import Head from 'next/head';
+import { useEffect, useRef, useState } from 'react';
+import { IoMdSend } from 'react-icons/io';
 
 import { initializeApollo } from '../../graphql/client';
 import USER_GUILDS, { UserGuilds } from '../../graphql/queries/UserGuilds';
@@ -40,8 +40,8 @@ export default function Levels({ guilds }: InferGetServerSidePropsType<typeof ge
   useEffect(() => {
     window.scroll({
       behavior: 'auto',
-      top: 0,
       left: 0,
+      top: 0,
     });
   }, []);
 
@@ -56,9 +56,8 @@ export default function Levels({ guilds }: InferGetServerSidePropsType<typeof ge
       timeout = setTimeout(() => {
         if (submitRef.current) submitRef.current.style.color = '#fff';
       }, 1_000);
-
     } else {
-      router.push(`/levels/${serverId}`);
+      void router.push(`/levels/${serverId}`);
     }
   };
 
