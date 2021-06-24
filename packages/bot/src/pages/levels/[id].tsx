@@ -13,7 +13,7 @@ import { isValidSnowflake } from '../../utils/utils';
 
 interface LeaderboardProps {
   guild: GuildLevels['getDiscordGuild'];
-  levels: Levels['levels'];
+  levels: Levels['levels'] | null;
   roles: Levels['roles'];
 }
 
@@ -30,13 +30,13 @@ export const getStaticProps: GetStaticProps<LeaderboardProps> = async (ctx) => {
     variables: { id: ctx.params.id, requireAuth: false },
   });
 
-  if (!data.getDiscordGuild || !data.getGuildLevels) return { notFound: true };
+  if (!data.getDiscordGuild) return { notFound: true };
 
   return {
     props: {
       guild: data.getDiscordGuild,
-      levels: [...data.getGuildLevels.levels],
-      roles: data.getGuildLevels.roles ? [...data.getGuildLevels.roles] : null,
+      levels: data.getGuildLevels ? [...data.getGuildLevels.levels] : null,
+      roles: data.getGuildLevels?.roles ? [...data.getGuildLevels.roles] : null,
     },
   };
 };
@@ -54,11 +54,12 @@ export default function Leaderboard({ guild, levels, roles }: InferGetStaticProp
     );
   }
 
-  if (!guild || !levels.length) {
+  if (!guild || !levels?.length) {
     return (
       <div className="min-h-screen bg-discord-dark flex justify-center items-center">
         <h1 className="text-white font-bold text-center text-xl sm:text-3xl">
-          The guild you&apos;re trying to view either doesn&apos;t exist or does not have the leveling system enabled.
+          The guild you&apos;re trying to view either does not have the leveling system enabled or has no leveling
+          entries.
         </h1>
       </div>
     );
