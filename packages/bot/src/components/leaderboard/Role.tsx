@@ -16,7 +16,7 @@ export default function Role({ level, roles }: RoleProps) {
         {roles.map(({ color, id, name }) => (
           <div
             className="flex flex-row justify-center items-center gap-1.5 rounded-2xl px-1.5 py-1"
-            key={level}
+            key={`${level}-${id}`}
             style={{ border: `1px solid ${resolveColour(color)}` }}
           >
             <div className="w-4 h-4 rounded-full" style={{ backgroundColor: resolveColour(color) }} />

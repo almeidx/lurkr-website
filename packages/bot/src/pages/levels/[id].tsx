@@ -76,7 +76,7 @@ export default function Leaderboard({ guild, levels, roles }: InferGetStaticProp
         <p className={`text-white text-4xl font-bold`}>{guild.name}</p>
       </header>
 
-      <main className="flex flex-col md:flex-row w-full my-4 justify-between">
+      <main className="flex flex-col md:flex-row w-full my-4 justify-center sm:justify-between gap-y-6">
         <section className="w-full rounded-2xl bg-discord-not-quite-black divide-solid divide-gray-400 divide-y-2">
           {levels.map((user, i) => (
             <User {...user} index={i} key={user.userID} />
@@ -84,10 +84,7 @@ export default function Leaderboard({ guild, levels, roles }: InferGetStaticProp
         </section>
 
         {roles && (
-          <div
-            className="flex flex-col h-[fit-content] items-center bg-discord-not-quite-black mr-8 mb-8 rounded-2xl pb-4 divide-solid divide-gray-400 divide-y-2 sm:ml-6"
-            style={{ justifyContent: 'left' }}
-          >
+          <div className="flex flex-col h-[fit-content] items-center bg-discord-not-quite-black mb-8 rounded-2xl pb-4 divide-solid divide-gray-400 divide-y-2 sm:ml-6">
             <span className="text-white whitespace-nowrap text-2xl font-medium mx-1 py-4">XP Roles</span>
 
             <div className="w-full flex flex-col max-w-lg rounded-lg">

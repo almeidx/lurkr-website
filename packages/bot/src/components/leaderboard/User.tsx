@@ -1,6 +1,7 @@
 import type { Snowflake } from 'discord-api-types';
 import Image from 'next/image';
 import type { ChangeEvent } from 'react';
+import useWindowDimensions from '../../hooks/useWindowDimensions';
 
 import { FALLBACK_AVATAR_PATH, XP } from '../../utils/constants';
 
@@ -21,6 +22,8 @@ const makeUserAvatarLink = (id: Snowflake, hash: string | null, tag: string | nu
     : FALLBACK_AVATAR_PATH;
 
 export default function User({ avatar, index, level, tag, userID, xp }: UserProps) {
+  const { width } = useWindowDimensions();
+
   const currentLevelRequiredXp = XP(level);
   const nextLevelRequiredXp = XP(level + 1);
   const levelXp = nextLevelRequiredXp - currentLevelRequiredXp;
@@ -59,12 +62,14 @@ export default function User({ avatar, index, level, tag, userID, xp }: UserProp
         <p className="text-gray-200">{tag ?? userID}</p>
       </div>
 
-      <div className="flex flex-row justify-center items-center w-64 bg-discord-dark rounded-full gap-x-4 my-3 relative">
-        <div className="absolute bg-blurple left-0 h-full rounded-full" style={{ width: percentage * 256 }} />
+      {typeof width === 'number' && width >= 648 && (
+        <div className="flex flex-row justify-center items-center w-64 bg-discord-dark rounded-full gap-x-4 my-3 relative">
+          <div className="absolute bg-blurple left-0 h-full rounded-full" style={{ width: percentage * 256 }} />
 
-        <span className="text-white text-xl z-30">XP • {xp.toLocaleString('en')}</span>
-        <span className="text-white text-xl z-30">LVL • {level.toLocaleString('en')}</span>
-      </div>
+          <span className="text-white text-xl z-30">XP • {xp.toLocaleString('en')}</span>
+          <span className="text-white text-xl z-30">LVL • {level.toLocaleString('en')}</span>
+        </div>
+      )}
     </div>
   );
 }
