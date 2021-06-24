@@ -9,8 +9,8 @@
   "scripts": {
     "bot": "yarn workspace @website/bot",
     "build": "yarn workspaces run build",
-    "lint": "eslint packages --ext .ts,.tsx",
-    "lint:fix": "eslint packages --ext .ts,.tsx --fix",
+    "lint": "eslint --ext .ts,.tsx --cache packages",
+    "lint:fix": "eslint --ext .ts,.tsx --fix --cache packages",
     "lint:staged": "lint-staged",
     "main": "yarn workspace @website/main",
     "prepare": "husky install",

@@ -3,6 +3,7 @@ import Head from 'next/head';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 
+import Failure from '../../components/Failure';
 import Role from '../../components/leaderboard/Role';
 import User from '../../components/leaderboard/User';
 import Spinner from '../../components/Spinner';
@@ -54,12 +55,7 @@ export default function Leaderboard({ guild, levels, roles }: InferGetStaticProp
 
   if (!guild || !levels?.length) {
     return (
-      <div className="min-h-screen bg-discord-dark flex justify-center items-center">
-        <h1 className="text-white font-bold text-center text-xl sm:text-3xl">
-          The guild you&apos;re trying to view either does not have the leveling system enabled or has no leveling
-          entries.
-        </h1>
-      </div>
+      <Failure message="The guild you're trying to view either does not have the leveling system enabled or has no leveling entries." />
     );
   }
 

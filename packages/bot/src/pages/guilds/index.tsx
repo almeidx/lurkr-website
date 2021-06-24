@@ -2,7 +2,10 @@ import type { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useContext } from 'react';
 
+import Failure from '../../components/Failure';
+import { UserContext } from '../../contexts/UserContext';
 import { initializeApollo } from '../../graphql/client';
 import USER_GUILDS, { UserGuilds } from '../../graphql/queries/UserGuilds';
 import { guildIconCdn } from '../../utils/cdn';
@@ -26,14 +29,14 @@ export const getServerSideProps: GetServerSideProps<{ guilds: UserGuilds['getUse
 };
 
 export default function Guild({ guilds }: InferGetServerSidePropsType<typeof getServerSideProps>) {
+  const { authenticated } = useContext(UserContext);
+
+  if (!authenticated) {
+    return <Failure message="You need to sign in to view this page." />;
+  }
+
   if (!guilds) {
-    return (
-      <div className="min-h-screen bg-discord-dark flex justify-center items-center">
-        <h1 className="text-white font-bold text-center text-xl sm:text-3xl">
-          You are not the manager of any servers.
-        </h1>
-      </div>
-    );
+    return <Failure message="You are not the manager of any servers." />;
   }
 
   return (
@@ -48,7 +51,7 @@ export default function Guild({ guilds }: InferGetServerSidePropsType<typeof get
 
       <main className="flex flex-row flex-wrap justify-center items-start gap-6 max-w-7xl">
         {guilds.map(({ icon, id, name }) => (
-          <Link href={`/levels/${id}`} key={id}>
+          <Link href={`/guilds/${id}`} key={id}>
             <a className="flex flex-col flex-wrap gap-2 px-6 py-4 bg-discord-slightly-darker rounded-2xl w-40 h-44 text-center relative">
               {icon ? (
                 <img
