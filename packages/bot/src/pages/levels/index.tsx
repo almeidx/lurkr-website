@@ -1,12 +1,15 @@
+import { useRef, useState } from 'react';
 import type { Snowflake } from 'discord-api-types';
+import { IoMdSend } from 'react-icons/io';
 import type { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useRouter } from 'next/router';
 
 import { initializeApollo } from '../../graphql/client';
 import USER_GUILDS, { UserGuilds } from '../../graphql/queries/UserGuilds';
 import { FALLBACK_AVATAR_PATH } from '../../utils/constants';
+import { isValidSnowflake } from '../../utils/utils';
 
 export const getServerSideProps: GetServerSideProps<{ guilds: UserGuilds['getUserGuilds'] }> = async (ctx) => {
   ctx.req.headers.accept = '';
@@ -30,6 +33,24 @@ const resolveGuildIcon = (id: Snowflake, hash: string) =>
 
 export default function Levels({ guilds }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const [serverId, setServerId] = useState<string>('');
+  const submitRef = useRef<HTMLButtonElement>(null);
+  const router = useRouter();
+
+  let timeout: NodeJS.Timeout | null = null;
+
+  const handleServerIdSubmit = () => {
+    if (!isValidSnowflake(serverId)) {
+      if (submitRef.current) submitRef.current.style.color = '#ff0000';
+
+      if (timeout) clearTimeout(timeout);
+
+      timeout = setTimeout(() => {
+        if (submitRef.current) submitRef.current.style.color = '#fff';
+      }, 1_000);
+    }
+
+    router.push(`/levels/${serverId}`);
+  };
 
   return (
     <div className="flex flex-col justify-center items-center min-h-screen bg-discord-dark gap-y-8">
@@ -83,12 +104,20 @@ export default function Levels({ guilds }: InferGetServerSidePropsType<typeof ge
 
         {serverId && (
           <label
-            className="absolute right-0 min-w-max my-auto mx-4 text-2xl text-discord-red active:text-red-600 transition-colors h-full cursor-pointer"
+            className="absolute right-12 min-w-max my-auto mx-4 text-2xl text-discord-red active:text-red-600 transition-colors h-full cursor-pointer"
             onClick={() => setServerId('')}
           >
             <span className="inline-block align-middle h-10 leading-10">x</span>
           </label>
         )}
+
+        <button
+          className="h-12 w-12 bg-discord-not-quite-black rounded-md flex justify-center items-center ml-3 text-white duration-150 transition-colors"
+          onClick={handleServerIdSubmit}
+          ref={submitRef}
+        >
+          <IoMdSend className="fill-current text-3xl" />
+        </button>
       </div>
     </div>
   );
