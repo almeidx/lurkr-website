@@ -52,7 +52,7 @@ export default function UserProvider({ children }: UserContextProps) {
             throw new Error('Failed to authenticate user');
           }
         })
-        .catch((err) => console.error(err));
+        .catch((err) => console.error('Failed to authenticate', err));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

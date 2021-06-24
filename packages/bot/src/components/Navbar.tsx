@@ -8,8 +8,9 @@ import useWindowDimensions from '../hooks/useWindowDimensions';
 import { userAvatarCdn } from '../utils/cdn';
 import { API_BASE_URL } from '../utils/constants';
 
-const links: { name: string; url: string }[] = [
+const links: { name: string; requireAuth?: boolean; url: string }[] = [
   { name: 'Home', url: '/' },
+  { name: 'Dashboard', requireAuth: true, url: '/guilds' },
   { name: 'Levels', url: '/levels' },
   { name: 'Tutorials', url: '/tutorials' },
   { name: 'Docs', url: '/docs' },
@@ -42,11 +43,14 @@ export default function Navbar() {
         } absolute md:relative top-16 left-0 md:top-0 z-20 flex-col md:flex-row md:gap-6 font-semibold w-full bg-discord-not-quite-black shadow-md rounded-lg md:rounded-none md:shadow-none md:bg-transparent p-6 pt-0 md:p-0 `}
       >
         <div className="flex flex-col md:flex-row gap-6 mr-auto mt-6 md:mt-0">
-          {links.map(({ name, url }, i) => (
-            <Link href={url} key={i}>
-              <a className="block py-1 text-gray-300 font-normal md:text-gray-500 hover:underline">{name}</a>
-            </Link>
-          ))}
+          {links.map(
+            ({ name, requireAuth, url }, i) =>
+              (!requireAuth || authenticated) && (
+                <Link href={url} key={i}>
+                  <a className="block py-1 text-gray-300 font-normal md:text-gray-500 hover:underline">{name}</a>
+                </Link>
+              ),
+          )}
         </div>
 
         {authenticated ? (
