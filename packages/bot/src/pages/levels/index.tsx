@@ -1,10 +1,11 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import type { Snowflake } from 'discord-api-types';
 import { IoMdSend } from 'react-icons/io';
 import type { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import Head from 'next/head';
 
 import { initializeApollo } from '../../graphql/client';
 import USER_GUILDS, { UserGuilds } from '../../graphql/queries/UserGuilds';
@@ -36,6 +37,14 @@ export default function Levels({ guilds }: InferGetServerSidePropsType<typeof ge
   const submitRef = useRef<HTMLButtonElement>(null);
   const router = useRouter();
 
+  useEffect(() => {
+    window.scroll({
+      behavior: 'auto',
+      top: 0,
+      left: 0,
+    });
+  }, []);
+
   let timeout: NodeJS.Timeout | null = null;
 
   const handleServerIdSubmit = () => {
@@ -47,13 +56,18 @@ export default function Levels({ guilds }: InferGetServerSidePropsType<typeof ge
       timeout = setTimeout(() => {
         if (submitRef.current) submitRef.current.style.color = '#fff';
       }, 1_000);
-    }
 
-    router.push(`/levels/${serverId}`);
+    } else {
+      router.push(`/levels/${serverId}`);
+    }
   };
 
   return (
     <div className="flex flex-col justify-center items-center min-h-screen bg-discord-dark gap-y-8">
+      <Head>
+        <title>Levels | Pepe Manager</title>
+      </Head>
+
       {guilds && (
         <>
           <h1 className="text-white font-bold text-2xl md:text-4xl text-center">Pick a server to view the levels of</h1>

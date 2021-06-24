@@ -1,5 +1,6 @@
 import type { Snowflake } from 'discord-api-types';
 import type { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from 'next';
+import Head from 'next/head';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 
@@ -67,6 +68,10 @@ export default function Leaderboard({ guild, levels, roles }: InferGetStaticProp
 
   return (
     <div className="flex flex-col items-start min-h-screen bg-discord-dark sm:px-6 gap-y-10">
+      <Head>
+        <title>{guild.name} Leaderboard | Pepe Manager</title>
+      </Head>
+
       <header className="flex flex-row justify-center items-center gap-6 ml-10 mt-10 xl:mt-0">
         {guild.icon ? (
           <img alt={`${guild.name} server icon`} height={64} src={makeGuildIconLink(guild.id, guild.icon)} width={64} />
