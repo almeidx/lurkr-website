@@ -1,4 +1,3 @@
-import type { Snowflake } from 'discord-api-types';
 import type { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
@@ -9,6 +8,7 @@ import User from '../../components/leaderboard/User';
 import Spinner from '../../components/Spinner';
 import { initializeApollo } from '../../graphql/client';
 import GUILD_LEVELS, { GuildLevels, Levels } from '../../graphql/queries/GuildLevels';
+import { guildIconCdn } from '../../utils/cdn';
 import { FALLBACK_AVATAR_PATH } from '../../utils/constants';
 import { isValidSnowflake } from '../../utils/utils';
 
@@ -17,9 +17,6 @@ interface LeaderboardProps {
   levels: Levels['levels'] | null;
   roles: Levels['roles'];
 }
-
-const makeGuildIconLink = (id: Snowflake, hash: string) =>
-  `https://cdn.discordapp.com/icons/${id}/${hash}.${hash.startsWith('a_') ? 'gif' : 'webp'}?size=64`;
 
 export const getStaticProps: GetStaticProps<LeaderboardProps> = async (ctx) => {
   if (typeof ctx.params?.id !== 'string' || !isValidSnowflake(ctx.params.id)) return { notFound: true };
@@ -74,7 +71,7 @@ export default function Leaderboard({ guild, levels, roles }: InferGetStaticProp
 
       <header className="flex flex-row justify-center items-center gap-6 ml-10 mt-10 xl:mt-0">
         {guild.icon ? (
-          <img alt={`${guild.name} server icon`} height={64} src={makeGuildIconLink(guild.id, guild.icon)} width={64} />
+          <img alt={`${guild.name} server icon`} height={64} src={guildIconCdn(guild.id, guild.icon, 64)} width={64} />
         ) : (
           <Image height={64} src={FALLBACK_AVATAR_PATH} width={64} />
         )}

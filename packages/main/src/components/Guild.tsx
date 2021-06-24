@@ -1,6 +1,7 @@
 import type { Snowflake } from 'discord-api-types';
 import Link from 'next/link';
 
+import { guildIconCdn } from '../../../bot/src/utils/cdn';
 import useWindowDimensions from '../hooks/useWindowDimensions';
 
 interface GuildProps {
@@ -30,7 +31,7 @@ export default function Guild({ icon, id, index, invite, memberCount, name, tota
         className="grid-in-icon rounded-lg"
         width={imgSize}
         height={imgSize}
-        src={`https://cdn.discordapp.com/icons/${id}/${icon}.${icon.startsWith('a_') ? 'gif' : 'webp'}?size=64`}
+        src={guildIconCdn(id, icon, 64)}
       />
 
       <Link href={`https://discord.gg/${invite}`}>

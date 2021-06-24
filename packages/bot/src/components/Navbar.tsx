@@ -5,6 +5,7 @@ import { MdMenu } from 'react-icons/md';
 
 import { UserContext } from '../contexts/UserContext';
 import useWindowDimensions from '../hooks/useWindowDimensions';
+import { userAvatarCdn } from '../utils/cdn';
 import { API_BASE_URL } from '../utils/constants';
 
 const links: { name: string; url: string }[] = [
@@ -58,9 +59,7 @@ export default function Navbar() {
                 alt="Your profile picture"
                 className="rounded-full"
                 height={30}
-                src={`https://cdn.discordapp.com/avatars/${id}/${avatar}.${
-                  avatar.startsWith('a_') ? 'gif' : 'webp'
-                }?size=64`}
+                src={userAvatarCdn(id, avatar, 32)}
                 width={30}
               />
             )}

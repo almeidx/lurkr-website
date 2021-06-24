@@ -1,4 +1,3 @@
-import type { Snowflake } from 'discord-api-types';
 import type { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
@@ -9,6 +8,7 @@ import { IoMdSend } from 'react-icons/io';
 
 import { initializeApollo } from '../../graphql/client';
 import USER_GUILDS, { UserGuilds } from '../../graphql/queries/UserGuilds';
+import { guildIconCdn } from '../../utils/cdn';
 import { FALLBACK_AVATAR_PATH } from '../../utils/constants';
 import { isValidSnowflake } from '../../utils/utils';
 
@@ -28,9 +28,6 @@ export const getServerSideProps: GetServerSideProps<{ guilds: UserGuilds['getUse
     },
   };
 };
-
-const resolveGuildIcon = (id: Snowflake, hash: string) =>
-  `https://cdn.discordapp.com/icons/${id}/${hash}.${hash.startsWith('a_') ? 'gif' : 'webp'}?size=128`;
 
 export default function Levels({ guilds }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const [serverId, setServerId] = useState<string>('');
@@ -79,7 +76,7 @@ export default function Levels({ guilds }: InferGetServerSidePropsType<typeof ge
                       alt={`${name} server icon`}
                       className="rounded-lg"
                       height={128}
-                      src={resolveGuildIcon(id, icon)}
+                      src={guildIconCdn(id, icon, 128)}
                       width={128}
                     />
                   ) : (

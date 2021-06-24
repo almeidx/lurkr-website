@@ -3,6 +3,7 @@ import Image from 'next/image';
 import type { ChangeEvent } from 'react';
 
 import useWindowDimensions from '../../hooks/useWindowDimensions';
+import { userAvatarCdn, userDefaultAvatarCdn } from '../../utils/cdn';
 import { FALLBACK_AVATAR_PATH, XP } from '../../utils/constants';
 
 interface UserProps {
@@ -14,11 +15,11 @@ interface UserProps {
   xp: number;
 }
 
-const makeUserAvatarLink = (id: Snowflake, hash: string | null, tag: string | null) =>
+const makeUserAvatarUrl = (id: Snowflake, hash: string | null, tag: string | null) =>
   hash
-    ? `https://cdn.discordapp.com/avatars/${id}/${hash}.webp?size=64`
+    ? userAvatarCdn(id, hash, 64, false)
     : tag
-    ? `https://cdn.discordapp.com/avatars/${Number(tag.split(/#(\d{4})$/)[1])}.webp?size=64`
+    ? userDefaultAvatarCdn(tag.split(/#(\d{4})$/)[1], 64)
     : FALLBACK_AVATAR_PATH;
 
 export default function User({ avatar, index, level, tag, userID, xp }: UserProps) {
@@ -48,7 +49,7 @@ export default function User({ avatar, index, level, tag, userID, xp }: UserProp
             alt={`${tag} avatar`}
             className="rounded-full"
             height={64}
-            src={makeUserAvatarLink(userID, avatar, tag)}
+            src={makeUserAvatarUrl(userID, avatar, tag)}
             width={64}
             onError={(e: ChangeEvent<HTMLImageElement>) => {
               e.target.onerror = null;
