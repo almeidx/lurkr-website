@@ -7,6 +7,7 @@ import Head from 'next/head';
 
 import Footer from '../components/Footer';
 import Navbar from '../components/Navbar';
+import GuildChangesProvider from '../contexts/GuildChangesContext';
 import UserProvider from '../contexts/UserContext';
 import { useApollo } from '../graphql/client';
 
@@ -16,13 +17,15 @@ export default function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ApolloProvider client={apolloClient}>
       <UserProvider>
-        <Head>
-          <title>Pepe Manager</title>
-        </Head>
+        <GuildChangesProvider>
+          <Head>
+            <title>Pepe Manager</title>
+          </Head>
 
-        <Navbar />
-        <Component {...pageProps} />
-        <Footer />
+          <Navbar />
+          <Component {...pageProps} />
+          <Footer />
+        </GuildChangesProvider>
       </UserProvider>
     </ApolloProvider>
   );

@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 
 import Emoji from '../components/Emoji';
 import Guild from '../components/Guild';
+import Input from '../components/Input';
 import Spinner from '../components/Spinner';
 import { initializeApollo } from '../graphql/client';
 import ALL_GUILDS, { AllGuilds } from '../graphql/queries/AllGuilds';
@@ -94,30 +95,15 @@ export default function Home({ emojiCount, guilds, otherGuilds }: InferGetStatic
         <h1 className="text-white text-2xl sm:text-4xl">{emojiCount.toLocaleString('en')} unique Pepe Emojis</h1>
       </header>
 
-      <div className="relative flex justify-center items-center my-5 w-1/4 min-w-max h-12">
-        <input
-          autoCapitalize="off"
-          autoComplete="off"
-          autoCorrect="off"
-          autoFocus
-          className="text-white bg-discord-not-quite-black px-5 py-3 focus:outline-none rounded-md shadow w-full"
-          id="searchTerm"
-          maxLength={32}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          placeholder="Search for Pepe Emojis"
-          type="text"
-          value={searchTerm}
-        />
-
-        {searchTerm && (
-          <label
-            className="absolute right-0 min-w-max my-auto mx-4 text-2xl text-discord-red active:text-red-600 transition-colors h-full cursor-pointer"
-            onClick={() => cancelSearch()}
-          >
-            <span className="inline-block align-middle h-10 leading-10">x</span>
-          </label>
-        )}
-      </div>
+      <Input
+        className="my-5"
+        id="searchTerm"
+        maxLength={32}
+        onChange={(e) => setSearchTerm(e.target.value)}
+        onClear={() => cancelSearch()}
+        placeholder="Search for Pepe Emojis"
+        value={searchTerm}
+      />
 
       <section className="flex flex-row flex-wrap max-w-2xl gap-2">
         {isSearchLoading && <Spinner />}

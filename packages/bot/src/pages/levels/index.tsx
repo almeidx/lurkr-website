@@ -4,8 +4,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
-import { IoMdSend } from 'react-icons/io';
 
+import Input from '../../components/Input';
 import { initializeApollo } from '../../graphql/client';
 import USER_GUILDS, { UserGuilds } from '../../graphql/queries/UserGuilds';
 import { guildIconCdn } from '../../utils/cdn';
@@ -95,40 +95,19 @@ export default function Levels({ guilds }: InferGetServerSidePropsType<typeof ge
         {guilds ? 'Alternatively, enter a server ID' : 'Enter the ID of the server you want to view'}
       </h1>
 
-      <div className="relative flex justify-center items-center my-5 w-1/4 min-w-max h-12">
-        <input
-          autoCapitalize="off"
-          autoComplete="off"
-          autoCorrect="off"
-          autoFocus
-          className="text-white bg-discord-not-quite-black px-5 py-3 focus:outline-none rounded-md shadow w-full"
-          id="searchTerm"
-          maxLength={20}
-          onChange={(e) =>
-            e.target.value ? /^[\d]+$/.test(e.target.value) && setServerId(e.target.value) : setServerId(e.target.value)
-          }
-          placeholder="Enter a server ID"
-          type="text"
-          value={serverId}
-        />
-
-        {serverId && (
-          <label
-            className="absolute right-12 min-w-max my-auto mx-4 text-2xl text-discord-red active:text-red-600 transition-colors h-full cursor-pointer"
-            onClick={() => setServerId('')}
-          >
-            <span className="inline-block align-middle h-10 leading-10">x</span>
-          </label>
-        )}
-
-        <button
-          className="h-12 w-12 bg-discord-not-quite-black rounded-md flex justify-center items-center ml-3 text-white duration-150 transition-colors"
-          onClick={handleServerIdSubmit}
-          ref={submitRef}
-        >
-          <IoMdSend className="fill-current text-3xl" />
-        </button>
-      </div>
+      <Input
+        className="my-5"
+        id="searchTerm"
+        maxLength={20}
+        onChange={(e) =>
+          e.target.value ? /^[\d]+$/.test(e.target.value) && setServerId(e.target.value) : setServerId(e.target.value)
+        }
+        onClear={() => setServerId('')}
+        onSubmit={handleServerIdSubmit}
+        placeholder="Enter a server ID"
+        submitRef={submitRef}
+        value={serverId}
+      />
     </div>
   );
 }
