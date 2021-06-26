@@ -1,7 +1,8 @@
 import type { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import Head from 'next/head';
-import { ChangeEvent, useCallback, useContext, useState } from 'react';
+import { ChangeEvent, useCallback, useContext, useMemo, useState } from 'react';
 
+import ChannelSelector from '../../../components/dashboard/ChannelSelector';
 import Header from '../../../components/dashboard/Header';
 import Menu from '../../../components/dashboard/Menu';
 import Failure from '../../../components/Failure';
@@ -25,7 +26,7 @@ export const getServerSideProps: GetServerSideProps<GuildProps> = async (ctx) =>
 
   const { data } = await apolloClient.query<UserGuild>({
     query: USER_GUILD,
-    variables: { id: ctx.params.id, withPermissions: true },
+    variables: { id: ctx.params.id, includeChannels: true, withPermissions: true },
   });
 
   return {
@@ -48,6 +49,11 @@ export default function Guild({ database, guild }: InferGetServerSidePropsType<t
     }
   }, []);
 
+  const memoizedSortedChannels = useMemo(
+    () => [...(guild?.channels ?? [])].sort((a, b) => a.name.localeCompare(b.name)),
+    [guild],
+  );
+
   if (!authenticated) {
     return <Failure message="You need to sign in to view this page." />;
   }
@@ -67,7 +73,7 @@ export default function Guild({ database, guild }: InferGetServerSidePropsType<t
       <main className="pl-8 pt-5 w-full">
         <Header description="This panel controls the bot in your server." title="Settings" />
 
-        <div className="flex flex-col bg-discord-slightly-darker rounded-xl w-full px-8 py-7">
+        <div className="flex flex-col bg-discord-slightly-darker rounded-xl w-full px-8 py-7 gap-6">
           <div className="flex flex-col gap-3">
             <label className="text-gray-300" htmlFor="prefix">
               Bot Prefix
@@ -81,6 +87,14 @@ export default function Guild({ database, guild }: InferGetServerSidePropsType<t
               placeholder="Enter the bot prefix"
               value={prefix}
             />
+          </div>
+
+          <div className="flex flex-col gap-3">
+            <label className="text-gray-300" htmlFor="blacklistedChannels">
+              Blacklisted Channels
+            </label>
+
+            <ChannelSelector channels={memoizedSortedChannels} />
           </div>
         </div>
       </main>
