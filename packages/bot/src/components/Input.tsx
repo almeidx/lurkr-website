@@ -18,7 +18,7 @@ interface InputWithSubmitProps extends InputProps {
 
 export default function Input(props: InputProps | InputWithSubmitProps): JSX.Element {
   return (
-    <div className={`relative flex justify-center items-center w-1/4 min-w-max h-12 ${props.className ?? ''}`}>
+    <div className={`relative w-full ${props.className ?? ''}`}>
       <input
         autoCapitalize="off"
         autoComplete="off"
