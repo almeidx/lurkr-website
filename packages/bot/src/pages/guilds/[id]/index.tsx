@@ -2,9 +2,9 @@ import type { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import Head from 'next/head';
 import { ChangeEvent, useCallback, useContext, useMemo, useState } from 'react';
 
-import ChannelSelector from '../../../components/dashboard/ChannelSelector';
 import Header from '../../../components/dashboard/Header';
 import Menu from '../../../components/dashboard/Menu';
+import Selector from '../../../components/dashboard/Selector';
 import Failure from '../../../components/Failure';
 import Input from '../../../components/Input';
 import { UserContext } from '../../../contexts/UserContext';
@@ -94,7 +94,7 @@ export default function Guild({ database, guild }: InferGetServerSidePropsType<t
               Blacklisted Channels
             </label>
 
-            <ChannelSelector channels={memoizedSortedChannels} />
+            <Selector items={memoizedSortedChannels} type="channel" />
           </div>
         </div>
       </main>
