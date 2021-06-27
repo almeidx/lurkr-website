@@ -1,6 +1,9 @@
 import type { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import Head from 'next/head';
 import { ChangeEvent, useCallback, useContext, useMemo, useState } from 'react';
+import { BsFillShiftFill } from 'react-icons/bs';
+import { ImCog } from 'react-icons/im';
+import { RiShieldUserLine } from 'react-icons/ri';
 
 import Header from '../../../components/dashboard/Header';
 import Menu from '../../../components/dashboard/Menu';
@@ -11,7 +14,6 @@ import { UserContext } from '../../../contexts/UserContext';
 import { initializeApollo } from '../../../graphql/client';
 import USER_GUILD, { UserGuild } from '../../../graphql/queries/UserGuild';
 import { isValidSnowflake } from '../../../utils/utils';
-
 interface GuildProps {
   database: UserGuild['getDatabaseGuild'];
   guild: UserGuild['getDiscordGuild'];
@@ -70,10 +72,24 @@ export default function Guild({ database, guild }: InferGetServerSidePropsType<t
 
       <Menu guild={guild} />
 
-      <main className="pl-8 pt-5 w-full">
-        <Header description="This panel controls the bot in your server." title="Settings" />
+      <main className="pt-5 w-full">
+        <div className="block sm:hidden flex justify-center bg-discord-slightly-darker h-16 mb-4 px-2 text-white">
+          <div className="px-10 py-5">
+            <ImCog className="h-6 w-6 fill-current" />
+          </div>
+          <div className="px-10 py-5">
+            <BsFillShiftFill className="h-6 w-6 fill-current" />
+          </div>
+          <div className="px-10 py-5">
+            <RiShieldUserLine className="h-6 w-6 fill-current" />
+          </div>
+        </div>
 
-        <div className="flex flex-col bg-discord-slightly-darker rounded-xl w-full px-8 py-7 gap-6">
+        <div className="px-4">
+          <Header description="This panel controls the bot in your server." title="Settings" />
+        </div>
+
+        <div className="flex flex-col bg-discord-slightly-darker rounded-xl w-full px-4 py-7 gap-6">
           <div className="flex flex-col gap-3">
             <label className="text-gray-300" htmlFor="prefix">
               Bot Prefix
