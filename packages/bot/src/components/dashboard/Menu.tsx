@@ -30,7 +30,7 @@ const menuItems: MenuItem[] = [
 
 export default function Menu({ guild }: MenuProps) {
   return (
-    <aside className="flex flex-col w-96">
+    <aside className="flex flex-col w-96 hidden sm:block">
       <header className="flex flex-row items-center mx-6 mb-8 mt-8 sm:mt-0 gap-4">
         {guild.icon ? (
           <img
