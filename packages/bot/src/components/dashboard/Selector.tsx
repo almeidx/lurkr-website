@@ -1,6 +1,6 @@
 import type { Snowflake } from 'discord-api-types';
 import { MouseEventHandler, useEffect, useState } from 'react';
-import { AiOutlinePlusCircle } from 'react-icons/ai';
+import { AiOutlineCloseCircle, AiOutlinePlusCircle } from 'react-icons/ai';
 
 import { DEFAULT_ROLE_COLOUR } from '../../utils/constants';
 import Input from '../Input';
@@ -77,10 +77,17 @@ export default function Selector({ items, type }: SelectorProps) {
           </div>
         ))}
 
-        <AiOutlinePlusCircle
-          className="text-white fill-current w-9 h-9 cursor-pointer"
-          onClick={() => setDropdownOpen(!dropdownOpen)}
-        />
+        {dropdownOpen ? (
+          <AiOutlineCloseCircle
+            className="text-red-500 fill-current w-9 h-9 cursor-pointer"
+            onClick={() => setDropdownOpen(!dropdownOpen)}
+          />
+        ) : (
+          <AiOutlinePlusCircle
+            className="text-white fill-current w-9 h-9 cursor-pointer"
+            onClick={() => setDropdownOpen(!dropdownOpen)}
+          />
+        )}
       </div>
 
       <div
