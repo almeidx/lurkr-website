@@ -1,16 +1,13 @@
 import type { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import Head from 'next/head';
-import { ChangeEvent, useCallback, useContext, useMemo, useState } from 'react';
+import { useContext, useMemo } from 'react';
 import { BsFillShiftFill } from 'react-icons/bs';
 import { ImCog } from 'react-icons/im';
 import { RiShieldUserLine } from 'react-icons/ri';
 
-import Header from '../../../components/dashboard/Header';
-import Label from '../../../components/dashboard/Label';
 import Menu from '../../../components/dashboard/Menu';
-import Selector from '../../../components/dashboard/Selector';
+import General from '../../../components/dashboard/pages/General';
 import Failure from '../../../components/Failure';
-import Input from '../../../components/Input';
 import { UserContext } from '../../../contexts/UserContext';
 import { initializeApollo } from '../../../graphql/client';
 import USER_GUILD, { UserGuild } from '../../../graphql/queries/UserGuild';
@@ -43,15 +40,6 @@ export const getServerSideProps: GetServerSideProps<GuildProps> = async (ctx) =>
 
 export default function Guild({ database, guild }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const { authenticated } = useContext(UserContext);
-  const [prefix, setPrefix] = useState(database?.prefix ?? 'p!');
-
-  const handlePrefixChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.value;
-
-    if (value.length <= 5) {
-      setPrefix(value);
-    }
-  }, []);
 
   const memoizedSortedChannels = useMemo(
     () => [...(guild?.channels ?? [])].sort((a, b) => a.name.localeCompare(b.name)),
@@ -87,34 +75,7 @@ export default function Guild({ database, guild }: InferGetServerSidePropsType<t
           </div>
         </div>
 
-        <div className="px-4">
-          <Header description="This panel controls the bot in your server." title="Settings" />
-        </div>
-
-        <div className="flex flex-col bg-discord-slightly-darker rounded-xl w-full px-4 py-7 gap-6">
-          <div className="flex flex-col gap-3">
-            <Label htmlFor="prefix" name="Bot Prefix" url="https://docs.pepemanager.com/config-commands/prefix" />
-
-            <Input
-              id="prefix"
-              maxLength={5}
-              onChange={handlePrefixChange}
-              onClear={() => setPrefix('')}
-              placeholder="Enter the bot prefix"
-              value={prefix}
-            />
-          </div>
-
-          <div className="flex flex-col gap-3">
-            <Label
-              htmlFor="blacklistedChannels"
-              name="Blacklisted Channels"
-              url="https://docs.pepemanager.com/config-commands/config/set#command-structure"
-            />
-
-            <Selector items={memoizedSortedChannels} type="channel" />
-          </div>
-        </div>
+        <General channels={memoizedSortedChannels} database={database} />
       </main>
     </div>
   );
