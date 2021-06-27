@@ -62,7 +62,7 @@ export default function Selector({ items, type }: SelectorProps) {
 
   return (
     <div>
-      <div className="flex flex-row flex-wrap gap-3 bg-discord-not-quite-black px-5 py-3 focus:outline-none rounded-md shadow w-96 min-h-[3rem]">
+      <div className="flex flex-row flex-wrap gap-3 min-h-[3rem] bg-discord-not-quite-black px-5 py-3 focus:outline-none rounded-md shadow">
         {selected.map(({ id, name }) => (
           <div
             className={`flex items-center font-light border-2 border-[${DEFAULT_ROLE_COLOUR}] rounded-2xl px-1.5 py-1 max-w-full cursor-pointer z-50`}
@@ -92,10 +92,10 @@ export default function Selector({ items, type }: SelectorProps) {
 
       <div
         className={`${
-          dropdownOpen ? '' : 'invisible'
-        } absolute w-96 h-64 bg-[#36393f] flex flex-col items-center pt-4 mt-2 rounded-md`}
+          dropdownOpen ? '' : 'hidden'
+        } relative h-64 w-full bg-[#36393f] flex flex-col items-center pt-4 mt-2 rounded-md`}
       >
-        <div className="w-96 px-4">
+        <div className="px-4">
           <Input
             className="pb-3"
             id="selector"
