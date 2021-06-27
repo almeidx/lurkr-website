@@ -15,9 +15,13 @@ interface ChannelSelectorProps {
 }
 
 export default function ChannelSelector({ channels }: ChannelSelectorProps) {
+  const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
   const [selected, setSelected] = useState<Channel[]>([]);
   const [options, setOptions] = useState<Channel[]>(channels);
   const [searchTerm, setSearchTerm] = useState('');
+
+  const handleDropdownOpenClose: MouseEventHandler<HTMLOrSVGElement> = () =>
+    dropdownOpen ? setDropdownOpen(false) : setDropdownOpen(true);
 
   const handleChannelRemove: MouseEventHandler<HTMLDivElement> = (event) => {
     const channelId = (event.target as HTMLDivElement).id;
@@ -52,27 +56,44 @@ export default function ChannelSelector({ channels }: ChannelSelectorProps) {
   }, [searchTerm, selected]);
 
   return (
-    <div className="flex flex-row flex-wrap gap-3 bg-discord-not-quite-black px-5 py-3 focus:outline-none rounded-md shadow w-96 min-h-[3rem]">
-      {selected.map(({ id, name }) => (
+    <div>
+      <div className="flex flex-row flex-wrap gap-3 bg-discord-not-quite-black px-5 py-3 focus:outline-none rounded-md shadow w-96 min-h-[3rem]">
+        {selected.map(({ id, name }) => (
+          <div
+            className={`flex items-center font-light border-2 border-[${DEFAULT_ROLE_COLOUR}] rounded-2xl px-1.5 py-1 max-w-full cursor-pointer z-50`}
+            key={id}
+            id={id}
+            onClick={handleChannelRemove}
+          >
+            <p className="text-white truncate" id={id}>
+              {name}
+            </p>
+          </div>
+        ))}
         <div
           className={`flex items-center font-light border-2 border-[${DEFAULT_ROLE_COLOUR}] rounded-2xl px-1.5 py-1 max-w-full cursor-pointer z-50`}
-          key={id}
-          id={id}
           onClick={handleChannelRemove}
         >
-          <p className="text-white truncate" id={id}>
-            {name}
-          </p>
+          <p className="text-white truncate">asdasdasd</p>
         </div>
-      ))}
-
-      <div className="relative">
-        <AiOutlinePlusCircle className="text-white fill-current w-6 h-6 cursor-pointer" />
-
         <div
-          className="absolute w-60 h-96 bg-[#36393f] flex flex-col items-center pt-4 mt-6 rounded-md"
-          style={{ left: '-6.75rem' /* 15rem / 2 - 1.5rem / 2 */ }}
+          className={`flex items-center font-light border-2 border-[${DEFAULT_ROLE_COLOUR}] rounded-2xl px-1.5 py-1 max-w-full cursor-pointer z-50`}
+          onClick={handleChannelRemove}
         >
+          <p className="text-white truncate">asdasdasdasdasd</p>
+        </div>
+        <AiOutlinePlusCircle
+          className="text-white fill-current w-6 h-6 cursor-pointer"
+          onClick={handleDropdownOpenClose}
+        />
+      </div>
+
+      <div
+        className={`${
+          dropdownOpen ? '' : 'invisible'
+        } absolute w-96 h-64 bg-[#36393f] flex flex-col items-center pt-4 mt-2 rounded-md`}
+      >
+        <div className="w-96 px-4">
           <Input
             className="pb-3"
             id="channelSelector"
@@ -82,18 +103,18 @@ export default function ChannelSelector({ channels }: ChannelSelectorProps) {
             placeholder="Role name"
             value={searchTerm}
           />
+        </div>
 
-          <div className="flex flex-col overflow-y-scroll gap-1">
-            {options.map(({ id, name }) => (
-              <div
-                className="flex text-center px-4 py-2 hover:bg-discord-lighter rounded-lg cursor-pointer"
-                key={id}
-                // onClick={handleChannelInput}
-              >
-                <span className="text-white">#{name}</span>
-              </div>
-            ))}
-          </div>
+        <div className="flex flex-col overflow-y-scroll w-full h-full mb-2 gap-1">
+          {options.map(({ id, name }) => (
+            <div
+              className="flex text-center px-4 py-2 hover:bg-discord-lighter rounded-lg cursor-pointer"
+              key={id}
+              // onClick={handleChannelInput}
+            >
+              <span className="text-white">#{name}</span>
+            </div>
+          ))}
         </div>
       </div>
     </div>
