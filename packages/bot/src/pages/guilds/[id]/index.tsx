@@ -55,26 +55,25 @@ export default function Guild({ database, guild }: InferGetServerSidePropsType<t
   }
 
   return (
-    <div className="bg-discord-dark min-h-screen flex flex-row divide-x-2 divide-gray-600">
+    <div className="bg-discord-dark min-h-screen flex flex-col sm:flex-row divide-x-2 divide-gray-600">
       <Head>
         <title>{guild.name} Dashboard | Pepe Manager</title>
       </Head>
 
       <Menu guild={guild} />
-
-      <main className="pt-5 w-full">
-        <div className="block sm:hidden justify-center bg-discord-slightly-darker h-16 mb-4 px-2 text-white">
-          <div className="px-10 py-5">
-            <ImCog className="h-6 w-6 fill-current" />
-          </div>
-          <div className="px-10 py-5">
-            <BsFillShiftFill className="h-6 w-6 fill-current" />
-          </div>
-          <div className="px-10 py-5">
-            <RiShieldUserLine className="h-6 w-6 fill-current" />
-          </div>
+      <div className="flex sm:hidden justify-center bg-discord-slightly-darker h-16 mb-4 px-2 text-white">
+        <div className="px-10 py-5">
+          <ImCog className="h-6 w-6 fill-current" />
         </div>
+        <div className="px-10 py-5">
+          <BsFillShiftFill className="h-6 w-6 fill-current" />
+        </div>
+        <div className="px-10 py-5">
+          <RiShieldUserLine className="h-6 w-6 fill-current" />
+        </div>
+      </div>
 
+      <main className="pt-5 px-4 w-full">
         <General channels={memoizedSortedChannels} database={database} />
       </main>
     </div>
