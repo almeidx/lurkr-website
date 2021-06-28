@@ -19,7 +19,7 @@ export default function Showcase({ align, description, src, title }: ShowcasePro
       />
 
       <div className={`${align === 'left' ? 'row-start-1' : ''} col-span-2 flex flex-col justify-center mx-3`}>
-        <span className="font-bold text-white text-2xl">{title}</span>
+        <h2>{title}</h2>
         <p className="mt-3 text-gray-400 font-light">{description}</p>
       </div>
     </div>

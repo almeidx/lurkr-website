@@ -9,7 +9,7 @@ export default function Terms() {
       </Head>
 
       <header className="flex flex-col items-center justify-center pt-3 sm:pt-1">
-        <h1 className="text-white font-bold text-3xl sm:text-4xl">Terms and Conditions</h1>
+        <h1>Terms and Conditions</h1>
         <span className="text-gray-400 mt-3">Last modified: June 20, 2021.</span>
       </header>
 
