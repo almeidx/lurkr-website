@@ -13,13 +13,13 @@ const timePerMessage = ms('1m20s');
 
 export default function Calculator() {
   const [level, setLevel] = useState('');
-  const [initialLevel, setInitialLevel] = useState('');
+  const [currentLevel, setCurrentLevel] = useState('');
   const [multiplier, setMultiplier] = useState('');
 
   const multiplierValue = useMemo(() => parseMultiplier(multiplier), [multiplier]);
   const requiredXp = useMemo(
-    () => XP(parseInt(level, 10)) - XP(parseInt(initialLevel, 10) || 0),
-    [level, initialLevel],
+    () => XP(parseInt(level, 10)) - XP(parseInt(currentLevel, 10) || 0),
+    [level, currentLevel],
   );
 
   const calculateAmountOfMessages = useCallback(
@@ -57,10 +57,10 @@ export default function Calculator() {
           <Input
             id="initialLevel"
             maxLength={3}
-            onChange={(e) => setInitialLevel(e.target.value)}
-            onClear={() => setInitialLevel('')}
-            placeholder="Enter the initial level"
-            value={initialLevel}
+            onChange={(e) => setCurrentLevel(e.target.value)}
+            onClear={() => setCurrentLevel('')}
+            placeholder="Enter the current level"
+            value={currentLevel}
           />
 
           <Input
@@ -79,7 +79,7 @@ export default function Calculator() {
             <RiErrorWarningFill className="h-6 w-6 fill-current text-white" />
 
             <span className="text-white">
-              The initial level you inputted is larger than the level you want to achieve.
+              The current level you inputted is larger than the level you want to achieve.
             </span>
           </div>
         )) ||
@@ -95,24 +95,28 @@ export default function Calculator() {
           <div className="grid grid-rows-3 sm:grid-rows-none sm:grid-cols-3 gap-3">
             <div className="bg-discord-not-quite-black rounded-md px-4 py-3 flex flex-col gap-2">
               <div className="flex flex-row justify-between gap-2 items-center">
-                <span className="text-white font-bold">Approximate Messages</span>
+                <span className="text-gray-200">Approximate Messages</span>
                 <Tooltip text="The amount of messages you need to write into a valid leveling enabled channel assuming all of your messages will be counted as XP gain, and assuming your XP gain is a perfect average between the lowest gain possible and the highest gain possible" />
               </div>
-              <p className="text-gray-200 text-4xl text-center">{calculateAmountOfMessages().toLocaleString('en')}</p>
+              <p className="text-gray-200 text-4xl font-bold text-center font-display">
+                {calculateAmountOfMessages().toLocaleString('en')}
+              </p>
             </div>
             <div className="bg-discord-not-quite-black rounded-md px-4 py-3 flex flex-col gap-2">
               <div className="flex flex-row justify-between gap-2 items-center">
-                <span className="text-white font-bold">Estimated Time</span>
+                <span className="text-gray-200">Estimated Time</span>
                 <Tooltip text="The time it would take of constant chatting to reach this level, assuming you send a message every 1 minute and 20 seconds, and assuming all messages are counted as XP gain." />
               </div>
-              <p className="text-gray-200 text-4xl text-center">{ms(calculateTime())}</p>
+              <p className="text-gray-200 text-4xl font-bold text-center font-display">{ms(calculateTime())}</p>
             </div>
             <div className="bg-discord-not-quite-black rounded-md px-4 py-3 flex flex-col gap-2">
               <div className="flex flex-row justify-between gap-2 items-center">
-                <span className="text-white font-bold">XP Required</span>
+                <span className="text-gray-200">XP Required</span>
                 <Tooltip text="The total amount of XP needed to get to this level. The XP to Level conversion is a fixed constant." />
               </div>
-              <p className="text-gray-200 text-4xl text-center">{Math.ceil(requiredXp).toLocaleString('en')}</p>
+              <p className="text-gray-200 text-4xl font-bold text-center font-display">
+                {Math.ceil(requiredXp).toLocaleString('en')}
+              </p>
             </div>
           </div>
         )}
