@@ -91,21 +91,24 @@ export default function Levels({ guilds }: InferGetServerSidePropsType<typeof ge
         </>
       )}
 
-      <h1>{guilds ? 'Alternatively, enter a server ID' : 'Enter the ID of the server you want to view'}</h1>
-
-      <Input
-        className="my-5"
-        id="searchTerm"
-        maxLength={20}
-        onChange={(e) =>
-          e.target.value ? /^[\d]+$/.test(e.target.value) && setServerId(e.target.value) : setServerId(e.target.value)
-        }
-        onClear={() => setServerId('')}
-        onSubmit={handleServerIdSubmit}
-        placeholder="Enter a server ID"
-        submitRef={submitRef}
-        value={serverId}
-      />
+      <div className="w-full sm:w-8/12 md:w-6/12 lg:w-4/12 px-4">
+        <h1 className="text-center">
+          {guilds ? 'Alternatively, enter a server ID' : 'Enter the ID of the server you want to view'}
+        </h1>
+        <Input
+          className="my-5"
+          id="searchTerm"
+          maxLength={20}
+          onChange={(e) =>
+            e.target.value ? /^[\d]+$/.test(e.target.value) && setServerId(e.target.value) : setServerId(e.target.value)
+          }
+          onClear={() => setServerId('')}
+          onSubmit={handleServerIdSubmit}
+          placeholder="Enter a server ID"
+          submitRef={submitRef}
+          value={serverId}
+        />
+      </div>
     </div>
   );
 }
