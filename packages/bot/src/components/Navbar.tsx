@@ -24,9 +24,9 @@ export default function Navbar() {
   const { width } = useWindowDimensions();
 
   return (
-    <header className="flex flex-row justify-between md:items-center bg-discord-dark py-6 px-6 relative md:gap-12">
+    <header className="flex flex-row justify-between items-center py-6 px-6 md:gap-12 bg-discord-dark ">
       <Link href="/">
-        <a className="text-white flex justify-center items-center text-center uppercase font-bold text-base md:text-xl md:w-max md:whitespace-nowrap mx-4">
+        <a className="text-white md:text-xl ml-4 mr-8 whitespace-nowrap text-center uppercase font-bold">
           Pepe Manager
         </a>
       </Link>
@@ -43,12 +43,12 @@ export default function Navbar() {
           width ? (isMenuClosed && width < 768 ? 'hidden' : 'flex') : 'flex'
         } absolute md:relative top-16 left-0 md:top-0 z-20 flex-col md:flex-row md:gap-6 font-semibold w-full bg-discord-not-quite-black shadow-md rounded-lg md:rounded-none md:shadow-none md:bg-transparent p-6 pt-0 md:p-0 `}
       >
-        <div className="flex flex-col md:flex-row gap-6 mr-auto mt-6 md:mt-0">
+        <div className="flex flex-col md:flex-row md:items-center mt-6 md:mt-0 mr-auto gap-6">
           {links.map(
             ({ name, requireAuth, url }, i) =>
               (!requireAuth || authenticated) && (
                 <Link href={url} key={i}>
-                  <a className="block py-1 text-gray-300 font-normal md:text-gray-500 hover:underline">{name}</a>
+                  <a className="font-normal leading-7 text-gray-300 md:text-gray-500 hover:underline">{name}</a>
                 </Link>
               ),
           )}
