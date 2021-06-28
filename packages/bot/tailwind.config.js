@@ -4,8 +4,8 @@ module.exports = {
   darkMode: false,
   theme: {
     fontFamily: {
-      sans: ['"Nunito"', 'sans-serif'],
-      display: ['"Inter"', 'sans-serif'],
+      sans: ['"Noto Sans KR"', 'sans-serif'],
+      display: ['"Noto Sans KR"', 'sans-serif'],
     },
     extend: {
       backgroundColor: {
