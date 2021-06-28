@@ -79,7 +79,7 @@ export default function Calculator() {
             <RiErrorWarningFill className="h-6 w-6 fill-current text-white" />
 
             <span className="text-white">
-              The current level you inputted is larger than the level you want to achieve.
+              The current level you inputted is bigger than or equal to the level you want to achieve.
             </span>
           </div>
         )) ||
