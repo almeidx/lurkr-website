@@ -10,17 +10,18 @@ export interface Role {
   color: number;
   id: Snowflake;
   name: string;
-  position: number;
 }
 
 export interface Guild {
+  channels: Channel[];
   icon: string | null;
   id: Snowflake;
   name: string;
-  channels: Channel[];
+  roles: Role[];
 }
 
 interface DatabaseGuild {
+  blacklistedChannels: Snowflake[] | null;
   prefix: string;
 }
 
@@ -32,16 +33,22 @@ export interface UserGuild {
 export default gql`
   query getDiscordGuild($id: String!, $includeChannels: Boolean = false) {
     getDiscordGuild(id: $id, includeChannels: $includeChannels, requireAuth: true) {
+      channels {
+        id
+        name
+      }
       icon
       id
       name
-      channels {
+      roles {
+        color
         id
         name
       }
     }
 
     getDatabaseGuild(id: $id) {
+      blacklistedChannels
       prefix
     }
   }

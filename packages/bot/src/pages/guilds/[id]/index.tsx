@@ -6,8 +6,10 @@ import { ImCog } from 'react-icons/im';
 import { RiShieldUserLine } from 'react-icons/ri';
 
 import Menu from '../../../components/dashboard/Menu';
+import Autorole from '../../../components/dashboard/pages/Autorole';
 import General from '../../../components/dashboard/pages/General';
 import Failure from '../../../components/Failure';
+import { GuildChangesContext } from '../../../contexts/GuildChangesContext';
 import { UserContext } from '../../../contexts/UserContext';
 import { initializeApollo } from '../../../graphql/client';
 import USER_GUILD, { UserGuild } from '../../../graphql/queries/UserGuild';
@@ -40,6 +42,7 @@ export const getServerSideProps: GetServerSideProps<GuildProps> = async (ctx) =>
 
 export default function Guild({ database, guild }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const { authenticated } = useContext(UserContext);
+  const { section } = useContext(GuildChangesContext);
 
   const memoizedSortedChannels = useMemo(
     () => [...(guild?.channels ?? [])].sort((a, b) => a.name.localeCompare(b.name)),
@@ -74,7 +77,7 @@ export default function Guild({ database, guild }: InferGetServerSidePropsType<t
       </div>
 
       <main className="pt-5 px-4 w-full">
-        <General channels={memoizedSortedChannels} database={database} />
+        {section === 'general' ? <General channels={memoizedSortedChannels} database={database} /> : <Autorole />}
       </main>
     </div>
   );

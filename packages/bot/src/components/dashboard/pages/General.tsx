@@ -1,3 +1,4 @@
+import type { Snowflake } from 'discord-api-types';
 import { ChangeEvent, useCallback, useState } from 'react';
 
 import type { Channel, UserGuild } from '../../../graphql/queries/UserGuild';
@@ -13,6 +14,7 @@ interface GeneralProps {
 
 export default function General({ channels, database }: GeneralProps) {
   const [prefix, setPrefix] = useState(database?.prefix ?? 'p!');
+  const [blacklistedChannels, setBlacklistedChannels] = useState<Snowflake[]>(database?.blacklistedChannels ?? []);
 
   const handlePrefixChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
@@ -21,6 +23,22 @@ export default function General({ channels, database }: GeneralProps) {
       setPrefix(value);
     }
   }, []);
+
+  const handleBlacklistedChannelsChange = useCallback(
+    (itemId: Snowflake, type: 'add' | 'remove') => {
+      const clone = [...blacklistedChannels];
+      if (type === 'add') {
+        return setBlacklistedChannels([...clone, itemId]);
+      }
+
+      const channelIndex = clone.findIndex((i) => itemId === i);
+      if (channelIndex < 0) return;
+
+      clone.splice(channelIndex, 1);
+      return setBlacklistedChannels(clone);
+    },
+    [blacklistedChannels],
+  );
 
   return (
     <>
@@ -47,7 +65,12 @@ export default function General({ channels, database }: GeneralProps) {
             url="https://docs.pepemanager.com/config-commands/config/set#command-structure"
           />
 
-          <Selector items={channels} type="channel" />
+          <Selector
+            initialItems={database?.blacklistedChannels ?? []}
+            items={channels}
+            onSelect={handleBlacklistedChannelsChange}
+            type="channel"
+          />
         </div>
       </div>
     </>

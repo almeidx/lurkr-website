@@ -18,22 +18,25 @@ type Items = Channel[] | Role[];
 
 interface SelectorProps {
   items: Items;
+  onSelect: (itemId: Snowflake, type: 'add' | 'remove') => unknown;
+  initialItems: Snowflake[];
   type: 'channel' | 'role';
 }
 
-export default function Selector({ items, type }: SelectorProps) {
+export default function Selector({ items, initialItems, onSelect, type }: SelectorProps) {
   const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
   const [selected, setSelected] = useState<Items>([]);
   const [options, setOptions] = useState<Items>(items);
   const [searchTerm, setSearchTerm] = useState('');
 
   const handleChannelRemove: MouseEventHandler<HTMLDivElement> = (event) => {
-    const id = (event.target as HTMLDivElement | HTMLParagraphElement).id;
+    const id = (event.target as HTMLDivElement | HTMLParagraphElement).id as Snowflake;
     const clone = [...selected];
     const selectedIndex = clone.findIndex((s) => s.id === id);
 
-    if (selectedIndex < 0) return;
+    if (selectedIndex < 0) return console.log('couldnt find item index??!');
 
+    onSelect(id, 'remove');
     clone.splice(selectedIndex, 1);
     setSelected(clone);
   };
@@ -45,9 +48,21 @@ export default function Selector({ items, type }: SelectorProps) {
     const item = items.find((i) => i.id === id);
     if (!item) return console.log('no item bruh???');
 
+    onSelect(id, 'add');
     setSelected([...selected, { id, name: item.name }]);
     setOptions([...options].filter((o) => o.id !== id));
   };
+
+  useEffect(() => {
+    const resolvedItems = initialItems
+      .map((i) => ({
+        id: i,
+        name: items.find((it) => it.id === i)?.name,
+      }))
+      .filter((i) => !!i.name) as Items;
+
+    setSelected(resolvedItems);
+  }, []);
 
   useEffect(() => {
     const searchableItems = items.filter((c) => !selected.some((s) => s.id === c.id));
