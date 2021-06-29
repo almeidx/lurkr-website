@@ -2,6 +2,17 @@
 
 @import url('./headers.css');
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  .navbar-links:focus-within > .navbar-links-dd,
+  .navbar-links-dd:focus-within {
+    display: block;
+  }
+}
+
 ::selection {
   background: #add8e6;
 }
