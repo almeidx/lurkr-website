@@ -1,6 +1,6 @@
 import type { Snowflake } from 'discord-api-types';
 
-import { MAX_SNOWFLAKE, MIN_SNOWFLAKE } from './constants';
+import { DEFAULT_ROLE_COLOUR, MAX_SNOWFLAKE, MIN_SNOWFLAKE } from './constants';
 
 /**
  * Checks if a string could potentially be a valid Discord Snowflake
@@ -33,3 +33,9 @@ export const parseMultiplier = (phrase: string): number | null => {
 
   return number;
 };
+
+/**
+ * Returns a hexadecimal colour or its default value if it doesn't exist
+ * @param colour The colour number
+ */
+export const resolveColour = (colour: number) => (colour ? `#${colour.toString(16)}` : DEFAULT_ROLE_COLOUR);

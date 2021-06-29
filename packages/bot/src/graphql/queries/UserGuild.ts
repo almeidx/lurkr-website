@@ -10,6 +10,7 @@ export interface Role {
   color: number;
   id: Snowflake;
   name: string;
+  position: number;
 }
 
 export interface Guild {
@@ -21,6 +22,8 @@ export interface Guild {
 }
 
 interface DatabaseGuild {
+  autoRole: Snowflake[] | null;
+  autoRoleTimeout: number;
   blacklistedChannels: Snowflake[] | null;
   prefix: string;
 }
@@ -44,10 +47,13 @@ export default gql`
         color
         id
         name
+        position
       }
     }
 
     getDatabaseGuild(id: $id) {
+      autoRole
+      autoRoleTimeout
       blacklistedChannels
       prefix
     }

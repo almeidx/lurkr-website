@@ -49,6 +49,8 @@ export default function Guild({ database, guild }: InferGetServerSidePropsType<t
     [guild],
   );
 
+  const memoizedSortedRoles = useMemo(() => [...(guild?.roles ?? [])].sort((a, b) => b.position - a.position), [guild]);
+
   if (!authenticated) {
     return <Failure message="You need to sign in to view this page." />;
   }
@@ -77,7 +79,11 @@ export default function Guild({ database, guild }: InferGetServerSidePropsType<t
       </div>
 
       <main className="pt-5 px-4 w-full">
-        {section === 'general' ? <General channels={memoizedSortedChannels} database={database} /> : <Autorole />}
+        {section === 'general' ? (
+          <General channels={memoizedSortedChannels} database={database} />
+        ) : (
+          <Autorole database={database} roles={memoizedSortedRoles} />
+        )}
       </main>
     </div>
   );

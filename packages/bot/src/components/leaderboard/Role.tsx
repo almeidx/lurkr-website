@@ -1,12 +1,10 @@
 import type { GuildLevelRoles } from '../../graphql/queries/GuildLevels';
-import { DEFAULT_ROLE_COLOUR } from '../../utils/constants';
+import { resolveColour } from '../../utils/utils';
 
 interface RoleProps {
   level: number;
   roles: GuildLevelRoles['roles'];
 }
-
-const resolveColour = (colour: number) => (colour ? `#${colour.toString(16)}` : DEFAULT_ROLE_COLOUR);
 
 export default function Role({ level, roles }: RoleProps) {
   return (

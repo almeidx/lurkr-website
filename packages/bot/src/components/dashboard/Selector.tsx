@@ -3,6 +3,7 @@ import { MouseEventHandler, useEffect, useState } from 'react';
 import { AiOutlineCloseCircle, AiOutlinePlusCircle } from 'react-icons/ai';
 
 import { DEFAULT_ROLE_COLOUR } from '../../utils/constants';
+import { resolveColour } from '../../utils/utils';
 import Input from '../Input';
 
 interface Channel {
@@ -22,6 +23,12 @@ interface SelectorProps {
   initialItems: Snowflake[];
   type: 'channel' | 'role';
 }
+
+const resolveItem = (item: Channel | Role | null, type: SelectorProps['type']) =>
+  type === 'channel'
+    ? { id: item?.id, name: item?.name }
+    : // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
+      ({ color: (item as Role).color, id: item?.id, name: item?.name } as Role);
 
 export default function Selector({ items, initialItems, onSelect, type }: SelectorProps) {
   const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
@@ -49,19 +56,17 @@ export default function Selector({ items, initialItems, onSelect, type }: Select
     if (!item) return console.log('no item bruh???');
 
     onSelect(id, 'add');
-    setSelected([...selected, { id, name: item.name }]);
+    setSelected([...selected, resolveItem(item, type) as Channel | Role]);
     setOptions([...options].filter((o) => o.id !== id));
   };
 
   useEffect(() => {
     const resolvedItems = initialItems
-      .map((i) => ({
-        id: i,
-        name: items.find((it) => it.id === i)?.name,
-      }))
+      .map((i) => resolveItem(items.find((it) => it.id === i) ?? null, type))
       .filter((i) => !!i.name) as Items;
 
     setSelected(resolvedItems);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -78,16 +83,20 @@ export default function Selector({ items, initialItems, onSelect, type }: Select
   return (
     <div>
       <div className="flex flex-row flex-wrap gap-3 min-h-[3rem] bg-discord-not-quite-black px-5 py-3 focus:outline-none rounded-md shadow">
-        {selected.map(({ id, name }) => (
+        {selected.map((i) => (
           <div
-            className={`flex items-center font-light border-2 border-[${DEFAULT_ROLE_COLOUR}] rounded-2xl px-1.5 py-1 max-w-full cursor-pointer z-50`}
-            key={id}
-            id={id}
+            className={`flex items-center font-light border-2 rounded-2xl px-1.5 py-1 max-w-full cursor-pointer z-50`}
+            key={i.id}
+            id={i.id}
             onClick={handleChannelRemove}
+            style={{ borderColor: 'color' in i ? resolveColour(i.color) : DEFAULT_ROLE_COLOUR }}
           >
-            <p className="text-white truncate" id={id}>
+            {type === 'role' && 'color' in i && (
+              <div className="w-4 h-4 rounded-full mr-2" style={{ backgroundColor: resolveColour(i.color) }} />
+            )}
+            <p className="text-white truncate" id={i.id}>
               {type === 'channel' && '#'}
-              {name}
+              {i.name}
             </p>
           </div>
         ))}
@@ -123,16 +132,20 @@ export default function Selector({ items, initialItems, onSelect, type }: Select
         </div>
 
         <div className="flex flex-col overflow-y-scroll w-full h-full mb-2 gap-1">
-          {options.map(({ id, name }) => (
+          {options.map((i) => (
             <div
-              className="flex text-center px-4 py-2 hover:bg-discord-lighter rounded-lg cursor-pointer"
-              key={id}
-              id={id}
+              className="flex items-center text-center px-4 py-2 hover:bg-discord-lighter rounded-lg cursor-pointer"
+              key={i.id}
+              id={i.id}
               onClick={handleClickedItem}
             >
-              <p className="text-white" id={id}>
+              {type === 'role' && 'color' in i && (
+                <div className="w-4 h-4 rounded-full mr-2" style={{ backgroundColor: resolveColour(i.color) }} />
+              )}
+
+              <p className="text-white" id={i.id}>
                 {type === 'channel' && '#'}
-                {name}
+                {i.name}
               </p>
             </div>
           ))}
