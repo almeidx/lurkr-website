@@ -21,11 +21,14 @@ export interface Guild {
   roles: Role[];
 }
 
-interface DatabaseGuild {
+export interface DatabaseGuild {
   autoRole: Snowflake[] | null;
   autoRoleTimeout: number;
   blacklistedChannels: Snowflake[] | null;
   prefix: string;
+  xpMessage: string;
+  xpResponseType: 'dm' | 'channel' | Snowflake | null;
+  xpRoles: Map<string, Snowflake[]>;
 }
 
 export interface UserGuild {
@@ -56,6 +59,9 @@ export default gql`
       autoRoleTimeout
       blacklistedChannels
       prefix
+      xpMessage
+      xpResponseType
+      xpRoles
     }
   }
 `;

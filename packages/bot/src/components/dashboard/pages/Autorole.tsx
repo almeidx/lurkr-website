@@ -49,6 +49,7 @@ export default function Autorole({ database, roles }: AutoroleProps) {
           />
 
           <Selector
+            limit={25}
             initialItems={database?.autoRole ?? []}
             items={roles}
             onSelect={handleAutorolesChange}

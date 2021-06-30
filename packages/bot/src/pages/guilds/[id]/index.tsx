@@ -8,6 +8,7 @@ import { RiShieldUserLine } from 'react-icons/ri';
 import Menu from '../../../components/dashboard/Menu';
 import Autorole from '../../../components/dashboard/pages/Autorole';
 import General from '../../../components/dashboard/pages/General';
+import Leveling from '../../../components/dashboard/pages/Leveling';
 import Failure from '../../../components/Failure';
 import { GuildChangesContext } from '../../../contexts/GuildChangesContext';
 import { UserContext } from '../../../contexts/UserContext';
@@ -66,6 +67,7 @@ export default function Guild({ database, guild }: InferGetServerSidePropsType<t
       </Head>
 
       <Menu guild={guild} />
+
       <div className="flex sm:hidden justify-center bg-discord-slightly-darker h-16 mb-4 px-2 text-white">
         <div className="px-10 py-5">
           <ImCog className="h-6 w-6 fill-current" />
@@ -81,8 +83,10 @@ export default function Guild({ database, guild }: InferGetServerSidePropsType<t
       <main className="pt-5 px-4 w-full">
         {section === 'general' ? (
           <General channels={memoizedSortedChannels} database={database} />
-        ) : (
+        ) : section === 'autorole' ? (
           <Autorole database={database} roles={memoizedSortedRoles} />
+        ) : (
+          <Leveling channels={memoizedSortedChannels} database={database} roles={memoizedSortedRoles} />
         )}
       </main>
     </div>

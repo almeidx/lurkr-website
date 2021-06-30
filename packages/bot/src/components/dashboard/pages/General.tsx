@@ -66,6 +66,7 @@ export default function General({ channels, database }: GeneralProps) {
           />
 
           <Selector
+            limit={20}
             initialItems={database?.blacklistedChannels ?? []}
             items={channels}
             onSelect={handleBlacklistedChannelsChange}

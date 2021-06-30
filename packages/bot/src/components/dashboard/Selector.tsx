@@ -1,5 +1,5 @@
 import type { Snowflake } from 'discord-api-types';
-import { MouseEventHandler, useEffect, useState } from 'react';
+import { MouseEventHandler, useCallback, useEffect, useState } from 'react';
 import { AiOutlineCloseCircle, AiOutlinePlusCircle } from 'react-icons/ai';
 
 import { DEFAULT_ROLE_COLOUR } from '../../utils/constants';
@@ -18,9 +18,10 @@ interface Role extends Channel {
 type Items = Channel[] | Role[];
 
 interface SelectorProps {
+  limit: number;
+  initialItems: Snowflake[];
   items: Items;
   onSelect: (itemId: Snowflake, type: 'add' | 'remove') => unknown;
-  initialItems: Snowflake[];
   type: 'channel' | 'role';
 }
 
@@ -30,35 +31,48 @@ const resolveItem = (item: Channel | Role | null, type: SelectorProps['type']) =
     : // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
       ({ color: (item as Role).color, id: item?.id, name: item?.name } as Role);
 
-export default function Selector({ items, initialItems, onSelect, type }: SelectorProps) {
+export default function Selector({ limit, items, initialItems, onSelect, type }: SelectorProps) {
   const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
   const [selected, setSelected] = useState<Items>([]);
   const [options, setOptions] = useState<Items>(items);
   const [searchTerm, setSearchTerm] = useState('');
 
-  const handleChannelRemove: MouseEventHandler<HTMLDivElement> = (event) => {
-    const id = (event.target as HTMLDivElement | HTMLParagraphElement).id as Snowflake;
-    const clone = [...selected];
-    const selectedIndex = clone.findIndex((s) => s.id === id);
+  const handleChannelRemove: MouseEventHandler<HTMLDivElement> = useCallback(
+    (event) => {
+      const id = (event.target as HTMLDivElement | HTMLParagraphElement).id as Snowflake;
+      const clone = [...selected];
+      const selectedIndex = clone.findIndex((s) => s.id === id);
 
-    if (selectedIndex < 0) return console.log('couldnt find item index??!');
+      if (selectedIndex < 0) {
+        return console.error("[Selector] Couldn't find item index when user tried removing an item");
+      }
 
-    onSelect(id, 'remove');
-    clone.splice(selectedIndex, 1);
-    setSelected(clone);
-  };
+      onSelect(id, 'remove');
+      clone.splice(selectedIndex, 1);
+      setSelected(clone);
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [selected],
+  );
 
-  const handleClickedItem: MouseEventHandler<HTMLDivElement> = (event) => {
-    const id = (event.target as HTMLDivElement | HTMLParagraphElement).id as Snowflake;
-    if (selected.some((s) => s.id === id)) return;
+  const handleClickedItem: MouseEventHandler<HTMLDivElement> = useCallback(
+    (event) => {
+      if (selected.length >= limit) return;
 
-    const item = items.find((i) => i.id === id);
-    if (!item) return console.log('no item bruh???');
+      const id = (event.target as HTMLDivElement | HTMLParagraphElement).id as Snowflake;
+      if (selected.some((s) => s.id === id)) return;
 
-    onSelect(id, 'add');
-    setSelected([...selected, resolveItem(item, type) as Channel | Role]);
-    setOptions([...options].filter((o) => o.id !== id));
-  };
+      const item = items.find((i) => i.id === id);
+      if (!item) return console.error("[Selector] Couldn't find item when user tried adding an item");
+
+      if (selected.length + 1 >= limit) setDropdownOpen(false);
+      onSelect(id, 'add');
+      setSelected([...selected, resolveItem(item, type) as Channel | Role]);
+      setOptions([...options].filter((o) => o.id !== id));
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [selected, limit, items, options],
+  );
 
   useEffect(() => {
     const resolvedItems = initialItems
@@ -85,7 +99,7 @@ export default function Selector({ items, initialItems, onSelect, type }: Select
       <div className="flex flex-row flex-wrap gap-3 min-h-[3rem] bg-discord-not-quite-black px-5 py-3 focus:outline-none rounded-md shadow">
         {selected.map((i) => (
           <div
-            className={`flex items-center font-light border-2 rounded-2xl px-1.5 py-1 max-w-full cursor-pointer z-50`}
+            className="flex items-center font-light border-2 rounded-2xl px-1.5 py-1 max-w-full cursor-pointer z-50"
             key={i.id}
             id={i.id}
             onClick={handleChannelRemove}
@@ -101,17 +115,18 @@ export default function Selector({ items, initialItems, onSelect, type }: Select
           </div>
         ))}
 
-        {dropdownOpen ? (
-          <AiOutlineCloseCircle
-            className="text-red-500 fill-current w-9 h-9 cursor-pointer"
-            onClick={() => setDropdownOpen(!dropdownOpen)}
-          />
-        ) : (
-          <AiOutlinePlusCircle
-            className="text-white fill-current w-9 h-9 cursor-pointer"
-            onClick={() => setDropdownOpen(!dropdownOpen)}
-          />
-        )}
+        {selected.length < limit &&
+          (dropdownOpen ? (
+            <AiOutlineCloseCircle
+              className="text-red-500 fill-current w-9 h-9 cursor-pointer"
+              onClick={() => setDropdownOpen(!dropdownOpen)}
+            />
+          ) : (
+            <AiOutlinePlusCircle
+              className="text-white fill-current w-9 h-9 cursor-pointer"
+              onClick={() => setDropdownOpen(!dropdownOpen)}
+            />
+          ))}
       </div>
 
       <div
