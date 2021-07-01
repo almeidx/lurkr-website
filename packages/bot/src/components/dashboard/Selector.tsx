@@ -18,6 +18,7 @@ interface Role extends Channel {
 type Items = Channel[] | Role[];
 
 interface SelectorProps {
+  id: string;
   limit: number;
   initialItems: Snowflake[];
   items: Items;
@@ -31,7 +32,7 @@ const resolveItem = (item: Channel | Role | null, type: SelectorProps['type']) =
     : // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
       ({ color: (item as Role).color, id: item?.id, name: item?.name } as Role);
 
-export default function Selector({ limit, items, initialItems, onSelect, type }: SelectorProps) {
+export default function Selector({ id, limit, items, initialItems, onSelect, type }: SelectorProps) {
   const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
   const [selected, setSelected] = useState<Items>([]);
   const [options, setOptions] = useState<Items>(items);
@@ -118,12 +119,12 @@ export default function Selector({ limit, items, initialItems, onSelect, type }:
         {selected.length < limit &&
           (dropdownOpen ? (
             <AiOutlineCloseCircle
-              className="text-red-500 fill-current w-9 h-9 cursor-pointer"
+              className="text-red-500 fill-current w-8 h-8 cursor-pointer"
               onClick={() => setDropdownOpen(!dropdownOpen)}
             />
           ) : (
             <AiOutlinePlusCircle
-              className="text-white fill-current w-9 h-9 cursor-pointer"
+              className="text-gray-400 fill-current w-8 h-8 cursor-pointer"
               onClick={() => setDropdownOpen(!dropdownOpen)}
             />
           ))}
@@ -137,7 +138,7 @@ export default function Selector({ limit, items, initialItems, onSelect, type }:
         <div className="px-4 w-full">
           <Input
             className="pb-3"
-            id="selector"
+            id={id}
             maxLength={50}
             onChange={(e) => setSearchTerm(e.target.value)}
             onClear={() => setSearchTerm('')}

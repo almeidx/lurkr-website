@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { useContext } from 'react';
 import type { IconType } from 'react-icons';
 import { BsFillShiftFill, BsPersonPlusFill } from 'react-icons/bs';
+import { GoMilestone } from 'react-icons/go';
 import { ImCog } from 'react-icons/im';
 
 import { GuildChangesContext, Section } from '../../contexts/GuildChangesContext';
@@ -26,7 +27,8 @@ interface MenuItem {
 const menuItems: MenuItem[] = [
   { Icon: ImCog, id: 'general', name: 'Settings' },
   { Icon: BsFillShiftFill, id: 'leveling', name: 'Leveling' },
-  { Icon: BsPersonPlusFill, id: 'autorole', name: 'Auto Role' },
+  { Icon: BsPersonPlusFill, id: 'autorole', name: 'Autorole' },
+  { Icon: GoMilestone, id: 'milestones', name: 'Milestones' },
 ];
 
 export default function Menu({ guild }: MenuProps) {

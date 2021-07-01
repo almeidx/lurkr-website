@@ -21,14 +21,36 @@ export interface Guild {
   roles: Role[];
 }
 
+export interface Multiplier {
+  multiplier: number;
+  targets: Snowflake[] | null;
+  type: 'channel' | 'global' | 'role';
+}
+
+export enum AutoResetLevels {
+  NONE = 0,
+  LEAVE = 1,
+  BAN = 2,
+  BOTH = 3,
+}
+
 export interface DatabaseGuild {
+  autoResetLevels: AutoResetLevels;
   autoRole: Snowflake[] | null;
   autoRoleTimeout: number;
   blacklistedChannels: Snowflake[] | null;
+  levels: boolean;
+  noXpRoles: Snowflake[] | null;
   prefix: string;
+  prioritiseMultiplierRoleHierarchy: boolean;
+  stackXpRoles: boolean;
+  topXpRole: Snowflake | null;
+  xpBlacklistedChannels: Snowflake[] | null;
   xpMessage: string;
+  xpMultipliers: Multiplier[];
   xpResponseType: 'dm' | 'channel' | Snowflake | null;
-  xpRoles: Map<string, Snowflake[]>;
+  xpRoles: Record<string, Snowflake[]>;
+  xpWhitelistedChannels: Snowflake[] | null;
 }
 
 export interface UserGuild {
@@ -55,13 +77,22 @@ export default gql`
     }
 
     getDatabaseGuild(id: $id) {
+      autoResetLevels
       autoRole
       autoRoleTimeout
       blacklistedChannels
+      levels
+      noXpRoles
       prefix
+      prioritiseMultiplierRoleHierarchy
+      stackXpRoles
+      topXpRole
+      xpBlacklistedChannels
       xpMessage
+      xpMultipliers
       xpResponseType
       xpRoles
+      xpWhitelistedChannels
     }
   }
 `;

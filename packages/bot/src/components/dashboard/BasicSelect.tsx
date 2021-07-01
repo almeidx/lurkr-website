@@ -1,12 +1,13 @@
 import { MouseEventHandler, useCallback, useState } from 'react';
 
 interface BasicSelectProps {
+  closeOnSelect?: boolean;
   initialItem: string;
   items: string[];
   onSelect: (item: string) => unknown;
 }
 
-export default function BasicSelect({ initialItem, items, onSelect }: BasicSelectProps) {
+export default function BasicSelect({ closeOnSelect = false, initialItem, items, onSelect }: BasicSelectProps) {
   const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
   const [selected, setSelected] = useState<string>(initialItem);
 
@@ -14,10 +15,12 @@ export default function BasicSelect({ initialItem, items, onSelect }: BasicSelec
     (event) => {
       const index = parseInt((event.target as HTMLDivElement | HTMLParagraphElement).id, 10);
       const item = items[index];
-      if (item) return console.error("[BasicSelect] Couldn't find the item when user tried changing item");
+
+      if (!item) return console.error("[BasicSelect] Couldn't find the item when user tried changing item");
 
       onSelect(item);
       setSelected(item);
+      if (closeOnSelect) setDropdownOpen(false);
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [items],

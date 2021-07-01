@@ -25,13 +25,13 @@ export default function General({ channels, database }: GeneralProps) {
   }, []);
 
   const handleBlacklistedChannelsChange = useCallback(
-    (itemId: Snowflake, type: 'add' | 'remove') => {
+    (channelId: Snowflake, type: 'add' | 'remove') => {
       const clone = [...blacklistedChannels];
       if (type === 'add') {
-        return setBlacklistedChannels([...clone, itemId]);
+        return setBlacklistedChannels([...clone, channelId]);
       }
 
-      const channelIndex = clone.findIndex((i) => itemId === i);
+      const channelIndex = clone.findIndex((i) => channelId === i);
       if (channelIndex < 0) return;
 
       clone.splice(channelIndex, 1);
@@ -66,6 +66,7 @@ export default function General({ channels, database }: GeneralProps) {
           />
 
           <Selector
+            id="blacklistedChannels"
             limit={20}
             initialItems={database?.blacklistedChannels ?? []}
             items={channels}

@@ -18,13 +18,13 @@ export default function Autorole({ database, roles }: AutoroleProps) {
   const [autoRoleTimeout, setAutoRoleTimeout] = useState(ms(database?.autoRoleTimeout ?? 0));
 
   const handleAutorolesChange = useCallback(
-    (itemId: Snowflake, type: 'add' | 'remove') => {
+    (channelId: Snowflake, type: 'add' | 'remove') => {
       const clone = [...autoRoles];
       if (type === 'add') {
-        return setAutoRoles([...clone, itemId]);
+        return setAutoRoles([...clone, channelId]);
       }
 
-      const roleIndex = clone.findIndex((i) => itemId === i);
+      const roleIndex = clone.findIndex((i) => channelId === i);
       if (roleIndex < 0) return;
 
       clone.splice(roleIndex, 1);
@@ -49,6 +49,7 @@ export default function Autorole({ database, roles }: AutoroleProps) {
           />
 
           <Selector
+            id="autoRole"
             limit={25}
             initialItems={database?.autoRole ?? []}
             items={roles}
