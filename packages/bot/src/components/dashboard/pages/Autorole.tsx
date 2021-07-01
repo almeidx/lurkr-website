@@ -63,7 +63,7 @@ export default function Autorole({ database, roles }: AutoroleProps) {
           <Label
             htmlFor="autoRoleTimeout"
             name="Autorole Timeout (Minutes)"
-            url="https://docs.pepemanager.com/guides/automatically-added-roles-with-timeout"
+            url="https://docs.pepemanager.com/guides/automatically-added-roles-with-timeout#setting-your-timeout"
           />
 
           <Input

@@ -35,11 +35,16 @@ export enum AutoResetLevels {
 }
 
 export interface DatabaseGuild {
+  autoPublishChannels: Snowflake[] | null;
   autoResetLevels: AutoResetLevels;
   autoRole: Snowflake[] | null;
   autoRoleTimeout: number;
   blacklistedChannels: Snowflake[] | null;
+  emojiList: boolean;
+  emojiListChannel: Snowflake | null;
   levels: boolean;
+  mentionCooldown: number;
+  mentionCooldownRoles: Snowflake[] | null;
   milestonesChannel: Snowflake | null;
   milestonesInterval: number;
   milestonesMessage: string | null;
@@ -48,6 +53,7 @@ export interface DatabaseGuild {
   prefix: string;
   prioritiseMultiplierRoleHierarchy: boolean;
   stackXpRoles: boolean;
+  storeCounts: boolean;
   storeMilestones: boolean;
   topXpRole: Snowflake | null;
   xpBlacklistedChannels: Snowflake[] | null;
@@ -82,11 +88,16 @@ export default gql`
     }
 
     getDatabaseGuild(id: $id) {
+      autoPublishChannels
       autoResetLevels
       autoRole
       autoRoleTimeout
       blacklistedChannels
+      emojiList
+      emojiListChannel
       levels
+      mentionCooldown
+      mentionCooldownRoles
       milestonesChannel
       milestonesInterval
       milestonesMessage
@@ -95,6 +106,7 @@ export default gql`
       prefix
       prioritiseMultiplierRoleHierarchy
       stackXpRoles
+      storeCounts
       storeMilestones
       topXpRole
       xpBlacklistedChannels

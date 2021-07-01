@@ -18,6 +18,9 @@ const General = lazy(() => import('../../components/dashboard/pages/General'));
 const Autorole = lazy(() => import('../../components/dashboard/pages/Autorole'));
 const Leveling = lazy(() => import('../../components/dashboard/pages/Leveling'));
 const Milestones = lazy(() => import('../../components/dashboard/pages/Milestones'));
+const EmojiList = lazy(() => import('../../components/dashboard/pages/EmojiList'));
+const MentionCooldown = lazy(() => import('../../components/dashboard/pages/MentionCooldown'));
+const Miscellaneous = lazy(() => import('../../components/dashboard/pages/Miscellaneous'));
 
 interface GuildProps {
   database: UserGuild['getDatabaseGuild'];
@@ -48,12 +51,11 @@ export default function Guild({ database, guild }: InferGetServerSidePropsType<t
   const { authenticated } = useContext(UserContext);
   const { section } = useContext(GuildChangesContext);
 
-  const memoizedSortedChannels = useMemo(
+  const sortedChannels = useMemo(
     () => [...(guild?.channels ?? [])].sort((a, b) => a.name.localeCompare(b.name)),
     [guild],
   );
-
-  const memoizedSortedRoles = useMemo(() => [...(guild?.roles ?? [])].sort((a, b) => b.position - a.position), [guild]);
+  const sortedRoles = useMemo(() => [...(guild?.roles ?? [])].sort((a, b) => b.position - a.position), [guild]);
 
   if (!authenticated) {
     return <Failure message="You need to sign in to view this page." />;
@@ -93,13 +95,19 @@ export default function Guild({ database, guild }: InferGetServerSidePropsType<t
             }
           >
             {section === 'general' ? (
-              <General channels={memoizedSortedChannels} database={database} />
+              <General channels={sortedChannels} database={database} />
             ) : section === 'autorole' ? (
-              <Autorole database={database} roles={memoizedSortedRoles} />
+              <Autorole database={database} roles={sortedRoles} />
             ) : section === 'leveling' ? (
-              <Leveling channels={memoizedSortedChannels} database={database} roles={memoizedSortedRoles} />
+              <Leveling channels={sortedChannels} database={database} roles={sortedRoles} />
+            ) : section === 'milestones' ? (
+              <Milestones channels={sortedChannels} database={database} roles={sortedRoles} />
+            ) : section === 'emojiList' ? (
+              <EmojiList channels={sortedChannels} database={database} />
+            ) : section === 'mentionCooldown' ? (
+              <MentionCooldown database={database} roles={sortedRoles} />
             ) : (
-              <Milestones channels={memoizedSortedChannels} database={database} roles={memoizedSortedRoles} />
+              <Miscellaneous channels={sortedChannels} database={database} />
             )}
           </Suspense>
         </main>
