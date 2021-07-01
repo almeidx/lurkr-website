@@ -1,20 +1,23 @@
 import type { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import Head from 'next/head';
-import { useContext, useMemo } from 'react';
+import { lazy, Suspense, useContext, useMemo } from 'react';
 import { BsFillShiftFill } from 'react-icons/bs';
 import { ImCog } from 'react-icons/im';
 import { RiShieldUserLine } from 'react-icons/ri';
 
-import Menu from '../../../components/dashboard/Menu';
-import Autorole from '../../../components/dashboard/pages/Autorole';
-import General from '../../../components/dashboard/pages/General';
-import Leveling from '../../../components/dashboard/pages/Leveling';
-import Failure from '../../../components/Failure';
-import { GuildChangesContext } from '../../../contexts/GuildChangesContext';
-import { UserContext } from '../../../contexts/UserContext';
-import { initializeApollo } from '../../../graphql/client';
-import USER_GUILD, { UserGuild } from '../../../graphql/queries/UserGuild';
-import { isValidSnowflake } from '../../../utils/utils';
+import Menu from '../../components/dashboard/Menu';
+import Failure from '../../components/Failure';
+import Spinner from '../../components/Spinner';
+import { GuildChangesContext } from '../../contexts/GuildChangesContext';
+import { UserContext } from '../../contexts/UserContext';
+import { initializeApollo } from '../../graphql/client';
+import USER_GUILD, { UserGuild } from '../../graphql/queries/UserGuild';
+import { isValidSnowflake } from '../../utils/utils';
+
+const General = lazy(() => import('../../components/dashboard/pages/General'));
+const Autorole = lazy(() => import('../../components/dashboard/pages/Autorole'));
+const Leveling = lazy(() => import('../../components/dashboard/pages/Leveling'));
+const Milestones = lazy(() => import('../../components/dashboard/pages/Milestones'));
 
 interface GuildProps {
   database: UserGuild['getDatabaseGuild'];
@@ -82,13 +85,23 @@ export default function Guild({ database, guild }: InferGetServerSidePropsType<t
         </div>
 
         <main className="pb-5 px-4 w-full">
-          {section === 'general' ? (
-            <General channels={memoizedSortedChannels} database={database} />
-          ) : section === 'autorole' ? (
-            <Autorole database={database} roles={memoizedSortedRoles} />
-          ) : (
-            <Leveling channels={memoizedSortedChannels} database={database} roles={memoizedSortedRoles} />
-          )}
+          <Suspense
+            fallback={
+              <div className="min-h-screen bg-discord-dark flex justify-center items-center">
+                <Spinner className="w-60 h-auto" />
+              </div>
+            }
+          >
+            {section === 'general' ? (
+              <General channels={memoizedSortedChannels} database={database} />
+            ) : section === 'autorole' ? (
+              <Autorole database={database} roles={memoizedSortedRoles} />
+            ) : section === 'leveling' ? (
+              <Leveling channels={memoizedSortedChannels} database={database} roles={memoizedSortedRoles} />
+            ) : (
+              <Milestones channels={memoizedSortedChannels} database={database} roles={memoizedSortedRoles} />
+            )}
+          </Suspense>
         </main>
       </div>
     </div>
