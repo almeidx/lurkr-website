@@ -134,7 +134,7 @@ export default function Selector({ limit, items, initialItems, onSelect, type }:
           dropdownOpen ? '' : 'hidden'
         } relative h-64 w-full bg-[#36393f] flex flex-col items-center pt-4 mt-2 rounded-md`}
       >
-        <div className="px-4">
+        <div className="px-4 w-full">
           <Input
             className="pb-3"
             id="selector"

@@ -22,7 +22,7 @@ export default function Navbar() {
 
   return (
     <div className="w-full bg-discord-dark">
-      <header className="flex md:items-center p-6 xl:px-48 max-w-[1532px] mx-auto">
+      <header className="flex md:items-center p-6 max-w-[992px] xl:max-w-[1440px] mx-auto">
         <Link href="/">
           <a className=" md:text-xl py-1 md:p-0 text-white uppercase font-bold whitespace-nowrap mr-4">Pepe Manager</a>
         </Link>
