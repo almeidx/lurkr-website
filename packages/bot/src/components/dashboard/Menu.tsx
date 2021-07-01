@@ -3,8 +3,11 @@ import Image from 'next/image';
 import { useContext } from 'react';
 import type { IconType } from 'react-icons';
 import { BsFillShiftFill, BsPersonPlusFill } from 'react-icons/bs';
+import { FaShapes } from 'react-icons/fa';
 import { GoMilestone } from 'react-icons/go';
+import { HiEmojiHappy } from 'react-icons/hi';
 import { ImCog } from 'react-icons/im';
+import { RiTimerFlashFill } from 'react-icons/ri';
 
 import { GuildChangesContext, Section } from '../../contexts/GuildChangesContext';
 import { guildIconCdn } from '../../utils/cdn';
@@ -29,6 +32,9 @@ const menuItems: MenuItem[] = [
   { Icon: BsFillShiftFill, id: 'leveling', name: 'Leveling' },
   { Icon: BsPersonPlusFill, id: 'autorole', name: 'Autorole' },
   { Icon: GoMilestone, id: 'milestones', name: 'Milestones' },
+  { Icon: HiEmojiHappy, id: 'emojiList', name: 'Emoji List' },
+  { Icon: RiTimerFlashFill, id: 'mentionCooldown', name: 'Mention Cooldown' },
+  { Icon: FaShapes, id: 'miscellaneous', name: 'Miscellaneous' },
 ];
 
 export default function Menu({ guild }: MenuProps) {
@@ -52,12 +58,12 @@ export default function Menu({ guild }: MenuProps) {
         <p className="text-white truncate">{guild.name}</p>
       </header>
 
-      <section className="flex flex-col items-center gap-y-3">
+      <section className="flex flex-col gap-y-3">
         {menuItems.map(({ Icon, id, name }, i) => (
           <div
             className={`${
               section === id ? 'bg-gray-500' : ''
-            } flex flex-row items-center justify-center gap-2 py-2 w-full text-center duration-200 hover:bg-discord-lighter text-white focus:outline-none rounded-lg cursor-pointer`}
+            } flex flex-row items-center gap-2 py-2 w-full text-center duration-200 hover:bg-discord-lighter text-white focus:outline-none rounded-lg cursor-pointer`}
             key={i}
             onClick={() => updateSection(id)}
           >

@@ -1,7 +1,14 @@
 import type { Snowflake } from 'discord-api-types';
 import { createContext, ReactNode, useState } from 'react';
 
-export type Section = 'general' | 'leveling' | 'autorole' | 'milestones';
+export type Section =
+  | 'general'
+  | 'leveling'
+  | 'autorole'
+  | 'milestones'
+  | 'emojiList'
+  | 'mentionCooldown'
+  | 'miscellaneous';
 
 interface GuildChangesContextData {
   guildId: Snowflake | null;
