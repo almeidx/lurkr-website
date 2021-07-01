@@ -7,13 +7,13 @@ interface InputProps {
   id: string;
   maxLength: number;
   onChange: ChangeEventHandler<HTMLInputElement>;
-  onClear: () => void;
+  onClear: () => unknown;
   placeholder: string;
   value: string;
 }
 
 interface InputWithSubmitProps extends InputProps {
-  onSubmit: () => void;
+  onSubmit: () => unknown;
   submitRef: Ref<HTMLButtonElement>;
 }
 

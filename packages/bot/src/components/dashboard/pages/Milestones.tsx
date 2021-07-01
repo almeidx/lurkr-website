@@ -2,10 +2,11 @@ import type { Snowflake } from 'discord-api-types';
 import { useCallback, useState } from 'react';
 
 import type { Channel, DatabaseGuild, Role } from '../../../graphql/queries/UserGuild';
+import { DATABASE_DEFAULTS, DATABASE_LIMITS } from '../../../utils/constants';
 import Input from '../../Input';
 import Header from '../Header';
 import Label from '../Label';
-import Selector from '../Selector';
+import Selector, { OnSelectFn } from '../Selector';
 
 interface MilestonesProps {
   channels: Channel[];
@@ -14,23 +15,25 @@ interface MilestonesProps {
 }
 
 export default function Milestones({ channels, database, roles }: MilestonesProps) {
-  const [storeMilestones, setStoreMilestones] = useState<boolean>(database?.storeMilestones ?? false);
+  const [storeMilestones, setStoreMilestones] = useState<boolean>(
+    database?.storeMilestones ?? DATABASE_DEFAULTS.storeMilestones,
+  );
   const [milestonesChannel, setMilestonesChannel] = useState<Snowflake | null>(database?.milestonesChannel ?? null);
   const [milestonesInterval, setMilestonesInterval] = useState<string>(
-    database?.milestonesInterval.toString() ?? '100',
+    database?.milestonesInterval.toString() ?? DATABASE_DEFAULTS.milestonesInterval.toString(),
   );
   const [milestoneMessage, setMilestoneMessage] = useState<string>(
-    database?.milestonesMessage ?? '[enter default message]',
+    database?.milestonesMessage ?? DATABASE_DEFAULTS.milestonesMessage,
   );
   const [milestoneRoles, setMilestoneRoles] = useState<Snowflake[]>(database?.milestonesRoles ?? []);
 
-  const handleMilestoneRolesChange = useCallback(
-    (roleId: Snowflake, type: 'add' | 'remove') => {
-      const clone = [...milestoneRoles];
+  const handleMilestoneRolesChange: OnSelectFn = useCallback(
+    (roleId, type) => {
       if (type === 'add') {
-        return setMilestoneRoles([...clone, roleId]);
+        return setMilestoneRoles([...milestoneRoles, roleId]);
       }
 
+      const clone = [...milestoneRoles];
       const channelIndex = clone.findIndex((i) => roleId === i);
       if (channelIndex < 0) return;
 
@@ -110,7 +113,7 @@ export default function Milestones({ channels, database, roles }: MilestonesProp
 
           <Input
             id="milestonesMessage"
-            maxLength={1_000}
+            maxLength={DATABASE_LIMITS.milestonesMessage.maxLength}
             onChange={(e) => setMilestoneMessage(e.target.value)}
             onClear={() => setMilestoneMessage('')}
             placeholder="Enter the milestone message"
@@ -129,7 +132,7 @@ export default function Milestones({ channels, database, roles }: MilestonesProp
             id="milestoneRoles"
             initialItems={database?.milestonesRoles ?? []}
             items={roles}
-            limit={10}
+            limit={DATABASE_LIMITS.milestonesRoles.maxLength}
             onSelect={handleMilestoneRolesChange}
             type="role"
           />

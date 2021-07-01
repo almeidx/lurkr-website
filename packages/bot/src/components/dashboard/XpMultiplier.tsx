@@ -6,13 +6,17 @@ import type { Channel, Multiplier, Role } from '../../graphql/queries/UserGuild'
 import Input from '../Input';
 import Selector from './Selector';
 
+export type XpMultiplierOnDeleteFn = (index: number) => unknown;
+export type XpMultiplierOnItemChangeFn = (itemId: Snowflake, index: number, type: 'add' | 'remove') => unknown;
+export type XpMultiplierOnMultiplierChangeFn = (multiplier: string, index: number) => unknown;
+
 interface XpMultiplierProps {
   channels: Channel[];
   index: number;
   multiplier: string;
-  onDelete: (index: number) => unknown;
-  onItemChange: (itemId: Snowflake, index: number, type: 'add' | 'remove') => unknown;
-  onMultiplierChange: (multiplier: string, index: number) => unknown;
+  onDelete: XpMultiplierOnDeleteFn;
+  onItemChange: XpMultiplierOnItemChangeFn;
+  onMultiplierChange: XpMultiplierOnMultiplierChangeFn;
   targets: Snowflake[] | null;
   roles: Role[];
   type: Multiplier['type'];

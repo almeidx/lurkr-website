@@ -17,12 +17,14 @@ interface Role extends Channel {
 
 type Items = Channel[] | Role[];
 
+export type OnSelectFn = (itemId: Snowflake, type: 'add' | 'remove') => unknown;
+
 interface SelectorProps {
   id: string;
   limit: number;
   initialItems: Snowflake[];
   items: Items;
-  onSelect: (itemId: Snowflake, type: 'add' | 'remove') => unknown;
+  onSelect: OnSelectFn;
   type: 'channel' | 'role';
 }
 

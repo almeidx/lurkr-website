@@ -1,11 +1,12 @@
 import type { Snowflake } from 'discord-api-types';
-import { ChangeEvent, useCallback, useState } from 'react';
+import { useCallback, useState } from 'react';
 
 import type { Channel, UserGuild } from '../../../graphql/queries/UserGuild';
+import { DATABASE_DEFAULTS, DATABASE_LIMITS } from '../../../utils/constants';
 import Input from '../../Input';
 import Header from '../Header';
 import Label from '../Label';
-import Selector from '../Selector';
+import Selector, { OnSelectFn } from '../Selector';
 
 interface GeneralProps {
   channels: Channel[];
@@ -13,24 +14,16 @@ interface GeneralProps {
 }
 
 export default function General({ channels, database }: GeneralProps) {
-  const [prefix, setPrefix] = useState(database?.prefix ?? 'p!');
+  const [prefix, setPrefix] = useState(database?.prefix ?? DATABASE_DEFAULTS.prefix);
   const [blacklistedChannels, setBlacklistedChannels] = useState<Snowflake[]>(database?.blacklistedChannels ?? []);
 
-  const handlePrefixChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.value;
-
-    if (value.length <= 5) {
-      setPrefix(value);
-    }
-  }, []);
-
-  const handleBlacklistedChannelsChange = useCallback(
-    (channelId: Snowflake, type: 'add' | 'remove') => {
-      const clone = [...blacklistedChannels];
+  const handleBlacklistedChannelsChange: OnSelectFn = useCallback(
+    (channelId, type) => {
       if (type === 'add') {
-        return setBlacklistedChannels([...clone, channelId]);
+        return setBlacklistedChannels([...blacklistedChannels, channelId]);
       }
 
+      const clone = [...blacklistedChannels];
       const channelIndex = clone.findIndex((i) => channelId === i);
       if (channelIndex < 0) return;
 
@@ -50,8 +43,10 @@ export default function General({ channels, database }: GeneralProps) {
 
           <Input
             id="prefix"
-            maxLength={5}
-            onChange={handlePrefixChange}
+            maxLength={DATABASE_LIMITS.prefix.maxLength}
+            onChange={({ target }) =>
+              target.value.length <= DATABASE_LIMITS.prefix.maxLength && setPrefix(target.value)
+            }
             onClear={() => setPrefix('')}
             placeholder="Enter the bot prefix"
             value={prefix}
@@ -67,7 +62,7 @@ export default function General({ channels, database }: GeneralProps) {
 
           <Selector
             id="blacklistedChannels"
-            limit={20}
+            limit={DATABASE_LIMITS.blacklistedChannels.maxLength}
             initialItems={database?.blacklistedChannels ?? []}
             items={channels}
             onSelect={handleBlacklistedChannelsChange}

@@ -3,10 +3,11 @@ import type { Snowflake } from 'discord-api-types';
 import { useCallback, useState } from 'react';
 
 import type { Role, UserGuild } from '../../../graphql/queries/UserGuild';
+import { DATABASE_LIMITS } from '../../../utils/constants';
 import Input from '../../Input';
 import Header from '../Header';
 import Label from '../Label';
-import Selector from '../Selector';
+import Selector, { OnSelectFn } from '../Selector';
 
 interface AutoroleProps {
   database: UserGuild['getDatabaseGuild'];
@@ -17,13 +18,13 @@ export default function Autorole({ database, roles }: AutoroleProps) {
   const [autoRoles, setAutoRoles] = useState<Snowflake[]>(database?.autoRole ?? []);
   const [autoRoleTimeout, setAutoRoleTimeout] = useState(ms(database?.autoRoleTimeout ?? 0));
 
-  const handleAutorolesChange = useCallback(
-    (channelId: Snowflake, type: 'add' | 'remove') => {
-      const clone = [...autoRoles];
+  const handleAutorolesChange: OnSelectFn = useCallback(
+    (channelId, type) => {
       if (type === 'add') {
-        return setAutoRoles([...clone, channelId]);
+        return setAutoRoles([...autoRoles, channelId]);
       }
 
+      const clone = [...autoRoles];
       const roleIndex = clone.findIndex((i) => channelId === i);
       if (roleIndex < 0) return;
 
@@ -50,7 +51,7 @@ export default function Autorole({ database, roles }: AutoroleProps) {
 
           <Selector
             id="autoRole"
-            limit={25}
+            limit={DATABASE_LIMITS.autoRole.maxLength}
             initialItems={database?.autoRole ?? []}
             items={roles}
             onSelect={handleAutorolesChange}

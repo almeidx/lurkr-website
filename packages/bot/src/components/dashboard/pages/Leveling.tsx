@@ -10,13 +10,18 @@ import {
   Role,
   UserGuild,
 } from '../../../graphql/queries/UserGuild';
+import { DATABASE_DEFAULTS, DATABASE_LIMITS } from '../../../utils/constants';
 import Input from '../../Input';
 import BasicSelect from '../BasicSelect';
 import Header from '../Header';
 import Label from '../Label';
-import Selector from '../Selector';
-import XpMultiplier from '../XpMultiplier';
-import XpRole from '../XpRole';
+import Selector, { OnSelectFn } from '../Selector';
+import XpMultiplier, {
+  XpMultiplierOnDeleteFn,
+  XpMultiplierOnItemChangeFn,
+  XpMultiplierOnMultiplierChangeFn,
+} from '../XpMultiplier';
+import XpRole, { XpRoleOnChangeFn, XpRoleOnClearFn } from '../XpRole';
 
 interface LevelingProps {
   channels: Channel[];
@@ -74,7 +79,7 @@ const resolveInitialXpResponseType = (database: DatabaseGuild | null) =>
         ? ResponseType.CHANNEL
         : database.xpResponseType
       : ResponseType.NONE
-    : ResponseType.SAME_CHANNEL;
+    : DATABASE_DEFAULTS.xpResponseType;
 
 const resolveInitialXpResponseChannel = (database: DatabaseGuild | null) =>
   database?.xpResponseType
@@ -86,8 +91,8 @@ const resolveInitialXpResponseChannel = (database: DatabaseGuild | null) =>
 let timeout: NodeJS.Timeout;
 
 export default function Leveling({ channels, database, roles }: LevelingProps) {
-  const [levels, setLevels] = useState<boolean>(database?.levels ?? false);
-  const [xpMessage, setXpMessage] = useState(database?.xpMessage ?? '[insert default message here]');
+  const [levels, setLevels] = useState<boolean>(database?.levels ?? DATABASE_DEFAULTS.levels);
+  const [xpMessage, setXpMessage] = useState(database?.xpMessage ?? DATABASE_DEFAULTS.xpMessage);
   const [xpResponseType, setXpResponseType] = useState<string>(resolveInitialXpResponseType(database));
   const [newXpRolesLevel, setNewXpRolesLevel] = useState<string>('');
   const [xpRoles, setXpRoles] = useState<Record<string, Snowflake[]>>(database?.xpRoles ?? {});
@@ -95,7 +100,7 @@ export default function Leveling({ channels, database, roles }: LevelingProps) {
   const [xpResponseChannel, setXpResponseChannel] = useState<Snowflake | null>(
     resolveInitialXpResponseChannel(database),
   );
-  const [stackXpRoles, setStackXpRoles] = useState<boolean>(database?.stackXpRoles ?? true);
+  const [stackXpRoles, setStackXpRoles] = useState<boolean>(database?.stackXpRoles ?? DATABASE_DEFAULTS.stackXpRoles);
   const [xpChannels, setXpChannels] = useState<Snowflake[]>(
     database?.xpWhitelistedChannels ?? database?.xpBlacklistedChannels ?? [],
   );
@@ -105,17 +110,17 @@ export default function Leveling({ channels, database, roles }: LevelingProps) {
   const [topXpRole, setTopXpRole] = useState<Snowflake | null>(database?.topXpRole ?? null);
   const [noXpRoles, setNoXpRoles] = useState<Snowflake[]>(database?.noXpRoles ?? []);
   const [autoResetLevels, setAutoResetLevels] = useState<AutoResetLevels>(
-    database ? database.autoResetLevels : AutoResetLevels.NONE,
+    database ? database.autoResetLevels : DATABASE_DEFAULTS.autoResetLevels,
   );
   const [xpMultipliers, setXpMultipliers] = useState<(Omit<Multiplier, 'multiplier'> & { multiplier: string })[]>(
     database?.xpMultipliers.map((m) => ({ ...m, multiplier: m.multiplier.toString() })) ?? [],
   );
   const [newXpMultiplierType, setNewXpMultiplierType] = useState<Multiplier['type']>('channel');
   const [prioritiseMultiplierRoleHierarchy, setPrioritiseMultiplierRoleHierarchy] = useState(
-    database?.prioritiseMultiplierRoleHierarchy ?? false,
+    database?.prioritiseMultiplierRoleHierarchy ?? DATABASE_DEFAULTS.prioritiseMultiplierRoleHierarchy,
   );
 
-  const handleNewXpRoleCreated = useCallback(() => {
+  const handleNewXpRoleCreated: () => unknown = useCallback(() => {
     const clone: Record<string, Snowflake[]> = JSON.parse(JSON.stringify(xpRoles));
     const level = parseInt(newXpRolesLevel, 10);
 
@@ -134,8 +139,8 @@ export default function Leveling({ channels, database, roles }: LevelingProps) {
     }
   }, [newXpRolesLevel, xpRoles, newXpRoleSubmitRef]);
 
-  const handleXpRolesClear = useCallback(
-    (level: number) => {
+  const handleXpRolesClear: XpRoleOnClearFn = useCallback(
+    (level) => {
       const clone: Record<string, Snowflake[]> = JSON.parse(JSON.stringify(xpRoles));
       // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
       delete clone[level];
@@ -144,8 +149,8 @@ export default function Leveling({ channels, database, roles }: LevelingProps) {
     [xpRoles],
   );
 
-  const handleXpRolesChange = useCallback(
-    (roleId: Snowflake, level: number, type: 'add' | 'remove') => {
+  const handleXpRolesChange: XpRoleOnChangeFn = useCallback(
+    (roleId, level, type) => {
       // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
       const levelXpRoles = xpRoles[level.toString()] ?? [];
       const clone: Record<string, Snowflake[]> = JSON.parse(JSON.stringify(xpRoles));
@@ -166,13 +171,13 @@ export default function Leveling({ channels, database, roles }: LevelingProps) {
     [xpRoles],
   );
 
-  const handleXpChannelsChange = useCallback(
-    (channelId: Snowflake, type: 'add' | 'remove') => {
-      const clone = [...xpChannels];
+  const handleXpChannelsChange: OnSelectFn = useCallback(
+    (channelId, type) => {
       if (type === 'add') {
-        return setXpChannels([...clone, channelId]);
+        return setXpChannels([...xpChannels, channelId]);
       }
 
+      const clone = [...xpChannels];
       const channelIndex = clone.findIndex((i) => channelId === i);
       if (channelIndex < 0) return;
 
@@ -182,13 +187,13 @@ export default function Leveling({ channels, database, roles }: LevelingProps) {
     [xpChannels],
   );
 
-  const handleNoXpRolesChange = useCallback(
-    (roleId: Snowflake, type: 'add' | 'remove') => {
-      const clone = [...noXpRoles];
+  const handleNoXpRolesChange: OnSelectFn = useCallback(
+    (roleId, type) => {
       if (type === 'add') {
-        return setNoXpRoles([...clone, roleId]);
+        return setNoXpRoles([...noXpRoles, roleId]);
       }
 
+      const clone = [...noXpRoles];
       const roleIndex = clone.findIndex((i) => roleId === i);
       if (roleIndex < 0) return;
 
@@ -198,10 +203,10 @@ export default function Leveling({ channels, database, roles }: LevelingProps) {
     [noXpRoles],
   );
 
-  const handleXpMultiplierDelete = useCallback(
-    (index: number) => {
+  const handleXpMultiplierDelete: XpMultiplierOnDeleteFn = useCallback(
+    (index) => {
       const clone = [...xpMultipliers];
-      if (index in clone) {
+      if (!(index in clone)) {
         return console.log(
           '[Leveling] Index provided was not presented in the xp multipliers array when the user tried deleting a multiplier',
         );
@@ -213,10 +218,10 @@ export default function Leveling({ channels, database, roles }: LevelingProps) {
     [xpMultipliers],
   );
 
-  const handleXpMultiplierItemsChange = useCallback(
-    (itemId: `${bigint}`, index: number, type: 'add' | 'remove') => {
+  const handleXpMultiplierItemsChange: XpMultiplierOnItemChangeFn = useCallback(
+    (itemId, index, type) => {
       const clone = [...xpMultipliers];
-      if (index in clone) {
+      if (!(index in clone)) {
         return console.log(
           '[Leveling] Index provided was not presented in the xp multipliers array when the user tried changing the items of a multiplier',
         );
@@ -248,10 +253,10 @@ export default function Leveling({ channels, database, roles }: LevelingProps) {
     [xpMultipliers],
   );
 
-  const handleXpMultiplierValueChange = useCallback(
-    (multiplier: string, index: number) => {
+  const handleXpMultiplierValueChange: XpMultiplierOnMultiplierChangeFn = useCallback(
+    (multiplier, index) => {
       const clone = [...xpMultipliers];
-      if (index in clone) {
+      if (!(index in clone)) {
         return console.log(
           '[Leveling] Index provided was not presented in the xp multipliers array when the user tried changing the items of a multiplier',
         );
@@ -298,10 +303,12 @@ export default function Leveling({ channels, database, roles }: LevelingProps) {
 
           <Input
             id="xpMessage"
-            maxLength={1_000}
-            onChange={(e) => e.target.value.length <= 1_000 && setXpMessage(e.target.value)}
+            maxLength={DATABASE_LIMITS.xpMessage.maxLength}
+            onChange={(e) =>
+              e.target.value.length <= DATABASE_LIMITS.xpMessage.maxLength && setXpMessage(e.target.value)
+            }
             onClear={() => setXpMessage('')}
-            placeholder="Enter the XP message"
+            placeholder="Enter the level up message"
             value={xpMessage}
           />
         </div>
@@ -409,7 +416,7 @@ export default function Leveling({ channels, database, roles }: LevelingProps) {
             id="xpChannels"
             initialItems={database?.xpBlacklistedChannels ?? database?.xpWhitelistedChannels ?? []}
             items={channels}
-            limit={50}
+            limit={DATABASE_LIMITS.xpChannels.maxLength}
             onSelect={handleXpChannelsChange}
             type="channel"
           />
@@ -443,7 +450,7 @@ export default function Leveling({ channels, database, roles }: LevelingProps) {
             id="noXpRoles"
             initialItems={database?.noXpRoles ?? []}
             items={roles}
-            limit={30}
+            limit={DATABASE_LIMITS.noXpRoles.maxLength}
             onSelect={handleNoXpRolesChange}
             type="role"
           />
@@ -470,7 +477,7 @@ export default function Leveling({ channels, database, roles }: LevelingProps) {
             url="https://docs.pepemanager.com/guides/setting-up-xp-multipliers"
           />
 
-          {Object.keys(xpMultipliers).length < 20 && (
+          {Object.keys(xpMultipliers).length <= 20 && (
             <>
               <p className="text-white">Create a new multiplier</p>
 

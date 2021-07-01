@@ -1,3 +1,5 @@
+import { stripIndents } from 'common-tags';
+
 import type { ShowcaseProps } from '../components/Showcase';
 
 export const showcases: ShowcaseProps[] = [
@@ -206,3 +208,73 @@ export const DEFAULT_ROLE_COLOUR = '#b9bbbe';
  * @returns The XP required
  */
 export const XP = (n: number): number => (n === 0 ? 0 : 100 + 50 * (n - 1) ** 2);
+
+export const DATABASE_DEFAULTS = {
+  autoResetLevels: 0 as const,
+  emojiList: false,
+  levels: false,
+  mentionCooldown: 600_000,
+  milestonesInterval: 100,
+  milestonesMessage: stripIndents`
+    <a:aPES_Cog:498482209494401054><a:aPES_Cog:498482209494401054><a:aPES_Cog:498482209494401054>
+    **{milestone} Members**
+    <a:aPES_Cog:498482209494401054><a:aPES_Cog:498482209494401054><a:aPES_Cog:498482209494401054>
+
+    <:PES2_Party:685143619501293616> Congratulations to {user}, you were the {milestone}th person to join!
+  `,
+  prefix: 'p!',
+  prioritiseMultiplierRoleHierarchy: false,
+  stackXpRoles: true,
+  storeCounts: true,
+  storeMilestones: false,
+  xpMessage: '<:PES_Stonks:800129864870133760> {user} has reached level **{level}**',
+  xpResponseType: 'channel' as const,
+};
+
+export const DATABASE_LIMITS = {
+  autoPublishChannels: {
+    maxLength: 25,
+  },
+  autoRole: {
+    maxLength: 25,
+  },
+  autoRoleTimeout: {
+    max: 1_800_000,
+    min: 60_000,
+  },
+  blacklistedChannels: {
+    maxLength: 20,
+  },
+  mentionCooldown: {
+    max: 1_800_000,
+    min: 300_000,
+  },
+  mentionCooldownRoles: {
+    maxLength: 25,
+  },
+  milestonesInterval: {
+    max: 100_000,
+    min: 10,
+  },
+  milestonesMessage: {
+    maxLength: 1_000,
+  },
+  milestonesRoles: {
+    maxLength: 10,
+  },
+  noXpRoles: {
+    maxLength: 30,
+  },
+  prefix: {
+    maxLength: 5,
+  },
+  xpChannels: {
+    maxLength: 50,
+  },
+  xpMessage: {
+    maxLength: 1_000,
+  },
+  xpMultipliers: {
+    maxLength: 20,
+  },
+};

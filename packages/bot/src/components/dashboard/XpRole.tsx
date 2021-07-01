@@ -5,11 +5,14 @@ import { MdClear } from 'react-icons/md';
 import type { Role } from '../../graphql/queries/UserGuild';
 import Selector from './Selector';
 
+export type XpRoleOnClearFn = (level: number) => unknown;
+export type XpRoleOnChangeFn = (roleId: Snowflake, level: number, type: 'add' | 'remove') => unknown;
+
 interface XpRoleProps {
   level: number;
   initialRoles: Snowflake[];
-  onClear: (level: number) => unknown;
-  onChange: (roleId: Snowflake, level: number, type: 'add' | 'remove') => unknown;
+  onClear: XpRoleOnClearFn;
+  onChange: XpRoleOnChangeFn;
   roles: Role[];
 }
 
