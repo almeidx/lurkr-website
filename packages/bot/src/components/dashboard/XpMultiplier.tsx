@@ -9,8 +9,10 @@ import Selector from './Selector';
 interface XpMultiplierProps {
   channels: Channel[];
   index: number;
-  multiplier: number;
-  onClear: (index: number) => unknown;
+  multiplier: string;
+  onDelete: (index: number) => unknown;
+  onItemChange: (itemId: Snowflake, index: number, type: 'add' | 'remove') => unknown;
+  onMultiplierChange: (multiplier: string, index: number) => unknown;
   targets: Snowflake[] | null;
   roles: Role[];
   type: Multiplier['type'];
@@ -20,7 +22,9 @@ export default function XpMultiplier({
   channels,
   index,
   multiplier,
-  onClear,
+  onDelete,
+  onItemChange,
+  onMultiplierChange,
   roles,
   targets,
   type,
@@ -33,8 +37,14 @@ export default function XpMultiplier({
         <Input
           id={`multiplier-${index}`}
           maxLength={5}
-          onChange={(e) => setMultiplierValue(e.target.value)}
-          onClear={() => setMultiplierValue('')}
+          onChange={({ target }) => {
+            onMultiplierChange(target.value, index);
+            setMultiplierValue(target.value);
+          }}
+          onClear={() => {
+            onMultiplierChange('', index);
+            setMultiplierValue('');
+          }}
           placeholder="x1.0"
           value={multiplierValue}
         />
@@ -49,7 +59,7 @@ export default function XpMultiplier({
             limit={50}
             initialItems={targets!}
             items={type === 'channel' ? channels : roles}
-            onSelect={console.log}
+            onSelect={(itemId, type) => onItemChange(itemId, index, type)}
             type={type}
           />
         )}
@@ -57,7 +67,7 @@ export default function XpMultiplier({
 
       <div
         className="absolute right-0 my-auto mx-4 py-3 text-2xl text-discord-red active:text-red-600 transition-colors h-full cursor-pointer"
-        onClick={() => onClear(index)}
+        onClick={() => onDelete(index)}
       >
         <MdClear />
       </div>

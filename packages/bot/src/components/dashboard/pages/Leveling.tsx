@@ -107,7 +107,9 @@ export default function Leveling({ channels, database, roles }: LevelingProps) {
   const [autoResetLevels, setAutoResetLevels] = useState<AutoResetLevels>(
     database ? database.autoResetLevels : AutoResetLevels.NONE,
   );
-  const [xpMultipliers, setXpMultipliers] = useState<Multiplier[]>(database?.xpMultipliers ?? []);
+  const [xpMultipliers, setXpMultipliers] = useState<(Omit<Multiplier, 'multiplier'> & { multiplier: string })[]>(
+    database?.xpMultipliers.map((m) => ({ ...m, multiplier: m.multiplier.toString() })) ?? [],
+  );
   const [newXpMultiplierType, setNewXpMultiplierType] = useState<Multiplier['type']>('channel');
   const [prioritiseMultiplierRoleHierarchy, setPrioritiseMultiplierRoleHierarchy] = useState(
     database?.prioritiseMultiplierRoleHierarchy ?? false,
@@ -194,6 +196,74 @@ export default function Leveling({ channels, database, roles }: LevelingProps) {
       return setNoXpRoles(clone);
     },
     [noXpRoles],
+  );
+
+  const handleXpMultiplierDelete = useCallback(
+    (index: number) => {
+      const clone = [...xpMultipliers];
+      if (index in clone) {
+        return console.log(
+          '[Leveling] Index provided was not presented in the xp multipliers array when the user tried deleting a multiplier',
+        );
+      }
+
+      clone.splice(index, 1);
+      setXpMultipliers(clone);
+    },
+    [xpMultipliers],
+  );
+
+  const handleXpMultiplierItemsChange = useCallback(
+    (itemId: `${bigint}`, index: number, type: 'add' | 'remove') => {
+      const clone = [...xpMultipliers];
+      if (index in clone) {
+        return console.log(
+          '[Leveling] Index provided was not presented in the xp multipliers array when the user tried changing the items of a multiplier',
+        );
+      }
+
+      const multiplier = clone[index];
+      if (!multiplier.targets) {
+        return console.log(
+          '[Leveling] The multiplier found did not have targets when the user tried changing the items of a multiplier',
+        );
+      }
+
+      if (type === 'add') {
+        multiplier.targets.push(itemId);
+        clone[index] = multiplier;
+        return setXpMultipliers(clone);
+      }
+
+      const itemIndex = multiplier.targets.findIndex((i) => i === itemId);
+      if (itemIndex < 0) {
+        return console.log("[Leveling] Couldn't find item index when user tried removing an item from a xp multiplier");
+      }
+
+      multiplier.targets.splice(itemIndex, 1);
+      clone[index] = multiplier;
+
+      setXpMultipliers(clone);
+    },
+    [xpMultipliers],
+  );
+
+  const handleXpMultiplierValueChange = useCallback(
+    (multiplier: string, index: number) => {
+      const clone = [...xpMultipliers];
+      if (index in clone) {
+        return console.log(
+          '[Leveling] Index provided was not presented in the xp multipliers array when the user tried changing the items of a multiplier',
+        );
+      }
+
+      const xpMultiplier = clone[index];
+      xpMultiplier.multiplier = multiplier;
+
+      clone[index] = xpMultiplier;
+      setXpMultipliers(clone);
+    },
+    [xpMultipliers],
   );
 
   return (
@@ -419,7 +489,7 @@ export default function Leveling({ channels, database, roles }: LevelingProps) {
                     setXpMultipliers([
                       ...xpMultipliers,
                       {
-                        multiplier: 1,
+                        multiplier: '1',
                         targets: newXpMultiplierType === 'global' ? null : [],
                         type: newXpMultiplierType,
                       },
@@ -439,7 +509,9 @@ export default function Leveling({ channels, database, roles }: LevelingProps) {
                 index={i}
                 key={i}
                 multiplier={multiplier}
-                onClear={console.log}
+                onDelete={handleXpMultiplierDelete}
+                onItemChange={handleXpMultiplierItemsChange}
+                onMultiplierChange={handleXpMultiplierValueChange}
                 roles={roles}
                 targets={targets}
                 type={type}
