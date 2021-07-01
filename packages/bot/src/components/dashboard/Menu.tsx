@@ -41,7 +41,7 @@ export default function Menu({ guild }: MenuProps) {
   const { section, updateSection } = useContext(GuildChangesContext);
 
   return (
-    <aside className="w-96 px-6 hidden sm:block">
+    <aside className="w-96 min-w-[300px] px-6 hidden sm:block">
       <header className="flex flex-row items-center mb-8 mt-8 sm:mt-0 gap-4">
         {guild.icon ? (
           <img
@@ -58,12 +58,12 @@ export default function Menu({ guild }: MenuProps) {
         <p className="text-white truncate">{guild.name}</p>
       </header>
 
-      <section className="flex flex-col gap-y-3">
+      <section className="flex flex-col gap-y-3 pl-12">
         {menuItems.map(({ Icon, id, name }, i) => (
           <div
             className={`${
               section === id ? 'bg-gray-500' : ''
-            } flex flex-row items-center gap-2 py-2 w-full text-center duration-200 hover:bg-discord-lighter text-white focus:outline-none rounded-lg cursor-pointer`}
+            } flex flex-row items-center gap-2 py-2 px-4 w-full text-center duration-200 hover:bg-discord-lighter text-white focus:outline-none rounded-lg cursor-pointer`}
             key={i}
             onClick={() => updateSection(id)}
           >
