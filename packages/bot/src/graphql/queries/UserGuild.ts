@@ -40,10 +40,15 @@ export interface DatabaseGuild {
   autoRoleTimeout: number;
   blacklistedChannels: Snowflake[] | null;
   levels: boolean;
+  milestonesChannel: Snowflake | null;
+  milestonesInterval: number;
+  milestonesMessage: string | null;
+  milestonesRoles: Snowflake[] | null;
   noXpRoles: Snowflake[] | null;
   prefix: string;
   prioritiseMultiplierRoleHierarchy: boolean;
   stackXpRoles: boolean;
+  storeMilestones: boolean;
   topXpRole: Snowflake | null;
   xpBlacklistedChannels: Snowflake[] | null;
   xpMessage: string;
@@ -82,14 +87,23 @@ export default gql`
       autoRoleTimeout
       blacklistedChannels
       levels
+      milestonesChannel
+      milestonesInterval
+      milestonesMessage
+      milestonesRoles
       noXpRoles
       prefix
       prioritiseMultiplierRoleHierarchy
       stackXpRoles
+      storeMilestones
       topXpRole
       xpBlacklistedChannels
       xpMessage
-      xpMultipliers
+      xpMultipliers {
+        multiplier
+        targets
+        type
+      }
       xpResponseType
       xpRoles
       xpWhitelistedChannels
