@@ -4,6 +4,8 @@ import { useCallback, useContext, useState } from 'react';
 import { GuildChangesContext } from '../../../contexts/GuildChangesContext';
 import type { DatabaseGuild, Role } from '../../../graphql/queries/UserGuild';
 import { DATABASE_DEFAULTS, DATABASE_LIMITS } from '../../../utils/constants';
+import Field from '../../Form/Field';
+import Fieldset from '../../Form/Fieldset';
 import Input from '../../Input';
 import Header from '../Header';
 import Label from '../Label';
@@ -46,11 +48,9 @@ export default function MentionCooldown({ database, roles }: MentionCooldownProp
         description="Automatically make roles non-mentionable after being mentioned for a certain amount of time."
         title="Mention Cooldown"
       />
-
-      <div className="flex flex-col bg-discord-slightly-darker rounded-xl w-full px-4 py-7 gap-6">
-        <div className="flex flex-col gap-3">
+      <Fieldset>
+        <Field>
           <Label htmlFor="mentionCooldown" name="Mention Cooldown (Minutes)" url="#" />
-
           <Input
             id="mentionCooldown"
             maxLength={5}
@@ -65,11 +65,10 @@ export default function MentionCooldown({ database, roles }: MentionCooldownProp
             placeholder="Enter the role mention cooldown"
             value={mentionCooldown}
           />
-        </div>
+        </Field>
 
-        <div className="flex flex-col gap-3">
+        <Field>
           <Label htmlFor="mentionCooldownRoles" name="Emoji List Channel" url="#" />
-
           <Selector
             id="mentionCooldownRoles"
             limit={DATABASE_LIMITS.mentionCooldownRoles.maxLength}
@@ -78,8 +77,8 @@ export default function MentionCooldown({ database, roles }: MentionCooldownProp
             onSelect={handleMentionCooldownRolesChange}
             type="role"
           />
-        </div>
-      </div>
+        </Field>
+      </Fieldset>
     </>
   );
 }

@@ -5,6 +5,8 @@ import { useCallback, useContext, useState } from 'react';
 import { GuildChangesContext } from '../../../contexts/GuildChangesContext';
 import type { Role, UserGuild } from '../../../graphql/queries/UserGuild';
 import { DATABASE_LIMITS } from '../../../utils/constants';
+import Field from '../../Form/Field';
+import Fieldset from '../../Form/Fieldset';
 import Input from '../../Input';
 import Header from '../Header';
 import Label from '../Label';
@@ -46,14 +48,13 @@ export default function Autorole({ database, roles }: AutoroleProps) {
         title="Autorole"
       />
 
-      <div className="flex flex-col bg-discord-slightly-darker rounded-xl w-full px-4 py-7 gap-6">
-        <div className="flex flex-col gap-3">
+      <Fieldset>
+        <Field>
           <Label
             htmlFor="autoRole"
             name="Autoroles"
             url="https://docs.pepemanager.com/guides/automatically-added-roles-with-timeout"
           />
-
           <Selector
             id="autoRole"
             limit={DATABASE_LIMITS.autoRole.maxLength}
@@ -62,15 +63,14 @@ export default function Autorole({ database, roles }: AutoroleProps) {
             onSelect={handleAutorolesChange}
             type="role"
           />
-        </div>
+        </Field>
 
-        <div className="flex flex-col gap-3">
+        <Field>
           <Label
             htmlFor="autoRoleTimeout"
             name="Autorole Timeout (Minutes)"
             url="https://docs.pepemanager.com/guides/automatically-added-roles-with-timeout#setting-your-timeout"
           />
-
           <Input
             id="autoRoleTimeout"
             maxLength={32}
@@ -85,8 +85,8 @@ export default function Autorole({ database, roles }: AutoroleProps) {
             placeholder="Enter the autorole timeout"
             value={autoRoleTimeout.toString()}
           />
-        </div>
-      </div>
+        </Field>
+      </Fieldset>
     </>
   );
 }

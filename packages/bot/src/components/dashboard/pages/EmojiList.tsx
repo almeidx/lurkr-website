@@ -3,6 +3,8 @@ import { useContext, useState } from 'react';
 import { GuildChangesContext } from '../../../contexts/GuildChangesContext';
 import type { Channel, DatabaseGuild } from '../../../graphql/queries/UserGuild';
 import { DATABASE_DEFAULTS } from '../../../utils/constants';
+import Field from '../../Form/Field';
+import Fieldset from '../../Form/Fieldset';
 import Header from '../Header';
 import Label from '../Label';
 import Selector from '../Selector';
@@ -41,14 +43,13 @@ export default function EmojiList({ channels, database }: EmojiListProps) {
         </div>
       </div>
 
-      <div className="flex flex-col bg-discord-slightly-darker rounded-xl w-full px-4 py-7 gap-6">
-        <div className="flex flex-col gap-3">
+      <Fieldset>
+        <Field>
           <Label
             htmlFor="emojiListChannel"
             name="Emoji List Channel"
             url="https://docs.pepemanager.com/guides/automatically-controlled-emoji-list"
           />
-
           <Selector
             id="emojiListChannel"
             limit={1}
@@ -60,8 +61,8 @@ export default function EmojiList({ channels, database }: EmojiListProps) {
             }}
             type="channel"
           />
-        </div>
-      </div>
+        </Field>
+      </Fieldset>
     </>
   );
 }

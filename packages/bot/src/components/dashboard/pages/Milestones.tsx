@@ -4,6 +4,8 @@ import { useCallback, useContext, useState } from 'react';
 import { GuildChangesContext } from '../../../contexts/GuildChangesContext';
 import type { Channel, DatabaseGuild, Role } from '../../../graphql/queries/UserGuild';
 import { DATABASE_DEFAULTS, DATABASE_LIMITS } from '../../../utils/constants';
+import Field from '../../Form/Field';
+import Fieldset from '../../Form/Fieldset';
 import Input from '../../Input';
 import Header from '../Header';
 import Label from '../Label';
@@ -73,14 +75,13 @@ export default function Milestones({ channels, database, roles }: MilestonesProp
         </div>
       </div>
 
-      <div className="flex flex-col bg-discord-slightly-darker rounded-xl w-full px-4 py-7 gap-6">
-        <div className="flex flex-col gap-3">
+      <Fieldset>
+        <Field>
           <Label
             htmlFor="milestonesChannel"
             name="Milestones Channel"
             url="https://docs.pepemanager.com/guides/automatically-controlled-member-milestones#setting-the-milestones-channel"
           />
-
           <Selector
             id="milestonesChannel"
             initialItems={milestonesChannel ? [milestonesChannel] : []}
@@ -93,15 +94,14 @@ export default function Milestones({ channels, database, roles }: MilestonesProp
             }}
             type="channel"
           />
-        </div>
+        </Field>
 
-        <div className="flex flex-col gap-3">
+        <Field>
           <Label
             htmlFor="milestonesInterval"
             name="Milestones Interval"
             url="https://docs.pepemanager.com/guides/automatically-controlled-member-milestones#setting-the-milestones-interval"
           />
-
           <Input
             id="milestonesInterval"
             maxLength={6}
@@ -120,15 +120,14 @@ export default function Milestones({ channels, database, roles }: MilestonesProp
             placeholder="Enter the milestones interval"
             value={milestonesInterval.toString()}
           />
-        </div>
+        </Field>
 
-        <div className="flex flex-col gap-3">
+        <Field>
           <Label
             htmlFor="milestonesMessage"
             name="Milestone Message"
             url="https://docs.pepemanager.com/guides/automatically-controlled-member-milestones#setting-the-milestones-message"
           />
-
           <Input
             id="milestonesMessage"
             maxLength={DATABASE_LIMITS.milestonesMessage.maxLength}
@@ -144,15 +143,14 @@ export default function Milestones({ channels, database, roles }: MilestonesProp
             placeholder="Enter the milestone message"
             value={milestoneMessage}
           />
-        </div>
+        </Field>
 
-        <div className="flex flex-col gap-3">
+        <Field>
           <Label
             htmlFor="milestoneRoles"
             name="Milestone Roles"
             url="https://docs.pepemanager.com/guides/automatically-controlled-member-milestones#setting-the-milestones-role"
           />
-
           <Selector
             id="milestoneRoles"
             initialItems={database?.milestonesRoles ?? []}
@@ -161,8 +159,8 @@ export default function Milestones({ channels, database, roles }: MilestonesProp
             onSelect={handleMilestoneRolesChange}
             type="role"
           />
-        </div>
-      </div>
+        </Field>
+      </Fieldset>
     </>
   );
 }

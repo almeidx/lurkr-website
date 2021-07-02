@@ -4,6 +4,8 @@ import { useCallback, useContext, useState } from 'react';
 import { GuildChangesContext } from '../../../contexts/GuildChangesContext';
 import type { Channel, DatabaseGuild } from '../../../graphql/queries/UserGuild';
 import { DATABASE_DEFAULTS, DATABASE_LIMITS } from '../../../utils/constants';
+import Field from '../../Form/Field';
+import Fieldset from '../../Form/Fieldset';
 import Header from '../Header';
 import Label from '../Label';
 import Selector, { OnSelectFn } from '../Selector';
@@ -41,35 +43,31 @@ export default function Miscellaneous({ channels, database }: MiscellaneousProps
     <>
       <Header description="Miscellaneous stuff that don't deserve a page of their own." title="Miscellaneous" />
 
-      <div className="flex flex-col bg-discord-slightly-darker rounded-xl w-full px-4 py-7 gap-6">
-        <div className="flex flex-col gap-3">
-          <div className="flex flex-row gap-x-4 items-center">
-            <Label
-              htmlFor="storeCounts"
-              name="Store Member Counts"
-              url="https://docs.pepemanager.com/config-commands/config/toggle"
-            />
+      <Fieldset>
+        <Field direction="row">
+          <Label
+            htmlFor="storeCounts"
+            name="Store Member Counts"
+            url="https://docs.pepemanager.com/config-commands/config/toggle"
+          />
+          <input
+            checked={storeCounts}
+            className="w-4 h-4"
+            type="checkbox"
+            id="storeCounts"
+            onChange={() => {
+              setStoreCounts(!storeCounts);
+              addChange('storeCounts', !storeCounts);
+            }}
+          />
+        </Field>
 
-            <input
-              checked={storeCounts}
-              className="w-4 h-4"
-              type="checkbox"
-              id="storeCounts"
-              onChange={() => {
-                setStoreCounts(!storeCounts);
-                addChange('storeCounts', !storeCounts);
-              }}
-            />
-          </div>
-        </div>
-
-        <div className="flex flex-col gap-3">
+        <Field>
           <Label
             htmlFor="autoPublishChannels"
             name="Auto Publish Channels"
             url="https://docs.pepemanager.com/guides/automatically-published-announcements"
           />
-
           <Selector
             id="autoPublishChannels"
             limit={DATABASE_LIMITS.autoPublishChannels.maxLength}
@@ -78,8 +76,8 @@ export default function Miscellaneous({ channels, database }: MiscellaneousProps
             onSelect={handleAutoPublishChannelsChange}
             type="channel"
           />
-        </div>
-      </div>
+        </Field>
+      </Fieldset>
     </>
   );
 }

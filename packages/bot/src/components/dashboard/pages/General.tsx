@@ -4,6 +4,8 @@ import { useCallback, useContext, useState } from 'react';
 import { GuildChangesContext } from '../../../contexts/GuildChangesContext';
 import type { Channel, UserGuild } from '../../../graphql/queries/UserGuild';
 import { DATABASE_DEFAULTS, DATABASE_LIMITS } from '../../../utils/constants';
+import Field from '../../Form/Field';
+import Fieldset from '../../Form/Fieldset';
 import Input from '../../Input';
 import Header from '../Header';
 import Label from '../Label';
@@ -41,11 +43,9 @@ export default function General({ channels, database }: GeneralProps) {
   return (
     <>
       <Header description="This panel controls the bot in your server." title="Settings" />
-
-      <div className="flex flex-col bg-discord-slightly-darker rounded-xl w-full px-4 py-7 gap-6">
-        <div className="flex flex-col gap-3">
+      <Fieldset>
+        <Field>
           <Label htmlFor="prefix" name="Bot Prefix" url="https://docs.pepemanager.com/config-commands/prefix" />
-
           <Input
             id="prefix"
             maxLength={DATABASE_LIMITS.prefix.maxLength}
@@ -62,15 +62,13 @@ export default function General({ channels, database }: GeneralProps) {
             placeholder="Enter the bot prefix"
             value={prefix}
           />
-        </div>
-
-        <div className="flex flex-col gap-3">
+        </Field>
+        <Field>
           <Label
             htmlFor="blacklistedChannels"
             name="Blacklisted Channels"
             url="https://docs.pepemanager.com/config-commands/config/set#command-structure"
           />
-
           <Selector
             id="blacklistedChannels"
             limit={DATABASE_LIMITS.blacklistedChannels.maxLength}
@@ -79,8 +77,8 @@ export default function General({ channels, database }: GeneralProps) {
             onSelect={handleBlacklistedChannelsChange}
             type="channel"
           />
-        </div>
-      </div>
+        </Field>
+      </Fieldset>
     </>
   );
 }
