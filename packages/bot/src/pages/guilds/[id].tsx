@@ -66,7 +66,7 @@ export default function Guild({ database, guild }: InferGetServerSidePropsType<t
   }
 
   return (
-    <div className="w-full bg-discord-dark md:pt-6">
+    <div className="w-full bg-discord-dark">
       <div className="max-w-[992px] xl:max-w-[1440px] mx-auto min-h-screen flex flex-col sm:flex-row divide-x-2 divide-gray-600">
         <Head>
           <title>{guild.name} Dashboard | Pepe Manager</title>
@@ -86,7 +86,7 @@ export default function Guild({ database, guild }: InferGetServerSidePropsType<t
           </div>
         </div>
 
-        <main className="pb-5 px-4 w-full">
+        <main className="pb-5 px-4 md:pt-6 w-full">
           <Suspense
             fallback={
               <div className="min-h-screen bg-discord-dark flex justify-center items-center">
