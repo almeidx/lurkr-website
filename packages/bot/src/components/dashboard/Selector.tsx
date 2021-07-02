@@ -99,20 +99,23 @@ export default function Selector({ id, limit, items, initialItems, onSelect, typ
 
   return (
     <div>
-      <div className="flex flex-row flex-wrap gap-1 min-h-[3rem] bg-discord-not-quite-black px-5 py-3 focus:outline-none rounded-md shadow">
+      <div className="flex flex-row flex-wrap gap-1.5 min-h-[3rem] bg-discord-not-quite-black px-5 py-3 focus:outline-none rounded-md shadow">
         {selected.map((i) => (
           <div
-            className="flex w-full-content h-6 cursor-pointer z-50 border-2 rounded-full text-sm tracking-tight"
+            className="flex w-full-content items-center h-6 cursor-pointer z-50 border rounded-full text-xs"
             key={i.id}
             id={i.id}
             onClick={handleChannelRemove}
             style={{ borderColor: 'color' in i ? resolveColour(i.color) : DEFAULT_ROLE_COLOUR }}
           >
             {type === 'role' && 'color' in i && (
-              <div className="w-3 h-3 m-1 rounded-full" style={{ backgroundColor: resolveColour(i.color) }} />
+              <div
+                className="w-3 h-3 ml-[5px] mr-[4px] rounded-full"
+                style={{ backgroundColor: resolveColour(i.color) }}
+              />
             )}
-            <div className="text-white truncate px-2" id={i.id}>
-              {type === 'channel' && '#'}
+            <div className="text-white leading-3 truncate pr-2 pb-[2px]" id={i.id}>
+              {type === 'channel' && <span className="pl-2">#</span>}
               {i.name}
             </div>
           </div>
