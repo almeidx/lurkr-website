@@ -1,5 +1,6 @@
 import type { Snowflake } from 'discord-api-types';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 import { useContext } from 'react';
 import type { IconType } from 'react-icons';
 import { BsFillShiftFill, BsPersonPlusFill } from 'react-icons/bs';
@@ -37,8 +38,12 @@ const menuItems: MenuItem[] = [
   { Icon: FaShapes, id: 'miscellaneous', name: 'Miscellaneous' },
 ];
 
+// @ts-expect-error
+export const isValidSection = (str: string): str is Section => menuItems.map((i) => i.id).includes(str);
+
 export default function Menu({ guild }: MenuProps) {
-  const { section, updateSection } = useContext(GuildChangesContext);
+  const router = useRouter();
+  const { guildId, section, updateSection } = useContext(GuildChangesContext);
 
   return (
     <aside className="w-96 min-w-[300px] px-6 hidden sm:block">
@@ -66,7 +71,10 @@ export default function Menu({ guild }: MenuProps) {
                 section === id ? 'bg-gray-500' : ''
               } flex flex-row items-center gap-2 py-2 px-4 w-full text-center duration-200 hover:bg-discord-lighter text-white focus:outline-none rounded-lg cursor-pointer`}
               key={i}
-              onClick={() => updateSection(id)}
+              onClick={() => {
+                updateSection(id);
+                void router.push(`/guilds/${guildId}?p=${id}`, `/guilds/${guildId}?p=${id}`, { shallow: true });
+              }}
             >
               <Icon className="fill-current" />
               {name}

@@ -1,11 +1,12 @@
 import type { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import Head from 'next/head';
-import { lazy, Suspense, useContext, useMemo } from 'react';
+import { useRouter } from 'next/router';
+import { lazy, Suspense, useContext, useEffect, useMemo } from 'react';
 import { BsFillShiftFill } from 'react-icons/bs';
 import { ImCog } from 'react-icons/im';
 import { RiShieldUserLine } from 'react-icons/ri';
 
-import Menu from '../../components/dashboard/Menu';
+import Menu, { isValidSection } from '../../components/dashboard/Menu';
 import Failure from '../../components/Failure';
 import Spinner from '../../components/Spinner';
 import { GuildChangesContext } from '../../contexts/GuildChangesContext';
@@ -48,14 +49,31 @@ export const getServerSideProps: GetServerSideProps<GuildProps> = async (ctx) =>
 };
 
 export default function Guild({ database, guild }: InferGetServerSidePropsType<typeof getServerSideProps>) {
+  const router = useRouter();
   const { authenticated } = useContext(UserContext);
-  const { section } = useContext(GuildChangesContext);
+  const { section, updateGuildId, updateSection } = useContext(GuildChangesContext);
 
   const sortedChannels = useMemo(
     () => [...(guild?.channels ?? [])].sort((a, b) => a.name.localeCompare(b.name)),
     [guild],
   );
   const sortedRoles = useMemo(() => [...(guild?.roles ?? [])].sort((a, b) => b.position - a.position), [guild]);
+
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const query = urlParams.get('p');
+    if (query && guild) {
+      const pageName = decodeURIComponent(query).toLowerCase();
+      if (isValidSection(pageName)) {
+        void router.push(`/guilds/${guild.id}?p=${pageName}`, `/guilds/${guild.id}?p=${pageName}`, { shallow: true });
+        updateSection(pageName);
+      } else {
+        void router.push(`/guilds/${guild.id}?p=general`, `/guilds/${guild.id}?p=general`, { shallow: true });
+        updateSection('general');
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   if (!authenticated) {
     return <Failure message="You need to sign in to view this page." />;
@@ -64,6 +82,8 @@ export default function Guild({ database, guild }: InferGetServerSidePropsType<t
   if (!guild) {
     return <Failure message="Could not find the guild you were trying to edit." />;
   }
+
+  updateGuildId(guild.id);
 
   return (
     <div className="w-full bg-discord-dark">
