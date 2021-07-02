@@ -4,7 +4,7 @@ import { AiOutlineCloseCircle, AiOutlinePlusCircle } from 'react-icons/ai';
 
 import { DEFAULT_ROLE_COLOUR } from '../../utils/constants';
 import { resolveColour } from '../../utils/utils';
-import Input from '../Input';
+import Input from './Input';
 
 interface Channel {
   id: Snowflake;

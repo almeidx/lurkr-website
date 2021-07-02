@@ -6,9 +6,9 @@ import type { Channel, DatabaseGuild } from '../../../graphql/queries/UserGuild'
 import { DATABASE_DEFAULTS, DATABASE_LIMITS } from '../../../utils/constants';
 import Field from '../../Form/Field';
 import Fieldset from '../../Form/Fieldset';
+import Label from '../../Form/Label';
+import Selector, { OnSelectFn } from '../../Form/Selector';
 import Header from '../Header';
-import Label from '../Label';
-import Selector, { OnSelectFn } from '../Selector';
 
 interface MiscellaneousProps {
   channels: Channel[];

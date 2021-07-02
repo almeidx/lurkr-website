@@ -13,11 +13,13 @@ import {
 } from '../../../graphql/queries/UserGuild';
 import { DATABASE_DEFAULTS, DATABASE_LIMITS } from '../../../utils/constants';
 import { parseMultiplier } from '../../../utils/utils';
-import Input from '../../Input';
-import BasicSelect from '../BasicSelect';
+import BasicSelect from '../../Form/BasicSelect';
+import Field from '../../Form/Field';
+import Fieldset from '../../Form/Fieldset';
+import Input from '../../Form/Input';
+import Label from '../../Form/Label';
+import Selector, { OnSelectFn } from '../../Form/Selector';
 import Header from '../Header';
-import Label from '../Label';
-import Selector, { OnSelectFn } from '../Selector';
 import XpMultiplier, {
   XpMultiplierOnDeleteFn,
   XpMultiplierOnItemChangeFn,
@@ -328,14 +330,13 @@ export default function Leveling({ channels, database, roles }: LevelingProps) {
         </div>
       </div>
 
-      <div className="flex flex-col bg-discord-slightly-darker rounded-xl w-full px-4 py-7 gap-6">
-        <div className="flex flex-col gap-3">
+      <Fieldset>
+        <Field>
           <Label
             htmlFor="xpMessage"
             name="XP Message"
             url="https://docs.pepemanager.com/guides/setting-up-server-xp-leveling#customizing-the-level-up-message"
           />
-
           <Input
             id="xpMessage"
             maxLength={DATABASE_LIMITS.xpMessage.maxLength}
@@ -351,66 +352,64 @@ export default function Leveling({ channels, database, roles }: LevelingProps) {
             placeholder="Enter the level up message"
             value={xpMessage}
           />
-        </div>
+        </Field>
 
-        <div className="flex flex-row gap-3">
-          <div className="flex flex-col gap-3">
-            <Label
-              htmlFor="xpResponseType"
-              name="XP Response Channel"
-              url="https://docs.pepemanager.com/guides/setting-up-server-xp-leveling#where-to-send-the-level-up-message"
-            />
-
-            <BasicSelect
-              initialItem={resolveXpResponseNameByType(ResponseType.SAME_CHANNEL)}
-              items={['Same Channel', 'DM', 'Custom Channel', 'None']}
-              onSelect={(i) => {
-                const type = resolveXpResponseTypeByName(i);
-                setXpResponseType(type);
-                if (type === ResponseType.DM || type === ResponseType.SAME_CHANNEL) addChange('xpResponseType', type);
-                else if (type === ResponseType.NONE) addChange('xpResponseType', null);
-              }}
-            />
+        <Field>
+          <Label
+            htmlFor="xpResponseType"
+            name="XP Response Channel"
+            url="https://docs.pepemanager.com/guides/setting-up-server-xp-leveling#where-to-send-the-level-up-message"
+          />
+          <BasicSelect
+            initialItem={resolveXpResponseNameByType(ResponseType.SAME_CHANNEL)}
+            items={['Same Channel', 'DM', 'Custom Channel', 'None']}
+            onSelect={(i) => {
+              const type = resolveXpResponseTypeByName(i);
+              setXpResponseType(type);
+              if (type === ResponseType.DM || type === ResponseType.SAME_CHANNEL) addChange('xpResponseType', type);
+              else if (type === ResponseType.NONE) addChange('xpResponseType', null);
+            }}
+          />
+          <div>
+            {xpResponseType === ResponseType.CHANNEL && (
+              <Selector
+                id="xpResposnseType"
+                initialItems={xpResponseChannel ? [xpResponseChannel] : []}
+                items={channels}
+                limit={1}
+                onSelect={(channelId, type) => {
+                  const finalChannel = type === 'add' ? channelId : null;
+                  setXpResponseChannel(finalChannel);
+                  addChange('xpResponseType', finalChannel);
+                }}
+                type="channel"
+              />
+            )}
           </div>
+        </Field>
 
-          {xpResponseType === ResponseType.CHANNEL && (
-            <Selector
-              id="xpResponseType"
-              initialItems={xpResponseChannel ? [xpResponseChannel] : []}
-              items={channels}
-              limit={1}
-              onSelect={(channelId, type) => {
-                const finalChannel = type === 'add' ? channelId : null;
-                setXpResponseChannel(finalChannel);
-                addChange('xpResponseType', finalChannel);
-              }}
-              type="channel"
-            />
-          )}
-        </div>
-
-        <div className="flex flex-col gap-3">
+        <Field>
           <Label
             htmlFor="xpRoles"
             name="XP Roles"
             url="https://docs.pepemanager.com/guides/setting-up-server-xp-leveling#adding-role-rewards"
           />
-
-          {Object.keys(xpRoles).length < 100 && (
-            <Input
-              id="newXpRole"
-              maxLength={3}
-              onChange={({ target }) =>
-                target.value ? /^\d+$/.test(target.value) && setNewXpRolesLevel(target.value) : setNewXpRolesLevel('')
-              }
-              onClear={() => setNewXpRolesLevel('')}
-              onSubmit={handleNewXpRoleCreated}
-              placeholder="Enter a level to reward roles to"
-              submitRef={newXpRoleSubmitRef}
-              value={newXpRolesLevel}
-            />
-          )}
-
+          <div>
+            {Object.keys(xpRoles).length < 100 && (
+              <Input
+                id="newXpRole"
+                maxLength={3}
+                onChange={({ target }) =>
+                  target.value ? /^\d+$/.test(target.value) && setNewXpRolesLevel(target.value) : setNewXpRolesLevel('')
+                }
+                onClear={() => setNewXpRolesLevel('')}
+                onSubmit={handleNewXpRoleCreated}
+                placeholder="Enter a level to reward roles to"
+                submitRef={newXpRoleSubmitRef}
+                value={newXpRolesLevel}
+              />
+            )}
+          </div>
           <div className="flex flex-col gap-2 divide-y-2 divide-gray-400">
             {Object.keys(xpRoles).map((level) => (
               <XpRole
@@ -423,36 +422,32 @@ export default function Leveling({ channels, database, roles }: LevelingProps) {
               />
             ))}
           </div>
-        </div>
+        </Field>
 
-        <div className="flex flex-col gap-3">
-          <div className="flex flex-row gap-x-4 items-center">
-            <Label
-              htmlFor="stackXpRoles"
-              name="Stack XP Roles"
-              url="https://docs.pepemanager.com/guides/setting-up-server-xp-leveling#toggling-role-stacking"
-            />
+        <Field direction="row">
+          <Label
+            htmlFor="stackXpRoles"
+            name="Stack XP Roles"
+            url="https://docs.pepemanager.com/guides/setting-up-server-xp-leveling#toggling-role-stacking"
+          />
+          <input
+            checked={stackXpRoles}
+            className="w-4 h-4"
+            type="checkbox"
+            id="stackXpRoles"
+            onChange={() => {
+              setStackXpRoles(!stackXpRoles);
+              addChange('stackXpRoles', !stackXpRoles);
+            }}
+          />
+        </Field>
 
-            <input
-              checked={stackXpRoles}
-              className="w-4 h-4"
-              type="checkbox"
-              id="stackXpRoles"
-              onChange={() => {
-                setStackXpRoles(!stackXpRoles);
-                addChange('stackXpRoles', !stackXpRoles);
-              }}
-            />
-          </div>
-        </div>
-
-        <div className="flex flex-col gap-3">
+        <Field>
           <Label
             htmlFor="xpChannels"
             name={`XP ${xpChannelsType === 'blacklist' ? 'Blacklisted' : 'Whitelisted'} Channels`}
             url="https://docs.pepemanager.com/guides/setting-up-server-xp-leveling#adding-allowed-channels"
           />
-
           <div className="flex flex-row justify-start">
             <button
               className="text-white w-[fit-content] bg-discord-not-quite-black px-2 py-1.5 rounded-md shadow-sm duration-150 transition-colors active:bg-discord-dark focus:outline-none"
@@ -461,7 +456,6 @@ export default function Leveling({ channels, database, roles }: LevelingProps) {
               Click to use a {xpChannelsType === 'blacklist' ? 'whitelist' : 'blacklist'} instead
             </button>
           </div>
-
           <Selector
             id="xpChannels"
             initialItems={database?.xpBlacklistedChannels ?? database?.xpWhitelistedChannels ?? []}
@@ -470,15 +464,14 @@ export default function Leveling({ channels, database, roles }: LevelingProps) {
             onSelect={handleXpChannelsChange}
             type="channel"
           />
-        </div>
+        </Field>
 
-        <div className="flex flex-col gap-3">
+        <Field>
           <Label
             htmlFor="topXpRole"
             name="Top XP Role"
             url="https://docs.pepemanager.com/guides/setting-up-server-xp-leveling#adding-the-top-xp-role"
           />
-
           <Selector
             id="topXpRole"
             initialItems={topXpRole ? [topXpRole] : []}
@@ -491,15 +484,14 @@ export default function Leveling({ channels, database, roles }: LevelingProps) {
             }}
             type="role"
           />
-        </div>
+        </Field>
 
-        <div className="flex flex-col gap-3">
+        <Field>
           <Label
             htmlFor="noXpRoles"
             name="No-XP Role"
             url="https://docs.pepemanager.com/guides/setting-up-server-xp-leveling#adding-no-xp-roles"
           />
-
           <Selector
             id="noXpRoles"
             initialItems={database?.noXpRoles ?? []}
@@ -508,15 +500,14 @@ export default function Leveling({ channels, database, roles }: LevelingProps) {
             onSelect={handleNoXpRolesChange}
             type="role"
           />
-        </div>
+        </Field>
 
-        <div className="flex flex-col gap-3">
+        <Field>
           <Label
             htmlFor="autoResetLevels"
             name="Auto Reset Levels"
             url="https://docs.pepemanager.com/guides/setting-up-server-xp-leveling#automatically-resetting-levels"
           />
-
           <BasicSelect
             initialItem={resolveAutoResetLevelsNameByType(autoResetLevels)}
             items={['None', 'Leave', 'Ban', 'Ban & Leave']}
@@ -526,52 +517,52 @@ export default function Leveling({ channels, database, roles }: LevelingProps) {
               addChange('autoResetLevels', value);
             }}
           />
-        </div>
+        </Field>
 
-        <div className="flex flex-col gap-3">
+        <Field>
           <Label
             htmlFor="xpMultipliers"
             name="XP Multipliers"
             url="https://docs.pepemanager.com/guides/setting-up-xp-multipliers"
           />
-
-          {Object.keys(xpMultipliers).length <= 20 && (
-            <>
-              <p className="text-white">Create a new multiplier</p>
-
-              <div className="flex flex-row gap-4">
-                <BasicSelect
-                  initialItem={'Channel'}
-                  items={
-                    xpMultipliers.some((m) => m.type === 'global') ? ['Channel', 'Role'] : ['Channel', 'Global', 'Role']
-                  }
-                  onSelect={(item) => setNewXpMultiplierType(item.toLowerCase() as Multiplier['type'])}
-                />
-
-                <button
-                  className="flex-shrink-0 h-12 w-12 bg-discord-not-quite-black rounded-md flex justify-center items-center text-white duration-150 transition-colors"
-                  onClick={() => {
-                    const finalMultipliers = [
-                      ...xpMultipliers,
-                      {
-                        multiplier: '1',
-                        targets: newXpMultiplierType === 'global' ? null : [],
-                        type: newXpMultiplierType,
-                      },
-                    ];
-                    setXpMultipliers(finalMultipliers);
-                    addChange(
-                      'xpMultipliers',
-                      finalMultipliers.map((m) => ({ ...m, multiplier: parseMultiplier(m.multiplier) ?? NaN })),
-                    );
-                  }}
-                >
-                  <IoMdSend className="fill-current text-3xl" />
-                </button>
-              </div>
-            </>
-          )}
-
+          <div>
+            {Object.keys(xpMultipliers).length <= 20 && (
+              <>
+                <p className="text-white">Create a new multiplier</p>
+                <div className="flex flex-row gap-4">
+                  <BasicSelect
+                    initialItem={'Channel'}
+                    items={
+                      xpMultipliers.some((m) => m.type === 'global')
+                        ? ['Channel', 'Role']
+                        : ['Channel', 'Global', 'Role']
+                    }
+                    onSelect={(item) => setNewXpMultiplierType(item.toLowerCase() as Multiplier['type'])}
+                  />
+                  <button
+                    className="flex-shrink-0 h-12 w-12 bg-discord-not-quite-black rounded-md flex justify-center items-center text-white duration-150 transition-colors"
+                    onClick={() => {
+                      const finalMultipliers = [
+                        ...xpMultipliers,
+                        {
+                          multiplier: '1',
+                          targets: newXpMultiplierType === 'global' ? null : [],
+                          type: newXpMultiplierType,
+                        },
+                      ];
+                      setXpMultipliers(finalMultipliers);
+                      addChange(
+                        'xpMultipliers',
+                        finalMultipliers.map((m) => ({ ...m, multiplier: parseMultiplier(m.multiplier) ?? NaN })),
+                      );
+                    }}
+                  >
+                    <IoMdSend className="fill-current text-3xl" />
+                  </button>
+                </div>
+              </>
+            )}
+          </div>
           <div className="flex flex-col gap-2 divide-y-2 divide-gray-400">
             {xpMultipliers.map(({ multiplier, targets, type }, i) => (
               <XpMultiplier
@@ -588,15 +579,14 @@ export default function Leveling({ channels, database, roles }: LevelingProps) {
               />
             ))}
           </div>
-        </div>
+        </Field>
 
-        <div className="flex flex-col gap-3">
+        <Field>
           <Label
             htmlFor="prioritiseMultiplierRoleHierarchy"
             name="XP Multiplier Priority"
             url="https://docs.pepemanager.com/guides/setting-up-xp-multipliers"
           />
-
           <BasicSelect
             closeOnSelect
             initialItem={prioritiseMultiplierRoleHierarchy ? 'Role Hierarchy' : 'Multiplier Value'}
@@ -607,8 +597,8 @@ export default function Leveling({ channels, database, roles }: LevelingProps) {
               addChange('prioritiseMultiplierRoleHierarchy', value);
             }}
           />
-        </div>
-      </div>
+        </Field>
+      </Fieldset>
     </>
   );
 }

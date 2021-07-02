@@ -5,9 +5,9 @@ import type { Channel, DatabaseGuild } from '../../../graphql/queries/UserGuild'
 import { DATABASE_DEFAULTS } from '../../../utils/constants';
 import Field from '../../Form/Field';
 import Fieldset from '../../Form/Fieldset';
+import Label from '../../Form/Label';
+import Selector from '../../Form/Selector';
 import Header from '../Header';
-import Label from '../Label';
-import Selector from '../Selector';
 
 interface EmojiListProps {
   channels: Channel[];

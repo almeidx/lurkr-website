@@ -6,10 +6,10 @@ import type { DatabaseGuild, Role } from '../../../graphql/queries/UserGuild';
 import { DATABASE_DEFAULTS, DATABASE_LIMITS } from '../../../utils/constants';
 import Field from '../../Form/Field';
 import Fieldset from '../../Form/Fieldset';
-import Input from '../../Input';
+import Input from '../../Form/Input';
+import Label from '../../Form/Label';
+import Selector, { OnSelectFn } from '../../Form/Selector';
 import Header from '../Header';
-import Label from '../Label';
-import Selector, { OnSelectFn } from '../Selector';
 
 interface MentionCooldownProps {
   database: DatabaseGuild | null;
