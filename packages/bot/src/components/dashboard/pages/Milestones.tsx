@@ -1,6 +1,7 @@
 import type { Snowflake } from 'discord-api-types';
-import { useCallback, useState } from 'react';
+import { useCallback, useContext, useState } from 'react';
 
+import { GuildChangesContext } from '../../../contexts/GuildChangesContext';
 import type { Channel, DatabaseGuild, Role } from '../../../graphql/queries/UserGuild';
 import { DATABASE_DEFAULTS, DATABASE_LIMITS } from '../../../utils/constants';
 import Input from '../../Input';
@@ -26,11 +27,14 @@ export default function Milestones({ channels, database, roles }: MilestonesProp
     database?.milestonesMessage ?? DATABASE_DEFAULTS.milestonesMessage,
   );
   const [milestoneRoles, setMilestoneRoles] = useState<Snowflake[]>(database?.milestonesRoles ?? []);
+  const { addChange } = useContext(GuildChangesContext);
 
   const handleMilestoneRolesChange: OnSelectFn = useCallback(
     (roleId, type) => {
       if (type === 'add') {
-        return setMilestoneRoles([...milestoneRoles, roleId]);
+        const finalRoles = [...milestoneRoles, roleId];
+        setMilestoneRoles(finalRoles);
+        return addChange('milestonesRoles', finalRoles);
       }
 
       const clone = [...milestoneRoles];
@@ -38,9 +42,10 @@ export default function Milestones({ channels, database, roles }: MilestonesProp
       if (channelIndex < 0) return;
 
       clone.splice(channelIndex, 1);
-      return setMilestoneRoles(clone);
+      setMilestoneRoles(clone);
+      addChange('milestonesRoles', clone);
     },
-    [milestoneRoles],
+    [addChange, milestoneRoles],
   );
 
   return (
@@ -59,7 +64,10 @@ export default function Milestones({ channels, database, roles }: MilestonesProp
               className="w-4 h-4"
               type="checkbox"
               id="milestones"
-              onChange={() => setStoreMilestones(!storeMilestones)}
+              onChange={() => {
+                setStoreMilestones(!storeMilestones);
+                addChange('storeMilestones', !storeMilestones);
+              }}
             />
           </div>
         </div>
@@ -78,7 +86,11 @@ export default function Milestones({ channels, database, roles }: MilestonesProp
             initialItems={milestonesChannel ? [milestonesChannel] : []}
             items={channels}
             limit={1}
-            onSelect={(channelId, type) => setMilestonesChannel(type === 'add' ? channelId : null)}
+            onSelect={(channelId, type) => {
+              const finalChannel = type === 'add' ? channelId : null;
+              setMilestonesChannel(finalChannel);
+              addChange('milestonesChannel', finalChannel);
+            }}
             type="channel"
           />
         </div>
@@ -93,12 +105,18 @@ export default function Milestones({ channels, database, roles }: MilestonesProp
           <Input
             id="milestonesInterval"
             maxLength={6}
-            onChange={(e) =>
-              e.target.value
-                ? /^\d+$/.test(e.target.value) && setMilestonesInterval(e.target.value)
-                : setMilestonesInterval('')
-            }
-            onClear={() => setMilestonesInterval('')}
+            onChange={({ target }) => {
+              if (target.value && /^\d+$/.test(target.value)) {
+                setMilestonesInterval(target.value);
+                return addChange('milestonesInterval', parseInt(target.value, 10));
+              }
+              setMilestonesInterval('');
+              addChange('milestonesInterval', 0);
+            }}
+            onClear={() => {
+              setMilestonesInterval('');
+              addChange('milestonesInterval', 0);
+            }}
             placeholder="Enter the milestones interval"
             value={milestonesInterval.toString()}
           />
@@ -114,8 +132,15 @@ export default function Milestones({ channels, database, roles }: MilestonesProp
           <Input
             id="milestonesMessage"
             maxLength={DATABASE_LIMITS.milestonesMessage.maxLength}
-            onChange={(e) => setMilestoneMessage(e.target.value)}
-            onClear={() => setMilestoneMessage('')}
+            onChange={({ target }) => {
+              if (target.value.length > DATABASE_LIMITS.milestonesMessage.maxLength) return;
+              setMilestoneMessage(target.value);
+              addChange('milestonesMessage', target.value);
+            }}
+            onClear={() => {
+              setMilestoneMessage('');
+              addChange('milestonesMessage', '');
+            }}
             placeholder="Enter the milestone message"
             value={milestoneMessage}
           />

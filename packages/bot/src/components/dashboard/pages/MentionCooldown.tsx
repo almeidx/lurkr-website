@@ -1,6 +1,7 @@
 import type { Snowflake } from 'discord-api-types';
-import { useCallback, useState } from 'react';
+import { useCallback, useContext, useState } from 'react';
 
+import { GuildChangesContext } from '../../../contexts/GuildChangesContext';
 import type { DatabaseGuild, Role } from '../../../graphql/queries/UserGuild';
 import { DATABASE_DEFAULTS, DATABASE_LIMITS } from '../../../utils/constants';
 import Input from '../../Input';
@@ -18,11 +19,14 @@ export default function MentionCooldown({ database, roles }: MentionCooldownProp
     (database?.mentionCooldown ?? DATABASE_DEFAULTS.mentionCooldown).toString(),
   );
   const [mentionCooldownRoles, setMentionCooldownRoles] = useState<Snowflake[]>(database?.mentionCooldownRoles ?? []);
+  const { addChange } = useContext(GuildChangesContext);
 
   const handleMentionCooldownRolesChange: OnSelectFn = useCallback(
     (roleId, type) => {
       if (type === 'add') {
-        return setMentionCooldownRoles([...mentionCooldownRoles, roleId]);
+        const finalRoles = [...mentionCooldownRoles, roleId];
+        setMentionCooldownRoles(finalRoles);
+        return addChange('mentionCooldownRoles', finalRoles);
       }
 
       const clone = [...mentionCooldownRoles];
@@ -30,9 +34,10 @@ export default function MentionCooldown({ database, roles }: MentionCooldownProp
       if (roleIndex < 0) return;
 
       clone.splice(roleIndex, 1);
-      return setMentionCooldownRoles(clone);
+      setMentionCooldownRoles(clone);
+      addChange('mentionCooldownRoles', clone);
     },
-    [mentionCooldownRoles],
+    [addChange, mentionCooldownRoles],
   );
 
   return (
@@ -49,8 +54,14 @@ export default function MentionCooldown({ database, roles }: MentionCooldownProp
           <Input
             id="mentionCooldown"
             maxLength={5}
-            onChange={({ target }) => setMentionCooldown(target.value)}
-            onClear={() => setMentionCooldown('')}
+            onChange={({ target }) => {
+              setMentionCooldown(target.value);
+              addChange('mentionCooldown', parseFloat(target.value));
+            }}
+            onClear={() => {
+              setMentionCooldown('');
+              addChange('mentionCooldown', 0);
+            }}
             placeholder="Enter the role mention cooldown"
             value={mentionCooldown}
           />

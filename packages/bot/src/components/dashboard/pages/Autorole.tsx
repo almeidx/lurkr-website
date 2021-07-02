@@ -1,7 +1,8 @@
 import ms from '@almeidx/ms';
 import type { Snowflake } from 'discord-api-types';
-import { useCallback, useState } from 'react';
+import { useCallback, useContext, useState } from 'react';
 
+import { GuildChangesContext } from '../../../contexts/GuildChangesContext';
 import type { Role, UserGuild } from '../../../graphql/queries/UserGuild';
 import { DATABASE_LIMITS } from '../../../utils/constants';
 import Input from '../../Input';
@@ -17,21 +18,25 @@ interface AutoroleProps {
 export default function Autorole({ database, roles }: AutoroleProps) {
   const [autoRoles, setAutoRoles] = useState<Snowflake[]>(database?.autoRole ?? []);
   const [autoRoleTimeout, setAutoRoleTimeout] = useState(ms(database?.autoRoleTimeout ?? 0));
+  const { addChange } = useContext(GuildChangesContext);
 
   const handleAutorolesChange: OnSelectFn = useCallback(
-    (channelId, type) => {
+    (roleId, type) => {
       if (type === 'add') {
-        return setAutoRoles([...autoRoles, channelId]);
+        const finalRoles = [...autoRoles, roleId];
+        setAutoRoles(finalRoles);
+        return addChange('autoRole', finalRoles);
       }
 
       const clone = [...autoRoles];
-      const roleIndex = clone.findIndex((i) => channelId === i);
+      const roleIndex = clone.findIndex((i) => roleId === i);
       if (roleIndex < 0) return;
 
       clone.splice(roleIndex, 1);
-      return setAutoRoles(clone);
+      setAutoRoles(clone);
+      addChange('autoRole', clone);
     },
-    [autoRoles],
+    [addChange, autoRoles],
   );
 
   return (
@@ -69,8 +74,14 @@ export default function Autorole({ database, roles }: AutoroleProps) {
           <Input
             id="autoRoleTimeout"
             maxLength={32}
-            onChange={(e) => setAutoRoleTimeout(e.target.value)}
-            onClear={() => setAutoRoleTimeout('')}
+            onChange={({ target }) => {
+              setAutoRoleTimeout(target.value);
+              addChange('autoRoleTimeout', parseFloat(target.value));
+            }}
+            onClear={() => {
+              setAutoRoleTimeout('');
+              addChange('autoRoleTimeout', 0);
+            }}
             placeholder="Enter the autorole timeout"
             value={autoRoleTimeout.toString()}
           />

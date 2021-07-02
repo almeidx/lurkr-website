@@ -1,6 +1,7 @@
 import type { Snowflake } from 'discord-api-types';
-import { useCallback, useState } from 'react';
+import { useCallback, useContext, useState } from 'react';
 
+import { GuildChangesContext } from '../../../contexts/GuildChangesContext';
 import type { Channel, UserGuild } from '../../../graphql/queries/UserGuild';
 import { DATABASE_DEFAULTS, DATABASE_LIMITS } from '../../../utils/constants';
 import Input from '../../Input';
@@ -16,11 +17,14 @@ interface GeneralProps {
 export default function General({ channels, database }: GeneralProps) {
   const [prefix, setPrefix] = useState(database?.prefix ?? DATABASE_DEFAULTS.prefix);
   const [blacklistedChannels, setBlacklistedChannels] = useState<Snowflake[]>(database?.blacklistedChannels ?? []);
+  const { addChange } = useContext(GuildChangesContext);
 
   const handleBlacklistedChannelsChange: OnSelectFn = useCallback(
     (channelId, type) => {
       if (type === 'add') {
-        return setBlacklistedChannels([...blacklistedChannels, channelId]);
+        const finalChannels = [...blacklistedChannels, channelId];
+        setBlacklistedChannels(finalChannels);
+        return addChange('blacklistedChannels', finalChannels);
       }
 
       const clone = [...blacklistedChannels];
@@ -28,9 +32,10 @@ export default function General({ channels, database }: GeneralProps) {
       if (channelIndex < 0) return;
 
       clone.splice(channelIndex, 1);
-      return setBlacklistedChannels(clone);
+      setBlacklistedChannels(clone);
+      addChange('blacklistedChannels', clone);
     },
-    [blacklistedChannels],
+    [addChange, blacklistedChannels],
   );
 
   return (
@@ -44,10 +49,16 @@ export default function General({ channels, database }: GeneralProps) {
           <Input
             id="prefix"
             maxLength={DATABASE_LIMITS.prefix.maxLength}
-            onChange={({ target }) =>
-              target.value.length <= DATABASE_LIMITS.prefix.maxLength && setPrefix(target.value)
-            }
-            onClear={() => setPrefix('')}
+            onChange={({ target }) => {
+              if (target.value.length <= DATABASE_LIMITS.prefix.maxLength) {
+                setPrefix(target.value);
+                addChange('prefix', target.value);
+              }
+            }}
+            onClear={() => {
+              setPrefix('');
+              addChange('prefix', '');
+            }}
             placeholder="Enter the bot prefix"
             value={prefix}
           />

@@ -1,6 +1,6 @@
-import type { Snowflake } from 'discord-api-types';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 
+import { GuildChangesContext } from '../../../contexts/GuildChangesContext';
 import type { Channel, DatabaseGuild } from '../../../graphql/queries/UserGuild';
 import { DATABASE_DEFAULTS } from '../../../utils/constants';
 import Header from '../Header';
@@ -14,7 +14,7 @@ interface EmojiListProps {
 
 export default function EmojiList({ channels, database }: EmojiListProps) {
   const [emojiList, setEmojiList] = useState<boolean>(database?.emojiList ?? DATABASE_DEFAULTS.emojiList);
-  const [, setEmojiListChannel] = useState<Snowflake | null>(database?.emojiListChannel ?? null);
+  const { addChange } = useContext(GuildChangesContext);
 
   return (
     <>
@@ -32,7 +32,10 @@ export default function EmojiList({ channels, database }: EmojiListProps) {
               className="w-4 h-4"
               type="checkbox"
               id="emojiList"
-              onChange={() => setEmojiList(!emojiList)}
+              onChange={() => {
+                setEmojiList(!emojiList);
+                addChange('emojiList', !emojiList);
+              }}
             />
           </div>
         </div>
@@ -51,7 +54,10 @@ export default function EmojiList({ channels, database }: EmojiListProps) {
             limit={1}
             initialItems={database?.emojiListChannel ? [database.emojiListChannel] : []}
             items={channels}
-            onSelect={(channelId, type) => setEmojiListChannel(type === 'add' ? channelId : null)}
+            onSelect={(channelId, type) => {
+              const resolvedChannel = type === 'add' ? channelId : null;
+              addChange('emojiListChannel', resolvedChannel);
+            }}
             type="channel"
           />
         </div>

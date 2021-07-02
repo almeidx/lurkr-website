@@ -1,6 +1,7 @@
 import type { Snowflake } from 'discord-api-types';
-import { useCallback, useState } from 'react';
+import { useCallback, useContext, useState } from 'react';
 
+import { GuildChangesContext } from '../../../contexts/GuildChangesContext';
 import type { Channel, DatabaseGuild } from '../../../graphql/queries/UserGuild';
 import { DATABASE_DEFAULTS, DATABASE_LIMITS } from '../../../utils/constants';
 import Header from '../Header';
@@ -15,11 +16,14 @@ interface MiscellaneousProps {
 export default function Miscellaneous({ channels, database }: MiscellaneousProps) {
   const [storeCounts, setStoreCounts] = useState(database?.storeCounts ?? DATABASE_DEFAULTS.storeCounts);
   const [autoPublishChannels, setAutoPublishChannels] = useState<Snowflake[]>(database?.autoPublishChannels ?? []);
+  const { addChange } = useContext(GuildChangesContext);
 
   const handleAutoPublishChannelsChange: OnSelectFn = useCallback(
     (channelId, type) => {
       if (type === 'add') {
-        return setAutoPublishChannels([...autoPublishChannels, channelId]);
+        const finalChannels = [...autoPublishChannels, channelId];
+        setAutoPublishChannels(finalChannels);
+        return addChange('autoPublishChannels', finalChannels);
       }
 
       const clone = [...autoPublishChannels];
@@ -27,9 +31,10 @@ export default function Miscellaneous({ channels, database }: MiscellaneousProps
       if (channelIndex < 0) return;
 
       clone.splice(channelIndex, 1);
-      return setAutoPublishChannels(clone);
+      setAutoPublishChannels(clone);
+      addChange('autoPublishChannels', clone);
     },
-    [autoPublishChannels],
+    [addChange, autoPublishChannels],
   );
 
   return (
@@ -50,7 +55,10 @@ export default function Miscellaneous({ channels, database }: MiscellaneousProps
               className="w-4 h-4"
               type="checkbox"
               id="storeCounts"
-              onChange={() => setStoreCounts(!storeCounts)}
+              onChange={() => {
+                setStoreCounts(!storeCounts);
+                addChange('storeCounts', !storeCounts);
+              }}
             />
           </div>
         </div>
