@@ -42,4 +42,4 @@ export const resolveColour = (colour: number) => (colour ? `#${colour.toString(1
  * @param decimals The amount of decimal places to keep.
  */
 export const formatNumberToNDecimalPlaces = (n: number, decimals = 2): string =>
-  parseFloat((n / 60_000).toFixed(decimals)).toString();
+  parseFloat(n.toFixed(decimals)).toString();
