@@ -39,3 +39,11 @@ export const parseMultiplier = (phrase: string): number | null => {
  * @param colour The colour number
  */
 export const resolveColour = (colour: number) => (colour ? `#${colour.toString(16)}` : DEFAULT_ROLE_COLOUR);
+
+/**
+ * Formats a float number and doesn't keep .00 on round numbers.
+ * @param n The float number to round.
+ * @param decimals The amount of decimal places to keep.
+ */
+export const formatNumberToNDecimalPlaces = (n: number, decimals = 2): string =>
+  parseFloat((n / 60_000).toFixed(decimals)).toString();

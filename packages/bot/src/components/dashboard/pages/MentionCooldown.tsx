@@ -4,6 +4,7 @@ import { useCallback, useContext, useState } from 'react';
 import { GuildChangesContext } from '../../../contexts/GuildChangesContext';
 import type { DatabaseGuild, Role } from '../../../graphql/queries/UserGuild';
 import { DATABASE_DEFAULTS, DATABASE_LIMITS } from '../../../utils/constants';
+import { formatNumberToNDecimalPlaces } from '../../../utils/utils';
 import Field from '../../Form/Field';
 import Fieldset from '../../Form/Fieldset';
 import Input from '../../Form/Input';
@@ -18,7 +19,7 @@ interface MentionCooldownProps {
 
 export default function MentionCooldown({ database, roles }: MentionCooldownProps) {
   const [mentionCooldown, setMentionCooldown] = useState<string>(
-    (database?.mentionCooldown ?? DATABASE_DEFAULTS.mentionCooldown).toString(),
+    formatNumberToNDecimalPlaces((database?.mentionCooldown ?? DATABASE_DEFAULTS.mentionCooldown) / 60_000),
   );
   const [mentionCooldownRoles, setMentionCooldownRoles] = useState<Snowflake[]>(database?.mentionCooldownRoles ?? []);
   const { addChange } = useContext(GuildChangesContext);
