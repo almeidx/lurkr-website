@@ -1,8 +1,8 @@
 import type { Snowflake } from 'discord-api-types';
 import { useCallback, useContext, useState } from 'react';
 
-import { GuildChangesContext } from '../../../contexts/GuildChangesContext';
-import type { Channel, DatabaseGuild, Role } from '../../../graphql/queries/UserGuild';
+import { GuildContext } from '../../../contexts/GuildContext';
+import type { Channel, DatabaseGuild, Role } from '../../../graphql/queries/DashboardGuild';
 import { DATABASE_DEFAULTS, DATABASE_LIMITS } from '../../../utils/constants';
 import Field from '../../Form/Field';
 import Fieldset from '../../Form/Fieldset';
@@ -29,7 +29,7 @@ export default function Milestones({ channels, database, roles }: MilestonesProp
     database?.milestonesMessage ?? DATABASE_DEFAULTS.milestonesMessage,
   );
   const [milestoneRoles, setMilestoneRoles] = useState<Snowflake[]>(database?.milestonesRoles ?? []);
-  const { addChange } = useContext(GuildChangesContext);
+  const { addChange } = useContext(GuildContext);
 
   const handleMilestoneRolesChange: OnSelectFn = useCallback(
     (roleId, type) => {

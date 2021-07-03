@@ -11,8 +11,12 @@ export interface UserGuilds {
   getUserGuilds: Guild[] | null;
 }
 
+export interface UserGuildsVariables {
+  withPermissions?: boolean;
+}
+
 export default gql`
-  query getUserGuilds($withPermissions: Boolean = true) {
+  query getUserGuilds($withPermissions: Boolean!) {
     getUserGuilds(withPermissions: $withPermissions) {
       icon
       id

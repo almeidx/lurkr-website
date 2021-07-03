@@ -1,8 +1,8 @@
 import type { Snowflake } from 'discord-api-types';
 import { useCallback, useContext, useState } from 'react';
 
-import { GuildChangesContext } from '../../../contexts/GuildChangesContext';
-import type { Role, UserGuild } from '../../../graphql/queries/UserGuild';
+import { GuildContext } from '../../../contexts/GuildContext';
+import type { DatabaseGuild, Role } from '../../../graphql/queries/DashboardGuild';
 import { DATABASE_LIMITS } from '../../../utils/constants';
 import { formatNumberToNDecimalPlaces } from '../../../utils/utils';
 import Field from '../../Form/Field';
@@ -13,7 +13,7 @@ import Selector, { OnSelectFn } from '../../Form/Selector';
 import Header from '../Header';
 
 interface AutoroleProps {
-  database: UserGuild['getDatabaseGuild'];
+  database: DatabaseGuild | null;
   roles: Role[];
 }
 
@@ -22,7 +22,7 @@ export default function Autorole({ database, roles }: AutoroleProps) {
   const [autoRoleTimeout, setAutoRoleTimeout] = useState(
     formatNumberToNDecimalPlaces((database?.autoRoleTimeout ?? 0) / 60_000),
   );
-  const { addChange } = useContext(GuildChangesContext);
+  const { addChange } = useContext(GuildContext);
 
   const handleAutorolesChange: OnSelectFn = useCallback(
     (roleId, type) => {

@@ -80,7 +80,7 @@ export default function Selector({ id, limit, items, initialItems, onSelect, typ
   useEffect(() => {
     const resolvedItems = initialItems
       .map((i) => resolveItem(items.find((it) => it.id === i) ?? null, type))
-      .filter((i) => !!i.name) as Items;
+      .filter((i): i is Channel | Role => !!i.name);
 
     setSelected(resolvedItems);
     // eslint-disable-next-line react-hooks/exhaustive-deps

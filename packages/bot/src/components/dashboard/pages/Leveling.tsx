@@ -2,15 +2,8 @@ import type { Snowflake } from 'discord-api-types';
 import { useCallback, useContext, useRef, useState } from 'react';
 import { IoMdSend } from 'react-icons/io';
 
-import { GuildChangesContext } from '../../../contexts/GuildChangesContext';
-import {
-  AutoResetLevels,
-  Channel,
-  DatabaseGuild,
-  Multiplier,
-  Role,
-  UserGuild,
-} from '../../../graphql/queries/UserGuild';
+import { GuildContext } from '../../../contexts/GuildContext';
+import { AutoResetLevels, Channel, DatabaseGuild, Multiplier, Role } from '../../../graphql/queries/DashboardGuild';
 import { DATABASE_DEFAULTS, DATABASE_LIMITS } from '../../../utils/constants';
 import { parseMultiplier } from '../../../utils/utils';
 import BasicSelect from '../../Form/BasicSelect';
@@ -29,7 +22,7 @@ import XpRole, { XpRoleOnChangeFn, XpRoleOnClearFn } from '../XpRole';
 
 interface LevelingProps {
   channels: Channel[];
-  database: UserGuild['getDatabaseGuild'];
+  database: DatabaseGuild | null;
   roles: Role[];
 }
 
@@ -123,7 +116,7 @@ export default function Leveling({ channels, database, roles }: LevelingProps) {
   const [prioritiseMultiplierRoleHierarchy, setPrioritiseMultiplierRoleHierarchy] = useState(
     database?.prioritiseMultiplierRoleHierarchy ?? DATABASE_DEFAULTS.prioritiseMultiplierRoleHierarchy,
   );
-  const { addChange } = useContext(GuildChangesContext);
+  const { addChange } = useContext(GuildContext);
 
   const handleNewXpRoleCreated: () => unknown = useCallback(() => {
     const clone: Record<string, Snowflake[]> = JSON.parse(JSON.stringify(xpRoles));

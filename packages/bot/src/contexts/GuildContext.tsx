@@ -1,7 +1,7 @@
 import type { Snowflake } from 'discord-api-types';
 import { createContext, ReactNode, useCallback, useState } from 'react';
 
-import type { DatabaseGuild } from '../graphql/queries/UserGuild';
+import type { DatabaseGuild } from '../graphql/queries/DashboardGuild';
 
 export type Section =
   | 'general'
@@ -12,21 +12,22 @@ export type Section =
   | 'mentionCooldown'
   | 'miscellaneous';
 
-interface GuildChangesContextData {
+interface GuildContextData {
+  addChange: <T extends keyof DatabaseGuild>(key: T, value: DatabaseGuild[T]) => unknown;
+  changes: Partial<DatabaseGuild>;
   guildId: Snowflake | null;
   section: Section;
-  addChange: <T extends keyof DatabaseGuild>(key: T, value: DatabaseGuild[T]) => void;
-  updateGuildId: (id: Snowflake) => void;
-  updateSection: (newSection: Section) => void;
+  updateGuildId: (id: Snowflake) => unknown;
+  updateSection: (newSection: Section) => unknown;
 }
 
-interface GuildChangesContextProps {
+interface GuildContextProps {
   children: ReactNode;
 }
 
-export const GuildChangesContext = createContext({} as GuildChangesContextData);
+export const GuildContext = createContext({} as GuildContextData);
 
-export default function GuildChangeProvider({ children }: GuildChangesContextProps) {
+export default function GuildContextProvider({ children }: GuildContextProps) {
   const [guildId, setGuildId] = useState<Snowflake | null>(null);
   const [section, setSection] = useState<Section>('general');
   const [changes, setChanges] = useState<Partial<DatabaseGuild>>({});
@@ -41,10 +42,17 @@ export default function GuildChangeProvider({ children }: GuildChangesContextPro
   );
 
   return (
-    <GuildChangesContext.Provider
-      value={{ addChange, guildId, section, updateGuildId: setGuildId, updateSection: setSection }}
+    <GuildContext.Provider
+      value={{
+        addChange,
+        changes,
+        guildId,
+        section,
+        updateGuildId: setGuildId,
+        updateSection: setSection,
+      }}
     >
       {children}
-    </GuildChangesContext.Provider>
+    </GuildContext.Provider>
   );
 }

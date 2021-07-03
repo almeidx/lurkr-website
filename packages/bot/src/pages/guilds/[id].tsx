@@ -9,10 +9,10 @@ import { RiShieldUserLine } from 'react-icons/ri';
 import Menu, { isValidSection } from '../../components/dashboard/Menu';
 import Failure from '../../components/Failure';
 import Spinner from '../../components/Spinner';
-import { GuildChangesContext } from '../../contexts/GuildChangesContext';
+import { GuildContext } from '../../contexts/GuildContext';
 import { UserContext } from '../../contexts/UserContext';
 import { initializeApollo } from '../../graphql/client';
-import USER_GUILD, { UserGuild } from '../../graphql/queries/UserGuild';
+import DASHBOARD_GUILD, { DashboardGuild, DashboardGuildVariables } from '../../graphql/queries/DashboardGuild';
 import { isValidSnowflake } from '../../utils/utils';
 
 const General = lazy(() => import('../../components/dashboard/pages/General'));
@@ -24,8 +24,8 @@ const MentionCooldown = lazy(() => import('../../components/dashboard/pages/Ment
 const Miscellaneous = lazy(() => import('../../components/dashboard/pages/Miscellaneous'));
 
 interface GuildProps {
-  database: UserGuild['getDatabaseGuild'];
-  guild: UserGuild['getDiscordGuild'];
+  database: DashboardGuild['getDatabaseGuild'];
+  guild: DashboardGuild['getDiscordGuild'];
 }
 
 export const getServerSideProps: GetServerSideProps<GuildProps> = async (ctx) => {
@@ -35,9 +35,9 @@ export const getServerSideProps: GetServerSideProps<GuildProps> = async (ctx) =>
 
   const apolloClient = initializeApollo(null, ctx.req.headers);
 
-  const { data } = await apolloClient.query<UserGuild>({
-    query: USER_GUILD,
-    variables: { id: ctx.params.id, includeChannels: true, withPermissions: true },
+  const { data } = await apolloClient.query<DashboardGuild, DashboardGuildVariables>({
+    query: DASHBOARD_GUILD,
+    variables: { id: ctx.params.id, includeChannels: true },
   });
 
   return {
@@ -51,7 +51,7 @@ export const getServerSideProps: GetServerSideProps<GuildProps> = async (ctx) =>
 export default function Guild({ database, guild }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const router = useRouter();
   const { authenticated } = useContext(UserContext);
-  const { section, updateGuildId, updateSection } = useContext(GuildChangesContext);
+  const { section, updateGuildId, updateSection } = useContext(GuildContext);
 
   const sortedChannels = useMemo(
     () => [...(guild?.channels ?? [])].sort((a, b) => a.name.localeCompare(b.name)),
@@ -75,6 +75,10 @@ export default function Guild({ database, guild }: InferGetServerSidePropsType<t
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  useEffect(() => {
+    if (guild) updateGuildId(guild.id);
+  }, [updateGuildId, guild]);
+
   if (!authenticated) {
     return <Failure message="You need to sign in to view this page." />;
   }
@@ -82,8 +86,6 @@ export default function Guild({ database, guild }: InferGetServerSidePropsType<t
   if (!guild) {
     return <Failure message="Could not find the guild you were trying to edit." />;
   }
-
-  updateGuildId(guild.id);
 
   return (
     <div className="w-full bg-discord-dark">

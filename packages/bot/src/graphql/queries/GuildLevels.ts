@@ -36,6 +36,11 @@ export interface GuildLevels {
   getDiscordGuild: Guild | null;
 }
 
+export interface GuildLevelsVariables {
+  id: Snowflake;
+  requireAuth?: boolean;
+}
+
 export default gql`
   query getGuildLevelsInfo($id: String!, $requireAuth: Boolean = true) {
     getGuildLevels(id: $id, requireAuth: $requireAuth) {

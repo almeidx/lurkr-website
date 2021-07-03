@@ -15,6 +15,7 @@ module.exports = {
         'discord-slightly-darker': '#1B1E21',
         'discord-not-quite-black': '#2f3136',
         'discord-lighter': '#40444b',
+        'discord-green': '#3ea25e',
       },
       textColor: {
         'discord-red': '#ED4245',

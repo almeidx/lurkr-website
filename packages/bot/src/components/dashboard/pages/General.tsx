@@ -1,8 +1,8 @@
 import type { Snowflake } from 'discord-api-types';
 import { useCallback, useContext, useState } from 'react';
 
-import { GuildChangesContext } from '../../../contexts/GuildChangesContext';
-import type { Channel, UserGuild } from '../../../graphql/queries/UserGuild';
+import { GuildContext } from '../../../contexts/GuildContext';
+import type { Channel, DatabaseGuild } from '../../../graphql/queries/DashboardGuild';
 import { DATABASE_DEFAULTS, DATABASE_LIMITS } from '../../../utils/constants';
 import Field from '../../Form/Field';
 import Fieldset from '../../Form/Fieldset';
@@ -13,13 +13,13 @@ import Header from '../Header';
 
 interface GeneralProps {
   channels: Channel[];
-  database: UserGuild['getDatabaseGuild'];
+  database: DatabaseGuild | null;
 }
 
 export default function General({ channels, database }: GeneralProps) {
   const [prefix, setPrefix] = useState(database?.prefix ?? DATABASE_DEFAULTS.prefix);
   const [blacklistedChannels, setBlacklistedChannels] = useState<Snowflake[]>(database?.blacklistedChannels ?? []);
-  const { addChange } = useContext(GuildChangesContext);
+  const { addChange } = useContext(GuildContext);
 
   const handleBlacklistedChannelsChange: OnSelectFn = useCallback(
     (channelId, type) => {

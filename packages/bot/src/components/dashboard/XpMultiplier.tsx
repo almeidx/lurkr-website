@@ -2,7 +2,7 @@ import type { Snowflake } from 'discord-api-types';
 import { useState } from 'react';
 import { MdClear } from 'react-icons/md';
 
-import type { Channel, Multiplier, Role } from '../../graphql/queries/UserGuild';
+import type { Channel, Multiplier, Role } from '../../graphql/queries/DashboardGuild';
 import Input from '../Form/Input';
 import Selector from '../Form/Selector';
 
@@ -39,7 +39,7 @@ export default function XpMultiplier({
     <div className="flex flex-row justify-between gap-3 relative w-full">
       <div className="flex flex-row gap-x-6">
         <Input
-          id={`multiplier-${index}`}
+          id={`multiplier-${index}-input`}
           maxLength={5}
           onChange={({ target }) => {
             onMultiplierChange(target.value, index);
@@ -53,13 +53,13 @@ export default function XpMultiplier({
           value={multiplierValue}
         />
 
-        <label className="text-white flex items-center" htmlFor={`multiplier-${index}`}>
+        <label className="text-white flex items-center" htmlFor={`multiplier-${index}-selector`}>
           {type[0].toUpperCase() + type.slice(1)}
         </label>
 
         {type !== 'global' && (
           <Selector
-            id={`multiplier-${index}`}
+            id={`multiplier-${index}-selector`}
             limit={50}
             initialItems={targets!}
             items={type === 'channel' ? channels : roles}

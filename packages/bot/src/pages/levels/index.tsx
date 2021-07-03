@@ -7,7 +7,7 @@ import { useEffect, useRef, useState } from 'react';
 
 import Input from '../../components/Form/Input';
 import { initializeApollo } from '../../graphql/client';
-import USER_GUILDS, { UserGuilds } from '../../graphql/queries/UserGuilds';
+import USER_GUILDS, { UserGuilds, UserGuildsVariables } from '../../graphql/queries/UserGuilds';
 import { guildIconCdn } from '../../utils/cdn';
 import { FALLBACK_AVATAR_PATH } from '../../utils/constants';
 import { isValidSnowflake } from '../../utils/utils';
@@ -17,7 +17,7 @@ export const getServerSideProps: GetServerSideProps<{ guilds: UserGuilds['getUse
 
   const apolloClient = initializeApollo(null, ctx.req.headers);
 
-  const { data } = await apolloClient.query<UserGuilds>({
+  const { data } = await apolloClient.query<UserGuilds, UserGuildsVariables>({
     query: USER_GUILDS,
     variables: { withPermissions: false },
   });

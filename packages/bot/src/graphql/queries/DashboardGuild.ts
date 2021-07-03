@@ -64,9 +64,14 @@ export interface DatabaseGuild {
   xpWhitelistedChannels: Snowflake[] | null;
 }
 
-export interface UserGuild {
+export interface DashboardGuild {
   getDiscordGuild: Guild | null;
   getDatabaseGuild: DatabaseGuild | null;
+}
+
+export interface DashboardGuildVariables {
+  id: Snowflake;
+  includeChannels?: boolean;
 }
 
 export default gql`

@@ -8,7 +8,7 @@ import Role from '../../components/leaderboard/Role';
 import User from '../../components/leaderboard/User';
 import Spinner from '../../components/Spinner';
 import { initializeApollo } from '../../graphql/client';
-import GUILD_LEVELS, { GuildLevels, Levels } from '../../graphql/queries/GuildLevels';
+import GUILD_LEVELS, { GuildLevels, GuildLevelsVariables, Levels } from '../../graphql/queries/GuildLevels';
 import { guildIconCdn } from '../../utils/cdn';
 import { FALLBACK_AVATAR_PATH } from '../../utils/constants';
 import { isValidSnowflake } from '../../utils/utils';
@@ -24,7 +24,7 @@ export const getStaticProps: GetStaticProps<LeaderboardProps> = async (ctx) => {
 
   const apolloClient = initializeApollo(null);
 
-  const { data } = await apolloClient.query<GuildLevels>({
+  const { data } = await apolloClient.query<GuildLevels, GuildLevelsVariables>({
     query: GUILD_LEVELS,
     variables: { id: ctx.params.id, requireAuth: false },
   });

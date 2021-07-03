@@ -1,7 +1,7 @@
 import { useContext, useState } from 'react';
 
-import { GuildChangesContext } from '../../../contexts/GuildChangesContext';
-import type { Channel, DatabaseGuild } from '../../../graphql/queries/UserGuild';
+import { GuildContext } from '../../../contexts/GuildContext';
+import type { Channel, DatabaseGuild } from '../../../graphql/queries/DashboardGuild';
 import { DATABASE_DEFAULTS } from '../../../utils/constants';
 import Field from '../../Form/Field';
 import Fieldset from '../../Form/Fieldset';
@@ -16,7 +16,7 @@ interface EmojiListProps {
 
 export default function EmojiList({ channels, database }: EmojiListProps) {
   const [emojiList, setEmojiList] = useState<boolean>(database?.emojiList ?? DATABASE_DEFAULTS.emojiList);
-  const { addChange } = useContext(GuildChangesContext);
+  const { addChange } = useContext(GuildContext);
 
   return (
     <>

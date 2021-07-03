@@ -2,7 +2,7 @@ import type { Snowflake } from 'discord-api-types';
 import { useCallback, useState } from 'react';
 import { MdClear } from 'react-icons/md';
 
-import type { Role } from '../../graphql/queries/UserGuild';
+import type { Role } from '../../graphql/queries/DashboardGuild';
 import Selector from '../Form/Selector';
 
 export type XpRoleOnClearFn = (level: number) => unknown;

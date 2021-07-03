@@ -7,7 +7,7 @@ import Head from 'next/head';
 
 import Footer from '../components/Footer';
 import Navbar from '../components/Navbar';
-import GuildChangesProvider from '../contexts/GuildChangesContext';
+import GuildChangesProvider from '../contexts/GuildContext';
 import UserProvider from '../contexts/UserContext';
 import { useApollo } from '../graphql/client';
 

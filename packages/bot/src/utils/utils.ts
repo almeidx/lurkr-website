@@ -20,10 +20,6 @@ export const isValidSnowflake = (str: string): str is Snowflake => {
  */
 export const roundNumberToNDecimalPlaces = (n: number, decimals = 2): number => parseFloat(n.toFixed(decimals));
 
-/**
- * Parses a multiplier phrase.
- * @param phrase The phrase to parse.
- */
 export const parseMultiplier = (phrase: string): number | null => {
   const numberCandidate = phrase.replace(/x/gi, '');
   if (!numberCandidate) return null;

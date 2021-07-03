@@ -1,8 +1,8 @@
 import type { Snowflake } from 'discord-api-types';
 import { useCallback, useContext, useState } from 'react';
 
-import { GuildChangesContext } from '../../../contexts/GuildChangesContext';
-import type { Channel, DatabaseGuild } from '../../../graphql/queries/UserGuild';
+import { GuildContext } from '../../../contexts/GuildContext';
+import type { Channel, DatabaseGuild } from '../../../graphql/queries/DashboardGuild';
 import { DATABASE_DEFAULTS, DATABASE_LIMITS } from '../../../utils/constants';
 import Field from '../../Form/Field';
 import Fieldset from '../../Form/Fieldset';
@@ -18,7 +18,7 @@ interface MiscellaneousProps {
 export default function Miscellaneous({ channels, database }: MiscellaneousProps) {
   const [storeCounts, setStoreCounts] = useState(database?.storeCounts ?? DATABASE_DEFAULTS.storeCounts);
   const [autoPublishChannels, setAutoPublishChannels] = useState<Snowflake[]>(database?.autoPublishChannels ?? []);
-  const { addChange } = useContext(GuildChangesContext);
+  const { addChange } = useContext(GuildContext);
 
   const handleAutoPublishChannelsChange: OnSelectFn = useCallback(
     (channelId, type) => {
