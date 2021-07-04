@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
 
-import Input from '../../components/Form/Input';
+import Input from '../../components/form/Input';
 import { initializeApollo } from '../../graphql/client';
 import USER_GUILDS, { UserGuilds, UserGuildsVariables } from '../../graphql/queries/UserGuilds';
 import { guildIconCdn } from '../../utils/cdn';

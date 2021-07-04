@@ -3,7 +3,7 @@ import { useCallback, useState } from 'react';
 import { MdClear } from 'react-icons/md';
 
 import type { Role } from '../../graphql/queries/DashboardGuild';
-import Selector from '../Form/Selector';
+import Selector from '../form/Selector';
 
 export type XpRoleOnClearFn = (level: number) => unknown;
 export type XpRoleOnChangeFn = (roleId: Snowflake, level: number, type: 'add' | 'remove') => unknown;

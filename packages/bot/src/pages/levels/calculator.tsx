@@ -3,7 +3,7 @@ import Head from 'next/head';
 import { useCallback, useMemo, useState } from 'react';
 import { RiErrorWarningFill } from 'react-icons/ri';
 
-import Input from '../../components/Form/Input';
+import Input from '../../components/form/Input';
 import Tooltip from '../../components/Tooltip';
 import { XP } from '../../utils/constants';
 import { parseMultiplier } from '../../utils/utils';

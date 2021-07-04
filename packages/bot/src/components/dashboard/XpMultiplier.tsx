@@ -3,8 +3,8 @@ import { useState } from 'react';
 import { MdClear } from 'react-icons/md';
 
 import type { Channel, Multiplier, Role } from '../../graphql/queries/DashboardGuild';
-import Input from '../Form/Input';
-import Selector from '../Form/Selector';
+import Input from '../form/Input';
+import Selector from '../form/Selector';
 
 export type XpMultiplierOnDeleteFn = (index: number) => unknown;
 export type XpMultiplierOnItemChangeFn = (itemId: Snowflake, index: number, type: 'add' | 'remove') => unknown;

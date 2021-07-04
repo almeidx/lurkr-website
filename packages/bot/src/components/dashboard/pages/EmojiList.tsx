@@ -3,10 +3,10 @@ import { useContext, useState } from 'react';
 import { GuildContext } from '../../../contexts/GuildContext';
 import type { Channel, DatabaseGuild } from '../../../graphql/queries/DashboardGuild';
 import { DATABASE_DEFAULTS } from '../../../utils/constants';
-import Field from '../../Form/Field';
-import Fieldset from '../../Form/Fieldset';
-import Label from '../../Form/Label';
-import Selector from '../../Form/Selector';
+import Field from '../../form/Field';
+import Fieldset from '../../form/Fieldset';
+import Label from '../../form/Label';
+import Selector from '../../form/Selector';
 import Header from '../Header';
 
 interface EmojiListProps {

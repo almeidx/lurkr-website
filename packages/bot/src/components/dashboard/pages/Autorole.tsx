@@ -5,11 +5,11 @@ import { GuildContext } from '../../../contexts/GuildContext';
 import type { DatabaseGuild, Role } from '../../../graphql/queries/DashboardGuild';
 import { DATABASE_LIMITS } from '../../../utils/constants';
 import { formatNumberToNDecimalPlaces } from '../../../utils/utils';
-import Field from '../../Form/Field';
-import Fieldset from '../../Form/Fieldset';
-import Input from '../../Form/Input';
-import Label from '../../Form/Label';
-import Selector, { OnSelectFn } from '../../Form/Selector';
+import Field from '../../form/Field';
+import Fieldset from '../../form/Fieldset';
+import Input from '../../form/Input';
+import Label from '../../form/Label';
+import Selector, { OnSelectFn } from '../../form/Selector';
 import Header from '../Header';
 
 interface AutoroleProps {

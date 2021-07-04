@@ -6,12 +6,12 @@ import { GuildContext } from '../../../contexts/GuildContext';
 import { AutoResetLevels, Channel, DatabaseGuild, Multiplier, Role } from '../../../graphql/queries/DashboardGuild';
 import { DATABASE_DEFAULTS, DATABASE_LIMITS } from '../../../utils/constants';
 import { parseMultiplier } from '../../../utils/utils';
-import BasicSelect from '../../Form/BasicSelect';
-import Field from '../../Form/Field';
-import Fieldset from '../../Form/Fieldset';
-import Input from '../../Form/Input';
-import Label from '../../Form/Label';
-import Selector, { OnSelectFn } from '../../Form/Selector';
+import BasicSelect from '../../form/BasicSelect';
+import Field from '../../form/Field';
+import Fieldset from '../../form/Fieldset';
+import Input from '../../form/Input';
+import Label from '../../form/Label';
+import Selector, { OnSelectFn } from '../../form/Selector';
 import Header from '../Header';
 import XpMultiplier, {
   XpMultiplierOnDeleteFn,
