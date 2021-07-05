@@ -3,7 +3,7 @@ import { useCallback, useContext, useState } from 'react';
 
 import { GuildContext } from '../../../contexts/GuildContext';
 import type { DatabaseGuild, Role } from '../../../graphql/queries/DashboardGuild';
-import { DATABASE_DEFAULTS, DATABASE_LIMITS } from '../../../utils/constants';
+import { DATABASE_LIMITS } from '../../../utils/constants';
 import { formatNumberToNDecimalPlaces } from '../../../utils/utils';
 import Field from '../../form/Field';
 import Fieldset from '../../form/Fieldset';
@@ -13,15 +13,15 @@ import Selector, { OnSelectFn } from '../../form/Selector';
 import Header from '../Header';
 
 interface MentionCooldownProps {
-  database: DatabaseGuild | null;
+  database: DatabaseGuild;
   roles: Role[];
 }
 
 export default function MentionCooldown({ database, roles }: MentionCooldownProps) {
   const [mentionCooldown, setMentionCooldown] = useState<string>(
-    formatNumberToNDecimalPlaces((database?.mentionCooldown ?? DATABASE_DEFAULTS.mentionCooldown) / 60_000),
+    formatNumberToNDecimalPlaces(database.mentionCooldown / 60_000),
   );
-  const [mentionCooldownRoles, setMentionCooldownRoles] = useState<Snowflake[]>(database?.mentionCooldownRoles ?? []);
+  const [mentionCooldownRoles, setMentionCooldownRoles] = useState<Snowflake[]>(database.mentionCooldownRoles ?? []);
   const { addChange } = useContext(GuildContext);
 
   const handleMentionCooldownRolesChange: OnSelectFn = useCallback(
@@ -73,7 +73,7 @@ export default function MentionCooldown({ database, roles }: MentionCooldownProp
           <Selector
             id="mentionCooldownRoles"
             limit={DATABASE_LIMITS.mentionCooldownRoles.maxLength}
-            initialItems={database?.mentionCooldownRoles ?? []}
+            initialItems={database.mentionCooldownRoles ?? []}
             items={roles}
             onSelect={handleMentionCooldownRolesChange}
             type="role"

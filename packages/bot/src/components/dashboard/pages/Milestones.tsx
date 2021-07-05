@@ -13,22 +13,18 @@ import Header from '../Header';
 
 interface MilestonesProps {
   channels: Channel[];
-  database: DatabaseGuild | null;
+  database: DatabaseGuild;
   roles: Role[];
 }
 
 export default function Milestones({ channels, database, roles }: MilestonesProps) {
-  const [storeMilestones, setStoreMilestones] = useState<boolean>(
-    database?.storeMilestones ?? DATABASE_DEFAULTS.storeMilestones,
-  );
-  const [milestonesChannel, setMilestonesChannel] = useState<Snowflake | null>(database?.milestonesChannel ?? null);
-  const [milestonesInterval, setMilestonesInterval] = useState<string>(
-    database?.milestonesInterval.toString() ?? DATABASE_DEFAULTS.milestonesInterval.toString(),
-  );
+  const [storeMilestones, setStoreMilestones] = useState<boolean>(database.storeMilestones);
+  const [milestonesChannel, setMilestonesChannel] = useState<Snowflake | null>(database.milestonesChannel ?? null);
+  const [milestonesInterval, setMilestonesInterval] = useState<string>(database.milestonesInterval.toString());
   const [milestoneMessage, setMilestoneMessage] = useState<string>(
-    database?.milestonesMessage ?? DATABASE_DEFAULTS.milestonesMessage,
+    database.milestonesMessage ?? DATABASE_DEFAULTS.milestonesMessage,
   );
-  const [milestoneRoles, setMilestoneRoles] = useState<Snowflake[]>(database?.milestonesRoles ?? []);
+  const [milestoneRoles, setMilestoneRoles] = useState<Snowflake[]>(database.milestonesRoles ?? []);
   const { addChange } = useContext(GuildContext);
 
   const handleMilestoneRolesChange: OnSelectFn = useCallback(
@@ -153,7 +149,7 @@ export default function Milestones({ channels, database, roles }: MilestonesProp
           />
           <Selector
             id="milestoneRoles"
-            initialItems={database?.milestonesRoles ?? []}
+            initialItems={database.milestonesRoles ?? []}
             items={roles}
             limit={DATABASE_LIMITS.milestonesRoles.maxLength}
             onSelect={handleMilestoneRolesChange}

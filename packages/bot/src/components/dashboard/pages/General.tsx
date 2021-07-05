@@ -3,7 +3,7 @@ import { useCallback, useContext, useState } from 'react';
 
 import { GuildContext } from '../../../contexts/GuildContext';
 import type { Channel, DatabaseGuild } from '../../../graphql/queries/DashboardGuild';
-import { DATABASE_DEFAULTS, DATABASE_LIMITS } from '../../../utils/constants';
+import { DATABASE_LIMITS } from '../../../utils/constants';
 import Field from '../../form/Field';
 import Fieldset from '../../form/Fieldset';
 import Input from '../../form/Input';
@@ -13,12 +13,12 @@ import Header from '../Header';
 
 interface GeneralProps {
   channels: Channel[];
-  database: DatabaseGuild | null;
+  database: DatabaseGuild;
 }
 
 export default function General({ channels, database }: GeneralProps) {
-  const [prefix, setPrefix] = useState(database?.prefix ?? DATABASE_DEFAULTS.prefix);
-  const [blacklistedChannels, setBlacklistedChannels] = useState<Snowflake[]>(database?.blacklistedChannels ?? []);
+  const [prefix, setPrefix] = useState(database.prefix);
+  const [blacklistedChannels, setBlacklistedChannels] = useState<Snowflake[]>(database.blacklistedChannels ?? []);
   const { addChange } = useContext(GuildContext);
 
   const handleBlacklistedChannelsChange: OnSelectFn = useCallback(
@@ -72,7 +72,7 @@ export default function General({ channels, database }: GeneralProps) {
           <Selector
             id="blacklistedChannels"
             limit={DATABASE_LIMITS.blacklistedChannels.maxLength}
-            initialItems={database?.blacklistedChannels ?? []}
+            initialItems={database.blacklistedChannels ?? []}
             items={channels}
             onSelect={handleBlacklistedChannelsChange}
             type="channel"

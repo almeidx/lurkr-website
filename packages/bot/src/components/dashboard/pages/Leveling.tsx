@@ -4,7 +4,7 @@ import { IoMdSend } from 'react-icons/io';
 
 import { GuildContext } from '../../../contexts/GuildContext';
 import { AutoResetLevels, Channel, DatabaseGuild, Multiplier, Role } from '../../../graphql/queries/DashboardGuild';
-import { DATABASE_DEFAULTS, DATABASE_LIMITS } from '../../../utils/constants';
+import { DATABASE_LIMITS } from '../../../utils/constants';
 import { parseMultiplier } from '../../../utils/utils';
 import BasicSelect from '../../form/BasicSelect';
 import Field from '../../form/Field';
@@ -22,7 +22,7 @@ import XpRole, { XpRoleOnChangeFn, XpRoleOnClearFn } from '../XpRole';
 
 interface LevelingProps {
   channels: Channel[];
-  database: DatabaseGuild | null;
+  database: DatabaseGuild;
   roles: Role[];
 }
 
@@ -69,17 +69,15 @@ const resolveAutoResetLevelsTypeByName = (name: string) =>
     ? AutoResetLevels.LEAVE
     : AutoResetLevels.NONE;
 
-const resolveInitialXpResponseType = (database: DatabaseGuild | null) =>
-  database
-    ? database.xpResponseType
-      ? /^\d+$/.test(database.xpResponseType)
-        ? ResponseType.CHANNEL
-        : database.xpResponseType
-      : ResponseType.NONE
-    : DATABASE_DEFAULTS.xpResponseType;
+const resolveInitialXpResponseType = (database: DatabaseGuild) =>
+  database.xpResponseType
+    ? /^\d+$/.test(database.xpResponseType)
+      ? ResponseType.CHANNEL
+      : database.xpResponseType
+    : ResponseType.NONE;
 
-const resolveInitialXpResponseChannel = (database: DatabaseGuild | null) =>
-  database?.xpResponseType
+const resolveInitialXpResponseChannel = (database: DatabaseGuild) =>
+  database.xpResponseType
     ? /^\d+$/.test(database.xpResponseType)
       ? (database.xpResponseType as Snowflake)
       : null
@@ -88,33 +86,31 @@ const resolveInitialXpResponseChannel = (database: DatabaseGuild | null) =>
 let timeout: NodeJS.Timeout;
 
 export default function Leveling({ channels, database, roles }: LevelingProps) {
-  const [levels, setLevels] = useState<boolean>(database?.levels ?? DATABASE_DEFAULTS.levels);
-  const [xpMessage, setXpMessage] = useState(database?.xpMessage ?? DATABASE_DEFAULTS.xpMessage);
+  const [levels, setLevels] = useState<boolean>(database.levels);
+  const [xpMessage, setXpMessage] = useState(database.xpMessage);
   const [xpResponseType, setXpResponseType] = useState<string>(resolveInitialXpResponseType(database));
   const [newXpRolesLevel, setNewXpRolesLevel] = useState<string>('');
-  const [xpRoles, setXpRoles] = useState<Record<string, Snowflake[]>>(database?.xpRoles ?? {});
+  const [xpRoles, setXpRoles] = useState<Record<string, Snowflake[]>>(database.xpRoles);
   const newXpRoleSubmitRef = useRef<HTMLButtonElement>(null);
   const [xpResponseChannel, setXpResponseChannel] = useState<Snowflake | null>(
     resolveInitialXpResponseChannel(database),
   );
-  const [stackXpRoles, setStackXpRoles] = useState<boolean>(database?.stackXpRoles ?? DATABASE_DEFAULTS.stackXpRoles);
+  const [stackXpRoles, setStackXpRoles] = useState<boolean>(database.stackXpRoles);
   const [xpChannels, setXpChannels] = useState<Snowflake[]>(
-    database?.xpWhitelistedChannels ?? database?.xpBlacklistedChannels ?? [],
+    database.xpWhitelistedChannels ?? database.xpBlacklistedChannels ?? [],
   );
   const [xpChannelsType, setXpChannelsType] = useState<'whitelist' | 'blacklist'>(
-    database?.xpBlacklistedChannels ? 'blacklist' : 'whitelist',
+    database.xpBlacklistedChannels ? 'blacklist' : 'whitelist',
   );
-  const [topXpRole, setTopXpRole] = useState<Snowflake | null>(database?.topXpRole ?? null);
-  const [noXpRoles, setNoXpRoles] = useState<Snowflake[]>(database?.noXpRoles ?? []);
-  const [autoResetLevels, setAutoResetLevels] = useState<AutoResetLevels>(
-    database ? database.autoResetLevels : DATABASE_DEFAULTS.autoResetLevels,
-  );
+  const [topXpRole, setTopXpRole] = useState<Snowflake | null>(database.topXpRole ?? null);
+  const [noXpRoles, setNoXpRoles] = useState<Snowflake[]>(database.noXpRoles ?? []);
+  const [autoResetLevels, setAutoResetLevels] = useState<AutoResetLevels>(database.autoResetLevels);
   const [xpMultipliers, setXpMultipliers] = useState<(Omit<Multiplier, 'multiplier'> & { multiplier: string })[]>(
-    database?.xpMultipliers.map((m) => ({ ...m, multiplier: m.multiplier.toString() })) ?? [],
+    database.xpMultipliers.map((m) => ({ ...m, multiplier: m.multiplier.toString() })),
   );
   const [newXpMultiplierType, setNewXpMultiplierType] = useState<Multiplier['type']>('channel');
   const [prioritiseMultiplierRoleHierarchy, setPrioritiseMultiplierRoleHierarchy] = useState(
-    database?.prioritiseMultiplierRoleHierarchy ?? DATABASE_DEFAULTS.prioritiseMultiplierRoleHierarchy,
+    database.prioritiseMultiplierRoleHierarchy,
   );
   const { addChange } = useContext(GuildContext);
 
@@ -451,7 +447,7 @@ export default function Leveling({ channels, database, roles }: LevelingProps) {
           </div>
           <Selector
             id="xpChannels"
-            initialItems={database?.xpBlacklistedChannels ?? database?.xpWhitelistedChannels ?? []}
+            initialItems={database.xpBlacklistedChannels ?? database.xpWhitelistedChannels ?? []}
             items={channels}
             limit={DATABASE_LIMITS.xpChannels.maxLength}
             onSelect={handleXpChannelsChange}
@@ -487,7 +483,7 @@ export default function Leveling({ channels, database, roles }: LevelingProps) {
           />
           <Selector
             id="noXpRoles"
-            initialItems={database?.noXpRoles ?? []}
+            initialItems={database.noXpRoles ?? []}
             items={roles}
             limit={DATABASE_LIMITS.noXpRoles.maxLength}
             onSelect={handleNoXpRolesChange}

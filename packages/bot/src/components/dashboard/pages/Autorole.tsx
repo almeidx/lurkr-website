@@ -13,14 +13,14 @@ import Selector, { OnSelectFn } from '../../form/Selector';
 import Header from '../Header';
 
 interface AutoroleProps {
-  database: DatabaseGuild | null;
+  database: DatabaseGuild;
   roles: Role[];
 }
 
 export default function Autorole({ database, roles }: AutoroleProps) {
-  const [autoRoles, setAutoRoles] = useState<Snowflake[]>(database?.autoRole ?? []);
+  const [autoRoles, setAutoRoles] = useState<Snowflake[]>(database.autoRole ?? []);
   const [autoRoleTimeout, setAutoRoleTimeout] = useState(
-    formatNumberToNDecimalPlaces((database?.autoRoleTimeout ?? 0) / 60_000),
+    formatNumberToNDecimalPlaces(database.autoRoleTimeout / 60_000),
   );
   const { addChange } = useContext(GuildContext);
 
@@ -60,7 +60,7 @@ export default function Autorole({ database, roles }: AutoroleProps) {
           <Selector
             id="autoRole"
             limit={DATABASE_LIMITS.autoRole.maxLength}
-            initialItems={database?.autoRole ?? []}
+            initialItems={database.autoRole ?? []}
             items={roles}
             onSelect={handleAutorolesChange}
             type="role"

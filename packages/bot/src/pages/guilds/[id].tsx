@@ -87,6 +87,10 @@ export default function Guild({ database, guild }: InferGetServerSidePropsType<t
     return <Failure message="Could not find the guild you were trying to edit." />;
   }
 
+  if (!database) {
+    return <Failure message="Found the guild you were trying to edit, but couldn't find the database document." />;
+  }
+
   return (
     <div className="w-full bg-discord-dark">
       <div className="max-w-[992px] xl:max-w-[1440px] mx-auto min-h-screen flex flex-col sm:flex-row divide-x-2 divide-gray-600">

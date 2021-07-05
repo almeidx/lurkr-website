@@ -2,7 +2,6 @@ import { useContext, useState } from 'react';
 
 import { GuildContext } from '../../../contexts/GuildContext';
 import type { Channel, DatabaseGuild } from '../../../graphql/queries/DashboardGuild';
-import { DATABASE_DEFAULTS } from '../../../utils/constants';
 import Field from '../../form/Field';
 import Fieldset from '../../form/Fieldset';
 import Label from '../../form/Label';
@@ -11,11 +10,11 @@ import Header from '../Header';
 
 interface EmojiListProps {
   channels: Channel[];
-  database: DatabaseGuild | null;
+  database: DatabaseGuild;
 }
 
 export default function EmojiList({ channels, database }: EmojiListProps) {
-  const [emojiList, setEmojiList] = useState<boolean>(database?.emojiList ?? DATABASE_DEFAULTS.emojiList);
+  const [emojiList, setEmojiList] = useState<boolean>(database.emojiList);
   const { addChange } = useContext(GuildContext);
 
   return (
@@ -53,7 +52,7 @@ export default function EmojiList({ channels, database }: EmojiListProps) {
           <Selector
             id="emojiListChannel"
             limit={1}
-            initialItems={database?.emojiListChannel ? [database.emojiListChannel] : []}
+            initialItems={database.emojiListChannel ? [database.emojiListChannel] : []}
             items={channels}
             onSelect={(channelId, type) => {
               const resolvedChannel = type === 'add' ? channelId : null;

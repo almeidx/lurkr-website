@@ -3,7 +3,7 @@ import { useCallback, useContext, useState } from 'react';
 
 import { GuildContext } from '../../../contexts/GuildContext';
 import type { Channel, DatabaseGuild } from '../../../graphql/queries/DashboardGuild';
-import { DATABASE_DEFAULTS, DATABASE_LIMITS } from '../../../utils/constants';
+import { DATABASE_LIMITS } from '../../../utils/constants';
 import Field from '../../form/Field';
 import Fieldset from '../../form/Fieldset';
 import Label from '../../form/Label';
@@ -12,12 +12,12 @@ import Header from '../Header';
 
 interface MiscellaneousProps {
   channels: Channel[];
-  database: DatabaseGuild | null;
+  database: DatabaseGuild;
 }
 
 export default function Miscellaneous({ channels, database }: MiscellaneousProps) {
-  const [storeCounts, setStoreCounts] = useState(database?.storeCounts ?? DATABASE_DEFAULTS.storeCounts);
-  const [autoPublishChannels, setAutoPublishChannels] = useState<Snowflake[]>(database?.autoPublishChannels ?? []);
+  const [storeCounts, setStoreCounts] = useState(database.storeCounts);
+  const [autoPublishChannels, setAutoPublishChannels] = useState<Snowflake[]>(database.autoPublishChannels ?? []);
   const { addChange } = useContext(GuildContext);
 
   const handleAutoPublishChannelsChange: OnSelectFn = useCallback(
@@ -71,7 +71,7 @@ export default function Miscellaneous({ channels, database }: MiscellaneousProps
           <Selector
             id="autoPublishChannels"
             limit={DATABASE_LIMITS.autoPublishChannels.maxLength}
-            initialItems={database?.autoPublishChannels ?? []}
+            initialItems={database.autoPublishChannels ?? []}
             items={channels}
             onSelect={handleAutoPublishChannelsChange}
             type="channel"
