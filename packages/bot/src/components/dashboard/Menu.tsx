@@ -2,7 +2,7 @@ import { useMutation } from '@apollo/client';
 import type { Snowflake } from 'discord-api-types';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { MouseEventHandler, RefObject, useCallback, useContext, useRef, useState } from 'react';
+import { MouseEventHandler, useCallback, useContext, useRef, useState } from 'react';
 import type { IconType } from 'react-icons';
 import { BsFillShiftFill, BsPersonPlusFill } from 'react-icons/bs';
 import { FaShapes } from 'react-icons/fa';
@@ -48,29 +48,11 @@ export const isValidSection = (str: string): str is Section => menuItems.map((i)
 
 const saveButtonDefaultColour = '#3ea25e';
 
-let timeout: NodeJS.Timeout;
-
-const updateButtonTextTemporarily = (
-  text: string,
-  colour: string,
-  buttonRef: RefObject<HTMLButtonElement>,
-  setText: (str: string) => unknown,
-): void => {
-  if (buttonRef.current) buttonRef.current.style.background = colour;
-  setText(text);
-
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-  if (timeout) clearTimeout(timeout);
-
-  timeout = setTimeout(() => {
-    setText('Save');
-    if (buttonRef.current) buttonRef.current.style.background = saveButtonDefaultColour;
-  }, 3_000);
-};
+let timeout: NodeJS.Timeout | void;
 
 export default function Menu({ guild }: MenuProps) {
   const router = useRouter();
-  const { changes, guildId, section, updateSection } = useContext(GuildContext);
+  const { changes, clearChanges, guildId, section, updateSection } = useContext(GuildContext);
   const saveButtonRef = useRef<HTMLButtonElement>(null);
   const [updateDatabase] = useMutation<UpdateDatabaseGuild, UpdateDatabaseGuildVariables>(updateDatabaseGuild, {});
   const [saveButtonText, setSaveButtonText] = useState('Save');
@@ -87,18 +69,30 @@ export default function Menu({ guild }: MenuProps) {
     const clone = JSON.parse(JSON.stringify(changes));
     if (!Object.keys(clone).length || !guildId) return;
 
+    let hasFailed = false;
+
     try {
       await updateDatabase({ variables: { data: clone, id: guildId } });
-      updateButtonTextTemporarily('Saved!', saveButtonDefaultColour, saveButtonRef, (str: string) =>
-        setSaveButtonText(str),
-      );
     } catch (error) {
-      console.log(error);
-      updateButtonTextTemporarily('Failed to save', '#ed4245', saveButtonRef, (str: string) => setSaveButtonText(str));
+      console.error(error);
+      hasFailed = true;
     } finally {
-      isSaving.current = false;
+      if (saveButtonRef.current) {
+        saveButtonRef.current.style.background = hasFailed ? '#ed4245' : saveButtonDefaultColour;
+      }
+
+      setSaveButtonText(hasFailed ? 'Failed to save' : 'Saved!');
+      if (!hasFailed) clearChanges();
+
+      if (timeout) clearTimeout(timeout);
+
+      timeout = setTimeout(() => {
+        setSaveButtonText('Save');
+        if (saveButtonRef.current && hasFailed) saveButtonRef.current.style.background = saveButtonDefaultColour;
+        isSaving.current = false;
+      }, 3_000);
     }
-  }, [changes, guildId, updateDatabase, saveButtonRef]);
+  }, [changes, clearChanges, guildId, updateDatabase, saveButtonRef]);
 
   return (
     <aside className="w-96 min-w-[300px] px-6 hidden sm:block">
@@ -122,14 +116,14 @@ export default function Menu({ guild }: MenuProps) {
         <section className="flex flex-col gap-y-3 pl-12">
           <button
             className={`flex flex-row items-center gap-2 py-2 px-4 w-full text-center duration-200 transition-colors bg-[${saveButtonDefaultColour}] hover:bg-[#25c959] text-white focus:outline-none  rounded-lg cursor-pointer`}
+            disabled={!Object.keys(changes).length || isSaving.current}
             onClick={handleSaveButtonClick}
             ref={saveButtonRef}
             style={{
-              backgroundColor: Object.keys(changes).length ? saveButtonDefaultColour : '#40444b',
-              cursor: Object.keys(changes).length ? 'pointer' : 'not-allowed',
-              opacity: Object.keys(changes).length ? '1' : '0.3',
+              backgroundColor: Object.keys(changes).length || !isSaving.current ? saveButtonDefaultColour : '#40444b',
+              cursor: Object.keys(changes).length || !isSaving.current ? 'pointer' : 'not-allowed',
+              opacity: Object.keys(changes).length || !isSaving.current ? '1' : '0.3',
             }}
-            disabled={!Object.keys(changes).length}
           >
             <RiSave3Fill className="fill-current" />
             {saveButtonText}

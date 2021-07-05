@@ -13,12 +13,13 @@ export type Section =
   | 'miscellaneous';
 
 interface GuildContextData {
-  addChange: <T extends keyof DatabaseGuild>(key: T, value: DatabaseGuild[T]) => unknown;
+  addChange: <T extends keyof DatabaseGuild>(key: T, value: DatabaseGuild[T]) => void;
   changes: Partial<DatabaseGuild>;
+  clearChanges: () => void;
   guildId: Snowflake | null;
   section: Section;
-  updateGuildId: (id: Snowflake) => unknown;
-  updateSection: (newSection: Section) => unknown;
+  updateGuildId: (id: Snowflake) => void;
+  updateSection: (newSection: Section) => void;
 }
 
 interface GuildContextProps {
@@ -41,11 +42,14 @@ export default function GuildContextProvider({ children }: GuildContextProps) {
     [changes],
   );
 
+  const clearChanges = useCallback(() => setChanges({}), []);
+
   return (
     <GuildContext.Provider
       value={{
         addChange,
         changes,
+        clearChanges,
         guildId,
         section,
         updateGuildId: setGuildId,
