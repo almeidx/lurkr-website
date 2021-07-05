@@ -36,7 +36,7 @@ export default function XpMultiplier({
   const [multiplierValue, setMultiplierValue] = useState<string>(multiplier.toString());
 
   return (
-    <div className="flex flex-row justify-between gap-3 relative w-full">
+    <div className="flex flex-row justify-between gap-3 relative w-full pt-4 pb-2 first-of-type:pt-0 last-of-type:pb-0">
       <div className="flex flex-row gap-x-6">
         <Input
           id={`multiplier-${index}-input`}
@@ -53,19 +53,21 @@ export default function XpMultiplier({
           value={multiplierValue}
         />
 
-        <label className="text-white flex items-center" htmlFor={`multiplier-${index}-selector`}>
+        <label className="text-white flex items-center min-w-[4rem]" htmlFor={`multiplier-${index}-selector`}>
           {type[0].toUpperCase() + type.slice(1)}
         </label>
 
         {type !== 'global' && (
-          <Selector
-            id={`multiplier-${index}-selector`}
-            limit={50}
-            initialItems={targets!}
-            items={type === 'channel' ? channels : roles}
-            onSelect={(itemId, type) => onItemChange(itemId, index, type)}
-            type={type}
-          />
+          <div className="min-w-[15rem]">
+            <Selector
+              id={`multiplier-${index}-selector`}
+              limit={50}
+              initialItems={targets!}
+              items={type === 'channel' ? channels : roles}
+              onSelect={(itemId, type) => onItemChange(itemId, index, type)}
+              type={type}
+            />
+          </div>
         )}
       </div>
 

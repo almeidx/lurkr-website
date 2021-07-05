@@ -120,9 +120,9 @@ export default function Menu({ guild }: MenuProps) {
             onClick={handleSaveButtonClick}
             ref={saveButtonRef}
             style={{
-              backgroundColor: Object.keys(changes).length || !isSaving.current ? saveButtonDefaultColour : '#40444b',
-              cursor: Object.keys(changes).length || !isSaving.current ? 'pointer' : 'not-allowed',
-              opacity: Object.keys(changes).length || !isSaving.current ? '1' : '0.3',
+              backgroundColor: Object.keys(changes).length || isSaving.current ? saveButtonDefaultColour : '#40444b',
+              cursor: Object.keys(changes).length || isSaving.current ? 'pointer' : 'not-allowed',
+              opacity: Object.keys(changes).length || isSaving.current ? '1' : '0.3',
             }}
           >
             <RiSave3Fill className="fill-current" />

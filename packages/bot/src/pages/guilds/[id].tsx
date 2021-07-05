@@ -51,7 +51,7 @@ export const getServerSideProps: GetServerSideProps<GuildProps> = async (ctx) =>
 export default function Guild({ database, guild }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const router = useRouter();
   const { authenticated } = useContext(UserContext);
-  const { section, updateGuildId, updateSection } = useContext(GuildContext);
+  const { section, updateData, updateGuildId, updateSection } = useContext(GuildContext);
 
   const sortedChannels = useMemo(
     () => [...(guild?.channels ?? [])].sort((a, b) => a.name.localeCompare(b.name)),
@@ -77,7 +77,8 @@ export default function Guild({ database, guild }: InferGetServerSidePropsType<t
 
   useEffect(() => {
     if (guild) updateGuildId(guild.id);
-  }, [updateGuildId, guild]);
+    if (database) updateData(database);
+  }, [database, guild, updateData, updateGuildId]);
 
   if (!authenticated) {
     return <Failure message="You need to sign in to view this page." />;

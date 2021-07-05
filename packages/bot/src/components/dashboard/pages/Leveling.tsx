@@ -35,7 +35,7 @@ enum ResponseType {
 
 const resolveXpResponseNameByType = (type: ResponseType) =>
   type === ResponseType.CHANNEL
-    ? 'Custom Channels'
+    ? 'Custom Channel'
     : type === ResponseType.DM
     ? 'DM'
     : type === ResponseType.NONE
@@ -43,7 +43,7 @@ const resolveXpResponseNameByType = (type: ResponseType) =>
     : 'Same Channel';
 
 const resolveXpResponseTypeByName = (name: string) =>
-  name === 'Custom Channels'
+  name === 'Custom Channel'
     ? ResponseType.CHANNEL
     : name === 'DM'
     ? ResponseType.DM
@@ -349,20 +349,22 @@ export default function Leveling({ channels, database, roles }: LevelingProps) {
             name="XP Response Channel"
             url="https://docs.pepemanager.com/guides/setting-up-server-xp-leveling#where-to-send-the-level-up-message"
           />
-          <BasicSelect
-            initialItem={resolveXpResponseNameByType(ResponseType.SAME_CHANNEL)}
-            items={['Same Channel', 'DM', 'Custom Channel', 'None']}
-            onSelect={(i) => {
-              const type = resolveXpResponseTypeByName(i);
-              setXpResponseType(type);
-              if (type === ResponseType.DM || type === ResponseType.SAME_CHANNEL) addChange('xpResponseType', type);
-              else if (type === ResponseType.NONE) addChange('xpResponseType', null);
-            }}
-          />
-          <div>
+
+          <div className="flex flex-row gap-x-4">
+            <BasicSelect
+              closeOnSelect
+              initialItem={resolveXpResponseNameByType(ResponseType.SAME_CHANNEL)}
+              items={['Same Channel', 'DM', 'Custom Channel', 'None']}
+              onSelect={(i) => {
+                const type = resolveXpResponseTypeByName(i);
+                setXpResponseType(type);
+                if (type === ResponseType.DM || type === ResponseType.SAME_CHANNEL) addChange('xpResponseType', type);
+                else if (type === ResponseType.NONE) addChange('xpResponseType', null);
+              }}
+            />
             {xpResponseType === ResponseType.CHANNEL && (
               <Selector
-                id="xpResposnseType"
+                id="xpResponseTypeChannel"
                 initialItems={xpResponseChannel ? [xpResponseChannel] : []}
                 items={channels}
                 limit={1}
@@ -383,7 +385,7 @@ export default function Leveling({ channels, database, roles }: LevelingProps) {
             name="XP Roles"
             url="https://docs.pepemanager.com/guides/setting-up-server-xp-leveling#adding-role-rewards"
           />
-          <div>
+          <div className="mb-4">
             {Object.keys(xpRoles).length < 100 && (
               <Input
                 id="newXpRole"
@@ -437,7 +439,7 @@ export default function Leveling({ channels, database, roles }: LevelingProps) {
             name={`XP ${xpChannelsType === 'blacklist' ? 'Blacklisted' : 'Whitelisted'} Channels`}
             url="https://docs.pepemanager.com/guides/setting-up-server-xp-leveling#adding-allowed-channels"
           />
-          <div className="flex flex-row justify-start">
+          <div className="flex flex-row justify-start mb-3">
             <button
               className="text-white w-[fit-content] bg-discord-not-quite-black px-2 py-1.5 rounded-md shadow-sm duration-150 transition-colors active:bg-discord-dark focus:outline-none"
               onClick={() => setXpChannelsType(xpChannelsType === 'blacklist' ? 'whitelist' : 'blacklist')}
@@ -518,7 +520,7 @@ export default function Leveling({ channels, database, roles }: LevelingProps) {
             {Object.keys(xpMultipliers).length <= 20 && (
               <>
                 <p className="text-white">Create a new multiplier</p>
-                <div className="flex flex-row gap-4">
+                <div className="flex flex-row gap-4 mt-2 mb-4">
                   <BasicSelect
                     initialItem={'Channel'}
                     items={
@@ -552,7 +554,7 @@ export default function Leveling({ channels, database, roles }: LevelingProps) {
               </>
             )}
           </div>
-          <div className="flex flex-col gap-2 divide-y-2 divide-gray-400">
+          <div className="flex flex-col gap-y-2 divide-y-2 divide-gray-400">
             {xpMultipliers.map(({ multiplier, targets, type }, i) => (
               <XpMultiplier
                 channels={channels}

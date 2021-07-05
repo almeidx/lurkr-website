@@ -1,4 +1,5 @@
 import { MouseEventHandler, useCallback, useState } from 'react';
+import { AiFillCaretDown } from 'react-icons/ai';
 
 interface BasicSelectProps {
   closeOnSelect?: boolean;
@@ -27,12 +28,18 @@ export default function BasicSelect({ closeOnSelect = false, initialItem, items,
   );
 
   return (
-    <div>
+    <div className="cursor-pointer">
       <div
-        className="flex flex-row flex-wrap gap-3 min-h-[3rem] bg-discord-not-quite-black px-5 py-3 focus:outline-none rounded-md shadow"
+        className="flex flex-row flex-wrap gap-1.5 min-h-[3rem] w-64 bg-discord-not-quite-black px-5 py-3 focus:outline-none rounded-md shadow relative"
         onClick={() => setDropdownOpen(!dropdownOpen)}
       >
-        <span className="flex items-center px-1.5 py-1 max-w-full cursor-pointer z-50 text-white">{selected}</span>
+        <span className="flex items-center px-1.5 py-1 max-w-full cursor-pointer z-50 text-white leading-3">
+          {selected}
+        </span>
+
+        <div className="absolute right-0 my-auto mx-4 text-2xl text-white transition-colors h-full cursor-pointer">
+          <AiFillCaretDown />
+        </div>
       </div>
 
       <div

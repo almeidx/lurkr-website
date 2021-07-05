@@ -39,7 +39,7 @@ export default function XpRole({ level, initialRoles, onClear, onChange, roles }
   );
 
   return (
-    <div className="flex flex-row justify-between gap-3 px-3 py-2 relative w-full">
+    <div className="flex flex-row justify-between gap-3 px-3 pt-4 pb-2 first-of-type:pt-0 last-of-type:pb-0 relative w-full">
       <div className="flex flex-row gap-x-6">
         <div className="flex justify-center items-center w-7">
           <label
