@@ -73,20 +73,22 @@ export default function Autorole({ database, roles }: AutoroleProps) {
             name="Autorole Timeout (Minutes)"
             url="https://docs.pepemanager.com/guides/automatically-added-roles-with-timeout#setting-your-timeout"
           />
-          <Input
-            id="autoRoleTimeout"
-            maxLength={32}
-            onChange={({ target }) => {
-              setAutoRoleTimeout(target.value);
-              addChange('autoRoleTimeout', parseFloat(target.value));
-            }}
-            onClear={() => {
-              setAutoRoleTimeout('');
-              addChange('autoRoleTimeout', 0);
-            }}
-            placeholder="Enter the autorole timeout"
-            value={autoRoleTimeout.toString()}
-          />
+          <div className="max-w-[20rem]">
+            <Input
+              id="autoRoleTimeout"
+              maxLength={32}
+              onChange={({ target }) => {
+                setAutoRoleTimeout(target.value);
+                addChange('autoRoleTimeout', parseFloat(target.value));
+              }}
+              onClear={() => {
+                setAutoRoleTimeout('');
+                addChange('autoRoleTimeout', 0);
+              }}
+              placeholder="Enter the autorole timeout"
+              value={autoRoleTimeout.toString()}
+            />
+          </div>
         </Field>
       </Fieldset>
     </>

@@ -71,18 +71,20 @@ export default function Milestones({ channels, database, roles }: MilestonesProp
             name="Milestones Channel"
             url="https://docs.pepemanager.com/guides/automatically-controlled-member-milestones#setting-the-milestones-channel"
           />
-          <Selector
-            id="milestonesChannel"
-            initialItems={milestonesChannel ? [milestonesChannel] : []}
-            items={channels}
-            limit={1}
-            onSelect={(channelId, type) => {
-              const finalChannel = type === 'add' ? channelId : null;
-              setMilestonesChannel(finalChannel);
-              addChange('milestonesChannel', finalChannel);
-            }}
-            type="channel"
-          />
+          <div className="max-w-[20rem]">
+            <Selector
+              id="milestonesChannel"
+              initialItems={milestonesChannel ? [milestonesChannel] : []}
+              items={channels}
+              limit={1}
+              onSelect={(channelId, type) => {
+                const finalChannel = type === 'add' ? channelId : null;
+                setMilestonesChannel(finalChannel);
+                addChange('milestonesChannel', finalChannel);
+              }}
+              type="channel"
+            />
+          </div>
         </Field>
 
         <Field>
@@ -91,24 +93,26 @@ export default function Milestones({ channels, database, roles }: MilestonesProp
             name="Milestones Interval"
             url="https://docs.pepemanager.com/guides/automatically-controlled-member-milestones#setting-the-milestones-interval"
           />
-          <Input
-            id="milestonesInterval"
-            maxLength={6}
-            onChange={({ target }) => {
-              if (target.value && /^\d+$/.test(target.value)) {
-                setMilestonesInterval(target.value);
-                return addChange('milestonesInterval', parseInt(target.value, 10));
-              }
-              setMilestonesInterval('');
-              addChange('milestonesInterval', 0);
-            }}
-            onClear={() => {
-              setMilestonesInterval('');
-              addChange('milestonesInterval', 0);
-            }}
-            placeholder="Enter the milestones interval"
-            value={milestonesInterval.toString()}
-          />
+          <div className="max-w-[20rem]">
+            <Input
+              id="milestonesInterval"
+              maxLength={6}
+              onChange={({ target }) => {
+                if (target.value && /^\d+$/.test(target.value)) {
+                  setMilestonesInterval(target.value);
+                  return addChange('milestonesInterval', parseInt(target.value, 10));
+                }
+                setMilestonesInterval('');
+                addChange('milestonesInterval', 0);
+              }}
+              onClear={() => {
+                setMilestonesInterval('');
+                addChange('milestonesInterval', 0);
+              }}
+              placeholder="Enter the milestones interval"
+              value={milestonesInterval.toString()}
+            />
+          </div>
         </Field>
 
         <Field>

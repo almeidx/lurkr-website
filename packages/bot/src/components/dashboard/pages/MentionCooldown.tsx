@@ -52,20 +52,22 @@ export default function MentionCooldown({ database, roles }: MentionCooldownProp
       <Fieldset>
         <Field>
           <Label htmlFor="mentionCooldown" name="Mention Cooldown (Minutes)" url="#" />
-          <Input
-            id="mentionCooldown"
-            maxLength={5}
-            onChange={({ target }) => {
-              setMentionCooldown(target.value);
-              addChange('mentionCooldown', parseFloat(target.value));
-            }}
-            onClear={() => {
-              setMentionCooldown('');
-              addChange('mentionCooldown', 0);
-            }}
-            placeholder="Enter the role mention cooldown"
-            value={mentionCooldown}
-          />
+          <div className="max-w-[20rem]">
+            <Input
+              id="mentionCooldown"
+              maxLength={5}
+              onChange={({ target }) => {
+                setMentionCooldown(target.value);
+                addChange('mentionCooldown', parseFloat(target.value));
+              }}
+              onClear={() => {
+                setMentionCooldown('');
+                addChange('mentionCooldown', 0);
+              }}
+              placeholder="Enter the role mention cooldown"
+              value={mentionCooldown}
+            />
+          </div>
         </Field>
 
         <Field>

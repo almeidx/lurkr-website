@@ -44,17 +44,19 @@ export default function EmojiList({ channels, database }: EmojiListProps) {
             name="Emoji List Channel"
             url="https://docs.pepemanager.com/guides/automatically-controlled-emoji-list"
           />
-          <Selector
-            id="emojiListChannel"
-            limit={1}
-            initialItems={database.emojiListChannel ? [database.emojiListChannel] : []}
-            items={channels}
-            onSelect={(channelId, type) => {
-              const resolvedChannel = type === 'add' ? channelId : null;
-              addChange('emojiListChannel', resolvedChannel);
-            }}
-            type="channel"
-          />
+          <div className="max-w-[20rem]">
+            <Selector
+              id="emojiListChannel"
+              limit={1}
+              initialItems={database.emojiListChannel ? [database.emojiListChannel] : []}
+              items={channels}
+              onSelect={(channelId, type) => {
+                const resolvedChannel = type === 'add' ? channelId : null;
+                addChange('emojiListChannel', resolvedChannel);
+              }}
+              type="channel"
+            />
+          </div>
         </Field>
       </Fieldset>
     </>

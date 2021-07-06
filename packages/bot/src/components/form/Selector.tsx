@@ -98,7 +98,7 @@ export default function Selector({ id, limit, items, initialItems, onSelect, typ
   }, [searchTerm, selected]);
 
   return (
-    <div>
+    <div className="relative">
       <div className="flex flex-row flex-wrap gap-1.5 min-w-[15rem] min-h-[3rem] bg-discord-not-quite-black px-5 py-3 focus:outline-none rounded-md shadow">
         {selected.map((i) => (
           <div
@@ -139,7 +139,7 @@ export default function Selector({ id, limit, items, initialItems, onSelect, typ
       <div
         className={`${
           dropdownOpen ? '' : 'hidden'
-        } relative h-64 w-full bg-[#36393f] flex flex-col items-center pt-4 mt-2 rounded-md`}
+        } absolute z-[99999] h-64 w-full bg-[#36393f] flex flex-col items-center pt-4 mt-2 rounded-md`}
       >
         <div className="px-4 w-full">
           <Input

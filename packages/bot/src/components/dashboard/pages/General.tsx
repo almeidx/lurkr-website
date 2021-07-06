@@ -46,22 +46,24 @@ export default function General({ channels, database }: GeneralProps) {
       <Fieldset>
         <Field>
           <Label htmlFor="prefix" name="Bot Prefix" url="https://docs.pepemanager.com/config-commands/prefix" />
-          <Input
-            id="prefix"
-            maxLength={DATABASE_LIMITS.prefix.maxLength}
-            onChange={({ target }) => {
-              if (target.value.length <= DATABASE_LIMITS.prefix.maxLength) {
-                setPrefix(target.value);
-                addChange('prefix', target.value);
-              }
-            }}
-            onClear={() => {
-              setPrefix('');
-              addChange('prefix', '');
-            }}
-            placeholder="Enter the bot prefix"
-            value={prefix}
-          />
+          <div className="max-w-[20rem]">
+            <Input
+              id="prefix"
+              maxLength={DATABASE_LIMITS.prefix.maxLength}
+              onChange={({ target }) => {
+                if (target.value.length <= DATABASE_LIMITS.prefix.maxLength) {
+                  setPrefix(target.value);
+                  addChange('prefix', target.value);
+                }
+              }}
+              onClear={() => {
+                setPrefix('');
+                addChange('prefix', '');
+              }}
+              placeholder="Enter the bot prefix"
+              value={prefix}
+            />
+          </div>
         </Field>
         <Field>
           <Label
