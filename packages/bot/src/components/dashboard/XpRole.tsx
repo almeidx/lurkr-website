@@ -1,12 +1,11 @@
 import type { Snowflake } from 'discord-api-types';
-import { useCallback, useState } from 'react';
 import { MdClear } from 'react-icons/md';
 
 import type { Role } from '../../graphql/queries/DashboardGuild';
 import Selector from '../form/Selector';
 
 export type XpRoleOnClearFn = (level: number) => unknown;
-export type XpRoleOnChangeFn = (roleId: Snowflake, level: number, type: 'add' | 'remove') => unknown;
+export type XpRoleOnChangeFn = (roleIds: Snowflake[], level: number) => unknown;
 
 interface XpRoleProps {
   level: number;
@@ -17,27 +16,6 @@ interface XpRoleProps {
 }
 
 export default function XpRole({ level, initialRoles, onClear, onChange, roles }: XpRoleProps) {
-  const [levelRoles, setLevelRoles] = useState<Snowflake[]>(initialRoles);
-
-  const handleLevelRolesChange = useCallback(
-    (itemId: Snowflake, type: 'add' | 'remove') => {
-      const clone = [...levelRoles];
-      if (type === 'add') {
-        onChange(itemId, level, 'add');
-        return setLevelRoles([...clone, itemId]);
-      }
-
-      const roleIndex = clone.findIndex((i) => itemId === i);
-      if (roleIndex < 0) return console.error("[XpRole] Couldn't find item index when user tried removing an item");
-
-      onChange(itemId, level, 'remove');
-      clone.splice(roleIndex, 1);
-      return setLevelRoles(clone);
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [levelRoles, level],
-  );
-
   return (
     <div className="flex flex-row justify-between gap-3 px-3 pt-4 pb-2 first-of-type:pt-0 last-of-type:pb-0 relative w-full">
       <div className="flex flex-row gap-x-6">
@@ -55,7 +33,7 @@ export default function XpRole({ level, initialRoles, onClear, onChange, roles }
           limit={25}
           initialItems={initialRoles}
           items={roles}
-          onSelect={handleLevelRolesChange}
+          onSelect={(roleIds) => onChange(roleIds, level)}
           type="role"
         />
       </div>

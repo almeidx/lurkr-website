@@ -136,25 +136,10 @@ export default function Leveling({ channels, database, roles }: LevelingProps) {
   );
 
   const handleXpRolesChange: XpRoleOnChangeFn = useCallback(
-    (roleId, level, type) => {
-      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-      const levelXpRoles = xpRoles[level.toString()] ?? [];
+    (roleIds, level) => {
       const clone: Record<string, Snowflake[]> = JSON.parse(JSON.stringify(xpRoles));
 
-      if (type === 'add') {
-        levelXpRoles.push(roleId);
-        clone[level] = levelXpRoles;
-        setXpRoles(clone);
-        return addChange('xpRoles', clone);
-      }
-
-      const roleIndex = levelXpRoles.findIndex((i) => i === roleId);
-      if (roleIndex < 0) {
-        return console.error("[Leveling] Couldn't find item index when user tried removing a level role");
-      }
-
-      levelXpRoles.splice(roleIndex, 1);
-      clone[level] = levelXpRoles;
+      clone[level] = roleIds;
       setXpRoles(clone);
       addChange('xpRoles', clone);
     },
@@ -196,7 +181,7 @@ export default function Leveling({ channels, database, roles }: LevelingProps) {
   );
 
   const handleXpMultiplierItemsChange: XpMultiplierOnItemChangeFn = useCallback(
-    (itemId, index, type) => {
+    (itemIds, index) => {
       const clone = [...xpMultipliers];
       if (!(index in clone)) {
         return console.log(
@@ -211,26 +196,10 @@ export default function Leveling({ channels, database, roles }: LevelingProps) {
         );
       }
 
-      if (type === 'add') {
-        multiplier.targets.push(itemId);
-        clone[index] = multiplier;
-        setXpMultipliers(clone);
-        return addChange(
-          'xpMultipliers',
-          clone.map((m) => ({ ...m, multiplier: parseMultiplier(m.multiplier) ?? NaN })),
-        );
-      }
-
-      const itemIndex = multiplier.targets.findIndex((i) => i === itemId);
-      if (itemIndex < 0) {
-        return console.log("[Leveling] Couldn't find item index when user tried removing an item from a xp multiplier");
-      }
-
-      multiplier.targets.splice(itemIndex, 1);
+      multiplier.targets = itemIds;
       clone[index] = multiplier;
-
       setXpMultipliers(clone);
-      addChange(
+      return addChange(
         'xpMultipliers',
         clone.map((m) => ({ ...m, multiplier: parseMultiplier(m.multiplier) ?? NaN })),
       );

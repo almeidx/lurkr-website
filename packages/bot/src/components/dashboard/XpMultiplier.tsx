@@ -7,7 +7,7 @@ import Input from '../form/Input';
 import Selector from '../form/Selector';
 
 export type XpMultiplierOnDeleteFn = (index: number) => unknown;
-export type XpMultiplierOnItemChangeFn = (itemId: Snowflake, index: number, type: 'add' | 'remove') => unknown;
+export type XpMultiplierOnItemChangeFn = (itemIds: Snowflake[], index: number) => unknown;
 export type XpMultiplierOnMultiplierChangeFn = (multiplier: string, index: number) => unknown;
 
 interface XpMultiplierProps {
@@ -64,7 +64,7 @@ export default function XpMultiplier({
               limit={50}
               initialItems={targets!}
               items={type === 'channel' ? channels : roles}
-              onSelect={(itemId, type) => onItemChange(itemId, index, type)}
+              onSelect={(itemIds) => onItemChange(itemIds, index)}
               type={type}
             />
           </div>
