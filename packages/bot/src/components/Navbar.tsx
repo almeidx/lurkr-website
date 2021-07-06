@@ -11,7 +11,7 @@ const links: { name: string; requireAuth?: boolean; url: string }[] = [
   { name: 'Home', url: '/' },
   { name: 'Dashboard', requireAuth: true, url: '/guilds' },
   { name: 'Levels', url: '/levels' },
-  // { name: 'Calculator', url: '/levels/calculator' },
+  { name: 'Calculator', url: '/levels/calculator' },
   { name: 'Tutorials', url: '/tutorials' },
   { name: 'Docs', url: '/docs' },
   { name: 'Support Server', url: 'https://discord.gg/pepe' },

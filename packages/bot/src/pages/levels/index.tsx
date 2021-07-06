@@ -98,15 +98,12 @@ export default function Levels({ guilds }: InferGetServerSidePropsType<typeof ge
         <Input
           className="my-5"
           id="searchTerm"
+          initialValue={''}
           maxLength={20}
-          onChange={(e) =>
-            e.target.value ? /^[\d]+$/.test(e.target.value) && setServerId(e.target.value) : setServerId(e.target.value)
-          }
-          onClear={() => setServerId('')}
+          onChange={(t) => (t ? /^\d+$/.test(t) && setServerId(t) : setServerId(t))}
           onSubmit={handleServerIdSubmit}
           placeholder="Enter a server ID"
           submitRef={submitRef}
-          value={serverId}
         />
       </div>
     </div>

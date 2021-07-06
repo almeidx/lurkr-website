@@ -20,7 +20,7 @@ import XpMultiplier, {
   XpMultiplierOnItemChangeFn,
   XpMultiplierOnMultiplierChangeFn,
 } from '../XpMultiplier';
-import XpRole, { XpRoleOnChangeFn, XpRoleOnClearFn } from '../XpRole';
+import XpRole, { XpRoleOnChangeFn } from '../XpRole';
 
 interface LevelingProps {
   channels: Channel[];
@@ -81,27 +81,28 @@ const resolveInitialXpResponseType = (database: DatabaseGuild) =>
 const resolveInitialXpResponseChannel = (database: DatabaseGuild): Snowflake[] =>
   database.xpResponseType ? (/^\d+$/.test(database.xpResponseType) ? [database.xpResponseType as Snowflake] : []) : [];
 
+const resolveMultiplier = (multipliers: (Omit<Multiplier, 'multiplier'> & { multiplier: string })[]) =>
+  multipliers.map((m) => ({ ...m, multiplier: parseMultiplier(m.multiplier) ?? NaN }));
+
+const prioritiseMultiplierValues = ['Role Hierarchy', 'Multiplier Value'];
+
 let timeout: NodeJS.Timeout;
 
 export default function Leveling({ channels, database, roles }: LevelingProps) {
-  const [xpResponseType, setXpResponseType] = useState<string>(resolveInitialXpResponseType(database));
-  const [newXpRolesLevel, setNewXpRolesLevel] = useState<string>('');
   const [xpRoles, setXpRoles] = useState<Record<string, Snowflake[]>>(database.xpRoles);
-  const newXpRoleSubmitRef = useRef<HTMLButtonElement>(null);
   const [xpChannels, setXpChannels] = useState<Snowflake[]>(
     database.xpWhitelistedChannels ?? database.xpBlacklistedChannels ?? [],
   );
-  const [xpChannelsType, setXpChannelsType] = useState<'whitelist' | 'blacklist'>(
-    database.xpBlacklistedChannels ? 'blacklist' : 'whitelist',
-  );
-  const [autoResetLevels, setAutoResetLevels] = useState<AutoResetLevels>(database.autoResetLevels);
   const [xpMultipliers, setXpMultipliers] = useState<(Omit<Multiplier, 'multiplier'> & { multiplier: string })[]>(
     database.xpMultipliers.map((m) => ({ ...m, multiplier: m.multiplier.toString() })),
   );
-  const [newXpMultiplierType, setNewXpMultiplierType] = useState<Multiplier['type']>('channel');
-  const [prioritiseMultiplierRoleHierarchy, setPrioritiseMultiplierRoleHierarchy] = useState(
-    database.prioritiseMultiplierRoleHierarchy,
+  const [xpResponseType, setXpResponseType] = useState<string>(resolveInitialXpResponseType(database));
+  const [xpChannelsType, setXpChannelsType] = useState<'whitelist' | 'blacklist'>(
+    database.xpBlacklistedChannels ? 'blacklist' : 'whitelist',
   );
+  const [newXpMultiplierType, setNewXpMultiplierType] = useState<Multiplier['type']>('channel');
+  const [newXpRolesLevel, setNewXpRolesLevel] = useState<string>('');
+  const newXpRoleSubmitRef = useRef<HTMLButtonElement>(null);
   const { addChange, changes, removeChange } = useContext(GuildContext);
 
   const handleNewXpRoleCreated: () => unknown = useCallback(() => {
@@ -124,22 +125,14 @@ export default function Leveling({ channels, database, roles }: LevelingProps) {
     }
   }, [addChange, newXpRolesLevel, xpRoles, newXpRoleSubmitRef]);
 
-  const handleXpRolesClear: XpRoleOnClearFn = useCallback(
-    (level) => {
-      const clone: Record<string, Snowflake[]> = JSON.parse(JSON.stringify(xpRoles));
-      // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
-      delete clone[level];
-      setXpRoles(clone);
-      addChange('xpRoles', clone);
-    },
-    [addChange, xpRoles],
-  );
-
   const handleXpRolesChange: XpRoleOnChangeFn = useCallback(
     (roleIds, level) => {
       const clone: Record<string, Snowflake[]> = JSON.parse(JSON.stringify(xpRoles));
 
-      clone[level] = roleIds;
+      if (roleIds.length) clone[level] = roleIds;
+      // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
+      else delete clone[level];
+
       setXpRoles(clone);
       addChange('xpRoles', clone);
     },
@@ -172,10 +165,7 @@ export default function Leveling({ channels, database, roles }: LevelingProps) {
 
       clone.splice(index, 1);
       setXpMultipliers(clone);
-      addChange(
-        'xpMultipliers',
-        clone.map((m) => ({ ...m, multiplier: parseMultiplier(m.multiplier) ?? NaN })),
-      );
+      addChange('xpMultipliers', resolveMultiplier(clone));
     },
     [addChange, xpMultipliers],
   );
@@ -199,10 +189,7 @@ export default function Leveling({ channels, database, roles }: LevelingProps) {
       multiplier.targets = itemIds;
       clone[index] = multiplier;
       setXpMultipliers(clone);
-      return addChange(
-        'xpMultipliers',
-        clone.map((m) => ({ ...m, multiplier: parseMultiplier(m.multiplier) ?? NaN })),
-      );
+      addChange('xpMultipliers', resolveMultiplier(clone));
     },
     [addChange, xpMultipliers],
   );
@@ -221,10 +208,7 @@ export default function Leveling({ channels, database, roles }: LevelingProps) {
 
       clone[index] = xpMultiplier;
       setXpMultipliers(clone);
-      addChange(
-        'xpMultipliers',
-        clone.map((m) => ({ ...m, multiplier: parseMultiplier(m.multiplier) ?? NaN })),
-      );
+      addChange('xpMultipliers', resolveMultiplier(clone));
     },
     [addChange, xpMultipliers],
   );
@@ -240,7 +224,7 @@ export default function Leveling({ channels, database, roles }: LevelingProps) {
               Enabled
             </label>
 
-            <Checkbox id="levels" initialValue={database.levels} onChange={(value) => addChange('levels', value)} />
+            <Checkbox id="levels" initialValue={database.levels} onChange={(v) => addChange('levels', v)} />
           </div>
         </div>
       </div>
@@ -256,7 +240,7 @@ export default function Leveling({ channels, database, roles }: LevelingProps) {
             initialText={database.xpMessage}
             id="xpMessage"
             maxLength={DATABASE_LIMITS.xpMessage.maxLength}
-            onChange={(text) => addChange('xpMessage', text)}
+            onChange={(t) => addChange('xpMessage', t)}
             placeholder="Enter the level up message"
           />
         </Field>
@@ -287,7 +271,7 @@ export default function Leveling({ channels, database, roles }: LevelingProps) {
                 initialItems={resolveInitialXpResponseChannel(database)}
                 items={channels}
                 limit={1}
-                onSelect={(channelIds) => addChange('xpResponseType', channelIds[0] ?? null)}
+                onSelect={(c) => addChange('xpResponseType', c[0] ?? null)}
                 type="channel"
               />
             )}
@@ -305,17 +289,12 @@ export default function Leveling({ channels, database, roles }: LevelingProps) {
               <div className="max-w-[21rem]">
                 <Input
                   id="newXpRole"
+                  initialValue={''}
                   maxLength={3}
-                  onChange={({ target }) =>
-                    target.value
-                      ? /^\d+$/.test(target.value) && setNewXpRolesLevel(target.value)
-                      : setNewXpRolesLevel('')
-                  }
-                  onClear={() => setNewXpRolesLevel('')}
+                  onChange={(t) => (t ? /^\d+$/.test(t) && setNewXpRolesLevel(t) : setNewXpRolesLevel(''))}
                   onSubmit={handleNewXpRoleCreated}
                   placeholder="Enter a level to reward roles to"
                   submitRef={newXpRoleSubmitRef}
-                  value={newXpRolesLevel}
                 />
               </div>
             )}
@@ -326,7 +305,6 @@ export default function Leveling({ channels, database, roles }: LevelingProps) {
                 key={level}
                 level={parseInt(level, 10)}
                 initialRoles={xpRoles[level]}
-                onClear={handleXpRolesClear}
                 onChange={handleXpRolesChange}
                 roles={roles}
               />
@@ -339,7 +317,7 @@ export default function Leveling({ channels, database, roles }: LevelingProps) {
             <Checkbox
               id="stackXpRoles"
               initialValue={database.stackXpRoles}
-              onChange={(value) => addChange('stackXpRoles', value)}
+              onChange={(v) => addChange('stackXpRoles', v)}
             />
 
             <Label
@@ -369,9 +347,9 @@ export default function Leveling({ channels, database, roles }: LevelingProps) {
             initialItems={database.xpBlacklistedChannels ?? database.xpWhitelistedChannels ?? []}
             items={channels}
             limit={DATABASE_LIMITS.xpChannels.maxLength}
-            onSelect={(channelIds) => {
-              setXpChannels(channelIds);
-              addChange(xpChannelsType === 'whitelist' ? 'xpWhitelistedChannels' : 'xpBlacklistedChannels', channelIds);
+            onSelect={(c) => {
+              setXpChannels(c);
+              addChange(xpChannelsType === 'whitelist' ? 'xpWhitelistedChannels' : 'xpBlacklistedChannels', c);
             }}
             type="channel"
           />
@@ -389,7 +367,7 @@ export default function Leveling({ channels, database, roles }: LevelingProps) {
               initialItems={database.topXpRole ? [database.topXpRole] : []}
               items={roles}
               limit={1}
-              onSelect={(roleIds) => addChange('topXpRole', roleIds[0] ?? null)}
+              onSelect={(r) => addChange('topXpRole', r[0] ?? null)}
               type="role"
             />
           </div>
@@ -406,7 +384,7 @@ export default function Leveling({ channels, database, roles }: LevelingProps) {
             initialItems={database.noXpRoles ?? []}
             items={roles}
             limit={DATABASE_LIMITS.noXpRoles.maxLength}
-            onSelect={(roleIds) => addChange('noXpRoles', roleIds)}
+            onSelect={(r) => addChange('noXpRoles', r)}
             type="role"
           />
         </Field>
@@ -418,13 +396,9 @@ export default function Leveling({ channels, database, roles }: LevelingProps) {
             url="https://docs.pepemanager.com/guides/setting-up-server-xp-leveling#automatically-resetting-levels"
           />
           <BasicSelect
-            initialItem={resolveAutoResetLevelsNameByType(autoResetLevels)}
+            initialItem={resolveAutoResetLevelsNameByType(database.autoResetLevels)}
             items={['None', 'Leave', 'Ban', 'Ban & Leave']}
-            onSelect={(i) => {
-              const value = resolveAutoResetLevelsTypeByName(i);
-              setAutoResetLevels(value);
-              addChange('autoResetLevels', value);
-            }}
+            onSelect={(i) => addChange('autoResetLevels', resolveAutoResetLevelsTypeByName(i))}
           />
         </Field>
 
@@ -455,15 +429,12 @@ export default function Leveling({ channels, database, roles }: LevelingProps) {
                         ...xpMultipliers,
                         {
                           multiplier: '1',
-                          targets: newXpMultiplierType === 'global' ? null : [],
+                          targets: newXpMultiplierType !== 'global' ? [] : null,
                           type: newXpMultiplierType,
                         },
                       ];
                       setXpMultipliers(finalMultipliers);
-                      addChange(
-                        'xpMultipliers',
-                        finalMultipliers.map((m) => ({ ...m, multiplier: parseMultiplier(m.multiplier) ?? NaN })),
-                      );
+                      addChange('xpMultipliers', resolveMultiplier(finalMultipliers));
                     }}
                   >
                     <IoMdSend className="fill-current text-3xl" />
@@ -498,13 +469,9 @@ export default function Leveling({ channels, database, roles }: LevelingProps) {
           />
           <BasicSelect
             closeOnSelect
-            initialItem={prioritiseMultiplierRoleHierarchy ? 'Role Hierarchy' : 'Multiplier Value'}
-            items={['Role Hierarchy', 'Multiplier Value']}
-            onSelect={(i) => {
-              const value = i === 'Role Hierarchy';
-              setPrioritiseMultiplierRoleHierarchy(value);
-              addChange('prioritiseMultiplierRoleHierarchy', value);
-            }}
+            initialItem={prioritiseMultiplierValues[database.prioritiseMultiplierRoleHierarchy ? 1 : 0]}
+            items={prioritiseMultiplierValues}
+            onSelect={(i) => addChange('prioritiseMultiplierRoleHierarchy', i === prioritiseMultiplierValues[0])}
           />
         </Field>
       </Fieldset>

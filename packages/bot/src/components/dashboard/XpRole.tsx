@@ -4,18 +4,16 @@ import { MdClear } from 'react-icons/md';
 import type { Role } from '../../graphql/queries/DashboardGuild';
 import Selector from '../form/Selector';
 
-export type XpRoleOnClearFn = (level: number) => unknown;
 export type XpRoleOnChangeFn = (roleIds: Snowflake[], level: number) => unknown;
 
 interface XpRoleProps {
   level: number;
   initialRoles: Snowflake[];
-  onClear: XpRoleOnClearFn;
   onChange: XpRoleOnChangeFn;
   roles: Role[];
 }
 
-export default function XpRole({ level, initialRoles, onClear, onChange, roles }: XpRoleProps) {
+export default function XpRole({ level, initialRoles, onChange, roles }: XpRoleProps) {
   return (
     <div className="flex flex-row justify-between gap-3 px-3 pt-4 pb-2 first-of-type:pt-0 last-of-type:pb-0 relative w-full">
       <div className="flex flex-row gap-x-6">
@@ -33,14 +31,14 @@ export default function XpRole({ level, initialRoles, onClear, onChange, roles }
           limit={25}
           initialItems={initialRoles}
           items={roles}
-          onSelect={(roleIds) => onChange(roleIds, level)}
+          onSelect={(r) => onChange(r, level)}
           type="role"
         />
       </div>
 
       <div
         className="absolute right-0 my-auto mx-4 py-3 text-2xl text-discord-red active:text-red-600 transition-colors h-full cursor-pointer"
-        onClick={() => onClear(level)}
+        onClick={() => onChange([], level)}
       >
         <MdClear />
       </div>

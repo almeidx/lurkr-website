@@ -148,11 +148,10 @@ export default function Selector({ id, limit, items, initialItems, onSelect, typ
           <Input
             className="pb-3"
             id={id}
+            initialValue={''}
             maxLength={50}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            onClear={() => setSearchTerm('')}
+            onChange={(t) => setSearchTerm(t)}
             placeholder={`${type === 'channel' ? 'Channel' : 'Role'} name`}
-            value={searchTerm}
           />
         </div>
 

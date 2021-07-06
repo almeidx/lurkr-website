@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 
 import { GuildContext } from '../../../contexts/GuildContext';
 import type { DatabaseGuild, Role } from '../../../graphql/queries/DashboardGuild';
@@ -17,9 +17,6 @@ interface MentionCooldownProps {
 }
 
 export default function MentionCooldown({ database, roles }: MentionCooldownProps) {
-  const [mentionCooldown, setMentionCooldown] = useState<string>(
-    formatNumberToNDecimalPlaces(database.mentionCooldown / 60_000),
-  );
   const { addChange } = useContext(GuildContext);
 
   return (
@@ -28,23 +25,17 @@ export default function MentionCooldown({ database, roles }: MentionCooldownProp
         description="Automatically make roles non-mentionable after being mentioned for a certain amount of time."
         title="Mention Cooldown"
       />
+
       <Fieldset>
         <Field>
           <Label htmlFor="mentionCooldown" name="Mention Cooldown (Minutes)" url="#" />
           <div className="max-w-[20rem]">
             <Input
               id="mentionCooldown"
+              initialValue={formatNumberToNDecimalPlaces(database.mentionCooldown / 60_000)}
               maxLength={5}
-              onChange={({ target }) => {
-                setMentionCooldown(target.value);
-                addChange('mentionCooldown', parseFloat(target.value));
-              }}
-              onClear={() => {
-                setMentionCooldown('');
-                addChange('mentionCooldown', 0);
-              }}
+              onChange={(t) => addChange('mentionCooldown', parseFloat(t))}
               placeholder="Enter the role mention cooldown"
-              value={mentionCooldown}
             />
           </div>
         </Field>
@@ -56,7 +47,7 @@ export default function MentionCooldown({ database, roles }: MentionCooldownProp
             limit={DATABASE_LIMITS.mentionCooldownRoles.maxLength}
             initialItems={database.mentionCooldownRoles ?? []}
             items={roles}
-            onSelect={(roleIds) => addChange('mentionCooldownRoles', roleIds)}
+            onSelect={(r) => addChange('mentionCooldownRoles', r)}
             type="role"
           />
         </Field>

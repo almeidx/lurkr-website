@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 
 import { GuildContext } from '../../../contexts/GuildContext';
 import type { DatabaseGuild, Role } from '../../../graphql/queries/DashboardGuild';
@@ -17,9 +17,6 @@ interface AutoroleProps {
 }
 
 export default function Autorole({ database, roles }: AutoroleProps) {
-  const [autoRoleTimeout, setAutoRoleTimeout] = useState(
-    formatNumberToNDecimalPlaces(database.autoRoleTimeout / 60_000),
-  );
   const { addChange } = useContext(GuildContext);
 
   return (
@@ -41,7 +38,7 @@ export default function Autorole({ database, roles }: AutoroleProps) {
             limit={DATABASE_LIMITS.autoRole.maxLength}
             initialItems={database.autoRole ?? []}
             items={roles}
-            onSelect={(roleIds) => addChange('autoRole', roleIds)}
+            onSelect={(r) => addChange('autoRole', r)}
             type="role"
           />
         </Field>
@@ -55,17 +52,10 @@ export default function Autorole({ database, roles }: AutoroleProps) {
           <div className="max-w-[20rem]">
             <Input
               id="autoRoleTimeout"
+              initialValue={formatNumberToNDecimalPlaces(database.autoRoleTimeout / 60_000)}
               maxLength={32}
-              onChange={({ target }) => {
-                setAutoRoleTimeout(target.value);
-                addChange('autoRoleTimeout', parseFloat(target.value));
-              }}
-              onClear={() => {
-                setAutoRoleTimeout('');
-                addChange('autoRoleTimeout', 0);
-              }}
+              onChange={(t) => addChange('autoRoleTimeout', parseFloat(t))}
               placeholder="Enter the autorole timeout"
-              value={autoRoleTimeout.toString()}
             />
           </div>
         </Field>

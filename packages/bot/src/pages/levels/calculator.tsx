@@ -47,29 +47,26 @@ export default function Calculator() {
         <div className="flex flex-col sm:flex-row gap-4">
           <Input
             id="level"
+            initialValue=""
             maxLength={3}
-            onChange={(e) => setLevel(e.target.value)}
-            onClear={() => setLevel('')}
+            onChange={(t) => setLevel(t)}
             placeholder="Enter the desired level"
-            value={level}
           />
 
           <Input
             id="initialLevel"
+            initialValue=""
             maxLength={3}
-            onChange={(e) => setCurrentLevel(e.target.value)}
-            onClear={() => setCurrentLevel('')}
+            onChange={(t) => setCurrentLevel(t)}
             placeholder="Enter the current level"
-            value={currentLevel}
           />
 
           <Input
             id="multiplier"
+            initialValue=""
             maxLength={5}
-            onChange={(e) => setMultiplier(e.target.value)}
-            onClear={() => setMultiplier('')}
+            onChange={(t) => setMultiplier(t)}
             placeholder="Enter an XP multiplier"
-            value={multiplier}
           />
         </div>
 
@@ -102,6 +99,7 @@ export default function Calculator() {
                 {calculateAmountOfMessages().toLocaleString('en')}
               </p>
             </div>
+
             <div className="bg-discord-not-quite-black rounded-md px-4 py-3 flex flex-col gap-2">
               <div className="flex flex-row justify-between gap-2 items-center">
                 <span className="text-gray-200">Estimated Time</span>
@@ -109,6 +107,7 @@ export default function Calculator() {
               </div>
               <p className="text-gray-200 text-4xl font-bold text-center font-display">{ms(calculateTime())}</p>
             </div>
+
             <div className="bg-discord-not-quite-black rounded-md px-4 py-3 flex flex-col gap-2">
               <div className="flex flex-row justify-between gap-2 items-center">
                 <span className="text-gray-200">XP Required</span>

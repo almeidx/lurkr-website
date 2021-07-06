@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 
 import { GuildContext } from '../../../contexts/GuildContext';
 import type { Channel, DatabaseGuild, Role } from '../../../graphql/queries/DashboardGuild';
@@ -19,7 +19,6 @@ interface MilestonesProps {
 }
 
 export default function Milestones({ channels, database, roles }: MilestonesProps) {
-  const [milestonesInterval, setMilestonesInterval] = useState<string>(database.milestonesInterval.toString());
   const { addChange } = useContext(GuildContext);
 
   return (
@@ -36,7 +35,7 @@ export default function Milestones({ channels, database, roles }: MilestonesProp
             <Checkbox
               id="milestones"
               initialValue={database.storeMilestones}
-              onChange={(value) => addChange('storeMilestones', value)}
+              onChange={(v) => addChange('storeMilestones', v)}
             />
           </div>
         </div>
@@ -55,7 +54,7 @@ export default function Milestones({ channels, database, roles }: MilestonesProp
               initialItems={database.milestonesChannel ? [database.milestonesChannel] : []}
               items={channels}
               limit={1}
-              onSelect={(channelIds) => addChange('milestonesChannel', channelIds[0] ?? null)}
+              onSelect={(c) => addChange('milestonesChannel', c[0] ?? null)}
               type="channel"
             />
           </div>
@@ -70,21 +69,13 @@ export default function Milestones({ channels, database, roles }: MilestonesProp
           <div className="max-w-[20rem]">
             <Input
               id="milestonesInterval"
+              initialValue={database.milestonesInterval.toString()}
               maxLength={6}
-              onChange={({ target }) => {
-                if (target.value && /^\d+$/.test(target.value)) {
-                  setMilestonesInterval(target.value);
-                  return addChange('milestonesInterval', parseInt(target.value, 10));
-                }
-                setMilestonesInterval('');
-                addChange('milestonesInterval', 0);
-              }}
-              onClear={() => {
-                setMilestonesInterval('');
+              onChange={(t) => {
+                if (t && /^\d+$/.test(t)) return addChange('milestonesInterval', parseInt(t, 10));
                 addChange('milestonesInterval', 0);
               }}
               placeholder="Enter the milestones interval"
-              value={milestonesInterval.toString()}
             />
           </div>
         </Field>
@@ -99,7 +90,7 @@ export default function Milestones({ channels, database, roles }: MilestonesProp
             initialText={database.milestonesMessage ?? ''}
             id="milestonesMessage"
             maxLength={DATABASE_LIMITS.milestonesMessage.maxLength}
-            onChange={(text) => addChange('milestonesMessage', text)}
+            onChange={(t) => addChange('milestonesMessage', t)}
             placeholder="Enter the milestone message"
           />
         </Field>
@@ -115,7 +106,7 @@ export default function Milestones({ channels, database, roles }: MilestonesProp
             initialItems={database.milestonesRoles ?? []}
             items={roles}
             limit={DATABASE_LIMITS.milestonesRoles.maxLength}
-            onSelect={(roleIds) => addChange('milestonesRoles', roleIds)}
+            onSelect={(r) => addChange('milestonesRoles', r)}
             type="role"
           />
         </Field>

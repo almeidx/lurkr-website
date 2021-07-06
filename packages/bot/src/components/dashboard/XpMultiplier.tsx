@@ -1,5 +1,4 @@
 import type { Snowflake } from 'discord-api-types';
-import { useState } from 'react';
 import { MdClear } from 'react-icons/md';
 
 import type { Channel, Multiplier, Role } from '../../graphql/queries/DashboardGuild';
@@ -33,24 +32,15 @@ export default function XpMultiplier({
   targets,
   type,
 }: XpMultiplierProps) {
-  const [multiplierValue, setMultiplierValue] = useState<string>(multiplier.toString());
-
   return (
     <div className="flex flex-row justify-between gap-3 relative w-full pt-4 pb-2 first-of-type:pt-0 last-of-type:pb-0">
       <div className="flex flex-row gap-x-6">
         <Input
           id={`multiplier-${index}-input`}
+          initialValue={multiplier.toString()}
           maxLength={5}
-          onChange={({ target }) => {
-            onMultiplierChange(target.value, index);
-            setMultiplierValue(target.value);
-          }}
-          onClear={() => {
-            onMultiplierChange('', index);
-            setMultiplierValue('');
-          }}
+          onChange={(text) => onMultiplierChange(text, index)}
           placeholder="x1.0"
-          value={multiplierValue}
         />
 
         <label className="text-white flex items-center min-w-[4rem]" htmlFor={`multiplier-${index}-selector`}>
@@ -64,7 +54,7 @@ export default function XpMultiplier({
               limit={50}
               initialItems={targets!}
               items={type === 'channel' ? channels : roles}
-              onSelect={(itemIds) => onItemChange(itemIds, index)}
+              onSelect={(i) => onItemChange(i, index)}
               type={type}
             />
           </div>

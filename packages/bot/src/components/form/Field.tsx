@@ -5,10 +5,10 @@ interface FieldProps {
   children: ReactChild | ReactChild[] | ReactChildren | ReactChildren[];
 }
 
-export default function Input(props: FieldProps): JSX.Element {
+export default function Input({ children, direction, ...props }: FieldProps): JSX.Element {
   return (
-    <div className={`${props.direction === 'row' ? 'flex-row' : 'flex-col'} flex w-full`} {...props}>
-      {props.children}
+    <div className={`${direction === 'row' ? 'flex-row' : 'flex-col'} flex w-full`} {...props}>
+      {children}
     </div>
   );
 }

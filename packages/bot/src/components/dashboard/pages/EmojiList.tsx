@@ -28,11 +28,7 @@ export default function EmojiList({ channels, database }: EmojiListProps) {
               Enabled
             </label>
 
-            <Checkbox
-              id="emojiList"
-              initialValue={database.emojiList}
-              onChange={(value) => addChange('emojiList', value)}
-            />
+            <Checkbox id="emojiList" initialValue={database.emojiList} onChange={(v) => addChange('emojiList', v)} />
           </div>
         </div>
       </div>
@@ -50,7 +46,7 @@ export default function EmojiList({ channels, database }: EmojiListProps) {
               limit={1}
               initialItems={database.emojiListChannel ? [database.emojiListChannel] : []}
               items={channels}
-              onSelect={(channelIds) => addChange('emojiListChannel', channelIds[0] ?? null)}
+              onSelect={(c) => addChange('emojiListChannel', c[0] ?? null)}
               type="channel"
             />
           </div>

@@ -28,7 +28,7 @@ export default function Miscellaneous({ channels, database }: MiscellaneousProps
             <Checkbox
               id="storeCounts"
               initialValue={database.storeCounts}
-              onChange={(value) => addChange('storeCounts', value)}
+              onChange={(v) => addChange('storeCounts', v)}
             />
             <Label
               htmlFor="storeCounts"
@@ -49,7 +49,7 @@ export default function Miscellaneous({ channels, database }: MiscellaneousProps
             limit={DATABASE_LIMITS.autoPublishChannels.maxLength}
             initialItems={database.autoPublishChannels ?? []}
             items={channels}
-            onSelect={(channelIds) => addChange('autoPublishChannels', channelIds)}
+            onSelect={(c) => addChange('autoPublishChannels', c)}
             type="channel"
           />
         </Field>
