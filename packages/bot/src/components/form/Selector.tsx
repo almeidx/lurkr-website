@@ -17,7 +17,7 @@ interface Role extends Channel {
 
 type Items = Channel[] | Role[];
 
-export type OnSelectFn = (itemId: Snowflake, type: 'add' | 'remove') => unknown;
+export type OnSelectFn = (items: Snowflake[]) => unknown;
 
 interface SelectorProps {
   id: string;
@@ -50,8 +50,8 @@ export default function Selector({ id, limit, items, initialItems, onSelect, typ
         return console.error("[Selector] Couldn't find item index when user tried removing an item");
       }
 
-      onSelect(id, 'remove');
       clone.splice(selectedIndex, 1);
+      onSelect(clone.map((i) => i.id));
       setSelected(clone);
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -69,8 +69,11 @@ export default function Selector({ id, limit, items, initialItems, onSelect, typ
       if (!item) return console.error("[Selector] Couldn't find item when user tried adding an item");
 
       if (selected.length + 1 >= limit) setDropdownOpen(false);
-      onSelect(id, 'add');
-      setSelected([...selected, resolveItem(item, type) as Channel | Role]);
+
+      const newSelectedItems = [...selected, resolveItem(item, type) as Channel | Role];
+
+      onSelect(newSelectedItems.map((i) => i.id));
+      setSelected(newSelectedItems);
       setOptions([...options].filter((o) => o.id !== id));
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps

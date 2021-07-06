@@ -1,5 +1,4 @@
-import type { Snowflake } from 'discord-api-types';
-import { useCallback, useContext, useState } from 'react';
+import { useContext } from 'react';
 
 import { GuildContext } from '../../../contexts/GuildContext';
 import type { Channel, DatabaseGuild } from '../../../graphql/queries/DashboardGuild';
@@ -8,7 +7,7 @@ import Checkbox from '../../form/Checkbox';
 import Field from '../../form/Field';
 import Fieldset from '../../form/Fieldset';
 import Label from '../../form/Label';
-import Selector, { OnSelectFn } from '../../form/Selector';
+import Selector from '../../form/Selector';
 import Header from '../Header';
 
 interface MiscellaneousProps {
@@ -17,27 +16,7 @@ interface MiscellaneousProps {
 }
 
 export default function Miscellaneous({ channels, database }: MiscellaneousProps) {
-  const [autoPublishChannels, setAutoPublishChannels] = useState<Snowflake[]>(database.autoPublishChannels ?? []);
   const { addChange } = useContext(GuildContext);
-
-  const handleAutoPublishChannelsChange: OnSelectFn = useCallback(
-    (channelId, type) => {
-      if (type === 'add') {
-        const finalChannels = [...autoPublishChannels, channelId];
-        setAutoPublishChannels(finalChannels);
-        return addChange('autoPublishChannels', finalChannels);
-      }
-
-      const clone = [...autoPublishChannels];
-      const channelIndex = clone.findIndex((i) => channelId === i);
-      if (channelIndex < 0) return;
-
-      clone.splice(channelIndex, 1);
-      setAutoPublishChannels(clone);
-      addChange('autoPublishChannels', clone);
-    },
-    [addChange, autoPublishChannels],
-  );
 
   return (
     <>
@@ -70,7 +49,7 @@ export default function Miscellaneous({ channels, database }: MiscellaneousProps
             limit={DATABASE_LIMITS.autoPublishChannels.maxLength}
             initialItems={database.autoPublishChannels ?? []}
             items={channels}
-            onSelect={handleAutoPublishChannelsChange}
+            onSelect={(channelIds) => addChange('autoPublishChannels', channelIds)}
             type="channel"
           />
         </Field>

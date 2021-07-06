@@ -50,10 +50,7 @@ export default function EmojiList({ channels, database }: EmojiListProps) {
               limit={1}
               initialItems={database.emojiListChannel ? [database.emojiListChannel] : []}
               items={channels}
-              onSelect={(channelId, type) => {
-                const resolvedChannel = type === 'add' ? channelId : null;
-                addChange('emojiListChannel', resolvedChannel);
-              }}
+              onSelect={(channelIds) => addChange('emojiListChannel', channelIds[0] ?? null)}
               type="channel"
             />
           </div>

@@ -1,5 +1,4 @@
-import type { Snowflake } from 'discord-api-types';
-import { useCallback, useContext, useState } from 'react';
+import { useContext, useState } from 'react';
 
 import { GuildContext } from '../../../contexts/GuildContext';
 import type { DatabaseGuild, Role } from '../../../graphql/queries/DashboardGuild';
@@ -9,7 +8,7 @@ import Field from '../../form/Field';
 import Fieldset from '../../form/Fieldset';
 import Input from '../../form/Input';
 import Label from '../../form/Label';
-import Selector, { OnSelectFn } from '../../form/Selector';
+import Selector from '../../form/Selector';
 import Header from '../Header';
 
 interface AutoroleProps {
@@ -18,30 +17,10 @@ interface AutoroleProps {
 }
 
 export default function Autorole({ database, roles }: AutoroleProps) {
-  const [autoRoles, setAutoRoles] = useState<Snowflake[]>(database.autoRole ?? []);
   const [autoRoleTimeout, setAutoRoleTimeout] = useState(
     formatNumberToNDecimalPlaces(database.autoRoleTimeout / 60_000),
   );
   const { addChange } = useContext(GuildContext);
-
-  const handleAutorolesChange: OnSelectFn = useCallback(
-    (roleId, type) => {
-      if (type === 'add') {
-        const finalRoles = [...autoRoles, roleId];
-        setAutoRoles(finalRoles);
-        return addChange('autoRole', finalRoles);
-      }
-
-      const clone = [...autoRoles];
-      const roleIndex = clone.findIndex((i) => roleId === i);
-      if (roleIndex < 0) return;
-
-      clone.splice(roleIndex, 1);
-      setAutoRoles(clone);
-      addChange('autoRole', clone);
-    },
-    [addChange, autoRoles],
-  );
 
   return (
     <>
@@ -62,7 +41,7 @@ export default function Autorole({ database, roles }: AutoroleProps) {
             limit={DATABASE_LIMITS.autoRole.maxLength}
             initialItems={database.autoRole ?? []}
             items={roles}
-            onSelect={handleAutorolesChange}
+            onSelect={(roleIds) => addChange('autoRole', roleIds)}
             type="role"
           />
         </Field>

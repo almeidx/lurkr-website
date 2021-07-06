@@ -1,5 +1,4 @@
-import type { Snowflake } from 'discord-api-types';
-import { useCallback, useContext, useState } from 'react';
+import { useContext, useState } from 'react';
 
 import { GuildContext } from '../../../contexts/GuildContext';
 import type { Channel, DatabaseGuild, Role } from '../../../graphql/queries/DashboardGuild';
@@ -9,7 +8,7 @@ import Field from '../../form/Field';
 import Fieldset from '../../form/Fieldset';
 import Input from '../../form/Input';
 import Label from '../../form/Label';
-import Selector, { OnSelectFn } from '../../form/Selector';
+import Selector from '../../form/Selector';
 import Textarea from '../../form/Textarea';
 import Header from '../Header';
 
@@ -20,29 +19,8 @@ interface MilestonesProps {
 }
 
 export default function Milestones({ channels, database, roles }: MilestonesProps) {
-  const [milestonesChannel, setMilestonesChannel] = useState<Snowflake | null>(database.milestonesChannel ?? null);
   const [milestonesInterval, setMilestonesInterval] = useState<string>(database.milestonesInterval.toString());
-  const [milestoneRoles, setMilestoneRoles] = useState<Snowflake[]>(database.milestonesRoles ?? []);
   const { addChange } = useContext(GuildContext);
-
-  const handleMilestoneRolesChange: OnSelectFn = useCallback(
-    (roleId, type) => {
-      if (type === 'add') {
-        const finalRoles = [...milestoneRoles, roleId];
-        setMilestoneRoles(finalRoles);
-        return addChange('milestonesRoles', finalRoles);
-      }
-
-      const clone = [...milestoneRoles];
-      const channelIndex = clone.findIndex((i) => roleId === i);
-      if (channelIndex < 0) return;
-
-      clone.splice(channelIndex, 1);
-      setMilestoneRoles(clone);
-      addChange('milestonesRoles', clone);
-    },
-    [addChange, milestoneRoles],
-  );
 
   return (
     <>
@@ -74,14 +52,10 @@ export default function Milestones({ channels, database, roles }: MilestonesProp
           <div className="max-w-[20rem]">
             <Selector
               id="milestonesChannel"
-              initialItems={milestonesChannel ? [milestonesChannel] : []}
+              initialItems={database.milestonesChannel ? [database.milestonesChannel] : []}
               items={channels}
               limit={1}
-              onSelect={(channelId, type) => {
-                const finalChannel = type === 'add' ? channelId : null;
-                setMilestonesChannel(finalChannel);
-                addChange('milestonesChannel', finalChannel);
-              }}
+              onSelect={(channelIds) => addChange('milestonesChannel', channelIds[0] ?? null)}
               type="channel"
             />
           </div>
@@ -141,7 +115,7 @@ export default function Milestones({ channels, database, roles }: MilestonesProp
             initialItems={database.milestonesRoles ?? []}
             items={roles}
             limit={DATABASE_LIMITS.milestonesRoles.maxLength}
-            onSelect={handleMilestoneRolesChange}
+            onSelect={(roleIds) => addChange('milestonesRoles', roleIds)}
             type="role"
           />
         </Field>

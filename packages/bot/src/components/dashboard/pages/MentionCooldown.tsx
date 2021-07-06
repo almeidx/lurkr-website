@@ -1,5 +1,4 @@
-import type { Snowflake } from 'discord-api-types';
-import { useCallback, useContext, useState } from 'react';
+import { useContext, useState } from 'react';
 
 import { GuildContext } from '../../../contexts/GuildContext';
 import type { DatabaseGuild, Role } from '../../../graphql/queries/DashboardGuild';
@@ -9,7 +8,7 @@ import Field from '../../form/Field';
 import Fieldset from '../../form/Fieldset';
 import Input from '../../form/Input';
 import Label from '../../form/Label';
-import Selector, { OnSelectFn } from '../../form/Selector';
+import Selector from '../../form/Selector';
 import Header from '../Header';
 
 interface MentionCooldownProps {
@@ -21,27 +20,7 @@ export default function MentionCooldown({ database, roles }: MentionCooldownProp
   const [mentionCooldown, setMentionCooldown] = useState<string>(
     formatNumberToNDecimalPlaces(database.mentionCooldown / 60_000),
   );
-  const [mentionCooldownRoles, setMentionCooldownRoles] = useState<Snowflake[]>(database.mentionCooldownRoles ?? []);
   const { addChange } = useContext(GuildContext);
-
-  const handleMentionCooldownRolesChange: OnSelectFn = useCallback(
-    (roleId, type) => {
-      if (type === 'add') {
-        const finalRoles = [...mentionCooldownRoles, roleId];
-        setMentionCooldownRoles(finalRoles);
-        return addChange('mentionCooldownRoles', finalRoles);
-      }
-
-      const clone = [...mentionCooldownRoles];
-      const roleIndex = clone.findIndex((i) => roleId === i);
-      if (roleIndex < 0) return;
-
-      clone.splice(roleIndex, 1);
-      setMentionCooldownRoles(clone);
-      addChange('mentionCooldownRoles', clone);
-    },
-    [addChange, mentionCooldownRoles],
-  );
 
   return (
     <>
@@ -77,7 +56,7 @@ export default function MentionCooldown({ database, roles }: MentionCooldownProp
             limit={DATABASE_LIMITS.mentionCooldownRoles.maxLength}
             initialItems={database.mentionCooldownRoles ?? []}
             items={roles}
-            onSelect={handleMentionCooldownRolesChange}
+            onSelect={(roleIds) => addChange('mentionCooldownRoles', roleIds)}
             type="role"
           />
         </Field>

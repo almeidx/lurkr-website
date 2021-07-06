@@ -12,7 +12,7 @@ import Field from '../../form/Field';
 import Fieldset from '../../form/Fieldset';
 import Input from '../../form/Input';
 import Label from '../../form/Label';
-import Selector, { OnSelectFn } from '../../form/Selector';
+import Selector from '../../form/Selector';
 import Textarea from '../../form/Textarea';
 import Header from '../Header';
 import XpMultiplier, {
@@ -78,12 +78,8 @@ const resolveInitialXpResponseType = (database: DatabaseGuild) =>
       : database.xpResponseType
     : ResponseType.NONE;
 
-const resolveInitialXpResponseChannel = (database: DatabaseGuild) =>
-  database.xpResponseType
-    ? /^\d+$/.test(database.xpResponseType)
-      ? (database.xpResponseType as Snowflake)
-      : null
-    : null;
+const resolveInitialXpResponseChannel = (database: DatabaseGuild): Snowflake[] =>
+  database.xpResponseType ? (/^\d+$/.test(database.xpResponseType) ? [database.xpResponseType as Snowflake] : []) : [];
 
 let timeout: NodeJS.Timeout;
 
@@ -92,17 +88,12 @@ export default function Leveling({ channels, database, roles }: LevelingProps) {
   const [newXpRolesLevel, setNewXpRolesLevel] = useState<string>('');
   const [xpRoles, setXpRoles] = useState<Record<string, Snowflake[]>>(database.xpRoles);
   const newXpRoleSubmitRef = useRef<HTMLButtonElement>(null);
-  const [xpResponseChannel, setXpResponseChannel] = useState<Snowflake | null>(
-    resolveInitialXpResponseChannel(database),
-  );
   const [xpChannels, setXpChannels] = useState<Snowflake[]>(
     database.xpWhitelistedChannels ?? database.xpBlacklistedChannels ?? [],
   );
   const [xpChannelsType, setXpChannelsType] = useState<'whitelist' | 'blacklist'>(
     database.xpBlacklistedChannels ? 'blacklist' : 'whitelist',
   );
-  const [topXpRole, setTopXpRole] = useState<Snowflake | null>(database.topXpRole ?? null);
-  const [noXpRoles, setNoXpRoles] = useState<Snowflake[]>(database.noXpRoles ?? []);
   const [autoResetLevels, setAutoResetLevels] = useState<AutoResetLevels>(database.autoResetLevels);
   const [xpMultipliers, setXpMultipliers] = useState<(Omit<Multiplier, 'multiplier'> & { multiplier: string })[]>(
     database.xpMultipliers.map((m) => ({ ...m, multiplier: m.multiplier.toString() })),
@@ -184,47 +175,6 @@ export default function Leveling({ channels, database, roles }: LevelingProps) {
     if ('xpWhitelistedChannels' in clone) removeChange('xpWhitelistedChannels');
     addChange('xpBlacklistedChannels', xpChannels);
   }, [addChange, changes, removeChange, xpChannels, xpChannelsType]);
-
-  const handleXpChannelsChange: OnSelectFn = useCallback(
-    (channelId, type) => {
-      if (type === 'add') {
-        const finalChannels = [...xpChannels, channelId];
-        setXpChannels(finalChannels);
-        return addChange(
-          xpChannelsType === 'whitelist' ? 'xpWhitelistedChannels' : 'xpBlacklistedChannels',
-          finalChannels,
-        );
-      }
-
-      const clone = [...xpChannels];
-      const channelIndex = clone.findIndex((i) => channelId === i);
-      if (channelIndex < 0) return;
-
-      clone.splice(channelIndex, 1);
-      setXpChannels(clone);
-      addChange(xpChannelsType === 'whitelist' ? 'xpWhitelistedChannels' : 'xpBlacklistedChannels', clone);
-    },
-    [addChange, xpChannels, xpChannelsType],
-  );
-
-  const handleNoXpRolesChange: OnSelectFn = useCallback(
-    (roleId, type) => {
-      if (type === 'add') {
-        const finalRoles = [...noXpRoles, roleId];
-        setNoXpRoles(finalRoles);
-        return addChange('noXpRoles', finalRoles);
-      }
-
-      const clone = [...noXpRoles];
-      const roleIndex = clone.findIndex((i) => roleId === i);
-      if (roleIndex < 0) return;
-
-      clone.splice(roleIndex, 1);
-      setNoXpRoles(clone);
-      addChange('noXpRoles', clone);
-    },
-    [addChange, noXpRoles],
-  );
 
   const handleXpMultiplierDelete: XpMultiplierOnDeleteFn = useCallback(
     (index) => {
@@ -365,14 +315,10 @@ export default function Leveling({ channels, database, roles }: LevelingProps) {
             {xpResponseType === ResponseType.CHANNEL && (
               <Selector
                 id="xpResponseTypeChannel"
-                initialItems={xpResponseChannel ? [xpResponseChannel] : []}
+                initialItems={resolveInitialXpResponseChannel(database)}
                 items={channels}
                 limit={1}
-                onSelect={(channelId, type) => {
-                  const finalChannel = type === 'add' ? channelId : null;
-                  setXpResponseChannel(finalChannel);
-                  addChange('xpResponseType', finalChannel);
-                }}
+                onSelect={(channelIds) => addChange('xpResponseType', channelIds[0] ?? null)}
                 type="channel"
               />
             )}
@@ -454,7 +400,10 @@ export default function Leveling({ channels, database, roles }: LevelingProps) {
             initialItems={database.xpBlacklistedChannels ?? database.xpWhitelistedChannels ?? []}
             items={channels}
             limit={DATABASE_LIMITS.xpChannels.maxLength}
-            onSelect={handleXpChannelsChange}
+            onSelect={(channelIds) => {
+              setXpChannels(channelIds);
+              addChange(xpChannelsType === 'whitelist' ? 'xpWhitelistedChannels' : 'xpBlacklistedChannels', channelIds);
+            }}
             type="channel"
           />
         </Field>
@@ -468,14 +417,10 @@ export default function Leveling({ channels, database, roles }: LevelingProps) {
           <div className="max-w-[20rem]">
             <Selector
               id="topXpRole"
-              initialItems={topXpRole ? [topXpRole] : []}
+              initialItems={database.topXpRole ? [database.topXpRole] : []}
               items={roles}
               limit={1}
-              onSelect={(roleId, type) => {
-                const finalRole = type === 'add' ? roleId : null;
-                setTopXpRole(finalRole);
-                addChange('topXpRole', finalRole);
-              }}
+              onSelect={(roleIds) => addChange('topXpRole', roleIds[0] ?? null)}
               type="role"
             />
           </div>
@@ -492,7 +437,7 @@ export default function Leveling({ channels, database, roles }: LevelingProps) {
             initialItems={database.noXpRoles ?? []}
             items={roles}
             limit={DATABASE_LIMITS.noXpRoles.maxLength}
-            onSelect={handleNoXpRolesChange}
+            onSelect={(roleIds) => addChange('noXpRoles', roleIds)}
             type="role"
           />
         </Field>

@@ -1,5 +1,4 @@
-import type { Snowflake } from 'discord-api-types';
-import { useCallback, useContext, useState } from 'react';
+import { useContext, useState } from 'react';
 
 import { GuildContext } from '../../../contexts/GuildContext';
 import type { Channel, DatabaseGuild } from '../../../graphql/queries/DashboardGuild';
@@ -8,7 +7,7 @@ import Field from '../../form/Field';
 import Fieldset from '../../form/Fieldset';
 import Input from '../../form/Input';
 import Label from '../../form/Label';
-import Selector, { OnSelectFn } from '../../form/Selector';
+import Selector from '../../form/Selector';
 import Header from '../Header';
 
 interface GeneralProps {
@@ -18,27 +17,7 @@ interface GeneralProps {
 
 export default function General({ channels, database }: GeneralProps) {
   const [prefix, setPrefix] = useState(database.prefix);
-  const [blacklistedChannels, setBlacklistedChannels] = useState<Snowflake[]>(database.blacklistedChannels ?? []);
   const { addChange } = useContext(GuildContext);
-
-  const handleBlacklistedChannelsChange: OnSelectFn = useCallback(
-    (channelId, type) => {
-      if (type === 'add') {
-        const finalChannels = [...blacklistedChannels, channelId];
-        setBlacklistedChannels(finalChannels);
-        return addChange('blacklistedChannels', finalChannels);
-      }
-
-      const clone = [...blacklistedChannels];
-      const channelIndex = clone.findIndex((i) => channelId === i);
-      if (channelIndex < 0) return;
-
-      clone.splice(channelIndex, 1);
-      setBlacklistedChannels(clone);
-      addChange('blacklistedChannels', clone);
-    },
-    [addChange, blacklistedChannels],
-  );
 
   return (
     <>
@@ -76,7 +55,7 @@ export default function General({ channels, database }: GeneralProps) {
             limit={DATABASE_LIMITS.blacklistedChannels.maxLength}
             initialItems={database.blacklistedChannels ?? []}
             items={channels}
-            onSelect={handleBlacklistedChannelsChange}
+            onSelect={(channelIds) => addChange('blacklistedChannels', channelIds)}
             type="channel"
           />
         </Field>
