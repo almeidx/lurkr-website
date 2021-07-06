@@ -1,5 +1,5 @@
 import type { Snowflake } from 'discord-api-types';
-import { useCallback, useContext, useRef, useState } from 'react';
+import { MouseEventHandler, useCallback, useContext, useRef, useState } from 'react';
 import { IoMdSend } from 'react-icons/io';
 
 import { GuildContext } from '../../../contexts/GuildContext';
@@ -7,11 +7,13 @@ import { AutoResetLevels, Channel, DatabaseGuild, Multiplier, Role } from '../..
 import { DATABASE_LIMITS } from '../../../utils/constants';
 import { parseMultiplier } from '../../../utils/utils';
 import BasicSelect from '../../form/BasicSelect';
+import Checkbox from '../../form/Checkbox';
 import Field from '../../form/Field';
 import Fieldset from '../../form/Fieldset';
 import Input from '../../form/Input';
 import Label from '../../form/Label';
 import Selector, { OnSelectFn } from '../../form/Selector';
+import Textarea from '../../form/Textarea';
 import Header from '../Header';
 import XpMultiplier, {
   XpMultiplierOnDeleteFn,
@@ -86,8 +88,6 @@ const resolveInitialXpResponseChannel = (database: DatabaseGuild) =>
 let timeout: NodeJS.Timeout;
 
 export default function Leveling({ channels, database, roles }: LevelingProps) {
-  const [levels, setLevels] = useState<boolean>(database.levels);
-  const [xpMessage, setXpMessage] = useState(database.xpMessage);
   const [xpResponseType, setXpResponseType] = useState<string>(resolveInitialXpResponseType(database));
   const [newXpRolesLevel, setNewXpRolesLevel] = useState<string>('');
   const [xpRoles, setXpRoles] = useState<Record<string, Snowflake[]>>(database.xpRoles);
@@ -95,7 +95,6 @@ export default function Leveling({ channels, database, roles }: LevelingProps) {
   const [xpResponseChannel, setXpResponseChannel] = useState<Snowflake | null>(
     resolveInitialXpResponseChannel(database),
   );
-  const [stackXpRoles, setStackXpRoles] = useState<boolean>(database.stackXpRoles);
   const [xpChannels, setXpChannels] = useState<Snowflake[]>(
     database.xpWhitelistedChannels ?? database.xpBlacklistedChannels ?? [],
   );
@@ -112,7 +111,7 @@ export default function Leveling({ channels, database, roles }: LevelingProps) {
   const [prioritiseMultiplierRoleHierarchy, setPrioritiseMultiplierRoleHierarchy] = useState(
     database.prioritiseMultiplierRoleHierarchy,
   );
-  const { addChange } = useContext(GuildContext);
+  const { addChange, changes, removeChange } = useContext(GuildContext);
 
   const handleNewXpRoleCreated: () => unknown = useCallback(() => {
     const clone: Record<string, Snowflake[]> = JSON.parse(JSON.stringify(xpRoles));
@@ -159,7 +158,9 @@ export default function Leveling({ channels, database, roles }: LevelingProps) {
       }
 
       const roleIndex = levelXpRoles.findIndex((i) => i === roleId);
-      if (!roleIndex) return console.error("[Leveling] Couldn't find item index when user tried removing a level role");
+      if (roleIndex < 0) {
+        return console.error("[Leveling] Couldn't find item index when user tried removing a level role");
+      }
 
       levelXpRoles.splice(roleIndex, 1);
       clone[level] = levelXpRoles;
@@ -168,6 +169,21 @@ export default function Leveling({ channels, database, roles }: LevelingProps) {
     },
     [addChange, xpRoles],
   );
+
+  const handleXpChannelsTypeChange: MouseEventHandler<HTMLButtonElement> = useCallback(() => {
+    const currentType = `${xpChannelsType}` as const;
+    setXpChannelsType(currentType === 'blacklist' ? 'whitelist' : 'blacklist');
+
+    const clone: Partial<DatabaseGuild> = JSON.parse(JSON.stringify(changes));
+
+    if (currentType === 'blacklist') {
+      if ('xpBlacklistedChannels' in clone) removeChange('xpBlacklistedChannels');
+      return addChange('xpWhitelistedChannels', xpChannels);
+    }
+
+    if ('xpWhitelistedChannels' in clone) removeChange('xpWhitelistedChannels');
+    addChange('xpBlacklistedChannels', xpChannels);
+  }, [addChange, changes, removeChange, xpChannels, xpChannelsType]);
 
   const handleXpChannelsChange: OnSelectFn = useCallback(
     (channelId, type) => {
@@ -305,16 +321,7 @@ export default function Leveling({ channels, database, roles }: LevelingProps) {
               Enabled
             </label>
 
-            <input
-              checked={levels}
-              className="w-4 h-4"
-              type="checkbox"
-              id="levels"
-              onChange={() => {
-                setLevels(!levels);
-                addChange('levels', !levels);
-              }}
-            />
+            <Checkbox id="levels" initialValue={database.levels} onChange={(value) => addChange('levels', value)} />
           </div>
         </div>
       </div>
@@ -326,20 +333,12 @@ export default function Leveling({ channels, database, roles }: LevelingProps) {
             name="XP Message"
             url="https://docs.pepemanager.com/guides/setting-up-server-xp-leveling#customizing-the-level-up-message"
           />
-          <Input
+          <Textarea
+            initialText={database.xpMessage}
             id="xpMessage"
             maxLength={DATABASE_LIMITS.xpMessage.maxLength}
-            onChange={({ target }) => {
-              if (target.value.length > DATABASE_LIMITS.xpMessage.maxLength) return;
-              setXpMessage(target.value);
-              addChange('xpMessage', target.value);
-            }}
-            onClear={() => {
-              setXpMessage('');
-              addChange('xpMessage', '');
-            }}
+            onChange={(text) => addChange('xpMessage', text)}
             placeholder="Enter the level up message"
-            value={xpMessage}
           />
         </Field>
 
@@ -360,6 +359,7 @@ export default function Leveling({ channels, database, roles }: LevelingProps) {
                 setXpResponseType(type);
                 if (type === ResponseType.DM || type === ResponseType.SAME_CHANNEL) addChange('xpResponseType', type);
                 else if (type === ResponseType.NONE) addChange('xpResponseType', null);
+                else addChange('xpResponseType', '123');
               }}
             />
             {xpResponseType === ResponseType.CHANNEL && (
@@ -387,18 +387,22 @@ export default function Leveling({ channels, database, roles }: LevelingProps) {
           />
           <div className="mb-4">
             {Object.keys(xpRoles).length < 100 && (
-              <Input
-                id="newXpRole"
-                maxLength={3}
-                onChange={({ target }) =>
-                  target.value ? /^\d+$/.test(target.value) && setNewXpRolesLevel(target.value) : setNewXpRolesLevel('')
-                }
-                onClear={() => setNewXpRolesLevel('')}
-                onSubmit={handleNewXpRoleCreated}
-                placeholder="Enter a level to reward roles to"
-                submitRef={newXpRoleSubmitRef}
-                value={newXpRolesLevel}
-              />
+              <div className="max-w-[21rem]">
+                <Input
+                  id="newXpRole"
+                  maxLength={3}
+                  onChange={({ target }) =>
+                    target.value
+                      ? /^\d+$/.test(target.value) && setNewXpRolesLevel(target.value)
+                      : setNewXpRolesLevel('')
+                  }
+                  onClear={() => setNewXpRolesLevel('')}
+                  onSubmit={handleNewXpRoleCreated}
+                  placeholder="Enter a level to reward roles to"
+                  submitRef={newXpRoleSubmitRef}
+                  value={newXpRolesLevel}
+                />
+              </div>
             )}
           </div>
           <div className="flex flex-col gap-2 divide-y-2 divide-gray-400">
@@ -416,21 +420,19 @@ export default function Leveling({ channels, database, roles }: LevelingProps) {
         </Field>
 
         <Field direction="row">
-          <Label
-            htmlFor="stackXpRoles"
-            name="Stack XP Roles"
-            url="https://docs.pepemanager.com/guides/setting-up-server-xp-leveling#toggling-role-stacking"
-          />
-          <input
-            checked={stackXpRoles}
-            className="w-4 h-4"
-            type="checkbox"
-            id="stackXpRoles"
-            onChange={() => {
-              setStackXpRoles(!stackXpRoles);
-              addChange('stackXpRoles', !stackXpRoles);
-            }}
-          />
+          <div className="flex flex-row items-center text-center gap-x-3">
+            <Checkbox
+              id="stackXpRoles"
+              initialValue={database.stackXpRoles}
+              onChange={(value) => addChange('stackXpRoles', value)}
+            />
+
+            <Label
+              htmlFor="stackXpRoles"
+              name="Stack XP Roles"
+              url="https://docs.pepemanager.com/guides/setting-up-server-xp-leveling#toggling-role-stacking"
+            />
+          </div>
         </Field>
 
         <Field>
@@ -442,7 +444,7 @@ export default function Leveling({ channels, database, roles }: LevelingProps) {
           <div className="flex flex-row justify-start mb-3">
             <button
               className="text-white w-[fit-content] bg-discord-not-quite-black px-2 py-1.5 rounded-md shadow-sm duration-150 transition-colors active:bg-discord-dark focus:outline-none"
-              onClick={() => setXpChannelsType(xpChannelsType === 'blacklist' ? 'whitelist' : 'blacklist')}
+              onClick={handleXpChannelsTypeChange}
             >
               Click to use a {xpChannelsType === 'blacklist' ? 'whitelist' : 'blacklist'} instead
             </button>
@@ -463,24 +465,26 @@ export default function Leveling({ channels, database, roles }: LevelingProps) {
             name="Top XP Role"
             url="https://docs.pepemanager.com/guides/setting-up-server-xp-leveling#adding-the-top-xp-role"
           />
-          <Selector
-            id="topXpRole"
-            initialItems={topXpRole ? [topXpRole] : []}
-            items={roles}
-            limit={1}
-            onSelect={(roleId, type) => {
-              const finalRole = type === 'add' ? roleId : null;
-              setTopXpRole(finalRole);
-              addChange('topXpRole', finalRole);
-            }}
-            type="role"
-          />
+          <div className="max-w-[20rem]">
+            <Selector
+              id="topXpRole"
+              initialItems={topXpRole ? [topXpRole] : []}
+              items={roles}
+              limit={1}
+              onSelect={(roleId, type) => {
+                const finalRole = type === 'add' ? roleId : null;
+                setTopXpRole(finalRole);
+                addChange('topXpRole', finalRole);
+              }}
+              type="role"
+            />
+          </div>
         </Field>
 
         <Field>
           <Label
             htmlFor="noXpRoles"
-            name="No-XP Role"
+            name="No-XP Roles"
             url="https://docs.pepemanager.com/guides/setting-up-server-xp-leveling#adding-no-xp-roles"
           />
           <Selector
@@ -520,7 +524,7 @@ export default function Leveling({ channels, database, roles }: LevelingProps) {
             {Object.keys(xpMultipliers).length <= 20 && (
               <>
                 <p className="text-white">Create a new multiplier</p>
-                <div className="flex flex-row gap-4 mt-2 mb-4">
+                <div className="flex flex-row gap-3 mt-2 mb-4">
                   <BasicSelect
                     initialItem={'Channel'}
                     items={

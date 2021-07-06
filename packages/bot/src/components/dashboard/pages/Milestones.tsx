@@ -3,12 +3,14 @@ import { useCallback, useContext, useState } from 'react';
 
 import { GuildContext } from '../../../contexts/GuildContext';
 import type { Channel, DatabaseGuild, Role } from '../../../graphql/queries/DashboardGuild';
-import { DATABASE_DEFAULTS, DATABASE_LIMITS } from '../../../utils/constants';
+import { DATABASE_LIMITS } from '../../../utils/constants';
+import Checkbox from '../../form/Checkbox';
 import Field from '../../form/Field';
 import Fieldset from '../../form/Fieldset';
 import Input from '../../form/Input';
 import Label from '../../form/Label';
 import Selector, { OnSelectFn } from '../../form/Selector';
+import Textarea from '../../form/Textarea';
 import Header from '../Header';
 
 interface MilestonesProps {
@@ -18,12 +20,8 @@ interface MilestonesProps {
 }
 
 export default function Milestones({ channels, database, roles }: MilestonesProps) {
-  const [storeMilestones, setStoreMilestones] = useState<boolean>(database.storeMilestones);
   const [milestonesChannel, setMilestonesChannel] = useState<Snowflake | null>(database.milestonesChannel ?? null);
   const [milestonesInterval, setMilestonesInterval] = useState<string>(database.milestonesInterval.toString());
-  const [milestoneMessage, setMilestoneMessage] = useState<string>(
-    database.milestonesMessage ?? DATABASE_DEFAULTS.milestonesMessage,
-  );
   const [milestoneRoles, setMilestoneRoles] = useState<Snowflake[]>(database.milestonesRoles ?? []);
   const { addChange } = useContext(GuildContext);
 
@@ -57,15 +55,10 @@ export default function Milestones({ channels, database, roles }: MilestonesProp
               Enabled
             </label>
 
-            <input
-              checked={storeMilestones}
-              className="w-4 h-4"
-              type="checkbox"
+            <Checkbox
               id="milestones"
-              onChange={() => {
-                setStoreMilestones(!storeMilestones);
-                addChange('storeMilestones', !storeMilestones);
-              }}
+              initialValue={database.storeMilestones}
+              onChange={(value) => addChange('storeMilestones', value)}
             />
           </div>
         </div>
@@ -124,20 +117,12 @@ export default function Milestones({ channels, database, roles }: MilestonesProp
             name="Milestone Message"
             url="https://docs.pepemanager.com/guides/automatically-controlled-member-milestones#setting-the-milestones-message"
           />
-          <Input
+          <Textarea
+            initialText={database.milestonesMessage ?? ''}
             id="milestonesMessage"
             maxLength={DATABASE_LIMITS.milestonesMessage.maxLength}
-            onChange={({ target }) => {
-              if (target.value.length > DATABASE_LIMITS.milestonesMessage.maxLength) return;
-              setMilestoneMessage(target.value);
-              addChange('milestonesMessage', target.value);
-            }}
-            onClear={() => {
-              setMilestoneMessage('');
-              addChange('milestonesMessage', '');
-            }}
+            onChange={(text) => addChange('milestonesMessage', text)}
             placeholder="Enter the milestone message"
-            value={milestoneMessage}
           />
         </Field>
 

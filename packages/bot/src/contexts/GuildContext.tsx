@@ -18,9 +18,10 @@ interface GuildContextData {
   clearChanges: () => void;
   data: DatabaseGuild | null;
   guildId: Snowflake | null;
+  removeChange: (key: keyof DatabaseGuild) => void;
   section: Section;
   updateData: (newData: DatabaseGuild) => void;
-  updateGuildId: (id: Snowflake) => void;
+  updateGuildId: (newId: Snowflake) => void;
   updateSection: (newSection: Section) => void;
 }
 
@@ -38,7 +39,7 @@ export default function GuildContextProvider({ children }: GuildContextProps) {
 
   const addChange = useCallback(
     <T extends keyof DatabaseGuild>(key: T, value: DatabaseGuild[T]) => {
-      const clone = JSON.parse(JSON.stringify(changes));
+      const clone: Partial<DatabaseGuild> = JSON.parse(JSON.stringify(changes));
 
       if (data && data[key] === value) {
         if (key in clone) {
@@ -55,6 +56,19 @@ export default function GuildContextProvider({ children }: GuildContextProps) {
     [changes, data],
   );
 
+  const removeChange = useCallback(
+    (key: keyof DatabaseGuild) => {
+      const clone: Partial<DatabaseGuild> = JSON.parse(JSON.stringify(changes));
+
+      if (key in clone) {
+        // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
+        delete clone[key];
+        setChanges(clone);
+      }
+    },
+    [changes],
+  );
+
   const clearChanges = useCallback(() => setChanges({}), []);
 
   return (
@@ -65,6 +79,7 @@ export default function GuildContextProvider({ children }: GuildContextProps) {
         clearChanges,
         data,
         guildId,
+        removeChange,
         section,
         updateData: setData,
         updateGuildId: setGuildId,

@@ -99,7 +99,7 @@ export default function Selector({ id, limit, items, initialItems, onSelect, typ
 
   return (
     <div>
-      <div className="flex flex-row flex-wrap gap-1.5 min-h-[3rem] bg-discord-not-quite-black px-5 py-3 focus:outline-none rounded-md shadow">
+      <div className="flex flex-row flex-wrap gap-1.5 min-w-[15rem] min-h-[3rem] bg-discord-not-quite-black px-5 py-3 focus:outline-none rounded-md shadow">
         {selected.map((i) => (
           <div
             className="flex w-full-content items-center h-6 cursor-pointer z-50 border rounded-full text-xs"
@@ -111,6 +111,7 @@ export default function Selector({ id, limit, items, initialItems, onSelect, typ
             {type === 'role' && 'color' in i && (
               <div
                 className="w-3 h-3 ml-[5px] mr-[4px] rounded-full"
+                id={i.id}
                 style={{ backgroundColor: resolveColour(i.color) }}
               />
             )}

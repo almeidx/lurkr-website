@@ -4,6 +4,7 @@ import { useCallback, useContext, useState } from 'react';
 import { GuildContext } from '../../../contexts/GuildContext';
 import type { Channel, DatabaseGuild } from '../../../graphql/queries/DashboardGuild';
 import { DATABASE_LIMITS } from '../../../utils/constants';
+import Checkbox from '../../form/Checkbox';
 import Field from '../../form/Field';
 import Fieldset from '../../form/Fieldset';
 import Label from '../../form/Label';
@@ -16,7 +17,6 @@ interface MiscellaneousProps {
 }
 
 export default function Miscellaneous({ channels, database }: MiscellaneousProps) {
-  const [storeCounts, setStoreCounts] = useState(database.storeCounts);
   const [autoPublishChannels, setAutoPublishChannels] = useState<Snowflake[]>(database.autoPublishChannels ?? []);
   const { addChange } = useContext(GuildContext);
 
@@ -45,21 +45,18 @@ export default function Miscellaneous({ channels, database }: MiscellaneousProps
 
       <Fieldset>
         <Field direction="row">
-          <Label
-            htmlFor="storeCounts"
-            name="Store Member Counts"
-            url="https://docs.pepemanager.com/config-commands/config/toggle"
-          />
-          <input
-            checked={storeCounts}
-            className="w-4 h-4"
-            type="checkbox"
-            id="storeCounts"
-            onChange={() => {
-              setStoreCounts(!storeCounts);
-              addChange('storeCounts', !storeCounts);
-            }}
-          />
+          <div className="flex flex-row items-center text-center gap-x-3">
+            <Checkbox
+              id="storeCounts"
+              initialValue={database.storeCounts}
+              onChange={(value) => addChange('storeCounts', value)}
+            />
+            <Label
+              htmlFor="storeCounts"
+              name="Store Member Counts"
+              url="https://docs.pepemanager.com/config-commands/config/toggle"
+            />
+          </div>
         </Field>
 
         <Field>

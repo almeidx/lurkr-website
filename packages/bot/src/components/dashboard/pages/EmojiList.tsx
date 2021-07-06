@@ -1,7 +1,8 @@
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 
 import { GuildContext } from '../../../contexts/GuildContext';
 import type { Channel, DatabaseGuild } from '../../../graphql/queries/DashboardGuild';
+import Checkbox from '../../form/Checkbox';
 import Field from '../../form/Field';
 import Fieldset from '../../form/Fieldset';
 import Label from '../../form/Label';
@@ -14,7 +15,6 @@ interface EmojiListProps {
 }
 
 export default function EmojiList({ channels, database }: EmojiListProps) {
-  const [emojiList, setEmojiList] = useState<boolean>(database.emojiList);
   const { addChange } = useContext(GuildContext);
 
   return (
@@ -28,15 +28,10 @@ export default function EmojiList({ channels, database }: EmojiListProps) {
               Enabled
             </label>
 
-            <input
-              checked={emojiList}
-              className="w-4 h-4"
-              type="checkbox"
+            <Checkbox
               id="emojiList"
-              onChange={() => {
-                setEmojiList(!emojiList);
-                addChange('emojiList', !emojiList);
-              }}
+              initialValue={database.emojiList}
+              onChange={(value) => addChange('emojiList', value)}
             />
           </div>
         </div>

@@ -16,6 +16,7 @@ import updateDatabaseGuild, {
   UpdateDatabaseGuild,
   UpdateDatabaseGuildVariables,
 } from '../../graphql/mutations/updateDatabaseGuild';
+import type { DatabaseGuild } from '../../graphql/queries/DashboardGuild';
 import { guildIconCdn } from '../../utils/cdn';
 import { FALLBACK_AVATAR_PATH } from '../../utils/constants';
 
@@ -66,7 +67,7 @@ export default function Menu({ guild }: MenuProps) {
       setSaveButtonText('Saving...');
     }
 
-    const clone = JSON.parse(JSON.stringify(changes));
+    const clone: Partial<DatabaseGuild> = JSON.parse(JSON.stringify(changes));
     if (!Object.keys(clone).length || !guildId) return;
 
     let hasFailed = false;
@@ -74,7 +75,7 @@ export default function Menu({ guild }: MenuProps) {
     try {
       await updateDatabase({ variables: { data: clone, id: guildId } });
     } catch (error) {
-      console.error(error);
+      console.error(error, error.networkError, error.networkError?.result?.errors);
       hasFailed = true;
     } finally {
       if (saveButtonRef.current) {

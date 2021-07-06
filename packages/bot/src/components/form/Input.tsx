@@ -25,7 +25,7 @@ export default function Input(props: InputProps | InputWithSubmitProps): JSX.Ele
           autoCapitalize="off"
           autoComplete="off"
           autoCorrect="off"
-          className="text-white bg-discord-not-quite-black pl-5 pr-12 py-3 focus:outline-none rounded-md shadow w-full"
+          className="text-white bg-discord-not-quite-black pl-5 pr-5 py-3 focus:outline-none rounded-md shadow w-full"
           id={props.id}
           maxLength={props.maxLength}
           onChange={props.onChange}
