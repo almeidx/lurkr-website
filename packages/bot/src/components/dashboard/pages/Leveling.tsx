@@ -89,6 +89,7 @@ const prioritiseMultiplierValues = ['Role Hierarchy', 'Multiplier Value'];
 let timeout: NodeJS.Timeout;
 
 export default function Leveling({ channels, database, roles }: LevelingProps) {
+  const [featureEnabled, setFeatureEnabled] = useState<boolean>(database.levels);
   const [xpRoles, setXpRoles] = useState<Record<string, Snowflake[]>>(database.xpRoles);
   const [xpChannels, setXpChannels] = useState<Snowflake[]>(
     database.xpWhitelistedChannels ?? database.xpBlacklistedChannels ?? [],
@@ -224,7 +225,14 @@ export default function Leveling({ channels, database, roles }: LevelingProps) {
               Enabled
             </label>
 
-            <Checkbox id="levels" initialValue={database.levels} onChange={(v) => addChange('levels', v)} />
+            <Checkbox
+              id="levels"
+              initialValue={database.levels}
+              onChange={(v) => {
+                addChange('levels', v);
+                setFeatureEnabled(!featureEnabled);
+              }}
+            />
           </div>
         </div>
       </div>
@@ -242,6 +250,7 @@ export default function Leveling({ channels, database, roles }: LevelingProps) {
             maxLength={DATABASE_LIMITS.xpMessage.maxLength}
             onChange={(t) => addChange('xpMessage', t)}
             placeholder="Enter the level up message"
+            disabled={!featureEnabled}
           />
         </Field>
 
@@ -254,6 +263,7 @@ export default function Leveling({ channels, database, roles }: LevelingProps) {
 
           <div className="flex flex-row gap-x-4">
             <BasicSelect
+              disabled={!featureEnabled}
               closeOnSelect
               initialItem={resolveXpResponseNameByType(ResponseType.SAME_CHANNEL)}
               items={['Same Channel', 'DM', 'Custom Channel', 'None']}
@@ -267,6 +277,7 @@ export default function Leveling({ channels, database, roles }: LevelingProps) {
             />
             {xpResponseType === ResponseType.CHANNEL && (
               <Selector
+                disabled={!featureEnabled}
                 id="xpResponseTypeChannel"
                 initialItems={resolveInitialXpResponseChannel(database)}
                 items={channels}
@@ -288,6 +299,7 @@ export default function Leveling({ channels, database, roles }: LevelingProps) {
             {Object.keys(xpRoles).length < 100 && (
               <div className="max-w-[21rem]">
                 <Input
+                  disabled={!featureEnabled}
                   id="newXpRole"
                   initialValue={''}
                   maxLength={3}
@@ -315,6 +327,7 @@ export default function Leveling({ channels, database, roles }: LevelingProps) {
         <Field direction="row">
           <div className="flex flex-row items-center text-center gap-x-3">
             <Checkbox
+              disabled={!featureEnabled}
               id="stackXpRoles"
               initialValue={database.stackXpRoles}
               onChange={(v) => addChange('stackXpRoles', v)}
@@ -336,13 +349,15 @@ export default function Leveling({ channels, database, roles }: LevelingProps) {
           />
           <div className="flex flex-row justify-start mb-3">
             <button
-              className="text-white w-[fit-content] bg-discord-not-quite-black px-2 py-1.5 rounded-md shadow-sm duration-150 transition-colors active:bg-discord-dark focus:outline-none"
+              disabled={!featureEnabled}
+              className="text-white disabled:text-opacity-25 w-[fit-content] bg-discord-not-quite-black px-2 py-1.5 rounded-md shadow-sm duration-150 transition-colors active:bg-discord-dark focus:outline-none"
               onClick={handleXpChannelsTypeChange}
             >
               Click to use a {xpChannelsType === 'blacklist' ? 'whitelist' : 'blacklist'} instead
             </button>
           </div>
           <Selector
+            disabled={!featureEnabled}
             id="xpChannels"
             initialItems={database.xpBlacklistedChannels ?? database.xpWhitelistedChannels ?? []}
             items={channels}
@@ -363,6 +378,7 @@ export default function Leveling({ channels, database, roles }: LevelingProps) {
           />
           <div className="max-w-[20rem]">
             <Selector
+              disabled={!featureEnabled}
               id="topXpRole"
               initialItems={database.topXpRole ? [database.topXpRole] : []}
               items={roles}
@@ -380,6 +396,7 @@ export default function Leveling({ channels, database, roles }: LevelingProps) {
             url="https://docs.pepemanager.com/guides/setting-up-server-xp-leveling#adding-no-xp-roles"
           />
           <Selector
+            disabled={!featureEnabled}
             id="noXpRoles"
             initialItems={database.noXpRoles ?? []}
             items={roles}
@@ -396,6 +413,7 @@ export default function Leveling({ channels, database, roles }: LevelingProps) {
             url="https://docs.pepemanager.com/guides/setting-up-server-xp-leveling#automatically-resetting-levels"
           />
           <BasicSelect
+            disabled={!featureEnabled}
             initialItem={resolveAutoResetLevelsNameByType(database.autoResetLevels)}
             items={['None', 'Leave', 'Ban', 'Ban & Leave']}
             onSelect={(i) => addChange('autoResetLevels', resolveAutoResetLevelsTypeByName(i))}
@@ -414,6 +432,7 @@ export default function Leveling({ channels, database, roles }: LevelingProps) {
                 <p className="text-white">Create a new multiplier</p>
                 <div className="flex flex-row gap-3 mt-2 mb-4">
                   <BasicSelect
+                    disabled={!featureEnabled}
                     initialItem={'Channel'}
                     items={
                       xpMultipliers.some((m) => m.type === 'global')
@@ -423,7 +442,8 @@ export default function Leveling({ channels, database, roles }: LevelingProps) {
                     onSelect={(item) => setNewXpMultiplierType(item.toLowerCase() as Multiplier['type'])}
                   />
                   <button
-                    className="flex-shrink-0 h-12 w-12 bg-discord-not-quite-black rounded-md flex justify-center items-center text-white duration-150 transition-colors"
+                    disabled={!featureEnabled}
+                    className="flex-shrink-0 h-12 w-12 bg-discord-not-quite-black rounded-md flex justify-center items-center text-white disabled:text-opacity-25 duration-150 transition-colors"
                     onClick={() => {
                       const finalMultipliers = [
                         ...xpMultipliers,
@@ -469,6 +489,7 @@ export default function Leveling({ channels, database, roles }: LevelingProps) {
           />
           <BasicSelect
             closeOnSelect
+            disabled={!featureEnabled}
             initialItem={prioritiseMultiplierValues[database.prioritiseMultiplierRoleHierarchy ? 1 : 0]}
             items={prioritiseMultiplierValues}
             onSelect={(i) => addChange('prioritiseMultiplierRoleHierarchy', i === prioritiseMultiplierValues[0])}
