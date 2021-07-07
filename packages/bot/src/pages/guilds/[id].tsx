@@ -63,14 +63,10 @@ export default function Guild({ database, guild }: InferGetServerSidePropsType<t
     const urlParams = new URLSearchParams(window.location.search);
     const query = urlParams.get('p');
     if (query && guild) {
-      const pageName = decodeURIComponent(query).toLowerCase();
-      if (isValidSection(pageName)) {
-        void router.push(`/guilds/${guild.id}?p=${pageName}`, `/guilds/${guild.id}?p=${pageName}`, { shallow: true });
-        updateSection(pageName);
-      } else {
-        void router.push(`/guilds/${guild.id}?p=general`, `/guilds/${guild.id}?p=general`, { shallow: true });
-        updateSection('general');
-      }
+      const pageQuery = decodeURIComponent(query).toLowerCase();
+      const pageName = isValidSection(pageQuery) ? pageQuery : 'general';
+      void router.push(`/guilds/${guild.id}?p=${pageName}`, `/guilds/${guild.id}?p=${pageName}`, { shallow: true });
+      updateSection(pageName);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

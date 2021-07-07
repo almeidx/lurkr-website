@@ -220,7 +220,7 @@ export default function Leveling({ channels, database, roles }: LevelingProps) {
         <Header description="Allow users to gain xp and level up by sending messages." title="Leveling" />
 
         <div>
-          <div className="flex flex-row gap-x-4 items-center">
+          <div className="flex flex-row gap-x-3 items-center">
             <label className="text-white" htmlFor="levels">
               Enabled
             </label>
@@ -325,7 +325,7 @@ export default function Leveling({ channels, database, roles }: LevelingProps) {
         </Field>
 
         <Field direction="row">
-          <div className="flex flex-row items-center text-center gap-x-3">
+          <div className="flex flex-row gap-x-3 items-center">
             <Checkbox
               disabled={!featureEnabled}
               id="stackXpRoles"
@@ -337,6 +337,7 @@ export default function Leveling({ channels, database, roles }: LevelingProps) {
               htmlFor="stackXpRoles"
               name="Stack XP Roles"
               url="https://docs.pepemanager.com/guides/setting-up-server-xp-leveling#toggling-role-stacking"
+              withMargin={false}
             />
           </div>
         </Field>

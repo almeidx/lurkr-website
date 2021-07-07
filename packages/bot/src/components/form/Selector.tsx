@@ -41,11 +41,9 @@ export default function Selector({ id, limit, items, initialItems, onSelect, typ
   const [selected, setSelected] = useState<Items>([]);
   const [options, setOptions] = useState<Items>(items);
   const [searchTerm, setSearchTerm] = useState('');
-  const elementRef = useRef(null);
+  const elementRef = useRef<HTMLDivElement>(null);
 
-  const handleClickOutside = () => {
-    setDropdownOpen(false);
-  };
+  const handleClickOutside = useCallback(() => setDropdownOpen(false), []);
 
   useClickOutside(elementRef, handleClickOutside);
 

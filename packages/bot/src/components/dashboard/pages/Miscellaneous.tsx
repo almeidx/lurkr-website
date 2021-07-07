@@ -24,7 +24,7 @@ export default function Miscellaneous({ channels, database }: MiscellaneousProps
 
       <Fieldset>
         <Field direction="row">
-          <div className="flex flex-row items-center text-center gap-x-3">
+          <div className="flex flex-row gap-x-3 items-center">
             <Checkbox
               id="storeCounts"
               initialValue={database.storeCounts}
@@ -34,6 +34,7 @@ export default function Miscellaneous({ channels, database }: MiscellaneousProps
               htmlFor="storeCounts"
               name="Store Member Counts"
               url="https://docs.pepemanager.com/config-commands/config/toggle"
+              withMargin={false}
             />
           </div>
         </Field>

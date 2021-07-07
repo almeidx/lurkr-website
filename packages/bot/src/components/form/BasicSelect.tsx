@@ -20,11 +20,9 @@ export default function BasicSelect({
 }: BasicSelectProps) {
   const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
   const [selected, setSelected] = useState<string>(initialItem);
-  const elementRef = useRef(null);
+  const elementRef = useRef<HTMLDivElement>(null);
 
-  const handleClickOutside = () => {
-    setDropdownOpen(false);
-  };
+  const handleClickOutside = useCallback(() => setDropdownOpen(false), []);
 
   useClickOutside(elementRef, handleClickOutside);
 
