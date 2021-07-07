@@ -1,7 +1,8 @@
 import type { Snowflake } from 'discord-api-types';
-import { MouseEventHandler, useCallback, useEffect, useState } from 'react';
+import { MouseEventHandler, useCallback, useEffect, useRef, useState } from 'react';
 import { AiOutlineCloseCircle, AiOutlinePlusCircle } from 'react-icons/ai';
 
+import useClickOutside from '../../hooks/useClickOutside';
 import { DEFAULT_ROLE_COLOUR } from '../../utils/constants';
 import { resolveColour } from '../../utils/utils';
 import Input from '../form/Input';
@@ -39,6 +40,13 @@ export default function Selector({ id, limit, items, initialItems, onSelect, typ
   const [selected, setSelected] = useState<Items>([]);
   const [options, setOptions] = useState<Items>(items);
   const [searchTerm, setSearchTerm] = useState('');
+  const elementRef = useRef(null);
+
+  const handleClickOutside = () => {
+    setDropdownOpen(false);
+  };
+
+  useClickOutside(elementRef, handleClickOutside);
 
   const handleChannelRemove: MouseEventHandler<HTMLDivElement> = useCallback(
     (event) => {
@@ -101,7 +109,7 @@ export default function Selector({ id, limit, items, initialItems, onSelect, typ
   }, [searchTerm, selected]);
 
   return (
-    <div className="relative">
+    <div className="relative" ref={elementRef}>
       <div className="flex flex-row flex-wrap gap-1.5 min-w-[15rem] min-h-[3rem] bg-discord-not-quite-black px-5 py-3 focus:outline-none rounded-md shadow">
         {selected.map((i) => (
           <div

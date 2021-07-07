@@ -1,5 +1,7 @@
-import { MouseEventHandler, useCallback, useState } from 'react';
+import { MouseEventHandler, useCallback, useRef, useState } from 'react';
 import { AiFillCaretDown } from 'react-icons/ai';
+
+import useClickOutside from '../../hooks/useClickOutside';
 
 interface BasicSelectProps {
   closeOnSelect?: boolean;
@@ -11,6 +13,13 @@ interface BasicSelectProps {
 export default function BasicSelect({ closeOnSelect = false, initialItem, items, onSelect }: BasicSelectProps) {
   const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
   const [selected, setSelected] = useState<string>(initialItem);
+  const elementRef = useRef(null);
+
+  const handleClickOutside = () => {
+    setDropdownOpen(false);
+  };
+
+  useClickOutside(elementRef, handleClickOutside);
 
   const handleItemChange: MouseEventHandler<HTMLDivElement> = useCallback(
     (event) => {
@@ -28,7 +37,7 @@ export default function BasicSelect({ closeOnSelect = false, initialItem, items,
   );
 
   return (
-    <div className="cursor-pointer">
+    <div ref={elementRef} className="relative cursor-pointer">
       <div
         className="flex flex-row flex-wrap gap-1.5 min-h-[3rem] w-64 bg-discord-not-quite-black px-5 py-3 focus:outline-none rounded-md shadow relative"
         onClick={() => setDropdownOpen(!dropdownOpen)}
@@ -45,9 +54,9 @@ export default function BasicSelect({ closeOnSelect = false, initialItem, items,
       <div
         className={`${
           dropdownOpen ? '' : 'hidden'
-        } relative h-64 w-full bg-[#36393f] flex flex-col items-center pt-4 mt-2 rounded-md`}
+        } absolute z-[99999] max-h-64 w-full bg-[#36393f] flex flex-col items-center mt-2 rounded-md`}
       >
-        <div className="flex flex-col overflow-y-scroll w-full h-full mb-2 gap-1">
+        <div className="flex flex-col overflow-y-scroll w-full h-full my-2 gap-1">
           {items.map((name, i) => (
             <div
               className="flex items-center text-center px-4 py-2 hover:bg-discord-lighter rounded-lg cursor-pointer"
