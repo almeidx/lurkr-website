@@ -7,8 +7,9 @@ interface InputProps {
   id: string;
   initialValue: string;
   maxLength: number;
-  onChange: (text: string) => unknown;
   placeholder: string;
+  disabled?: boolean;
+  onChange: (text: string) => unknown;
 }
 
 interface InputWithSubmitProps extends InputProps {
@@ -23,7 +24,7 @@ export default function Input(props: InputProps | InputWithSubmitProps): JSX.Ele
     <div className={`flex w-full ${props.className ?? ''}`}>
       <div className="relative flex-grow-1 w-full">
         <input
-          className="text-white bg-discord-not-quite-black pl-5 pr-5 py-3 focus:outline-none rounded-md shadow w-full"
+          className="text-white bg-discord-not-quite-black pl-5 pr-5 py-3 placeholder:text-opacity-75 disabled:text-opacity-25 disabled:select-none focus:outline-none rounded-md shadow w-full"
           id={props.id}
           maxLength={props.maxLength}
           onChange={({ target }) => {
@@ -34,6 +35,7 @@ export default function Input(props: InputProps | InputWithSubmitProps): JSX.Ele
           placeholder={props.placeholder}
           type="text"
           value={value}
+          disabled={props.disabled}
         />
 
         {value && (
@@ -48,9 +50,10 @@ export default function Input(props: InputProps | InputWithSubmitProps): JSX.Ele
 
       {'onSubmit' in props && (
         <button
-          className="flex-shrink-0 h-12 w-12 bg-discord-not-quite-black rounded-md flex justify-center items-center ml-3 text-white duration-150 transition-colors"
+          className="flex-shrink-0 h-12 w-12 bg-discord-not-quite-black rounded-md flex justify-center items-center ml-3 text-white disabled:text-opacity-25 disabled:select-none duration-150 transition-colors"
           onClick={props.onSubmit}
           ref={props.submitRef}
+          disabled={props.disabled}
         >
           <IoMdSend className="fill-current text-3xl" />
         </button>

@@ -27,6 +27,7 @@ interface SelectorProps {
   items: Items;
   onSelect: OnSelectFn;
   type: 'channel' | 'role';
+  disabled?: boolean;
 }
 
 const resolveItem = (item: Channel | Role | null, type: SelectorProps['type']) =>
@@ -35,7 +36,7 @@ const resolveItem = (item: Channel | Role | null, type: SelectorProps['type']) =
     : // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
       ({ color: (item as Role).color, id: item?.id, name: item?.name } as Role);
 
-export default function Selector({ id, limit, items, initialItems, onSelect, type }: SelectorProps) {
+export default function Selector({ id, limit, items, initialItems, onSelect, type, disabled }: SelectorProps) {
   const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
   const [selected, setSelected] = useState<Items>([]);
   const [options, setOptions] = useState<Items>(items);
@@ -136,13 +137,13 @@ export default function Selector({ id, limit, items, initialItems, onSelect, typ
         {selected.length < limit &&
           (dropdownOpen ? (
             <AiOutlineCloseCircle
-              className="text-red-500 fill-current w-6 h-6 cursor-pointer"
-              onClick={() => setDropdownOpen(!dropdownOpen)}
+              className="text-red-400 fill-current w-6 h-6 cursor-pointer"
+              onClick={() => (disabled ? null : setDropdownOpen(!dropdownOpen))}
             />
           ) : (
             <AiOutlinePlusCircle
-              className="text-gray-400 fill-current w-6 h-6 cursor-pointer"
-              onClick={() => setDropdownOpen(!dropdownOpen)}
+              className={`${disabled ? 'text-opacity-25' : ''} text-white fill-current w-6 h-6 cursor-pointer`}
+              onClick={() => (disabled ? null : setDropdownOpen(!dropdownOpen))}
             />
           ))}
       </div>

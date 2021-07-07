@@ -7,10 +7,17 @@ interface BasicSelectProps {
   closeOnSelect?: boolean;
   initialItem: string;
   items: string[];
+  disabled?: boolean;
   onSelect: (item: string) => unknown;
 }
 
-export default function BasicSelect({ closeOnSelect = false, initialItem, items, onSelect }: BasicSelectProps) {
+export default function BasicSelect({
+  closeOnSelect = false,
+  initialItem,
+  items,
+  disabled,
+  onSelect,
+}: BasicSelectProps) {
   const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
   const [selected, setSelected] = useState<string>(initialItem);
   const elementRef = useRef(null);
@@ -37,16 +44,14 @@ export default function BasicSelect({ closeOnSelect = false, initialItem, items,
   );
 
   return (
-    <div ref={elementRef} className="relative cursor-pointer">
+    <div ref={elementRef} className={`relative text-white ${disabled ? 'text-opacity-25' : 'cursor-pointer'}`}>
       <div
-        className="flex flex-row flex-wrap gap-1.5 min-h-[3rem] w-64 bg-discord-not-quite-black px-5 py-3 focus:outline-none rounded-md shadow relative"
-        onClick={() => setDropdownOpen(!dropdownOpen)}
+        className="flex flex-row flex-wrap gap-1.5 h-12 w-64 px-5 py-3 bg-discord-not-quite-black focus:outline-none rounded-md shadow"
+        onClick={() => (disabled ? null : setDropdownOpen(!dropdownOpen))}
       >
-        <span className="flex items-center px-1.5 py-1 max-w-full cursor-pointer z-50 text-white leading-3">
-          {selected}
-        </span>
+        <span className="flex items-center max-w-full px-1.5 py-1 leading-3 cursor-pointer z-50 ">{selected}</span>
 
-        <div className="absolute right-0 my-auto mx-4 text-2xl text-white transition-colors h-full cursor-pointer">
+        <div className="absolute right-0 my-auto mx-4 text-2xl  transition-colors h-full cursor-pointer">
           <AiFillCaretDown />
         </div>
       </div>
@@ -64,9 +69,7 @@ export default function BasicSelect({ closeOnSelect = false, initialItem, items,
               id={i.toString()}
               onClick={handleItemChange}
             >
-              <p className="text-white" id={i.toString()}>
-                {name}
-              </p>
+              <p id={i.toString()}>{name}</p>
             </div>
           ))}
         </div>
