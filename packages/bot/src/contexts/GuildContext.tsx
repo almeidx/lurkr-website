@@ -41,7 +41,7 @@ export default function GuildContextProvider({ children }: GuildContextProps) {
     <T extends keyof DatabaseGuild>(key: T, value: DatabaseGuild[T]) => {
       const clone: Partial<DatabaseGuild> = JSON.parse(JSON.stringify(changes));
 
-      if (data && data[key] === value) {
+      if (data && (data[key] === value || (Array.isArray(value) && !value.length && data[key] === null))) {
         if (key in clone) {
           // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
           delete clone[key];

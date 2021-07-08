@@ -1,8 +1,8 @@
-import type { ReactChild, ReactChildren } from 'react';
+import type { ReactNode } from 'react';
 
 interface FieldProps {
   direction?: string;
-  children: ReactChild | ReactChild[] | ReactChildren | ReactChildren[];
+  children: ReactNode;
 }
 
 export default function Input({ children, direction, ...props }: FieldProps): JSX.Element {
