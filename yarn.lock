@@ -363,7 +363,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-dom@npm:^17.0.9":
+"@types/react-dom@npm:^17":
   version: 17.0.9
   resolution: "@types/react-dom@npm:17.0.9"
   dependencies:
@@ -372,18 +372,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:*":
-  version: 17.0.11
-  resolution: "@types/react@npm:17.0.11"
-  dependencies:
-    "@types/prop-types": "*"
-    "@types/scheduler": "*"
-    csstype: ^3.0.2
-  checksum: ed2b57e44e8da99b13a7b0cd7d9d9159e3113a5160e25c9deae4f577cfb87f05103b54bb0e9722f48a7db3ddb3a836ade12b971bbc338d397b719886fb81efff
-  languageName: node
-  linkType: hard
-
-"@types/react@npm:^17.0.14":
+"@types/react@npm:*, @types/react@npm:^17.0.14":
   version: 17.0.14
   resolution: "@types/react@npm:17.0.14"
   dependencies:
@@ -576,11 +565,15 @@ __metadata:
     "@almeidx/ms": ^1.2.1
     "@apollo/client": ^3.3.21
     "@types/common-tags": ^1.8.1
+    "@types/node": ^16.3.0
+    "@types/react": ^17.0.14
     autoprefixer: ^10.2.6
     axios: ^0.21.1
     common-tags: ^1.8.0
     deepmerge: ^4.2.2
     discord-api-types: ^0.18.1
+    eslint: ^7.30.0
+    eslint-config-next: ^11.0.1
     graphql: ^15.5.1
     next: ^11.0.1
     postcss: ^8.3.5
@@ -588,6 +581,8 @@ __metadata:
     react-dom: ^17.0.2
     react-icons: ^4.2.0
     tailwindcss: ^2.2.4
+    tslib: ^2.3.0
+    typescript: ^4.3.5
   languageName: unknown
   linkType: soft
 
@@ -597,15 +592,21 @@ __metadata:
   dependencies:
     "@apollo/client": ^3.3.21
     "@savvywombat/tailwindcss-grid-areas": ^1.3.2
+    "@types/node": ^16.3.0
+    "@types/react": ^17.0.14
     autoprefixer: ^10.2.6
     deepmerge: ^4.2.2
     discord-api-types: ^0.18.1
+    eslint: ^7.30.0
+    eslint-config-next: ^11.0.1
     graphql: ^15.5.1
     next: ^11.0.1
     postcss: ^8.3.5
     react: ^17.0.2
     react-dom: ^17.0.2
     tailwindcss: ^2.2.4
+    tslib: ^2.3.0
+    typescript: ^4.3.5
   languageName: unknown
   linkType: soft
 
@@ -1576,19 +1577,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cross-env@npm:^7.0.3":
-  version: 7.0.3
-  resolution: "cross-env@npm:7.0.3"
-  dependencies:
-    cross-spawn: ^7.0.1
-  bin:
-    cross-env: src/bin/cross-env.js
-    cross-env-shell: src/bin/cross-env-shell.js
-  checksum: af4fa4dab3ddf6c25ed5e0c95ef53ea363aceb41741e22b7eae83a12cc10cb2416e3aba29c95f2f2c3a1aa918d3444fe92fab318a8ba761e8d52ae88388496cc
-  languageName: node
-  linkType: hard
-
-"cross-spawn@npm:^7.0.1, cross-spawn@npm:^7.0.2, cross-spawn@npm:^7.0.3":
+"cross-spawn@npm:^7.0.2, cross-spawn@npm:^7.0.3":
   version: 7.0.3
   resolution: "cross-spawn@npm:7.0.3"
   dependencies:
@@ -4907,13 +4896,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"reflect-metadata@npm:^0.1.13":
-  version: 0.1.13
-  resolution: "reflect-metadata@npm:0.1.13"
-  checksum: 629101e6c8b7e0d3166fa51953f908f45b5c73dbaf1375c4f8c3ed62221b870c951343b9b031d0c49957e7262a88020f41be25731ee85b5d779f12c7cec66005
-  languageName: node
-  linkType: hard
-
 "regenerator-runtime@npm:^0.13.4":
   version: 0.13.7
   resolution: "regenerator-runtime@npm:0.13.7"
@@ -6082,13 +6064,10 @@ typescript@^4.3.5:
   version: 0.0.0-use.local
   resolution: "website@workspace:."
   dependencies:
-    "@types/node": ^16.3.0
     "@types/react": ^17.0.14
-    "@types/react-dom": ^17.0.9
+    "@types/react-dom": ^17
     "@typescript-eslint/eslint-plugin": ^4.28.2
     "@typescript-eslint/parser": ^4.28.2
-    cross-env: ^7.0.3
-    discord-api-types: ^0.18.1
     eslint: ^7.30.0
     eslint-config-marine: ^9.0.6
     eslint-config-next: ^11.0.1
@@ -6105,9 +6084,6 @@ typescript@^4.3.5:
     prettier: ^2.3.2
     react: ^17.0.2
     react-dom: ^17.0.2
-    reflect-metadata: ^0.1.13
-    rimraf: ^3.0.2
-    tslib: ^2.3.0
     typescript: ^4.3.5
   languageName: unknown
   linkType: soft

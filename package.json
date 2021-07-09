@@ -7,12 +7,12 @@
   "license": "ISC",
   "private": true,
   "scripts": {
-    "bot": "yarn workspace @website/bot",
+    "bot": "yarn packages/bot",
     "build": "yarn workspaces run build",
     "lint": "eslint --ext .ts,.tsx --cache packages",
     "lint:fix": "eslint --ext .ts,.tsx --fix --cache packages",
     "lint:staged": "lint-staged",
-    "main": "yarn workspace @website/main",
+    "main": "yarn packages/main",
     "postinstall": "husky install",
     "prettier:check": "prettier --check **/*.{ts,tsx,js,json,yml}",
     "prettier:fix": "prettier --write **/*.{ts,tsx,js,json,yml}"
@@ -24,21 +24,11 @@
   "bugs": {
     "url": "https://github.com/almeidx/pepe-website/issues"
   },
-  "dependencies": {
-    "cross-env": "^7.0.3",
-    "next": "^11.0.1",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "reflect-metadata": "^0.1.13",
-    "tslib": "^2.3.0"
-  },
   "devDependencies": {
-    "@types/node": "^16.3.0",
     "@types/react": "^17.0.14",
-    "@types/react-dom": "^17.0.9",
+    "@types/react-dom": "^17",
     "@typescript-eslint/eslint-plugin": "^4.28.2",
     "@typescript-eslint/parser": "^4.28.2",
-    "discord-api-types": "^0.18.1",
     "eslint": "^7.30.0",
     "eslint-config-marine": "^9.0.6",
     "eslint-config-next": "^11.0.1",
@@ -52,7 +42,6 @@
     "husky": "^7.0.1",
     "lint-staged": "^11.0.0",
     "prettier": "^2.3.2",
-    "rimraf": "^3.0.2",
     "typescript": "^4.3.5"
   },
   "engines": {
@@ -66,5 +55,10 @@
   "lint-staged": {
     "*.tsx": "eslint --fix --cache",
     "*.{ts,tsx,js,json,yml}": "prettier --write"
+  },
+  "dependencies": {
+    "next": "^11.0.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
   }
 }
