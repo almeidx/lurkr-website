@@ -97,8 +97,8 @@ export default function Menu({ guild }: MenuProps) {
 
   return (
     <aside className="w-96 min-w-[300px] px-6 hidden sm:block">
-      <div className="sticky top-0 md:pt-6">
-        <header className="flex flex-row items-center mb-8 mt-8 sm:mt-0 gap-4">
+      <div className="sticky top-0 sm:py-6">
+        <header className="flex flex-row items-center mb-6 gap-4">
           {guild.icon ? (
             <img
               alt={`${guild.name} server icon`}

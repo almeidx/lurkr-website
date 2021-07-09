@@ -14,7 +14,7 @@ import Input from '../../form/Input';
 import Label from '../../form/Label';
 import Selector from '../../form/Selector';
 import Textarea from '../../form/Textarea';
-import Header from '../Header';
+import Toggle from '../../form/Toggle';
 import XpMultiplier, {
   XpMultiplierOnDeleteFn,
   XpMultiplierOnItemChangeFn,
@@ -216,26 +216,27 @@ export default function Leveling({ channels, database, roles }: LevelingProps) {
 
   return (
     <>
-      <div className="flex flex-row justify-between">
-        <Header description="Allow users to gain xp and level up by sending messages." title="Leveling" />
+      <div className="flex justify-between mx-4">
+        <h1 className="text-white">Leveling</h1>
+        <div className="flex flex-row gap-x-3 items-center">
+          <label className="text-white" htmlFor="levels">
+            Enabled
+          </label>
 
-        <div>
-          <div className="flex flex-row gap-x-3 items-center">
-            <label className="text-white" htmlFor="levels">
-              Enabled
-            </label>
-
-            <Checkbox
-              id="levels"
-              initialValue={database.levels}
-              onChange={(v) => {
-                addChange('levels', v);
-                setFeatureEnabled(!featureEnabled);
-              }}
-            />
-          </div>
+          <Toggle
+            id="levels"
+            initialValue={database.levels}
+            size="small"
+            onChange={(v) => {
+              addChange('levels', v);
+              setFeatureEnabled(!featureEnabled);
+            }}
+          />
         </div>
       </div>
+      <p className="text-gray-400 font-light mt-3 mb-3 mx-4">
+        Allow users to gain xp and level up by sending messages.
+      </p>
 
       <Fieldset>
         <Field>
@@ -260,21 +261,22 @@ export default function Leveling({ channels, database, roles }: LevelingProps) {
             name="XP Response Channel"
             url="https://docs.pepemanager.com/guides/setting-up-server-xp-leveling#where-to-send-the-level-up-message"
           />
-
           <div className="flex flex-row gap-x-4">
-            <BasicSelect
-              disabled={!featureEnabled}
-              closeOnSelect
-              initialItem={resolveXpResponseNameByType(ResponseType.SAME_CHANNEL)}
-              items={['Same Channel', 'DM', 'Custom Channel', 'None']}
-              onSelect={(i) => {
-                const type = resolveXpResponseTypeByName(i);
-                setXpResponseType(type);
-                if (type === ResponseType.DM || type === ResponseType.SAME_CHANNEL) addChange('xpResponseType', type);
-                else if (type === ResponseType.NONE) addChange('xpResponseType', null);
-                else addChange('xpResponseType', '123');
-              }}
-            />
+            <div className="md:w-full">
+              <BasicSelect
+                disabled={!featureEnabled}
+                closeOnSelect
+                initialItem={resolveXpResponseNameByType(ResponseType.SAME_CHANNEL)}
+                items={['Same Channel', 'DM', 'Custom Channel', 'None']}
+                onSelect={(i) => {
+                  const type = resolveXpResponseTypeByName(i);
+                  setXpResponseType(type);
+                  if (type === ResponseType.DM || type === ResponseType.SAME_CHANNEL) addChange('xpResponseType', type);
+                  else if (type === ResponseType.NONE) addChange('xpResponseType', null);
+                  else addChange('xpResponseType', '123');
+                }}
+              />
+            </div>
             {xpResponseType === ResponseType.CHANNEL && (
               <Selector
                 disabled={!featureEnabled}

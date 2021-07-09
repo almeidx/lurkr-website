@@ -42,12 +42,12 @@ export default function BasicSelect({
   );
 
   return (
-    <div ref={elementRef} className={`relative text-white ${disabled ? 'text-opacity-25' : 'cursor-pointer'}`}>
+    <div ref={elementRef} className={`relative text-white w-full ${disabled ? 'text-opacity-25' : 'cursor-pointer'}`}>
       <div
-        className="flex flex-row flex-wrap gap-1.5 h-12 w-64 px-5 py-3 bg-discord-not-quite-black focus:outline-none rounded-md shadow"
+        className="flex flex-row flex-wrap gap-1.5 h-12 w-full px-5 py-3 bg-discord-not-quite-black focus:outline-none rounded-md shadow"
         onClick={() => (disabled ? null : setDropdownOpen(!dropdownOpen))}
       >
-        <span className="flex items-center max-w-full px-1.5 py-1 leading-3 cursor-pointer z-50 ">{selected}</span>
+        <span className="flex items-center w-full px-1.5 py-1 leading-3 cursor-pointer z-50 ">{selected}</span>
 
         <div className="absolute right-0 my-auto mx-4 text-2xl  transition-colors h-full cursor-pointer">
           <AiFillCaretDown />

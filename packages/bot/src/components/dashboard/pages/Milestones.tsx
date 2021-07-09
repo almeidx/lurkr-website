@@ -3,14 +3,14 @@ import { useContext } from 'react';
 import { GuildContext } from '../../../contexts/GuildContext';
 import type { Channel, DatabaseGuild, Role } from '../../../graphql/queries/DashboardGuild';
 import { DATABASE_LIMITS } from '../../../utils/constants';
-import Checkbox from '../../form/Checkbox';
 import Field from '../../form/Field';
 import Fieldset from '../../form/Fieldset';
 import Input from '../../form/Input';
 import Label from '../../form/Label';
 import Selector from '../../form/Selector';
 import Textarea from '../../form/Textarea';
-import Header from '../Header';
+import Toggle from '../../form/Toggle';
+// import Header from '../Header';
 
 interface MilestonesProps {
   channels: Channel[];
@@ -23,23 +23,24 @@ export default function Milestones({ channels, database, roles }: MilestonesProp
 
   return (
     <>
-      <div className="flex flex-row justify-between">
-        <Header description="Automatically announce member milestones in your server." title="Milestones" />
+      <div className="flex justify-between mx-4">
+        <h1 className="text-white">Milestones</h1>
+        <div className="flex flex-row gap-x-3 items-center">
+          <label className="text-white" htmlFor="levels">
+            Enabled
+          </label>
 
-        <div>
-          <div className="flex flex-row gap-x-4 items-center">
-            <label className="text-white" htmlFor="milestones">
-              Enabled
-            </label>
-
-            <Checkbox
-              id="milestones"
-              initialValue={database.storeMilestones}
-              onChange={(v) => addChange('storeMilestones', v)}
-            />
-          </div>
+          <Toggle
+            id="milestones"
+            size="small"
+            initialValue={database.storeMilestones}
+            onChange={(v) => addChange('storeMilestones', v)}
+          />
         </div>
       </div>
+      <p className="text-gray-400 font-light mt-3 mb-3 mx-4">
+        Automatically announce member milestones in your server.
+      </p>
 
       <Fieldset>
         <Field>

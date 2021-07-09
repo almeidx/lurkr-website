@@ -8,6 +8,7 @@ import Fieldset from '../../form/Fieldset';
 import Input from '../../form/Input';
 import Label from '../../form/Label';
 import Selector from '../../form/Selector';
+import Subtitle from '../../form/Subtitle';
 import Header from '../Header';
 
 interface GeneralProps {
@@ -25,15 +26,14 @@ export default function General({ channels, database }: GeneralProps) {
       <Fieldset>
         <Field>
           <Label htmlFor="prefix" name="Bot Prefix" url="https://docs.pepemanager.com/config-commands/prefix" />
-          <div className="max-w-[20rem]">
-            <Input
-              id="prefix"
-              initialValue={database.prefix}
-              maxLength={DATABASE_LIMITS.prefix.maxLength}
-              onChange={(t) => addChange('prefix', t)}
-              placeholder="Enter the bot prefix"
-            />
-          </div>
+          <Input
+            id="prefix"
+            initialValue={database.prefix}
+            maxLength={DATABASE_LIMITS.prefix.maxLength}
+            onChange={(t) => addChange('prefix', t)}
+            placeholder="Enter the bot prefix"
+          />
+          <Subtitle text="Maximum of 4 characters." />
         </Field>
 
         <Field>
