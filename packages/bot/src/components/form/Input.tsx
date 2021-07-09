@@ -25,6 +25,7 @@ export default function Input(props: InputProps | InputWithSubmitProps): JSX.Ele
       <div className="relative flex-grow-1 w-full">
         <input
           className="text-white bg-discord-not-quite-black pl-5 pr-5 py-3 placeholder:text-opacity-75 disabled:text-opacity-25 disabled:select-none focus:outline-none rounded-md shadow w-full"
+          disabled={props.disabled}
           id={props.id}
           maxLength={props.maxLength}
           onChange={({ target }) => {
@@ -35,13 +36,15 @@ export default function Input(props: InputProps | InputWithSubmitProps): JSX.Ele
           placeholder={props.placeholder}
           type="text"
           value={value}
-          disabled={props.disabled}
         />
 
         {value && (
           <label
             className="absolute right-0 my-auto mx-4 py-3 text-2xl text-discord-red active:text-red-600 transition-colors h-full cursor-pointer"
-            onClick={() => props.onChange('')}
+            onClick={() => {
+              setValue('');
+              props.onChange('');
+            }}
           >
             <MdClear />
           </label>

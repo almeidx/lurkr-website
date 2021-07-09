@@ -28,7 +28,7 @@ export default function BasicSelect({
 
   const handleItemChange: MouseEventHandler<HTMLDivElement> = useCallback(
     (event) => {
-      const index = parseInt((event.target as HTMLDivElement | HTMLParagraphElement).id, 10);
+      const index = parseInt((event.target as HTMLDivElement | HTMLParagraphElement).dataset.id ?? 'NaN', 10);
       const item = items[index];
 
       if (!item) return console.error("[BasicSelect] Couldn't find the item when user tried changing item");
@@ -63,11 +63,11 @@ export default function BasicSelect({
           {items.map((name, i) => (
             <div
               className="flex items-center text-center px-4 py-2 hover:bg-discord-lighter rounded-lg cursor-pointer"
+              data-id={i.toString()}
               key={i.toString()}
-              id={i.toString()}
               onClick={handleItemChange}
             >
-              <p id={i.toString()}>{name}</p>
+              <p data-id={i.toString()}>{name}</p>
             </div>
           ))}
         </div>

@@ -21,13 +21,13 @@ type Items = Channel[] | Role[];
 export type OnSelectFn = (items: Snowflake[]) => unknown;
 
 interface SelectorProps {
+  disabled?: boolean;
   id: string;
-  limit: number;
   initialItems: Snowflake[];
   items: Items;
+  limit: number;
   onSelect: OnSelectFn;
   type: 'channel' | 'role';
-  disabled?: boolean;
 }
 
 const resolveItem = (item: Channel | Role | null, type: SelectorProps['type']) =>
@@ -35,6 +35,13 @@ const resolveItem = (item: Channel | Role | null, type: SelectorProps['type']) =
     ? { id: item?.id, name: item?.name }
     : // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
       ({ color: (item as Role).color, id: item?.id, name: item?.name } as Role);
+
+// eslint-disable-next-line @typescript-eslint/no-namespace, @typescript-eslint/no-unused-vars
+declare namespace JSX {
+  interface IntrinsicElements {
+    'data-id': string;
+  }
+}
 
 export default function Selector({ id, limit, items, initialItems, onSelect, type, disabled }: SelectorProps) {
   const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
@@ -49,7 +56,7 @@ export default function Selector({ id, limit, items, initialItems, onSelect, typ
 
   const handleChannelRemove: MouseEventHandler<HTMLDivElement> = useCallback(
     (event) => {
-      const id = (event.target as HTMLDivElement | HTMLParagraphElement).id as Snowflake;
+      const id = (event.target as HTMLDivElement | HTMLParagraphElement).dataset.id as Snowflake;
       const clone = [...selected];
       const selectedIndex = clone.findIndex((s) => s.id === id);
 
@@ -69,7 +76,7 @@ export default function Selector({ id, limit, items, initialItems, onSelect, typ
     (event) => {
       if (selected.length >= limit) return;
 
-      const id = (event.target as HTMLDivElement | HTMLParagraphElement).id as Snowflake;
+      const id = (event.target as HTMLDivElement | HTMLParagraphElement).dataset.id as Snowflake;
       if (selected.some((s) => s.id === id)) return;
 
       const item = items.find((i) => i.id === id);
@@ -115,26 +122,32 @@ export default function Selector({ id, limit, items, initialItems, onSelect, typ
             className={`${
               type === 'role' && 'role-bullet'
             } flex w-full-content items-center h-6 cursor-pointer z-50 border rounded-full text-xs select-none`}
+            data-id={i.id}
             key={i.id}
-            id={i.id}
             onClick={handleChannelRemove}
             style={{ borderColor: 'color' in i ? resolveColour(i.color) : DEFAULT_ROLE_COLOUR }}
           >
-            <div className="role-x">&times;</div>
+            <div className="role-x" data-id={i.id}>
+              &times;
+            </div>
             {type === 'role' && 'color' in i && (
               <div
                 className="w-3 h-3 ml-[5px] mr-[4px] rounded-full"
-                id={i.id}
+                data-id={i.id}
                 style={{ backgroundColor: resolveColour(i.color) }}
               />
             )}
             <div
               className={`text-white leading-3 truncate pr-2 pb-[2px] ${
-                type === 'channel' ? 'hover:text-red-400' : null
+                type === 'channel' ? 'hover:text-red-400' : ''
               }`}
-              id={i.id}
+              data-id={i.id}
             >
-              {type === 'channel' && <span className="pl-2">#</span>}
+              {type === 'channel' && (
+                <span className="pl-2" data-id={i.id}>
+                  #
+                </span>
+              )}
               {i.name}
             </div>
           </div>
@@ -170,18 +183,18 @@ export default function Selector({ id, limit, items, initialItems, onSelect, typ
           {options.map((i) => (
             <div
               className="flex items-center text-left text-white px-3 mx-3 py-3 hover:bg-discord-lighter rounded-lg cursor-pointer"
+              data-id={i.id}
               key={i.id}
-              id={i.id}
               onClick={handleClickedItem}
             >
               {type === 'role' && 'color' in i && (
                 <div
-                  id={i.id}
+                  data-id={i.id}
                   className="w-4 h-4 rounded-full mr-2 select-none"
                   style={{ backgroundColor: resolveColour(i.color) }}
                 />
               )}
-              <div id={i.id} className="h-4 leading-4 select-none">
+              <div data-id={i.id} className="h-4 leading-4 select-none">
                 {type === 'channel' && '#'}
                 {i.name}
               </div>
