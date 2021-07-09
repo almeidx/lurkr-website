@@ -9,6 +9,7 @@ import Fieldset from '../../form/Fieldset';
 import Input from '../../form/Input';
 import Label from '../../form/Label';
 import Selector from '../../form/Selector';
+import Subtitle from '../../form/Subtitle';
 import Header from '../Header';
 
 interface AutoroleProps {
@@ -41,6 +42,7 @@ export default function Autorole({ database, roles }: AutoroleProps) {
             onSelect={(r) => addChange('autoRole', r)}
             type="role"
           />
+          <Subtitle text={`Maximum of ${DATABASE_LIMITS.autoRole.maxLength} roles.`} />
         </Field>
 
         <Field>
@@ -58,6 +60,11 @@ export default function Autorole({ database, roles }: AutoroleProps) {
               placeholder="Enter the autorole timeout"
             />
           </div>
+          <Subtitle
+            text={`Between ${DATABASE_LIMITS.autoRoleTimeout.min / 60_000} - ${
+              DATABASE_LIMITS.autoRoleTimeout.max / 60_000
+            } minutes.`}
+          />
         </Field>
       </Fieldset>
     </>

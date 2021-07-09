@@ -50,6 +50,7 @@ export default function General({ channels, database }: GeneralProps) {
             onSelect={(c) => addChange('blacklistedChannels', c)}
             type="channel"
           />
+          <Subtitle text={`Maximum of ${DATABASE_LIMITS.blacklistedChannels.maxLength} channels.`} />
         </Field>
       </Fieldset>
     </>

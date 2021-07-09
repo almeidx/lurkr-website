@@ -8,6 +8,7 @@ import Fieldset from '../../form/Fieldset';
 import Input from '../../form/Input';
 import Label from '../../form/Label';
 import Selector from '../../form/Selector';
+import Subtitle from '../../form/Subtitle';
 import Textarea from '../../form/Textarea';
 import Header from '../Header';
 
@@ -67,6 +68,11 @@ export default function Milestones({ channels, database, roles }: MilestonesProp
               placeholder="Enter the milestones interval"
             />
           </div>
+          <Subtitle
+            text={`Between ${
+              DATABASE_LIMITS.milestonesInterval.min
+            } - ${DATABASE_LIMITS.milestonesInterval.max.toLocaleString('en')}.`}
+          />
         </Field>
 
         <Field>
@@ -82,6 +88,7 @@ export default function Milestones({ channels, database, roles }: MilestonesProp
             onChange={(t) => addChange('milestonesMessage', t)}
             placeholder="Enter the milestone message"
           />
+          <Subtitle text={`Maximum of ${DATABASE_LIMITS.xpMessage.maxLength.toLocaleString('en')} characters.`} />
         </Field>
 
         <Field>
@@ -98,6 +105,7 @@ export default function Milestones({ channels, database, roles }: MilestonesProp
             onSelect={(r) => addChange('milestonesRoles', r)}
             type="role"
           />
+          <Subtitle text={`Maximum of ${DATABASE_LIMITS.milestonesRoles.maxLength} roles.`} />
         </Field>
       </Fieldset>
     </>

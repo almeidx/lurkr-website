@@ -8,6 +8,7 @@ import Field from '../../form/Field';
 import Fieldset from '../../form/Fieldset';
 import Label from '../../form/Label';
 import Selector from '../../form/Selector';
+import Subtitle from '../../form/Subtitle';
 import Header from '../Header';
 
 interface MiscellaneousProps {
@@ -53,6 +54,7 @@ export default function Miscellaneous({ channels, database }: MiscellaneousProps
             onSelect={(c) => addChange('autoPublishChannels', c)}
             type="channel"
           />
+          <Subtitle text={`Maximum of ${DATABASE_LIMITS.autoPublishChannels.maxLength} channels.`} />
         </Field>
       </Fieldset>
     </>

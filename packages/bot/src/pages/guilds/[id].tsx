@@ -1,3 +1,4 @@
+import type { Snowflake } from 'discord-api-types';
 import type { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
@@ -26,6 +27,7 @@ const Miscellaneous = lazy(() => import('../../components/dashboard/pages/Miscel
 interface GuildProps {
   database: DashboardGuild['getDatabaseGuild'];
   guild: DashboardGuild['getDiscordGuild'];
+  guildId: Snowflake;
 }
 
 export const getServerSideProps: GetServerSideProps<GuildProps> = async (ctx) => {
@@ -44,11 +46,12 @@ export const getServerSideProps: GetServerSideProps<GuildProps> = async (ctx) =>
     props: {
       database: data.getDatabaseGuild,
       guild: data.getDiscordGuild,
+      guildId: ctx.params.id,
     },
   };
 };
 
-export default function Guild({ database, guild }: InferGetServerSidePropsType<typeof getServerSideProps>) {
+export default function Guild({ database, guild, guildId }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const router = useRouter();
   const { authenticated } = useContext(UserContext);
   const { section, updateData, updateGuildId, updateSection } = useContext(GuildContext);
@@ -62,10 +65,12 @@ export default function Guild({ database, guild }: InferGetServerSidePropsType<t
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const query = urlParams.get('p');
-    if (query && guild) {
-      const pageQuery = decodeURIComponent(query).toLowerCase();
+
+    if (query) {
+      console.log("Found initial dashboard page '%s'", query);
+      const pageQuery = decodeURIComponent(query);
       const pageName = isValidSection(pageQuery) ? pageQuery : 'general';
-      void router.push(`/guilds/${guild.id}?p=${pageName}`, `/guilds/${guild.id}?p=${pageName}`, { shallow: true });
+      void router.push(`/guilds/${guildId}?p=${pageName}`, `/guilds/${guildId}?p=${pageName}`, { shallow: true });
       updateSection(pageName);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -117,9 +122,7 @@ export default function Guild({ database, guild }: InferGetServerSidePropsType<t
               </div>
             }
           >
-            {section === 'general' ? (
-              <General channels={sortedChannels} database={database} />
-            ) : section === 'autorole' ? (
+            {section === 'autorole' ? (
               <Autorole database={database} roles={sortedRoles} />
             ) : section === 'leveling' ? (
               <Leveling channels={sortedChannels} database={database} roles={sortedRoles} />
@@ -129,8 +132,10 @@ export default function Guild({ database, guild }: InferGetServerSidePropsType<t
               <EmojiList channels={sortedChannels} database={database} />
             ) : section === 'mentionCooldown' ? (
               <MentionCooldown database={database} roles={sortedRoles} />
-            ) : (
+            ) : section === 'miscellaneous' ? (
               <Miscellaneous channels={sortedChannels} database={database} />
+            ) : (
+              <General channels={sortedChannels} database={database} />
             )}
           </Suspense>
         </main>

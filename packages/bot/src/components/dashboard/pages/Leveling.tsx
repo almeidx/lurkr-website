@@ -1,6 +1,6 @@
 import type { Snowflake } from 'discord-api-types';
 import { MouseEventHandler, useCallback, useContext, useRef, useState } from 'react';
-import { IoMdSend } from 'react-icons/io';
+import { BiLayerPlus } from 'react-icons/bi';
 
 import { GuildContext } from '../../../contexts/GuildContext';
 import { AutoResetLevels, Channel, DatabaseGuild, Multiplier, Role } from '../../../graphql/queries/DashboardGuild';
@@ -13,6 +13,7 @@ import Fieldset from '../../form/Fieldset';
 import Input from '../../form/Input';
 import Label from '../../form/Label';
 import Selector from '../../form/Selector';
+import Subtitle from '../../form/Subtitle';
 import Textarea from '../../form/Textarea';
 import Header from '../Header';
 import XpMultiplier, {
@@ -240,6 +241,7 @@ export default function Leveling({ channels, database, roles }: LevelingProps) {
             placeholder="Enter the level up message"
             disabled={!featureEnabled}
           />
+          <Subtitle text={`Maximum of ${DATABASE_LIMITS.xpMessage.maxLength.toLocaleString('en')} characters.`} />
         </Field>
 
         <Field>
@@ -295,6 +297,7 @@ export default function Leveling({ channels, database, roles }: LevelingProps) {
                   onChange={(t) => (t ? /^\d+$/.test(t) && setNewXpRolesLevel(t) : setNewXpRolesLevel(''))}
                   onSubmit={handleNewXpRoleCreated}
                   placeholder="Enter a level to reward roles to"
+                  submitIcon={BiLayerPlus}
                   submitRef={newXpRoleSubmitRef}
                 />
               </div>
@@ -321,7 +324,6 @@ export default function Leveling({ channels, database, roles }: LevelingProps) {
               initialValue={database.stackXpRoles}
               onChange={(v) => addChange('stackXpRoles', v)}
             />
-
             <Label
               htmlFor="stackXpRoles"
               name="Stack XP Roles"
@@ -358,6 +360,7 @@ export default function Leveling({ channels, database, roles }: LevelingProps) {
             }}
             type="channel"
           />
+          <Subtitle text={`Maximum of ${DATABASE_LIMITS.xpChannels.maxLength} channels.`} />
         </Field>
 
         <Field>
@@ -394,6 +397,7 @@ export default function Leveling({ channels, database, roles }: LevelingProps) {
             onSelect={(r) => addChange('noXpRoles', r)}
             type="role"
           />
+          <Subtitle text={`Maximum of ${DATABASE_LIMITS.noXpRoles.maxLength} roles.`} />
         </Field>
 
         <Field>
@@ -447,7 +451,7 @@ export default function Leveling({ channels, database, roles }: LevelingProps) {
                       addChange('xpMultipliers', resolveMultiplier(finalMultipliers));
                     }}
                   >
-                    <IoMdSend className="fill-current text-3xl" />
+                    <BiLayerPlus className="fill-current text-3xl" />
                   </button>
                 </div>
               </>

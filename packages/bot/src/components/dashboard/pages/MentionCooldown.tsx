@@ -9,6 +9,7 @@ import Fieldset from '../../form/Fieldset';
 import Input from '../../form/Input';
 import Label from '../../form/Label';
 import Selector from '../../form/Selector';
+import Subtitle from '../../form/Subtitle';
 import Header from '../Header';
 
 interface MentionCooldownProps {
@@ -42,6 +43,11 @@ export default function MentionCooldown({ database, roles }: MentionCooldownProp
               placeholder="Enter the role mention cooldown"
             />
           </div>
+          <Subtitle
+            text={`Between ${DATABASE_LIMITS.mentionCooldown.min / 60_000} - ${
+              DATABASE_LIMITS.mentionCooldown.max / 60_000
+            } minutes.`}
+          />
         </Field>
 
         <Field>
@@ -58,6 +64,7 @@ export default function MentionCooldown({ database, roles }: MentionCooldownProp
             onSelect={(r) => addChange('mentionCooldownRoles', r)}
             type="role"
           />
+          <Subtitle text={`Maximum of ${DATABASE_LIMITS.mentionCooldownRoles.maxLength} roles.`} />
         </Field>
       </Fieldset>
     </>

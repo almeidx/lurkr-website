@@ -12,7 +12,7 @@ export default function Label({ htmlFor, name, url, withMargin = true }: LabelPr
     <label
       className={`${
         withMargin ? 'mb-1' : ''
-      } text-gray-300 flex gap-2 w-min items-center text-center whitespace-nowrap`}
+      } text-gray-300 flex gap-2 w-min items-center text-center text-lg whitespace-nowrap`}
       htmlFor={htmlFor}
     >
       {name}

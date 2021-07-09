@@ -1,4 +1,5 @@
 import { Ref, useState } from 'react';
+import type { IconType } from 'react-icons';
 import { IoMdSend } from 'react-icons/io';
 import { MdClear } from 'react-icons/md';
 
@@ -13,12 +14,15 @@ interface InputProps {
 }
 
 interface InputWithSubmitProps extends InputProps {
+  submitIcon?: IconType;
   onSubmit: () => unknown;
   submitRef: Ref<HTMLButtonElement>;
 }
 
 export default function Input(props: InputProps | InputWithSubmitProps): JSX.Element {
   const [value, setValue] = useState<string>(props.initialValue);
+
+  const Icon = 'submitIcon' in props ? props.submitIcon! : IoMdSend;
 
   return (
     <div className={`flex w-full ${props.className ?? ''}`}>
@@ -58,7 +62,7 @@ export default function Input(props: InputProps | InputWithSubmitProps): JSX.Ele
           ref={props.submitRef}
           disabled={props.disabled}
         >
-          <IoMdSend className="fill-current text-3xl" />
+          <Icon className="fill-current text-3xl" />
         </button>
       )}
     </div>
