@@ -33,7 +33,7 @@ export default function General({ channels, database }: GeneralProps) {
             onChange={(t) => addChange('prefix', t)}
             placeholder="Enter the bot prefix"
           />
-          <Subtitle text="Maximum of 4 characters." />
+          <Subtitle text={`Maximum of ${DATABASE_LIMITS.prefix.maxLength} characters.`} />
         </Field>
 
         <Field>

@@ -9,8 +9,7 @@ import Input from '../../form/Input';
 import Label from '../../form/Label';
 import Selector from '../../form/Selector';
 import Textarea from '../../form/Textarea';
-import Toggle from '../../form/Toggle';
-// import Header from '../Header';
+import Header from '../Header';
 
 interface MilestonesProps {
   channels: Channel[];
@@ -23,24 +22,13 @@ export default function Milestones({ channels, database, roles }: MilestonesProp
 
   return (
     <>
-      <div className="flex justify-between mx-4">
-        <h1 className="text-white">Milestones</h1>
-        <div className="flex flex-row gap-x-3 items-center">
-          <label className="text-white" htmlFor="levels">
-            Enabled
-          </label>
-
-          <Toggle
-            id="milestones"
-            size="small"
-            initialValue={database.storeMilestones}
-            onChange={(v) => addChange('storeMilestones', v)}
-          />
-        </div>
-      </div>
-      <p className="text-gray-400 font-light mt-3 mb-3 mx-4">
-        Automatically announce member milestones in your server.
-      </p>
+      <Header
+        description="Automatically announce member milestones in your server."
+        id="milestones"
+        initialValue={database.storeMilestones}
+        onChange={(v) => addChange('storeMilestones', v)}
+        title="Milestones"
+      />
 
       <Fieldset>
         <Field>

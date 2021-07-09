@@ -20,7 +20,7 @@ export default function Miscellaneous({ channels, database }: MiscellaneousProps
 
   return (
     <>
-      <Header description="Miscellaneous stuff that don't deserve a page of their own." title="Miscellaneous" />
+      <Header description="Miscellaneous options that don't fit into any other category." title="Miscellaneous" />
 
       <Fieldset>
         <Field direction="row">

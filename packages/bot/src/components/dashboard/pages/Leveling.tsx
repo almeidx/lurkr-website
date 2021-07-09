@@ -14,7 +14,7 @@ import Input from '../../form/Input';
 import Label from '../../form/Label';
 import Selector from '../../form/Selector';
 import Textarea from '../../form/Textarea';
-import Toggle from '../../form/Toggle';
+import Header from '../Header';
 import XpMultiplier, {
   XpMultiplierOnDeleteFn,
   XpMultiplierOnItemChangeFn,
@@ -83,8 +83,6 @@ const resolveInitialXpResponseChannel = (database: DatabaseGuild): Snowflake[] =
 
 const resolveMultiplier = (multipliers: (Omit<Multiplier, 'multiplier'> & { multiplier: string })[]) =>
   multipliers.map((m) => ({ ...m, multiplier: parseMultiplier(m.multiplier) ?? NaN }));
-
-const prioritiseMultiplierValues = ['Role Hierarchy', 'Multiplier Value'];
 
 let timeout: NodeJS.Timeout;
 
@@ -216,27 +214,16 @@ export default function Leveling({ channels, database, roles }: LevelingProps) {
 
   return (
     <>
-      <div className="flex justify-between mx-4">
-        <h1 className="text-white">Leveling</h1>
-        <div className="flex flex-row gap-x-3 items-center">
-          <label className="text-white" htmlFor="levels">
-            Enabled
-          </label>
-
-          <Toggle
-            id="levels"
-            initialValue={database.levels}
-            size="small"
-            onChange={(v) => {
-              addChange('levels', v);
-              setFeatureEnabled(!featureEnabled);
-            }}
-          />
-        </div>
-      </div>
-      <p className="text-gray-400 font-light mt-3 mb-3 mx-4">
-        Allow users to gain xp and level up by sending messages.
-      </p>
+      <Header
+        description="Allow users to gain xp and level up by sending messages."
+        id="levels"
+        initialValue={database.levels}
+        onChange={(v) => {
+          addChange('levels', v);
+          setFeatureEnabled(!featureEnabled);
+        }}
+        title="Leveling"
+      />
 
       <Fieldset>
         <Field>
@@ -485,18 +472,19 @@ export default function Leveling({ channels, database, roles }: LevelingProps) {
         </Field>
 
         <Field>
-          <Label
-            htmlFor="prioritiseMultiplierRoleHierarchy"
-            name="XP Multiplier Priority"
-            url="https://docs.pepemanager.com/guides/setting-up-xp-multipliers"
-          />
-          <BasicSelect
-            closeOnSelect
-            disabled={!featureEnabled}
-            initialItem={prioritiseMultiplierValues[database.prioritiseMultiplierRoleHierarchy ? 1 : 0]}
-            items={prioritiseMultiplierValues}
-            onSelect={(i) => addChange('prioritiseMultiplierRoleHierarchy', i === prioritiseMultiplierValues[0])}
-          />
+          <div className="flex flex-row gap-x-3 items-center">
+            <Checkbox
+              id="prioritiseMultiplierRoleHierarchy"
+              initialValue={database.prioritiseMultiplierRoleHierarchy}
+              onChange={(v) => addChange('prioritiseMultiplierRoleHierarchy', v)}
+            />
+            <Label
+              htmlFor="prioritiseMultiplierRoleHierarchy"
+              name="XP Multiplier Priority"
+              url="https://docs.pepemanager.com/guides/setting-up-xp-multipliers#changing-role-multiplier-hierarchy"
+              withMargin={false}
+            />
+          </div>
         </Field>
       </Fieldset>
     </>

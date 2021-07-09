@@ -28,7 +28,11 @@ export default function MentionCooldown({ database, roles }: MentionCooldownProp
 
       <Fieldset>
         <Field>
-          <Label htmlFor="mentionCooldown" name="Mention Cooldown (Minutes)" url="#" />
+          <Label
+            htmlFor="mentionCooldown"
+            name="Mention Cooldown (Minutes)"
+            url="https://docs.pepemanager.com/guides/automatic-role-mention-cooldown#setting-up-the-cooldown-time"
+          />
           <div className="max-w-[20rem]">
             <Input
               id="mentionCooldown"
@@ -41,7 +45,11 @@ export default function MentionCooldown({ database, roles }: MentionCooldownProp
         </Field>
 
         <Field>
-          <Label htmlFor="mentionCooldownRoles" name="Emoji List Channel" url="#" />
+          <Label
+            htmlFor="mentionCooldownRoles"
+            name="Mention Cooldown Roles"
+            url="https://docs.pepemanager.com/guides/automatic-role-mention-cooldown#setting-up-the-roles"
+          />
           <Selector
             id="mentionCooldownRoles"
             limit={DATABASE_LIMITS.mentionCooldownRoles.maxLength}
