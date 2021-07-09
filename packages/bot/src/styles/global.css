@@ -36,6 +36,19 @@
   .navbar-hamburger:checked + label .navbar-hamburger-close {
     display: block;
   }
+
+  .role-x {
+    display: none;
+    font-size: 0.7rem;
+    line-height: 0.7rem;
+    color: black;
+    position: absolute;
+    margin-left: 5px;
+  }
+
+  .role-bullet:hover .role-x {
+    display: block;
+  }
 }
 
 ::selection {

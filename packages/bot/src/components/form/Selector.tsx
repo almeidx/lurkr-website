@@ -1,6 +1,6 @@
 import type { Snowflake } from 'discord-api-types';
 import { MouseEventHandler, useCallback, useEffect, useRef, useState } from 'react';
-import { AiOutlineCloseCircle, AiOutlinePlusCircle } from 'react-icons/ai';
+import { AiOutlinePlusCircle } from 'react-icons/ai';
 
 import useClickOutside from '../../hooks/useClickOutside';
 import { DEFAULT_ROLE_COLOUR } from '../../utils/constants';
@@ -112,12 +112,15 @@ export default function Selector({ id, limit, items, initialItems, onSelect, typ
       <div className="flex flex-row flex-wrap gap-1.5 min-w-[15rem] min-h-[3rem] bg-discord-not-quite-black px-5 py-3 focus:outline-none rounded-md shadow">
         {selected.map((i) => (
           <div
-            className="flex w-full-content items-center h-6 cursor-pointer z-50 border rounded-full text-xs"
+            className={`${
+              type === 'role' && 'role-bullet'
+            } flex w-full-content items-center h-6 cursor-pointer z-50 border rounded-full text-xs select-none`}
             key={i.id}
             id={i.id}
             onClick={handleChannelRemove}
             style={{ borderColor: 'color' in i ? resolveColour(i.color) : DEFAULT_ROLE_COLOUR }}
           >
+            <div className="role-x">&times;</div>
             {type === 'role' && 'color' in i && (
               <div
                 className="w-3 h-3 ml-[5px] mr-[4px] rounded-full"
@@ -125,35 +128,36 @@ export default function Selector({ id, limit, items, initialItems, onSelect, typ
                 style={{ backgroundColor: resolveColour(i.color) }}
               />
             )}
-            <div className="text-white leading-3 truncate pr-2 pb-[2px]" id={i.id}>
+            <div
+              className={`text-white leading-3 truncate pr-2 pb-[2px] ${
+                type === 'channel' ? 'hover:text-red-400' : null
+              }`}
+              id={i.id}
+            >
               {type === 'channel' && <span className="pl-2">#</span>}
               {i.name}
             </div>
           </div>
         ))}
 
-        {selected.length < limit &&
-          (dropdownOpen ? (
-            <AiOutlineCloseCircle
-              className="text-red-400 fill-current w-6 h-6 cursor-pointer"
-              onClick={() => (disabled ? null : setDropdownOpen(!dropdownOpen))}
-            />
-          ) : (
-            <AiOutlinePlusCircle
-              className={`${disabled ? 'text-opacity-25' : ''} text-white fill-current w-6 h-6 cursor-pointer`}
-              onClick={() => (disabled ? null : setDropdownOpen(!dropdownOpen))}
-            />
-          ))}
+        {selected.length < limit && (
+          <AiOutlinePlusCircle
+            className={`${
+              disabled ? 'text-opacity-25' : ''
+            } text-white hover:text-opacity-75 fill-current w-6 h-6 cursor-pointer`}
+            onClick={() => (disabled ? null : setDropdownOpen(!dropdownOpen))}
+          />
+        )}
       </div>
 
       <div
         className={`${
           dropdownOpen ? '' : 'hidden'
-        } absolute z-[99999] h-64 w-full bg-[#36393f] flex flex-col items-center pt-4 mt-2 rounded-md`}
+        } absolute z-[99999] max-h-72 w-full mt-2 pb-3 bg-[#36393f] rounded-md`}
       >
-        <div className="px-4 w-full">
+        <div className="w-full">
           <Input
-            className="pb-3"
+            className="p-3"
             id={id}
             initialValue={''}
             maxLength={50}
@@ -162,22 +166,25 @@ export default function Selector({ id, limit, items, initialItems, onSelect, typ
           />
         </div>
 
-        <div className="flex flex-col overflow-y-scroll w-full h-full mb-2 gap-1">
+        <div className="flex flex-col max-h-48 overflow-y-auto gap-0.5">
           {options.map((i) => (
             <div
-              className="flex items-center text-center px-4 py-2 hover:bg-discord-lighter rounded-lg cursor-pointer"
+              className="flex items-center text-left text-white px-3 mx-3 py-3 hover:bg-discord-lighter rounded-lg cursor-pointer"
               key={i.id}
               id={i.id}
               onClick={handleClickedItem}
             >
               {type === 'role' && 'color' in i && (
-                <div className="w-4 h-4 rounded-full mr-2" style={{ backgroundColor: resolveColour(i.color) }} />
+                <div
+                  id={i.id}
+                  className="w-4 h-4 rounded-full mr-2 select-none"
+                  style={{ backgroundColor: resolveColour(i.color) }}
+                />
               )}
-
-              <p className="text-white" id={i.id}>
+              <div id={i.id} className="h-4 leading-4 select-none">
                 {type === 'channel' && '#'}
                 {i.name}
-              </p>
+              </div>
             </div>
           ))}
         </div>
