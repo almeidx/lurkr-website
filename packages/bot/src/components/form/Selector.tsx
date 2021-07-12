@@ -121,7 +121,7 @@ export default function Selector({ id, limit, items, initialItems, onSelect, typ
           <div
             className={`${
               type === 'role' && 'role-bullet'
-            } flex w-full-content items-center h-6 cursor-pointer z-50 border rounded-full text-xs select-none`}
+            } flex max-w-[250px] items-center h-6 cursor-pointer z-50 border rounded-full text-xs select-none`}
             data-id={i.id}
             key={i.id}
             onClick={handleChannelRemove}
