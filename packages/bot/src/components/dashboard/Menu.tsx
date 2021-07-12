@@ -101,28 +101,28 @@ export default function Menu({ guild, menuOpen, closeMenu }: MenuProps) {
     <aside
       className={`${
         !menuOpen && 'hidden'
-      } w-full sm:w-96 min-w-[300px] px-6 mt-20 sm:mt-0 absolute top-0 left-0 sm:block sm:relative bg-discord-dark`}
+      } w-full sm:w-96 min-w-[300px] mt-20 sm:mt-0 absolute top-0 left-0 sm:block sm:relative bg-discord-dark`}
     >
       <div className="sticky top-0 sm:py-6">
-        <header className="flex flex-row items-center mb-6 gap-4">
+        <header className="flex flex-col sm:flex-row items-center px-6 py-4 mb-6 gap-4 bg-discord-slightly-darker sm:bg-discord-dark">
           {guild.icon ? (
             <img
               alt={`${guild.name} server icon`}
               className="rounded-full"
-              height={48}
+              height={64}
               src={guildIconCdn(guild.id, guild.icon, 64)}
-              width={48}
+              width={64}
             />
           ) : (
-            <Image className="rounded-full" height={48} src={FALLBACK_AVATAR_PATH} width={48} />
+            <Image className="rounded-full" height={64} src={FALLBACK_AVATAR_PATH} width={64} />
           )}
 
-          <p className="text-white truncate">{guild.name}</p>
+          <h2 className="text-white w-full text-center break-words sm:text-base">{guild.name}</h2>
         </header>
 
-        <section className="flex flex-col gap-y-3 pl-12">
+        <section className="flex flex-col gap-y-3 px-6 sm:p-0 sm:pl-12">
           <button
-            className={`flex flex-row items-center gap-2 py-2 px-4 w-full text-center duration-200 transition-colors bg-[${saveButtonDefaultColour}] hover:bg-[#25c959] text-white focus:outline-none  rounded-lg cursor-pointer`}
+            className={`flex flex-row items-center gap-2 py-2 px-4 w-full text-center duration-200 transition-colors bg-[${saveButtonDefaultColour}] hover:bg-[#25c959] text-white focus:outline-none rounded-lg sm:rounded-none sm:rounded-l-lg cursor-pointer`}
             disabled={!Object.keys(changes).length || isSaving.current}
             onClick={handleSaveButtonClick}
             ref={saveButtonRef}
@@ -139,8 +139,8 @@ export default function Menu({ guild, menuOpen, closeMenu }: MenuProps) {
           {menuItems.map(({ Icon, id, name }, i) => (
             <button
               className={`${
-                section === id && 'sm:bg-gray-500'
-              } flex flex-row items-center gap-2 py-2 px-4 w-full text-center duration-200 hover:bg-discord-lighter text-white focus:outline-none rounded-lg cursor-pointer`}
+                section === id ? 'sm:bg-gray-500 ' : ''
+              }flex flex-row items-center gap-2 py-2 px-4 w-full text-center duration-200 hover:bg-discord-lighter text-white focus:outline-none rounded-lg sm:rounded-none sm:rounded-l-lg cursor-pointer`}
               key={i}
               onClick={() => {
                 updateSection(id);
