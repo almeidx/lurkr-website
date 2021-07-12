@@ -256,8 +256,8 @@ export default function Leveling({ channels, database, roles, openMenu }: Leveli
             name="XP Response Channel"
             url="https://docs.pepemanager.com/guides/setting-up-server-xp-leveling#where-to-send-the-level-up-message"
           />
-          <div className="flex flex-row gap-x-4">
-            <div className="md:w-full">
+          <div className="flex flex-row flex-wrap gap-y-2">
+            <div className="w-full lg:w-1/2">
               <BasicSelect
                 disabled={!featureEnabled}
                 closeOnSelect
@@ -272,17 +272,19 @@ export default function Leveling({ channels, database, roles, openMenu }: Leveli
                 }}
               />
             </div>
-            {xpResponseType === ResponseType.CHANNEL && (
-              <Selector
-                disabled={!featureEnabled}
-                id="xpResponseTypeChannel"
-                initialItems={resolveInitialXpResponseChannel(database)}
-                items={channels}
-                limit={1}
-                onSelect={(c) => addChange('xpResponseType', c[0] ?? null)}
-                type="channel"
-              />
-            )}
+            <div className="w-full lg:w-1/2 lg:pl-2">
+              {xpResponseType === ResponseType.CHANNEL && (
+                <Selector
+                  disabled={!featureEnabled}
+                  id="xpResponseTypeChannel"
+                  initialItems={resolveInitialXpResponseChannel(database)}
+                  items={channels}
+                  limit={1}
+                  onSelect={(c) => addChange('xpResponseType', c[0] ?? null)}
+                  type="channel"
+                />
+              )}
+            </div>
           </div>
         </Field>
 
@@ -292,9 +294,9 @@ export default function Leveling({ channels, database, roles, openMenu }: Leveli
             name="XP Roles"
             url="https://docs.pepemanager.com/guides/setting-up-server-xp-leveling#adding-role-rewards"
           />
-          <div className="mb-4">
+          <div className="mb-4 divide-y-2">
             {Object.keys(xpRoles).length < 100 && (
-              <div className="max-w-[21rem]">
+              <div className="w-full">
                 <Input
                   disabled={!featureEnabled}
                   id="newXpRole"
@@ -309,7 +311,7 @@ export default function Leveling({ channels, database, roles, openMenu }: Leveli
               </div>
             )}
           </div>
-          <div className="flex flex-col gap-2 divide-y-2 divide-gray-400">
+          <div className="flex flex-col mb-4 gap-y-2">
             {Object.keys(xpRoles).map((level) => (
               <XpRole
                 key={level}
