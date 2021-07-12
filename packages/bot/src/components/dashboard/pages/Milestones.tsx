@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 
 import { GuildContext } from '../../../contexts/GuildContext';
 import type { Channel, DatabaseGuild, Role } from '../../../graphql/queries/DashboardGuild';
@@ -16,14 +16,20 @@ interface MilestonesProps {
   channels: Channel[];
   database: DatabaseGuild;
   roles: Role[];
+  openMenu(): void;
 }
 
-export default function Milestones({ channels, database, roles }: MilestonesProps) {
+export default function Milestones({ channels, database, roles, openMenu }: MilestonesProps) {
   const { addChange } = useContext(GuildContext);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [openMenu]);
 
   return (
     <>
       <Header
+        openMenu={openMenu}
         description="Automatically announce member milestones in your server."
         id="milestones"
         initialValue={database.storeMilestones}

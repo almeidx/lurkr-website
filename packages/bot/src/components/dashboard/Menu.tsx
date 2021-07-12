@@ -26,6 +26,8 @@ interface MenuProps {
     id: Snowflake;
     name: string;
   };
+  menuOpen: boolean;
+  closeMenu(): void;
 }
 
 interface MenuItem {
@@ -51,7 +53,7 @@ const saveButtonDefaultColour = '#3ea25e';
 
 let timeout: NodeJS.Timeout | void;
 
-export default function Menu({ guild }: MenuProps) {
+export default function Menu({ guild, menuOpen, closeMenu }: MenuProps) {
   const router = useRouter();
   const { changes, clearChanges, guildId, section, updateSection } = useContext(GuildContext);
   const saveButtonRef = useRef<HTMLButtonElement>(null);
@@ -96,7 +98,11 @@ export default function Menu({ guild }: MenuProps) {
   }, [changes, clearChanges, guildId, updateDatabase, saveButtonRef]);
 
   return (
-    <aside className="w-96 min-w-[300px] px-6 hidden sm:block">
+    <aside
+      className={`${
+        !menuOpen && 'hidden'
+      } w-full sm:w-96 min-w-[300px] px-6 mt-20 sm:mt-0 absolute top-0 left-0 sm:block sm:relative bg-discord-dark`}
+    >
       <div className="sticky top-0 sm:py-6">
         <header className="flex flex-row items-center mb-6 gap-4">
           {guild.icon ? (
@@ -133,12 +139,13 @@ export default function Menu({ guild }: MenuProps) {
           {menuItems.map(({ Icon, id, name }, i) => (
             <button
               className={`${
-                section === id ? 'bg-gray-500' : ''
+                section === id && 'sm:bg-gray-500'
               } flex flex-row items-center gap-2 py-2 px-4 w-full text-center duration-200 hover:bg-discord-lighter text-white focus:outline-none rounded-lg cursor-pointer`}
               key={i}
               onClick={() => {
                 updateSection(id);
                 void router.push(`/guilds/${guildId}?p=${id}`, `/guilds/${guildId}?p=${id}`, { shallow: true });
+                closeMenu();
               }}
             >
               <Icon className="fill-current" />

@@ -1,16 +1,19 @@
 import { useState } from 'react';
+import { BiArrowBack } from 'react-icons/bi';
 
 import Toggle from '../form/Toggle';
 
 interface HeaderProps {
   description: string;
   title: string;
+  openMenu(): void;
 }
 
 interface HeaderWithToggleProps extends HeaderProps {
   id: string;
   initialValue: boolean;
   onChange: (value: boolean) => unknown;
+  openMenu(): void;
 }
 
 export default function Header(props: HeaderProps | HeaderWithToggleProps) {
@@ -18,6 +21,10 @@ export default function Header(props: HeaderProps | HeaderWithToggleProps) {
 
   return (
     <>
+      <BiArrowBack
+        onClick={props.openMenu}
+        className="inline-block sm:hidden z-[99999] text-white ml-4 mb-4 h-6 w-6 cursor-pointer"
+      />
       <div className="flex justify-between mx-4">
         <h1 className="text-white">{props.title}</h1>
 

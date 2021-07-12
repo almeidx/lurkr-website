@@ -2,10 +2,7 @@ import type { Snowflake } from 'discord-api-types';
 import type { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { lazy, Suspense, useContext, useEffect, useMemo } from 'react';
-import { BsFillShiftFill } from 'react-icons/bs';
-import { ImCog } from 'react-icons/im';
-import { RiShieldUserLine } from 'react-icons/ri';
+import { lazy, Suspense, useContext, useEffect, useMemo, useState } from 'react';
 
 import Menu, { isValidSection } from '../../components/dashboard/Menu';
 import Failure from '../../components/Failure';
@@ -55,6 +52,10 @@ export default function Guild({ database, guild, guildId }: InferGetServerSidePr
   const router = useRouter();
   const { authenticated } = useContext(UserContext);
   const { section, updateData, updateGuildId, updateSection } = useContext(GuildContext);
+  const [menuOpen, setMenuOpen] = useState<boolean>(true);
+
+  const closeMenu = (): void => setMenuOpen(false);
+  const openMenu = (): void => setMenuOpen(true);
 
   const sortedChannels = useMemo(
     () => [...(guild?.channels ?? [])].sort((a, b) => a.name.localeCompare(b.name)),
@@ -72,6 +73,7 @@ export default function Guild({ database, guild, guildId }: InferGetServerSidePr
       const pageName = isValidSection(pageQuery) ? pageQuery : 'general';
       void router.push(`/guilds/${guildId}?p=${pageName}`, `/guilds/${guildId}?p=${pageName}`, { shallow: true });
       updateSection(pageName);
+      closeMenu();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -95,26 +97,14 @@ export default function Guild({ database, guild, guildId }: InferGetServerSidePr
 
   return (
     <div className="w-full bg-discord-dark">
-      <div className="max-w-[992px] xl:max-w-[1440px] mx-auto min-h-screen flex flex-col sm:flex-row divide-x-2 divide-gray-600">
+      <div className="max-w-[992px] xl:max-w-[1440px] mx-auto min-h-screen flex flex-col sm:flex-row sm:divide-x-2 divide-gray-600">
         <Head>
           <title>{guild.name} Dashboard | Pepe Manager</title>
         </Head>
 
-        <Menu guild={guild} />
+        <Menu guild={guild} menuOpen={menuOpen} closeMenu={closeMenu} />
 
-        <div className="flex sm:hidden justify-center bg-discord-slightly-darker h-16 mb-4 px-2 text-white">
-          <div className="px-10 py-5">
-            <ImCog className="h-6 w-6 fill-current" />
-          </div>
-          <div className="px-10 py-5">
-            <BsFillShiftFill className="h-6 w-6 fill-current" />
-          </div>
-          <div className="px-10 py-5">
-            <RiShieldUserLine className="h-6 w-6 fill-current" />
-          </div>
-        </div>
-
-        <main className="pb-5 px-4 md:pt-6 w-full">
+        <main className={`pb-5 px-4 md:pt-6 w-full ${menuOpen ? 'hidden' : 'block'} sm:block`}>
           <Suspense
             fallback={
               <div className="min-h-screen bg-discord-dark flex justify-center items-center">
@@ -123,19 +113,19 @@ export default function Guild({ database, guild, guildId }: InferGetServerSidePr
             }
           >
             {section === 'autorole' ? (
-              <Autorole database={database} roles={sortedRoles} />
+              <Autorole openMenu={openMenu} database={database} roles={sortedRoles} />
             ) : section === 'leveling' ? (
-              <Leveling channels={sortedChannels} database={database} roles={sortedRoles} />
+              <Leveling openMenu={openMenu} channels={sortedChannels} database={database} roles={sortedRoles} />
             ) : section === 'milestones' ? (
-              <Milestones channels={sortedChannels} database={database} roles={sortedRoles} />
+              <Milestones openMenu={openMenu} channels={sortedChannels} database={database} roles={sortedRoles} />
             ) : section === 'emojiList' ? (
-              <EmojiList channels={sortedChannels} database={database} />
+              <EmojiList openMenu={openMenu} channels={sortedChannels} database={database} />
             ) : section === 'mentionCooldown' ? (
-              <MentionCooldown database={database} roles={sortedRoles} />
+              <MentionCooldown openMenu={openMenu} database={database} roles={sortedRoles} />
             ) : section === 'miscellaneous' ? (
-              <Miscellaneous channels={sortedChannels} database={database} />
+              <Miscellaneous openMenu={openMenu} channels={sortedChannels} database={database} />
             ) : (
-              <General channels={sortedChannels} database={database} />
+              <General openMenu={openMenu} channels={sortedChannels} database={database} />
             )}
           </Suspense>
         </main>

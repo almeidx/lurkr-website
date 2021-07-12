@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 
 import { GuildContext } from '../../../contexts/GuildContext';
 import type { Channel, DatabaseGuild } from '../../../graphql/queries/DashboardGuild';
@@ -14,14 +14,19 @@ import Header from '../Header';
 interface GeneralProps {
   channels: Channel[];
   database: DatabaseGuild;
+  openMenu(): void;
 }
 
-export default function General({ channels, database }: GeneralProps) {
+export default function General({ channels, database, openMenu }: GeneralProps) {
   const { addChange } = useContext(GuildContext);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [openMenu]);
 
   return (
     <>
-      <Header description="This panel controls the bot in your server." title="Settings" />
+      <Header openMenu={openMenu} description="This panel controls the bot in your server." title="Settings" />
 
       <Fieldset>
         <Field>

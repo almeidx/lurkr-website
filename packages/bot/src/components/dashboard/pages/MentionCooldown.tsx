@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 
 import { GuildContext } from '../../../contexts/GuildContext';
 import type { DatabaseGuild, Role } from '../../../graphql/queries/DashboardGuild';
@@ -15,14 +15,20 @@ import Header from '../Header';
 interface MentionCooldownProps {
   database: DatabaseGuild;
   roles: Role[];
+  openMenu(): void;
 }
 
-export default function MentionCooldown({ database, roles }: MentionCooldownProps) {
+export default function MentionCooldown({ database, roles, openMenu }: MentionCooldownProps) {
   const { addChange } = useContext(GuildContext);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [openMenu]);
 
   return (
     <>
       <Header
+        openMenu={openMenu}
         description="Automatically make roles non-mentionable after being mentioned for a certain amount of time."
         title="Mention Cooldown"
       />

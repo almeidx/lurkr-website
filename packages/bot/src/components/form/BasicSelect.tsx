@@ -57,7 +57,7 @@ export default function BasicSelect({
       <div
         className={`${
           dropdownOpen ? '' : 'hidden'
-        } absolute z-[99999] max-h-64 w-full bg-[#36393f] flex flex-col items-center mt-2 rounded-md`}
+        } absolute z-[100] max-h-64 w-full bg-[#36393f] flex flex-col items-center mt-2 rounded-md`}
       >
         <div className="flex flex-col overflow-y-scroll w-full h-full my-2 gap-1">
           {items.map((name, i) => (

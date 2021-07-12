@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 
 import { GuildContext } from '../../../contexts/GuildContext';
 import type { Channel, DatabaseGuild } from '../../../graphql/queries/DashboardGuild';
@@ -14,14 +14,23 @@ import Header from '../Header';
 interface MiscellaneousProps {
   channels: Channel[];
   database: DatabaseGuild;
+  openMenu(): void;
 }
 
-export default function Miscellaneous({ channels, database }: MiscellaneousProps) {
+export default function Miscellaneous({ channels, database, openMenu }: MiscellaneousProps) {
   const { addChange } = useContext(GuildContext);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [openMenu]);
 
   return (
     <>
-      <Header description="Miscellaneous options that don't fit into any other category." title="Miscellaneous" />
+      <Header
+        openMenu={openMenu}
+        description="Miscellaneous options that don't fit into any other category."
+        title="Miscellaneous"
+      />
 
       <Fieldset>
         <Field direction="row">

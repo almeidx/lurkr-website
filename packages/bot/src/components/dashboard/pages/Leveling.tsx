@@ -1,5 +1,5 @@
 import type { Snowflake } from 'discord-api-types';
-import { MouseEventHandler, useCallback, useContext, useRef, useState } from 'react';
+import { MouseEventHandler, useCallback, useContext, useEffect, useRef, useState } from 'react';
 import { BiLayerPlus } from 'react-icons/bi';
 
 import { GuildContext } from '../../../contexts/GuildContext';
@@ -27,6 +27,7 @@ interface LevelingProps {
   channels: Channel[];
   database: DatabaseGuild;
   roles: Role[];
+  openMenu(): void;
 }
 
 enum ResponseType {
@@ -87,7 +88,7 @@ const resolveMultiplier = (multipliers: (Omit<Multiplier, 'multiplier'> & { mult
 
 let timeout: NodeJS.Timeout;
 
-export default function Leveling({ channels, database, roles }: LevelingProps) {
+export default function Leveling({ channels, database, roles, openMenu }: LevelingProps) {
   const [featureEnabled, setFeatureEnabled] = useState<boolean>(database.levels);
   const [xpRoles, setXpRoles] = useState<Record<string, Snowflake[]>>(database.xpRoles);
   const [xpChannels, setXpChannels] = useState<Snowflake[]>(
@@ -104,6 +105,10 @@ export default function Leveling({ channels, database, roles }: LevelingProps) {
   const [newXpRolesLevel, setNewXpRolesLevel] = useState<string>('');
   const newXpRoleSubmitRef = useRef<HTMLButtonElement>(null);
   const { addChange, changes, removeChange } = useContext(GuildContext);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [openMenu]);
 
   const handleNewXpRoleCreated: () => unknown = useCallback(() => {
     const clone: Record<string, Snowflake[]> = JSON.parse(JSON.stringify(xpRoles));
@@ -216,6 +221,7 @@ export default function Leveling({ channels, database, roles }: LevelingProps) {
   return (
     <>
       <Header
+        openMenu={openMenu}
         description="Allow users to gain xp and level up by sending messages."
         id="levels"
         initialValue={database.levels}

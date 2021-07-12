@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 
 import { GuildContext } from '../../../contexts/GuildContext';
 import type { DatabaseGuild, Role } from '../../../graphql/queries/DashboardGuild';
@@ -15,14 +15,20 @@ import Header from '../Header';
 interface AutoroleProps {
   database: DatabaseGuild;
   roles: Role[];
+  openMenu(): void;
 }
 
-export default function Autorole({ database, roles }: AutoroleProps) {
+export default function Autorole({ database, roles, openMenu }: AutoroleProps) {
   const { addChange } = useContext(GuildContext);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [openMenu]);
 
   return (
     <>
       <Header
+        openMenu={openMenu}
         description="Autoroles consist of roles that are given to users when they join the server."
         title="Autorole"
       />
