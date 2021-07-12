@@ -28,8 +28,8 @@ export default function Home() {
       </header>
 
       <main className="flex flex-col justify-center items-center max-w-screen-2xl gap-12 my-12">
-        {showcases.map(({ align, description, src, title }, i) => (
-          <Showcase key={i} align={align} description={description} src={src} title={title} />
+        {showcases.map(({ description, src, title }, i) => (
+          <Showcase key={i} align={i % 2 === 0 ? 'right' : 'left'} description={description} src={src} title={title} />
         ))}
       </main>
     </div>
