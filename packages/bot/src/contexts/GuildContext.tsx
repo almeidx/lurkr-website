@@ -71,6 +71,17 @@ export default function GuildContextProvider({ children }: GuildContextProps) {
 
   const clearChanges = useCallback(() => setChanges({}), []);
 
+  const updateGuildId = useCallback(
+    (newId: Snowflake) => {
+      if (newId !== guildId) {
+        setChanges({});
+      }
+
+      setGuildId(newId);
+    },
+    [guildId],
+  );
+
   return (
     <GuildContext.Provider
       value={{
@@ -82,7 +93,7 @@ export default function GuildContextProvider({ children }: GuildContextProps) {
         removeChange,
         section,
         updateData: setData,
-        updateGuildId: setGuildId,
+        updateGuildId,
         updateSection: setSection,
       }}
     >

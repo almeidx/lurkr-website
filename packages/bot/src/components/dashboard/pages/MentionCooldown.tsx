@@ -22,7 +22,7 @@ export default function MentionCooldown({ database, roles, openMenu }: MentionCo
   const { addChange } = useContext(GuildContext);
 
   useEffect(() => {
-    window.scrollTo(0, 0);
+    window.scroll({ behavior: 'auto', left: 0, top: 0 });
   }, [openMenu]);
 
   return (

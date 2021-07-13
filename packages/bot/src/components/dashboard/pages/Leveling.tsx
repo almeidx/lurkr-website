@@ -107,7 +107,7 @@ export default function Leveling({ channels, database, roles, openMenu }: Leveli
   const { addChange, changes, removeChange } = useContext(GuildContext);
 
   useEffect(() => {
-    window.scrollTo(0, 0);
+    window.scroll({ behavior: 'auto', left: 0, top: 0 });
   }, [openMenu]);
 
   const handleNewXpRoleCreated: () => unknown = useCallback(() => {

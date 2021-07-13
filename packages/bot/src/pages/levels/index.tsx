@@ -35,11 +35,7 @@ export default function Levels({ guilds }: InferGetServerSidePropsType<typeof ge
   const router = useRouter();
 
   useEffect(() => {
-    window.scroll({
-      behavior: 'auto',
-      left: 0,
-      top: 0,
-    });
+    window.scroll({ behavior: 'auto', left: 0, top: 0 });
   }, []);
 
   let timeout: NodeJS.Timeout | null = null;

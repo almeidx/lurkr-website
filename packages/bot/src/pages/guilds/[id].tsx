@@ -2,7 +2,7 @@ import type { Snowflake } from 'discord-api-types';
 import type { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { lazy, Suspense, useContext, useEffect, useMemo, useState } from 'react';
+import { lazy, Suspense, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 
 import Menu, { isValidSection } from '../../components/dashboard/Menu';
 import Failure from '../../components/Failure';
@@ -54,8 +54,8 @@ export default function Guild({ database, guild, guildId }: InferGetServerSidePr
   const { section, updateData, updateGuildId, updateSection } = useContext(GuildContext);
   const [menuOpen, setMenuOpen] = useState<boolean>(true);
 
-  const closeMenu = (): void => setMenuOpen(false);
-  const openMenu = (): void => setMenuOpen(true);
+  const closeMenu = useCallback((): void => setMenuOpen(false), []);
+  const openMenu = useCallback((): void => setMenuOpen(true), []);
 
   const sortedChannels = useMemo(
     () => [...(guild?.channels ?? [])].sort((a, b) => a.name.localeCompare(b.name)),

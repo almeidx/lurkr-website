@@ -21,7 +21,7 @@ export default function Miscellaneous({ channels, database, openMenu }: Miscella
   const { addChange } = useContext(GuildContext);
 
   useEffect(() => {
-    window.scrollTo(0, 0);
+    window.scroll({ behavior: 'auto', left: 0, top: 0 });
   }, [openMenu]);
 
   return (
