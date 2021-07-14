@@ -10,7 +10,11 @@ import Spinner from '../../components/Spinner';
 import { GuildContext } from '../../contexts/GuildContext';
 import { UserContext } from '../../contexts/UserContext';
 import { initializeApollo } from '../../graphql/client';
-import DASHBOARD_GUILD, { DashboardGuild, DashboardGuildVariables } from '../../graphql/queries/DashboardGuild';
+import DASHBOARD_GUILD, {
+  Channel,
+  DashboardGuild,
+  DashboardGuildVariables,
+} from '../../graphql/queries/DashboardGuild';
 import { isValidSnowflake } from '../../utils/utils';
 
 const General = lazy(() => import('../../components/dashboard/pages/General'));
@@ -22,6 +26,7 @@ const MentionCooldown = lazy(() => import('../../components/dashboard/pages/Ment
 const Miscellaneous = lazy(() => import('../../components/dashboard/pages/Miscellaneous'));
 
 interface GuildProps {
+  channels: Channel[] | null;
   database: DashboardGuild['getDatabaseGuild'];
   guild: DashboardGuild['getDiscordGuild'];
   guildId: Snowflake;
@@ -36,11 +41,12 @@ export const getServerSideProps: GetServerSideProps<GuildProps> = async (ctx) =>
 
   const { data } = await apolloClient.query<DashboardGuild, DashboardGuildVariables>({
     query: DASHBOARD_GUILD,
-    variables: { id: ctx.params.id, includeChannels: true },
+    variables: { id: ctx.params.id },
   });
 
   return {
     props: {
+      channels: data.getDiscordGuildChannels,
       database: data.getDatabaseGuild,
       guild: data.getDiscordGuild,
       guildId: ctx.params.id,
@@ -48,7 +54,12 @@ export const getServerSideProps: GetServerSideProps<GuildProps> = async (ctx) =>
   };
 };
 
-export default function Guild({ database, guild, guildId }: InferGetServerSidePropsType<typeof getServerSideProps>) {
+export default function Guild({
+  channels,
+  database,
+  guild,
+  guildId,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const [menuOpen, setMenuOpen] = useState<boolean>(true);
   const { authenticated } = useContext(UserContext);
   const { section, updateData, updateGuildId, updateSection } = useContext(GuildContext);
@@ -57,10 +68,7 @@ export default function Guild({ database, guild, guildId }: InferGetServerSidePr
   const closeMenu = useCallback((): void => setMenuOpen(false), []);
   const openMenu = useCallback((): void => setMenuOpen(true), []);
 
-  const sortedChannels = useMemo(
-    () => [...(guild?.channels ?? [])].sort((a, b) => a.name.localeCompare(b.name)),
-    [guild],
-  );
+  const sortedChannels = useMemo(() => [...(channels ?? [])].sort((a, b) => a.name.localeCompare(b.name)), [channels]);
   const sortedRoles = useMemo(() => [...(guild?.roles ?? [])].sort((a, b) => b.position - a.position), [guild]);
 
   useEffect(() => {

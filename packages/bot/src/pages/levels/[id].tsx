@@ -26,7 +26,7 @@ export const getStaticProps: GetStaticProps<LeaderboardProps> = async (ctx) => {
 
   const { data } = await apolloClient.query<GuildLevels, GuildLevelsVariables>({
     query: GUILD_LEVELS,
-    variables: { id: ctx.params.id, requireAuth: false },
+    variables: { id: ctx.params.id },
   });
 
   if (!data.getDiscordGuild) return { notFound: true };
@@ -65,13 +65,19 @@ export default function Leaderboard({ guild, levels, roles }: InferGetStaticProp
         <title>{guild.name} Leaderboard | Pepe Manager</title>
       </Head>
 
-      <header className="flex flex-row justify-center items-center gap-6 ml-10 mt-10 xl:mt-0">
+      <header className="flex flex-row justify-center items-center gap-6 ml-10 mt-3 sm:mt-10 xl:mt-0">
         {guild.icon ? (
-          <img alt={`${guild.name} server icon`} height={64} src={guildIconCdn(guild.id, guild.icon, 64)} width={64} />
+          <img
+            alt={`${guild.name} server icon`}
+            className="rounded-md"
+            height={64}
+            src={guildIconCdn(guild.id, guild.icon, 64)}
+            width={64}
+          />
         ) : (
-          <Image height={64} src={FALLBACK_AVATAR_PATH} width={64} />
+          <Image className="rounded-md" height={64} src={FALLBACK_AVATAR_PATH} width={64} />
         )}
-        <p className={`text-white text-4xl font-bold`}>{guild.name}</p>
+        <p className="text-white text-xl sm:text-4xl font-bold">{guild.name}</p>
       </header>
 
       <main className="flex flex-col md:flex-row w-full my-4 justify-center sm:justify-between gap-y-6">

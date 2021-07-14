@@ -120,7 +120,7 @@ export default function Selector({ id, limit, items, initialItems, onSelect, typ
         {selected.map((i) => (
           <div
             className={`${
-              type === 'role' && 'role-bullet'
+              type === 'role' ? 'role-bullet' : ''
             } flex max-w-[250px] items-center h-6 cursor-pointer z-50 border rounded-full text-xs select-none`}
             data-id={i.id}
             key={i.id}
@@ -164,7 +164,9 @@ export default function Selector({ id, limit, items, initialItems, onSelect, typ
       </div>
 
       <div
-        className={`${dropdownOpen ? '' : 'hidden'} absolute z-[100] max-h-72 w-full mt-2 pb-3 bg-[#36393f] rounded-md`}
+        className={`${
+          !dropdownOpen ? 'hidden' : ''
+        } absolute z-[100] max-h-72 w-full mt-2 pb-3 bg-[#36393f] rounded-md`}
       >
         <div className="w-full">
           <Input

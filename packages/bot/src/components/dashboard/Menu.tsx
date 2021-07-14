@@ -100,7 +100,7 @@ export default function Menu({ guild, menuOpen, closeMenu }: MenuProps) {
   return (
     <aside
       className={`${
-        !menuOpen && 'hidden'
+        !menuOpen ? 'hidden' : ''
       } w-full sm:w-96 min-w-[300px] mt-20 sm:mt-0 absolute top-0 left-0 sm:block sm:relative bg-discord-dark`}
     >
       <div className="sticky top-0 sm:py-6">

@@ -14,7 +14,6 @@ export interface Role {
 }
 
 export interface Guild {
-  channels: Channel[];
   icon: string | null;
   id: Snowflake;
   name: string;
@@ -66,21 +65,17 @@ export interface DatabaseGuild {
 
 export interface DashboardGuild {
   getDiscordGuild: Guild | null;
+  getDiscordGuildChannels: Channel[] | null;
   getDatabaseGuild: DatabaseGuild | null;
 }
 
 export interface DashboardGuildVariables {
   id: Snowflake;
-  includeChannels?: boolean;
 }
 
 export default gql`
-  query getDiscordGuild($id: String!, $includeChannels: Boolean = false) {
-    getDiscordGuild(id: $id, includeChannels: $includeChannels, requireAuth: true) {
-      channels {
-        id
-        name
-      }
+  query getDiscordGuild($id: String!) {
+    getDiscordGuild(id: $id, requireAuth: true) {
       icon
       id
       name
@@ -90,6 +85,11 @@ export default gql`
         name
         position
       }
+    }
+
+    getDiscordGuildChannels(id: $id) {
+      id
+      name
     }
 
     getDatabaseGuild(id: $id) {

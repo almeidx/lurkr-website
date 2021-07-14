@@ -32,18 +32,23 @@ export interface Guild {
 }
 
 export interface GuildLevels {
-  getGuildLevels: Levels | null;
   getDiscordGuild: Guild | null;
+  getGuildLevels: Levels | null;
 }
 
 export interface GuildLevelsVariables {
   id: Snowflake;
-  requireAuth?: boolean;
 }
 
 export default gql`
-  query getGuildLevelsInfo($id: String!, $requireAuth: Boolean = true) {
-    getGuildLevels(id: $id, requireAuth: $requireAuth) {
+  query getGuildLevelsInfo($id: String!) {
+    getDiscordGuild(id: $id, requireAuth: false) {
+      id
+      icon
+      name
+    }
+
+    getGuildLevels(id: $id, requireAuth: false) {
       levels {
         avatar
         level
@@ -60,12 +65,6 @@ export default gql`
           color
         }
       }
-    }
-
-    getDiscordGuild(id: $id, requireAuth: $requireAuth) {
-      id
-      icon
-      name
     }
   }
 `;
