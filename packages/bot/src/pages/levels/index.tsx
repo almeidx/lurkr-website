@@ -1,15 +1,12 @@
 import type { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import Head from 'next/head';
-import Image from 'next/image';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
 
 import Input from '../../components/form/Input';
+import Guild from '../../components/Guild';
 import { initializeApollo } from '../../graphql/client';
 import USER_GUILDS, { UserGuilds, UserGuildsVariables } from '../../graphql/queries/UserGuilds';
-import { guildIconCdn } from '../../utils/cdn';
-import { FALLBACK_AVATAR_PATH } from '../../utils/constants';
 import { isValidSnowflake } from '../../utils/utils';
 
 export const getServerSideProps: GetServerSideProps<{ guilds: UserGuilds['getUserGuilds'] }> = async (ctx) => {
@@ -55,7 +52,7 @@ export default function Levels({ guilds }: InferGetServerSidePropsType<typeof ge
   };
 
   return (
-    <div className="flex flex-col justify-center items-center min-h-screen bg-discord-dark gap-y-8">
+    <div className="flex flex-col justify-center items-center text-center min-h-screen bg-discord-dark gap-y-8">
       <Head>
         <title>Levels | Pepe Manager</title>
       </Head>
@@ -65,42 +62,26 @@ export default function Levels({ guilds }: InferGetServerSidePropsType<typeof ge
           <h1>Pick a server to view the levels of</h1>
           <main className="flex flex-row flex-wrap justify-center items-start gap-6 max-w-7xl">
             {guilds.map(({ icon, id, name }) => (
-              <Link href={`/levels/${id}`} key={id}>
-                <a className="flex flex-col flex-wrap gap-2 px-6 py-4 bg-discord-slightly-darker rounded-2xl w-40 h-44 text-center relative">
-                  {icon ? (
-                    <img
-                      alt={`${name} server icon`}
-                      className="rounded-lg"
-                      height={128}
-                      src={guildIconCdn(id, icon, 128)}
-                      width={128}
-                    />
-                  ) : (
-                    <Image className="rounded-lg" height={128} src={FALLBACK_AVATAR_PATH} width={128} />
-                  )}
-
-                  <span className="text-white w-[calc(100%-1rem)] absolute left-0 bottom-4 mx-2 truncate">{name}</span>
-                </a>
-              </Link>
+              <Guild baseRedirectPath="/levels/" icon={icon} id={id} key={id} name={name} />
             ))}
           </main>
         </>
       )}
 
-      <div className="w-full sm:w-8/12 md:w-6/12 lg:w-4/12 px-4">
-        <h1 className="text-center">
-          {guilds ? 'Alternatively, enter a server ID' : 'Enter the ID of the server you want to view'}
-        </h1>
-        <Input
-          className="my-5"
-          id="searchTerm"
-          initialValue={''}
-          maxLength={20}
-          onChange={(t) => (t ? /^\d+$/.test(t) && setServerId(t) : setServerId(t))}
-          onSubmit={handleServerIdSubmit}
-          placeholder="Enter a server ID"
-          submitRef={submitRef}
-        />
+      <div className="px-4 w-full flex items-center justify-center text-center flex-col">
+        <h1>{guilds ? 'Alternatively, enter a server ID' : 'Enter the ID of the server you want to view'}</h1>
+        <div className="w-full sm:w-8/12 md:w-6/12 lg:w-4/12">
+          <Input
+            className="my-5"
+            id="searchTerm"
+            initialValue={''}
+            maxLength={20}
+            onChange={(t) => (t ? /^\d+$/.test(t) && setServerId(t) : setServerId(t))}
+            onSubmit={handleServerIdSubmit}
+            placeholder="Enter a server ID"
+            submitRef={submitRef}
+          />
+        </div>
       </div>
     </div>
   );

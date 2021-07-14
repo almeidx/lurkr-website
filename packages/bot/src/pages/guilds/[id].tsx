@@ -49,10 +49,10 @@ export const getServerSideProps: GetServerSideProps<GuildProps> = async (ctx) =>
 };
 
 export default function Guild({ database, guild, guildId }: InferGetServerSidePropsType<typeof getServerSideProps>) {
-  const router = useRouter();
+  const [menuOpen, setMenuOpen] = useState<boolean>(true);
   const { authenticated } = useContext(UserContext);
   const { section, updateData, updateGuildId, updateSection } = useContext(GuildContext);
-  const [menuOpen, setMenuOpen] = useState<boolean>(true);
+  const router = useRouter();
 
   const closeMenu = useCallback((): void => setMenuOpen(false), []);
   const openMenu = useCallback((): void => setMenuOpen(true), []);
@@ -102,7 +102,7 @@ export default function Guild({ database, guild, guildId }: InferGetServerSidePr
           <title>{guild.name} Dashboard | Pepe Manager</title>
         </Head>
 
-        <Menu guild={guild} menuOpen={menuOpen} closeMenu={closeMenu} />
+        <Menu closeMenu={closeMenu} guild={guild} menuOpen={menuOpen} />
 
         <main className={`pb-5 px-4 md:pt-6 w-full ${menuOpen ? 'hidden' : 'block'} sm:block`}>
           <Suspense

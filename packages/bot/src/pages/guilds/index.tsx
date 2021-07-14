@@ -1,15 +1,12 @@
 import type { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import Head from 'next/head';
-import Image from 'next/image';
-import Link from 'next/link';
 import { useContext } from 'react';
 
 import Failure from '../../components/Failure';
+import Guild from '../../components/Guild';
 import { UserContext } from '../../contexts/UserContext';
 import { initializeApollo } from '../../graphql/client';
 import USER_GUILDS, { UserGuilds, UserGuildsVariables } from '../../graphql/queries/UserGuilds';
-import { guildIconCdn } from '../../utils/cdn';
-import { FALLBACK_AVATAR_PATH } from '../../utils/constants';
 
 export const getServerSideProps: GetServerSideProps<{ guilds: UserGuilds['getUserGuilds'] }> = async (ctx) => {
   ctx.req.headers.accept = '';
@@ -28,7 +25,7 @@ export const getServerSideProps: GetServerSideProps<{ guilds: UserGuilds['getUse
   };
 };
 
-export default function Guild({ guilds }: InferGetServerSidePropsType<typeof getServerSideProps>) {
+export default function Guilds({ guilds }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const { authenticated } = useContext(UserContext);
 
   if (!authenticated) {
@@ -40,7 +37,7 @@ export default function Guild({ guilds }: InferGetServerSidePropsType<typeof get
   }
 
   return (
-    <div className="flex flex-col justify-center items-center min-h-screen bg-discord-dark gap-y-8 pb-6 pt-6 sm:pt-0">
+    <div className="flex flex-col justify-center items-center text-center min-h-screen bg-discord-dark gap-y-8 pb-6 pt-6 sm:pt-0">
       <Head>
         <title>Guilds | Pepe Manager</title>
       </Head>
@@ -49,23 +46,7 @@ export default function Guild({ guilds }: InferGetServerSidePropsType<typeof get
 
       <main className="flex flex-row flex-wrap justify-center items-start gap-6 max-w-7xl">
         {guilds.map(({ icon, id, name }) => (
-          <Link href={`/guilds/${id}`} key={id}>
-            <a className="flex flex-col flex-wrap gap-2 px-6 py-4 bg-discord-slightly-darker rounded-2xl w-40 h-44 text-center relative">
-              {icon ? (
-                <img
-                  alt={`${name} server icon`}
-                  className="rounded-lg"
-                  height={128}
-                  src={guildIconCdn(id, icon, 128)}
-                  width={128}
-                />
-              ) : (
-                <Image className="rounded-lg" height={128} src={FALLBACK_AVATAR_PATH} width={128} />
-              )}
-
-              <span className="text-white w-[calc(100%-1rem)] absolute left-0 bottom-4 mx-2 truncate">{name}</span>
-            </a>
-          </Link>
+          <Guild baseRedirectPath="/guilds/" icon={icon} id={id} key={id} name={name} />
         ))}
       </main>
     </div>
