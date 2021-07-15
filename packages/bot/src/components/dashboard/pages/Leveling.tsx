@@ -7,7 +7,6 @@ import { AutoResetLevels, Channel, DatabaseGuild, Multiplier, Role } from '../..
 import { DATABASE_LIMITS } from '../../../utils/constants';
 import { parseMultiplier } from '../../../utils/utils';
 import BasicSelect from '../../form/BasicSelect';
-import Checkbox from '../../form/Checkbox';
 import Field from '../../form/Field';
 import Fieldset from '../../form/Fieldset';
 import Input from '../../form/Input';
@@ -15,6 +14,7 @@ import Label from '../../form/Label';
 import Selector from '../../form/Selector';
 import Subtitle from '../../form/Subtitle';
 import Textarea from '../../form/Textarea';
+import Toggle from '../../form/Toggle';
 import Header from '../Header';
 import XpMultiplier, {
   XpMultiplierOnDeleteFn,
@@ -325,18 +325,19 @@ export default function Leveling({ channels, database, roles, openMenu }: Leveli
         </Field>
 
         <Field direction="row">
-          <div className="flex flex-row gap-x-3 items-center">
-            <Checkbox
-              disabled={!featureEnabled}
-              id="stackXpRoles"
-              initialValue={database.stackXpRoles}
-              onChange={(v) => addChange('stackXpRoles', v)}
-            />
+          <div className="flex flex-row justify-between sm:justify-start w-full gap-x-3 items-center py-2 border-t border-b border-gray-700 sm:border-0">
             <Label
               htmlFor="stackXpRoles"
               name="Stack XP Roles"
               url="https://docs.pepemanager.com/guides/setting-up-server-xp-leveling#toggling-role-stacking"
               withMargin={false}
+            />
+            <Toggle
+              size="small"
+              disabled={!featureEnabled}
+              id="stackXpRoles"
+              initialValue={database.stackXpRoles}
+              onChange={(v) => addChange('stackXpRoles', v)}
             />
           </div>
         </Field>
@@ -377,7 +378,7 @@ export default function Leveling({ channels, database, roles, openMenu }: Leveli
             name="Top XP Role"
             url="https://docs.pepemanager.com/guides/setting-up-server-xp-leveling#adding-the-top-xp-role"
           />
-          <div className="max-w-[20rem]">
+          <div className="w-full sm:w-1/2 sm:min-w-[20rem]">
             <Selector
               disabled={!featureEnabled}
               id="topXpRole"
@@ -415,6 +416,7 @@ export default function Leveling({ channels, database, roles, openMenu }: Leveli
             url="https://docs.pepemanager.com/guides/setting-up-server-xp-leveling#automatically-resetting-levels"
           />
           <BasicSelect
+            closeOnSelect
             disabled={!featureEnabled}
             initialItem={resolveAutoResetLevelsNameByType(database.autoResetLevels)}
             items={['None', 'Leave', 'Ban', 'Ban & Leave']}
@@ -434,6 +436,7 @@ export default function Leveling({ channels, database, roles, openMenu }: Leveli
                 <p className="text-white">Create a new multiplier</p>
                 <div className="flex flex-row gap-3 mt-2 mb-4">
                   <BasicSelect
+                    closeOnSelect
                     disabled={!featureEnabled}
                     initialItem={'Channel'}
                     items={
@@ -483,21 +486,20 @@ export default function Leveling({ channels, database, roles, openMenu }: Leveli
           </div>
         </Field>
 
-        <Field>
-          <div className="flex flex-row gap-x-3 items-center">
-            <Checkbox
-              id="prioritiseMultiplierRoleHierarchy"
-              initialValue={database.prioritiseMultiplierRoleHierarchy}
-              onChange={(v) => addChange('prioritiseMultiplierRoleHierarchy', v)}
-            />
-            <Label
-              htmlFor="prioritiseMultiplierRoleHierarchy"
-              name="XP Multiplier Priority"
-              url="https://docs.pepemanager.com/guides/setting-up-xp-multipliers#changing-role-multiplier-hierarchy"
-              withMargin={false}
-            />
-          </div>
-        </Field>
+        <div className="flex flex-row justify-between sm:justify-start w-full gap-x-3 items-center py-2 border-t border-b border-gray-700 sm:border-0">
+          <Label
+            htmlFor="prioritiseMultiplierRoleHierarchy"
+            name="XP Multiplier Priority"
+            url="https://docs.pepemanager.com/guides/setting-up-xp-multipliers#changing-role-multiplier-hierarchy"
+            withMargin={false}
+          />
+          <Toggle
+            size="small"
+            id="prioritiseMultiplierRoleHierarchy"
+            initialValue={database.prioritiseMultiplierRoleHierarchy}
+            onChange={(v) => addChange('prioritiseMultiplierRoleHierarchy', v)}
+          />
+        </div>
       </Fieldset>
     </>
   );
