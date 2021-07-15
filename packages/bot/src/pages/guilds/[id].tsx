@@ -72,19 +72,17 @@ export default function Guild({
   const sortedRoles = useMemo(() => [...(guild?.roles ?? [])].sort((a, b) => b.position - a.position), [guild]);
 
   useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const query = urlParams.get('p');
+    const pageQuery = String(router.query.p);
 
-    if (query) {
-      console.log("Found initial dashboard page '%s'", query);
-      const pageQuery = decodeURIComponent(query);
+    if (pageQuery && pageQuery !== section) {
       const pageName = isValidSection(pageQuery) ? pageQuery : 'general';
+      console.log("Found initial dashboard page '%s'", pageName);
       void router.push(`/guilds/${guildId}?p=${pageName}`, `/guilds/${guildId}?p=${pageName}`, { shallow: true });
       updateSection(pageName);
       closeMenu();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [router]);
 
   useEffect(() => {
     if (guild) updateGuildId(guild.id);
