@@ -25,18 +25,6 @@
     @apply sm:text-xl;
   }
 
-  .navbar-hamburger:checked ~ .navbar-links-dd {
-    display: block;
-  }
-
-  .navbar-hamburger:checked + label .navbar-hamburger-open {
-    display: none;
-  }
-
-  .navbar-hamburger:checked + label .navbar-hamburger-close {
-    display: block;
-  }
-
   .role-x {
     display: none;
     font-size: 0.7rem;

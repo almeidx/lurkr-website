@@ -1,9 +1,11 @@
 import Link from 'next/link';
-import { useContext } from 'react';
+import { useRouter } from 'next/router';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { GoSignIn, GoSignOut } from 'react-icons/go';
 import { MdClose, MdMenu } from 'react-icons/md';
 
 import { UserContext } from '../contexts/UserContext';
+import useClickOutside from '../hooks/useClickOutside';
 import { userAvatarCdn } from '../utils/cdn';
 import { API_BASE_URL } from '../utils/constants';
 
@@ -18,23 +20,48 @@ const links: { name: string; requireAuth?: boolean; url: string }[] = [
 ];
 
 export default function Navbar() {
+  const router = useRouter();
   const { authenticated, avatar, discriminator, id, username } = useContext(UserContext);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
+
+  useEffect(() => {
+    setDropdownOpen(false);
+  }, [router]);
+
+  const handleDropdownClick = () => {
+    setDropdownOpen(!dropdownOpen);
+    console.log(dropdownOpen);
+  };
+
+  const handleClickOutside = () => {
+    setDropdownOpen(false);
+    console.log(dropdownOpen);
+  };
+
+  useClickOutside(dropdownRef, handleClickOutside);
 
   return (
-    <div className="w-full bg-discord-dark">
+    <div ref={dropdownRef} className="w-full bg-discord-dark">
       <header className="flex md:items-center p-6 max-w-[992px] xl:max-w-[1440px] mx-auto">
         <Link href="/">
           <a className=" md:text-xl py-1 md:p-0 text-white uppercase font-bold whitespace-nowrap mr-4">Pepe Manager</a>
         </Link>
 
-        <nav className="navbar-links md:w-full ml-auto z-20">
-          <input id="navbar-hamburger" type="checkbox" className="hidden navbar-hamburger w-8 h-8" />
-          <label htmlFor="navbar-hamburger" className="block w-8 h-8 md:hidden text-white p-1 cursor-pointer">
-            <MdMenu className="navbar-hamburger-open w-full h-full" />
-            <MdClose className="navbar-hamburger-close hidden w-full h-full" />
-          </label>
+        <nav className="md:w-full ml-auto z-20">
+          <span onClick={handleDropdownClick}>
+            {dropdownOpen ? (
+              <MdClose className="w-6 h-6 my-1 md:hidden text-2xl text-white cursor-pointer" />
+            ) : (
+              <MdMenu className="w-6 h-6 my-1 md:hidden text-2xl text-white cursor-pointer" />
+            )}
+          </span>
 
-          <nav className="navbar-links-dd hidden md:block absolute md:relative w-full mt-6 md:mt-0 left-0 bg-discord-not-quite-black md:bg-transparent">
+          <nav
+            className={`${
+              dropdownOpen ? 'block' : 'hidden'
+            } md:block absolute md:relative z-50 w-full mt-6 md:mt-0 left-0 bg-discord-not-quite-black md:bg-transparent`}
+          >
             <ul className="flex flex-col md:flex-row py-4 pr-4 md:p-0 gap-4 md:items-center">
               {links.map(
                 ({ name, requireAuth, url }, i) =>
