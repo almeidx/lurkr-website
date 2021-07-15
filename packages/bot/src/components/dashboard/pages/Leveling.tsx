@@ -235,23 +235,6 @@ export default function Leveling({ channels, database, roles, openMenu }: Leveli
       <Fieldset>
         <Field>
           <Label
-            htmlFor="xpMessage"
-            name="XP Message"
-            url="https://docs.pepemanager.com/guides/setting-up-server-xp-leveling#customizing-the-level-up-message"
-          />
-          <Textarea
-            initialText={database.xpMessage}
-            id="xpMessage"
-            maxLength={DATABASE_LIMITS.xpMessage.maxLength}
-            onChange={(t) => addChange('xpMessage', t)}
-            placeholder="Enter the level up message"
-            disabled={!featureEnabled}
-          />
-          <Subtitle text={`Maximum of ${DATABASE_LIMITS.xpMessage.maxLength.toLocaleString('en')} characters.`} />
-        </Field>
-
-        <Field>
-          <Label
             htmlFor="xpResponseType"
             name="XP Response Channel"
             url="https://docs.pepemanager.com/guides/setting-up-server-xp-leveling#where-to-send-the-level-up-message"
@@ -290,6 +273,58 @@ export default function Leveling({ channels, database, roles, openMenu }: Leveli
 
         <Field>
           <Label
+            htmlFor="xpMessage"
+            name="XP Message"
+            url="https://docs.pepemanager.com/guides/setting-up-server-xp-leveling#customizing-the-level-up-message"
+          />
+          <Textarea
+            initialText={database.xpMessage}
+            id="xpMessage"
+            maxLength={DATABASE_LIMITS.xpMessage.maxLength}
+            onChange={(t) => addChange('xpMessage', t)}
+            placeholder="Enter the level up message"
+            disabled={!featureEnabled}
+          />
+          <Subtitle text={`Maximum of ${DATABASE_LIMITS.xpMessage.maxLength.toLocaleString('en')} characters.`} />
+        </Field>
+
+        <Field direction="row">
+          <div className="flex flex-row justify-between w-full gap-x-3 items-center p-2 pl-4 rounded-lg bg-discord-dark">
+            <Label
+              htmlFor="stackXpRoles"
+              name="Stack XP Roles"
+              url="https://docs.pepemanager.com/guides/setting-up-server-xp-leveling#toggling-role-stacking"
+              withMargin={false}
+            />
+            <Toggle
+              size="small"
+              disabled={!featureEnabled}
+              id="stackXpRoles"
+              initialValue={database.stackXpRoles}
+              onChange={(v) => addChange('stackXpRoles', v)}
+            />
+          </div>
+        </Field>
+
+        <Field direction="row">
+          <div className="flex flex-row justify-between w-full gap-x-3 items-center p-2 pl-4 rounded-lg bg-discord-dark">
+            <Label
+              htmlFor="prioritiseMultiplierRoleHierarchy"
+              name="XP Multiplier Priority"
+              url="https://docs.pepemanager.com/guides/setting-up-xp-multipliers#changing-role-multiplier-hierarchy"
+              withMargin={false}
+            />
+            <Toggle
+              size="small"
+              id="prioritiseMultiplierRoleHierarchy"
+              initialValue={database.prioritiseMultiplierRoleHierarchy}
+              onChange={(v) => addChange('prioritiseMultiplierRoleHierarchy', v)}
+            />
+          </div>
+        </Field>
+
+        <Field>
+          <Label
             htmlFor="xpRoles"
             name="XP Roles"
             url="https://docs.pepemanager.com/guides/setting-up-server-xp-leveling#adding-role-rewards"
@@ -321,24 +356,70 @@ export default function Leveling({ channels, database, roles, openMenu }: Leveli
                 roles={roles}
               />
             ))}
+            {/* {Object.keys(xpRoles).length > 0 && <div className="mt-4 border-t border-gray-600" />} */}
           </div>
         </Field>
 
-        <Field direction="row">
-          <div className="flex flex-row justify-between sm:justify-start w-full gap-x-3 items-center py-2 border-t border-b border-gray-700 sm:border-0">
-            <Label
-              htmlFor="stackXpRoles"
-              name="Stack XP Roles"
-              url="https://docs.pepemanager.com/guides/setting-up-server-xp-leveling#toggling-role-stacking"
-              withMargin={false}
-            />
-            <Toggle
-              size="small"
-              disabled={!featureEnabled}
-              id="stackXpRoles"
-              initialValue={database.stackXpRoles}
-              onChange={(v) => addChange('stackXpRoles', v)}
-            />
+        <Field>
+          <Label
+            htmlFor="xpMultipliers"
+            name="XP Multipliers"
+            url="https://docs.pepemanager.com/guides/setting-up-xp-multipliers"
+          />
+          <div>
+            {Object.keys(xpMultipliers).length <= 20 && (
+              <>
+                <p className="text-white">Create a new multiplier</p>
+                <div className="flex flex-row gap-3 mt-2 mb-4">
+                  <BasicSelect
+                    closeOnSelect
+                    disabled={!featureEnabled}
+                    initialItem={'Channel'}
+                    items={
+                      xpMultipliers.some((m) => m.type === 'global')
+                        ? ['Channel', 'Role']
+                        : ['Channel', 'Global', 'Role']
+                    }
+                    onSelect={(item) => setNewXpMultiplierType(item.toLowerCase() as Multiplier['type'])}
+                  />
+                  <button
+                    disabled={!featureEnabled}
+                    className="flex-shrink-0 h-12 w-12 bg-discord-not-quite-black rounded-md flex justify-center items-center text-white disabled:text-opacity-25 duration-150 transition-colors"
+                    onClick={() => {
+                      const finalMultipliers = [
+                        ...xpMultipliers,
+                        {
+                          multiplier: '1',
+                          targets: newXpMultiplierType !== 'global' ? [] : null,
+                          type: newXpMultiplierType,
+                        },
+                      ];
+                      setXpMultipliers(finalMultipliers);
+                      addChange('xpMultipliers', resolveMultiplier(finalMultipliers));
+                    }}
+                  >
+                    <BiLayerPlus className="fill-current text-3xl" />
+                  </button>
+                </div>
+              </>
+            )}
+          </div>
+          <div className="flex flex-col gap-y-2">
+            {xpMultipliers.map(({ multiplier, targets, type }, i) => (
+              <XpMultiplier
+                channels={channels}
+                index={i}
+                key={i}
+                multiplier={multiplier}
+                onDelete={handleXpMultiplierDelete}
+                onItemChange={handleXpMultiplierItemsChange}
+                onMultiplierChange={handleXpMultiplierValueChange}
+                roles={roles}
+                targets={targets}
+                type={type}
+              />
+            ))}
+            {/* {xpMultipliers.length > 0 && <div className="mt-4 border-t border-gray-600" />} */}
           </div>
         </Field>
 
@@ -354,7 +435,7 @@ export default function Leveling({ channels, database, roles, openMenu }: Leveli
               className="text-white disabled:text-opacity-25 w-[fit-content] bg-discord-not-quite-black px-2 py-1.5 rounded-md shadow-sm duration-150 transition-colors active:bg-discord-dark focus:outline-none"
               onClick={handleXpChannelsTypeChange}
             >
-              Click to use a {xpChannelsType === 'blacklist' ? 'whitelist' : 'blacklist'} instead
+              Use {xpChannelsType === 'blacklist' ? 'Whitelist' : 'Blacklist'}
             </button>
           </div>
           <Selector
@@ -423,83 +504,6 @@ export default function Leveling({ channels, database, roles, openMenu }: Leveli
             onSelect={(i) => addChange('autoResetLevels', resolveAutoResetLevelsTypeByName(i))}
           />
         </Field>
-
-        <Field>
-          <Label
-            htmlFor="xpMultipliers"
-            name="XP Multipliers"
-            url="https://docs.pepemanager.com/guides/setting-up-xp-multipliers"
-          />
-          <div>
-            {Object.keys(xpMultipliers).length <= 20 && (
-              <>
-                <p className="text-white">Create a new multiplier</p>
-                <div className="flex flex-row gap-3 mt-2 mb-4">
-                  <BasicSelect
-                    closeOnSelect
-                    disabled={!featureEnabled}
-                    initialItem={'Channel'}
-                    items={
-                      xpMultipliers.some((m) => m.type === 'global')
-                        ? ['Channel', 'Role']
-                        : ['Channel', 'Global', 'Role']
-                    }
-                    onSelect={(item) => setNewXpMultiplierType(item.toLowerCase() as Multiplier['type'])}
-                  />
-                  <button
-                    disabled={!featureEnabled}
-                    className="flex-shrink-0 h-12 w-12 bg-discord-not-quite-black rounded-md flex justify-center items-center text-white disabled:text-opacity-25 duration-150 transition-colors"
-                    onClick={() => {
-                      const finalMultipliers = [
-                        ...xpMultipliers,
-                        {
-                          multiplier: '1',
-                          targets: newXpMultiplierType !== 'global' ? [] : null,
-                          type: newXpMultiplierType,
-                        },
-                      ];
-                      setXpMultipliers(finalMultipliers);
-                      addChange('xpMultipliers', resolveMultiplier(finalMultipliers));
-                    }}
-                  >
-                    <BiLayerPlus className="fill-current text-3xl" />
-                  </button>
-                </div>
-              </>
-            )}
-          </div>
-          <div className="flex flex-col gap-y-2 divide-y-2 divide-gray-400">
-            {xpMultipliers.map(({ multiplier, targets, type }, i) => (
-              <XpMultiplier
-                channels={channels}
-                index={i}
-                key={i}
-                multiplier={multiplier}
-                onDelete={handleXpMultiplierDelete}
-                onItemChange={handleXpMultiplierItemsChange}
-                onMultiplierChange={handleXpMultiplierValueChange}
-                roles={roles}
-                targets={targets}
-                type={type}
-              />
-            ))}
-          </div>
-        </Field>
-
-        <div className="flex flex-row justify-between sm:justify-start w-full gap-x-3 items-center py-2 border-t border-b border-gray-700 sm:border-0">
-          <Label
-            htmlFor="prioritiseMultiplierRoleHierarchy"
-            name="XP Multiplier Priority"
-            url="https://docs.pepemanager.com/guides/setting-up-xp-multipliers#changing-role-multiplier-hierarchy"
-            withMargin={false}
-          />
-          <Toggle
-            size="small"
-            id="prioritiseMultiplierRoleHierarchy"
-            initialValue={database.prioritiseMultiplierRoleHierarchy}
-            onChange={(v) => addChange('prioritiseMultiplierRoleHierarchy', v)}
-          />
-        </div>
       </Fieldset>
     </>
   );

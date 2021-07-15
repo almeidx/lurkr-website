@@ -33,40 +33,46 @@ export default function XpMultiplier({
   type,
 }: XpMultiplierProps) {
   return (
-    <div className="flex flex-row justify-between gap-3 relative w-full pt-4 pb-2 first-of-type:pt-0 last-of-type:pb-0">
-      <div className="flex flex-row gap-x-6">
-        <Input
-          id={`multiplier-${index}-input`}
-          initialValue={multiplier.toString()}
-          maxLength={5}
-          onChange={(text) => onMultiplierChange(text, index)}
-          placeholder="x1.0"
-        />
-
-        <label className="text-white flex items-center min-w-[4rem]" htmlFor={`multiplier-${index}-selector`}>
+    <div className="relative flex flex-row flex-wrap justify-between w-full py-2 gap-y-2 bg-discord-dark rounded-lg">
+      <div className="flex justify-between w-full">
+        <label
+          className="text-white font-bold flex items-center min-w-[4rem] ml-4"
+          htmlFor={`multiplier-${index}-selector`}
+        >
           {type[0].toUpperCase() + type.slice(1)}
         </label>
 
-        {type !== 'global' && (
-          <div className="min-w-[15rem]">
-            <Selector
-              id={`multiplier-${index}-selector`}
-              limit={50}
-              initialItems={targets!}
-              items={type === 'channel' ? channels : roles}
-              onSelect={(i) => onItemChange(i, index)}
-              type={type}
-            />
-          </div>
-        )}
+        <div className="w-[6rem] mx-auto">
+          <Input
+            id={`multiplier-${index}-input`}
+            initialValue={multiplier.toString()}
+            maxLength={5}
+            onChange={(text) => onMultiplierChange(text, index)}
+            placeholder="x1.0"
+            noClearButton
+          />
+        </div>
+
+        <div
+          className="h-full w-6 right-0 my-auto mr-4 py-3 text-2xl text-discord-red active:text-red-600 transition-colors cursor-pointer"
+          onClick={() => onDelete(index)}
+        >
+          <MdClear />
+        </div>
       </div>
 
-      <div
-        className="absolute right-0 my-auto mx-4 py-3 text-2xl text-discord-red active:text-red-600 transition-colors h-full cursor-pointer"
-        onClick={() => onDelete(index)}
-      >
-        <MdClear />
-      </div>
+      {type !== 'global' && (
+        <div className="w-full mx-2">
+          <Selector
+            id={`multiplier-${index}-selector`}
+            limit={50}
+            initialItems={targets!}
+            items={type === 'channel' ? channels : roles}
+            onSelect={(i) => onItemChange(i, index)}
+            type={type}
+          />
+        </div>
+      )}
     </div>
   );
 }
