@@ -24,7 +24,7 @@ export default function RoleChannelBullet({
     <div
       className={`${
         type === 'role' ? 'role-bullet' : ''
-      } flex max-w-[250px] items-center h-6 z-50 border rounded-full text-xs select-none`}
+      } flex max-w-[175px] items-center h-6 z-50 border rounded-full text-xs select-none`}
       style={{ borderColor: resolvedColor }}
       onClick={onClick}
       {...props}
