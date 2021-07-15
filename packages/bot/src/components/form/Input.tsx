@@ -9,6 +9,7 @@ interface InputProps {
   initialValue: string;
   maxLength: number;
   placeholder: string;
+  noClearButton?: boolean;
   disabled?: boolean;
   onChange: (text: string) => unknown;
 }
@@ -42,7 +43,7 @@ export default function Input(props: InputProps | InputWithSubmitProps): JSX.Ele
           value={value}
         />
 
-        {value && (
+        {value && !props.noClearButton && (
           <label
             className="absolute right-0 my-auto mx-4 py-3 text-2xl text-discord-red active:text-red-600 transition-colors h-full cursor-pointer"
             onClick={() => {
