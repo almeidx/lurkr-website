@@ -3,9 +3,9 @@ import { MouseEventHandler, useCallback, useEffect, useRef, useState } from 'rea
 import { AiOutlinePlusCircle } from 'react-icons/ai';
 
 import useClickOutside from '../../hooks/useClickOutside';
-import { DEFAULT_ROLE_COLOUR } from '../../utils/constants';
 import { resolveColour } from '../../utils/utils';
 import Input from '../form/Input';
+import RoleChannelBullet from '../RoleChannelBullet';
 
 interface Channel {
   id: Snowflake;
@@ -49,16 +49,25 @@ export default function Selector({ id, limit, items, initialItems, onSelect, typ
   const [options, setOptions] = useState<Items>(items);
   const [searchTerm, setSearchTerm] = useState('');
   const elementRef = useRef<HTMLDivElement>(null);
-
   const handleClickOutside = useCallback(() => setDropdownOpen(false), []);
 
   useClickOutside(elementRef, handleClickOutside);
 
   const handleChannelRemove: MouseEventHandler<HTMLDivElement> = useCallback(
     (event) => {
-      const id = (event.target as HTMLDivElement | HTMLParagraphElement).dataset.id as Snowflake;
       const clone = [...selected];
-      const selectedIndex = clone.findIndex((s) => s.id === id);
+      let selectedIndex = -1;
+      let element = event.target as HTMLElement;
+      let i = 0;
+
+      while (i < 5) {
+        if (element.dataset.id) {
+          selectedIndex = clone.findIndex((s) => s.id === element.dataset.id);
+          break;
+        }
+        element = element.parentElement as HTMLElement;
+        i++;
+      }
 
       if (selectedIndex < 0) {
         return console.error("[Selector] Couldn't find item index when user tried removing an item");
@@ -118,39 +127,15 @@ export default function Selector({ id, limit, items, initialItems, onSelect, typ
     <div className="relative" ref={elementRef}>
       <div className="flex flex-row flex-wrap gap-1.5 min-w-[15rem] min-h-[3rem] bg-discord-not-quite-black px-5 py-3 focus:outline-none rounded-md shadow">
         {selected.map((i) => (
-          <div
-            className={`${
-              type === 'role' ? 'role-bullet' : ''
-            } flex max-w-[250px] items-center h-6 cursor-pointer z-50 border rounded-full text-xs select-none`}
-            data-id={i.id}
+          <RoleChannelBullet
             key={i.id}
             onClick={handleChannelRemove}
-            style={{ borderColor: 'color' in i ? resolveColour(i.color) : DEFAULT_ROLE_COLOUR }}
-          >
-            <div className="role-x" data-id={i.id}>
-              &times;
-            </div>
-            {type === 'role' && 'color' in i && (
-              <div
-                className="w-3 h-3 ml-[5px] mr-[4px] rounded-full"
-                data-id={i.id}
-                style={{ backgroundColor: resolveColour(i.color) }}
-              />
-            )}
-            <div
-              className={`text-white leading-3 truncate pr-2 pb-[2px] ${
-                type === 'channel' ? 'hover:text-red-400' : ''
-              }`}
-              data-id={i.id}
-            >
-              {type === 'channel' && (
-                <span className="pl-2" data-id={i.id}>
-                  #
-                </span>
-              )}
-              {i.name}
-            </div>
-          </div>
+            type={type}
+            name={i.name}
+            roleColor={'color' in i ? i.color : undefined}
+            hoverX
+            data-id={i.id}
+          />
         ))}
 
         {selected.length < limit && (

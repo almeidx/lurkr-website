@@ -1,14 +1,23 @@
+import type { MouseEventHandler } from 'react';
+
 import { DEFAULT_ROLE_COLOUR } from '../utils/constants';
 import { resolveColour } from '../utils/utils';
-
 interface RoleChannelBulletProps {
   type: string;
   roleColor?: number;
   hoverX?: boolean;
   name: string;
+  onClick?: MouseEventHandler<HTMLDivElement>;
 }
 
-export default function RoleChannelBullet({ type, roleColor, hoverX, name, ...props }: RoleChannelBulletProps) {
+export default function RoleChannelBullet({
+  type,
+  roleColor,
+  hoverX,
+  name,
+  onClick,
+  ...props
+}: RoleChannelBulletProps) {
   const resolvedColor = roleColor ? resolveColour(roleColor) : DEFAULT_ROLE_COLOUR;
 
   return (
@@ -17,6 +26,7 @@ export default function RoleChannelBullet({ type, roleColor, hoverX, name, ...pr
         type === 'role' ? 'role-bullet' : ''
       } flex max-w-[250px] items-center h-6 z-50 border rounded-full text-xs select-none`}
       style={{ borderColor: resolvedColor }}
+      onClick={onClick}
       {...props}
     >
       {type === 'role' && (
