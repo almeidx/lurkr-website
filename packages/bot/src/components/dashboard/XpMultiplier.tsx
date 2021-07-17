@@ -33,28 +33,30 @@ export default function XpMultiplier({
   type,
 }: XpMultiplierProps) {
   return (
-    <div className="relative flex flex-row flex-wrap justify-between w-full py-2 gap-y-2 bg-discord-dark rounded-lg">
-      <div className="flex justify-between w-full">
+    <div className="relative flex flex-row flex-wrap justify-between w-full p-2 gap-y-2 bg-discord-dark rounded-lg">
+      <div className="flex w-full">
         <label
-          className="text-white font-bold flex items-center min-w-[4rem] ml-4"
+          className="text-white font-bold flex items-center w-[6rem] ml-4"
           htmlFor={`multiplier-${index}-selector`}
         >
           {type[0].toUpperCase() + type.slice(1)}
         </label>
 
-        <div className="w-[6rem] mx-auto">
+        <div className="w-[6rem]">
           <Input
             id={`multiplier-${index}-input`}
+            type="number"
             initialValue={multiplier.toString()}
             maxLength={5}
             onChange={(text) => onMultiplierChange(text, index)}
-            placeholder="x1.0"
+            placeholder="1.0"
+            prefix="x"
             noClearButton
           />
         </div>
 
         <div
-          className="h-full w-6 right-0 my-auto mr-4 py-3 text-2xl text-discord-red active:text-red-600 transition-colors cursor-pointer"
+          className="h-full w-6 right-0 ml-auto mr-4 py-3 text-2xl text-discord-red active:text-red-600 transition-colors cursor-pointer"
           onClick={() => onDelete(index)}
         >
           <MdClear />
