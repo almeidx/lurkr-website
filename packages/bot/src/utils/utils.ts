@@ -46,3 +46,8 @@ export const formatNumberToNDecimalPlaces = (n: number, decimals = 2): string =>
 export const parseIntStrict = (n: string): number => parseInt(Number(n).toString(), 10);
 
 export const parseFloatStrict = (n: string): number => Number(n);
+
+export const isNumeric = (str: string) => {
+  if (typeof str != 'string') return false;
+  return !isNaN(str as unknown as number) && !isNaN(parseFloat(str));
+};
