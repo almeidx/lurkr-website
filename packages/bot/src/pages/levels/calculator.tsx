@@ -1,8 +1,8 @@
 import ms from '@almeidx/ms';
 import Head from 'next/head';
 import { useCallback, useMemo, useState } from 'react';
-import { RiErrorWarningFill } from 'react-icons/ri';
 
+import ErrorMessage from '../../components/ErrorMessage';
 import Input from '../../components/form/Input';
 import Tooltip from '../../components/Tooltip';
 import { XP } from '../../utils/constants';
@@ -72,20 +72,10 @@ export default function Calculator() {
 
         {(requiredXp <= 0 && (
           // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-          <div className="flex flex-row gap-1.5 items-center px-2 py-1.5 rounded-lg bg-red-500">
-            <RiErrorWarningFill className="h-6 w-6 fill-current text-white" />
-
-            <span className="text-white">
-              The current level you inputted is bigger than or equal to the level you want to achieve.
-            </span>
-          </div>
+          <ErrorMessage message="The current level you inputted is bigger than or equal to the level you want to achieve." />
         )) ||
           (multiplier !== '' && !multiplierValue && (
-            <div className="flex flex-row gap-1.5 items-center px-2 py-1.5 rounded-lg bg-red-500">
-              <RiErrorWarningFill className="h-6 w-6 fill-current text-white" />
-
-              <span className="text-white">The multiplier value you inputted is invalid.</span>
-            </div>
+            <ErrorMessage message="The multiplier value you inputted is invalid." />
           ))}
 
         {level && requiredXp > 0 && (!multiplier || multiplierValue) && (

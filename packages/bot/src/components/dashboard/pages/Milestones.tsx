@@ -68,7 +68,7 @@ export default function Milestones({ channels, database, roles, openMenu }: Mile
               initialValue={database.milestonesInterval.toString()}
               maxLength={6}
               onChange={(t) => {
-                if (t && /^\d+$/.test(t)) return addChange('milestonesInterval', parseInt(t, 10));
+                if (t) return addChange('milestonesInterval', parseInt(Number(t).toString(), 10));
                 addChange('milestonesInterval', 0);
               }}
               placeholder="Enter the milestones interval"

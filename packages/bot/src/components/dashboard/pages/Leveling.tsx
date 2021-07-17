@@ -1,4 +1,5 @@
 import type { Snowflake } from 'discord-api-types';
+import cloneDeep from 'lodash.clonedeep';
 import { MouseEventHandler, useCallback, useContext, useEffect, useRef, useState } from 'react';
 import { BiLayerPlus } from 'react-icons/bi';
 
@@ -111,8 +112,8 @@ export default function Leveling({ channels, database, roles, openMenu }: Leveli
   }, [openMenu]);
 
   const handleNewXpRoleCreated: () => unknown = useCallback(() => {
-    const clone: Record<string, Snowflake[]> = JSON.parse(JSON.stringify(xpRoles));
-    const level = parseInt(newXpRolesLevel, 10);
+    const clone = cloneDeep<Record<string, Snowflake[]>>(xpRoles);
+    const level = parseInt(Number(newXpRolesLevel).toString(), 10);
 
     if (newXpRolesLevel in clone || level <= 0 || level > 500) {
       if (newXpRoleSubmitRef.current) newXpRoleSubmitRef.current.style.color = '#ff0000';
@@ -132,7 +133,7 @@ export default function Leveling({ channels, database, roles, openMenu }: Leveli
 
   const handleXpRolesChange: XpRoleOnChangeFn = useCallback(
     (roleIds, level) => {
-      const clone: Record<string, Snowflake[]> = JSON.parse(JSON.stringify(xpRoles));
+      const clone = cloneDeep<Record<string, Snowflake[]>>(xpRoles);
 
       if (roleIds.length) clone[level] = roleIds;
       // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
@@ -148,7 +149,7 @@ export default function Leveling({ channels, database, roles, openMenu }: Leveli
     const currentType = `${xpChannelsType}` as const;
     setXpChannelsType(currentType === 'blacklist' ? 'whitelist' : 'blacklist');
 
-    const clone: Partial<DatabaseGuild> = JSON.parse(JSON.stringify(changes));
+    const clone = cloneDeep<Partial<DatabaseGuild>>(changes);
 
     if (currentType === 'blacklist') {
       if ('xpBlacklistedChannels' in clone) removeChange('xpBlacklistedChannels');

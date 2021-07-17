@@ -1,5 +1,6 @@
 import { useMutation } from '@apollo/client';
 import type { Snowflake } from 'discord-api-types';
+import cloneDeep from 'lodash.clonedeep';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { MouseEventHandler, useCallback, useContext, useRef, useState } from 'react';
@@ -55,21 +56,23 @@ let timeout: NodeJS.Timeout | void;
 
 export default function Menu({ guild, menuOpen, closeMenu }: MenuProps) {
   const router = useRouter();
-  const { changes, clearChanges, guildId, section, updateSection } = useContext(GuildContext);
+  const { changes, clearChanges, errors, guildId, section, updateSection } = useContext(GuildContext);
   const saveButtonRef = useRef<HTMLButtonElement>(null);
   const [updateDatabase] = useMutation<UpdateDatabaseGuild, UpdateDatabaseGuildVariables>(updateDatabaseGuild, {});
   const [saveButtonText, setSaveButtonText] = useState('Save');
   const isSaving = useRef<boolean>(false);
 
+  const saveButtonDisabled = (Object.keys(changes).length || isSaving.current) && !errors.length;
+
   const handleSaveButtonClick: MouseEventHandler<HTMLButtonElement> = useCallback(async () => {
-    if (isSaving.current) return;
+    if (isSaving.current || errors.length) return;
 
     if (saveButtonRef.current) {
       saveButtonRef.current.style.background = '#158d3b';
       setSaveButtonText('Saving...');
     }
 
-    const clone: Partial<DatabaseGuild> = JSON.parse(JSON.stringify(changes));
+    const clone = cloneDeep<Partial<DatabaseGuild>>(changes);
     if (!Object.keys(clone).length || !guildId) return;
 
     let hasFailed = false;
@@ -95,7 +98,7 @@ export default function Menu({ guild, menuOpen, closeMenu }: MenuProps) {
         isSaving.current = false;
       }, 3_000);
     }
-  }, [changes, clearChanges, guildId, updateDatabase, saveButtonRef]);
+  }, [changes, clearChanges, errors, guildId, updateDatabase, saveButtonRef]);
 
   return (
     <aside
@@ -123,13 +126,13 @@ export default function Menu({ guild, menuOpen, closeMenu }: MenuProps) {
         <section className="flex flex-col sm:max-w-[13rem] gap-y-3 px-6 sm:p-0 sm:ml-auto">
           <button
             className={`flex flex-row items-center gap-2 py-2 px-4 w-full text-center duration-200 transition-colors bg-[${saveButtonDefaultColour}] hover:bg-[#25c959] text-white focus:outline-none rounded-lg sm:rounded-none sm:rounded-l-lg cursor-pointer`}
-            disabled={!Object.keys(changes).length || isSaving.current}
+            disabled={!Object.keys(changes).length || isSaving.current || !!errors.length}
             onClick={handleSaveButtonClick}
             ref={saveButtonRef}
             style={{
-              backgroundColor: Object.keys(changes).length || isSaving.current ? saveButtonDefaultColour : '#40444b',
-              cursor: Object.keys(changes).length || isSaving.current ? 'pointer' : 'not-allowed',
-              opacity: Object.keys(changes).length || isSaving.current ? '1' : '0.3',
+              backgroundColor: saveButtonDisabled ? saveButtonDefaultColour : '#40444b',
+              cursor: saveButtonDisabled ? 'pointer' : 'not-allowed',
+              opacity: saveButtonDisabled ? '1' : '0.3',
             }}
           >
             <RiSave3Fill className="fill-current" />

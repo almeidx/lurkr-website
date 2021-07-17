@@ -335,6 +335,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/lodash.clonedeep@npm:^4":
+  version: 4.5.6
+  resolution: "@types/lodash.clonedeep@npm:4.5.6"
+  dependencies:
+    "@types/lodash": "*"
+  checksum: dbea0618d2cdd02cc0447cc74b3e44dfb04bf9b45069f36da666d4e17d4ffc5457d46ee6180b72ed87635ef7a5b0c01ae16eaf1b116551eaf2058ae204679ca8
+  languageName: node
+  linkType: hard
+
+"@types/lodash@npm:*":
+  version: 4.14.171
+  resolution: "@types/lodash@npm:4.14.171"
+  checksum: e48668fb030ad7d8c0c7751061bd332ad8704937d976bd4e24fd9e2128f80c17112be11e5c13d39f6a210336dc3549f7fb00eaebb56b94c2bfb89ad64c57d721
+  languageName: node
+  linkType: hard
+
 "@types/node@npm:*":
   version: 15.12.3
   resolution: "@types/node@npm:15.12.3"
@@ -565,6 +581,7 @@ __metadata:
     "@almeidx/ms": ^1.2.1
     "@apollo/client": ^3.3.21
     "@types/common-tags": ^1.8.1
+    "@types/lodash.clonedeep": ^4
     "@types/node": ^16.3.1
     "@types/react": ^17.0.14
     autoprefixer: ^10.3.1
@@ -575,6 +592,7 @@ __metadata:
     eslint: ^7.30.0
     eslint-config-next: ^11.0.1
     graphql: ^15.5.1
+    lodash.clonedeep: ^4.5.0
     next: ^11.0.1
     postcss: ^8.3.5
     react: ^17.0.2

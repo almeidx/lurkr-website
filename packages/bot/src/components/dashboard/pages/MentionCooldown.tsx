@@ -45,7 +45,7 @@ export default function MentionCooldown({ database, roles, openMenu }: MentionCo
               id="mentionCooldown"
               initialValue={formatNumberToNDecimalPlaces(database.mentionCooldown / 60_000)}
               maxLength={5}
-              onChange={(t) => addChange('mentionCooldown', parseFloat(t))}
+              onChange={(t) => addChange('mentionCooldown', Number(t))}
               placeholder="Enter the role mention cooldown"
             />
           </div>

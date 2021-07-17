@@ -62,7 +62,7 @@ export default function Autorole({ database, roles, openMenu }: AutoroleProps) {
               id="autoRoleTimeout"
               initialValue={formatNumberToNDecimalPlaces(database.autoRoleTimeout / 60_000)}
               maxLength={32}
-              onChange={(t) => addChange('autoRoleTimeout', parseFloat(t))}
+              onChange={(t) => addChange('autoRoleTimeout', Number(t))}
               placeholder="Enter the autorole timeout"
             />
           </div>

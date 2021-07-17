@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import { lazy, Suspense, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 
 import Menu, { isValidSection } from '../../components/dashboard/Menu';
+import ErrorMessage from '../../components/ErrorMessage';
 import Failure from '../../components/Failure';
 import Spinner from '../../components/Spinner';
 import { GuildContext } from '../../contexts/GuildContext';
@@ -62,7 +63,7 @@ export default function Guild({
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const [menuOpen, setMenuOpen] = useState<boolean>(true);
   const { authenticated } = useContext(UserContext);
-  const { section, updateData, updateGuildId, updateSection } = useContext(GuildContext);
+  const { errors, section, updateData, updateGuildId, updateSection } = useContext(GuildContext);
   const router = useRouter();
 
   const closeMenu = useCallback((): void => setMenuOpen(false), []);
@@ -111,6 +112,14 @@ export default function Guild({
         <Menu closeMenu={closeMenu} guild={guild} menuOpen={menuOpen} />
 
         <main className={`pb-5 px-4 md:pt-6 w-full ${menuOpen ? 'hidden' : 'block'} sm:block`}>
+          {errors.length > 0 && (
+            <div className="flex flex-col gap-3 mb-2">
+              {errors.map((m, i) => (
+                <ErrorMessage key={i} message={m} />
+              ))}
+            </div>
+          )}
+
           <Suspense
             fallback={
               <div className="min-h-screen bg-discord-dark flex justify-center items-center">
