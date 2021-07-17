@@ -3,7 +3,7 @@ import { useContext, useEffect } from 'react';
 import { GuildContext } from '../../../contexts/GuildContext';
 import type { DatabaseGuild, Role } from '../../../graphql/queries/DashboardGuild';
 import { DATABASE_LIMITS } from '../../../utils/constants';
-import { formatNumberToNDecimalPlaces } from '../../../utils/utils';
+import { formatNumberToNDecimalPlaces, parseFloatStrict } from '../../../utils/utils';
 import Field from '../../form/Field';
 import Fieldset from '../../form/Fieldset';
 import Input from '../../form/Input';
@@ -62,7 +62,7 @@ export default function Autorole({ database, roles, openMenu }: AutoroleProps) {
               id="autoRoleTimeout"
               initialValue={formatNumberToNDecimalPlaces(database.autoRoleTimeout / 60_000)}
               maxLength={32}
-              onChange={(t) => addChange('autoRoleTimeout', Number(t))}
+              onChange={(t) => addChange('autoRoleTimeout', parseFloatStrict(t))}
               placeholder="Enter the autorole timeout"
             />
           </div>

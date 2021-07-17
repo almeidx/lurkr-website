@@ -18,7 +18,7 @@ export const isValidSnowflake = (str: string): str is Snowflake => {
  * @param n The number that will be rounded.
  * @param decimals The amount of decimal places to round the number to.
  */
-export const roundNumberToNDecimalPlaces = (n: number, decimals = 2): number => Number(n.toFixed(decimals));
+export const roundNumberToNDecimalPlaces = (n: number, decimals = 2): number => parseFloatStrict(n.toFixed(decimals));
 
 export const parseMultiplier = (phrase: string): number | null => {
   const numberCandidate = phrase.replace(/x/gi, '');
@@ -42,3 +42,7 @@ export const resolveColour = (colour: number) => (colour ? `#${colour.toString(1
  * @param decimals The amount of decimal places to keep.
  */
 export const formatNumberToNDecimalPlaces = (n: number, decimals = 2): string => Number(n.toFixed(decimals)).toString();
+
+export const parseIntStrict = (n: string): number => parseInt(Number(n).toString(), 10);
+
+export const parseFloatStrict = (n: string): number => Number(n);

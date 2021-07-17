@@ -6,7 +6,7 @@ import { BiLayerPlus } from 'react-icons/bi';
 import { GuildContext } from '../../../contexts/GuildContext';
 import { AutoResetLevels, Channel, DatabaseGuild, Multiplier, Role } from '../../../graphql/queries/DashboardGuild';
 import { DATABASE_LIMITS } from '../../../utils/constants';
-import { parseMultiplier } from '../../../utils/utils';
+import { parseIntStrict, parseMultiplier } from '../../../utils/utils';
 import BasicSelect from '../../form/BasicSelect';
 import Field from '../../form/Field';
 import Fieldset from '../../form/Fieldset';
@@ -113,7 +113,7 @@ export default function Leveling({ channels, database, roles, openMenu }: Leveli
 
   const handleNewXpRoleCreated: () => unknown = useCallback(() => {
     const clone = cloneDeep<Record<string, Snowflake[]>>(xpRoles);
-    const level = parseInt(Number(newXpRolesLevel).toString(), 10);
+    const level = parseIntStrict(newXpRolesLevel);
 
     if (newXpRolesLevel in clone || level <= 0 || level > 500) {
       if (newXpRoleSubmitRef.current) newXpRoleSubmitRef.current.style.color = '#ff0000';

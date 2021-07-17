@@ -3,7 +3,7 @@ import { useContext, useEffect } from 'react';
 import { GuildContext } from '../../../contexts/GuildContext';
 import type { DatabaseGuild, Role } from '../../../graphql/queries/DashboardGuild';
 import { DATABASE_LIMITS } from '../../../utils/constants';
-import { formatNumberToNDecimalPlaces } from '../../../utils/utils';
+import { formatNumberToNDecimalPlaces, parseFloatStrict } from '../../../utils/utils';
 import Field from '../../form/Field';
 import Fieldset from '../../form/Fieldset';
 import Input from '../../form/Input';
@@ -45,7 +45,7 @@ export default function MentionCooldown({ database, roles, openMenu }: MentionCo
               id="mentionCooldown"
               initialValue={formatNumberToNDecimalPlaces(database.mentionCooldown / 60_000)}
               maxLength={5}
-              onChange={(t) => addChange('mentionCooldown', Number(t))}
+              onChange={(t) => addChange('mentionCooldown', parseFloatStrict(t))}
               placeholder="Enter the role mention cooldown"
             />
           </div>

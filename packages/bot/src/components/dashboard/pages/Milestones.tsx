@@ -3,6 +3,7 @@ import { useContext, useEffect } from 'react';
 import { GuildContext } from '../../../contexts/GuildContext';
 import type { Channel, DatabaseGuild, Role } from '../../../graphql/queries/DashboardGuild';
 import { DATABASE_LIMITS } from '../../../utils/constants';
+import { parseIntStrict } from '../../../utils/utils';
 import Field from '../../form/Field';
 import Fieldset from '../../form/Fieldset';
 import Input from '../../form/Input';
@@ -67,10 +68,7 @@ export default function Milestones({ channels, database, roles, openMenu }: Mile
               id="milestonesInterval"
               initialValue={database.milestonesInterval.toString()}
               maxLength={6}
-              onChange={(t) => {
-                if (t) return addChange('milestonesInterval', parseInt(Number(t).toString(), 10));
-                addChange('milestonesInterval', 0);
-              }}
+              onChange={(t) => addChange('milestonesInterval', t ? parseIntStrict(t) : 0)}
               placeholder="Enter the milestones interval"
             />
           </div>
