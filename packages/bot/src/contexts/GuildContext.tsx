@@ -1,6 +1,6 @@
 import type { Snowflake } from 'discord-api-types';
 import cloneDeep from 'lodash.clonedeep';
-import { createContext, ReactNode, useCallback, useEffect, useState } from 'react';
+import { createContext, ReactNode, useCallback, useState } from 'react';
 
 import type { DatabaseGuild } from '../graphql/queries/DashboardGuild';
 
@@ -112,33 +112,6 @@ export default function GuildContextProvider({ children }: GuildContextProps) {
     },
     [guildId],
   );
-
-  useEffect(() => {
-    const clone = cloneDeep<Partial<DatabaseGuild>>(changes);
-    if (!Object.keys(clone).length) return;
-
-    const newErrors: string[] = [];
-
-    if (
-      'xpMultipliers' in clone &&
-      Array.isArray(clone.xpMultipliers) &&
-      clone.xpMultipliers.length > 0 &&
-      clone.xpMultipliers.some((m) => isNaN(m.multiplier))
-    ) {
-      newErrors.push('One of the XP Multipliers have an invalid multiplier value.');
-    }
-
-    if ('autoRoleTimeout' in clone && Number.isNaN(clone.autoRoleTimeout)) {
-      console.log('autoRoleTimeout is NaN');
-      newErrors.push('The auto role timeout is not a valid number.');
-    }
-
-    if ('milestonesInterval' in clone && Number.isNaN(clone.milestonesInterval)) {
-      newErrors.push('The milestones interval is not a valid number.');
-    }
-
-    if (newErrors.length) setErrors(newErrors);
-  }, [changes]);
 
   return (
     <GuildContext.Provider
