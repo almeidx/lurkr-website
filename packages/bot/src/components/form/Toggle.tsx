@@ -19,7 +19,7 @@ export default function Toggle({ id, initialValue, disabled, size, onChange }: T
 
   return (
     <label className={`switch ${size === 'small' ? 'small h-6 w-12' : ''}`} id={id}>
-      <input type="checkbox" onClick={handleClick} />
+      <input checked={checked} onClick={handleClick} type="checkbox" />
       <span className={`slider ${size === 'small' ? 'before:h-4 before:w-4' : ''}`} />
     </label>
   );

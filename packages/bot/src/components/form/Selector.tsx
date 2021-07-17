@@ -128,13 +128,13 @@ export default function Selector({ id, limit, items, initialItems, onSelect, typ
       <div className="flex flex-row flex-wrap gap-1.5 min-w-[6rem] min-h-[3rem] bg-discord-not-quite-black px-5 py-3 focus:outline-none rounded-md shadow">
         {selected.map((i) => (
           <RoleChannelBullet
-            key={i.id}
-            onClick={handleChannelRemove}
-            type={type}
-            name={i.name}
-            roleColor={'color' in i ? i.color : undefined}
-            hoverX
             data-id={i.id}
+            hoverX
+            key={i.id}
+            name={i.name}
+            onClick={handleChannelRemove}
+            roleColor={'color' in i ? i.color : undefined}
+            type={type}
           />
         ))}
 

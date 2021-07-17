@@ -18,10 +18,10 @@ export default function XpRole({ level, initialRoles, onChange, roles }: XpRoleP
     <div className="flex flex-col justify-between items-center px-4 py-2 gap-y-2 bg-discord-dark shadow-lg rounded-lg">
       <div className="flex w-full">
         <label
-          className="flex flex-shrink-0 justify-center items-center rounded-full w-12 h-12 mr-2 text-white bg-discord-not-quite-black shadow-lg"
+          className="flex flex-shrink-0 justify-center items-center rounded-full px-4 mr-2 text-white bg-discord-not-quite-black shadow-lg"
           htmlFor={`level-${level}-roles`}
         >
-          {level}
+          Level {level}
         </label>
         <MdClear onClick={() => onChange([], level)} className="h-12 w-8 py-3 ml-auto text-red-500 cursor-pointer" />
       </div>
