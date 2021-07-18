@@ -31,6 +31,7 @@ export default function BasicSelect({
       const index = parseInt((event.target as HTMLDivElement | HTMLParagraphElement).dataset.id ?? 'NaN', 10);
       const item = items[index];
 
+      if (disabled) return;
       if (!item) return console.error("[BasicSelect] Couldn't find the item when user tried changing item");
 
       onSelect(item);
@@ -47,9 +48,9 @@ export default function BasicSelect({
         className="flex flex-row flex-wrap gap-1.5 h-12 w-full px-5 py-3 bg-discord-not-quite-black focus:outline-none rounded-md shadow"
         onClick={() => (disabled ? null : setDropdownOpen(!dropdownOpen))}
       >
-        <span className="flex items-center w-full px-1.5 py-1 leading-3 cursor-pointer z-50 ">{selected}</span>
+        <span className="flex items-center w-full px-1.5 py-1 leading-3 z-50 ">{selected}</span>
 
-        <div className="absolute right-0 my-auto mx-4 text-2xl  transition-colors h-full cursor-pointer">
+        <div className="absolute right-0 my-auto mx-4 text-2xl transition-colors h-full">
           <AiFillCaretDown />
         </div>
       </div>

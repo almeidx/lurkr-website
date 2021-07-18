@@ -36,6 +36,7 @@ export default function Input(props: InputProps | InputWithSubmitProps): JSX.Ele
           id={props.id}
           maxLength={props.maxLength}
           onChange={({ target }) => {
+            if (props.disabled) return;
             if (target.value.length > props.maxLength) return;
             setValue(target.value);
             props.onChange(target.value);

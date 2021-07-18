@@ -8,12 +8,13 @@ export type XpRoleOnChangeFn = (roleIds: Snowflake[], level: number) => unknown;
 
 interface XpRoleProps {
   level: number;
+  disabled?: boolean;
   initialRoles: Snowflake[];
   onChange: XpRoleOnChangeFn;
   roles: Role[];
 }
 
-export default function XpRole({ level, initialRoles, onChange, roles }: XpRoleProps) {
+export default function XpRole({ level, initialRoles, onChange, roles, disabled }: XpRoleProps) {
   return (
     <div className="flex flex-col justify-between items-center px-4 py-2 gap-y-2 bg-discord-dark shadow-lg rounded-lg">
       <div className="flex w-full">
@@ -28,6 +29,7 @@ export default function XpRole({ level, initialRoles, onChange, roles }: XpRoleP
       <div className="w-full">
         <Selector
           id={`level-${level}-roles`}
+          disabled={disabled}
           limit={25}
           initialItems={initialRoles}
           items={roles}

@@ -141,8 +141,8 @@ export default function Selector({ id, limit, items, initialItems, onSelect, typ
         {selected.length < limit && (
           <AiOutlinePlusCircle
             className={`${
-              disabled ? 'text-opacity-25' : ''
-            } text-white hover:text-opacity-75 fill-current w-6 h-6 cursor-pointer`}
+              disabled ? 'text-opacity-25' : 'hover:text-opacity-75 cursor-pointer'
+            } text-white fill-current w-6 h-6`}
             onClick={() => (disabled ? null : setDropdownOpen(!dropdownOpen))}
           />
         )}
