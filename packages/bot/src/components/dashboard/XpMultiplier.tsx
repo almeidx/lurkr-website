@@ -45,7 +45,6 @@ export default function XpMultiplier({
         <div className="w-[6rem]">
           <Input
             id={`multiplier-${index}-input`}
-            type="number"
             initialValue={multiplier.toString()}
             maxLength={5}
             onChange={(text) => onMultiplierChange(text, index)}

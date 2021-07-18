@@ -3,7 +3,6 @@ import type { IconType } from 'react-icons';
 import { IoMdSend } from 'react-icons/io';
 import { MdClear } from 'react-icons/md';
 
-import { isNumeric } from '../../utils/utils';
 interface InputProps {
   className?: string;
   id: string;
@@ -12,7 +11,6 @@ interface InputProps {
   placeholder: string;
   noClearButton?: boolean;
   disabled?: boolean;
-  type?: string;
   prefix?: string;
   onChange: (text: string) => unknown;
 }
@@ -23,15 +21,9 @@ interface InputWithSubmitProps extends InputProps {
   submitRef: Ref<HTMLButtonElement>;
 }
 
-export default function Input({ type = 'text', ...props }: InputProps | InputWithSubmitProps): JSX.Element {
+export default function Input(props: InputProps | InputWithSubmitProps): JSX.Element {
   const [value, setValue] = useState<string>(props.initialValue);
   const Icon = 'submitIcon' in props ? props.submitIcon! : IoMdSend;
-
-  const handleSetValue = (value: string) => {
-    if (type === 'number' && value.length > 0 && !isNumeric(value)) return;
-
-    setValue(value);
-  };
 
   return (
     <div className={`flex w-full ${props.className ?? ''}`}>
@@ -45,8 +37,8 @@ export default function Input({ type = 'text', ...props }: InputProps | InputWit
           maxLength={props.maxLength}
           onChange={({ target }) => {
             if (target.value.length > props.maxLength) return;
-            handleSetValue(target.value);
-            props.onChange(value);
+            setValue(target.value);
+            props.onChange(target.value);
           }}
           placeholder={props.placeholder}
           value={value}
