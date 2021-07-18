@@ -3,6 +3,7 @@ import cloneDeep from 'lodash.clonedeep';
 import { createContext, ReactNode, useCallback, useState } from 'react';
 
 import type { DatabaseGuild } from '../graphql/queries/DashboardGuild';
+import { DATABASE_LIMITS } from '../utils/constants';
 
 export type Section =
   | 'general'
@@ -45,6 +46,16 @@ export default function GuildContextProvider({ children }: GuildContextProps) {
 
     const newErrors: string[] = [];
 
+    const validateMinutes = (n: number | null, { min, max }: { min: number; max: number }, keyName: string): void => {
+      const minMinutes = min / 60_000;
+      const maxMinutes = max / 60_000;
+      if (Number.isNaN(n)) newErrors.push(`The ${keyName} is not a valid number.`);
+      else if (n) {
+        if (n < minMinutes) newErrors.push(`The ${keyName} is smaller than ${minMinutes}.`);
+        else if (n > maxMinutes) newErrors.push(`The ${keyName} is larger than ${maxMinutes}.`);
+      }
+    };
+
     if (
       'xpMultipliers' in changes &&
       changes.xpMultipliers &&
@@ -54,16 +65,16 @@ export default function GuildContextProvider({ children }: GuildContextProps) {
       newErrors.push('One of the XP Multipliers has an invalid multiplier value.');
     }
 
-    if ('autoRoleTimeout' in changes && Number.isNaN(changes.autoRoleTimeout)) {
-      newErrors.push('The auto role timeout is not a valid number.');
+    if ('autoRoleTimeout' in changes) {
+      validateMinutes(changes.autoRoleTimeout!, DATABASE_LIMITS.autoRoleTimeout, 'auto role timeout');
     }
 
     if ('milestonesInterval' in changes && Number.isNaN(changes.milestonesInterval)) {
       newErrors.push('The milestones interval is not a valid number.');
     }
 
-    if ('mentionCooldown' in changes && Number.isNaN(changes.mentionCooldown)) {
-      newErrors.push('The mention cooldown is not a valid number.');
+    if ('mentionCooldown' in changes) {
+      validateMinutes(changes.mentionCooldown!, DATABASE_LIMITS.mentionCooldown, 'mention cooldown');
     }
 
     setErrors(newErrors);
@@ -73,7 +84,13 @@ export default function GuildContextProvider({ children }: GuildContextProps) {
     <T extends keyof DatabaseGuild>(key: T, value: DatabaseGuild[T]) => {
       const clone = cloneDeep<Partial<DatabaseGuild>>(changes);
 
-      if (data && (data[key] === value || (Array.isArray(value) && !value.length && data[key] === null))) {
+      if (
+        data &&
+        (data[key] === value ||
+          (Array.isArray(value) && !value.length && data[key] === null) ||
+          (data[key] === null && value === 0) ||
+          (data[key] === 0 && value === null))
+      ) {
         if (key in clone) {
           // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
           delete clone[key];
