@@ -75,6 +75,9 @@ export default function Menu({ guild, menuOpen, closeMenu }: MenuProps) {
     const clone = cloneDeep<Partial<DatabaseGuild>>(changes);
     if (!Object.keys(clone).length || !guildId) return;
 
+    if (clone.autoRoleTimeout) clone.autoRoleTimeout *= 60_000;
+    if (clone.mentionCooldown) clone.mentionCooldown *= 60_000;
+
     let hasFailed = false;
 
     try {
