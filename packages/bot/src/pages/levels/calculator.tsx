@@ -2,8 +2,8 @@ import ms from '@almeidx/ms';
 import Head from 'next/head';
 import { useCallback, useMemo, useState } from 'react';
 
-import ErrorMessage from '../../components/ErrorMessage';
 import Input from '../../components/form/Input';
+import Message from '../../components/Message';
 import Tooltip from '../../components/Tooltip';
 import { XP } from '../../utils/constants';
 import { parseMultiplier } from '../../utils/utils';
@@ -72,10 +72,10 @@ export default function Calculator() {
 
         {(requiredXp <= 0 && (
           // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-          <ErrorMessage message="The current level you inputted is bigger than or equal to the level you want to achieve." />
+          <Message message="The current level you inputted is bigger than or equal to the level you want to achieve." />
         )) ||
           (multiplier !== '' && !multiplierValue && (
-            <ErrorMessage message="The multiplier value you inputted is invalid." />
+            <Message message="The multiplier value you inputted is invalid." />
           ))}
 
         {level && requiredXp > 0 && (!multiplier || multiplierValue) && (

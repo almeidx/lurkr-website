@@ -14,6 +14,26 @@ export type Section =
   | 'mentionCooldown'
   | 'miscellaneous';
 
+const emojiListKeys: (keyof DatabaseGuild)[] = ['emojiListChannel'];
+
+const levelingKeys: (keyof DatabaseGuild)[] = [
+  'noXpRoles',
+  'stackXpRoles',
+  'topXpRole',
+  'xpBlacklistedChannels',
+  'xpMessage',
+  'xpMultipliers',
+  'xpResponseType',
+  'xpWhitelistedChannels',
+];
+
+const milestonesKeys: (keyof DatabaseGuild)[] = [
+  'milestonesChannel',
+  'milestonesInterval',
+  'milestonesMessage',
+  'milestonesRoles',
+];
+
 interface GuildContextData {
   addChange: <T extends keyof DatabaseGuild>(key: T, value: DatabaseGuild[T]) => void;
   changes: Partial<DatabaseGuild>;
@@ -26,6 +46,7 @@ interface GuildContextData {
   updateData: (newData: DatabaseGuild) => void;
   updateGuildId: (newId: Snowflake) => void;
   updateSection: (newSection: Section) => void;
+  warnings: string[];
 }
 
 interface GuildContextProps {
@@ -40,11 +61,17 @@ export default function GuildContextProvider({ children }: GuildContextProps) {
   const [changes, setChanges] = useState<Partial<DatabaseGuild>>({});
   const [data, setData] = useState<DatabaseGuild | null>(null);
   const [errors, setErrors] = useState<string[]>([]);
+  const [warnings, setWarnings] = useState<string[]>([]);
 
-  const updateErrors = useCallback((changes: Partial<DatabaseGuild>) => {
-    if (!Object.keys(changes).length) return setErrors([]);
+  const updateErrorsAndWarnings = useCallback((changes: Partial<DatabaseGuild>, data: DatabaseGuild | null) => {
+    if (!Object.keys(changes).length) {
+      setErrors([]);
+      setWarnings([]);
+      return;
+    }
 
     const newErrors: string[] = [];
+    const newWarnings: string[] = [];
 
     const validateMinutes = (n: number | null, { min, max }: { min: number; max: number }, keyName: string): void => {
       const minMinutes = min / 60_000;
@@ -68,8 +95,13 @@ export default function GuildContextProvider({ children }: GuildContextProps) {
       else validateMinutes(changes.mentionCooldown, DATABASE_LIMITS.mentionCooldown, 'mention cooldown');
     }
 
-    if ('milestonesInterval' in changes && Number.isNaN(changes.milestonesInterval)) {
-      newErrors.push('The milestones interval is not a valid number.');
+    if ('milestonesInterval' in changes) {
+      if (Number.isNaN(changes.milestonesInterval)) newErrors.push('The milestones interval is not a valid number.');
+      else if (!changes.milestonesInterval || changes.milestonesInterval < DATABASE_LIMITS.milestonesInterval.min) {
+        newErrors.push(`The milestones interval is smaller than ${DATABASE_LIMITS.milestonesInterval.min}.`);
+      } else if (changes.milestonesInterval > DATABASE_LIMITS.milestonesInterval.max) {
+        newErrors.push(`The milestones interval is larger than ${DATABASE_LIMITS.milestonesInterval.max}.`);
+      }
     }
 
     if ('prefix' in changes && (!changes.prefix || changes.prefix.length < 1)) {
@@ -97,7 +129,28 @@ export default function GuildContextProvider({ children }: GuildContextProps) {
       newErrors.push('One of the XP Roles is empty.');
     }
 
+    if (data) {
+      if (
+        emojiListKeys.some((k) => k in changes) &&
+        (data.emojiList || ('emojiList' in changes && changes.emojiList))
+      ) {
+        newWarnings.push('You have made changes to the emoji list settings but the emoji list module is disabled.');
+      }
+
+      if (levelingKeys.some((k) => k in changes) && (!data.levels || ('levels' in changes && !changes.levels))) {
+        newWarnings.push('You have made changes to the leveling settings but the leveling module is disabled.');
+      }
+
+      if (
+        milestonesKeys.some((k) => k in changes) &&
+        (!data.storeMilestones || ('storeMilestones' in changes && !changes.storeMilestones))
+      ) {
+        newWarnings.push('You have made changes to the milestones settings but the milestones module is disabled.');
+      }
+    }
+
     setErrors(newErrors);
+    setWarnings(newWarnings);
   }, []);
 
   const addChange = useCallback(
@@ -115,16 +168,16 @@ export default function GuildContextProvider({ children }: GuildContextProps) {
           // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
           delete clone[key];
           setChanges(clone);
-          updateErrors(clone);
+          updateErrorsAndWarnings(clone, data);
         }
         return;
       }
 
       clone[key] = value;
       setChanges(clone);
-      updateErrors(clone);
+      updateErrorsAndWarnings(clone, data);
     },
-    [changes, data, updateErrors],
+    [changes, data, updateErrorsAndWarnings],
   );
 
   const removeChange = useCallback(
@@ -164,6 +217,7 @@ export default function GuildContextProvider({ children }: GuildContextProps) {
         updateData: setData,
         updateGuildId,
         updateSection: setSection,
+        warnings,
       }}
     >
       {children}

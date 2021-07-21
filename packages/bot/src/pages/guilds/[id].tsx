@@ -5,8 +5,8 @@ import { useRouter } from 'next/router';
 import { lazy, Suspense, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 
 import Menu, { isValidSection } from '../../components/dashboard/Menu';
-import ErrorMessage from '../../components/ErrorMessage';
 import Failure from '../../components/Failure';
+import Message from '../../components/Message';
 import Spinner from '../../components/Spinner';
 import { GuildContext } from '../../contexts/GuildContext';
 import { UserContext } from '../../contexts/UserContext';
@@ -63,7 +63,7 @@ export default function Guild({
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const [menuOpen, setMenuOpen] = useState<boolean>(true);
   const { authenticated } = useContext(UserContext);
-  const { errors, section, updateData, updateGuildId, updateSection } = useContext(GuildContext);
+  const { errors, section, updateData, updateGuildId, updateSection, warnings } = useContext(GuildContext);
   const router = useRouter();
 
   const closeMenu = useCallback((): void => setMenuOpen(false), []);
@@ -115,7 +115,15 @@ export default function Guild({
           {errors.length > 0 && (
             <div className="flex flex-col gap-3 mb-2">
               {errors.map((m, i) => (
-                <ErrorMessage key={i} message={m} />
+                <Message key={i} message={m} />
+              ))}
+            </div>
+          )}
+
+          {warnings.length > 0 && (
+            <div className="flex flex-col gap-3 mb-2">
+              {warnings.map((m, i) => (
+                <Message key={i} message={m} type="warning" />
               ))}
             </div>
           )}
