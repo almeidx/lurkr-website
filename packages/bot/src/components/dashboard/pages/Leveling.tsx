@@ -115,7 +115,7 @@ export default function Leveling({ channels, database, roles, openMenu }: Leveli
     const level = parseIntStrict(newXpRolesLevel);
 
     if (newXpRolesLevel in clone || level <= 0 || level > 500) {
-      if (newXpRoleSubmitRef.current) newXpRoleSubmitRef.current.style.color = '#ff0000';
+      if (newXpRoleSubmitRef.current) newXpRoleSubmitRef.current.style.color = '#ed4245';
 
       // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
       if (timeout) clearTimeout(timeout);
@@ -328,6 +328,7 @@ export default function Leveling({ channels, database, roles, openMenu }: Leveli
             {Object.keys(xpRoles).length < 100 && (
               <div className="w-full">
                 <Input
+                  clearOnSubmit
                   id="newXpRole"
                   initialValue={''}
                   maxLength={3}

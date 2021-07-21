@@ -42,7 +42,7 @@ export default function GuildContextProvider({ children }: GuildContextProps) {
   const [errors, setErrors] = useState<string[]>([]);
 
   const updateErrors = useCallback((changes: Partial<DatabaseGuild>) => {
-    if (!Object.keys(changes).length) return;
+    if (!Object.keys(changes).length) return setErrors([]);
 
     const newErrors: string[] = [];
 
@@ -59,24 +59,8 @@ export default function GuildContextProvider({ children }: GuildContextProps) {
     const validateArray = (arr: unknown[], maxLength: number, keyName: string) =>
       arr.length > maxLength && newErrors.push(`The ${keyName} has more than ${maxLength} items`);
 
-    if ('autoPublishChannels' in changes && changes.autoPublishChannels) {
-      validateArray(
-        changes.autoPublishChannels,
-        DATABASE_LIMITS.autoPublishChannels.maxLength,
-        'auto publish channels',
-      );
-    }
-
-    if ('autoRole' in changes && changes.autoRole) {
-      validateArray(changes.autoRole, DATABASE_LIMITS.autoRole.maxLength, 'auto role');
-    }
-
     if ('autoRoleTimeout' in changes) {
       validateMinutes(changes.autoRoleTimeout!, DATABASE_LIMITS.autoRoleTimeout, 'auto role timeout');
-    }
-
-    if ('blacklistedChannels' in changes && changes.blacklistedChannels) {
-      validateArray(changes.blacklistedChannels, DATABASE_LIMITS.blacklistedChannels.maxLength, 'blacklisted channels');
     }
 
     if ('mentionCooldown' in changes) {
@@ -87,30 +71,8 @@ export default function GuildContextProvider({ children }: GuildContextProps) {
       newErrors.push('The milestones interval is not a valid number.');
     }
 
-    if ('mentionCooldownRoles' in changes && changes.mentionCooldownRoles) {
-      validateArray(
-        changes.mentionCooldownRoles,
-        DATABASE_LIMITS.mentionCooldownRoles.maxLength,
-        'mention cooldown roles',
-      );
-    }
-
-    if ('milestonesRoles' in changes && changes.milestonesRoles) {
-      validateArray(changes.milestonesRoles, DATABASE_LIMITS.milestonesRoles.maxLength, 'milestone roles');
-    }
-
-    if ('noXpRoles' in changes && changes.noXpRoles) {
-      validateArray(changes.noXpRoles, DATABASE_LIMITS.noXpRoles.maxLength, 'no xp roles');
-    }
-
-    if ('prefix' in changes && changes.prefix && changes.prefix.length > DATABASE_LIMITS.prefix.maxLength) {
-      newErrors.push(`The prefix is longer than ${DATABASE_LIMITS.prefix.maxLength} characters`);
-    }
-
-    if ('xpBlacklistedChannels' in changes && changes.xpBlacklistedChannels) {
-      validateArray(changes.xpBlacklistedChannels, DATABASE_LIMITS.xpChannels.maxLength, 'xp channels');
-    } else if ('xpWhitelistedChannels' in changes && changes.xpWhitelistedChannels) {
-      validateArray(changes.xpWhitelistedChannels, DATABASE_LIMITS.xpChannels.maxLength, 'xp channels');
+    if ('prefix' in changes && (!changes.prefix || changes.prefix.length < 1)) {
+      newErrors.push('The prefix cannot be empty.');
     }
 
     if (changes.xpMessage && changes.xpMessage.length > DATABASE_LIMITS.xpMessage.maxLength) {
@@ -128,6 +90,10 @@ export default function GuildContextProvider({ children }: GuildContextProps) {
 
     if ('xpMultipliers' in changes && changes.xpMultipliers) {
       validateArray(changes.xpMultipliers, 5, 'xp multipliers');
+    }
+
+    if ('xpRoles' in changes && changes.xpRoles && Object.values(changes.xpRoles).some((r) => r.length === 0)) {
+      newErrors.push('One of the XP Roles is empty.');
     }
 
     setErrors(newErrors);

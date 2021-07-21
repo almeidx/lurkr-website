@@ -39,7 +39,7 @@ export default function Levels({ guilds }: InferGetServerSidePropsType<typeof ge
 
   const handleServerIdSubmit = () => {
     if (!isValidSnowflake(serverId)) {
-      if (submitRef.current) submitRef.current.style.color = '#ff0000';
+      if (submitRef.current) submitRef.current.style.color = '#ed4245';
 
       if (timeout) clearTimeout(timeout);
 

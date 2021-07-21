@@ -5,6 +5,7 @@ import { MdClear } from 'react-icons/md';
 
 interface InputProps {
   className?: string;
+  clearOnSubmit?: boolean;
   id: string;
   initialValue: string;
   maxLength: number;
@@ -66,9 +67,12 @@ export default function Input(props: InputProps | InputWithSubmitProps): JSX.Ele
       {'onSubmit' in props && (
         <button
           className="flex-shrink-0 h-12 w-12 bg-discord-not-quite-black rounded-md flex justify-center items-center ml-3 text-white disabled:text-opacity-25 disabled:select-none duration-150 transition-colors"
-          onClick={props.onSubmit}
-          ref={props.submitRef}
           disabled={props.disabled}
+          onClick={() => {
+            if (props.clearOnSubmit) setValue('');
+            props.onSubmit();
+          }}
+          ref={props.submitRef}
         >
           <Icon className="fill-current text-3xl" />
         </button>

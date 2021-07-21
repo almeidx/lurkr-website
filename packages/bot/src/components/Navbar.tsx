@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useContext, useEffect, useRef, useState } from 'react';
+import { useCallback, useContext, useEffect, useRef, useState } from 'react';
 import { GoSignIn, GoSignOut } from 'react-icons/go';
 import { MdClose, MdMenu } from 'react-icons/md';
 
@@ -25,19 +25,10 @@ export default function Navbar() {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
 
-  useEffect(() => {
-    setDropdownOpen(false);
-  }, [router]);
+  useEffect(() => setDropdownOpen(false), [router]);
 
-  const handleDropdownClick = () => {
-    setDropdownOpen(!dropdownOpen);
-    console.log(dropdownOpen);
-  };
-
-  const handleClickOutside = () => {
-    setDropdownOpen(false);
-    console.log(dropdownOpen);
-  };
+  const handleDropdownClick = useCallback(() => setDropdownOpen(!dropdownOpen), [dropdownOpen]);
+  const handleClickOutside = useCallback(() => setDropdownOpen(false), []);
 
   useClickOutside(dropdownRef, handleClickOutside);
 
