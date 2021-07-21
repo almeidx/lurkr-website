@@ -60,9 +60,11 @@ export default function Autorole({ database, roles, openMenu }: AutoroleProps) {
           <div className="max-w-[20rem]">
             <Input
               id="autoRoleTimeout"
-              initialValue={formatNumberToNDecimalPlaces(database.autoRoleTimeout / 60_000)}
+              initialValue={
+                database.autoRoleTimeout ? formatNumberToNDecimalPlaces(database.autoRoleTimeout / 60_000) : ''
+              }
               maxLength={32}
-              onChange={(t) => addChange('autoRoleTimeout', parseFloatStrict(t))}
+              onChange={(t) => addChange('autoRoleTimeout', t ? parseFloatStrict(t) : null)}
               placeholder="Enter the autorole timeout"
             />
           </div>

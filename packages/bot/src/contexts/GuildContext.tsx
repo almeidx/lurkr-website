@@ -64,7 +64,8 @@ export default function GuildContextProvider({ children }: GuildContextProps) {
     }
 
     if ('mentionCooldown' in changes) {
-      validateMinutes(changes.mentionCooldown!, DATABASE_LIMITS.mentionCooldown, 'mention cooldown');
+      if (!changes.mentionCooldown) newErrors.push('The mention cooldown is not set.');
+      else validateMinutes(changes.mentionCooldown, DATABASE_LIMITS.mentionCooldown, 'mention cooldown');
     }
 
     if ('milestonesInterval' in changes && Number.isNaN(changes.milestonesInterval)) {

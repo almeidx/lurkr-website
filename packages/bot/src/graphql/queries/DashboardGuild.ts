@@ -37,7 +37,7 @@ export interface DatabaseGuild {
   autoPublishChannels: Snowflake[] | null;
   autoResetLevels: AutoResetLevels;
   autoRole: Snowflake[] | null;
-  autoRoleTimeout: number;
+  autoRoleTimeout: number | null;
   blacklistedChannels: Snowflake[] | null;
   emojiList: boolean;
   emojiListChannel: Snowflake | null;
