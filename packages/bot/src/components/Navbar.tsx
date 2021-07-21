@@ -67,22 +67,29 @@ export default function Navbar() {
                   ),
               )}
               {authenticated ? (
-                <button
-                  className="text-white cursor-pointer px-2 py-1 mx-2 md:mx-0 md:ml-auto rounded-md flex bg-gray-700 md:bg-transparent flex-row justify-center items-center gap-3 duration-200 hover:bg-discord-lighter focus:outline-none mt-6 md:mt-0"
-                  onClick={() => window.open(`${API_BASE_URL}/auth/logout`, '_self')}
-                >
-                  {avatar && (
-                    <img
-                      alt="Your profile picture"
-                      className="block rounded-full"
-                      height={30}
-                      src={userAvatarCdn(id, avatar, 32)}
-                      width={30}
-                    />
-                  )}
-                  {username}#{discriminator}
-                  <GoSignOut />
-                </button>
+                <div className="flex flex-row gap-2 text-white mt-6 md:mt-0 mx-2 md:mx-0 md:ml-auto">
+                  <Link href="/guilds">
+                    <a className="flex flex-row justify-center items-center gap-2 cursor-pointer px-2 py-1 rounded-md bg-gray-700 md:bg-transparent duration-200 hover:bg-discord-lighter focus:outline-none">
+                      {avatar && (
+                        <img
+                          alt="Your profile picture"
+                          className="block rounded-full"
+                          height={30}
+                          src={userAvatarCdn(id, avatar, 32)}
+                          width={30}
+                        />
+                      )}
+                      {username}#{discriminator}
+                    </a>
+                  </Link>
+
+                  <button
+                    className="cursor-pointer px-2 py-1 rounded-md flex justify-center items-center bg-gray-700 md:bg-transparent duration-200 hover:bg-discord-lighter focus:outline-none content-none"
+                    onClick={() => window.open(`${API_BASE_URL}/auth/logout`, '_self')}
+                  >
+                    <GoSignOut />
+                  </button>
+                </div>
               ) : (
                 <button
                   className="text-white px-2 py-1 mx-2 md:ml-auto md:mx-0 bg-blurple rounded-md shadow-md flex flex-row justify-center items-center gap-2 duration-150 hover:bg-lighter-blurple focus:outline-none mt-6 md:mt-0"

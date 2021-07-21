@@ -64,7 +64,7 @@ export default function GuildContextProvider({ children }: GuildContextProps) {
     }
 
     if ('mentionCooldown' in changes) {
-      if (!changes.mentionCooldown) newErrors.push('The mention cooldown is not set.');
+      if (!changes.mentionCooldown) newErrors.push('The mention cooldown cannot be empty.');
       else validateMinutes(changes.mentionCooldown, DATABASE_LIMITS.mentionCooldown, 'mention cooldown');
     }
 

@@ -351,7 +351,6 @@ export default function Leveling({ channels, database, roles, openMenu }: Leveli
                 roles={roles}
               />
             ))}
-            {/* {Object.keys(xpRoles).length > 0 && <div className="mt-4 border-t border-gray-600" />} */}
           </div>
         </Field>
 
