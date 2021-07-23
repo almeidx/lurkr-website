@@ -347,10 +347,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:^16.4.0":
-  version: 16.4.0
-  resolution: "@types/node@npm:16.4.0"
-  checksum: 3f2aaccbe8795079dad399f9c0e90ebf97093835dbbe93284a3655b1c018b9db34c76b8ee16f14b06b6e6e3f69b23208055f8b7417be24f7eaaa048883af37c1
+"@types/node@npm:^16.4.1":
+  version: 16.4.1
+  resolution: "@types/node@npm:16.4.1"
+  checksum: 8b9fda74322631febbf084e3c7a26b799a3a1b8f45d6bbaedfb8943c7b3eb743aa2e41c04de6f5f87f63c99451f3ed0b37822614cbd42ed55c8c9c8f9462d231
   languageName: node
   linkType: hard
 
@@ -571,7 +571,7 @@ __metadata:
     "@apollo/client": ^3.3.21
     "@types/common-tags": ^1.8.1
     "@types/lodash.clonedeep": ^4.5.6
-    "@types/node": ^16.4.0
+    "@types/node": ^16.4.1
     "@types/react": ^17.0.14
     autoprefixer: ^10.3.1
     axios: ^0.21.1
@@ -587,7 +587,7 @@ __metadata:
     react: ^17.0.2
     react-dom: ^17.0.2
     react-icons: ^4.2.0
-    tailwindcss: ^2.2.5
+    tailwindcss: ^2.2.7
     tslib: ^2.3.0
     typescript: ^4.3.5
   languageName: unknown
@@ -599,7 +599,7 @@ __metadata:
   dependencies:
     "@apollo/client": ^3.3.21
     "@savvywombat/tailwindcss-grid-areas": ^1.3.2
-    "@types/node": ^16.4.0
+    "@types/node": ^16.4.1
     "@types/react": ^17.0.14
     autoprefixer: ^10.3.1
     deepmerge: ^4.2.2
@@ -611,7 +611,7 @@ __metadata:
     postcss: ^8.3.6
     react: ^17.0.2
     react-dom: ^17.0.2
-    tailwindcss: ^2.2.5
+    tailwindcss: ^2.2.7
     tslib: ^2.3.0
     typescript: ^4.3.5
   languageName: unknown
@@ -3460,9 +3460,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lint-staged@npm:^11.0.1":
-  version: 11.0.1
-  resolution: "lint-staged@npm:11.0.1"
+"lint-staged@npm:^11.1.0":
+  version: 11.1.0
+  resolution: "lint-staged@npm:11.1.0"
   dependencies:
     chalk: ^4.1.1
     cli-truncate: ^2.1.0
@@ -3481,7 +3481,7 @@ __metadata:
     stringify-object: ^3.3.0
   bin:
     lint-staged: bin/lint-staged.js
-  checksum: 2b90d18a40acb26c61df224844040843f4533b874cf5a5b6be9d7641d60c2799b4acf7e1f73cea4ab1c3630f26ab3c4553a42935850b6a7683e0500e5af7b3ec
+  checksum: 2f4a951fe24b6359ca32fbe5399fef55b83f3cbdfede478ba3bc6e9adc3230a64f6f33cf51b332cf165d01b464bd6683a64234e3730239c4a0391a789566a909
   languageName: node
   linkType: hard
 
@@ -5673,9 +5673,9 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"tailwindcss@npm:^2.2.5":
-  version: 2.2.5
-  resolution: "tailwindcss@npm:2.2.5"
+"tailwindcss@npm:^2.2.7":
+  version: 2.2.7
+  resolution: "tailwindcss@npm:2.2.7"
   dependencies:
     arg: ^5.0.0
     bytes: ^3.0.0
@@ -5714,7 +5714,7 @@ resolve@^2.0.0-next.3:
   bin:
     tailwind: lib/cli.js
     tailwindcss: lib/cli.js
-  checksum: 6da7198b9b2e1ebb7d45967b4cc00ae4d9bae87240c3d0cc7b6321183d854eb82ad633833023f06373c2cbcbe53290eb95fdd0643a01e3f6ff9345063ccc3b0d
+  checksum: 2ba3493c4642cc591f5dbb3f7cc8792bed009ba8f60f843e5694b6e3ceefec7ed457f855485fb192001c2fec1e28910307a8527dda9996fc55b6cb1067f7145b
   languageName: node
   linkType: hard
 
@@ -6110,7 +6110,7 @@ typescript@^4.3.5:
     eslint-plugin-react-hooks: ^4.2.0
     eslint-plugin-simple-import-sort: ^7.0.0
     husky: ^7.0.1
-    lint-staged: ^11.0.1
+    lint-staged: ^11.1.0
     next: ^11.0.1
     prettier: ^2.3.2
     react: ^17.0.2
