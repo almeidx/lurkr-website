@@ -43,7 +43,7 @@ export default function Calculator() {
         <p className="text-gray-400 font-light">Calculate how much you need to message to reach a certain level!</p>
       </header>
 
-      <main className="flex flex-col gap-4">
+      <main className="flex flex-col gap-4 max-w-sm sm:max-w-2xl">
         <div className="flex flex-col sm:flex-row gap-4">
           <Input
             id="level"
