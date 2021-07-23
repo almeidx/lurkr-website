@@ -6,7 +6,7 @@ import { BiLayerPlus } from 'react-icons/bi';
 import { GuildContext } from '../../../contexts/GuildContext';
 import { AutoResetLevels, Channel, DatabaseGuild, Multiplier, Role } from '../../../graphql/queries/DashboardGuild';
 import { DATABASE_LIMITS } from '../../../utils/constants';
-import { parseIntStrict, parseMultiplier } from '../../../utils/utils';
+import { generateRandomString, parseIntStrict, parseMultiplier } from '../../../utils/utils';
 import BasicSelect from '../../form/BasicSelect';
 import Field from '../../form/Field';
 import Fieldset from '../../form/Fieldset';
@@ -84,7 +84,7 @@ const resolveInitialXpResponseType = (database: DatabaseGuild) =>
 const resolveInitialXpResponseChannel = (database: DatabaseGuild): Snowflake[] =>
   database.xpResponseType ? (/^\d+$/.test(database.xpResponseType) ? [database.xpResponseType as Snowflake] : []) : [];
 
-const resolveMultiplier = (multipliers: (Omit<Multiplier, 'multiplier'> & { multiplier: string })[]) =>
+const resolveMultiplierValues = (multipliers: (Omit<Multiplier, 'multiplier'> & { multiplier: string })[]) =>
   multipliers.map((m) => ({ ...m, multiplier: parseMultiplier(m.multiplier) ?? NaN }));
 
 let timeout: NodeJS.Timeout;
@@ -160,27 +160,32 @@ export default function Leveling({ channels, database, roles, openMenu }: Leveli
   }, [addChange, changes, removeChange, xpChannels, xpChannelsType]);
 
   const handleXpMultiplierDelete: XpMultiplierOnDeleteFn = useCallback(
-    (index) => {
+    (id) => {
       const clone = [...xpMultipliers];
-      if (!(index in clone)) {
+      const index = clone.findIndex((m) => m._id === id);
+
+      if (index < 0) {
         return console.log(
-          '[Leveling] Index provided was not presented in the xp multipliers array when the user tried deleting a multiplier',
+          '[Leveling] Id provided was not presented in the xp multipliers array when the user tried deleting a multiplier',
         );
       }
 
       clone.splice(index, 1);
+
       setXpMultipliers(clone);
-      addChange('xpMultipliers', resolveMultiplier(clone));
+      addChange('xpMultipliers', resolveMultiplierValues(clone));
     },
     [addChange, xpMultipliers],
   );
 
   const handleXpMultiplierItemsChange: XpMultiplierOnItemChangeFn = useCallback(
-    (itemIds, index) => {
+    (itemIds, id) => {
       const clone = [...xpMultipliers];
-      if (!(index in clone)) {
+      const index = clone.findIndex((m) => m._id === id);
+
+      if (index < 0) {
         return console.log(
-          '[Leveling] Index provided was not presented in the xp multipliers array when the user tried changing the items of a multiplier',
+          '[Leveling] Id provided was not presented in the xp multipliers array when the user tried changing the items of a multiplier',
         );
       }
 
@@ -193,16 +198,19 @@ export default function Leveling({ channels, database, roles, openMenu }: Leveli
 
       multiplier.targets = itemIds;
       clone[index] = multiplier;
+
       setXpMultipliers(clone);
-      addChange('xpMultipliers', resolveMultiplier(clone));
+      addChange('xpMultipliers', resolveMultiplierValues(clone));
     },
     [addChange, xpMultipliers],
   );
 
   const handleXpMultiplierValueChange: XpMultiplierOnMultiplierChangeFn = useCallback(
-    (multiplier, index) => {
+    (multiplier, id) => {
       const clone = [...xpMultipliers];
-      if (!(index in clone)) {
+      const index = clone.findIndex((m) => m._id === id);
+
+      if (index < 0) {
         return console.log(
           '[Leveling] Index provided was not presented in the xp multipliers array when the user tried changing the items of a multiplier',
         );
@@ -212,8 +220,9 @@ export default function Leveling({ channels, database, roles, openMenu }: Leveli
       xpMultiplier.multiplier = multiplier;
 
       clone[index] = xpMultiplier;
+
       setXpMultipliers(clone);
-      addChange('xpMultipliers', resolveMultiplier(clone));
+      addChange('xpMultipliers', resolveMultiplierValues(clone));
     },
     [addChange, xpMultipliers],
   );
@@ -381,13 +390,14 @@ export default function Leveling({ channels, database, roles, openMenu }: Leveli
                       const finalMultipliers = [
                         ...xpMultipliers,
                         {
+                          _id: generateRandomString(12),
                           multiplier: '1',
                           targets: newXpMultiplierType !== 'global' ? [] : null,
                           type: newXpMultiplierType,
                         },
                       ];
                       setXpMultipliers(finalMultipliers);
-                      addChange('xpMultipliers', resolveMultiplier(finalMultipliers));
+                      addChange('xpMultipliers', resolveMultiplierValues(finalMultipliers));
                     }}
                   >
                     <BiLayerPlus className="fill-current text-3xl" />
@@ -397,11 +407,11 @@ export default function Leveling({ channels, database, roles, openMenu }: Leveli
             )}
           </div>
           <div className="flex flex-col gap-y-2">
-            {xpMultipliers.map(({ multiplier, targets, type }, i) => (
+            {xpMultipliers.map(({ _id, multiplier, targets, type }) => (
               <XpMultiplier
                 channels={channels}
-                index={i}
-                key={i}
+                id={_id}
+                key={_id}
                 multiplier={multiplier}
                 onDelete={handleXpMultiplierDelete}
                 onItemChange={handleXpMultiplierItemsChange}

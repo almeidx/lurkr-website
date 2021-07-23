@@ -51,3 +51,5 @@ export const isNumeric = (str: string) => {
   if (typeof str != 'string') return false;
   return !isNaN(str as unknown as number) && !isNaN(parseFloat(str));
 };
+
+export const generateRandomString = (length = 10): string => Math.random().toString(36).substr(2, length);

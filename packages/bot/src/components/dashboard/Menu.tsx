@@ -80,6 +80,13 @@ export default function Menu({ guild, menuOpen, closeMenu }: MenuProps) {
 
     if (clone.mentionCooldown) clone.mentionCooldown *= 60_000;
 
+    if ('xpMultipliers' in clone && clone.xpMultipliers) {
+      clone.xpMultipliers.forEach((multiplier) => {
+        // @ts-expect-error
+        delete multiplier._id;
+      });
+    }
+
     let hasFailed = false;
 
     try {

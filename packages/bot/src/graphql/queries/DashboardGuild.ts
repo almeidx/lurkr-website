@@ -21,6 +21,7 @@ export interface Guild {
 }
 
 export interface Multiplier {
+  _id: string;
   multiplier: number;
   targets: Snowflake[] | null;
   type: 'channel' | 'global' | 'role';
@@ -117,6 +118,7 @@ export default gql`
       xpBlacklistedChannels
       xpMessage
       xpMultipliers {
+        _id
         multiplier
         targets
         type

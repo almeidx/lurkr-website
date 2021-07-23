@@ -5,13 +5,13 @@ import type { Channel, Multiplier, Role } from '../../graphql/queries/DashboardG
 import Input from '../form/Input';
 import Selector from '../form/Selector';
 
-export type XpMultiplierOnDeleteFn = (index: number) => unknown;
-export type XpMultiplierOnItemChangeFn = (itemIds: Snowflake[], index: number) => unknown;
-export type XpMultiplierOnMultiplierChangeFn = (multiplier: string, index: number) => unknown;
+export type XpMultiplierOnDeleteFn = (id: string) => unknown;
+export type XpMultiplierOnItemChangeFn = (itemIds: Snowflake[], id: string) => unknown;
+export type XpMultiplierOnMultiplierChangeFn = (multiplier: string, id: string) => unknown;
 
 interface XpMultiplierProps {
   channels: Channel[];
-  index: number;
+  id: string;
   multiplier: string;
   onDelete: XpMultiplierOnDeleteFn;
   onItemChange: XpMultiplierOnItemChangeFn;
@@ -23,7 +23,7 @@ interface XpMultiplierProps {
 
 export default function XpMultiplier({
   channels,
-  index,
+  id,
   multiplier,
   onDelete,
   onItemChange,
@@ -35,19 +35,16 @@ export default function XpMultiplier({
   return (
     <div className="relative flex flex-row flex-wrap justify-between w-full p-2 gap-y-2 bg-discord-dark rounded-lg">
       <div className="flex w-full">
-        <label
-          className="text-white font-bold flex items-center w-[6rem] ml-4"
-          htmlFor={`multiplier-${index}-selector`}
-        >
+        <label className="text-white font-bold flex items-center w-[6rem] ml-4" htmlFor={`m-${id}-selector`}>
           {type[0].toUpperCase() + type.slice(1)}
         </label>
 
         <div className="w-[6rem]">
           <Input
-            id={`multiplier-${index}-input`}
+            id={`m-${id}-input`}
             initialValue={multiplier.toString()}
             maxLength={5}
-            onChange={(text) => onMultiplierChange(text, index)}
+            onChange={(t) => onMultiplierChange(t, id)}
             placeholder="1.0"
             prefix="x"
             noClearButton
@@ -56,7 +53,7 @@ export default function XpMultiplier({
 
         <div
           className="h-full w-6 right-0 ml-auto mr-4 py-3 text-2xl text-discord-red active:text-red-600 transition-colors cursor-pointer"
-          onClick={() => onDelete(index)}
+          onClick={() => onDelete(id)}
         >
           <MdClear />
         </div>
@@ -65,11 +62,11 @@ export default function XpMultiplier({
       {type !== 'global' && (
         <div className="w-full mx-2">
           <Selector
-            id={`multiplier-${index}-selector`}
+            id={`m-${id}-selector`}
             limit={50}
             initialItems={targets!}
             items={type === 'channel' ? channels : roles}
-            onSelect={(i) => onItemChange(i, index)}
+            onSelect={(i) => onItemChange(i, id)}
             type={type}
           />
         </div>
