@@ -75,22 +75,21 @@ export default function Menu({ guild, menuOpen, closeMenu }: MenuProps) {
     const clone = cloneDeep<Partial<DatabaseGuild>>(changes);
     if (!Object.keys(clone).length || !guildId) return;
 
-    if (clone.autoRoleTimeout === 0) clone.autoRoleTimeout = null;
-    else if (clone.autoRoleTimeout) clone.autoRoleTimeout *= 60_000;
+    const dataForMutation = cloneDeep<UpdateDatabaseGuildVariables['data']>(clone);
 
-    if (clone.mentionCooldown) clone.mentionCooldown *= 60_000;
+    if (dataForMutation.autoRoleTimeout === 0) dataForMutation.autoRoleTimeout = null;
+    else if (dataForMutation.autoRoleTimeout) dataForMutation.autoRoleTimeout *= 60_000;
+
+    if (dataForMutation.mentionCooldown) dataForMutation.mentionCooldown *= 60_000;
 
     if ('xpMultipliers' in clone && clone.xpMultipliers) {
-      clone.xpMultipliers.forEach((multiplier) => {
-        // @ts-expect-error
-        delete multiplier._id;
-      });
+      dataForMutation.xpMultipliers = clone.xpMultipliers.map(({ _id, ...rest }) => rest);
     }
 
     let hasFailed = false;
 
     try {
-      await updateDatabase({ variables: { data: clone, id: guildId } });
+      await updateDatabase({ variables: { data: dataForMutation, id: guildId } });
     } catch (error) {
       console.error(error, error.networkError, error.networkError?.result?.errors);
       hasFailed = true;
