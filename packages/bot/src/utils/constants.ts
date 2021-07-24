@@ -255,7 +255,7 @@ export const DATABASE_LIMITS = {
     maxLength: 1_000,
   },
   milestonesRoles: {
-    maxLength: 10,
+    maxLength: 5,
   },
   noXpRoles: {
     maxLength: 30,
