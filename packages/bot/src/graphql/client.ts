@@ -23,7 +23,7 @@ function createApolloClient(headers?: Record<string, unknown>) {
       },
       headers: deepMerge(headers ?? {}, {
         'Access-Control-Allow-Credentials': 'true',
-        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Origin': API_BASE_URL,
         'Content-Type': 'application/json',
       }),
       uri: `${API_BASE_URL}/graphql`,
