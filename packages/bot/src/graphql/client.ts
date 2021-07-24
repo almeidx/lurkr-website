@@ -1,4 +1,4 @@
-import { ApolloClient, HttpLink, HttpOptions, InMemoryCache, NormalizedCacheObject } from '@apollo/client';
+import { ApolloClient, createHttpLink, InMemoryCache, NormalizedCacheObject } from '@apollo/client';
 import deepMerge from 'deepmerge';
 import { useMemo } from 'react';
 
@@ -7,29 +7,27 @@ import { API_BASE_URL } from '../utils/constants';
 let apolloClient: ApolloClient<NormalizedCacheObject> | null = null;
 
 function createApolloClient(headers?: Record<string, unknown>) {
-  const baseLinkOpts: HttpOptions = {
-    credentials: 'include',
-    // https://github.com/apollographql/apollo-feature-requests/issues/153#issuecomment-476832408
-    fetch: (uri, options) => {
-      return fetch(uri, options).then((response) => {
-        if (response.status >= 500) {
-          // or handle 400 errors
-          return Promise.reject(response.status);
-        }
-        return response;
-      });
-    },
-    headers: {
-      'Access-Control-Allow-Credentials': 'true',
-      'Access-Control-Allow-Origin': '*',
-      'Content-Type': 'application/json',
-    },
-    uri: `${API_BASE_URL}/graphql`,
-  };
-
   return new ApolloClient({
     cache: new InMemoryCache(),
-    link: new HttpLink(headers ? deepMerge({ headers }, baseLinkOpts) : baseLinkOpts),
+    link: createHttpLink({
+      credentials: 'include',
+      // https://github.com/apollographql/apollo-feature-requests/issues/153#issuecomment-476832408
+      fetch: (uri, options) => {
+        return fetch(uri, options).then((response) => {
+          if (response.status >= 500) {
+            // or handle 400 errors
+            return Promise.reject(response.status);
+          }
+          return response;
+        });
+      },
+      headers: deepMerge(headers ?? {}, {
+        'Access-Control-Allow-Credentials': 'true',
+        'Access-Control-Allow-Origin': '*',
+        'Content-Type': 'application/json',
+      }),
+      uri: `${API_BASE_URL}/graphql`,
+    }),
     ssrMode: typeof window === 'undefined',
   });
 }
