@@ -1,5 +1,7 @@
 import type { Snowflake } from 'discord-api-types';
 
+import { emojiCdn } from '../utils/cdn';
+
 interface EmojiProps {
   animated: boolean;
   id: Snowflake;
@@ -13,7 +15,7 @@ export default function Emoji({ animated, id, invite, name }: EmojiProps) {
       <img
         width={48}
         height={48}
-        src={`https://cdn.discordapp.com/emojis/${id}.${animated ? 'gif' : 'webp'}?v=1`}
+        src={emojiCdn(id, animated)}
         className="w-12"
         onClick={() => window.open(`https://discord.gg/${invite}`)}
       />

@@ -1,4 +1,4 @@
-import { ApolloClient, HttpLink, InMemoryCache, NormalizedCacheObject } from '@apollo/client';
+import { ApolloClient, HttpLink, HttpOptions, InMemoryCache, NormalizedCacheObject } from '@apollo/client';
 import merge from 'deepmerge';
 import { useMemo } from 'react';
 
@@ -6,34 +6,24 @@ import { API_BASE_URL } from '../utils/constants';
 
 let apolloClient: ApolloClient<NormalizedCacheObject> | null = null;
 
-function createApolloClient(headers: any) {
-  let link;
-  if (headers) {
-    link = new HttpLink({
-      credentials: 'include',
-      headers,
-      uri: `${API_BASE_URL}/graphql`,
-    });
-  } else {
-    link = new HttpLink({
-      credentials: 'include',
-      uri: `${API_BASE_URL}/graphql`,
-    });
-  }
+function createApolloClient(headers?: Record<string, unknown>) {
+  const baseLinkOpts: HttpOptions = {
+    credentials: 'include',
+    uri: `${API_BASE_URL}/graphql`,
+  };
 
   return new ApolloClient({
     cache: new InMemoryCache(),
-    link,
+    link: new HttpLink(headers ? Object.assign(baseLinkOpts, { headers }) : baseLinkOpts),
     ssrMode: typeof window === 'undefined',
   });
 }
 
-export function initializeApollo(initialState: any | null = null, headers: any | null = null) {
+export function initializeApollo(initialState: any = null, headers?: Record<string, unknown>) {
   const _apolloClient = apolloClient ?? createApolloClient(headers);
 
   if (initialState) {
     const existingCache = _apolloClient.extract();
-
     const data = merge(initialState, existingCache);
 
     _apolloClient.cache.restore(data);
@@ -47,6 +37,5 @@ export function initializeApollo(initialState: any | null = null, headers: any |
 }
 
 export function useApollo(initialState: any) {
-  const store = useMemo(() => initializeApollo(initialState, {}), [initialState]);
-  return store;
+  return useMemo(() => initializeApollo(initialState, {}), [initialState]);
 }

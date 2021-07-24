@@ -1,4 +1,5 @@
 {
+  "$schema": "http://json.schemastore.org/eslintrc",
   "root": true,
   "extends": "marine/prettier/react",
   "plugins": ["simple-import-sort"],
@@ -36,6 +37,7 @@
     "@typescript-eslint/restrict-template-expressions": 0,
     "no-implicit-coercion": 0,
     "no-negated-condition": 0,
+    "no-redeclare": 0,
     "no-undef": 0,
     "no-unused-vars": 0,
     "prettier/prettier": [

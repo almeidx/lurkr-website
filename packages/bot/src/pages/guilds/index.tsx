@@ -1,66 +1,54 @@
-import { PermissionFlagsBits } from 'discord-api-types/v8';
 import type { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import Head from 'next/head';
-import Link from 'next/link';
 import { useContext } from 'react';
 
-import Error from '../../components/Error';
+import Failure from '../../components/Failure';
+import Guild from '../../components/Guild';
 import { UserContext } from '../../contexts/UserContext';
 import { initializeApollo } from '../../graphql/client';
-import USER_GUILDS, { UserGuilds } from '../../graphql/UserGuilds';
-import styles from '../../styles/pages/guilds/Dashboard.module.scss';
-import { DISCORD_GUILD_CDN, FALLBACK_AVATAR } from '../../utils/constants';
+import USER_GUILDS, { UserGuilds, UserGuildsVariables } from '../../graphql/queries/UserGuilds';
 
-const { MANAGE_GUILD } = PermissionFlagsBits;
-
-interface DashboardProps {
-  guilds: UserGuilds['getUserGuilds'] | null;
-}
-
-export const getServerSideProps: GetServerSideProps<DashboardProps> = async (ctx) => {
+export const getServerSideProps: GetServerSideProps<{ guilds: UserGuilds['getUserGuilds'] }> = async (ctx) => {
   ctx.req.headers.accept = '';
 
   const apolloClient = initializeApollo(null, ctx.req.headers);
 
-  const { data } = await apolloClient.query<UserGuilds>({
+  const { data } = await apolloClient.query<UserGuilds, UserGuildsVariables>({
     query: USER_GUILDS,
+    variables: { withPermissions: true },
   });
 
   return {
     props: {
-      guilds:
-        data.getUserGuilds
-          ?.filter((g) => (BigInt(g.permissions) & MANAGE_GUILD) === MANAGE_GUILD)
-          .sort((a, b) => a.name.localeCompare(b.name)) ?? null,
+      guilds: data.getUserGuilds ? [...data.getUserGuilds].sort((a, b) => a.name.localeCompare(b.name)) : null,
     },
   };
 };
 
-export default function Dashboard({ guilds }: InferGetServerSidePropsType<typeof getServerSideProps>) {
+export default function Guilds({ guilds }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const { authenticated } = useContext(UserContext);
 
-  if (!authenticated || !guilds) {
-    return <Error message="You need to be logged in to view this page." statusCode={401} />;
+  if (!authenticated) {
+    return <Failure message="You need to sign in to view this page." />;
   }
 
-  if (!guilds.length) {
-    return <h1>You have no servers</h1>;
+  if (!guilds) {
+    return <Failure message="You are not the manager of any servers." />;
   }
 
   return (
-    <div className={styles.container}>
+    <div className="flex flex-col justify-center items-center text-center min-h-screen bg-discord-dark gap-y-8 pb-6 pt-6 sm:pt-0">
       <Head>
-        <title>Dashboard - Pepe Manager</title>
+        <title>Guilds | Pepe Manager</title>
       </Head>
 
-      {guilds.map(({ icon, id, name }) => (
-        <Link href={`/guilds/${id}`} key={id}>
-          <a className={styles.guildContainer}>
-            <img src={DISCORD_GUILD_CDN(id, icon, false) ?? FALLBACK_AVATAR} alt={`${name} guild icon`} />
-            <span>{name}</span>
-          </a>
-        </Link>
-      ))}
+      <h1>Pick the server you would like to configure</h1>
+
+      <main className="flex flex-row flex-wrap justify-center items-start gap-6 max-w-7xl">
+        {guilds.map(({ icon, id, name }) => (
+          <Guild baseRedirectPath="/guilds/" icon={icon} id={id} key={id} name={name} />
+        ))}
+      </main>
     </div>
   );
 }

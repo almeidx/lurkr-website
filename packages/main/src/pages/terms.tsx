@@ -5,7 +5,7 @@ export default function Terms() {
   return (
     <div className="bg-discord-dark w-full flex flex-col items-center">
       <Head>
-        <title>Terms and Conditions - Pepe Emoji</title>
+        <title>Terms and Conditions | Pepe Emoji</title>
       </Head>
 
       <header className="flex flex-col items-center justify-center pt-3 sm:pt-1">
