@@ -6,8 +6,7 @@ import { useRouter } from 'next/router';
 import { MouseEventHandler, useCallback, useContext, useRef, useState } from 'react';
 import type { IconType } from 'react-icons';
 import { BsFillShiftFill, BsPersonPlusFill } from 'react-icons/bs';
-import { FaShapes } from 'react-icons/fa';
-import { GoMilestone } from 'react-icons/go';
+import { FaShapes, FaTrophy } from 'react-icons/fa';
 import { HiEmojiHappy } from 'react-icons/hi';
 import { ImCog } from 'react-icons/im';
 import { RiSave3Fill, RiTimerFlashFill } from 'react-icons/ri';
@@ -41,7 +40,7 @@ const menuItems: MenuItem[] = [
   { Icon: ImCog, id: 'general', name: 'Settings' },
   { Icon: BsFillShiftFill, id: 'leveling', name: 'Leveling' },
   { Icon: BsPersonPlusFill, id: 'autorole', name: 'Autorole' },
-  { Icon: GoMilestone, id: 'milestones', name: 'Milestones' },
+  { Icon: FaTrophy, id: 'milestones', name: 'Milestones' },
   { Icon: HiEmojiHappy, id: 'emojiList', name: 'Emoji List' },
   { Icon: RiTimerFlashFill, id: 'mentionCooldown', name: 'Mention Cooldown' },
   { Icon: FaShapes, id: 'miscellaneous', name: 'Miscellaneous' },

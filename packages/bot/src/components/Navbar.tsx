@@ -66,6 +66,7 @@ export default function Navbar() {
                     </li>
                   ),
               )}
+
               {authenticated ? (
                 <div className="flex flex-row gap-2 text-white mt-6 md:mt-0 mx-2 md:mx-0 md:ml-auto">
                   <Link href="/guilds">
@@ -84,10 +85,10 @@ export default function Navbar() {
                   </Link>
 
                   <button
-                    className="cursor-pointer px-2 py-1 rounded-md flex justify-center items-center bg-gray-700 md:bg-transparent duration-200 hover:bg-discord-lighter focus:outline-none content-none"
+                    className="cursor-pointer px-2 py-1 rounded-md flex justify-center w-10 h-auto items-center bg-gray-700 md:bg-transparent duration-200 hover:bg-red-500 focus:outline-none content-none"
                     onClick={() => window.open(`${API_BASE_URL}/auth/logout`, '_self')}
                   >
-                    <GoSignOut />
+                    <GoSignOut className="h-5 w-5" />
                   </button>
                 </div>
               ) : (

@@ -130,20 +130,17 @@ export default function GuildContextProvider({ children }: GuildContextProps) {
     }
 
     if (data) {
-      if (
-        emojiListKeys.some((k) => k in changes) &&
-        (data.emojiList || ('emojiList' in changes && changes.emojiList))
-      ) {
+      if (emojiListKeys.some((k) => k in changes) && ('emojiList' in changes ? !changes.emojiList : !data.emojiList)) {
         newWarnings.push('You have made changes to the emoji list settings but the emoji list module is disabled.');
       }
 
-      if (levelingKeys.some((k) => k in changes) && (!data.levels || ('levels' in changes && !changes.levels))) {
+      if (levelingKeys.some((k) => k in changes) && ('levels' in changes ? !changes.levels : !data.levels)) {
         newWarnings.push('You have made changes to the leveling settings but the leveling module is disabled.');
       }
 
       if (
         milestonesKeys.some((k) => k in changes) &&
-        (!data.storeMilestones || ('storeMilestones' in changes && !changes.storeMilestones))
+        ('storeMilestones' in changes ? !changes.storeMilestones : !data.storeMilestones)
       ) {
         newWarnings.push('You have made changes to the milestones settings but the milestones module is disabled.');
       }

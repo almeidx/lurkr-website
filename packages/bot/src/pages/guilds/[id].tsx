@@ -112,21 +112,12 @@ export default function Guild({
         <Menu closeMenu={closeMenu} guild={guild} menuOpen={menuOpen} />
 
         <main className={`pb-5 px-4 md:pt-6 w-full ${menuOpen ? 'hidden' : 'block'} sm:block`}>
-          {errors.length > 0 && (
+          {warnings.length > 0 || errors.length > 0 ? (
             <div className="flex flex-col gap-3 mb-2">
-              {errors.map((m, i) => (
-                <Message key={i} message={m} />
-              ))}
+              {errors.length > 0 && errors.map((m, i) => <Message key={i} message={m} />)}
+              {warnings.length > 0 && warnings.map((m, i) => <Message key={i} message={m} type="warning" />)}
             </div>
-          )}
-
-          {warnings.length > 0 && (
-            <div className="flex flex-col gap-3 mb-2">
-              {warnings.map((m, i) => (
-                <Message key={i} message={m} type="warning" />
-              ))}
-            </div>
-          )}
+          ) : null}
 
           <Suspense
             fallback={
