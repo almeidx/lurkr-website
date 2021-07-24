@@ -2,8 +2,7 @@ import { useContext, useEffect } from 'react';
 
 import { GuildContext } from '../../../contexts/GuildContext';
 import type { DatabaseGuild, Role } from '../../../graphql/queries/DashboardGuild';
-import { DATABASE_LIMITS } from '../../../utils/constants';
-import { formatNumberToNDecimalPlaces, parseFloatStrict } from '../../../utils/utils';
+import { formatNumberToNDecimalPlaces, getDatabaseLimit, parseFloatStrict } from '../../../utils/utils';
 import Field from '../../form/Field';
 import Fieldset from '../../form/Fieldset';
 import Input from '../../form/Input';
@@ -20,6 +19,9 @@ interface AutoroleProps {
 
 export default function Autorole({ database, roles, openMenu }: AutoroleProps) {
   const { addChange } = useContext(GuildContext);
+
+  const autoRoleLimit = getDatabaseLimit('autoRole', database.premium).maxLength;
+  const autoRoleTimeoutLimits = getDatabaseLimit('autoRoleTimeout', database.premium);
 
   useEffect(() => {
     window.scroll({ behavior: 'auto', left: 0, top: 0 });
@@ -42,13 +44,13 @@ export default function Autorole({ database, roles, openMenu }: AutoroleProps) {
           />
           <Selector
             id="autoRole"
-            limit={DATABASE_LIMITS.autoRole.maxLength}
+            limit={autoRoleLimit}
             initialItems={database.autoRole ?? []}
             items={roles}
             onSelect={(r) => addChange('autoRole', r)}
             type="role"
           />
-          <Subtitle text={`Maximum of ${DATABASE_LIMITS.autoRole.maxLength} roles.`} />
+          <Subtitle text={`Maximum of ${autoRoleLimit} roles.`} />
         </Field>
 
         <Field>
@@ -69,9 +71,7 @@ export default function Autorole({ database, roles, openMenu }: AutoroleProps) {
             />
           </div>
           <Subtitle
-            text={`Between ${DATABASE_LIMITS.autoRoleTimeout.min / 60_000} - ${
-              DATABASE_LIMITS.autoRoleTimeout.max / 60_000
-            } minutes.`}
+            text={`Between ${autoRoleTimeoutLimits.min / 60_000} - ${autoRoleTimeoutLimits.max / 60_000} minutes.`}
           />
         </Field>
       </Fieldset>

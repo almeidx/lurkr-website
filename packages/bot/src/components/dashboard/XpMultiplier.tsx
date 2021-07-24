@@ -2,6 +2,7 @@ import type { Snowflake } from 'discord-api-types';
 import { MdClear } from 'react-icons/md';
 
 import type { Channel, Multiplier, Role } from '../../graphql/queries/DashboardGuild';
+import { getDatabaseLimit } from '../../utils/utils';
 import Input from '../form/Input';
 import Selector from '../form/Selector';
 
@@ -16,6 +17,7 @@ interface XpMultiplierProps {
   onDelete: XpMultiplierOnDeleteFn;
   onItemChange: XpMultiplierOnItemChangeFn;
   onMultiplierChange: XpMultiplierOnMultiplierChangeFn;
+  premium: boolean;
   targets: Snowflake[] | null;
   roles: Role[];
   type: Multiplier['type'];
@@ -28,6 +30,7 @@ export default function XpMultiplier({
   onDelete,
   onItemChange,
   onMultiplierChange,
+  premium,
   roles,
   targets,
   type,
@@ -63,7 +66,7 @@ export default function XpMultiplier({
         <div className="w-full mx-2">
           <Selector
             id={`m-${id}-selector`}
-            limit={50}
+            limit={getDatabaseLimit('xpMultiplierTargets', premium).maxLength}
             initialItems={targets!}
             items={type === 'channel' ? channels : roles}
             onSelect={(i) => onItemChange(i, id)}

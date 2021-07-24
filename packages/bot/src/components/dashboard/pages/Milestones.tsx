@@ -2,8 +2,7 @@ import { useContext, useEffect } from 'react';
 
 import { GuildContext } from '../../../contexts/GuildContext';
 import type { Channel, DatabaseGuild, Role } from '../../../graphql/queries/DashboardGuild';
-import { DATABASE_LIMITS } from '../../../utils/constants';
-import { parseIntStrict } from '../../../utils/utils';
+import { getDatabaseLimit, parseIntStrict } from '../../../utils/utils';
 import Field from '../../form/Field';
 import Fieldset from '../../form/Fieldset';
 import Input from '../../form/Input';
@@ -22,6 +21,10 @@ interface MilestonesProps {
 
 export default function Milestones({ channels, database, roles, openMenu }: MilestonesProps) {
   const { addChange } = useContext(GuildContext);
+
+  const milestonesIntervalLimits = getDatabaseLimit('milestonesInterval', database.premium);
+  const milestonesMessageLimit = getDatabaseLimit('milestonesMessage', database.premium).maxLength;
+  const milestonesRolesLimit = getDatabaseLimit('milestonesRoles', database.premium).maxLength;
 
   useEffect(() => {
     window.scroll({ behavior: 'auto', left: 0, top: 0 });
@@ -73,9 +76,7 @@ export default function Milestones({ channels, database, roles, openMenu }: Mile
             />
           </div>
           <Subtitle
-            text={`Between ${
-              DATABASE_LIMITS.milestonesInterval.min
-            } - ${DATABASE_LIMITS.milestonesInterval.max.toLocaleString('en')}.`}
+            text={`Between ${milestonesIntervalLimits.min} - ${milestonesIntervalLimits.max.toLocaleString('en')}.`}
           />
         </Field>
 
@@ -88,11 +89,11 @@ export default function Milestones({ channels, database, roles, openMenu }: Mile
           <Textarea
             initialText={database.milestonesMessage ?? ''}
             id="milestonesMessage"
-            maxLength={DATABASE_LIMITS.milestonesMessage.maxLength}
+            maxLength={milestonesMessageLimit}
             onChange={(t) => addChange('milestonesMessage', t)}
             placeholder="Enter the milestone message"
           />
-          <Subtitle text={`Maximum of ${DATABASE_LIMITS.xpMessage.maxLength.toLocaleString('en')} characters.`} />
+          <Subtitle text={`Maximum of ${milestonesMessageLimit.toLocaleString('en')} characters.`} />
         </Field>
 
         <Field>
@@ -105,11 +106,11 @@ export default function Milestones({ channels, database, roles, openMenu }: Mile
             id="milestoneRoles"
             initialItems={database.milestonesRoles ?? []}
             items={roles}
-            limit={DATABASE_LIMITS.milestonesRoles.maxLength}
+            limit={milestonesRolesLimit}
             onSelect={(r) => addChange('milestonesRoles', r)}
             type="role"
           />
-          <Subtitle text={`Maximum of ${DATABASE_LIMITS.milestonesRoles.maxLength} roles.`} />
+          <Subtitle text={`Maximum of ${milestonesRolesLimit} roles.`} />
         </Field>
       </Fieldset>
     </>

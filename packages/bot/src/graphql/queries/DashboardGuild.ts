@@ -51,6 +51,7 @@ export interface DatabaseGuild {
   milestonesRoles: Snowflake[] | null;
   noXpRoles: Snowflake[] | null;
   prefix: string;
+  premium: boolean;
   prioritiseMultiplierRoleHierarchy: boolean;
   stackXpRoles: boolean;
   storeCounts: boolean;
@@ -110,6 +111,7 @@ export default gql`
       milestonesRoles
       noXpRoles
       prefix
+      premium
       prioritiseMultiplierRoleHierarchy
       stackXpRoles
       storeCounts

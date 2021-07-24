@@ -1,15 +1,14 @@
-// eslint-disable-next-line simple-import-sort/imports
 import { useContext, useEffect } from 'react';
 
 import { GuildContext } from '../../../contexts/GuildContext';
 import type { Channel, DatabaseGuild } from '../../../graphql/queries/DashboardGuild';
-import { DATABASE_LIMITS } from '../../../utils/constants';
-import Toggle from '../../form/Toggle';
+import { getDatabaseLimit } from '../../../utils/utils';
 import Field from '../../form/Field';
 import Fieldset from '../../form/Fieldset';
 import Label from '../../form/Label';
 import Selector from '../../form/Selector';
 import Subtitle from '../../form/Subtitle';
+import Toggle from '../../form/Toggle';
 import Header from '../Header';
 
 interface MiscellaneousProps {
@@ -20,6 +19,8 @@ interface MiscellaneousProps {
 
 export default function Miscellaneous({ channels, database, openMenu }: MiscellaneousProps) {
   const { addChange } = useContext(GuildContext);
+
+  const autoPublishChannelsLimit = getDatabaseLimit('autoPublishChannels', database.premium).maxLength;
 
   useEffect(() => {
     window.scroll({ behavior: 'auto', left: 0, top: 0 });
@@ -59,13 +60,13 @@ export default function Miscellaneous({ channels, database, openMenu }: Miscella
           />
           <Selector
             id="autoPublishChannels"
-            limit={DATABASE_LIMITS.autoPublishChannels.maxLength}
+            limit={autoPublishChannelsLimit}
             initialItems={database.autoPublishChannels ?? []}
             items={channels}
             onSelect={(c) => addChange('autoPublishChannels', c)}
             type="channel"
           />
-          <Subtitle text={`Maximum of ${DATABASE_LIMITS.autoPublishChannels.maxLength} channels.`} />
+          <Subtitle text={`Maximum of ${autoPublishChannelsLimit} channels.`} />
         </Field>
       </Fieldset>
     </>

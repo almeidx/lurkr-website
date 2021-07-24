@@ -5,8 +5,7 @@ import { BiLayerPlus } from 'react-icons/bi';
 
 import { GuildContext } from '../../../contexts/GuildContext';
 import { AutoResetLevels, Channel, DatabaseGuild, Multiplier, Role } from '../../../graphql/queries/DashboardGuild';
-import { DATABASE_LIMITS } from '../../../utils/constants';
-import { generateRandomString, parseIntStrict, parseMultiplier } from '../../../utils/utils';
+import { generateRandomString, getDatabaseLimit, parseIntStrict, parseMultiplier } from '../../../utils/utils';
 import BasicSelect from '../../form/BasicSelect';
 import Field from '../../form/Field';
 import Fieldset from '../../form/Fieldset';
@@ -105,6 +104,10 @@ export default function Leveling({ channels, database, roles, openMenu }: Leveli
   const [newXpRolesLevel, setNewXpRolesLevel] = useState<string>('');
   const newXpRoleSubmitRef = useRef<HTMLButtonElement>(null);
   const { addChange, changes, removeChange } = useContext(GuildContext);
+
+  const xpMessageLimit = getDatabaseLimit('xpMessage', database.premium).maxLength;
+  const xpChannelsLimit = getDatabaseLimit('xpChannels', database.premium).maxLength;
+  const noXpRolesLimit = getDatabaseLimit('noXpRoles', database.premium).maxLength;
 
   useEffect(() => {
     window.scroll({ behavior: 'auto', left: 0, top: 0 });
@@ -286,11 +289,11 @@ export default function Leveling({ channels, database, roles, openMenu }: Leveli
           <Textarea
             initialText={database.xpMessage}
             id="xpMessage"
-            maxLength={DATABASE_LIMITS.xpMessage.maxLength}
+            maxLength={xpMessageLimit}
             onChange={(t) => addChange('xpMessage', t)}
             placeholder="Enter the level up message"
           />
-          <Subtitle text={`Maximum of ${DATABASE_LIMITS.xpMessage.maxLength.toLocaleString('en')} characters.`} />
+          <Subtitle text={`Maximum of ${xpMessageLimit.toLocaleString('en')} characters.`} />
         </Field>
 
         <Field direction="row">
@@ -356,6 +359,7 @@ export default function Leveling({ channels, database, roles, openMenu }: Leveli
                 key={level}
                 level={parseInt(level, 10)}
                 initialRoles={xpRoles[level]}
+                premium={database.premium}
                 onChange={handleXpRolesChange}
                 roles={roles}
               />
@@ -370,19 +374,19 @@ export default function Leveling({ channels, database, roles, openMenu }: Leveli
             url="https://docs.pepemanager.com/guides/setting-up-xp-multipliers"
           />
           <div>
-            {Object.keys(xpMultipliers).length <= 20 && (
+            {Object.keys(xpMultipliers).length < getDatabaseLimit('xpMultipliers', database.premium).maxLength && (
               <>
                 <p className="text-white">Create a new multiplier</p>
                 <div className="flex flex-row gap-3 mt-2 mb-4">
                   <BasicSelect
                     closeOnSelect
-                    initialItem={'Channel'}
+                    initialItem="Channel"
                     items={
                       xpMultipliers.some((m) => m.type === 'global')
                         ? ['Channel', 'Role']
                         : ['Channel', 'Global', 'Role']
                     }
-                    onSelect={(item) => setNewXpMultiplierType(item.toLowerCase() as Multiplier['type'])}
+                    onSelect={(i) => setNewXpMultiplierType(i.toLowerCase() as Multiplier['type'])}
                   />
                   <button
                     className="flex-shrink-0 h-12 w-12 bg-discord-not-quite-black rounded-md flex justify-center items-center text-white disabled:text-opacity-25 duration-150 transition-colors"
@@ -416,12 +420,12 @@ export default function Leveling({ channels, database, roles, openMenu }: Leveli
                 onDelete={handleXpMultiplierDelete}
                 onItemChange={handleXpMultiplierItemsChange}
                 onMultiplierChange={handleXpMultiplierValueChange}
+                premium={database.premium}
                 roles={roles}
                 targets={targets}
                 type={type}
               />
             ))}
-            {/* {xpMultipliers.length > 0 && <div className="mt-4 border-t border-gray-600" />} */}
           </div>
         </Field>
 
@@ -443,14 +447,14 @@ export default function Leveling({ channels, database, roles, openMenu }: Leveli
             id="xpChannels"
             initialItems={database.xpBlacklistedChannels ?? database.xpWhitelistedChannels ?? []}
             items={channels}
-            limit={DATABASE_LIMITS.xpChannels.maxLength}
+            limit={xpChannelsLimit}
             onSelect={(c) => {
               setXpChannels(c);
               addChange(xpChannelsType === 'whitelist' ? 'xpWhitelistedChannels' : 'xpBlacklistedChannels', c);
             }}
             type="channel"
           />
-          <Subtitle text={`Maximum of ${DATABASE_LIMITS.xpChannels.maxLength} channels.`} />
+          <Subtitle text={`Maximum of ${xpChannelsLimit} channels.`} />
         </Field>
 
         <Field>
@@ -481,11 +485,11 @@ export default function Leveling({ channels, database, roles, openMenu }: Leveli
             id="noXpRoles"
             initialItems={database.noXpRoles ?? []}
             items={roles}
-            limit={DATABASE_LIMITS.noXpRoles.maxLength}
+            limit={noXpRolesLimit}
             onSelect={(r) => addChange('noXpRoles', r)}
             type="role"
           />
-          <Subtitle text={`Maximum of ${DATABASE_LIMITS.noXpRoles.maxLength} roles.`} />
+          <Subtitle text={`Maximum of ${noXpRolesLimit} roles.`} />
         </Field>
 
         <Field>

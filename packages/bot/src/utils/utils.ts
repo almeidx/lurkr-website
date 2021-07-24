@@ -1,6 +1,12 @@
 import type { Snowflake } from 'discord-api-types';
 
-import { DEFAULT_ROLE_COLOUR, MAX_SNOWFLAKE, MIN_SNOWFLAKE } from './constants';
+import {
+  DATABASE_LIMITS,
+  DATABASE_PREMIUM_LIMITS,
+  DEFAULT_ROLE_COLOUR,
+  MAX_SNOWFLAKE,
+  MIN_SNOWFLAKE,
+} from './constants';
 
 /**
  * Checks if a string could potentially be a valid Discord Snowflake
@@ -53,3 +59,15 @@ export const isNumeric = (str: string) => {
 };
 
 export const generateRandomString = (length = 10): string => Math.random().toString(36).substr(2, length);
+
+export const getDatabaseLimit = <
+  K extends keyof typeof DATABASE_LIMITS | keyof typeof DATABASE_PREMIUM_LIMITS = keyof typeof DATABASE_LIMITS,
+>(
+  key: K,
+  premium: boolean,
+): typeof DATABASE_LIMITS[K] | typeof DATABASE_PREMIUM_LIMITS[K] => {
+  if (premium) {
+    return DATABASE_PREMIUM_LIMITS[key];
+  }
+  return DATABASE_LIMITS[key];
+};

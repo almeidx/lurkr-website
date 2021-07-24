@@ -2,7 +2,7 @@ import { useContext, useEffect } from 'react';
 
 import { GuildContext } from '../../../contexts/GuildContext';
 import type { Channel, DatabaseGuild } from '../../../graphql/queries/DashboardGuild';
-import { DATABASE_LIMITS } from '../../../utils/constants';
+import { getDatabaseLimit } from '../../../utils/utils';
 import Field from '../../form/Field';
 import Fieldset from '../../form/Fieldset';
 import Input from '../../form/Input';
@@ -20,6 +20,9 @@ interface GeneralProps {
 export default function General({ channels, database, openMenu }: GeneralProps) {
   const { addChange } = useContext(GuildContext);
 
+  const prefixLimit = getDatabaseLimit('prefix', database.premium).maxLength;
+  const blacklistedChannelsLimit = getDatabaseLimit('blacklistedChannels', database.premium).maxLength;
+
   useEffect(() => {
     window.scroll({ behavior: 'auto', left: 0, top: 0 });
   }, [openMenu]);
@@ -34,11 +37,11 @@ export default function General({ channels, database, openMenu }: GeneralProps) 
           <Input
             id="prefix"
             initialValue={database.prefix}
-            maxLength={DATABASE_LIMITS.prefix.maxLength}
+            maxLength={prefixLimit}
             onChange={(t) => addChange('prefix', t)}
             placeholder="Enter the bot prefix"
           />
-          <Subtitle text={`Maximum of ${DATABASE_LIMITS.prefix.maxLength} characters.`} />
+          <Subtitle text={`Maximum of ${prefixLimit} characters.`} />
         </Field>
 
         <Field>
@@ -49,13 +52,13 @@ export default function General({ channels, database, openMenu }: GeneralProps) 
           />
           <Selector
             id="blacklistedChannels"
-            limit={DATABASE_LIMITS.blacklistedChannels.maxLength}
+            limit={blacklistedChannelsLimit}
             initialItems={database.blacklistedChannels ?? []}
             items={channels}
             onSelect={(c) => addChange('blacklistedChannels', c)}
             type="channel"
           />
-          <Subtitle text={`Maximum of ${DATABASE_LIMITS.blacklistedChannels.maxLength} channels.`} />
+          <Subtitle text={`Maximum of ${blacklistedChannelsLimit} channels.`} />
         </Field>
       </Fieldset>
     </>

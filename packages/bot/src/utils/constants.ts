@@ -228,6 +228,60 @@ export const DATABASE_DEFAULTS = {
 
 export const DATABASE_LIMITS = {
   autoPublishChannels: {
+    maxLength: 5,
+  },
+  autoRole: {
+    maxLength: 5,
+  },
+  autoRoleTimeout: {
+    max: 1_800_000,
+    min: 60_000,
+  },
+  blacklistedChannels: {
+    maxLength: 20,
+  },
+  mentionCooldown: {
+    max: 1_800_000,
+    min: 300_000,
+  },
+  mentionCooldownRoles: {
+    maxLength: 25,
+  },
+  milestonesInterval: {
+    max: 100_000,
+    min: 10,
+  },
+  milestonesMessage: {
+    maxLength: 1_000,
+  },
+  milestonesRoles: {
+    maxLength: 10,
+  },
+  noXpRoles: {
+    maxLength: 30,
+  },
+  prefix: {
+    maxLength: 5,
+  },
+  xpChannels: {
+    maxLength: 30,
+  },
+  xpMessage: {
+    maxLength: 1_000,
+  },
+  xpMultiplierTargets: {
+    maxLength: 30,
+  },
+  xpMultipliers: {
+    maxLength: 10,
+  },
+  xpRolesPerLevel: {
+    maxLength: 5,
+  },
+};
+
+export const DATABASE_PREMIUM_LIMITS = {
+  autoPublishChannels: {
     maxLength: 25,
   },
   autoRole: {
@@ -269,7 +323,13 @@ export const DATABASE_LIMITS = {
   xpMessage: {
     maxLength: 1_000,
   },
+  xpMultiplierTargets: {
+    maxLength: 50,
+  },
   xpMultipliers: {
-    maxLength: 20,
+    maxLength: 25,
+  },
+  xpRolesPerLevel: {
+    maxLength: 25,
   },
 };

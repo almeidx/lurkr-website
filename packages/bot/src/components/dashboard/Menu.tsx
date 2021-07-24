@@ -2,11 +2,12 @@ import { useMutation } from '@apollo/client';
 import type { Snowflake } from 'discord-api-types';
 import cloneDeep from 'lodash.clonedeep';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { MouseEventHandler, useCallback, useContext, useRef, useState } from 'react';
 import type { IconType } from 'react-icons';
 import { BsFillShiftFill, BsPersonPlusFill } from 'react-icons/bs';
-import { FaShapes, FaTrophy } from 'react-icons/fa';
+import { FaPatreon, FaShapes, FaTrophy } from 'react-icons/fa';
 import { HiEmojiHappy } from 'react-icons/hi';
 import { ImCog } from 'react-icons/im';
 import { RiSave3Fill, RiTimerFlashFill } from 'react-icons/ri';
@@ -21,13 +22,14 @@ import { guildIconCdn } from '../../utils/cdn';
 import { FALLBACK_AVATAR_PATH } from '../../utils/constants';
 
 interface MenuProps {
+  closeMenu(): void;
   guild: {
     icon: string | null;
     id: Snowflake;
     name: string;
   };
   menuOpen: boolean;
-  closeMenu(): void;
+  premium: boolean;
 }
 
 interface MenuItem {
@@ -53,7 +55,7 @@ const saveButtonDefaultColour = '#3ea25e';
 
 let timeout: NodeJS.Timeout | void;
 
-export default function Menu({ guild, menuOpen, closeMenu }: MenuProps) {
+export default function Menu({ closeMenu, guild, menuOpen, premium }: MenuProps) {
   const router = useRouter();
   const { changes, clearChanges, errors, guildId, section, updateSection } = useContext(GuildContext);
   const saveButtonRef = useRef<HTMLButtonElement>(null);
@@ -130,7 +132,23 @@ export default function Menu({ guild, menuOpen, closeMenu }: MenuProps) {
             <Image className="rounded-full" height={64} src={FALLBACK_AVATAR_PATH} width={64} />
           )}
 
-          <h2 className="text-white w-full text-center break-words sm:text-base">{guild.name}</h2>
+          <div className="flex flex-col gap-2">
+            <h2 className="text-white w-full text-center break-words sm:text-base">{guild.name}</h2>
+
+            <Link href="https://docs.pepemanager.com/information/patreon-perks">
+              {premium ? (
+                <a className="flex flex-row justify-center items-center gap-2 bg-[#ff424d] hover:bg-[#c0323a] transition-colors duration-100 py-1 px-2 w-full text-center text-white rounded-lg">
+                  <FaPatreon />
+                  Premium
+                </a>
+              ) : (
+                <a className="flex flex-row justify-center items-center gap-2 bg-[#c0323a] hover:bg-[#802127] transition-colors duration-100 py-1 px-2 w-full text-center text-white rounded-lg">
+                  <FaPatreon />
+                  Get Premium
+                </a>
+              )}
+            </Link>
+          </div>
         </header>
 
         <section className="flex flex-col sm:max-w-[14rem] gap-y-3 px-6 sm:p-0 sm:pr-4 sm:ml-auto">

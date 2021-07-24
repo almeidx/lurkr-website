@@ -2,8 +2,7 @@ import { useContext, useEffect } from 'react';
 
 import { GuildContext } from '../../../contexts/GuildContext';
 import type { DatabaseGuild, Role } from '../../../graphql/queries/DashboardGuild';
-import { DATABASE_LIMITS } from '../../../utils/constants';
-import { formatNumberToNDecimalPlaces, parseFloatStrict } from '../../../utils/utils';
+import { formatNumberToNDecimalPlaces, getDatabaseLimit, parseFloatStrict } from '../../../utils/utils';
 import Field from '../../form/Field';
 import Fieldset from '../../form/Fieldset';
 import Input from '../../form/Input';
@@ -20,6 +19,9 @@ interface MentionCooldownProps {
 
 export default function MentionCooldown({ database, roles, openMenu }: MentionCooldownProps) {
   const { addChange } = useContext(GuildContext);
+
+  const mentionCooldownLimits = getDatabaseLimit('mentionCooldown', database.premium);
+  const mentionCooldownRolesLimit = getDatabaseLimit('mentionCooldownRoles', database.premium).maxLength;
 
   useEffect(() => {
     window.scroll({ behavior: 'auto', left: 0, top: 0 });
@@ -50,9 +52,7 @@ export default function MentionCooldown({ database, roles, openMenu }: MentionCo
             />
           </div>
           <Subtitle
-            text={`Between ${DATABASE_LIMITS.mentionCooldown.min / 60_000} - ${
-              DATABASE_LIMITS.mentionCooldown.max / 60_000
-            } minutes.`}
+            text={`Between ${mentionCooldownLimits.min / 60_000} - ${mentionCooldownLimits.max / 60_000} minutes.`}
           />
         </Field>
 
@@ -64,13 +64,13 @@ export default function MentionCooldown({ database, roles, openMenu }: MentionCo
           />
           <Selector
             id="mentionCooldownRoles"
-            limit={DATABASE_LIMITS.mentionCooldownRoles.maxLength}
+            limit={mentionCooldownRolesLimit}
             initialItems={database.mentionCooldownRoles ?? []}
             items={roles}
             onSelect={(r) => addChange('mentionCooldownRoles', r)}
             type="role"
           />
-          <Subtitle text={`Maximum of ${DATABASE_LIMITS.mentionCooldownRoles.maxLength} roles.`} />
+          <Subtitle text={`Maximum of ${mentionCooldownRolesLimit} roles.`} />
         </Field>
       </Fieldset>
     </>
