@@ -1,5 +1,5 @@
 import { ApolloClient, HttpLink, HttpOptions, InMemoryCache, NormalizedCacheObject } from '@apollo/client';
-import merge from 'deepmerge';
+import deepMerge from 'deepmerge';
 import { useMemo } from 'react';
 
 import { API_BASE_URL } from '../utils/constants';
@@ -9,12 +9,17 @@ let apolloClient: ApolloClient<NormalizedCacheObject> | null = null;
 function createApolloClient(headers?: Record<string, unknown>) {
   const baseLinkOpts: HttpOptions = {
     credentials: 'include',
+    headers: {
+      'Access-Control-Allow-Credentials': 'true',
+      'Access-Control-Allow-Origin': '*',
+      'Content-Type': 'application/json',
+    },
     uri: `${API_BASE_URL}/graphql`,
   };
 
   return new ApolloClient({
     cache: new InMemoryCache(),
-    link: new HttpLink(headers ? Object.assign(baseLinkOpts, { headers }) : baseLinkOpts),
+    link: new HttpLink(headers ? deepMerge({ headers }, baseLinkOpts) : baseLinkOpts),
     ssrMode: typeof window === 'undefined',
   });
 }
@@ -24,7 +29,7 @@ export function initializeApollo(initialState: any = null, headers?: Record<stri
 
   if (initialState) {
     const existingCache = _apolloClient.extract();
-    const data = merge(initialState, existingCache);
+    const data = deepMerge(initialState, existingCache);
 
     _apolloClient.cache.restore(data);
   }
