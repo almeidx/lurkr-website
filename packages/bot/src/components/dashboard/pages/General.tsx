@@ -1,7 +1,8 @@
+import type { Snowflake } from 'discord-api-types';
 import { useContext, useEffect } from 'react';
 
 import { GuildContext } from '../../../contexts/GuildContext';
-import type { Channel, DatabaseGuild } from '../../../graphql/queries/DashboardGuild';
+import type { DashboardChannels, DashboardDatabaseGuild } from '../../../graphql/queries/DashboardGuild';
 import { getDatabaseLimit } from '../../../utils/utils';
 import Field from '../../form/Field';
 import Fieldset from '../../form/Fieldset';
@@ -12,8 +13,8 @@ import Subtitle from '../../form/Subtitle';
 import Header from '../Header';
 
 interface GeneralProps {
-  channels: Channel[];
-  database: DatabaseGuild;
+  channels: DashboardChannels;
+  database: DashboardDatabaseGuild;
   openMenu(): void;
 }
 
@@ -53,7 +54,7 @@ export default function General({ channels, database, openMenu }: GeneralProps) 
           <Selector
             id="blacklistedChannels"
             limit={blacklistedChannelsLimit}
-            initialItems={database.blacklistedChannels ?? []}
+            initialItems={(database.blacklistedChannels as Snowflake[] | null) ?? []}
             items={channels}
             onSelect={(c) => addChange('blacklistedChannels', c)}
             type="channel"

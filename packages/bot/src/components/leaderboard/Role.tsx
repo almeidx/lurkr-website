@@ -1,8 +1,9 @@
-import type { GuildLevelRoles } from '../../graphql/queries/GuildLevels';
+import type { GuildLevelsRoleInfo } from '../../graphql/queries/GuildLevels';
 import RoleChannelBullet from '../RoleChannelBullet';
+
 interface RoleProps {
   level: number;
-  roles: GuildLevelRoles['roles'];
+  roles: GuildLevelsRoleInfo[];
 }
 
 export default function Role({ level, roles }: RoleProps) {

@@ -1,7 +1,8 @@
+import type { Snowflake } from 'discord-api-types';
 import { useContext, useEffect } from 'react';
 
 import { GuildContext } from '../../../contexts/GuildContext';
-import type { Channel, DatabaseGuild } from '../../../graphql/queries/DashboardGuild';
+import type { DashboardChannels, DashboardDatabaseGuild } from '../../../graphql/queries/DashboardGuild';
 import { getDatabaseLimit } from '../../../utils/utils';
 import Field from '../../form/Field';
 import Fieldset from '../../form/Fieldset';
@@ -12,8 +13,8 @@ import Toggle from '../../form/Toggle';
 import Header from '../Header';
 
 interface MiscellaneousProps {
-  channels: Channel[];
-  database: DatabaseGuild;
+  channels: DashboardChannels;
+  database: DashboardDatabaseGuild;
   openMenu(): void;
 }
 
@@ -61,7 +62,7 @@ export default function Miscellaneous({ channels, database, openMenu }: Miscella
           <Selector
             id="autoPublishChannels"
             limit={autoPublishChannelsLimit}
-            initialItems={database.autoPublishChannels ?? []}
+            initialItems={(database.autoPublishChannels as Snowflake[] | null) ?? []}
             items={channels}
             onSelect={(c) => addChange('autoPublishChannels', c)}
             type="channel"

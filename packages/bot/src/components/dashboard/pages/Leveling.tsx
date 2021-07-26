@@ -3,8 +3,14 @@ import cloneDeep from 'lodash.clonedeep';
 import { MouseEventHandler, useCallback, useContext, useEffect, useRef, useState } from 'react';
 import { BiLayerPlus } from 'react-icons/bi';
 
+import type { DatabaseGuildChanges } from '../../../__generated__/updateDatabaseGuildMutation.graphql';
 import { GuildContext } from '../../../contexts/GuildContext';
-import { AutoResetLevels, Channel, DatabaseGuild, Multiplier, Role } from '../../../graphql/queries/DashboardGuild';
+import {
+  AutoResetLevels,
+  DashboardChannels,
+  DashboardDatabaseGuild,
+  DashboardRoles,
+} from '../../../graphql/queries/DashboardGuild';
 import { generateRandomString, getDatabaseLimit, parseIntStrict, parseMultiplier } from '../../../utils/utils';
 import BasicSelect from '../../form/BasicSelect';
 import Field from '../../form/Field';
@@ -24,11 +30,14 @@ import XpMultiplier, {
 import XpRole, { XpRoleOnChangeFn } from '../XpRole';
 
 interface LevelingProps {
-  channels: Channel[];
-  database: DatabaseGuild;
-  roles: Role[];
+  channels: DashboardChannels;
+  database: DashboardDatabaseGuild;
+  roles: DashboardRoles;
   openMenu(): void;
 }
+
+type Multiplier = DashboardDatabaseGuild['xpMultipliers'][0];
+type MultiplierWithStringValue = Omit<Multiplier, 'multiplier'> & { multiplier: string };
 
 enum ResponseType {
   CHANNEL = 'custom-channel',
@@ -73,17 +82,17 @@ const resolveAutoResetLevelsTypeByName = (name: string) =>
     ? AutoResetLevels.LEAVE
     : AutoResetLevels.NONE;
 
-const resolveInitialXpResponseType = (database: DatabaseGuild) =>
+const resolveInitialXpResponseType = (database: DashboardDatabaseGuild) =>
   database.xpResponseType
     ? /^\d+$/.test(database.xpResponseType)
       ? ResponseType.CHANNEL
       : database.xpResponseType
     : ResponseType.NONE;
 
-const resolveInitialXpResponseChannel = (database: DatabaseGuild): Snowflake[] =>
+const resolveInitialXpResponseChannel = (database: DashboardDatabaseGuild): Snowflake[] =>
   database.xpResponseType ? (/^\d+$/.test(database.xpResponseType) ? [database.xpResponseType as Snowflake] : []) : [];
 
-const resolveMultiplierValues = (multipliers: (Omit<Multiplier, 'multiplier'> & { multiplier: string })[]) =>
+const resolveMultiplierValues = (multipliers: MultiplierWithStringValue[]) =>
   multipliers.map((m) => ({ ...m, multiplier: parseMultiplier(m.multiplier) ?? NaN }));
 
 let timeout: NodeJS.Timeout;
@@ -91,9 +100,11 @@ let timeout: NodeJS.Timeout;
 export default function Leveling({ channels, database, roles, openMenu }: LevelingProps) {
   const [xpRoles, setXpRoles] = useState<Record<string, Snowflake[]>>(database.xpRoles);
   const [xpChannels, setXpChannels] = useState<Snowflake[]>(
-    database.xpWhitelistedChannels ?? database.xpBlacklistedChannels ?? [],
+    (database.xpWhitelistedChannels as Snowflake[] | null) ??
+      (database.xpBlacklistedChannels as Snowflake[] | null) ??
+      [],
   );
-  const [xpMultipliers, setXpMultipliers] = useState<(Omit<Multiplier, 'multiplier'> & { multiplier: string })[]>(
+  const [xpMultipliers, setXpMultipliers] = useState<MultiplierWithStringValue[]>(
     database.xpMultipliers.map((m) => ({ ...m, multiplier: m.multiplier.toString() })),
   );
   const [xpResponseType, setXpResponseType] = useState<string>(resolveInitialXpResponseType(database));
@@ -151,7 +162,7 @@ export default function Leveling({ channels, database, roles, openMenu }: Leveli
     const currentType = `${xpChannelsType}` as const;
     setXpChannelsType(currentType === 'blacklist' ? 'whitelist' : 'blacklist');
 
-    const clone = cloneDeep<Partial<DatabaseGuild>>(changes);
+    const clone = cloneDeep<Partial<DatabaseGuildChanges>>(changes);
 
     if (currentType === 'blacklist') {
       if ('xpBlacklistedChannels' in clone) removeChange('xpBlacklistedChannels');
@@ -422,7 +433,7 @@ export default function Leveling({ channels, database, roles, openMenu }: Leveli
                 onMultiplierChange={handleXpMultiplierValueChange}
                 premium={database.premium}
                 roles={roles}
-                targets={targets}
+                targets={targets as Snowflake[] | null}
                 type={type}
               />
             ))}
@@ -445,7 +456,11 @@ export default function Leveling({ channels, database, roles, openMenu }: Leveli
           </div>
           <Selector
             id="xpChannels"
-            initialItems={database.xpBlacklistedChannels ?? database.xpWhitelistedChannels ?? []}
+            initialItems={
+              (database.xpBlacklistedChannels as Snowflake[] | null) ??
+              (database.xpWhitelistedChannels as Snowflake[] | null) ??
+              []
+            }
             items={channels}
             limit={xpChannelsLimit}
             onSelect={(c) => {
@@ -466,7 +481,7 @@ export default function Leveling({ channels, database, roles, openMenu }: Leveli
           <div className="w-full sm:w-1/2 sm:min-w-[20rem]">
             <Selector
               id="topXpRole"
-              initialItems={database.topXpRole ? [database.topXpRole] : []}
+              initialItems={database.topXpRole ? [database.topXpRole as Snowflake] : []}
               items={roles}
               limit={1}
               onSelect={(r) => addChange('topXpRole', r[0] ?? null)}
@@ -483,7 +498,7 @@ export default function Leveling({ channels, database, roles, openMenu }: Leveli
           />
           <Selector
             id="noXpRoles"
-            initialItems={database.noXpRoles ?? []}
+            initialItems={(database.noXpRoles as Snowflake[] | null) ?? []}
             items={roles}
             limit={noXpRolesLimit}
             onSelect={(r) => addChange('noXpRoles', r)}

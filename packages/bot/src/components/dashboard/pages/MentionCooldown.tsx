@@ -1,7 +1,8 @@
+import type { Snowflake } from 'discord-api-types';
 import { useContext, useEffect } from 'react';
 
 import { GuildContext } from '../../../contexts/GuildContext';
-import type { DatabaseGuild, Role } from '../../../graphql/queries/DashboardGuild';
+import type { DashboardDatabaseGuild, DashboardRoles } from '../../../graphql/queries/DashboardGuild';
 import { formatNumberToNDecimalPlaces, getDatabaseLimit, parseFloatStrict } from '../../../utils/utils';
 import Field from '../../form/Field';
 import Fieldset from '../../form/Fieldset';
@@ -12,8 +13,8 @@ import Subtitle from '../../form/Subtitle';
 import Header from '../Header';
 
 interface MentionCooldownProps {
-  database: DatabaseGuild;
-  roles: Role[];
+  database: DashboardDatabaseGuild;
+  roles: DashboardRoles;
   openMenu(): void;
 }
 
@@ -65,7 +66,7 @@ export default function MentionCooldown({ database, roles, openMenu }: MentionCo
           <Selector
             id="mentionCooldownRoles"
             limit={mentionCooldownRolesLimit}
-            initialItems={database.mentionCooldownRoles ?? []}
+            initialItems={(database.mentionCooldownRoles as Snowflake[] | null) ?? []}
             items={roles}
             onSelect={(r) => addChange('mentionCooldownRoles', r)}
             type="role"

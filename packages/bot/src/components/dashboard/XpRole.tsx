@@ -1,7 +1,7 @@
 import type { Snowflake } from 'discord-api-types';
 import { MdClear } from 'react-icons/md';
 
-import type { Role } from '../../graphql/queries/DashboardGuild';
+import type { DashboardRoles } from '../../graphql/queries/DashboardGuild';
 import { getDatabaseLimit } from '../../utils/utils';
 import Selector from '../form/Selector';
 
@@ -13,7 +13,7 @@ interface XpRoleProps {
   initialRoles: Snowflake[];
   premium: boolean;
   onChange: XpRoleOnChangeFn;
-  roles: Role[];
+  roles: DashboardRoles;
 }
 
 export default function XpRole({ level, initialRoles, onChange, premium, roles, disabled }: XpRoleProps) {

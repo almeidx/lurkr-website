@@ -1,24 +1,13 @@
-import { gql } from '@apollo/client';
-import type { Snowflake } from 'discord-api-types/v8';
+import type { Snowflake } from 'discord-api-types';
+import { graphql } from 'relay-runtime';
 
-export interface Channel {
-  id: Snowflake;
-  name: string;
-}
+import type { DashboardGuildQueryResponse } from '../../__generated__/DashboardGuildQuery.graphql';
+import type { CorrectSnowflakeTypes, DeepMutable } from '../../utils/utils';
 
-export interface Role {
-  color: number;
-  id: Snowflake;
-  name: string;
-  position: number;
-}
-
-export interface Guild {
-  icon: string | null;
-  id: Snowflake;
-  name: string;
-  roles: Role[];
-}
+type DatabaseGuildWithoutMultipliers = Omit<
+  Exclude<DashboardGuildQueryResponse['getDatabaseGuild'], null>,
+  'xpMultipliers' | 'xpRoles'
+>;
 
 export interface Multiplier {
   _id: string;
@@ -27,6 +16,17 @@ export interface Multiplier {
   type: 'channel' | 'global' | 'role';
 }
 
+export type DashboardDatabaseGuild = CorrectSnowflakeTypes<
+  DeepMutable<DatabaseGuildWithoutMultipliers & { xpMultipliers: Multiplier[]; xpRoles: Record<string, Snowflake[]> }>
+>;
+export type DashboardDiscordGuild = CorrectSnowflakeTypes<
+  DeepMutable<Exclude<DashboardGuildQueryResponse['getDiscordGuild'], null>>
+>;
+export type DashboardChannels = CorrectSnowflakeTypes<
+  DeepMutable<Exclude<DashboardGuildQueryResponse['getDiscordGuildChannels'], null>>
+>;
+export type DashboardRoles = CorrectSnowflakeTypes<DeepMutable<DashboardDiscordGuild['roles']>>;
+
 export enum AutoResetLevels {
   NONE = 0,
   LEAVE = 1,
@@ -34,49 +34,8 @@ export enum AutoResetLevels {
   BOTH = 3,
 }
 
-export interface DatabaseGuild {
-  autoPublishChannels: Snowflake[] | null;
-  autoResetLevels: AutoResetLevels;
-  autoRole: Snowflake[] | null;
-  autoRoleTimeout: number | null;
-  blacklistedChannels: Snowflake[] | null;
-  emojiList: boolean;
-  emojiListChannel: Snowflake | null;
-  levels: boolean;
-  mentionCooldown: number;
-  mentionCooldownRoles: Snowflake[] | null;
-  milestonesChannel: Snowflake | null;
-  milestonesInterval: number;
-  milestonesMessage: string | null;
-  milestonesRoles: Snowflake[] | null;
-  noXpRoles: Snowflake[] | null;
-  prefix: string;
-  premium: boolean;
-  prioritiseMultiplierRoleHierarchy: boolean;
-  stackXpRoles: boolean;
-  storeCounts: boolean;
-  storeMilestones: boolean;
-  topXpRole: Snowflake | null;
-  xpBlacklistedChannels: Snowflake[] | null;
-  xpMessage: string;
-  xpMultipliers: Multiplier[];
-  xpResponseType: 'dm' | 'channel' | Snowflake | null;
-  xpRoles: Record<string, Snowflake[]>;
-  xpWhitelistedChannels: Snowflake[] | null;
-}
-
-export interface DashboardGuild {
-  getDiscordGuild: Guild | null;
-  getDiscordGuildChannels: Channel[] | null;
-  getDatabaseGuild: DatabaseGuild | null;
-}
-
-export interface DashboardGuildVariables {
-  id: Snowflake;
-}
-
-export default gql`
-  query getDiscordGuild($id: String!) {
+export default graphql`
+  query DashboardGuildQuery($id: String!) {
     getDiscordGuild(id: $id, requireAuth: true) {
       icon
       id

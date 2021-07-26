@@ -3,20 +3,22 @@ import type { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { lazy, Suspense, useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import { fetchQuery } from 'relay-runtime';
 
+import type { DashboardGuildQuery } from '../../__generated__/DashboardGuildQuery.graphql';
 import Menu, { isValidSection } from '../../components/dashboard/Menu';
 import Failure from '../../components/Failure';
 import Message from '../../components/Message';
 import Spinner from '../../components/Spinner';
 import { GuildContext } from '../../contexts/GuildContext';
 import { UserContext } from '../../contexts/UserContext';
-import { initializeApollo } from '../../graphql/client';
-import DASHBOARD_GUILD, {
-  Channel,
-  DashboardGuild,
-  DashboardGuildVariables,
+import DashboardGuild, {
+  DashboardChannels,
+  DashboardDatabaseGuild,
+  DashboardDiscordGuild,
 } from '../../graphql/queries/DashboardGuild';
-import { isValidSnowflake } from '../../utils/utils';
+import environment from '../../relay/environment';
+import { isValidSnowflake, removeNonStringProperties } from '../../utils/utils';
 
 const General = lazy(() => import('../../components/dashboard/pages/General'));
 const Autorole = lazy(() => import('../../components/dashboard/pages/Autorole'));
@@ -27,9 +29,9 @@ const MentionCooldown = lazy(() => import('../../components/dashboard/pages/Ment
 const Miscellaneous = lazy(() => import('../../components/dashboard/pages/Miscellaneous'));
 
 interface GuildProps {
-  channels: Channel[] | null;
-  database: DashboardGuild['getDatabaseGuild'];
-  guild: DashboardGuild['getDiscordGuild'];
+  channels: DashboardChannels | null;
+  database: DashboardDatabaseGuild | null;
+  guild: DashboardDiscordGuild | null;
   guildId: Snowflake;
 }
 
@@ -38,18 +40,15 @@ export const getServerSideProps: GetServerSideProps<GuildProps> = async (ctx) =>
 
   ctx.req.headers.accept = '';
 
-  const apolloClient = initializeApollo(null, ctx.req.headers);
-
-  const { data } = await apolloClient.query<DashboardGuild, DashboardGuildVariables>({
-    query: DASHBOARD_GUILD,
-    variables: { id: ctx.params.id },
-  });
+  const env = environment(undefined, removeNonStringProperties(ctx.req.headers));
+  const data = await fetchQuery<DashboardGuildQuery>(env, DashboardGuild, { id: ctx.params.id }).toPromise();
+  if (!data) return { notFound: true };
 
   return {
     props: {
-      channels: data.getDiscordGuildChannels,
-      database: data.getDatabaseGuild,
-      guild: data.getDiscordGuild,
+      channels: data.getDiscordGuildChannels as DashboardChannels,
+      database: data.getDatabaseGuild as DashboardDatabaseGuild,
+      guild: data.getDiscordGuild as DashboardDiscordGuild,
       guildId: ctx.params.id,
     },
   };
@@ -62,8 +61,8 @@ export default function Guild({
   guildId,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const [menuOpen, setMenuOpen] = useState<boolean>(true);
-  const { authenticated } = useContext(UserContext);
   const { errors, section, updateData, updateGuildId, updateSection, warnings } = useContext(GuildContext);
+  const { authenticated } = useContext(UserContext);
   const router = useRouter();
 
   const closeMenu = useCallback((): void => setMenuOpen(false), []);

@@ -1,47 +1,24 @@
-import { gql } from '@apollo/client';
-import type { Snowflake } from 'discord-api-types/v8';
+import type { Snowflake } from 'discord-api-types';
+import { graphql } from 'relay-runtime';
 
-interface Level {
-  avatar: string | null;
-  level: number;
-  tag: string | null;
-  userID: Snowflake;
-  xp: number;
-}
+import type { GuildLevelsQueryResponse } from '../../__generated__/GuildLevelsQuery.graphql';
+import type { CorrectSnowflakeTypes, DeepMutable } from '../../utils/utils';
 
-interface Role {
+export type DiscordGuild = CorrectSnowflakeTypes<
+  DeepMutable<Exclude<GuildLevelsQueryResponse['getDiscordGuild'], null>>
+>;
+export type Levels = CorrectSnowflakeTypes<DeepMutable<Exclude<GuildLevelsQueryResponse['getGuildLevels'], null>>>;
+
+export type GuildLevelsUserInfo = Omit<Levels['levels'][0], 'userID'> & { userID: Snowflake };
+
+export interface GuildLevelsRoleInfo {
   id: Snowflake;
   name: string;
   color: number;
 }
 
-export interface GuildLevelRoles {
-  level: number;
-  roles: Role[];
-}
-
-export interface Levels {
-  levels: Level[];
-  roles: GuildLevelRoles[] | null;
-}
-
-export interface Guild {
-  id: Snowflake;
-  icon: string | null;
-  name: string;
-}
-
-export interface GuildLevels {
-  getDiscordGuild: Guild | null;
-  getGuildLevels: Levels | null;
-}
-
-export interface GuildLevelsVariables {
-  id: Snowflake;
-}
-
-export default gql`
-  query getGuildLevelsInfo($id: String!) {
+export default graphql`
+  query GuildLevelsQuery($id: String!) {
     getDiscordGuild(id: $id, requireAuth: false) {
       id
       icon

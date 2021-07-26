@@ -1,26 +1,26 @@
+import type { Snowflake } from 'discord-api-types';
 import type { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import Head from 'next/head';
 import { useContext } from 'react';
+import { fetchQuery } from 'relay-runtime';
 
+import type { UserGuildsQuery, UserGuildsQueryResponse } from '../../__generated__/UserGuildsQuery.graphql';
 import Failure from '../../components/Failure';
 import Guild from '../../components/Guild';
 import { UserContext } from '../../contexts/UserContext';
-import { initializeApollo } from '../../graphql/client';
-import USER_GUILDS, { UserGuilds, UserGuildsVariables } from '../../graphql/queries/UserGuilds';
+import UserGuilds from '../../graphql/queries/UserGuilds';
+import environment from '../../relay/environment';
+import { removeNonStringProperties } from '../../utils/utils';
 
-export const getServerSideProps: GetServerSideProps<{ guilds: UserGuilds['getUserGuilds'] }> = async (ctx) => {
-  ctx.req.headers.accept = '';
-
-  const apolloClient = initializeApollo(null, ctx.req.headers);
-
-  const { data } = await apolloClient.query<UserGuilds, UserGuildsVariables>({
-    query: USER_GUILDS,
-    variables: { withPermissions: true },
-  });
+export const getServerSideProps: GetServerSideProps<{ guilds: UserGuildsQueryResponse['getUserGuilds'] }> = async (
+  ctx,
+) => {
+  const env = environment(undefined, removeNonStringProperties(ctx.req.headers));
+  const res = await fetchQuery<UserGuildsQuery>(env, UserGuilds, { withPermissions: true }).toPromise();
 
   return {
     props: {
-      guilds: data.getUserGuilds ? [...data.getUserGuilds].sort((a, b) => a.name.localeCompare(b.name)) : null,
+      guilds: res?.getUserGuilds ? [...res.getUserGuilds].sort((a, b) => a.name.localeCompare(b.name)) : null,
     },
   };
 };
@@ -46,7 +46,7 @@ export default function Guilds({ guilds }: InferGetServerSidePropsType<typeof ge
 
       <main className="flex flex-row flex-wrap justify-center items-start gap-6 max-w-7xl">
         {guilds.map(({ icon, id, name }) => (
-          <Guild baseRedirectPath="/guilds/" icon={icon} id={id} key={id} name={name} />
+          <Guild baseRedirectPath="/guilds/" icon={icon} id={id as Snowflake} key={id} name={name} />
         ))}
       </main>
     </div>

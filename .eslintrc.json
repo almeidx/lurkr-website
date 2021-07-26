@@ -3,7 +3,7 @@
   "root": true,
   "extends": "marine/prettier/react",
   "plugins": ["simple-import-sort"],
-  "ignorePatterns": [".next/*", ".vercel/*", ".yarn/*", "node_modules/*"],
+  "ignorePatterns": [".next/*", ".vercel/*", ".yarn/*", "node_modules/*", "**/__generated__/*"],
   "env": {
     "node": true
   },

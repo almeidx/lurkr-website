@@ -1,7 +1,8 @@
+import type { Snowflake } from 'discord-api-types';
 import { useContext, useEffect } from 'react';
 
 import { GuildContext } from '../../../contexts/GuildContext';
-import type { Channel, DatabaseGuild } from '../../../graphql/queries/DashboardGuild';
+import type { DashboardChannels, DashboardDatabaseGuild } from '../../../graphql/queries/DashboardGuild';
 import Field from '../../form/Field';
 import Fieldset from '../../form/Fieldset';
 import Label from '../../form/Label';
@@ -9,8 +10,8 @@ import Selector from '../../form/Selector';
 import Header from '../Header';
 
 interface EmojiListProps {
-  channels: Channel[];
-  database: DatabaseGuild;
+  channels: DashboardChannels;
+  database: DashboardDatabaseGuild;
   openMenu(): void;
 }
 
@@ -43,7 +44,7 @@ export default function EmojiList({ channels, database, openMenu }: EmojiListPro
             <Selector
               id="emojiListChannel"
               limit={1}
-              initialItems={database.emojiListChannel ? [database.emojiListChannel] : []}
+              initialItems={database.emojiListChannel ? [database.emojiListChannel as Snowflake] : []}
               items={channels}
               onSelect={(c) => addChange('emojiListChannel', c[0] ?? null)}
               type="channel"

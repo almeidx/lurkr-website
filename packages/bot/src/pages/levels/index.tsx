@@ -2,26 +2,31 @@ import type { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
+import { fetchQuery } from 'relay-runtime';
 
+import type { UserGuildsQuery, UserGuildsQueryResponse } from '../../__generated__/UserGuildsQuery.graphql';
 import Input from '../../components/form/Input';
 import Guild from '../../components/Guild';
-import { initializeApollo } from '../../graphql/client';
-import USER_GUILDS, { UserGuilds, UserGuildsVariables } from '../../graphql/queries/UserGuilds';
-import { isValidSnowflake } from '../../utils/utils';
+import UserGuilds from '../../graphql/queries/UserGuilds';
+import environment from '../../relay/environment';
+import { CorrectSnowflakeTypes, DeepMutable, isValidSnowflake, removeNonStringProperties } from '../../utils/utils';
 
-export const getServerSideProps: GetServerSideProps<{ guilds: UserGuilds['getUserGuilds'] }> = async (ctx) => {
+type Guilds = CorrectSnowflakeTypes<DeepMutable<UserGuildsQueryResponse['getUserGuilds']>>;
+
+export const getServerSideProps: GetServerSideProps<{
+  guilds: Guilds;
+}> = async (ctx) => {
   ctx.req.headers.accept = '';
 
-  const apolloClient = initializeApollo(null, ctx.req.headers);
-
-  const { data } = await apolloClient.query<UserGuilds, UserGuildsVariables>({
-    query: USER_GUILDS,
-    variables: { withPermissions: false },
-  });
+  const env = environment(undefined, removeNonStringProperties(ctx.req.headers));
+  const data = await fetchQuery<UserGuildsQuery>(env, UserGuilds, { withPermissions: false }).toPromise();
+  if (!data) return { notFound: true };
 
   return {
     props: {
-      guilds: data.getUserGuilds ? [...data.getUserGuilds].sort((a, b) => a.name.localeCompare(b.name)) : null,
+      guilds: data.getUserGuilds
+        ? ([...data.getUserGuilds] as Exclude<Guilds, null>).sort((a, b) => a.name.localeCompare(b.name))
+        : null,
     },
   };
 };

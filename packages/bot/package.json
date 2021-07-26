@@ -9,21 +9,26 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "relay": "relay-compiler --artifactDirectory './src/__generated__' --exclude '**/node_modules/**', '**/.next/**', '**/__generated__/**' --extensions 'ts' 'tsx' --language 'typescript' --schema './schema.gql' --src './src'",
     "start": "next start"
   },
   "homepage": "https://pepemanager.com",
   "dependencies": {
     "@almeidx/ms": "^1.2.1",
-    "@apollo/client": "^3.3.21",
     "axios": "^0.21.1",
     "common-tags": "^1.8.0",
     "deepmerge": "^4.2.2",
-    "graphql": "^15.5.1",
     "lodash.clonedeep": "^4.5.0",
     "next": "^11.0.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-icons": "^4.2.0",
+    "react-relay": "^11.0.2",
+    "react-relay-network-modern": "^6.0.0",
+    "react-relay-network-modern-ssr": "^1.4.0",
+    "regenerator-runtime": "^0.13.9",
+    "relay-hooks": "^5.0.0",
+    "relay-runtime": "^11.0.2",
     "tslib": "^2.3.0"
   },
   "devDependencies": {
@@ -31,11 +36,19 @@
     "@types/lodash.clonedeep": "^4.5.6",
     "@types/node": "^16.4.1",
     "@types/react": "^17.0.14",
+    "@types/react-relay": "^11.0.2",
+    "@types/regenerator-runtime": "^0.13.1",
+    "@types/relay-runtime": "^11.0.1",
     "autoprefixer": "^10.3.1",
+    "babel-plugin-relay": "^11.0.2",
     "discord-api-types": "^0.20.2",
     "eslint": "^7.31.0",
     "eslint-config-next": "^11.0.1",
+    "graphql": "^15.5.1",
     "postcss": "^8.3.6",
+    "relay-compiler": "^11.0.2",
+    "relay-compiler-language-typescript": "^14.0.0",
+    "relay-config": "^11.0.2",
     "tailwindcss": "^2.2.7",
     "typescript": "^4.3.5"
   }
