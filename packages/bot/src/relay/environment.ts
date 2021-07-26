@@ -24,6 +24,10 @@ export default function environment(records?: RecordMap, headers?: Record<string
         },
       );
 
+      if (res.status !== 200) {
+        throw new Error(`${res.status}: ${res.statusText}`);
+      }
+
       return res.data;
     }),
     store: new Store(new RecordSource(records)),
