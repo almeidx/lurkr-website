@@ -1,7 +1,7 @@
 import type { Snowflake } from 'discord-api-types';
 import { MdClear } from 'react-icons/md';
 
-import type { Channel, Multiplier, Role } from '../../graphql/queries/DashboardGuild';
+import type { DashboardChannels, DashboardDatabaseGuild, DashboardRoles } from '../../graphql/queries/DashboardGuild';
 import { getDatabaseLimit } from '../../utils/utils';
 import Input from '../form/Input';
 import Selector from '../form/Selector';
@@ -11,7 +11,7 @@ export type XpMultiplierOnItemChangeFn = (itemIds: Snowflake[], id: string) => u
 export type XpMultiplierOnMultiplierChangeFn = (multiplier: string, id: string) => unknown;
 
 interface XpMultiplierProps {
-  channels: Channel[];
+  channels: DashboardChannels;
   id: string;
   multiplier: string;
   onDelete: XpMultiplierOnDeleteFn;
@@ -19,8 +19,8 @@ interface XpMultiplierProps {
   onMultiplierChange: XpMultiplierOnMultiplierChangeFn;
   premium: boolean;
   targets: Snowflake[] | null;
-  roles: Role[];
-  type: Multiplier['type'];
+  roles: DashboardRoles;
+  type: DashboardDatabaseGuild['xpMultipliers'][0]['type'];
 }
 
 export default function XpMultiplier({

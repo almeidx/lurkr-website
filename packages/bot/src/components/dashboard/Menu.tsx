@@ -1,4 +1,3 @@
-import { useMutation } from '@apollo/client';
 import type { Snowflake } from 'discord-api-types';
 import cloneDeep from 'lodash.clonedeep';
 import Image from 'next/image';
@@ -10,13 +9,15 @@ import { FaPatreon, FaShapes, FaTrophy } from 'react-icons/fa';
 import { HiEmojiHappy } from 'react-icons/hi';
 import { ImCog } from 'react-icons/im';
 import { RiSave3Fill, RiTimerFlashFill } from 'react-icons/ri';
+import { useMutation } from 'relay-hooks';
 
+import type {
+  DatabaseGuildChanges,
+  updateDatabaseGuildMutation,
+  updateDatabaseGuildMutationVariables,
+} from '../../__generated__/updateDatabaseGuildMutation.graphql';
 import { GuildContext, Section } from '../../contexts/GuildContext';
-import updateDatabaseGuild, {
-  UpdateDatabaseGuild,
-  UpdateDatabaseGuildVariables,
-} from '../../graphql/mutations/updateDatabaseGuild';
-import type { DatabaseGuild } from '../../graphql/queries/DashboardGuild';
+import updateDatabaseGuild from '../../graphql/mutations/updateDatabaseGuild';
 import { guildIconCdn } from '../../utils/cdn';
 import { FALLBACK_AVATAR_PATH } from '../../utils/constants';
 
@@ -55,12 +56,13 @@ const saveButtonDefaultColour = '#3ea25e';
 let timeout: NodeJS.Timeout | void;
 
 export default function Menu({ closeMenu, guild, menuOpen, premium }: MenuProps) {
-  const router = useRouter();
-  const { changes, clearChanges, errors, guildId, section, updateSection } = useContext(GuildContext);
-  const saveButtonRef = useRef<HTMLButtonElement>(null);
-  const [updateDatabase] = useMutation<UpdateDatabaseGuild, UpdateDatabaseGuildVariables>(updateDatabaseGuild, {});
   const [saveButtonText, setSaveButtonText] = useState('Save');
+  const saveButtonRef = useRef<HTMLButtonElement>(null);
   const isSaving = useRef<boolean>(false);
+
+  const { changes, clearChanges, errors, guildId, section, updateSection } = useContext(GuildContext);
+  const [updateDatabase] = useMutation<updateDatabaseGuildMutation>(updateDatabaseGuild, {});
+  const router = useRouter();
 
   const saveButtonDisabled = (Object.keys(changes).length || isSaving.current) && !errors.length;
 
@@ -72,10 +74,10 @@ export default function Menu({ closeMenu, guild, menuOpen, premium }: MenuProps)
       setSaveButtonText('Saving...');
     }
 
-    const clone = cloneDeep<Partial<DatabaseGuild>>(changes);
+    const clone = cloneDeep<Partial<DatabaseGuildChanges>>(changes);
     if (!Object.keys(clone).length || !guildId) return;
 
-    const dataForMutation = cloneDeep<UpdateDatabaseGuildVariables['data']>(clone);
+    const dataForMutation = cloneDeep<updateDatabaseGuildMutationVariables['data']>(clone);
 
     if (dataForMutation.autoRoleTimeout === 0) dataForMutation.autoRoleTimeout = null;
     else if (dataForMutation.autoRoleTimeout) dataForMutation.autoRoleTimeout *= 60_000;
@@ -83,6 +85,7 @@ export default function Menu({ closeMenu, guild, menuOpen, premium }: MenuProps)
     if (dataForMutation.mentionCooldown) dataForMutation.mentionCooldown *= 60_000;
 
     if ('xpMultipliers' in clone && clone.xpMultipliers) {
+      // @ts-expect-error: The 'clone' type isn't actually DatabaseGuildChanges, the Multipliers have _id's here
       dataForMutation.xpMultipliers = clone.xpMultipliers.map(({ _id, ...rest }) => rest);
     }
 
@@ -109,7 +112,7 @@ export default function Menu({ closeMenu, guild, menuOpen, premium }: MenuProps)
         isSaving.current = false;
       }, 3_000);
     }
-  }, [changes, clearChanges, errors, guildId, updateDatabase, saveButtonRef]);
+  }, [changes, clearChanges, errors, guildId, saveButtonRef, updateDatabase]);
 
   return (
     <aside

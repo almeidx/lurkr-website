@@ -1,22 +1,7 @@
-import { gql } from '@apollo/client';
-import type { Snowflake } from 'discord-api-types';
+import { graphql } from 'relay-runtime';
 
-interface Guild {
-  icon: string | null;
-  id: Snowflake;
-  name: string;
-}
-
-export interface UserGuilds {
-  getUserGuilds: Guild[] | null;
-}
-
-export interface UserGuildsVariables {
-  withPermissions?: boolean;
-}
-
-export default gql`
-  query getUserGuilds($withPermissions: Boolean!) {
+export default graphql`
+  query UserGuildsQuery($withPermissions: Boolean!) {
     getUserGuilds(withPermissions: $withPermissions) {
       icon
       id

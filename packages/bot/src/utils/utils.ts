@@ -8,6 +8,12 @@ import {
   MIN_SNOWFLAKE,
 } from './constants';
 
+export type CorrectSnowflakeTypes<T> = {
+  [K in keyof T]: K extends 'id' ? Snowflake : CorrectSnowflakeTypes<T[K]>;
+};
+
+export type DeepMutable<T> = { -readonly [K in keyof T]: DeepMutable<T[K]> };
+
 /**
  * Checks if a string could potentially be a valid Discord Snowflake
  * @param str The string to check
@@ -71,3 +77,11 @@ export const getDatabaseLimit = <
   }
   return DATABASE_LIMITS[key];
 };
+
+export const removeNonStringValues = (obj: Record<string, any>): Record<string, string> =>
+  Object.keys(obj)
+    .filter((k) => typeof obj[k] === 'string')
+    .reduce((acc, k) => {
+      acc[k] = obj[k];
+      return acc;
+    }, {} as Record<string, string>);

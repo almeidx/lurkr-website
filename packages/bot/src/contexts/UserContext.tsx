@@ -37,7 +37,7 @@ export default function UserProvider({ children }: UserContextProps) {
           headers: {
             Accept: 'application/json',
             'Access-Control-Allow-Credentials': 'true',
-            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Origin': API_BASE_URL,
           },
           withCredentials: true,
         })

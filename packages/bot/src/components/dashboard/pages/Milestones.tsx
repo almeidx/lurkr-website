@@ -1,7 +1,12 @@
+import type { Snowflake } from 'discord-api-types';
 import { useContext, useEffect } from 'react';
 
 import { GuildContext } from '../../../contexts/GuildContext';
-import type { Channel, DatabaseGuild, Role } from '../../../graphql/queries/DashboardGuild';
+import type {
+  DashboardChannels,
+  DashboardDatabaseGuild,
+  DashboardRoles,
+} from '../../../graphql/queries/DashboardGuild';
 import { getDatabaseLimit, parseIntStrict } from '../../../utils/utils';
 import Field from '../../form/Field';
 import Fieldset from '../../form/Fieldset';
@@ -13,9 +18,9 @@ import Textarea from '../../form/Textarea';
 import Header from '../Header';
 
 interface MilestonesProps {
-  channels: Channel[];
-  database: DatabaseGuild;
-  roles: Role[];
+  channels: DashboardChannels;
+  database: DashboardDatabaseGuild;
+  roles: DashboardRoles;
   openMenu(): void;
 }
 
@@ -51,7 +56,7 @@ export default function Milestones({ channels, database, roles, openMenu }: Mile
           <div className="max-w-[20rem]">
             <Selector
               id="milestonesChannel"
-              initialItems={database.milestonesChannel ? [database.milestonesChannel] : []}
+              initialItems={database.milestonesChannel ? [database.milestonesChannel as Snowflake] : []}
               items={channels}
               limit={1}
               onSelect={(c) => addChange('milestonesChannel', c[0] ?? null)}
@@ -104,7 +109,7 @@ export default function Milestones({ channels, database, roles, openMenu }: Mile
           />
           <Selector
             id="milestoneRoles"
-            initialItems={database.milestonesRoles ?? []}
+            initialItems={(database.milestonesRoles as Snowflake[] | null) ?? []}
             items={roles}
             limit={milestonesRolesLimit}
             onSelect={(r) => addChange('milestonesRoles', r)}

@@ -1,29 +1,46 @@
-import { gql } from '@apollo/client';
-import type { Snowflake } from 'discord-api-types/v8';
+import type { Snowflake } from 'discord-api-types';
+import { graphql } from 'relay-runtime';
 
-import type { DatabaseGuild as FullDatabaseGuild, Multiplier } from '../queries/DashboardGuild';
+import type { DatabaseGuildChanges } from '../../__generated__/updateDatabaseGuildMutation.graphql';
 
-type DatabaseGuildWithoutXpMultipliersId = Omit<FullDatabaseGuild, 'xpMultipliers'> & {
-  xpMultipliers: Omit<Multiplier, '_id'>[];
-};
+export type DatabaseChanges = Omit<DatabaseGuildChanges, 'xpRoles'> & { xpRoles: Record<string, Snowflake[]> };
 
-interface DatabaseGuild {
-  _id: Snowflake;
-}
-
-export interface UpdateDatabaseGuild {
-  updateDatabase: DatabaseGuild;
-}
-
-export interface UpdateDatabaseGuildVariables {
-  id: Snowflake;
-  data: Partial<DatabaseGuildWithoutXpMultipliersId>;
-}
-
-export default gql`
-  mutation updateDatabaseGuild($id: String!, $data: DatabaseGuildChanges!) {
+export default graphql`
+  mutation updateDatabaseGuildMutation($id: String!, $data: DatabaseGuildChanges!) {
     updateDatabase(id: $id, changes: $data) {
-      _id
+      autoPublishChannels
+      autoResetLevels
+      autoRole
+      autoRoleTimeout
+      blacklistedChannels
+      emojiList
+      emojiListChannel
+      levels
+      mentionCooldown
+      mentionCooldownRoles
+      milestonesChannel
+      milestonesInterval
+      milestonesMessage
+      milestonesRoles
+      noXpRoles
+      prefix
+      premium
+      prioritiseMultiplierRoleHierarchy
+      stackXpRoles
+      storeCounts
+      storeMilestones
+      topXpRole
+      xpBlacklistedChannels
+      xpMessage
+      xpMultipliers {
+        _id
+        multiplier
+        targets
+        type
+      }
+      xpResponseType
+      xpRoles
+      xpWhitelistedChannels
     }
   }
 `;

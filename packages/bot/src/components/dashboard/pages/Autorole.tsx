@@ -1,7 +1,8 @@
+import type { Snowflake } from 'discord-api-types';
 import { useContext, useEffect } from 'react';
 
 import { GuildContext } from '../../../contexts/GuildContext';
-import type { DatabaseGuild, Role } from '../../../graphql/queries/DashboardGuild';
+import type { DashboardDatabaseGuild, DashboardRoles } from '../../../graphql/queries/DashboardGuild';
 import { formatNumberToNDecimalPlaces, getDatabaseLimit, parseFloatStrict } from '../../../utils/utils';
 import Field from '../../form/Field';
 import Fieldset from '../../form/Fieldset';
@@ -12,8 +13,8 @@ import Subtitle from '../../form/Subtitle';
 import Header from '../Header';
 
 interface AutoroleProps {
-  database: DatabaseGuild;
-  roles: Role[];
+  database: DashboardDatabaseGuild;
+  roles: DashboardRoles;
   openMenu(): void;
 }
 
@@ -45,7 +46,7 @@ export default function Autorole({ database, roles, openMenu }: AutoroleProps) {
           <Selector
             id="autoRole"
             limit={autoRoleLimit}
-            initialItems={database.autoRole ?? []}
+            initialItems={(database.autoRole as Snowflake[] | null) ?? []}
             items={roles}
             onSelect={(r) => addChange('autoRole', r)}
             type="role"

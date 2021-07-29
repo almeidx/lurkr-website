@@ -2,40 +2,37 @@ import type { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from 'ne
 import Head from 'next/head';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
+import { fetchQuery } from 'relay-runtime';
 
+import type { GuildLevelsQuery } from '../../__generated__/GuildLevelsQuery.graphql';
 import Failure from '../../components/Failure';
 import Role from '../../components/leaderboard/Role';
 import User from '../../components/leaderboard/User';
 import Spinner from '../../components/Spinner';
-import { initializeApollo } from '../../graphql/client';
-import GUILD_LEVELS, { GuildLevels, GuildLevelsVariables, Levels } from '../../graphql/queries/GuildLevels';
+import GuildLevels, { DiscordGuild, GuildLevelsUserInfo, Levels } from '../../graphql/queries/GuildLevels';
+import environment from '../../relay/environment';
 import { guildIconCdn } from '../../utils/cdn';
 import { FALLBACK_AVATAR_PATH } from '../../utils/constants';
 import { isValidSnowflake } from '../../utils/utils';
 
 interface LeaderboardProps {
-  guild: GuildLevels['getDiscordGuild'];
-  levels: Levels['levels'] | null;
+  guild: DiscordGuild;
+  levels: GuildLevelsUserInfo[] | null;
   roles: Levels['roles'];
 }
 
 export const getStaticProps: GetStaticProps<LeaderboardProps> = async (ctx) => {
   if (typeof ctx.params?.id !== 'string' || !isValidSnowflake(ctx.params.id)) return { notFound: true };
 
-  const apolloClient = initializeApollo(null);
-
-  const { data } = await apolloClient.query<GuildLevels, GuildLevelsVariables>({
-    query: GUILD_LEVELS,
-    variables: { id: ctx.params.id },
-  });
-
-  if (!data.getDiscordGuild) return { notFound: true };
+  const env = environment();
+  const data = await fetchQuery<GuildLevelsQuery>(env, GuildLevels, { id: ctx.params.id }).toPromise();
+  if (!data) return { notFound: true };
 
   return {
     props: {
-      guild: data.getDiscordGuild,
-      levels: data.getGuildLevels ? [...data.getGuildLevels.levels] : null,
-      roles: data.getGuildLevels?.roles ? [...data.getGuildLevels.roles] : null,
+      guild: data.getDiscordGuild as DiscordGuild,
+      levels: data.getGuildLevels ? ([...data.getGuildLevels.levels] as GuildLevelsUserInfo[]) : null,
+      roles: data.getGuildLevels?.roles ? ([...data.getGuildLevels.roles] as Levels['roles']) : null,
     },
   };
 };
@@ -53,6 +50,7 @@ export default function Leaderboard({ guild, levels, roles }: InferGetStaticProp
     );
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (!guild || !levels?.length) {
     return (
       <Failure message="The guild you're trying to view either does not have the leveling system enabled or has no leveling entries." />

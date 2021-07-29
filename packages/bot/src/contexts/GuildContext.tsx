@@ -2,7 +2,8 @@ import type { Snowflake } from 'discord-api-types';
 import cloneDeep from 'lodash.clonedeep';
 import { createContext, ReactNode, useCallback, useState } from 'react';
 
-import type { DatabaseGuild } from '../graphql/queries/DashboardGuild';
+import type { DatabaseChanges } from '../graphql/mutations/updateDatabaseGuild';
+import type { DashboardDatabaseGuild } from '../graphql/queries/DashboardGuild';
 import { DATABASE_LIMITS } from '../utils/constants';
 
 export type Section =
@@ -14,9 +15,9 @@ export type Section =
   | 'mentionCooldown'
   | 'miscellaneous';
 
-const emojiListKeys: (keyof DatabaseGuild)[] = ['emojiListChannel'];
+const emojiListKeys: (keyof DatabaseChanges)[] = ['emojiListChannel'];
 
-const levelingKeys: (keyof DatabaseGuild)[] = [
+const levelingKeys: (keyof DatabaseChanges)[] = [
   'noXpRoles',
   'stackXpRoles',
   'topXpRole',
@@ -27,7 +28,7 @@ const levelingKeys: (keyof DatabaseGuild)[] = [
   'xpWhitelistedChannels',
 ];
 
-const milestonesKeys: (keyof DatabaseGuild)[] = [
+const milestonesKeys: (keyof DatabaseChanges)[] = [
   'milestonesChannel',
   'milestonesInterval',
   'milestonesMessage',
@@ -35,15 +36,15 @@ const milestonesKeys: (keyof DatabaseGuild)[] = [
 ];
 
 interface GuildContextData {
-  addChange: <T extends keyof DatabaseGuild>(key: T, value: DatabaseGuild[T]) => void;
-  changes: Partial<DatabaseGuild>;
+  addChange: <T extends keyof DatabaseChanges>(key: T, value: DatabaseChanges[T]) => void;
+  changes: Partial<DatabaseChanges>;
   clearChanges: () => void;
-  data: DatabaseGuild | null;
+  data: DatabaseChanges | null;
   errors: string[];
   guildId: Snowflake | null;
-  removeChange: (key: keyof DatabaseGuild) => void;
+  removeChange: (key: keyof DatabaseChanges) => void;
   section: Section;
-  updateData: (newData: DatabaseGuild) => void;
+  updateData: (newData: DashboardDatabaseGuild) => void;
   updateGuildId: (newId: Snowflake) => void;
   updateSection: (newSection: Section) => void;
   warnings: string[];
@@ -58,12 +59,12 @@ export const GuildContext = createContext({} as GuildContextData);
 export default function GuildContextProvider({ children }: GuildContextProps) {
   const [guildId, setGuildId] = useState<Snowflake | null>(null);
   const [section, setSection] = useState<Section>('general');
-  const [changes, setChanges] = useState<Partial<DatabaseGuild>>({});
-  const [data, setData] = useState<DatabaseGuild | null>(null);
+  const [changes, setChanges] = useState<Partial<DatabaseChanges>>({});
+  const [data, setData] = useState<DashboardDatabaseGuild | null>(null);
   const [errors, setErrors] = useState<string[]>([]);
   const [warnings, setWarnings] = useState<string[]>([]);
 
-  const updateErrorsAndWarnings = useCallback((changes: Partial<DatabaseGuild>, data: DatabaseGuild | null) => {
+  const updateErrorsAndWarnings = useCallback((changes: Partial<DatabaseChanges>, data: DatabaseChanges | null) => {
     if (!Object.keys(changes).length) {
       setErrors([]);
       setWarnings([]);
@@ -151,8 +152,8 @@ export default function GuildContextProvider({ children }: GuildContextProps) {
   }, []);
 
   const addChange = useCallback(
-    <T extends keyof DatabaseGuild>(key: T, value: DatabaseGuild[T]) => {
-      const clone = cloneDeep<Partial<DatabaseGuild>>(changes);
+    <T extends keyof DatabaseChanges>(key: T, value: DatabaseChanges[T]) => {
+      const clone = cloneDeep<Partial<DatabaseChanges>>(changes);
 
       if (
         data &&
@@ -178,8 +179,8 @@ export default function GuildContextProvider({ children }: GuildContextProps) {
   );
 
   const removeChange = useCallback(
-    (key: keyof DatabaseGuild) => {
-      const clone = cloneDeep<Partial<DatabaseGuild>>(changes);
+    (key: keyof DatabaseChanges) => {
+      const clone = cloneDeep<Partial<DatabaseChanges>>(changes);
 
       if (key in clone) {
         // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
