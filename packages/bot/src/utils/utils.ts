@@ -78,10 +78,10 @@ export const getDatabaseLimit = <
   return DATABASE_LIMITS[key];
 };
 
-export const removeNonStringProperties = (obj: Record<string, any>): Record<string, string> =>
+export const removeNonStringValues = (obj: Record<string, any>): Record<string, string> =>
   Object.keys(obj)
     .filter((k) => typeof obj[k] === 'string')
     .reduce((acc, k) => {
       acc[k] = obj[k];
       return acc;
-    }, {} as any);
+    }, {} as Record<string, string>);

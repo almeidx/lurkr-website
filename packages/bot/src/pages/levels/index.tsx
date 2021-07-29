@@ -9,16 +9,12 @@ import Input from '../../components/form/Input';
 import Guild from '../../components/Guild';
 import UserGuilds from '../../graphql/queries/UserGuilds';
 import environment from '../../relay/environment';
-import { CorrectSnowflakeTypes, DeepMutable, isValidSnowflake, removeNonStringProperties } from '../../utils/utils';
+import { CorrectSnowflakeTypes, DeepMutable, isValidSnowflake, removeNonStringValues } from '../../utils/utils';
 
 type Guilds = CorrectSnowflakeTypes<DeepMutable<UserGuildsQueryResponse['getUserGuilds']>>;
 
-export const getServerSideProps: GetServerSideProps<{
-  guilds: Guilds;
-}> = async (ctx) => {
-  ctx.req.headers.accept = '';
-
-  const env = environment(undefined, removeNonStringProperties(ctx.req.headers));
+export const getServerSideProps: GetServerSideProps<{ guilds: Guilds }> = async (ctx) => {
+  const env = environment(undefined, removeNonStringValues(ctx.req.headers));
   const data = await fetchQuery<UserGuildsQuery>(env, UserGuilds, { withPermissions: false }).toPromise();
   if (!data) return { notFound: true };
 

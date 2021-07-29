@@ -18,7 +18,7 @@ import DashboardGuild, {
   DashboardDiscordGuild,
 } from '../../graphql/queries/DashboardGuild';
 import environment from '../../relay/environment';
-import { isValidSnowflake, removeNonStringProperties } from '../../utils/utils';
+import { isValidSnowflake, removeNonStringValues } from '../../utils/utils';
 
 const General = lazy(() => import('../../components/dashboard/pages/General'));
 const Autorole = lazy(() => import('../../components/dashboard/pages/Autorole'));
@@ -38,9 +38,7 @@ interface GuildProps {
 export const getServerSideProps: GetServerSideProps<GuildProps> = async (ctx) => {
   if (typeof ctx.params?.id !== 'string' || !isValidSnowflake(ctx.params.id)) return { notFound: true };
 
-  ctx.req.headers.accept = '';
-
-  const env = environment(undefined, removeNonStringProperties(ctx.req.headers));
+  const env = environment(undefined, removeNonStringValues(ctx.req.headers));
   const data = await fetchQuery<DashboardGuildQuery>(env, DashboardGuild, { id: ctx.params.id }).toPromise();
   if (!data) return { notFound: true };
 

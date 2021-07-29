@@ -10,12 +10,14 @@ import Guild from '../../components/Guild';
 import { UserContext } from '../../contexts/UserContext';
 import UserGuilds from '../../graphql/queries/UserGuilds';
 import environment from '../../relay/environment';
-import { removeNonStringProperties } from '../../utils/utils';
+import { removeNonStringValues } from '../../utils/utils';
 
-export const getServerSideProps: GetServerSideProps<{ guilds: UserGuildsQueryResponse['getUserGuilds'] }> = async (
-  ctx,
-) => {
-  const env = environment(undefined, removeNonStringProperties(ctx.req.headers));
+interface GuildsProps {
+  guilds: UserGuildsQueryResponse['getUserGuilds'];
+}
+
+export const getServerSideProps: GetServerSideProps<GuildsProps> = async (ctx) => {
+  const env = environment(undefined, removeNonStringValues(ctx.req.headers));
   const res = await fetchQuery<UserGuildsQuery>(env, UserGuilds, { withPermissions: true }).toPromise();
 
   return {
