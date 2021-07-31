@@ -31,4 +31,9 @@ module.exports = {
       },
     ];
   },
+  webpack: (config) => {
+    config.optimization.minimize = false;
+    config.optimization.minimizer = [];
+    return config;
+  },
 };
