@@ -45,15 +45,6 @@ enum ResponseType {
   SAME_CHANNEL = 'channel',
 }
 
-const resolveXpResponseNameByType = (type: ResponseType) =>
-  type === ResponseType.CHANNEL
-    ? 'Custom Channel'
-    : type === ResponseType.DM
-    ? 'DM'
-    : type === ResponseType.NONE
-    ? 'None'
-    : 'Same Channel';
-
 const resolveXpResponseTypeByName = (name: string) =>
   name === 'Custom Channel'
     ? ResponseType.CHANNEL
@@ -62,6 +53,22 @@ const resolveXpResponseTypeByName = (name: string) =>
     : name === 'None'
     ? ResponseType.NONE
     : ResponseType.SAME_CHANNEL;
+
+const resolveInitialXpResponseType = (database: DashboardDatabaseGuild) =>
+  database.xpResponseType
+    ? /^\d+$/.test(database.xpResponseType)
+      ? 'Custom Channel'
+      : database.xpResponseType === 'dm'
+      ? 'DM'
+      : 'Same Channel'
+    : 'None';
+
+const resolveInitialXpResponseTypeValue = (database: DashboardDatabaseGuild) =>
+  database.xpResponseType
+    ? /^\d+$/.test(database.xpResponseType)
+      ? ResponseType.CHANNEL
+      : database.xpResponseType
+    : ResponseType.NONE;
 
 const resolveAutoResetLevelsNameByType = (type: AutoResetLevels) =>
   type === AutoResetLevels.BAN
@@ -80,22 +87,6 @@ const resolveAutoResetLevelsTypeByName = (name: string) =>
     : name === 'Leave'
     ? AutoResetLevels.LEAVE
     : AutoResetLevels.NONE;
-
-const resolveInitialXpResponseType = (database: DashboardDatabaseGuild) =>
-  database.xpResponseType
-    ? /^\d+$/.test(database.xpResponseType)
-      ? ResponseType.CHANNEL
-      : database.xpResponseType === 'dm'
-      ? ResponseType.DM
-      : ResponseType.SAME_CHANNEL
-    : ResponseType.NONE;
-
-const resolveInitialXpResponseTypeValue = (database: DashboardDatabaseGuild) =>
-  database.xpResponseType
-    ? /^\d+$/.test(database.xpResponseType)
-      ? ResponseType.CHANNEL
-      : database.xpResponseType
-    : ResponseType.NONE;
 
 const resolveInitialXpResponseChannel = (database: DashboardDatabaseGuild): Snowflake[] =>
   database.xpResponseType ? (/^\d+$/.test(database.xpResponseType) ? [database.xpResponseType as Snowflake] : []) : [];
@@ -270,7 +261,7 @@ export default function Leveling({ channels, database, roles, openMenu }: Leveli
             <div className="w-full lg:w-1/2">
               <BasicSelect
                 closeOnSelect
-                initialItem={resolveXpResponseNameByType(resolveInitialXpResponseType(database))}
+                initialItem={resolveInitialXpResponseType(database)}
                 items={['Same Channel', 'DM', 'Custom Channel', 'None']}
                 onSelect={(i) => {
                   const type = resolveXpResponseTypeByName(i);
