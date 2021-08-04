@@ -40,11 +40,21 @@ export default function Home({ emojiCount, guilds, otherGuilds }: InferGetStatic
   const [searchTerm, setSearchTerm] = useState('');
   const [isTimeoutRunning, setIsTimeoutRunning] = useState(false);
   const [isSearchLoading, setIsSearchLoading] = useState(false);
+  const [otherRequestedEmojis, setOtherRequestedEmojis] = useState<FindEmojis['findEmojis']>([]);
+  const [otherSearchTerm, setOtherSearchTerm] = useState('');
+  const [isOtherTimeoutRunning, setIsOtherTimeoutRunning] = useState(false);
+  const [isOtherSearchLoading, setIsOtherSearchLoading] = useState(false);
 
   const cancelSearch = () => {
     setIsSearchLoading(false);
     setSearchTerm('');
     setRequestedEmojis([]);
+  };
+
+  const cancelOtherSearch = () => {
+    setIsOtherSearchLoading(false);
+    setOtherSearchTerm('');
+    setOtherRequestedEmojis([]);
   };
 
   useEffect(() => {
@@ -82,6 +92,42 @@ export default function Home({ emojiCount, guilds, otherGuilds }: InferGetStatic
       clearTimeout(typingTimeout);
     };
   }, [searchTerm]);
+
+  useEffect(() => {
+    if (!otherSearchTerm) {
+      cancelOtherSearch();
+      return () => void 0;
+    }
+
+    setIsOtherTimeoutRunning(true);
+    const typingTimeout = setTimeout(() => {
+      setIsOtherTimeoutRunning(false);
+      if (otherSearchTerm) {
+        setOtherRequestedEmojis([]);
+        setIsOtherSearchLoading(true);
+
+        const apolloClient = initializeApollo();
+        apolloClient
+          .query<FindEmojis>({
+            query: FIND_EMOJIS,
+            variables: { other: true, query: otherSearchTerm },
+          })
+          .then(({ data }) => {
+            setIsOtherSearchLoading(false);
+            setOtherRequestedEmojis(data.findEmojis);
+          })
+          .catch(() => {
+            setIsOtherSearchLoading(false);
+            setOtherRequestedEmojis([]);
+          });
+      }
+    }, 750);
+
+    return () => {
+      setIsOtherTimeoutRunning(false);
+      clearTimeout(typingTimeout);
+    };
+  }, [otherSearchTerm]);
 
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
@@ -135,6 +181,28 @@ export default function Home({ emojiCount, guilds, otherGuilds }: InferGetStatic
       </div>
 
       <h2 className="text-white text-2xl sm:text-3xl my-6 font-bold">Other official Emoji servers</h2>
+
+      <Input
+        className="my-5"
+        id="otherSearchTerm"
+        maxLength={32}
+        onChange={(e) => setOtherSearchTerm(e.target.value)}
+        onClear={() => cancelOtherSearch()}
+        placeholder="Search for other Emojis"
+        value={otherSearchTerm}
+      />
+
+      <section className="flex flex-row flex-wrap max-w-2xl gap-2 mb-6">
+        {isOtherSearchLoading && <Spinner />}
+
+        {otherRequestedEmojis.length !== 0
+          ? otherRequestedEmojis.map(({ id, invite, name }) => (
+              <Emoji animated={name.startsWith('a')} key={id} invite={invite} id={id} name={name} />
+            ))
+          : otherSearchTerm &&
+            !isOtherSearchLoading &&
+            !isOtherTimeoutRunning && <p className="text-white">Could not find anything</p>}
+      </section>
 
       <div className="flex flex-col flex-wrap lg:grid lg:grid-row-2 lg:grid-cols-2 gap-3 lg:place-items-center mb-8">
         {otherGuilds.map(({ icon, id, invite, memberCount, name }, i) => (

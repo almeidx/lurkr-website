@@ -13,8 +13,8 @@ export interface FindEmojis {
 }
 
 export default gql`
-  query findEmojis($query: String!) {
-    findEmojis(query: $query) {
+  query findEmojis($query: String!, $other: Boolean! = false) {
+    findEmojis(query: $query, other: $other) {
       animated
       id
       invite
