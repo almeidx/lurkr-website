@@ -93,7 +93,7 @@ export default function Navbar() {
                 </div>
               ) : (
                 <button
-                  className="text-white px-2 py-1 mx-2 md:ml-auto md:mx-0 bg-blurple rounded-md shadow-md flex flex-row justify-center items-center gap-2 duration-150 hover:bg-lighter-blurple focus:outline-none mt-6 md:mt-0"
+                  className="text-white px-2 py-1 mx-2 md:ml-auto md:mx-0 rounded-md shadow-md flex flex-row justify-center items-center gap-2 bg-blurple hover:bg-[#414AB9] transition-colors duration-100  focus:outline-none mt-6 md:mt-0"
                   onClick={() => window.open(`${API_BASE_URL}/auth`, '_self')}
                 >
                   Sign in

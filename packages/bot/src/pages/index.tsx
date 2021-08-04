@@ -4,6 +4,16 @@ import Link from 'next/link';
 import Showcase from '../components/Showcase';
 import { showcases } from '../utils/constants';
 
+interface ButtonData {
+  path: string;
+  text: string;
+}
+
+const buttons: ButtonData[] = [
+  { path: '/invite', text: 'Invite the bot' },
+  { path: '/guilds', text: 'Go to Dashboard' },
+];
+
 export default function Home() {
   return (
     <div className="bg-discord-dark min-h-screen flex items-center flex-col">
@@ -17,12 +27,13 @@ export default function Home() {
         </p>
 
         <div className="flex flex-row justify-center items-center gap-4">
-          <Link href="/invite">
-            <a className="w-40 px-3 py-2 bg-blurple rounded-md text-white flex justify-center">Invite the bot</a>
-          </Link>
-          <Link href="/guilds">
-            <a className="w-40 px-3 py-2 bg-blurple rounded-md text-white flex justify-center">Go to Dashboard</a>
-          </Link>
+          {buttons.map(({ path, text }, i) => (
+            <Link href={path} key={i}>
+              <a className="w-40 px-3 py-2 bg-blurple hover:bg-[#414AB9] transition-colors duration-100 rounded-md text-white flex justify-center">
+                {text}
+              </a>
+            </Link>
+          ))}
         </div>
       </header>
 
