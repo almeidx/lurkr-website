@@ -62,12 +62,12 @@ export default function XpMultiplier({
         </div>
       </div>
 
-      {type !== 'global' && (
+      {type !== 'global' && targets && (
         <div className="w-full mx-2">
           <Selector
             id={`m-${id}-selector`}
             limit={getDatabaseLimit('xpMultiplierTargets', premium).maxLength}
-            initialItems={targets!}
+            initialItems={targets}
             items={type === 'channel' ? channels : roles}
             onSelect={(i) => onItemChange(i, id)}
             type={type}

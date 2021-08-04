@@ -42,7 +42,6 @@ interface GuildContextData {
   data: DatabaseChanges | null;
   errors: string[];
   guildId: Snowflake | null;
-  removeChange: (key: keyof DatabaseChanges) => void;
   section: Section;
   updateData: (newData: DashboardDatabaseGuild) => void;
   updateGuildId: (newId: Snowflake) => void;
@@ -159,11 +158,11 @@ export default function GuildContextProvider({ children }: GuildContextProps) {
         data &&
         (data[key] === value ||
           (Array.isArray(value) && !value.length && data[key] === null) ||
+          (Array.isArray(data[key]) && !(data[key] as any[]).length && value === null) ||
           (data[key] === null && value === 0) ||
           (data[key] === 0 && value === null))
       ) {
         if (key in clone) {
-          // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
           delete clone[key];
           setChanges(clone);
           updateErrorsAndWarnings(clone, data);
@@ -176,19 +175,6 @@ export default function GuildContextProvider({ children }: GuildContextProps) {
       updateErrorsAndWarnings(clone, data);
     },
     [changes, data, updateErrorsAndWarnings],
-  );
-
-  const removeChange = useCallback(
-    (key: keyof DatabaseChanges) => {
-      const clone = cloneDeep<Partial<DatabaseChanges>>(changes);
-
-      if (key in clone) {
-        // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
-        delete clone[key];
-        setChanges(clone);
-      }
-    },
-    [changes],
   );
 
   const clearChanges = useCallback(() => setChanges({}), []);
@@ -210,7 +196,6 @@ export default function GuildContextProvider({ children }: GuildContextProps) {
         data,
         errors,
         guildId,
-        removeChange,
         section,
         updateData: setData,
         updateGuildId,

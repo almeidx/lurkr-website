@@ -32,6 +32,11 @@ module.exports = {
         permanent: true,
         source: '/docs',
       },
+      {
+        destination: 'https://www.youtube.com/playlist?list=PLeDA5I-uV0EcC1FDT6JufwxMjBun9iMx2',
+        permanent: true,
+        source: '/tutorials',
+      },
     ];
   },
   /**

@@ -3,7 +3,6 @@ import cloneDeep from 'lodash.clonedeep';
 import { MouseEventHandler, useCallback, useContext, useEffect, useRef, useState } from 'react';
 import { BiLayerPlus } from 'react-icons/bi';
 
-import type { DatabaseGuildChanges } from '../../../__generated__/updateDatabaseGuildMutation.graphql';
 import { GuildContext } from '../../../contexts/GuildContext';
 import {
   AutoResetLevels,
@@ -86,6 +85,15 @@ const resolveInitialXpResponseType = (database: DashboardDatabaseGuild) =>
   database.xpResponseType
     ? /^\d+$/.test(database.xpResponseType)
       ? ResponseType.CHANNEL
+      : database.xpResponseType === 'dm'
+      ? ResponseType.DM
+      : ResponseType.SAME_CHANNEL
+    : ResponseType.NONE;
+
+const resolveInitialXpResponseTypeValue = (database: DashboardDatabaseGuild) =>
+  database.xpResponseType
+    ? /^\d+$/.test(database.xpResponseType)
+      ? ResponseType.CHANNEL
       : database.xpResponseType
     : ResponseType.NONE;
 
@@ -107,14 +115,14 @@ export default function Leveling({ channels, database, roles, openMenu }: Leveli
   const [xpMultipliers, setXpMultipliers] = useState<MultiplierWithStringValue[]>(
     database.xpMultipliers.map((m) => ({ ...m, multiplier: m.multiplier.toString() })),
   );
-  const [xpResponseType, setXpResponseType] = useState<string>(resolveInitialXpResponseType(database));
+  const [xpResponseType, setXpResponseType] = useState<string>(resolveInitialXpResponseTypeValue(database));
   const [xpChannelsType, setXpChannelsType] = useState<'whitelist' | 'blacklist'>(
     database.xpBlacklistedChannels ? 'blacklist' : 'whitelist',
   );
   const [newXpMultiplierType, setNewXpMultiplierType] = useState<Multiplier['type']>('channel');
   const [newXpRolesLevel, setNewXpRolesLevel] = useState<string>('');
   const newXpRoleSubmitRef = useRef<HTMLButtonElement>(null);
-  const { addChange, changes, removeChange } = useContext(GuildContext);
+  const { addChange } = useContext(GuildContext);
 
   const xpMessageLimit = getDatabaseLimit('xpMessage', database.premium).maxLength;
   const xpChannelsLimit = getDatabaseLimit('xpChannels', database.premium).maxLength;
@@ -149,7 +157,6 @@ export default function Leveling({ channels, database, roles, openMenu }: Leveli
       const clone = cloneDeep<Record<string, Snowflake[]>>(xpRoles);
 
       if (roleIds.length) clone[level] = roleIds;
-      // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
       else delete clone[level];
 
       setXpRoles(clone);
@@ -162,16 +169,14 @@ export default function Leveling({ channels, database, roles, openMenu }: Leveli
     const currentType = `${xpChannelsType}` as const;
     setXpChannelsType(currentType === 'blacklist' ? 'whitelist' : 'blacklist');
 
-    const clone = cloneDeep<Partial<DatabaseGuildChanges>>(changes);
-
     if (currentType === 'blacklist') {
-      if ('xpBlacklistedChannels' in clone) removeChange('xpBlacklistedChannels');
+      addChange('xpBlacklistedChannels', null);
       return addChange('xpWhitelistedChannels', xpChannels);
     }
 
-    if ('xpWhitelistedChannels' in clone) removeChange('xpWhitelistedChannels');
+    addChange('xpWhitelistedChannels', null);
     addChange('xpBlacklistedChannels', xpChannels);
-  }, [addChange, changes, removeChange, xpChannels, xpChannelsType]);
+  }, [addChange, xpChannels, xpChannelsType]);
 
   const handleXpMultiplierDelete: XpMultiplierOnDeleteFn = useCallback(
     (id) => {
@@ -265,7 +270,7 @@ export default function Leveling({ channels, database, roles, openMenu }: Leveli
             <div className="w-full lg:w-1/2">
               <BasicSelect
                 closeOnSelect
-                initialItem={resolveXpResponseNameByType(ResponseType.SAME_CHANNEL)}
+                initialItem={resolveXpResponseNameByType(resolveInitialXpResponseType(database))}
                 items={['Same Channel', 'DM', 'Custom Channel', 'None']}
                 onSelect={(i) => {
                   const type = resolveXpResponseTypeByName(i);
@@ -457,9 +462,11 @@ export default function Leveling({ channels, database, roles, openMenu }: Leveli
           <Selector
             id="xpChannels"
             initialItems={
-              (database.xpBlacklistedChannels as Snowflake[] | null) ??
-              (database.xpWhitelistedChannels as Snowflake[] | null) ??
-              []
+              database.xpBlacklistedChannels?.length
+                ? (database.xpBlacklistedChannels as Snowflake[])
+                : database.xpWhitelistedChannels?.length
+                ? (database.xpWhitelistedChannels as Snowflake[])
+                : []
             }
             items={channels}
             limit={xpChannelsLimit}
