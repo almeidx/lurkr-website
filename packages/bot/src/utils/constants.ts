@@ -194,7 +194,7 @@ export const MAX_SNOWFLAKE = BigInt('0b11111111111111111111111111111111111111111
 
 export const FALLBACK_AVATAR_PATH = '/static/fallback-avatar.png';
 
-export const DEFAULT_ROLE_COLOUR = '#b9bbbe';
+export const DEFAULT_ROLE_COLOUR = 'rgb(185, 187, 190)';
 
 /**
  * Gets the XP required to achieve a level

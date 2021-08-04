@@ -6,8 +6,6 @@ import { API_BASE_URL } from '../utils/constants';
 export default function environment(records?: RecordMap, headers?: Record<string, string>) {
   return new Environment({
     network: Network.create(async (operation, variables) => {
-      console.log(headers);
-
       return fetch(`${API_BASE_URL}/graphql`, {
         body: JSON.stringify({
           query: operation.text,

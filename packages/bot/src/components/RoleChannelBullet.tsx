@@ -1,38 +1,34 @@
 import type { MouseEventHandler } from 'react';
 
-import { DEFAULT_ROLE_COLOUR } from '../utils/constants';
-import { resolveColour } from '../utils/utils';
 interface RoleChannelBulletProps {
   type: string;
-  roleColor?: number;
+  roleColour?: string;
   hoverX?: boolean;
   name: string;
   onClick?: MouseEventHandler<HTMLDivElement>;
 }
 
 export default function RoleChannelBullet({
-  type,
-  roleColor,
   hoverX,
   name,
+  roleColour,
+  type,
   onClick,
   ...props
 }: RoleChannelBulletProps) {
-  const resolvedColor = roleColor ? resolveColour(roleColor) : DEFAULT_ROLE_COLOUR;
-
   return (
     <div
       className={`${
         type === 'role' ? 'role-bullet' : ''
       } flex max-w-[175px] items-center h-6 z-10 border rounded-full text-xs select-none cursor-pointer`}
-      style={{ borderColor: resolvedColor }}
+      style={{ borderColor: roleColour }}
       onClick={onClick}
       {...props}
     >
       {type === 'role' && (
         <>
           {hoverX && <div className="role-x">&times;</div>}
-          <div className="w-3 h-3 ml-[5px] mr-[4px] rounded-full" style={{ backgroundColor: resolvedColor }} />
+          <div className="w-3 h-3 ml-[5px] mr-[4px] rounded-full" style={{ backgroundColor: roleColour }} />
         </>
       )}
 

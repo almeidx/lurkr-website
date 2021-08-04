@@ -104,7 +104,8 @@ export default function Selector({ id, limit, items, initialItems, onSelect, typ
   );
 
   useEffect(() => {
-    const resolvedItems = initialItems
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+    const resolvedItems = (initialItems ?? [])
       .map((i) => resolveItem(items.find((it) => it.id === i) ?? null, type))
       .filter((i): i is Channel | Role => !!i.name);
 
@@ -133,7 +134,7 @@ export default function Selector({ id, limit, items, initialItems, onSelect, typ
             key={i.id}
             name={i.name}
             onClick={handleChannelRemove}
-            roleColor={'color' in i ? i.color : undefined}
+            roleColour={'color' in i ? resolveColour(i.color) : undefined}
             type={type}
           />
         ))}

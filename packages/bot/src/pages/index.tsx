@@ -1,14 +1,13 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-import pepeImg from '../../public/static/avatar.png';
 import Showcase from '../components/Showcase';
 import { showcases } from '../utils/constants';
 
 export default function Home() {
   return (
     <div className="bg-discord-dark min-h-screen flex items-center flex-col">
-      <Image src={pepeImg} width={64} height={64} placeholder="blur" />
+      <Image src="/static/avatar.png" width={64} height={64} />
 
       <header className="py-5 flex flex-col justify-center items-center">
         <h1>Pepe Manager</h1>

@@ -42,11 +42,19 @@ export const parseMultiplier = (phrase: string): number | null => {
   return number;
 };
 
+const hexToRgb = (hex: number) => {
+  const r = (hex >> 16) & 255;
+  const g = (hex >> 8) & 255;
+  const b = hex & 255;
+
+  return `rgb(${r}, ${g}, ${b})`;
+};
+
 /**
  * Returns a hexadecimal colour or its default value if it doesn't exist
  * @param colour The colour number
  */
-export const resolveColour = (colour: number) => (colour ? `#${colour.toString(16)}` : DEFAULT_ROLE_COLOUR);
+export const resolveColour = (colour: number) => (colour ? hexToRgb(colour) : DEFAULT_ROLE_COLOUR);
 
 /**
  * Formats a float number and doesn't keep .00 on round numbers.
