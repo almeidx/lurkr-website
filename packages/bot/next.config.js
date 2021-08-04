@@ -1,4 +1,7 @@
-module.exports = {
+/**
+ * @type {import('next').NextConfig}
+ */
+const nextConfig = {
   poweredByHeader: false,
   reactStrictMode: true,
   redirects() {
@@ -31,10 +34,24 @@ module.exports = {
       },
     ];
   },
-  // webpack: (config) => {
-  //   config.optimization.minimize = false;
-  //   config.optimization.minimizer = [];
-  //   return config;
-  // },
+  /**
+   * @param {import('webpack').Configuration} config
+   */
+  webpack: (config) => {
+    // config.optimization.minimize = false;
+    // config.optimization.minimizer = [];
+
+    config.module.rules.push({
+      test: /\.(png|jpg|mp4)$/,
+      use: [
+        {
+          loader: 'file-loader',
+          options: {},
+        },
+      ],
+    });
+
+    return config;
+  },
   webpack5: false,
 };
