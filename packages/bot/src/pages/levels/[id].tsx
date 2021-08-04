@@ -34,6 +34,7 @@ export const getStaticProps: GetStaticProps<LeaderboardProps> = async (ctx) => {
       levels: data.getGuildLevels ? ([...data.getGuildLevels.levels] as GuildLevelsUserInfo[]) : null,
       roles: data.getGuildLevels?.roles ? ([...data.getGuildLevels.roles] as Levels['roles']) : null,
     },
+    revalidate: 180,
   };
 };
 
