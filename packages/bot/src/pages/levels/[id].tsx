@@ -99,7 +99,7 @@ export default function Leaderboard({
         </section>
 
         {(roles || !!multipliers?.length) && (
-          <div className="flex flex-col gap-4 mb-8 sm:ml-6 justify-center">
+          <div className="flex flex-col gap-4 mb-8 sm:ml-6 items-center">
             {roles && (
               <div className="flex flex-col h-[fit-content] items-center bg-discord-not-quite-black rounded-2xl pb-4 divide-solid divide-gray-400 divide-y-2 min-w-[15rem] max-w-[23rem]">
                 <span className="text-white whitespace-nowrap text-2xl font-medium mx-1 py-3">XP Roles</span>
