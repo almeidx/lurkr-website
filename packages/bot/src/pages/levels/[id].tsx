@@ -6,18 +6,22 @@ import { fetchQuery } from 'relay-runtime';
 
 import type { GuildLevelsQuery } from '../../__generated__/GuildLevelsQuery.graphql';
 import Failure from '../../components/Failure';
+import Multiplier from '../../components/leaderboard/Multiplier';
 import Role from '../../components/leaderboard/Role';
 import User from '../../components/leaderboard/User';
 import Spinner from '../../components/Spinner';
-import GuildLevels, { DiscordGuild, GuildLevelsUserInfo, Levels } from '../../graphql/queries/GuildLevels';
+import type { Multiplier as IMultiplier } from '../../graphql/queries/DashboardGuild';
+import GuildLevels, { Channel, DiscordGuild, GuildLevelsUserInfo, Levels } from '../../graphql/queries/GuildLevels';
 import environment from '../../relay/environment';
 import { guildIconCdn } from '../../utils/cdn';
 import { FALLBACK_AVATAR_PATH } from '../../utils/constants';
 import { isValidSnowflake } from '../../utils/utils';
 
 interface LeaderboardProps {
+  channels: Channel[] | null;
   guild: DiscordGuild;
   levels: GuildLevelsUserInfo[] | null;
+  multipliers: IMultiplier[] | null;
   roles: Levels['roles'];
 }
 
@@ -30,8 +34,10 @@ export const getStaticProps: GetStaticProps<LeaderboardProps> = async (ctx) => {
 
   return {
     props: {
+      channels: data.getDiscordGuildChannels ? [...(data.getDiscordGuildChannels as Channel[])] : null,
       guild: data.getDiscordGuild as DiscordGuild,
       levels: data.getGuildLevels ? ([...data.getGuildLevels.levels] as GuildLevelsUserInfo[]) : null,
+      multipliers: data.getGuildLevels?.multipliers ? [...(data.getGuildLevels.multipliers as IMultiplier[])] : null,
       roles: data.getGuildLevels?.roles ? ([...data.getGuildLevels.roles] as Levels['roles']) : null,
     },
     revalidate: 180,
@@ -40,7 +46,13 @@ export const getStaticProps: GetStaticProps<LeaderboardProps> = async (ctx) => {
 
 export const getStaticPaths: GetStaticPaths = () => ({ fallback: true, paths: [] });
 
-export default function Leaderboard({ guild, levels, roles }: InferGetStaticPropsType<typeof getStaticProps>) {
+export default function Leaderboard({
+  channels,
+  guild,
+  levels,
+  multipliers,
+  roles,
+}: InferGetStaticPropsType<typeof getStaticProps>) {
   const { isFallback } = useRouter();
 
   if (isFallback) {
@@ -80,23 +92,48 @@ export default function Leaderboard({ guild, levels, roles }: InferGetStaticProp
       </header>
 
       <main className="flex flex-col md:flex-row w-full my-4 justify-center sm:justify-between gap-y-6">
-        <section className="w-full rounded-2xl bg-discord-not-quite-black divide-solid divide-gray-400 divide-y-2">
+        <section className="w-full rounded-2xl bg-discord-not-quite-black divide-solid divide-gray-400 divide-y-2 h-[fit-content]">
           {levels.map((user, i) => (
             <User {...user} index={i} key={user.userID} />
           ))}
         </section>
 
-        {roles && (
-          <div className="flex flex-col h-[fit-content] items-center bg-discord-not-quite-black mb-8 rounded-2xl pb-4 divide-solid divide-gray-400 divide-y-2 sm:ml-6">
-            <span className="text-white whitespace-nowrap text-2xl font-medium mx-1 py-4">XP Roles</span>
+        {(roles || !!multipliers?.length) && (
+          <div className="flex flex-col gap-4 mb-8 sm:ml-6 items-center justify-center">
+            {roles && (
+              <div className="flex flex-col h-[fit-content] items-center bg-discord-not-quite-black rounded-2xl pb-4 divide-solid divide-gray-400 divide-y-2 min-w-[5rem] max-w-[23rem]">
+                <span className="text-white whitespace-nowrap text-2xl font-medium mx-1 py-4">XP Roles</span>
 
-            <div className="w-full flex flex-col max-w-lg rounded-lg">
-              {roles
-                .sort((a, b) => a.level - b.level)
-                .map(({ level, roles: levelRoles }) => (
-                  <Role key={level} level={level} roles={levelRoles} />
-                ))}
-            </div>
+                <div className="w-full flex flex-col max-w-lg rounded-lg">
+                  {roles
+                    .sort((a, b) => a.level - b.level)
+                    .map(({ level, roles: levelRoles }) => (
+                      <Role key={level} level={level} roles={levelRoles} />
+                    ))}
+                </div>
+              </div>
+            )}
+
+            {!!multipliers?.length && (
+              <div className="flex flex-col h-[fit-content] items-center bg-discord-not-quite-black rounded-2xl pb-4 divide-solid divide-gray-400 divide-y-2 min-w-[5rem] max-w-[23rem]">
+                <span className="text-white whitespace-nowrap text-2xl font-medium mx-1 py-4">XP Multipliers</span>
+
+                <div className="w-full flex flex-col max-w-lg rounded-lg">
+                  {multipliers
+                    .filter(({ type }) => (type === 'role' ? !!guild.roles : type === 'channel' ? !!channels : true))
+                    .sort((a, b) => a.multiplier - b.multiplier)
+                    .map(({ _id, multiplier, targets, type }) => (
+                      <Multiplier
+                        key={_id}
+                        items={type === 'role' ? guild.roles : type === 'channel' ? channels : null}
+                        multiplier={multiplier}
+                        targets={targets}
+                        type={type}
+                      />
+                    ))}
+                </div>
+              </div>
+            )}
           </div>
         )}
       </main>

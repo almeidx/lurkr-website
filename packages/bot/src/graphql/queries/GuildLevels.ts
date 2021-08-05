@@ -11,6 +11,13 @@ export type Levels = CorrectSnowflakeTypes<DeepMutable<Exclude<GuildLevelsQueryR
 
 export type GuildLevelsUserInfo = Omit<Levels['levels'][0], 'userID'> & { userID: Snowflake };
 
+export type Channel = CorrectSnowflakeTypes<
+  DeepMutable<Exclude<GuildLevelsQueryResponse['getDiscordGuildChannels'], null>[0]>
+>;
+export type Role = CorrectSnowflakeTypes<
+  DeepMutable<Exclude<GuildLevelsQueryResponse['getDiscordGuild'], null>['roles'][0]>
+>;
+
 export interface GuildLevelsRoleInfo {
   id: Snowflake;
   name: string;
@@ -23,6 +30,17 @@ export default graphql`
       id
       icon
       name
+      roles {
+        color
+        id
+        name
+        position
+      }
+    }
+
+    getDiscordGuildChannels(id: $id) {
+      id
+      name
     }
 
     getGuildLevels(id: $id, requireAuth: false) {
@@ -32,6 +50,13 @@ export default graphql`
         tag
         userID
         xp
+      }
+
+      multipliers {
+        _id
+        multiplier
+        targets
+        type
       }
 
       roles {

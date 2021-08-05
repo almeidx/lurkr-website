@@ -11,7 +11,17 @@ export type GuildLevelsQueryResponse = {
         readonly id: string;
         readonly icon: string | null;
         readonly name: string;
+        readonly roles: ReadonlyArray<{
+            readonly color: number;
+            readonly id: string;
+            readonly name: string;
+            readonly position: number;
+        }>;
     } | null;
+    readonly getDiscordGuildChannels: ReadonlyArray<{
+        readonly id: string;
+        readonly name: string;
+    }> | null;
     readonly getGuildLevels: {
         readonly levels: ReadonlyArray<{
             readonly avatar: string | null;
@@ -20,6 +30,12 @@ export type GuildLevelsQueryResponse = {
             readonly userID: string;
             readonly xp: number;
         }>;
+        readonly multipliers: ReadonlyArray<{
+            readonly _id: string;
+            readonly multiplier: number;
+            readonly targets: ReadonlyArray<string> | null;
+            readonly type: string;
+        }> | null;
         readonly roles: ReadonlyArray<{
             readonly level: number;
             readonly roles: ReadonlyArray<{
@@ -45,6 +61,16 @@ query GuildLevelsQuery(
     id
     icon
     name
+    roles {
+      color
+      id
+      name
+      position
+    }
+  }
+  getDiscordGuildChannels(id: $id) {
+    id
+    name
   }
   getGuildLevels(id: $id, requireAuth: false) {
     levels {
@@ -53,6 +79,12 @@ query GuildLevelsQuery(
       tag
       userID
       xp
+    }
+    multipliers {
+      _id
+      multiplier
+      targets
+      type
     }
     roles {
       level
@@ -74,49 +106,57 @@ var v0 = [
     "name": "id"
   }
 ],
-v1 = [
-  {
-    "kind": "Variable",
-    "name": "id",
-    "variableName": "id"
-  },
+v1 = {
+  "kind": "Variable",
+  "name": "id",
+  "variableName": "id"
+},
+v2 = [
+  (v1/*: any*/),
   {
     "kind": "Literal",
     "name": "requireAuth",
     "value": false
   }
 ],
-v2 = {
+v3 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "id",
   "storageKey": null
 },
-v3 = {
+v4 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "name",
   "storageKey": null
 },
-v4 = {
+v5 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "color",
+  "storageKey": null
+},
+v6 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "level",
   "storageKey": null
 },
-v5 = [
+v7 = [
   {
     "alias": null,
-    "args": (v1/*: any*/),
+    "args": (v2/*: any*/),
     "concreteType": "Guild",
     "kind": "LinkedField",
     "name": "getDiscordGuild",
     "plural": false,
     "selections": [
-      (v2/*: any*/),
+      (v3/*: any*/),
       {
         "alias": null,
         "args": null,
@@ -124,13 +164,49 @@ v5 = [
         "name": "icon",
         "storageKey": null
       },
-      (v3/*: any*/)
+      (v4/*: any*/),
+      {
+        "alias": null,
+        "args": null,
+        "concreteType": "Role",
+        "kind": "LinkedField",
+        "name": "roles",
+        "plural": true,
+        "selections": [
+          (v5/*: any*/),
+          (v3/*: any*/),
+          (v4/*: any*/),
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "position",
+            "storageKey": null
+          }
+        ],
+        "storageKey": null
+      }
     ],
     "storageKey": null
   },
   {
     "alias": null,
-    "args": (v1/*: any*/),
+    "args": [
+      (v1/*: any*/)
+    ],
+    "concreteType": "Channel",
+    "kind": "LinkedField",
+    "name": "getDiscordGuildChannels",
+    "plural": true,
+    "selections": [
+      (v3/*: any*/),
+      (v4/*: any*/)
+    ],
+    "storageKey": null
+  },
+  {
+    "alias": null,
+    "args": (v2/*: any*/),
     "concreteType": "Levels",
     "kind": "LinkedField",
     "name": "getGuildLevels",
@@ -151,7 +227,7 @@ v5 = [
             "name": "avatar",
             "storageKey": null
           },
-          (v4/*: any*/),
+          (v6/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -179,12 +255,51 @@ v5 = [
       {
         "alias": null,
         "args": null,
+        "concreteType": "DatabaseXpMultiplier",
+        "kind": "LinkedField",
+        "name": "multipliers",
+        "plural": true,
+        "selections": [
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "_id",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "multiplier",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "targets",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "type",
+            "storageKey": null
+          }
+        ],
+        "storageKey": null
+      },
+      {
+        "alias": null,
+        "args": null,
         "concreteType": "LevelRoles",
         "kind": "LinkedField",
         "name": "roles",
         "plural": true,
         "selections": [
-          (v4/*: any*/),
+          (v6/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -193,15 +308,9 @@ v5 = [
             "name": "roles",
             "plural": true,
             "selections": [
-              (v2/*: any*/),
               (v3/*: any*/),
-              {
-                "alias": null,
-                "args": null,
-                "kind": "ScalarField",
-                "name": "color",
-                "storageKey": null
-              }
+              (v4/*: any*/),
+              (v5/*: any*/)
             ],
             "storageKey": null
           }
@@ -218,7 +327,7 @@ return {
     "kind": "Fragment",
     "metadata": null,
     "name": "GuildLevelsQuery",
-    "selections": (v5/*: any*/),
+    "selections": (v7/*: any*/),
     "type": "Query",
     "abstractKey": null
   },
@@ -227,17 +336,17 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
     "name": "GuildLevelsQuery",
-    "selections": (v5/*: any*/)
+    "selections": (v7/*: any*/)
   },
   "params": {
-    "cacheID": "e927182add104da0225d8eabe014d265",
+    "cacheID": "e402da818c3e480e29e77602b645e747",
     "id": null,
     "metadata": {},
     "name": "GuildLevelsQuery",
     "operationKind": "query",
-    "text": "query GuildLevelsQuery(\n  $id: String!\n) {\n  getDiscordGuild(id: $id, requireAuth: false) {\n    id\n    icon\n    name\n  }\n  getGuildLevels(id: $id, requireAuth: false) {\n    levels {\n      avatar\n      level\n      tag\n      userID\n      xp\n    }\n    roles {\n      level\n      roles {\n        id\n        name\n        color\n      }\n    }\n  }\n}\n"
+    "text": "query GuildLevelsQuery(\n  $id: String!\n) {\n  getDiscordGuild(id: $id, requireAuth: false) {\n    id\n    icon\n    name\n    roles {\n      color\n      id\n      name\n      position\n    }\n  }\n  getDiscordGuildChannels(id: $id) {\n    id\n    name\n  }\n  getGuildLevels(id: $id, requireAuth: false) {\n    levels {\n      avatar\n      level\n      tag\n      userID\n      xp\n    }\n    multipliers {\n      _id\n      multiplier\n      targets\n      type\n    }\n    roles {\n      level\n      roles {\n        id\n        name\n        color\n      }\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '7bd5f5de5d23b1f5e13507ae0822e8e5';
+(node as any).hash = '39363fb656bfb9fa108a1c21ac78bbcb';
 export default node;
