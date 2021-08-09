@@ -12,7 +12,7 @@ const sections: Section[] = [
   {
     links: [
       { href: 'https://discord.gg/pepe', name: 'Discord' },
-      { href: '/bot', name: 'Pepe Manager' },
+      { href: 'https://pepe-is.life', name: 'Pepe Emoji' },
     ],
     title: 'About Us',
   },

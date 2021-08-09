@@ -38,6 +38,9 @@ export const showcases: Omit<ShowcaseProps, 'align'>[] = [
 export const API_BASE_URL =
   process.env.NODE_ENV === 'development' ? 'http://localhost:3333' : 'https://api.pepemanager.com';
 
+export const BOT_API_BASE_URL =
+  process.env.NODE_ENV === 'development' ? 'http://localhost:4444/bot' : 'https://api.pepemanager.com/bot';
+
 export const appleIcons: { href: string; media: string }[] = [
   {
     href: 'icons/apple-splash-2048-2732.png',
