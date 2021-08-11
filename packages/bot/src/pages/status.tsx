@@ -34,14 +34,12 @@ const calculateShardId = (guildId: Snowflake, shards: number): number => Number(
 export const getStaticProps: GetStaticProps<StatusProps> = async () => {
   const response = await axios.get<GetStatsResponse>('/stats', { baseURL: BOT_API_BASE_URL }).catch(() => null);
 
-  console.log(response?.data);
-
   return {
     props: {
       shards: response?.data.shards ?? null,
       totalShards: response?.data.totalShards ?? null,
     },
-    revalidate: 15,
+    revalidate: 5,
   };
 };
 
