@@ -16,7 +16,7 @@ const links: { name: string; requireAuth?: boolean; url: string }[] = [
   { name: 'Calculator', url: '/levels/calculator' },
   { name: 'Tutorials', url: '/tutorials' },
   { name: 'Docs', url: '/docs' },
-  { name: 'Support Server', url: 'https://discord.gg/pepe' },
+  { name: 'Status', url: '/status' },
 ];
 
 export default function Navbar() {
@@ -59,7 +59,7 @@ export default function Navbar() {
                   (!requireAuth || authenticated) && (
                     <li key={i}>
                       <Link href={url}>
-                        <a className="block w-full px-4 md:px-0 font-normal leading-7 text-gray-300 md:text-gray-500 hover:underline">
+                        <a className="block w-full px-4 md:px-0 font-normal leading-7 text-gray-300 md:text-gray-400 hover:underline">
                           {name}
                         </a>
                       </Link>
