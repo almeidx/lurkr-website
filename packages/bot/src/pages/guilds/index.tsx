@@ -1,4 +1,3 @@
-import type { Snowflake } from 'discord-api-types';
 import type { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import Head from 'next/head';
 import { useContext } from 'react';
@@ -48,7 +47,7 @@ export default function Guilds({ guilds }: InferGetServerSidePropsType<typeof ge
 
       <main className="flex flex-row flex-wrap justify-center items-start gap-6 max-w-7xl">
         {guilds.map(({ icon, id, name }) => (
-          <Guild baseRedirectPath="/guilds/" icon={icon} id={id as Snowflake} key={id} name={name} />
+          <Guild baseRedirectPath="/guilds/" icon={icon} id={id} key={id} name={name} />
         ))}
       </main>
     </div>

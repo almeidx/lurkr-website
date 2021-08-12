@@ -1,4 +1,3 @@
-import type { Snowflake } from 'discord-api-types';
 import { useContext, useEffect } from 'react';
 
 import { GuildContext } from '../../../contexts/GuildContext';
@@ -44,7 +43,7 @@ export default function EmojiList({ channels, database, openMenu }: EmojiListPro
             <Selector
               id="emojiListChannel"
               limit={1}
-              initialItems={database.emojiListChannel ? [database.emojiListChannel as Snowflake] : []}
+              initialItems={database.emojiListChannel ? [database.emojiListChannel] : []}
               items={channels}
               onSelect={(c) => addChange('emojiListChannel', c[0] ?? null)}
               type="channel"

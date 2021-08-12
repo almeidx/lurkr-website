@@ -56,7 +56,7 @@ export default function Milestones({ channels, database, roles, openMenu }: Mile
           <div className="max-w-[20rem]">
             <Selector
               id="milestonesChannel"
-              initialItems={database.milestonesChannel ? [database.milestonesChannel as Snowflake] : []}
+              initialItems={database.milestonesChannel ? [database.milestonesChannel] : []}
               items={channels}
               limit={1}
               onSelect={(c) => addChange('milestonesChannel', c[0] ?? null)}

@@ -89,7 +89,7 @@ const resolveAutoResetLevelsTypeByName = (name: string) =>
     : AutoResetLevels.NONE;
 
 const resolveInitialXpResponseChannel = (database: DashboardDatabaseGuild): Snowflake[] =>
-  database.xpResponseType ? (/^\d+$/.test(database.xpResponseType) ? [database.xpResponseType as Snowflake] : []) : [];
+  database.xpResponseType ? (/^\d+$/.test(database.xpResponseType) ? [database.xpResponseType] : []) : [];
 
 const resolveMultiplierValues = (multipliers: MultiplierWithStringValue[]) =>
   multipliers.map((m) => ({ ...m, multiplier: parseMultiplier(m.multiplier) ?? NaN }));
@@ -454,9 +454,9 @@ export default function Leveling({ channels, database, roles, openMenu }: Leveli
             id="xpChannels"
             initialItems={
               database.xpBlacklistedChannels?.length
-                ? (database.xpBlacklistedChannels as Snowflake[])
+                ? database.xpBlacklistedChannels
                 : database.xpWhitelistedChannels?.length
-                ? (database.xpWhitelistedChannels as Snowflake[])
+                ? database.xpWhitelistedChannels
                 : []
             }
             items={channels}
@@ -479,7 +479,7 @@ export default function Leveling({ channels, database, roles, openMenu }: Leveli
           <div className="w-full sm:w-1/2 sm:min-w-[20rem]">
             <Selector
               id="topXpRole"
-              initialItems={database.topXpRole ? [database.topXpRole as Snowflake] : []}
+              initialItems={database.topXpRole ? [database.topXpRole] : []}
               items={roles}
               limit={1}
               onSelect={(r) => addChange('topXpRole', r[0] ?? null)}
