@@ -34,7 +34,7 @@ const resolveItem = (item: Channel | Role | null, type: SelectorProps['type']) =
   type === 'channel'
     ? { id: item?.id, name: item?.name }
     : // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-      ({ color: (item as Role).color, id: item?.id, name: item?.name } as Role);
+      ({ color: (item as Role | null)?.color, id: item?.id, name: item?.name } as Role);
 
 // eslint-disable-next-line @typescript-eslint/no-namespace, @typescript-eslint/no-unused-vars
 declare namespace JSX {

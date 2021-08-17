@@ -59,7 +59,7 @@ export default function Guild({
   guildId,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const [menuOpen, setMenuOpen] = useState<boolean>(true);
-  const { errors, section, updateData, updateGuildId, updateSection, warnings } = useContext(GuildContext);
+  const { changes, errors, section, updateData, updateGuildId, updateSection, warnings } = useContext(GuildContext);
   const { authenticated } = useContext(UserContext);
   const router = useRouter();
 
@@ -68,6 +68,18 @@ export default function Guild({
 
   const sortedChannels = useMemo(() => [...(channels ?? [])].sort((a, b) => a.name.localeCompare(b.name)), [channels]);
   const sortedRoles = useMemo(() => [...(guild?.roles ?? [])].sort((a, b) => b.position - a.position), [guild]);
+
+  useEffect(() => {
+    if (!Object.keys(changes).length) return;
+
+    const handleUnload = (event: BeforeUnloadEvent) => {
+      event.returnValue = 'Changes that you made may not be saved.';
+      return event.returnValue;
+    };
+
+    window.addEventListener('beforeunload', handleUnload);
+    return () => window.removeEventListener('beforeunload', handleUnload);
+  }, [changes]);
 
   useEffect(() => {
     const pageQuery = String(router.query.p);
