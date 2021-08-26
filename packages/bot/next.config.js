@@ -37,6 +37,11 @@ module.exports = {
         permanent: true,
         source: '/tutorials',
       },
+      {
+        destination: 'https://github.com/almeidx/pepe-website',
+        permanent: true,
+        source: '/github',
+      },
     ];
   },
   /**
