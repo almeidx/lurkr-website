@@ -65,7 +65,10 @@ export default function User({ avatar, index, level, tag, userID, xp }: UserProp
 
       {typeof width === 'number' && width >= 648 && (
         <div className="flex flex-row justify-center items-center w-64 bg-discord-dark rounded-full gap-x-4 my-3 relative">
-          <div className="absolute bg-blurple left-0 h-full rounded-full" style={{ width: percentage * 256 }} />
+          <div
+            className="absolute bg-blurple left-0 h-full rounded-full"
+            style={{ width: percentage < 0.2 ? 42 : percentage * 256 }}
+          />
 
           <span className="text-white text-xl z-30">XP • {xp.toLocaleString('en')}</span>
           <span className="text-white text-xl z-30">LVL • {level.toLocaleString('en')}</span>
