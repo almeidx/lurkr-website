@@ -94,6 +94,7 @@ export default function Menu({ closeMenu, guild, menuOpen, premium }: MenuProps)
     try {
       await updateDatabase({ variables: { data: dataForMutation, id: guildId } });
     } catch (error) {
+      // @ts-expect-error
       console.error(error, error.networkError, error.networkError?.result?.errors);
       hasFailed = true;
     } finally {

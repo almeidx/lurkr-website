@@ -76,6 +76,7 @@ export default graphql`
       storeCounts
       storeMilestones
       topXpRole
+      vanity
       xpBlacklistedChannels
       xpMessage
       xpMultipliers {
