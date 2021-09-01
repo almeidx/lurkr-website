@@ -6,6 +6,7 @@ import { createContext, ReactNode, useCallback, useState } from 'react';
 import type { DatabaseChanges } from '../graphql/mutations/updateDatabaseGuild';
 import type { DashboardDatabaseGuild } from '../graphql/queries/DashboardGuild';
 import { API_BASE_URL, DATABASE_LIMITS } from '../utils/constants';
+import { getDatabaseLimit } from '../utils/utils';
 
 export type Section =
   | 'general'
@@ -73,7 +74,7 @@ export default function GuildContextProvider({ children }: GuildContextProps) {
   const addNewError = useCallback((error: string) => setErrors((prevErrors) => [...prevErrors, error]), []);
 
   const updateErrorsAndWarnings = useCallback(
-    (changes: Partial<DatabaseChanges>, data: DatabaseChanges | null) => {
+    (changes: Partial<DatabaseChanges>, data: DashboardDatabaseGuild | null) => {
       if (!Object.keys(changes).length) {
         setErrors([]);
         setWarnings([]);
@@ -82,6 +83,8 @@ export default function GuildContextProvider({ children }: GuildContextProps) {
 
       const newErrors: string[] = [];
       const newWarnings: string[] = [];
+      const getLimit = <K extends keyof typeof DATABASE_LIMITS>(key: K): typeof DATABASE_LIMITS[K] =>
+        getDatabaseLimit(key, data?.premium ?? false);
 
       const validateMinutes = (n: number | null, { min, max }: { min: number; max: number }, keyName: string): void => {
         const minMinutes = min / 60_000;
@@ -97,20 +100,21 @@ export default function GuildContextProvider({ children }: GuildContextProps) {
         arr.length > maxLength && newErrors.push(`The ${keyName} has more than ${maxLength} items`);
 
       if ('autoRoleTimeout' in changes) {
-        validateMinutes(changes.autoRoleTimeout!, DATABASE_LIMITS.autoRoleTimeout, 'auto role timeout');
+        validateMinutes(changes.autoRoleTimeout!, getLimit('autoRoleTimeout'), 'auto role timeout');
       }
 
       if ('mentionCooldown' in changes) {
         if (!changes.mentionCooldown) newErrors.push('The mention cooldown cannot be empty.');
-        else validateMinutes(changes.mentionCooldown, DATABASE_LIMITS.mentionCooldown, 'mention cooldown');
+        else validateMinutes(changes.mentionCooldown, getLimit('mentionCooldown'), 'mention cooldown');
       }
 
       if ('milestonesInterval' in changes) {
+        const milestonesIntervalLimits = getLimit('milestonesInterval');
         if (Number.isNaN(changes.milestonesInterval)) newErrors.push('The milestones interval is not a valid number.');
-        else if (!changes.milestonesInterval || changes.milestonesInterval < DATABASE_LIMITS.milestonesInterval.min) {
-          newErrors.push(`The milestones interval is smaller than ${DATABASE_LIMITS.milestonesInterval.min}.`);
-        } else if (changes.milestonesInterval > DATABASE_LIMITS.milestonesInterval.max) {
-          newErrors.push(`The milestones interval is larger than ${DATABASE_LIMITS.milestonesInterval.max}.`);
+        else if (!changes.milestonesInterval || changes.milestonesInterval < milestonesIntervalLimits.min) {
+          newErrors.push(`The milestones interval is smaller than ${milestonesIntervalLimits.min}.`);
+        } else if (changes.milestonesInterval > milestonesIntervalLimits.max) {
+          newErrors.push(`The milestones interval is larger than ${milestonesIntervalLimits.max}.`);
         }
       }
 
@@ -119,14 +123,11 @@ export default function GuildContextProvider({ children }: GuildContextProps) {
       }
 
       if (typeof changes.vanity === 'string' && changes.vanity !== '') {
-        if (changes.vanity.length < DATABASE_LIMITS.vanity.minLength) {
-          newErrors.push(
-            `The leveling leaderboard vanity is shorter than ${DATABASE_LIMITS.vanity.minLength} characters.`,
-          );
-        } else if (changes.vanity.length > DATABASE_LIMITS.vanity.maxLength) {
-          newErrors.push(
-            `The leveling leaderboard vanity is longer than ${DATABASE_LIMITS.vanity.maxLength} characters.`,
-          );
+        const vanityLimits = getLimit('vanity');
+        if (changes.vanity.length < vanityLimits.minLength) {
+          newErrors.push(`The leveling leaderboard vanity is shorter than ${vanityLimits.minLength} characters.`);
+        } else if (changes.vanity.length > vanityLimits.maxLength) {
+          newErrors.push(`The leveling leaderboard vanity is longer than ${vanityLimits.maxLength} characters.`);
         } else {
           if (vanityAvailabilityTimeout) {
             clearTimeout(vanityAvailabilityTimeout);
@@ -148,8 +149,9 @@ export default function GuildContextProvider({ children }: GuildContextProps) {
         }
       }
 
-      if (changes.xpMessage && changes.xpMessage.length > DATABASE_LIMITS.xpMessage.maxLength) {
-        newErrors.push(`The xp message is longer than ${DATABASE_LIMITS.xpMessage.maxLength} characters.`);
+      const xpMessageLimits = getLimit('xpMessage');
+      if (changes.xpMessage && changes.xpMessage.length > xpMessageLimits.maxLength) {
+        newErrors.push(`The xp message is longer than ${xpMessageLimits.maxLength} characters.`);
       }
 
       if (
