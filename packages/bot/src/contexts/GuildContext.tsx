@@ -1,10 +1,11 @@
+import axios from 'axios';
 import type { Snowflake } from 'discord-api-types';
 import cloneDeep from 'lodash.clonedeep';
 import { createContext, ReactNode, useCallback, useState } from 'react';
 
 import type { DatabaseChanges } from '../graphql/mutations/updateDatabaseGuild';
 import type { DashboardDatabaseGuild } from '../graphql/queries/DashboardGuild';
-import { DATABASE_LIMITS } from '../utils/constants';
+import { API_BASE_URL, DATABASE_LIMITS } from '../utils/constants';
 
 export type Section =
   | 'general'
@@ -14,6 +15,10 @@ export type Section =
   | 'emojiList'
   | 'mentionCooldown'
   | 'miscellaneous';
+
+interface VanityCheckResponse {
+  available: boolean;
+}
 
 const emojiListKeys: (keyof DatabaseChanges)[] = ['emojiListChannel'];
 
@@ -55,6 +60,8 @@ interface GuildContextProps {
 
 export const GuildContext = createContext({} as GuildContextData);
 
+let vanityAvailabilityTimeout: NodeJS.Timeout | undefined;
+
 export default function GuildContextProvider({ children }: GuildContextProps) {
   const [guildId, setGuildId] = useState<Snowflake | null>(null);
   const [section, setSection] = useState<Section>('general');
@@ -63,92 +70,130 @@ export default function GuildContextProvider({ children }: GuildContextProps) {
   const [errors, setErrors] = useState<string[]>([]);
   const [warnings, setWarnings] = useState<string[]>([]);
 
-  const updateErrorsAndWarnings = useCallback((changes: Partial<DatabaseChanges>, data: DatabaseChanges | null) => {
-    if (!Object.keys(changes).length) {
-      setErrors([]);
-      setWarnings([]);
-      return;
-    }
+  const addNewError = useCallback((error: string) => setErrors((prevErrors) => [...prevErrors, error]), []);
 
-    const newErrors: string[] = [];
-    const newWarnings: string[] = [];
-
-    const validateMinutes = (n: number | null, { min, max }: { min: number; max: number }, keyName: string): void => {
-      const minMinutes = min / 60_000;
-      const maxMinutes = max / 60_000;
-      if (Number.isNaN(n)) newErrors.push(`The ${keyName} is not a valid number.`);
-      else if (n) {
-        if (n < minMinutes) newErrors.push(`The ${keyName} is smaller than ${minMinutes}.`);
-        else if (n > maxMinutes) newErrors.push(`The ${keyName} is larger than ${maxMinutes}.`);
-      }
-    };
-
-    const validateArray = (arr: unknown[], maxLength: number, keyName: string) =>
-      arr.length > maxLength && newErrors.push(`The ${keyName} has more than ${maxLength} items`);
-
-    if ('autoRoleTimeout' in changes) {
-      validateMinutes(changes.autoRoleTimeout!, DATABASE_LIMITS.autoRoleTimeout, 'auto role timeout');
-    }
-
-    if ('mentionCooldown' in changes) {
-      if (!changes.mentionCooldown) newErrors.push('The mention cooldown cannot be empty.');
-      else validateMinutes(changes.mentionCooldown, DATABASE_LIMITS.mentionCooldown, 'mention cooldown');
-    }
-
-    if ('milestonesInterval' in changes) {
-      if (Number.isNaN(changes.milestonesInterval)) newErrors.push('The milestones interval is not a valid number.');
-      else if (!changes.milestonesInterval || changes.milestonesInterval < DATABASE_LIMITS.milestonesInterval.min) {
-        newErrors.push(`The milestones interval is smaller than ${DATABASE_LIMITS.milestonesInterval.min}.`);
-      } else if (changes.milestonesInterval > DATABASE_LIMITS.milestonesInterval.max) {
-        newErrors.push(`The milestones interval is larger than ${DATABASE_LIMITS.milestonesInterval.max}.`);
-      }
-    }
-
-    if ('prefix' in changes && (!changes.prefix || changes.prefix.length < 1)) {
-      newErrors.push('The prefix cannot be empty.');
-    }
-
-    if (changes.xpMessage && changes.xpMessage.length > DATABASE_LIMITS.xpMessage.maxLength) {
-      newErrors.push(`The xp message is longer than ${DATABASE_LIMITS.xpMessage.maxLength} characters.`);
-    }
-
-    if (
-      'xpMultipliers' in changes &&
-      changes.xpMultipliers &&
-      changes.xpMultipliers.length > 0 &&
-      changes.xpMultipliers.some(({ multiplier }) => Number.isNaN(multiplier))
-    ) {
-      newErrors.push('One of the XP Multipliers has an invalid multiplier value.');
-    }
-
-    if ('xpMultipliers' in changes && changes.xpMultipliers) {
-      validateArray(changes.xpMultipliers, 5, 'xp multipliers');
-    }
-
-    if ('xpRoles' in changes && changes.xpRoles && Object.values(changes.xpRoles).some((r) => r.length === 0)) {
-      newErrors.push('One of the XP Roles is empty.');
-    }
-
-    if (data) {
-      if (emojiListKeys.some((k) => k in changes) && ('emojiList' in changes ? !changes.emojiList : !data.emojiList)) {
-        newWarnings.push('You have made changes to the emoji list settings but the emoji list module is disabled.');
+  const updateErrorsAndWarnings = useCallback(
+    (changes: Partial<DatabaseChanges>, data: DatabaseChanges | null) => {
+      if (!Object.keys(changes).length) {
+        setErrors([]);
+        setWarnings([]);
+        return;
       }
 
-      if (levelingKeys.some((k) => k in changes) && ('levels' in changes ? !changes.levels : !data.levels)) {
-        newWarnings.push('You have made changes to the leveling settings but the leveling module is disabled.');
+      const newErrors: string[] = [];
+      const newWarnings: string[] = [];
+
+      const validateMinutes = (n: number | null, { min, max }: { min: number; max: number }, keyName: string): void => {
+        const minMinutes = min / 60_000;
+        const maxMinutes = max / 60_000;
+        if (Number.isNaN(n)) newErrors.push(`The ${keyName} is not a valid number.`);
+        else if (n) {
+          if (n < minMinutes) newErrors.push(`The ${keyName} is smaller than ${minMinutes}.`);
+          else if (n > maxMinutes) newErrors.push(`The ${keyName} is larger than ${maxMinutes}.`);
+        }
+      };
+
+      const validateArray = (arr: unknown[], maxLength: number, keyName: string) =>
+        arr.length > maxLength && newErrors.push(`The ${keyName} has more than ${maxLength} items`);
+
+      if ('autoRoleTimeout' in changes) {
+        validateMinutes(changes.autoRoleTimeout!, DATABASE_LIMITS.autoRoleTimeout, 'auto role timeout');
+      }
+
+      if ('mentionCooldown' in changes) {
+        if (!changes.mentionCooldown) newErrors.push('The mention cooldown cannot be empty.');
+        else validateMinutes(changes.mentionCooldown, DATABASE_LIMITS.mentionCooldown, 'mention cooldown');
+      }
+
+      if ('milestonesInterval' in changes) {
+        if (Number.isNaN(changes.milestonesInterval)) newErrors.push('The milestones interval is not a valid number.');
+        else if (!changes.milestonesInterval || changes.milestonesInterval < DATABASE_LIMITS.milestonesInterval.min) {
+          newErrors.push(`The milestones interval is smaller than ${DATABASE_LIMITS.milestonesInterval.min}.`);
+        } else if (changes.milestonesInterval > DATABASE_LIMITS.milestonesInterval.max) {
+          newErrors.push(`The milestones interval is larger than ${DATABASE_LIMITS.milestonesInterval.max}.`);
+        }
+      }
+
+      if ('prefix' in changes && (!changes.prefix || changes.prefix.length < 1)) {
+        newErrors.push('The prefix cannot be empty.');
+      }
+
+      if (typeof changes.vanity === 'string' && changes.vanity !== '') {
+        if (changes.vanity.length < DATABASE_LIMITS.vanity.minLength) {
+          newErrors.push(
+            `The leveling leaderboard vanity is shorter than ${DATABASE_LIMITS.vanity.minLength} characters.`,
+          );
+        } else if (changes.vanity.length > DATABASE_LIMITS.vanity.maxLength) {
+          newErrors.push(
+            `The leveling leaderboard vanity is longer than ${DATABASE_LIMITS.vanity.maxLength} characters.`,
+          );
+        } else {
+          if (vanityAvailabilityTimeout) {
+            clearTimeout(vanityAvailabilityTimeout);
+          }
+
+          vanityAvailabilityTimeout = setTimeout(() => {
+            axios
+              .get<VanityCheckResponse>('/vanity/check', {
+                baseURL: API_BASE_URL,
+                params: {
+                  vanity: changes.vanity,
+                },
+              })
+              .then((res) => {
+                if (!res.data.available) addNewError('The leaderboard vanity you used is not available.');
+              })
+              .catch((err) => console.error('vanity availability check error: ', err));
+          }, 1000);
+        }
+      }
+
+      if (changes.xpMessage && changes.xpMessage.length > DATABASE_LIMITS.xpMessage.maxLength) {
+        newErrors.push(`The xp message is longer than ${DATABASE_LIMITS.xpMessage.maxLength} characters.`);
       }
 
       if (
-        milestonesKeys.some((k) => k in changes) &&
-        ('storeMilestones' in changes ? !changes.storeMilestones : !data.storeMilestones)
+        changes.xpMultipliers &&
+        changes.xpMultipliers.length > 0 &&
+        changes.xpMultipliers.some(({ multiplier }) => Number.isNaN(multiplier))
       ) {
-        newWarnings.push('You have made changes to the milestones settings but the milestones module is disabled.');
+        newErrors.push('One of the XP Multipliers has an invalid multiplier value.');
       }
-    }
 
-    setErrors(newErrors);
-    setWarnings(newWarnings);
-  }, []);
+      if (changes.xpMultipliers) {
+        validateArray(changes.xpMultipliers, 5, 'xp multipliers');
+      }
+
+      if (changes.xpRoles && Object.values(changes.xpRoles).some((r) => r.length === 0)) {
+        newErrors.push('One of the XP Roles is empty.');
+      }
+
+      if (data) {
+        if (
+          emojiListKeys.some((k) => k in changes) &&
+          ('emojiList' in changes ? !changes.emojiList : !data.emojiList)
+        ) {
+          newWarnings.push('You have made changes to the emoji list settings but the emoji list module is disabled.');
+        }
+
+        if (levelingKeys.some((k) => k in changes) && ('levels' in changes ? !changes.levels : !data.levels)) {
+          newWarnings.push('You have made changes to the leveling settings but the leveling module is disabled.');
+        }
+
+        if (
+          milestonesKeys.some((k) => k in changes) &&
+          ('storeMilestones' in changes ? !changes.storeMilestones : !data.storeMilestones)
+        ) {
+          newWarnings.push('You have made changes to the milestones settings but the milestones module is disabled.');
+        }
+      }
+
+      setErrors(newErrors);
+      setWarnings(newWarnings);
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [],
+  );
 
   const addChange = useCallback(
     <T extends keyof DatabaseChanges>(key: T, value: DatabaseChanges[T]) => {

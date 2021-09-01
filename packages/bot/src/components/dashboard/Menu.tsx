@@ -95,7 +95,7 @@ export default function Menu({ closeMenu, guild, menuOpen, premium }: MenuProps)
       await updateDatabase({ variables: { data: dataForMutation, id: guildId } });
     } catch (error) {
       // @ts-expect-error
-      console.error(error, error.networkError, error.networkError?.result?.errors);
+      console.error(error, error?.networkError, error?.networkError?.result?.errors);
       hasFailed = true;
     } finally {
       if (saveButtonRef.current) {

@@ -266,6 +266,10 @@ export const DATABASE_LIMITS = {
   prefix: {
     maxLength: 5,
   },
+  vanity: {
+    maxLength: 32,
+    minLength: 2,
+  },
   xpChannels: {
     maxLength: 30,
   },
@@ -319,6 +323,10 @@ export const DATABASE_PREMIUM_LIMITS = {
   },
   prefix: {
     maxLength: 5,
+  },
+  vanity: {
+    maxLength: 32,
+    minLength: 2,
   },
   xpChannels: {
     maxLength: 50,

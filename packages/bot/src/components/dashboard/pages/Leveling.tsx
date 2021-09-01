@@ -94,7 +94,7 @@ const resolveInitialXpResponseChannel = (database: DashboardDatabaseGuild): Snow
 const resolveMultiplierValues = (multipliers: MultiplierWithStringValue[]) =>
   multipliers.map((m) => ({ ...m, multiplier: parseMultiplier(m.multiplier) ?? NaN }));
 
-let timeout: NodeJS.Timeout;
+let timeout: NodeJS.Timeout | undefined;
 
 export default function Leveling({ channels, database, roles, openMenu }: LevelingProps) {
   const [xpRoles, setXpRoles] = useState<Record<string, Snowflake[]>>(database.xpRoles);
@@ -115,9 +115,10 @@ export default function Leveling({ channels, database, roles, openMenu }: Leveli
   const newXpRoleSubmitRef = useRef<HTMLButtonElement>(null);
   const { addChange } = useContext(GuildContext);
 
+  const noXpRolesLimit = getDatabaseLimit('noXpRoles', database.premium).maxLength;
+  const vanityLimits = getDatabaseLimit('vanity', database.premium);
   const xpMessageLimit = getDatabaseLimit('xpMessage', database.premium).maxLength;
   const xpChannelsLimit = getDatabaseLimit('xpChannels', database.premium).maxLength;
-  const noXpRolesLimit = getDatabaseLimit('noXpRoles', database.premium).maxLength;
 
   useEffect(() => {
     window.scroll({ behavior: 'auto', left: 0, top: 0 });
@@ -517,6 +518,24 @@ export default function Leveling({ channels, database, roles, openMenu }: Leveli
             items={['None', 'Leave', 'Ban', 'Ban & Leave']}
             onSelect={(i) => addChange('autoResetLevels', resolveAutoResetLevelsTypeByName(i))}
           />
+        </Field>
+
+        <Field>
+          <Label
+            htmlFor="vanity"
+            name="Leaderboard Vanity"
+            url="https://docs.pepemanager.com/config-commands/config/set#command-structure"
+          />
+          <div className="flex flex-row gap-4 max-w-[20rem]">
+            <Input
+              id="vanity"
+              initialValue={database.vanity ?? ''}
+              maxLength={32}
+              onChange={(t) => addChange('vanity', t)}
+              placeholder="Enter the vanity used for the leveling leaderboard"
+            />
+          </div>
+          <Subtitle text={`Between ${vanityLimits.minLength} - ${vanityLimits.maxLength} characters.`} />
         </Field>
       </Fieldset>
     </>
