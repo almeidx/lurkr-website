@@ -524,7 +524,7 @@ export default function Leveling({ channels, database, roles, openMenu }: Leveli
           <Label
             htmlFor="vanity"
             name="Leaderboard Vanity"
-            url="https://docs.pepemanager.com/config-commands/config/set#command-structure"
+            url="https://docs.pepemanager.com/guides/setting-a-leaderboard-vanity-url"
           />
           <div className="flex flex-row gap-4 max-w-[20rem]">
             <Input
