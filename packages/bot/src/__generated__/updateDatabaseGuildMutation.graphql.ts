@@ -27,6 +27,7 @@ export type DatabaseGuildChanges = {
     topXpRole?: string | null;
     vanity?: string | null;
     xpBlacklistedChannels?: Array<string> | null;
+    xpInThreads?: boolean | null;
     xpMessage?: string | null;
     xpMultipliers?: Array<DatabaseXpMultiplierType> | null;
     xpResponseType?: string | null;
