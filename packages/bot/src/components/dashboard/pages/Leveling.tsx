@@ -338,6 +338,23 @@ export default function Leveling({ channels, database, roles, openMenu }: Leveli
           </div>
         </Field>
 
+        <Field direction="row">
+          <div className="flex flex-row justify-between w-full gap-x-3 items-center p-2 pl-4 rounded-lg bg-discord-dark">
+            <Label
+              htmlFor="xpInThreads"
+              name="XP In Threads"
+              url="https://docs.pepemanager.com/guides/setting-up-server-xp-leveling#toggling-leveling-in-threads"
+              withMargin={false}
+            />
+            <Toggle
+              size="small"
+              id="xpInThreads"
+              initialValue={database.xpInThreads}
+              onChange={(v) => addChange('xpInThreads', v)}
+            />
+          </div>
+        </Field>
+
         <Field>
           <Label
             htmlFor="xpRoles"
