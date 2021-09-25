@@ -13,7 +13,7 @@ interface Props {
 }
 
 export default class MyDocument extends Document<Props> {
-  public static async getInitialProps(ctx: DocumentContext): Promise<DocumentInitialProps & Props> {
+  public static override async getInitialProps(ctx: DocumentContext): Promise<DocumentInitialProps & Props> {
     const originalRenderPage = ctx.renderPage;
     const relayServerSSR = new RelayServerSSR();
     const env = initialEnvironment(relayServerSSR);
@@ -44,7 +44,7 @@ export default class MyDocument extends Document<Props> {
     return { ...initialProps, records };
   }
 
-  public render() {
+  public override render() {
     return (
       <Html lang="en">
         <Head>
