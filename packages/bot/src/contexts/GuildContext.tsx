@@ -5,7 +5,7 @@ import { createContext, ReactNode, useCallback, useState } from 'react';
 
 import type { DatabaseChanges } from '../graphql/mutations/updateDatabaseGuild';
 import type { DashboardDatabaseGuild } from '../graphql/queries/DashboardGuild';
-import { API_BASE_URL, DATABASE_LIMITS } from '../utils/constants';
+import { API_BASE_URL, DATABASE_LIMITS, VANITY_REGEX } from '../utils/constants';
 import { getDatabaseLimit } from '../utils/utils';
 
 export type Section =
@@ -128,6 +128,8 @@ export default function GuildContextProvider({ children }: GuildContextProps) {
           newErrors.push(`The leveling leaderboard vanity is shorter than ${vanityLimits.minLength} characters.`);
         } else if (changes.vanity.length > vanityLimits.maxLength) {
           newErrors.push(`The leveling leaderboard vanity is longer than ${vanityLimits.maxLength} characters.`);
+        } else if (!VANITY_REGEX.test(changes.vanity)) {
+          newErrors.push('The leveling leaderboard vanity can only contain alphanumeric characters.');
         } else {
           if (vanityAvailabilityTimeout) {
             clearTimeout(vanityAvailabilityTimeout);

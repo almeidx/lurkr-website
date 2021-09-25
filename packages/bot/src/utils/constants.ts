@@ -344,3 +344,5 @@ export const DATABASE_PREMIUM_LIMITS = {
     maxLength: 25,
   },
 };
+
+export const VANITY_REGEX = /^[a-z0-9]+$/i;
