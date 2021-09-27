@@ -1,3 +1,4 @@
+import type { Snowflake } from 'discord-api-types';
 import type { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
@@ -20,6 +21,7 @@ import { isValidSnowflake } from '../../utils/utils';
 interface LeaderboardProps {
   channels: Channel[] | null;
   guild: DiscordGuild;
+  guildId: Snowflake;
   levels: GuildLevelsUserInfo[] | null;
   multipliers: IMultiplier[] | null;
   roles: Levels['roles'];
@@ -36,6 +38,7 @@ export const getStaticProps: GetStaticProps<LeaderboardProps> = async (ctx) => {
     props: {
       channels: data.getDiscordGuildChannels ? [...(data.getDiscordGuildChannels as Channel[])] : null,
       guild: data.getDiscordGuild as DiscordGuild,
+      guildId: ctx.params.id,
       levels: data.getGuildLevels ? ([...data.getGuildLevels.levels] as GuildLevelsUserInfo[]) : null,
       multipliers: data.getGuildLevels?.multipliers ? [...(data.getGuildLevels.multipliers as IMultiplier[])] : null,
       roles: data.getGuildLevels?.roles ? ([...data.getGuildLevels.roles] as Levels['roles']) : null,
@@ -49,6 +52,7 @@ export const getStaticPaths: GetStaticPaths = () => ({ fallback: true, paths: []
 export default function Leaderboard({
   channels,
   guild,
+  guildId,
   levels,
   multipliers,
   roles,
@@ -82,7 +86,7 @@ export default function Leaderboard({
             alt={`${guild.name} server icon`}
             className="rounded-md"
             height={64}
-            src={guildIconCdn(guild.id, guild.icon, 64)}
+            src={guildIconCdn(guildId, guild.icon, 64)}
             width={64}
           />
         ) : (

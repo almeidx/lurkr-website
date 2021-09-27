@@ -95,9 +95,9 @@ export default function Guild({
   }, [router]);
 
   useEffect(() => {
-    if (guild) updateGuildId(guild.id);
+    if (guild) updateGuildId(guildId);
     if (database) updateData(database);
-  }, [database, guild, updateData, updateGuildId]);
+  }, [database, guild, guildId, updateData, updateGuildId]);
 
   if (!authenticated) {
     return <Failure message="You need to sign in to view this page." />;
@@ -118,7 +118,7 @@ export default function Guild({
           <title>{guild.name} Dashboard | Pepe Manager</title>
         </Head>
 
-        <Menu closeMenu={closeMenu} guild={guild} menuOpen={menuOpen} premium={database.premium} />
+        <Menu closeMenu={closeMenu} guild={guild} guildId={guildId} menuOpen={menuOpen} premium={database.premium} />
 
         <main className={`pb-5 px-4 md:pt-6 w-full ${menuOpen ? 'hidden' : 'block'} sm:block`}>
           {warnings.length > 0 || errors.length > 0 ? (

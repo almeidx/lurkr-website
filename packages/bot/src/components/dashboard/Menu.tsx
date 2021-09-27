@@ -28,6 +28,7 @@ interface MenuProps {
     id: Snowflake;
     name: string;
   };
+  guildId: Snowflake;
   menuOpen: boolean;
   premium: boolean;
 }
@@ -55,7 +56,7 @@ const saveButtonDefaultColour = '#3ea25e';
 
 let timeout: NodeJS.Timeout | void;
 
-export default function Menu({ closeMenu, guild, menuOpen, premium }: MenuProps) {
+export default function Menu({ closeMenu, guild, guildId: argGuildId, menuOpen, premium }: MenuProps) {
   const [saveButtonText, setSaveButtonText] = useState('Save');
   const saveButtonRef = useRef<HTMLButtonElement>(null);
   const isSaving = useRef<boolean>(false);
@@ -128,7 +129,7 @@ export default function Menu({ closeMenu, guild, menuOpen, premium }: MenuProps)
               alt={`${guild.name} server icon`}
               className="rounded-full"
               height={64}
-              src={guildIconCdn(guild.id, guild.icon, 64)}
+              src={guildIconCdn(argGuildId, guild.icon, 64)}
               width={64}
             />
           ) : (
