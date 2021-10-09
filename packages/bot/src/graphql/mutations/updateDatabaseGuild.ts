@@ -1,5 +1,5 @@
 import type { Snowflake } from 'discord-api-types';
-import { graphql } from 'relay-runtime';
+import { graphql } from 'react-relay';
 
 import type { DatabaseGuildChanges } from '../../__generated__/updateDatabaseGuildMutation.graphql';
 
@@ -31,6 +31,10 @@ export default graphql`
       storeMilestones
       topXpRole
       vanity
+      xpAnnounceLevels
+      xpAnnounceMinimumLevel
+      xpAnnounceMultipleOf
+      xpAnnounceOnlyXpRoles
       xpBlacklistedChannels
       xpMessage
       xpMultipliers {

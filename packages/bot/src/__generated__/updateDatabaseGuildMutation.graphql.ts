@@ -26,7 +26,12 @@ export type DatabaseGuildChanges = {
     storeMilestones?: boolean | null;
     topXpRole?: string | null;
     vanity?: string | null;
+    xpAnnounceLevels?: Array<number> | null;
+    xpAnnounceMinimumLevel?: number | null;
+    xpAnnounceMultipleOf?: number | null;
+    xpAnnounceOnlyXpRoles?: boolean | null;
     xpBlacklistedChannels?: Array<string> | null;
+    xpDisallowedPrefixes?: Array<string> | null;
     xpInThreads?: boolean | null;
     xpMessage?: string | null;
     xpMultipliers?: Array<DatabaseXpMultiplierType> | null;
@@ -68,6 +73,10 @@ export type updateDatabaseGuildMutationResponse = {
         readonly storeMilestones: boolean;
         readonly topXpRole: string | null;
         readonly vanity: string | null;
+        readonly xpAnnounceLevels: ReadonlyArray<number> | null;
+        readonly xpAnnounceMinimumLevel: number;
+        readonly xpAnnounceMultipleOf: number | null;
+        readonly xpAnnounceOnlyXpRoles: boolean;
         readonly xpBlacklistedChannels: ReadonlyArray<string> | null;
         readonly xpMessage: string;
         readonly xpMultipliers: ReadonlyArray<{
@@ -117,6 +126,10 @@ mutation updateDatabaseGuildMutation(
     storeMilestones
     topXpRole
     vanity
+    xpAnnounceLevels
+    xpAnnounceMinimumLevel
+    xpAnnounceMultipleOf
+    xpAnnounceOnlyXpRoles
     xpBlacklistedChannels
     xpMessage
     xpMultipliers {
@@ -328,6 +341,34 @@ v2 = [
         "alias": null,
         "args": null,
         "kind": "ScalarField",
+        "name": "xpAnnounceLevels",
+        "storageKey": null
+      },
+      {
+        "alias": null,
+        "args": null,
+        "kind": "ScalarField",
+        "name": "xpAnnounceMinimumLevel",
+        "storageKey": null
+      },
+      {
+        "alias": null,
+        "args": null,
+        "kind": "ScalarField",
+        "name": "xpAnnounceMultipleOf",
+        "storageKey": null
+      },
+      {
+        "alias": null,
+        "args": null,
+        "kind": "ScalarField",
+        "name": "xpAnnounceOnlyXpRoles",
+        "storageKey": null
+      },
+      {
+        "alias": null,
+        "args": null,
+        "kind": "ScalarField",
         "name": "xpBlacklistedChannels",
         "storageKey": null
       },
@@ -426,14 +467,14 @@ return {
     "selections": (v2/*: any*/)
   },
   "params": {
-    "cacheID": "3015c99ee0748c842471feaddf56dc79",
+    "cacheID": "467f81f40001849068eff54f7c22028c",
     "id": null,
     "metadata": {},
     "name": "updateDatabaseGuildMutation",
     "operationKind": "mutation",
-    "text": "mutation updateDatabaseGuildMutation(\n  $id: String!\n  $data: DatabaseGuildChanges!\n) {\n  updateDatabase(id: $id, changes: $data) {\n    autoPublishChannels\n    autoResetLevels\n    autoRole\n    autoRoleTimeout\n    blacklistedChannels\n    emojiList\n    emojiListChannel\n    levels\n    mentionCooldown\n    mentionCooldownRoles\n    milestonesChannel\n    milestonesInterval\n    milestonesMessage\n    milestonesRoles\n    noXpRoles\n    prefix\n    premium\n    prioritiseMultiplierRoleHierarchy\n    stackXpRoles\n    storeCounts\n    storeMilestones\n    topXpRole\n    vanity\n    xpBlacklistedChannels\n    xpMessage\n    xpMultipliers {\n      _id\n      multiplier\n      targets\n      type\n    }\n    xpResponseType\n    xpRoles\n    xpWhitelistedChannels\n  }\n}\n"
+    "text": "mutation updateDatabaseGuildMutation(\n  $id: String!\n  $data: DatabaseGuildChanges!\n) {\n  updateDatabase(id: $id, changes: $data) {\n    autoPublishChannels\n    autoResetLevels\n    autoRole\n    autoRoleTimeout\n    blacklistedChannels\n    emojiList\n    emojiListChannel\n    levels\n    mentionCooldown\n    mentionCooldownRoles\n    milestonesChannel\n    milestonesInterval\n    milestonesMessage\n    milestonesRoles\n    noXpRoles\n    prefix\n    premium\n    prioritiseMultiplierRoleHierarchy\n    stackXpRoles\n    storeCounts\n    storeMilestones\n    topXpRole\n    vanity\n    xpAnnounceLevels\n    xpAnnounceMinimumLevel\n    xpAnnounceMultipleOf\n    xpAnnounceOnlyXpRoles\n    xpBlacklistedChannels\n    xpMessage\n    xpMultipliers {\n      _id\n      multiplier\n      targets\n      type\n    }\n    xpResponseType\n    xpRoles\n    xpWhitelistedChannels\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '1d4b8f26eee86662fea7d985ff82a7ea';
+(node as any).hash = 'a4e85740fe58a088574a1757a39a944f';
 export default node;

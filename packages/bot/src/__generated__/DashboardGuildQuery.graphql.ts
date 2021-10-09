@@ -46,6 +46,10 @@ export type DashboardGuildQueryResponse = {
         readonly storeMilestones: boolean;
         readonly topXpRole: string | null;
         readonly vanity: string | null;
+        readonly xpAnnounceLevels: ReadonlyArray<number> | null;
+        readonly xpAnnounceMinimumLevel: number;
+        readonly xpAnnounceMultipleOf: number | null;
+        readonly xpAnnounceOnlyXpRoles: boolean;
         readonly xpBlacklistedChannels: ReadonlyArray<string> | null;
         readonly xpInThreads: boolean;
         readonly xpMessage: string;
@@ -110,6 +114,10 @@ query DashboardGuildQuery(
     storeMilestones
     topXpRole
     vanity
+    xpAnnounceLevels
+    xpAnnounceMinimumLevel
+    xpAnnounceMultipleOf
+    xpAnnounceOnlyXpRoles
     xpBlacklistedChannels
     xpInThreads
     xpMessage
@@ -397,6 +405,34 @@ v5 = [
         "alias": null,
         "args": null,
         "kind": "ScalarField",
+        "name": "xpAnnounceLevels",
+        "storageKey": null
+      },
+      {
+        "alias": null,
+        "args": null,
+        "kind": "ScalarField",
+        "name": "xpAnnounceMinimumLevel",
+        "storageKey": null
+      },
+      {
+        "alias": null,
+        "args": null,
+        "kind": "ScalarField",
+        "name": "xpAnnounceMultipleOf",
+        "storageKey": null
+      },
+      {
+        "alias": null,
+        "args": null,
+        "kind": "ScalarField",
+        "name": "xpAnnounceOnlyXpRoles",
+        "storageKey": null
+      },
+      {
+        "alias": null,
+        "args": null,
+        "kind": "ScalarField",
         "name": "xpBlacklistedChannels",
         "storageKey": null
       },
@@ -496,14 +532,14 @@ return {
     "selections": (v5/*: any*/)
   },
   "params": {
-    "cacheID": "98991ae8515e09ca1ade9ef2997fb040",
+    "cacheID": "c5074962a9810aafb611ebed955fff17",
     "id": null,
     "metadata": {},
     "name": "DashboardGuildQuery",
     "operationKind": "query",
-    "text": "query DashboardGuildQuery(\n  $id: String!\n) {\n  getDiscordGuild(id: $id, requireAuth: true) {\n    icon\n    id\n    name\n    roles {\n      color\n      id\n      name\n      position\n    }\n  }\n  getDiscordGuildChannels(id: $id) {\n    id\n    name\n  }\n  getDatabaseGuild(id: $id) {\n    autoPublishChannels\n    autoResetLevels\n    autoRole\n    autoRoleTimeout\n    blacklistedChannels\n    emojiList\n    emojiListChannel\n    levels\n    mentionCooldown\n    mentionCooldownRoles\n    milestonesChannel\n    milestonesInterval\n    milestonesMessage\n    milestonesRoles\n    noXpRoles\n    prefix\n    premium\n    prioritiseMultiplierRoleHierarchy\n    stackXpRoles\n    storeCounts\n    storeMilestones\n    topXpRole\n    vanity\n    xpBlacklistedChannels\n    xpInThreads\n    xpMessage\n    xpMultipliers {\n      _id\n      multiplier\n      targets\n      type\n    }\n    xpResponseType\n    xpRoles\n    xpWhitelistedChannels\n  }\n}\n"
+    "text": "query DashboardGuildQuery(\n  $id: String!\n) {\n  getDiscordGuild(id: $id, requireAuth: true) {\n    icon\n    id\n    name\n    roles {\n      color\n      id\n      name\n      position\n    }\n  }\n  getDiscordGuildChannels(id: $id) {\n    id\n    name\n  }\n  getDatabaseGuild(id: $id) {\n    autoPublishChannels\n    autoResetLevels\n    autoRole\n    autoRoleTimeout\n    blacklistedChannels\n    emojiList\n    emojiListChannel\n    levels\n    mentionCooldown\n    mentionCooldownRoles\n    milestonesChannel\n    milestonesInterval\n    milestonesMessage\n    milestonesRoles\n    noXpRoles\n    prefix\n    premium\n    prioritiseMultiplierRoleHierarchy\n    stackXpRoles\n    storeCounts\n    storeMilestones\n    topXpRole\n    vanity\n    xpAnnounceLevels\n    xpAnnounceMinimumLevel\n    xpAnnounceMultipleOf\n    xpAnnounceOnlyXpRoles\n    xpBlacklistedChannels\n    xpInThreads\n    xpMessage\n    xpMultipliers {\n      _id\n      multiplier\n      targets\n      type\n    }\n    xpResponseType\n    xpRoles\n    xpWhitelistedChannels\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '2ec54d5d2759823bc6d3fa20b8e76c52';
+(node as any).hash = '7993d5a2bbebf6cd20488779ea5d7194';
 export default node;

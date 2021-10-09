@@ -22,7 +22,10 @@ export default function ErrorPage({ code, message, title }: ErrorPageProps) {
         </h1>
 
         <div className="inline-block h-12 text-left align-middle" style={{ lineHeight: '49px' }}>
-          <h2 className="text-sm m-0 p-0 text-white" style={{ fontWeight: 'normal', lineHeight: 'inherit' }}>
+          <h2
+            className="text-sm m-0 p-0 text-white max-w-prose"
+            style={{ fontWeight: 'normal', lineHeight: 'inherit' }}
+          >
             {message}
           </h2>
         </div>

@@ -205,10 +205,16 @@ export default function GuildContextProvider({ children }: GuildContextProps) {
 
       if (
         data &&
+        // TODO: Fix typings
+        // @ts-expect-error
         (data[key] === value ||
+          // @ts-expect-error
           (Array.isArray(value) && !value.length && data[key] === null) ||
+          // @ts-expect-error
           (Array.isArray(data[key]) && !(data[key] as any[]).length && value === null) ||
+          // @ts-expect-error
           (data[key] === null && value === 0) ||
+          // @ts-expect-error
           (data[key] === 0 && value === null))
       ) {
         if (key in clone) {

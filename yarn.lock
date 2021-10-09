@@ -1253,13 +1253,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/regenerator-runtime@npm:^0.13.1":
-  version: 0.13.1
-  resolution: "@types/regenerator-runtime@npm:0.13.1"
-  checksum: 1ee504c582a1b34da473b0f12a35ba3d45d94e1446f2006c09fcdbc3c8c59e74b6d73e37f2dd7c0d1ccb5888ef3b36fd644d6370fd03099cbd9cf5e1ea6013fe
-  languageName: node
-  linkType: hard
-
 "@types/relay-runtime@npm:*":
   version: 11.0.1
   resolution: "@types/relay-runtime@npm:11.0.1"
@@ -1641,7 +1634,6 @@ __metadata:
     "@types/node": ^16.10.1
     "@types/react": ^17.0.24
     "@types/react-relay": ^11.0.2
-    "@types/regenerator-runtime": ^0.13.1
     "@types/relay-runtime": ^11.0.4
     autoprefixer: ^10.3.5
     axios: ^0.21.4
@@ -1661,9 +1653,6 @@ __metadata:
     react-dom: ^17.0.2
     react-icons: ^4.2.0
     react-relay: ^12.0.0
-    react-relay-network-modern: ^6.0.0
-    react-relay-network-modern-ssr: ^1.4.0
-    regenerator-runtime: ^0.13.9
     relay-compiler: ^12.0.0
     relay-compiler-language-typescript: ^14.1.0
     relay-config: ^12.0.0
@@ -3084,13 +3073,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"core-js@npm:^3.0.0":
-  version: 3.15.2
-  resolution: "core-js@npm:3.15.2"
-  checksum: f8f61569c4c3bdf50679226f5a1045551192a2f4bc3fa46a873b6fa834cff6d1634ee138a6e4bae3eea99f1b1db2d588fa693de74640447476292b41f595a4c3
-  languageName: node
-  linkType: hard
-
 "core-util-is@npm:~1.0.0":
   version: 1.0.2
   resolution: "core-util-is@npm:1.0.2"
@@ -4286,13 +4268,6 @@ __metadata:
     snapdragon: ^0.8.1
     to-regex: ^3.0.1
   checksum: a41531b8934735b684cef5e8c5a01d0f298d7d384500ceca38793a9ce098125aab04ee73e2d75d5b2901bc5dddd2b64e1b5e3bf19139ea48bac52af4a92f1d00
-  languageName: node
-  linkType: hard
-
-"extract-files@npm:^9.0.0":
-  version: 9.0.0
-  resolution: "extract-files@npm:9.0.0"
-  checksum: c31781d090f8d8f62cc541f1023b39ea863f24bd6fb3d4011922d71cbded70cef8191f2b70b43ec6cb5c5907cdad1dc5e9f29f78228936c10adc239091d8ab64
   languageName: node
   linkType: hard
 
@@ -7718,29 +7693,6 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"react-relay-network-modern-ssr@npm:^1.4.0":
-  version: 1.4.0
-  resolution: "react-relay-network-modern-ssr@npm:1.4.0"
-  peerDependencies:
-    graphql: ">=0.11.0"
-    react-relay: ">=1.4.0"
-    react-relay-network-modern: ">=2.1.0"
-  checksum: 20dfa98ce06d3872576b95cae6b6da8d4c815d0a8859103e76adc0795be12dd21d228ba9a12d599744e18248111c84128ae731e98c0cd7a909447f2d7fbad42f
-  languageName: node
-  linkType: hard
-
-"react-relay-network-modern@npm:^6.0.0":
-  version: 6.0.0
-  resolution: "react-relay-network-modern@npm:6.0.0"
-  dependencies:
-    core-js: ^3.0.0
-    extract-files: ^9.0.0
-  peerDependencies:
-    relay-runtime: ">=1.4.0"
-  checksum: ea6da6d2609f70338f4d4de76a796effb025053ea3a16e71bea64953cad517bf3df7ef3ff10c471f9411fcac20a9515ff05ab2e9aa1a7fc53df1d50bee2b47d9
-  languageName: node
-  linkType: hard
-
 "react-relay@npm:^12.0.0":
   version: 12.0.0
   resolution: "react-relay@npm:12.0.0"
@@ -7856,13 +7808,6 @@ fsevents@^1.2.7:
   version: 0.13.7
   resolution: "regenerator-runtime@npm:0.13.7"
   checksum: 52b66e6669152c0b1bccd95c8e11aabbfe67bb97bdf00e223bdf723b0f0052d4da5c02001d4c4bef576bdc5bcdc38a20496d1b5363b65c950c8434ed5071d9e0
-  languageName: node
-  linkType: hard
-
-"regenerator-runtime@npm:^0.13.9":
-  version: 0.13.9
-  resolution: "regenerator-runtime@npm:0.13.9"
-  checksum: 65ed455fe5afd799e2897baf691ca21c2772e1a969d19bb0c4695757c2d96249eb74ee3553ea34a91062b2a676beedf630b4c1551cc6299afb937be1426ec55e
   languageName: node
   linkType: hard
 

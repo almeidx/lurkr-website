@@ -1,4 +1,4 @@
-import { graphql } from 'relay-runtime';
+import { graphql } from 'react-relay';
 
 export default graphql`
   query UserGuildsQuery($withPermissions: Boolean!) {

@@ -1,27 +1,28 @@
 import type { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import Head from 'next/head';
 import { useContext } from 'react';
-import { fetchQuery } from 'relay-runtime';
+import { fetchQuery } from 'react-relay';
 
 import type { UserGuildsQuery, UserGuildsQueryResponse } from '../../__generated__/UserGuildsQuery.graphql';
 import Failure from '../../components/Failure';
 import Guild from '../../components/Guild';
 import { UserContext } from '../../contexts/UserContext';
 import UserGuilds from '../../graphql/queries/UserGuilds';
-import environment from '../../relay/environment';
-import { removeNonStringValues } from '../../utils/utils';
+import { initEnvironment } from '../../relay/environment';
 
 interface GuildsProps {
   guilds: UserGuildsQueryResponse['getUserGuilds'];
 }
 
 export const getServerSideProps: GetServerSideProps<GuildsProps> = async (ctx) => {
-  const env = environment(undefined, removeNonStringValues(ctx.req.headers));
-  const res = await fetchQuery<UserGuildsQuery>(env, UserGuilds, { withPermissions: true }).toPromise();
+  const environment = initEnvironment(undefined, ctx.req.headers.cookie);
+  const data = await fetchQuery<UserGuildsQuery>(environment, UserGuilds, { withPermissions: true }).toPromise();
+  const initialRecords = environment.getStore().getSource().toJSON();
 
   return {
     props: {
-      guilds: res?.getUserGuilds ? [...res.getUserGuilds].sort((a, b) => a.name.localeCompare(b.name)) : null,
+      guilds: data?.getUserGuilds ? [...data.getUserGuilds].sort((a, b) => a.name.localeCompare(b.name)) : null,
+      initialRecords,
     },
   };
 };

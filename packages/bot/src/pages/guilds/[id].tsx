@@ -3,7 +3,7 @@ import type { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { lazy, Suspense, useCallback, useContext, useEffect, useMemo, useState } from 'react';
-import { fetchQuery } from 'relay-runtime';
+import { fetchQuery } from 'react-relay';
 
 import type { DashboardGuildQuery } from '../../__generated__/DashboardGuildQuery.graphql';
 import Menu, { isValidSection } from '../../components/dashboard/Menu';
@@ -17,8 +17,8 @@ import DashboardGuild, {
   DashboardDatabaseGuild,
   DashboardDiscordGuild,
 } from '../../graphql/queries/DashboardGuild';
-import environment from '../../relay/environment';
-import { isValidSnowflake, removeNonStringValues } from '../../utils/utils';
+import { initEnvironment } from '../../relay/environment';
+import { isValidSnowflake } from '../../utils/utils';
 
 const General = lazy(() => import('../../components/dashboard/pages/General'));
 const Autorole = lazy(() => import('../../components/dashboard/pages/Autorole'));
@@ -38,8 +38,10 @@ interface GuildProps {
 export const getServerSideProps: GetServerSideProps<GuildProps> = async (ctx) => {
   if (typeof ctx.params?.id !== 'string' || !isValidSnowflake(ctx.params.id)) return { notFound: true };
 
-  const env = environment(undefined, removeNonStringValues(ctx.req.headers));
-  const data = await fetchQuery<DashboardGuildQuery>(env, DashboardGuild, { id: ctx.params.id }).toPromise();
+  const environment = initEnvironment(undefined, ctx.req.headers.cookie);
+  const data = await fetchQuery<DashboardGuildQuery>(environment, DashboardGuild, { id: ctx.params.id }).toPromise();
+  const initialRecords = environment.getStore().getSource().toJSON();
+
   if (!data) return { notFound: true };
 
   return {
@@ -48,6 +50,7 @@ export const getServerSideProps: GetServerSideProps<GuildProps> = async (ctx) =>
       database: data.getDatabaseGuild as DashboardDatabaseGuild,
       guild: data.getDiscordGuild as DashboardDiscordGuild,
       guildId: ctx.params.id,
+      initialRecords,
     },
   };
 };

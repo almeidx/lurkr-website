@@ -14,10 +14,6 @@ export type CorrectSnowflakeTypes<T> = {
 
 export type DeepMutable<T> = { -readonly [K in keyof T]: DeepMutable<T[K]> };
 
-/**
- * Checks if a string could potentially be a valid Discord Snowflake
- * @param str The string to check
- */
 export const isValidSnowflake = (str: string): str is Snowflake => {
   if (!/^[1-9]\d{16,18}$/.test(str)) return false;
   if (parseInt(str, 10) < MIN_SNOWFLAKE) return false;
@@ -25,11 +21,6 @@ export const isValidSnowflake = (str: string): str is Snowflake => {
   return true;
 };
 
-/**
- * Rounds a number to n decimal places.
- * @param n The number that will be rounded.
- * @param decimals The amount of decimal places to round the number to.
- */
 export const roundNumberToNDecimalPlaces = (n: number, decimals = 2): number => parseFloatStrict(n.toFixed(decimals));
 
 export const parseMultiplier = (phrase: string): number | null => {
@@ -79,17 +70,5 @@ export const getDatabaseLimit = <
 >(
   key: K,
   premium: boolean,
-): typeof DATABASE_LIMITS[K] | typeof DATABASE_PREMIUM_LIMITS[K] => {
-  if (premium) {
-    return DATABASE_PREMIUM_LIMITS[key];
-  }
-  return DATABASE_LIMITS[key];
-};
-
-export const removeNonStringValues = (obj: Record<string, any>): Record<string, string> =>
-  Object.keys(obj)
-    .filter((k) => typeof obj[k] === 'string')
-    .reduce((acc, k) => {
-      acc[k] = obj[k];
-      return acc;
-    }, {} as Record<string, string>);
+): typeof DATABASE_LIMITS[K] | typeof DATABASE_PREMIUM_LIMITS[K] =>
+  premium ? DATABASE_PREMIUM_LIMITS[key] : DATABASE_LIMITS[key];

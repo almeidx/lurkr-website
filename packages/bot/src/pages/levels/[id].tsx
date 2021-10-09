@@ -3,7 +3,7 @@ import type { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from 'ne
 import Head from 'next/head';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { fetchQuery } from 'relay-runtime';
+import { fetchQuery } from 'react-relay';
 
 import type { GuildLevelsQuery } from '../../__generated__/GuildLevelsQuery.graphql';
 import Failure from '../../components/Failure';
@@ -13,7 +13,7 @@ import User from '../../components/leaderboard/User';
 import Spinner from '../../components/Spinner';
 import type { Multiplier as IMultiplier } from '../../graphql/queries/DashboardGuild';
 import GuildLevels, { Channel, DiscordGuild, GuildLevelsUserInfo, Levels } from '../../graphql/queries/GuildLevels';
-import environment from '../../relay/environment';
+import { initEnvironment } from '../../relay/environment';
 import { guildIconCdn } from '../../utils/cdn';
 import { FALLBACK_AVATAR_PATH } from '../../utils/constants';
 import { isValidSnowflake } from '../../utils/utils';
@@ -30,8 +30,9 @@ interface LeaderboardProps {
 export const getStaticProps: GetStaticProps<LeaderboardProps> = async (ctx) => {
   if (typeof ctx.params?.id !== 'string' || !isValidSnowflake(ctx.params.id)) return { notFound: true };
 
-  const env = environment();
-  const data = await fetchQuery<GuildLevelsQuery>(env, GuildLevels, { id: ctx.params.id }).toPromise();
+  const environment = initEnvironment();
+  const data = await fetchQuery<GuildLevelsQuery>(environment, GuildLevels, { id: ctx.params.id }).toPromise();
+  const initialRecords = environment.getStore().getSource().toJSON();
   if (!data) return { notFound: true };
 
   return {
@@ -39,6 +40,7 @@ export const getStaticProps: GetStaticProps<LeaderboardProps> = async (ctx) => {
       channels: data.getDiscordGuildChannels ? [...(data.getDiscordGuildChannels as Channel[])] : null,
       guild: data.getDiscordGuild as DiscordGuild,
       guildId: ctx.params.id,
+      initialRecords,
       levels: data.getGuildLevels ? ([...data.getGuildLevels.levels] as GuildLevelsUserInfo[]) : null,
       multipliers: data.getGuildLevels?.multipliers ? [...(data.getGuildLevels.multipliers as IMultiplier[])] : null,
       roles: data.getGuildLevels?.roles ? ([...data.getGuildLevels.roles] as Levels['roles']) : null,

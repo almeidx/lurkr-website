@@ -1,5 +1,5 @@
 import type { Snowflake } from 'discord-api-types';
-import { graphql } from 'relay-runtime';
+import { graphql } from 'react-relay';
 
 import type { GuildLevelsQueryResponse } from '../../__generated__/GuildLevelsQuery.graphql';
 import type { CorrectSnowflakeTypes, DeepMutable } from '../../utils/utils';

@@ -1,49 +1,8 @@
-import 'regenerator-runtime/runtime';
+import Document, { Head, Html, Main, NextScript } from 'next/document';
 
-import Document, { DocumentContext, DocumentInitialProps, Head, Html, Main, NextScript } from 'next/document';
-import { RelayEnvironmentProvider } from 'react-relay';
-import RelayServerSSR from 'react-relay-network-modern-ssr/lib/server';
-import type { RecordMap } from 'relay-runtime/lib/store/RelayStoreTypes';
-
-import initialEnvironment from '../relay/initialEnvironment';
 import { appleIcons, keywords } from '../utils/constants';
 
-interface Props {
-  records: RecordMap;
-}
-
-export default class MyDocument extends Document<Props> {
-  public static override async getInitialProps(ctx: DocumentContext): Promise<DocumentInitialProps & Props> {
-    const originalRenderPage = ctx.renderPage;
-    const relayServerSSR = new RelayServerSSR();
-    const env = initialEnvironment(relayServerSSR);
-
-    ctx.renderPage = () =>
-      originalRenderPage({
-        // eslint-disable-next-line react/display-name
-        enhanceComponent: (Component) => (props) =>
-          (
-            <RelayEnvironmentProvider environment={env}>
-              <Component {...props} />
-            </RelayEnvironmentProvider>
-          ),
-      });
-
-    await Document.getInitialProps(ctx);
-    await relayServerSSR.getCache();
-    const records = env.getStore().getSource().toJSON();
-
-    ctx.renderPage = () =>
-      originalRenderPage({
-        // @ts-expect-error
-        // eslint-disable-next-line react/display-name
-        enhanceApp: (App) => (props) => <App {...props} records={records} />,
-      });
-
-    const initialProps = await Document.getInitialProps(ctx);
-    return { ...initialProps, records };
-  }
-
+export default class MyDocument extends Document {
   public override render() {
     return (
       <Html lang="en">
@@ -73,9 +32,8 @@ export default class MyDocument extends Document<Props> {
             <link key={i} rel="apple-touch-icon" href={href} media={media} />
           ))}
         </Head>
-        <body>
-          <template id="relay-data">{Buffer.from(JSON.stringify(this.props.records)).toString('base64')}</template>
 
+        <body>
           <Main />
           <NextScript />
         </body>

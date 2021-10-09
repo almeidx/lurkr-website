@@ -2,20 +2,21 @@ import type { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
-import { fetchQuery } from 'relay-runtime';
+import { fetchQuery } from 'react-relay';
 
 import type { UserGuildsQuery, UserGuildsQueryResponse } from '../../__generated__/UserGuildsQuery.graphql';
 import Input from '../../components/form/Input';
 import Guild from '../../components/Guild';
 import UserGuilds from '../../graphql/queries/UserGuilds';
-import environment from '../../relay/environment';
-import { CorrectSnowflakeTypes, DeepMutable, isValidSnowflake, removeNonStringValues } from '../../utils/utils';
+import { initEnvironment } from '../../relay/environment';
+import { CorrectSnowflakeTypes, DeepMutable, isValidSnowflake } from '../../utils/utils';
 
 type Guilds = CorrectSnowflakeTypes<DeepMutable<UserGuildsQueryResponse['getUserGuilds']>>;
 
 export const getServerSideProps: GetServerSideProps<{ guilds: Guilds }> = async (ctx) => {
-  const env = environment(undefined, removeNonStringValues(ctx.req.headers));
-  const data = await fetchQuery<UserGuildsQuery>(env, UserGuilds, { withPermissions: false }).toPromise();
+  const environment = initEnvironment(undefined, ctx.req.headers.cookie);
+  const data = await fetchQuery<UserGuildsQuery>(environment, UserGuilds, { withPermissions: false }).toPromise();
+  const initialRecords = environment.getStore().getSource().toJSON();
   if (!data) return { notFound: true };
 
   return {
@@ -23,6 +24,7 @@ export const getServerSideProps: GetServerSideProps<{ guilds: Guilds }> = async 
       guilds: data.getUserGuilds
         ? ([...data.getUserGuilds] as Exclude<Guilds, null>).sort((a, b) => a.name.localeCompare(b.name))
         : null,
+      initialRecords,
     },
   };
 };
