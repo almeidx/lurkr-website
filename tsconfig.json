@@ -5,6 +5,7 @@
     "forceConsistentCasingInFileNames": true,
     "importHelpers": true,
     "importsNotUsedAsValues": "error",
+    "incremental": true,
     "isolatedModules": true,
     "jsx": "preserve",
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
@@ -25,5 +26,5 @@
     "target": "ES5"
   },
   "exclude": ["node_modules"],
-  "include": ["**/*.ts", "**/*.tsx", "packages/**/next-env.d.ts"]
+  "include": ["**/*.ts", "**/*.tsx", "next-env.d.ts"]
 }

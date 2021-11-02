@@ -1,6 +1,6 @@
 ---
 name: Bug report
-about: Report incorrect or unexpected behavior of one of the websites.
+about: Report incorrect or unexpected behavior of the website.
 title: ''
 labels: 'type: bug'
 ---

@@ -20,11 +20,8 @@ jobs:
       - name: Install dependencies
         run: yarn --immutable
 
-      - name: Build bot website
-        run: yarn bot build
-
-      - name: Build main website
-        run: yarn main build
+      - name: Build website
+        run: yarn build
 
   lint:
     name: Lint

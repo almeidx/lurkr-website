@@ -1,64 +1,81 @@
 {
-  "$schema": "http://json.schemastore.org/package",
-  "name": "website",
-  "version": "4.0.0",
+  "name": "pepe-website",
+  "version": "5.0.0",
   "description": "Pepe Emoji offers a powerful Discord bot to manage your server and unique Pepe emojis for you to use on Discord",
   "author": "almeidx <almeidx@pm.me> (https://almeidx.dev)",
   "license": "ISC",
   "private": true,
   "scripts": {
-    "bot": "yarn packages/bot",
-    "build": "yarn workspaces foreach run build",
-    "lint": "eslint --ext .ts,.tsx --cache packages",
-    "lint:fix": "eslint --ext .ts,.tsx --fix --cache packages",
-    "lint:staged": "lint-staged",
-    "main": "yarn packages/main",
+    "dev": "next dev",
+    "build": "next build",
+    "lint": "eslint --ext .ts,.tsx --cache src",
+    "lint:fix": "eslint --ext .ts,.tsx --fix --cache src",
     "postinstall": "husky install",
     "prettier:check": "prettier * --check --ignore-unknown",
-    "prettier:fix": "prettier * --write --ignore-unknown"
+    "prettier:fix": "prettier * --write --ignore-unknown",
+    "relay": "relay-compiler --artifactDirectory './src/__generated__' --exclude '**/node_modules/**', '**/.next/**', '**/__generated__/**' --extensions 'ts' 'tsx' --language 'typescript' --schema './schema.gql' --src './src'",
+    "start": "next start"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/almeidx/pepe-website.git"
-  },
-  "bugs": {
-    "url": "https://github.com/almeidx/pepe-website/issues"
-  },
+  "homepage": "https://pepemanager.com",
   "dependencies": {
+    "@almeidx/ms": "^1.2.1",
+    "axios": "^0.24.0",
+    "common-tags": "^1.8.0",
+    "deepmerge": "^4.2.2",
+    "js-cookie": "^3.0.1",
+    "lodash.clonedeep": "^4.5.0",
     "next": "^11.1.2",
     "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "react-dom": "^17.0.2",
+    "react-icons": "^4.3.1",
+    "react-relay": "^12.0.0",
+    "react-relay-network-modern": "^6.1.0",
+    "react-relay-network-modern-ssr": "^1.4.0",
+    "regenerator-runtime": "^0.13.9",
+    "relay-hooks": "^5.0.1",
+    "relay-runtime": "^12.0.0",
+    "tslib": "^2.3.1"
   },
   "devDependencies": {
-    "@types/react": "^17.0.24",
-    "@types/react-dom": "^17.0.9",
-    "@typescript-eslint/eslint-plugin": "^4.31.2",
-    "@typescript-eslint/parser": "^4.31.2",
-    "eslint": "^7.32.0",
+    "@types/common-tags": "^1.8.1",
+    "@types/js-cookie": "^3.0.0",
+    "@types/lodash.clonedeep": "^4.5.6",
+    "@types/node": "^16.11.6",
+    "@types/react": "^17.0.33",
+    "@types/react-relay": "^11.0.2",
+    "@types/regenerator-runtime": "^0.13.1",
+    "@types/relay-runtime": "^12.0.0",
+    "@typescript-eslint/eslint-plugin": "^5.3.0",
+    "@typescript-eslint/parser": "^5.3.0",
+    "autoprefixer": "^10.4.0",
+    "babel-plugin-relay": "^12.0.0",
+    "discord-api-types": "^0.24.0",
+    "eslint": "^8.1.0",
     "eslint-config-marine": "^9.0.6",
-    "eslint-config-next": "^11.1.2",
+    "eslint-config-next": "^12.0.2",
     "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-import": "^2.24.2",
+    "eslint-plugin-import": "^2.25.2",
     "eslint-plugin-next": "^0.0.0",
     "eslint-plugin-prettier": "^4.0.0",
-    "eslint-plugin-react": "^7.26.0",
-    "eslint-plugin-react-hooks": "^4.2.0",
+    "eslint-plugin-react": "^7.26.1",
+    "eslint-plugin-react-hooks": "next",
     "eslint-plugin-simple-import-sort": "^7.0.0",
-    "husky": "^7.0.2",
-    "lint-staged": "^11.1.2",
+    "file-loader": "^6.2.0",
+    "graphql": "^16.0.1",
+    "husky": "^7.0.4",
+    "lint-staged": "^11.2.6",
+    "postcss": "^8.3.11",
     "prettier": "^2.4.1",
-    "typescript": "^4.4.3"
-  },
-  "engines": {
-    "node": ">=16.0.0"
-  },
-  "workspaces": {
-    "packages": [
-      "packages/*"
-    ]
+    "relay-compiler": "^12.0.0",
+    "relay-compiler-language-typescript": "^14.3.0",
+    "relay-config": "^12.0.0",
+    "tailwindcss": "^2.2.19",
+    "typescript": "^4.4.4",
+    "webpack": "^4.46.0"
   },
   "lint-staged": {
     "*.tsx": "eslint --fix --cache",
     "*.{ts,tsx,js,json,yml}": "prettier --write"
-  }
+  },
+  "packageManager": "yarn@3.1.0"
 }

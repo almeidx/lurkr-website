@@ -28,7 +28,10 @@ export default function MyApp({ Component, pageProps, records: r }: AppProps & P
   }, [r]);
 
   return (
-    <RelayEnvironmentProvider environment={environment(records)}>
+    <RelayEnvironmentProvider
+      // @ts-ignore
+      environment={environment(records)}
+    >
       <UserProvider>
         <GuildProvider>
           <Head>

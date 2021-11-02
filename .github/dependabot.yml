@@ -6,16 +6,6 @@ updates:
   #   schedule:
   #     interval: daily
 
-  # - package-ecosystem: npm
-  #   directory: /packages/bot
-  #   schedule:
-  #     interval: daily
-
-  # - package-ecosystem: npm
-  #   directory: /packages/main
-  #   schedule:
-  #     interval: daily
-
   - package-ecosystem: github-actions
     directory: /.github
     schedule:

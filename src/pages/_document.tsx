@@ -23,7 +23,10 @@ export default class MyDocument extends Document<Props> {
         // eslint-disable-next-line react/display-name
         enhanceComponent: (Component) => (props) =>
           (
-            <RelayEnvironmentProvider environment={env}>
+            <RelayEnvironmentProvider
+              // @ts-ignore
+              environment={env}
+            >
               <Component {...props} />
             </RelayEnvironmentProvider>
           ),

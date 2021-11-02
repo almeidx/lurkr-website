@@ -1,6 +1,6 @@
 ---
 name: Feature request
-about: Request a feature for one of the websites
+about: Request a feature for the website
 title: ''
 labels: 'type: enhancement'
 ---
