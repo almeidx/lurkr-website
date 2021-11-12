@@ -1,6 +1,7 @@
 {
+  "$schema": "http://json.schemastore.org/eslintrc",
   "root": true,
-  "extends": "marine/prettier/react",
+  "extends": ["marine/prettier/react", "plugin:@next/next/recommended"],
   "plugins": ["simple-import-sort"],
   "ignorePatterns": [".next/*", ".vercel/*", ".yarn/*", "node_modules/*", "__generated__/*"],
   "env": {
