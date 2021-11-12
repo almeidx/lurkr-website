@@ -1,7 +1,7 @@
 /**
  * @type {import('next').NextConfig}
  */
-module.exports = {
+const nextConfig = {
   reactStrictMode: true,
   redirects() {
     return [
@@ -44,3 +44,5 @@ module.exports = {
     ];
   },
 };
+
+export default nextConfig;
