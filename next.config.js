@@ -43,24 +43,4 @@ module.exports = {
       },
     ];
   },
-  /**
-   * @param {import('webpack').Configuration} config
-   */
-  webpack: (config) => {
-    // config.optimization.minimize = false;
-    // config.optimization.minimizer = [];
-
-    config.module.rules.push({
-      test: /\.(png|jpg|mp4)$/,
-      use: [
-        {
-          loader: 'file-loader',
-          options: {},
-        },
-      ],
-    });
-
-    return config;
-  },
-  webpack5: false,
 };
