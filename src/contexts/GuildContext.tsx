@@ -28,6 +28,7 @@ const levelingKeys: (keyof DatabaseChanges)[] = [
   'stackXpRoles',
   'topXpRole',
   'xpBlacklistedChannels',
+  'xpDisallowedPrefixes',
   'xpMessage',
   'xpMultipliers',
   'xpResponseType',
@@ -151,6 +152,11 @@ export default function GuildContextProvider({ children }: GuildContextProps) {
         }
       }
 
+      const xpDisallowedPrefixesLimit = getLimit('xpDisallowedPrefixes');
+      if (changes.xpDisallowedPrefixes && changes.xpDisallowedPrefixes.length > xpDisallowedPrefixesLimit.maxLength) {
+        newErrors.push(`You cannot have more than ${xpDisallowedPrefixesLimit.maxLength} xp disallowed prefixes.`);
+      }
+
       const xpMessageLimits = getLimit('xpMessage');
       if (changes.xpMessage && changes.xpMessage.length > xpMessageLimits.maxLength) {
         newErrors.push(`The xp message is longer than ${xpMessageLimits.maxLength} characters.`);
@@ -205,10 +211,16 @@ export default function GuildContextProvider({ children }: GuildContextProps) {
 
       if (
         data &&
+        // TODO: Figure out the types
+        // @ts-expect-error
         (data[key] === value ||
+          // @ts-expect-error
           (Array.isArray(value) && !value.length && data[key] === null) ||
+          // @ts-expect-error
           (Array.isArray(data[key]) && !(data[key] as any[]).length && value === null) ||
+          // @ts-expect-error
           (data[key] === null && value === 0) ||
+          // @ts-expect-error
           (data[key] === 0 && value === null))
       ) {
         if (key in clone) {

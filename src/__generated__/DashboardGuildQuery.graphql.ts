@@ -47,6 +47,7 @@ export type DashboardGuildQueryResponse = {
         readonly topXpRole: string | null;
         readonly vanity: string | null;
         readonly xpBlacklistedChannels: ReadonlyArray<string> | null;
+        readonly xpDisallowedPrefixes: ReadonlyArray<string>;
         readonly xpInThreads: boolean;
         readonly xpMessage: string;
         readonly xpMultipliers: ReadonlyArray<{
@@ -111,6 +112,7 @@ query DashboardGuildQuery(
     topXpRole
     vanity
     xpBlacklistedChannels
+    xpDisallowedPrefixes
     xpInThreads
     xpMessage
     xpMultipliers {
@@ -404,6 +406,13 @@ v5 = [
         "alias": null,
         "args": null,
         "kind": "ScalarField",
+        "name": "xpDisallowedPrefixes",
+        "storageKey": null
+      },
+      {
+        "alias": null,
+        "args": null,
+        "kind": "ScalarField",
         "name": "xpInThreads",
         "storageKey": null
       },
@@ -496,14 +505,14 @@ return {
     "selections": (v5/*: any*/)
   },
   "params": {
-    "cacheID": "98991ae8515e09ca1ade9ef2997fb040",
+    "cacheID": "fa38313820e72a35238ea3733f022ac3",
     "id": null,
     "metadata": {},
     "name": "DashboardGuildQuery",
     "operationKind": "query",
-    "text": "query DashboardGuildQuery(\n  $id: String!\n) {\n  getDiscordGuild(id: $id, requireAuth: true) {\n    icon\n    id\n    name\n    roles {\n      color\n      id\n      name\n      position\n    }\n  }\n  getDiscordGuildChannels(id: $id) {\n    id\n    name\n  }\n  getDatabaseGuild(id: $id) {\n    autoPublishChannels\n    autoResetLevels\n    autoRole\n    autoRoleTimeout\n    blacklistedChannels\n    emojiList\n    emojiListChannel\n    levels\n    mentionCooldown\n    mentionCooldownRoles\n    milestonesChannel\n    milestonesInterval\n    milestonesMessage\n    milestonesRoles\n    noXpRoles\n    prefix\n    premium\n    prioritiseMultiplierRoleHierarchy\n    stackXpRoles\n    storeCounts\n    storeMilestones\n    topXpRole\n    vanity\n    xpBlacklistedChannels\n    xpInThreads\n    xpMessage\n    xpMultipliers {\n      _id\n      multiplier\n      targets\n      type\n    }\n    xpResponseType\n    xpRoles\n    xpWhitelistedChannels\n  }\n}\n"
+    "text": "query DashboardGuildQuery(\n  $id: String!\n) {\n  getDiscordGuild(id: $id, requireAuth: true) {\n    icon\n    id\n    name\n    roles {\n      color\n      id\n      name\n      position\n    }\n  }\n  getDiscordGuildChannels(id: $id) {\n    id\n    name\n  }\n  getDatabaseGuild(id: $id) {\n    autoPublishChannels\n    autoResetLevels\n    autoRole\n    autoRoleTimeout\n    blacklistedChannels\n    emojiList\n    emojiListChannel\n    levels\n    mentionCooldown\n    mentionCooldownRoles\n    milestonesChannel\n    milestonesInterval\n    milestonesMessage\n    milestonesRoles\n    noXpRoles\n    prefix\n    premium\n    prioritiseMultiplierRoleHierarchy\n    stackXpRoles\n    storeCounts\n    storeMilestones\n    topXpRole\n    vanity\n    xpBlacklistedChannels\n    xpDisallowedPrefixes\n    xpInThreads\n    xpMessage\n    xpMultipliers {\n      _id\n      multiplier\n      targets\n      type\n    }\n    xpResponseType\n    xpRoles\n    xpWhitelistedChannels\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '2ec54d5d2759823bc6d3fa20b8e76c52';
+(node as any).hash = '3b7b93ab103c4f971ca36bd0dfb4c2c0';
 export default node;

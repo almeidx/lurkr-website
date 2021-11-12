@@ -21,6 +21,7 @@ import Subtitle from '../../form/Subtitle';
 import Textarea from '../../form/Textarea';
 import Toggle from '../../form/Toggle';
 import Header from '../Header';
+import XpDisallowedPrefix from '../XpDisallowedPrefix';
 import XpMultiplier, {
   XpMultiplierOnDeleteFn,
   XpMultiplierOnItemChangeFn,
@@ -112,13 +113,17 @@ export default function Leveling({ channels, database, roles, openMenu }: Leveli
   );
   const [newXpMultiplierType, setNewXpMultiplierType] = useState<Multiplier['type']>('channel');
   const [newXpRolesLevel, setNewXpRolesLevel] = useState<string>('');
+  const [newDisallowedPrefix, setNewDisallowedPrefix] = useState<string>('');
+  const [xpDisallowedPrefixes, setXpDisallowedPrefixes] = useState<string[]>(database.xpDisallowedPrefixes);
   const newXpRoleSubmitRef = useRef<HTMLButtonElement>(null);
+  const newXpDisallowedPrefixSubmitRef = useRef<HTMLButtonElement>(null);
   const { addChange } = useContext(GuildContext);
 
   const noXpRolesLimit = getDatabaseLimit('noXpRoles', database.premium).maxLength;
   const vanityLimits = getDatabaseLimit('vanity', database.premium);
   const xpMessageLimit = getDatabaseLimit('xpMessage', database.premium).maxLength;
   const xpChannelsLimit = getDatabaseLimit('xpChannels', database.premium).maxLength;
+  const xpDisallowedPrefixesLimit = getDatabaseLimit('xpDisallowedPrefixes', database.premium).maxLength;
 
   useEffect(() => {
     window.scroll({ behavior: 'auto', left: 0, top: 0 });
@@ -486,6 +491,59 @@ export default function Leveling({ channels, database, roles, openMenu }: Leveli
             type="channel"
           />
           <Subtitle text={`Maximum of ${xpChannelsLimit} channels.`} />
+        </Field>
+
+        <Field>
+          <Label
+            htmlFor="xpDisallowedPrefixes"
+            name="Disallowed Prefixes"
+            url="https://docs.pepemanager.com/guides/setting-up-server-xp-leveling#blacklisting-bot-prefixes"
+          />
+
+          <div className="mb-4 divide-y-2">
+            <div className="w-full">
+              <Input
+                clearOnSubmit
+                id="newXpDisallowedPrefix"
+                initialValue=""
+                maxLength={12}
+                onChange={(t) => setNewDisallowedPrefix(t)}
+                onSubmit={() => {
+                  if (
+                    !xpDisallowedPrefixes.includes(newDisallowedPrefix) &&
+                    xpDisallowedPrefixes.length < xpDisallowedPrefixesLimit
+                  ) {
+                    const newArr = [...xpDisallowedPrefixes, newDisallowedPrefix];
+                    setXpDisallowedPrefixes(newArr);
+                    addChange('xpDisallowedPrefixes', newArr);
+                  }
+                }}
+                placeholder="Enter a prefix to add to the disallowed list"
+                submitIcon={BiLayerPlus}
+                submitRef={newXpDisallowedPrefixSubmitRef}
+              />
+            </div>
+          </div>
+
+          {!!xpDisallowedPrefixes.length && (
+            <div className="flex flex-row flex-wrap mb-4 gap-2">
+              {xpDisallowedPrefixes.map((prefix, index) => (
+                <XpDisallowedPrefix
+                  index={index}
+                  key={prefix}
+                  prefix={prefix}
+                  onDelete={(index) => {
+                    const clone = [...xpDisallowedPrefixes];
+                    clone.splice(index, 1);
+                    setXpDisallowedPrefixes(clone);
+                    addChange('xpDisallowedPrefixes', clone);
+                  }}
+                />
+              ))}
+            </div>
+          )}
+
+          <Subtitle text={`Maximum of ${xpDisallowedPrefixesLimit} prefixes.`} />
         </Field>
 
         <Field>

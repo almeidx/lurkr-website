@@ -78,6 +78,7 @@ export default graphql`
       topXpRole
       vanity
       xpBlacklistedChannels
+      xpDisallowedPrefixes
       xpInThreads
       xpMessage
       xpMultipliers {

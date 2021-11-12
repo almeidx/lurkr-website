@@ -273,6 +273,9 @@ export const DATABASE_LIMITS = {
   xpChannels: {
     maxLength: 30,
   },
+  xpDisallowedPrefixes: {
+    maxLength: 10,
+  },
   xpMessage: {
     maxLength: 1_000,
   },
@@ -330,6 +333,9 @@ export const DATABASE_PREMIUM_LIMITS = {
   },
   xpChannels: {
     maxLength: 50,
+  },
+  xpDisallowedPrefixes: {
+    maxLength: 25,
   },
   xpMessage: {
     maxLength: 1_000,
