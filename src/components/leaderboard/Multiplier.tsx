@@ -21,7 +21,7 @@ export default function Multiplier({ items, multiplier, targets, type }: Multipl
       </span>
 
       {type !== 'global' && targets && items && (
-        <div className="flex flex-row flex-wrap gap-1.5 flex-shrink-0">
+        <div className="flex flex-row flex-wrap gap-1.5 shrink-0">
           {type === 'channel'
             ? targets.map((id) => {
                 const item = items.find((item) => item.id === id) as Channel | void;

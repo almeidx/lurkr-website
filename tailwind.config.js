@@ -1,7 +1,5 @@
 module.exports = {
-  mode: 'jit',
-  purge: ['./src/pages/**/*.{js,ts,jsx,tsx}', './src/components/**/*.{js,ts,jsx,tsx}'],
-  darkMode: false,
+  content: ['./src/pages/**/*.{js,ts,jsx,tsx}', './src/components/**/*.{js,ts,jsx,tsx}'],
   theme: {
     fontFamily: {
       sans: ['"Noto Sans KR"', 'sans-serif'],
@@ -21,9 +19,6 @@ module.exports = {
         'discord-red': '#ED4245',
       },
     },
-  },
-  variants: {
-    extend: {},
   },
   plugins: [],
 };

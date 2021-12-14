@@ -12,7 +12,7 @@ export default function XpDisallowedPrefix({ index, prefix, onDelete }: XpDisall
   return (
     <div className="relative flex flex-row flex-wrap justify-between p-2 gap-y-2 bg-discord-dark rounded-lg">
       <label
-        className="flex flex-shrink-0 justify-center items-center rounded-full px-4 mr-2 text-white bg-discord-not-quite-black shadow-lg"
+        className="flex shrink-0 justify-center items-center rounded-full px-4 mr-2 text-white bg-discord-not-quite-black shadow-lg"
         htmlFor={`${index}-disallowed-prefix`}
       >
         {prefix}

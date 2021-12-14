@@ -419,7 +419,7 @@ export default function Leveling({ channels, database, roles, openMenu }: Leveli
                     onSelect={(i) => setNewXpMultiplierType(i.toLowerCase() as Multiplier['type'])}
                   />
                   <button
-                    className="flex-shrink-0 h-12 w-12 bg-discord-not-quite-black rounded-md flex justify-center items-center text-white disabled:text-opacity-25 duration-150 transition-colors"
+                    className="shrink-0 h-12 w-12 bg-discord-not-quite-black rounded-md flex justify-center items-center text-white disabled:text-opacity-25 duration-150 transition-colors"
                     onClick={() => {
                       const finalMultipliers = [
                         ...xpMultipliers,

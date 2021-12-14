@@ -21,7 +21,7 @@ export default function XpRole({ level, initialRoles, onChange, premium, roles, 
     <div className="flex flex-col justify-between items-center px-4 py-2 gap-y-2 bg-discord-dark shadow-lg rounded-lg">
       <div className="flex w-full">
         <label
-          className="flex flex-shrink-0 justify-center items-center rounded-full px-4 mr-2 text-white bg-discord-not-quite-black shadow-lg"
+          className="flex shrink-0 justify-center items-center rounded-full px-4 mr-2 text-white bg-discord-not-quite-black shadow-lg"
           htmlFor={`l-${level}-roles`}
         >
           Level {level}
