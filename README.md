@@ -45,7 +45,7 @@ The deployment of the website is all automated by [Vercel]
 
 ### Author
 
-**pepe-website** © [almeidx], released under the [ISC] license.
+**pepe-website** © [almeidx], released under the [GNU AGPLv3] license.
 
 > GitHub [@almeidx]
 
