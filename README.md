@@ -54,6 +54,6 @@ The deployment of the website is all automated by [Vercel]
 [node.js]: https://nodejs.org
 [vercel]: https://vercel.com
 [yarn 3]: https://yarnpkg.com
-[isc]: https://github.com/almeidx/pepe-website/blob/main/LICENSE
+[gnu agplv3]: https://github.com/almeidx/pepe-website/blob/main/LICENSE
 [almeidx]: https://almeidx.dev
 [@almeidx]: https://github.com/almeidx
