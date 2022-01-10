@@ -53,7 +53,7 @@ export default function Levels({ guilds }: InferGetServerSidePropsType<typeof ge
   };
 
   return (
-    <div className="flex flex-col justify-center items-center text-center min-h-screen bg-discord-dark gap-y-8">
+    <div className="flex flex-col justify-center items-center text-center min-h-screen-no-footer bg-discord-dark gap-y-8">
       <Head>
         <title>Levels | Pepe Manager</title>
       </Head>
@@ -71,6 +71,7 @@ export default function Levels({ guilds }: InferGetServerSidePropsType<typeof ge
 
       <div className="px-4 w-full flex items-center justify-center text-center flex-col">
         <h1>{guilds ? 'Alternatively, enter a server ID' : 'Enter the ID of the server you want to view'}</h1>
+
         <div className="w-full sm:w-8/12 md:w-6/12 lg:w-4/12">
           <Input
             className="my-5"

@@ -45,7 +45,7 @@ export default function Showcase({ align, description, src, title }: ShowcasePro
   }, []);
 
   return (
-    <div className="flex flex-col lg:px-6 xl:px-48 items-center lg:grid lg:grid-cols-3 gap-6">
+    <section className="flex flex-col lg:px-6 xl:px-48 items-center lg:grid lg:grid-cols-3 gap-6">
       <video
         autoPlay
         className="rounded-md w-[93%]  sm:w-3/4 lg:w-full lg:h-auto"
@@ -65,6 +65,6 @@ export default function Showcase({ align, description, src, title }: ShowcasePro
         <h2>{title}</h2>
         <p className="mt-3 text-gray-400 font-light">{description}</p>
       </div>
-    </div>
+    </section>
   );
 }

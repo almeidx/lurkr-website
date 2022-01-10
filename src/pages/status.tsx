@@ -65,7 +65,7 @@ export default function Status({ shards, totalShards }: InferGetStaticPropsType<
   };
 
   return (
-    <div className="min-h-screen bg-discord-dark flex flex-col items-center">
+    <div className="min-h-screen-no-footer bg-discord-dark flex flex-col items-center">
       <Head>
         <title>Bot Status | Pepe Manager</title>
       </Head>

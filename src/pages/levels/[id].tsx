@@ -61,7 +61,7 @@ export default function Leaderboard({
 
   if (isFallback) {
     return (
-      <div className="min-h-screen bg-discord-dark flex justify-center items-center">
+      <div className="min-h-screen-no-footer bg-discord-dark flex justify-center items-center">
         <Spinner className="w-60 h-auto" />
       </div>
     );
@@ -75,7 +75,7 @@ export default function Leaderboard({
   }
 
   return (
-    <div className="flex flex-col items-start min-h-screen bg-discord-dark sm:px-6 gap-y-10">
+    <div className="flex flex-col items-start min-h-screen-no-footer bg-discord-dark sm:px-6 gap-y-10">
       <Head>
         <title>{guild.name} Leaderboard | Pepe Manager</title>
       </Head>

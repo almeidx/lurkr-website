@@ -16,7 +16,7 @@ const buttons: ButtonData[] = [
 
 export default function Home() {
   return (
-    <div className="bg-discord-dark min-h-screen flex items-center flex-col">
+    <div className="bg-discord-dark flex items-center flex-col">
       <Image src="/static/avatar.png" width={64} height={64} />
 
       <header className="py-5 flex flex-col justify-center items-center">

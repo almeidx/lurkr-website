@@ -33,7 +33,7 @@ export default function Calculator() {
   );
 
   return (
-    <div className="min-h-screen bg-discord-dark flex flex-col items-center">
+    <div className="min-h-screen-no-footer bg-discord-dark flex flex-col items-center">
       <Head>
         <title>Level Calculator | Pepe Manager</title>
       </Head>

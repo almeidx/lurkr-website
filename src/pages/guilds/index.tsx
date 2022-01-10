@@ -38,7 +38,7 @@ export default function Guilds({ guilds }: InferGetServerSidePropsType<typeof ge
   }
 
   return (
-    <div className="flex flex-col justify-center items-center text-center min-h-screen bg-discord-dark gap-y-8 pb-6 pt-6 sm:pt-0">
+    <div className="flex flex-col justify-center items-center text-center min-h-screen-no-footer bg-discord-dark gap-y-8 pb-6 pt-6 sm:pt-0">
       <Head>
         <title>Guilds | Pepe Manager</title>
       </Head>

@@ -36,7 +36,7 @@ export default function Footer() {
               <span className="text-gray-400 mb-2 font-bold">{title}</span>
               {links.map(({ href, name }, j) => (
                 <Link key={j} href={href}>
-                  <a className="hover:underline w-[fit-content]">{name}</a>
+                  <a className="hover:underline w-fit">{name}</a>
                 </Link>
               ))}
             </div>

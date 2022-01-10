@@ -467,7 +467,7 @@ export default function Leveling({ channels, database, roles, openMenu }: Leveli
           />
           <div className="flex flex-row justify-start mb-3">
             <button
-              className="text-white disabled:text-opacity-25 w-[fit-content] bg-discord-not-quite-black px-2 py-1.5 rounded-md shadow-sm duration-150 transition-colors active:bg-discord-dark focus:outline-none"
+              className="text-white disabled:text-opacity-25 w-fit bg-discord-not-quite-black px-2 py-1.5 rounded-md shadow-sm duration-150 transition-colors active:bg-discord-dark focus:outline-none"
               onClick={handleXpChannelsTypeChange}
             >
               Use {xpChannelsType === 'blacklist' ? 'Whitelist' : 'Blacklist'}

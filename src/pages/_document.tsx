@@ -49,7 +49,7 @@ export default class MyDocument extends Document<Props> {
 
   public override render() {
     return (
-      <Html lang="en">
+      <Html lang="en" className="scroll-smooth">
         <Head>
           <link rel="manifest" href="/manifest.json" />
           <link rel="shortcut icon" href="/favicon.png" type="image/png" />
