@@ -18,10 +18,12 @@ interface Props {
 }
 
 export default function MyApp({ Component, pageProps, records: r }: AppProps & Props) {
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const records: RecordMap = useMemo(() => {
     if (r) return r;
     if (typeof document !== 'undefined') {
       const recordsData = document.getElementById('relay-data')?.innerHTML;
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-return
       if (recordsData) return JSON.parse(Buffer.from(recordsData, 'base64').toString());
     }
     return {};
@@ -29,7 +31,7 @@ export default function MyApp({ Component, pageProps, records: r }: AppProps & P
 
   return (
     <RelayEnvironmentProvider
-      // @ts-ignore
+      // @ts-expect-error
       environment={environment(records)}
     >
       <UserProvider>

@@ -21,7 +21,7 @@ interface MilestonesProps {
   channels: DashboardChannels;
   database: DashboardDatabaseGuild;
   roles: DashboardRoles;
-  openMenu(): void;
+  openMenu: () => void;
 }
 
 export default function Milestones({ channels, database, roles, openMenu }: MilestonesProps) {

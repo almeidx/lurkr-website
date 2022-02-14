@@ -22,7 +22,7 @@ import { guildIconCdn } from '../../utils/cdn';
 import { FALLBACK_AVATAR_PATH } from '../../utils/constants';
 
 interface MenuProps {
-  closeMenu(): void;
+  closeMenu: () => void;
   guild: {
     icon: string | null;
     id: Snowflake;
@@ -96,6 +96,7 @@ export default function Menu({ closeMenu, guild, guildId: argGuildId, menuOpen, 
       await updateDatabase({ variables: { data: dataForMutation, id: guildId } });
     } catch (error) {
       // @ts-expect-error
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       console.error(error, error?.networkError, error?.networkError?.result?.errors);
       hasFailed = true;
     } finally {

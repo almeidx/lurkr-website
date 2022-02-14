@@ -15,7 +15,7 @@ import Header from '../Header';
 interface AutoroleProps {
   database: DashboardDatabaseGuild;
   roles: DashboardRoles;
-  openMenu(): void;
+  openMenu: () => void;
 }
 
 export default function Autorole({ database, roles, openMenu }: AutoroleProps) {

@@ -15,7 +15,7 @@ import Header from '../Header';
 interface MiscellaneousProps {
   channels: DashboardChannels;
   database: DashboardDatabaseGuild;
-  openMenu(): void;
+  openMenu: () => void;
 }
 
 export default function Miscellaneous({ channels, database, openMenu }: MiscellaneousProps) {

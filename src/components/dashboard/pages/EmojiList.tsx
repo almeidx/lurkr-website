@@ -11,7 +11,7 @@ import Header from '../Header';
 interface EmojiListProps {
   channels: DashboardChannels;
   database: DashboardDatabaseGuild;
-  openMenu(): void;
+  openMenu: () => void;
 }
 
 export default function EmojiList({ channels, database, openMenu }: EmojiListProps) {

@@ -65,7 +65,7 @@ export default function Selector({ id, limit, items, initialItems, onSelect, typ
           selectedIndex = clone.findIndex((s) => s.id === element.dataset.id);
           break;
         }
-        element = element.parentElement as HTMLElement;
+        element = element.parentElement!;
         i++;
       }
 
@@ -85,7 +85,7 @@ export default function Selector({ id, limit, items, initialItems, onSelect, typ
     (event) => {
       if (selected.length >= limit) return;
 
-      const id = (event.target as HTMLDivElement | HTMLParagraphElement).dataset.id as Snowflake;
+      const id = (event.target as HTMLDivElement | HTMLParagraphElement).dataset.id!;
       if (selected.some((s) => s.id === id)) return;
 
       const item = items.find((i) => i.id === id);

@@ -6,14 +6,14 @@ import Toggle from '../form/Toggle';
 interface HeaderProps {
   description: string;
   title: string;
-  openMenu(): void;
+  openMenu: () => void;
 }
 
 interface HeaderWithToggleProps extends HeaderProps {
   id: string;
   initialValue: boolean;
   onChange: (value: boolean) => unknown;
-  openMenu(): void;
+  openMenu: () => void;
 }
 
 export default function Header(props: HeaderProps | HeaderWithToggleProps) {

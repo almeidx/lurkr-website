@@ -33,7 +33,7 @@ interface LevelingProps {
   channels: DashboardChannels;
   database: DashboardDatabaseGuild;
   roles: DashboardRoles;
-  openMenu(): void;
+  openMenu: () => void;
 }
 
 type Multiplier = DashboardDatabaseGuild['xpMultipliers'][0];

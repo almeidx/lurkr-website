@@ -15,7 +15,7 @@ import Header from '../Header';
 interface MentionCooldownProps {
   database: DashboardDatabaseGuild;
   roles: DashboardRoles;
-  openMenu(): void;
+  openMenu: () => void;
 }
 
 export default function MentionCooldown({ database, roles, openMenu }: MentionCooldownProps) {

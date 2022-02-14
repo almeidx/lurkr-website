@@ -15,7 +15,7 @@ import Header from '../Header';
 interface GeneralProps {
   channels: DashboardChannels;
   database: DashboardDatabaseGuild;
-  openMenu(): void;
+  openMenu: () => void;
 }
 
 export default function General({ channels, database, openMenu }: GeneralProps) {

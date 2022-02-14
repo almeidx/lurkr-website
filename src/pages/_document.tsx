@@ -24,7 +24,7 @@ export default class MyDocument extends Document<Props> {
         enhanceComponent: (Component) => (props) =>
           (
             <RelayEnvironmentProvider
-              // @ts-ignore
+              // @ts-expect-error
               environment={env}
             >
               <Component {...props} />

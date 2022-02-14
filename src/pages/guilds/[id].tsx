@@ -72,10 +72,7 @@ export default function Guild({
   useEffect(() => {
     if (!Object.keys(changes).length) return;
 
-    const handleUnload = (event: BeforeUnloadEvent) => {
-      event.returnValue = 'Changes that you made may not be saved.';
-      return event.returnValue;
-    };
+    const handleUnload = (event: BeforeUnloadEvent) => (event.returnValue = 'Changes that you made may not be saved.');
 
     window.addEventListener('beforeunload', handleUnload);
     return () => window.removeEventListener('beforeunload', handleUnload);

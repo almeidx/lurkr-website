@@ -2,6 +2,13 @@
  * @type {import('next').NextConfig}
  */
 const nextConfig = {
+  compiler: {
+    relay: {
+      artifactDirectory: './src/__generated__',
+      language: 'typescript',
+      src: './src',
+    },
+  },
   reactStrictMode: true,
   redirects() {
     return [
