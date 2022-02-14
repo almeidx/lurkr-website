@@ -25,13 +25,6 @@ export const isValidSnowflake = (str: string): str is Snowflake => {
   return true;
 };
 
-/**
- * Rounds a number to n decimal places.
- * @param n The number that will be rounded.
- * @param decimals The amount of decimal places to round the number to.
- */
-export const roundNumberToNDecimalPlaces = (n: number, decimals = 2): number => parseFloatStrict(n.toFixed(decimals));
-
 export const parseMultiplier = (phrase: string): number | null => {
   const numberCandidate = phrase.replace(/x/gi, '');
   if (!numberCandidate) return null;
@@ -67,6 +60,13 @@ export const parseIntStrict = (n: string): number => parseInt(Number(n).toString
 
 export const parseFloatStrict = (n: string): number => Number(n);
 
+/**
+ * Rounds a number to n decimal places.
+ * @param n The number that will be rounded.
+ * @param decimals The amount of decimal places to round the number to.
+ */
+export const roundNumberToNDecimalPlaces = (n: number, decimals = 2): number => parseFloatStrict(n.toFixed(decimals));
+
 export const isNumeric = (str: string) => {
   if (typeof str != 'string') return false;
   return !isNaN(str as unknown as number) && !isNaN(parseFloat(str));
@@ -89,7 +89,10 @@ export const getDatabaseLimit = <
 export const removeNonStringValues = (obj: Record<string, any>): Record<string, string> =>
   Object.keys(obj)
     .filter((k) => typeof obj[k] === 'string')
-    .reduce((acc, k) => {
+    .reduce<Record<string, string>>((acc, k) => {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       acc[k] = obj[k];
       return acc;
-    }, {} as Record<string, string>);
+    }, {});
+
+export const inProductionEnvironment = () => process.env.NODE_ENV !== 'development';

@@ -3,7 +3,9 @@ import '../styles/global.css';
 
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
-import { useMemo } from 'react';
+import { useRouter } from 'next/router';
+import Script from 'next/script';
+import { useEffect, useMemo } from 'react';
 import { RelayEnvironmentProvider } from 'react-relay';
 import type { RecordMap } from 'relay-runtime/lib/store/RelayStoreTypes';
 
@@ -12,12 +14,27 @@ import Navbar from '../components/Navbar';
 import GuildProvider from '../contexts/GuildContext';
 import UserProvider from '../contexts/UserContext';
 import environment from '../relay/environment';
+import * as gtag from '../utils/gtag';
+import { inProductionEnvironment } from '../utils/utils';
 
 interface Props {
   records?: RecordMap;
 }
 
 export default function MyApp({ Component, pageProps, records: r }: AppProps & Props) {
+  const router = useRouter();
+
+  useEffect(() => {
+    const handleRouteChange = (url: string) => {
+      if (inProductionEnvironment()) gtag.pageView(url);
+    };
+    router.events.on('routeChangeComplete', handleRouteChange);
+
+    return () => {
+      router.events.off('routeChangeComplete', handleRouteChange);
+    };
+  }, [router.events]);
+
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const records: RecordMap = useMemo(() => {
     if (r) return r;
@@ -39,6 +56,30 @@ export default function MyApp({ Component, pageProps, records: r }: AppProps & P
           <Head>
             <title>Pepe Manager</title>
           </Head>
+
+          {inProductionEnvironment() && (
+            <>
+              {/* Global Site Tag (gtag.js) - Google Analytics */}
+              <Script
+                strategy="afterInteractive"
+                src={`https://www.googletagmanager.com/gtag/js?id=${gtag.GA_TRACKING_ID}`}
+              />
+              <Script
+                id="gtag-init"
+                strategy="afterInteractive"
+                dangerouslySetInnerHTML={{
+                  __html: `
+                    window.dataLayer = window.dataLayer || [];
+                    function gtag(){dataLayer.push(arguments);}
+                    gtag('js', new Date());
+                    gtag('config', '${gtag.GA_TRACKING_ID}', {
+                      page_path: window.location.pathname,
+                    });
+                  `,
+                }}
+              />
+            </>
+          )}
 
           <Navbar />
           <Component {...pageProps} />
