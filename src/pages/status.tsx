@@ -1,4 +1,3 @@
-import axios from 'axios';
 import type { Snowflake } from 'discord-api-types';
 import type { GetStaticProps, InferGetStaticPropsType } from 'next';
 import Head from 'next/head';
@@ -29,15 +28,17 @@ interface StatusProps {
 
 const tableHeaders = ['ID', 'Guilds', 'Users', 'Ping (ms)', 'Memory (MB)', 'Uptime'];
 
+// eslint-disable-next-line @typescript-eslint/no-unsafe-argument
 const calculateShardId = (guildId: Snowflake, shards: number): number => Number(BigInt(guildId) >> BigInt(22)) % shards;
 
 export const getStaticProps: GetStaticProps<StatusProps> = async () => {
-  const response = await axios.get<GetStatsResponse>('/stats', { baseURL: BOT_API_BASE_URL }).catch(() => null);
+  const response = await fetch(`${BOT_API_BASE_URL}/stats`).catch(() => null);
+  const data = (await response?.json().catch(() => null)) as GetStatsResponse | null;
 
   return {
     props: {
-      shards: response?.data.shards ?? null,
-      totalShards: response?.data.totalShards ?? null,
+      shards: data?.shards ?? null,
+      totalShards: data?.totalShards ?? null,
     },
     revalidate: 5,
   };
