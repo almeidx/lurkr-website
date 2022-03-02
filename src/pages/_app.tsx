@@ -47,10 +47,7 @@ export default function MyApp({ Component, pageProps, records: r }: AppProps & P
   }, [r]);
 
   return (
-    <RelayEnvironmentProvider
-      // @ts-expect-error
-      environment={environment(records)}
-    >
+    <RelayEnvironmentProvider environment={environment(records)}>
       <UserProvider>
         <GuildProvider>
           <Head>
