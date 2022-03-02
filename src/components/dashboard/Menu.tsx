@@ -1,4 +1,4 @@
-import type { Snowflake } from 'discord-api-types';
+import type { Snowflake } from 'discord-api-types/globals';
 import cloneDeep from 'lodash.clonedeep';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
@@ -67,6 +67,7 @@ export default function Menu({ closeMenu, guild, guildId: argGuildId, menuOpen, 
 
   const saveButtonDisabled = (Object.keys(changes).length || isSaving.current) && !errors.length;
 
+  // eslint-disable-next-line @typescript-eslint/no-misused-promises
   const handleSaveButtonClick: MouseEventHandler<HTMLButtonElement> = useCallback(async () => {
     if (isSaving.current || errors.length) return;
 

@@ -1,5 +1,4 @@
-import axios from 'axios';
-import type { Snowflake } from 'discord-api-types';
+import type { Snowflake } from 'discord-api-types/globals';
 import Cookie from 'js-cookie';
 import { createContext, ReactNode, useEffect, useState } from 'react';
 
@@ -41,23 +40,22 @@ export default function UserProvider({ children }: UserContextProps) {
 
   useEffect(() => {
     if (!userData.authenticated) {
-      axios
-        .get<AuthSuccessResponse>('/auth/success', {
-          baseURL: API_BASE_URL,
-          headers: {
-            Accept: 'application/json',
-            'Access-Control-Allow-Credentials': 'true',
-            'Access-Control-Allow-Origin': API_BASE_URL,
-          },
-          withCredentials: true,
-        })
-        .then((res) => {
+      fetch(`${API_BASE_URL}/auth/success`, {
+        credentials: 'include',
+        headers: {
+          'Access-Control-Allow-Credentials': 'true',
+          'Access-Control-Allow-Origin': API_BASE_URL,
+          'Content-Type': 'application/json',
+        },
+      })
+        .then(async (res) => {
+          const data = (await res.json()) as AuthSuccessResponse;
           if (res.status === 200) {
             setUserData({
               authenticated: true,
-              ...res.data.user,
+              ...data.user,
             });
-            Cookie.set('connect.sid', res.data.cookies['connect.sid']);
+            Cookie.set('connect.sid', data.cookies['connect.sid']);
           } else {
             console.error('Failed to authenticate', res);
             throw new Error('Failed to authenticate user');

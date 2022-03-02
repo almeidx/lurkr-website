@@ -1,4 +1,4 @@
-import type { Snowflake } from 'discord-api-types';
+import type { Snowflake } from 'discord-api-types/globals';
 import Image from 'next/image';
 import type { ChangeEvent } from 'react';
 

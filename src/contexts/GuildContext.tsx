@@ -1,5 +1,4 @@
-import axios from 'axios';
-import type { Snowflake } from 'discord-api-types';
+import type { Snowflake } from 'discord-api-types/globals';
 import cloneDeep from 'lodash.clonedeep';
 import { createContext, ReactNode, useCallback, useState } from 'react';
 
@@ -137,15 +136,15 @@ export default function GuildContextProvider({ children }: GuildContextProps) {
           }
 
           vanityAvailabilityTimeout = setTimeout(() => {
-            axios
-              .get<VanityCheckResponse>('/vanity/check', {
-                baseURL: API_BASE_URL,
-                params: {
-                  vanity: changes.vanity,
-                },
-              })
-              .then((res) => {
-                if (!res.data.available) addNewError('The leaderboard vanity you used is not available.');
+            fetch(
+              `${API_BASE_URL}/vanity/check?${new URLSearchParams({ vanity: changes.vanity } as Record<
+                string,
+                string
+              >)}`,
+            )
+              .then(async (res) => {
+                const data = (await res.json()) as VanityCheckResponse;
+                if (!data.available) addNewError('The leaderboard vanity you used is not available.');
               })
               .catch((err) => console.error('vanity availability check error: ', err));
           }, 1000);
@@ -216,7 +215,6 @@ export default function GuildContextProvider({ children }: GuildContextProps) {
         (data[key] === value ||
           // @ts-expect-error
           (Array.isArray(value) && !value.length && data[key] === null) ||
-          // @ts-expect-error
           (Array.isArray(data[key]) && !(data[key] as any[]).length && value === null) ||
           // @ts-expect-error
           (data[key] === null && value === 0) ||

@@ -1,4 +1,4 @@
-import type { Snowflake } from 'discord-api-types';
+import type { Snowflake } from 'discord-api-types/globals';
 import { graphql } from 'relay-runtime';
 
 import type { DatabaseGuildChanges } from '../../__generated__/updateDatabaseGuildMutation.graphql';
