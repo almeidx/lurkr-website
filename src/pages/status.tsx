@@ -1,4 +1,4 @@
-import type { Snowflake } from 'discord-api-types';
+import type { Snowflake } from 'discord-api-types/globals';
 import type { GetStaticProps, InferGetStaticPropsType } from 'next';
 import Head from 'next/head';
 import { useRef, useState } from 'react';
@@ -28,7 +28,6 @@ interface StatusProps {
 
 const tableHeaders = ['ID', 'Guilds', 'Users', 'Ping (ms)', 'Memory (MB)', 'Uptime'];
 
-// eslint-disable-next-line @typescript-eslint/no-unsafe-argument
 const calculateShardId = (guildId: Snowflake, shards: number): number => Number(BigInt(guildId) >> BigInt(22)) % shards;
 
 export const getStaticProps: GetStaticProps<StatusProps> = async () => {

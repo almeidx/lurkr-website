@@ -1,4 +1,4 @@
-import type { Snowflake } from 'discord-api-types';
+import type { Snowflake } from 'discord-api-types/globals';
 import cloneDeep from 'lodash.clonedeep';
 import { createContext, ReactNode, useCallback, useState } from 'react';
 
@@ -64,7 +64,6 @@ export const GuildContext = createContext({} as GuildContextData);
 let vanityAvailabilityTimeout: NodeJS.Timeout | undefined;
 
 export default function GuildContextProvider({ children }: GuildContextProps) {
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const [guildId, setGuildId] = useState<Snowflake | null>(null);
   const [section, setSection] = useState<Section>('general');
   const [changes, setChanges] = useState<Partial<DatabaseChanges>>({});
@@ -256,7 +255,6 @@ export default function GuildContextProvider({ children }: GuildContextProps) {
         // @ts-expect-error
         data,
         errors,
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         guildId,
         section,
         updateData: setData,

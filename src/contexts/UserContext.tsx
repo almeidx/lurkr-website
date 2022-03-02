@@ -1,4 +1,4 @@
-import type { Snowflake } from 'discord-api-types';
+import type { Snowflake } from 'discord-api-types/globals';
 import Cookie from 'js-cookie';
 import { createContext, ReactNode, useEffect, useState } from 'react';
 
@@ -34,7 +34,6 @@ export default function UserProvider({ children }: UserContextProps) {
     authenticated: false,
     avatar: '',
     discriminator: '',
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     id: '' as Snowflake,
     username: '',
   });
