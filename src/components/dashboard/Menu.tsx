@@ -127,7 +127,7 @@ export default function Menu({ closeMenu, guild, guildId: argGuildId, menuOpen, 
       <div className="sticky top-0 sm:py-6">
         <header className="flex flex-col sm:flex-row items-center px-6 py-4 mb-6 gap-4 bg-discord-slightly-darker sm:bg-discord-dark">
           {guild.icon ? (
-            <Image
+            <img
               alt={`${guild.name} server icon`}
               className="rounded-full"
               height={64}
