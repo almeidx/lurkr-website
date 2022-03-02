@@ -1,4 +1,4 @@
-import type { Snowflake } from 'discord-api-types';
+import type { Snowflake } from 'discord-api-types/globals';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -17,7 +17,7 @@ export default function Guild({ baseRedirectPath, icon, id, name }: GuildProps) 
     <Link href={`${baseRedirectPath}${id}`} key={id}>
       <a className="flex flex-col flex-wrap gap-2 px-6 py-4 bg-discord-slightly-darker rounded-2xl w-40 h-44 text-center relative shadow-sm">
         {icon ? (
-          <img
+          <Image
             alt={`${name} server icon`}
             className="rounded-lg"
             height={128}

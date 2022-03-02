@@ -1,8 +1,9 @@
-import type { Snowflake } from 'discord-api-types';
+import type { Snowflake } from 'discord-api-types/globals';
 import cloneDeep from 'lodash.clonedeep';
 import { MouseEventHandler, useCallback, useContext, useEffect, useRef, useState } from 'react';
 import { BiLayerPlus } from 'react-icons/bi';
 
+import type { DatabaseXpMultiplierType } from '../../../__generated__/updateDatabaseGuildMutation.graphql';
 import { GuildContext } from '../../../contexts/GuildContext';
 import {
   AutoResetLevels,
@@ -189,7 +190,7 @@ export default function Leveling({ channels, database, roles, openMenu }: Leveli
       clone.splice(index, 1);
 
       setXpMultipliers(clone);
-      addChange('xpMultipliers', resolveMultiplierValues(clone));
+      addChange('xpMultipliers', resolveMultiplierValues(clone) as unknown as DatabaseXpMultiplierType[]);
     },
     [addChange, xpMultipliers],
   );
@@ -216,7 +217,7 @@ export default function Leveling({ channels, database, roles, openMenu }: Leveli
       clone[index] = multiplier;
 
       setXpMultipliers(clone);
-      addChange('xpMultipliers', resolveMultiplierValues(clone));
+      addChange('xpMultipliers', resolveMultiplierValues(clone) as unknown as DatabaseXpMultiplierType[]);
     },
     [addChange, xpMultipliers],
   );

@@ -1,4 +1,4 @@
-import type { Snowflake } from 'discord-api-types';
+import type { Snowflake } from 'discord-api-types/globals';
 import { MouseEventHandler, useCallback, useEffect, useRef, useState } from 'react';
 import { AiOutlinePlusCircle } from 'react-icons/ai';
 

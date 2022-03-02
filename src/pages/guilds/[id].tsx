@@ -1,4 +1,4 @@
-import type { Snowflake } from 'discord-api-types';
+import type { Snowflake } from 'discord-api-types/globals';
 import type { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
@@ -45,7 +45,7 @@ export const getServerSideProps: GetServerSideProps<GuildProps> = async (ctx) =>
   return {
     props: {
       channels: data.getDiscordGuildChannels as DashboardChannels,
-      database: data.getDatabaseGuild as DashboardDatabaseGuild,
+      database: data.getDatabaseGuild as unknown as DashboardDatabaseGuild,
       guild: data.getDiscordGuild as DashboardDiscordGuild,
       guildId: ctx.params.id,
     },

@@ -252,7 +252,6 @@ export default function GuildContextProvider({ children }: GuildContextProps) {
         addChange,
         changes,
         clearChanges,
-        // @ts-expect-error
         data,
         errors,
         guildId,

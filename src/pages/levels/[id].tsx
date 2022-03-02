@@ -1,4 +1,4 @@
-import type { Snowflake } from 'discord-api-types';
+import type { Snowflake } from 'discord-api-types/globals';
 import type { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
