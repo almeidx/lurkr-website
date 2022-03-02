@@ -45,7 +45,7 @@ export const getServerSideProps: GetServerSideProps<GuildProps> = async (ctx) =>
   return {
     props: {
       channels: data.getDiscordGuildChannels as DashboardChannels,
-      database: data.getDatabaseGuild as unknown as DashboardDatabaseGuild,
+      database: data.getDatabaseGuild as DashboardDatabaseGuild,
       guild: data.getDiscordGuild as DashboardDiscordGuild,
       guildId: ctx.params.id,
     },
