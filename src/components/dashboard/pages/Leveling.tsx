@@ -419,7 +419,7 @@ export default function Leveling({ channels, database, roles, openMenu }: Leveli
                     onSelect={(i) => setNewXpMultiplierType(i.toLowerCase() as Multiplier['type'])}
                   />
                   <button
-                    className="flex shrink-0 justify-center items-center w-12 h-12 text-white bg-discord-not-quite-black rounded-md transition-colors duration-150 disabled:text-opacity-25"
+                    className="flex shrink-0 justify-center items-center w-12 h-12 text-white bg-discord-not-quite-black rounded-md transition-colors duration-150"
                     onClick={() => {
                       const finalMultipliers = [
                         ...xpMultipliers,
@@ -467,7 +467,7 @@ export default function Leveling({ channels, database, roles, openMenu }: Leveli
           />
           <div className="flex flex-row justify-start mb-3">
             <button
-              className="py-1.5 px-2 w-fit text-white bg-discord-not-quite-black active:bg-discord-dark rounded-md focus:outline-none shadow-sm transition-colors duration-150 disabled:text-opacity-25"
+              className="py-1.5 px-2 w-fit text-white bg-discord-not-quite-black active:bg-discord-dark rounded-md focus:outline-none shadow-sm transition-colors duration-150"
               onClick={handleXpChannelsTypeChange}
             >
               Use {xpChannelsType === 'blacklist' ? 'Whitelist' : 'Blacklist'}

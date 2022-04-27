@@ -28,7 +28,7 @@ export default function Input(props: InputProps | InputWithSubmitProps): JSX.Ele
 
   return (
     <div className={`flex w-full ${props.className ?? ''}`}>
-      <div className="relative w-full grow-1">
+      <div className="relative grow w-full">
         <input
           className={`text-white bg-discord-not-quite-black ${
             props.prefix ? 'pl-[30px]' : 'pl-5'
@@ -66,7 +66,7 @@ export default function Input(props: InputProps | InputWithSubmitProps): JSX.Ele
 
       {'onSubmit' in props && (
         <button
-          className="flex shrink-0 justify-center items-center ml-3 w-12 h-12 text-white bg-discord-not-quite-black rounded-md transition-colors duration-150 disabled:select-none disabled:text-opacity-25"
+          className="flex shrink-0 justify-center items-center ml-3 w-12 h-12 text-white bg-discord-not-quite-black rounded-md transition-colors duration-150 disabled:select-none"
           disabled={props.disabled}
           onClick={() => {
             if (props.clearOnSubmit) setValue('');
