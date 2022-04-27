@@ -125,7 +125,7 @@ export default function Menu({ closeMenu, guild, guildId: argGuildId, menuOpen, 
       } w-full sm:w-96 min-w-[300px] mt-20 sm:mt-0 absolute top-0 left-0 sm:block sm:relative bg-discord-dark`}
     >
       <div className="sticky top-0 sm:py-6">
-        <header className="flex flex-col sm:flex-row items-center px-6 py-4 mb-6 gap-4 bg-discord-slightly-darker sm:bg-discord-dark">
+        <header className="flex flex-col gap-4 items-center py-4 px-6 mb-6 bg-discord-slightly-darker sm:flex-row sm:bg-discord-dark">
           {guild.icon ? (
             <img
               alt={`${guild.name} server icon`}
@@ -139,7 +139,7 @@ export default function Menu({ closeMenu, guild, guildId: argGuildId, menuOpen, 
           )}
 
           <div className="flex flex-col gap-2">
-            <h2 className="text-white w-full text-center break-words sm:text-base">{guild.name}</h2>
+            <h2 className="w-full text-center text-white break-words sm:text-base">{guild.name}</h2>
 
             <span
               className={`flex flex-row justify-center items-center gap-2 ${
@@ -153,7 +153,7 @@ export default function Menu({ closeMenu, guild, guildId: argGuildId, menuOpen, 
           </div>
         </header>
 
-        <section className="flex flex-col sm:max-w-[14rem] gap-y-3 px-6 sm:p-0 sm:pr-4 sm:ml-auto">
+        <section className="flex flex-col gap-y-3 px-6 sm:p-0 sm:pr-4 sm:ml-auto sm:max-w-[14rem]">
           <button
             className={`flex flex-row items-center gap-2 py-2 px-4 w-full text-center duration-200 transition-colors bg-[${saveButtonDefaultColour}] hover:bg-[#25c959] text-white focus:outline-none rounded-lg cursor-pointer`}
             disabled={!Object.keys(changes).length || isSaving.current || !!errors.length}

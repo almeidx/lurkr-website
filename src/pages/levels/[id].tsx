@@ -61,7 +61,7 @@ export default function Leaderboard({
 
   if (isFallback) {
     return (
-      <div className="min-h-screen-no-footer bg-discord-dark flex justify-center items-center">
+      <div className="flex justify-center items-center min-h-screen-no-footer bg-discord-dark">
         <Spinner className="w-60 h-auto" />
       </div>
     );
@@ -75,12 +75,12 @@ export default function Leaderboard({
   }
 
   return (
-    <div className="flex flex-col items-start min-h-screen-no-footer bg-discord-dark sm:px-6 gap-y-10">
+    <div className="flex flex-col gap-y-10 items-start min-h-screen-no-footer bg-discord-dark sm:px-6">
       <Head>
         <title>{guild.name} Leaderboard | Pepe Manager</title>
       </Head>
 
-      <header className="flex flex-row justify-center items-center gap-6 ml-10 mt-3 sm:mt-10 xl:mt-0">
+      <header className="flex flex-row gap-6 justify-center items-center mt-3 ml-10 sm:mt-10 xl:mt-0">
         {guild.icon ? (
           <img
             alt={`${guild.name} server icon`}
@@ -92,23 +92,23 @@ export default function Leaderboard({
         ) : (
           <Image className="rounded-md" height={64} src={FALLBACK_AVATAR_PATH} width={64} />
         )}
-        <p className="text-white text-xl sm:text-4xl font-bold">{guild.name}</p>
+        <p className="text-xl font-bold text-white sm:text-4xl">{guild.name}</p>
       </header>
 
-      <main className="flex flex-col md:flex-row w-full my-4 justify-center sm:justify-between gap-y-6">
-        <section className="w-full rounded-2xl bg-discord-not-quite-black divide-solid divide-gray-400 divide-y-2 h-[fit-content]">
+      <main className="flex flex-col gap-y-6 justify-center my-4 w-full sm:justify-between md:flex-row">
+        <section className="w-full h-[fit-content] bg-discord-not-quite-black rounded-2xl divide-y-2 divide-gray-400 divide-solid">
           {levels.map((user, i) => (
             <User {...user} index={i} key={user.userID} />
           ))}
         </section>
 
         {(roles || !!multipliers?.length) && (
-          <div className="flex flex-col gap-4 mb-8 sm:ml-6 items-center">
+          <div className="flex flex-col gap-4 items-center mb-8 sm:ml-6">
             {roles && (
-              <div className="flex flex-col h-[fit-content] items-center bg-discord-not-quite-black rounded-2xl pb-4 divide-solid divide-gray-400 divide-y-2 min-w-[15rem] max-w-[23rem]">
-                <span className="text-white whitespace-nowrap text-2xl font-medium mx-1 py-3">XP Roles</span>
+              <div className="flex flex-col items-center pb-4 min-w-[15rem] max-w-[23rem] h-[fit-content] bg-discord-not-quite-black rounded-2xl divide-y-2 divide-gray-400 divide-solid">
+                <span className="py-3 mx-1 text-2xl font-medium text-white whitespace-nowrap">XP Roles</span>
 
-                <div className="w-full flex flex-col max-w-lg rounded-lg">
+                <div className="flex flex-col w-full max-w-lg rounded-lg">
                   {roles
                     .sort((a, b) => a.level - b.level)
                     .map(({ level, roles: levelRoles }) => (
@@ -119,10 +119,10 @@ export default function Leaderboard({
             )}
 
             {!!multipliers?.length && (
-              <div className="flex flex-col h-[fit-content] items-center bg-discord-not-quite-black rounded-2xl pb-4 divide-solid divide-gray-400 divide-y-2 min-w-[15rem] max-w-[23rem]">
-                <span className="text-white whitespace-nowrap text-2xl font-medium mx-1 py-3">XP Multipliers</span>
+              <div className="flex flex-col items-center pb-4 min-w-[15rem] max-w-[23rem] h-[fit-content] bg-discord-not-quite-black rounded-2xl divide-y-2 divide-gray-400 divide-solid">
+                <span className="py-3 mx-1 text-2xl font-medium text-white whitespace-nowrap">XP Multipliers</span>
 
-                <div className="w-full flex flex-col max-w-lg rounded-lg">
+                <div className="flex flex-col w-full max-w-lg rounded-lg">
                   {multipliers
                     .filter(({ type }) => (type === 'role' ? !!guild.roles : type === 'channel' ? !!channels : true))
                     .sort((a, b) => a.multiplier - b.multiplier)

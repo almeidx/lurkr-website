@@ -33,18 +33,18 @@ export default function Calculator() {
   );
 
   return (
-    <div className="min-h-screen-no-footer bg-discord-dark flex flex-col items-center">
+    <div className="flex flex-col items-center min-h-screen-no-footer bg-discord-dark">
       <Head>
         <title>Level Calculator | Pepe Manager</title>
       </Head>
 
-      <header className="flex flex-col gap-4 items-center my-4 mx-3 sm:mx-0 text-center sm:mb-6">
+      <header className="flex flex-col gap-4 items-center my-4 mx-3 text-center sm:mx-0 sm:mb-6">
         <h1>Level Calculator</h1>
-        <p className="text-gray-400 font-light">Calculate how much you need to message to reach a certain level!</p>
+        <p className="font-light text-gray-400">Calculate how much you need to message to reach a certain level!</p>
       </header>
 
       <main className="flex flex-col gap-4 max-w-sm sm:max-w-2xl">
-        <div className="flex flex-col sm:flex-row gap-4">
+        <div className="flex flex-col gap-4 sm:flex-row">
           <Input
             id="level"
             initialValue=""
@@ -79,31 +79,31 @@ export default function Calculator() {
           ))}
 
         {level && requiredXp > 0 && (!multiplier || multiplierValue) && (
-          <div className="grid grid-rows-3 sm:grid-rows-none sm:grid-cols-3 gap-3">
-            <div className="bg-discord-not-quite-black rounded-md px-4 py-3 flex flex-col gap-2">
-              <div className="flex flex-row justify-between gap-2 items-center">
+          <div className="grid grid-rows-3 gap-3 sm:grid-cols-3 sm:grid-rows-none">
+            <div className="flex flex-col gap-2 py-3 px-4 bg-discord-not-quite-black rounded-md">
+              <div className="flex flex-row gap-2 justify-between items-center">
                 <span className="text-gray-200">Approximate Messages</span>
                 <Tooltip text="The amount of messages you need to write into a valid leveling enabled channel assuming all of your messages will be counted as XP gain, and assuming your XP gain is a perfect average between the lowest gain possible and the highest gain possible" />
               </div>
-              <p className="text-gray-200 text-4xl font-bold text-center font-display">
+              <p className="font-display text-4xl font-bold text-center text-gray-200">
                 {calculateAmountOfMessages().toLocaleString('en')}
               </p>
             </div>
 
-            <div className="bg-discord-not-quite-black rounded-md px-4 py-3 flex flex-col gap-2">
-              <div className="flex flex-row justify-between gap-2 items-center">
+            <div className="flex flex-col gap-2 py-3 px-4 bg-discord-not-quite-black rounded-md">
+              <div className="flex flex-row gap-2 justify-between items-center">
                 <span className="text-gray-200">Estimated Time</span>
                 <Tooltip text="The time it would take of constant chatting to reach this level, assuming you send a message every 1 minute and 20 seconds, and assuming all messages are counted as XP gain." />
               </div>
-              <p className="text-gray-200 text-4xl font-bold text-center font-display">{ms(calculateTime())}</p>
+              <p className="font-display text-4xl font-bold text-center text-gray-200">{ms(calculateTime())}</p>
             </div>
 
-            <div className="bg-discord-not-quite-black rounded-md px-4 py-3 flex flex-col gap-2">
-              <div className="flex flex-row justify-between gap-2 items-center">
+            <div className="flex flex-col gap-2 py-3 px-4 bg-discord-not-quite-black rounded-md">
+              <div className="flex flex-row gap-2 justify-between items-center">
                 <span className="text-gray-200">XP Required</span>
                 <Tooltip text="The total amount of XP needed to get to this level. The XP to Level conversion is a fixed constant." />
               </div>
-              <p className="text-gray-200 text-4xl font-bold text-center font-display">
+              <p className="font-display text-4xl font-bold text-center text-gray-200">
                 {Math.ceil(requiredXp).toLocaleString('en')}
               </p>
             </div>

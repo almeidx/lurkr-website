@@ -28,22 +28,22 @@ const sections: Section[] = [
 
 export default function Footer() {
   return (
-    <footer className="pb-8 bg-discord-slightly-darker sm:px-56 shadow-sm">
+    <footer className="pb-8 bg-discord-slightly-darker shadow-sm sm:px-56">
       <div className="flex flex-col gap-12">
-        <div className="grid grid-rows-2 ml-10 sm:ml-0 sm:grid-cols-2 sm:grid-rows-none gap-6 sm:gap-0 pt-8">
+        <div className="grid grid-rows-2 gap-6 pt-8 ml-10 sm:grid-cols-2 sm:grid-rows-none sm:gap-0 sm:ml-0">
           {sections.map(({ links, title }, i) => (
-            <div key={i} className="flex flex-col text-white gap-1">
-              <span className="text-gray-400 mb-2 font-bold">{title}</span>
+            <div key={i} className="flex flex-col gap-1 text-white">
+              <span className="mb-2 font-bold text-gray-400">{title}</span>
               {links.map(({ href, name }, j) => (
                 <Link key={j} href={href}>
-                  <a className="hover:underline w-fit">{name}</a>
+                  <a className="w-fit hover:underline">{name}</a>
                 </Link>
               ))}
             </div>
           ))}
         </div>
 
-        <span className="text-gray-300 font-light text-sm sm:text-base flex justify-center items-center sm:justify-start sm:items-start">
+        <span className="flex justify-center items-center text-sm font-light text-gray-300 sm:justify-start sm:items-start sm:text-base">
           Copyright © {new Date().getFullYear()} Pepe Emoji. All rights reserved.
         </span>
       </div>

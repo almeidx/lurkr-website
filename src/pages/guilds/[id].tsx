@@ -111,7 +111,7 @@ export default function Guild({
 
   return (
     <div className="w-full bg-discord-dark">
-      <div className="max-w-[992px] xl:max-w-[1440px] mx-auto min-h-screen-no-footer flex flex-col sm:flex-row sm:divide-x-2 divide-gray-600">
+      <div className="flex flex-col mx-auto max-w-[992px] min-h-screen-no-footer divide-gray-600 sm:flex-row sm:divide-x-2 xl:max-w-[1440px]">
         <Head>
           <title>{guild.name} Dashboard | Pepe Manager</title>
         </Head>
@@ -128,7 +128,7 @@ export default function Guild({
 
           <Suspense
             fallback={
-              <div className="min-h-screen-no-footer bg-discord-dark flex justify-center items-center">
+              <div className="flex justify-center items-center min-h-screen-no-footer bg-discord-dark">
                 <Spinner className="w-60 h-auto" />
               </div>
             }

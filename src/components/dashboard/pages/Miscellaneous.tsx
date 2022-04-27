@@ -37,7 +37,7 @@ export default function Miscellaneous({ channels, database, openMenu }: Miscella
 
       <Fieldset>
         <Field direction="row">
-          <div className="flex flex-row w-full justify-between p-2 pl-4 gap-x-3 items-center rounded-lg bg-discord-dark">
+          <div className="flex flex-row gap-x-3 justify-between items-center p-2 pl-4 w-full bg-discord-dark rounded-lg">
             <Label
               htmlFor="storeCounts"
               name="Store Member Counts"

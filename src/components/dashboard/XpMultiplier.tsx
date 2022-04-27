@@ -36,9 +36,9 @@ export default function XpMultiplier({
   type,
 }: XpMultiplierProps) {
   return (
-    <div className="relative flex flex-row flex-wrap justify-between w-full p-2 gap-y-2 bg-discord-dark rounded-lg">
+    <div className="flex relative flex-row flex-wrap gap-y-2 justify-between p-2 w-full bg-discord-dark rounded-lg">
       <div className="flex w-full">
-        <label className="text-white font-bold flex items-center w-[6rem] ml-4" htmlFor={`m-${id}-selector`}>
+        <label className="flex items-center ml-4 w-[6rem] font-bold text-white" htmlFor={`m-${id}-selector`}>
           {type[0].toUpperCase() + type.slice(1)}
         </label>
 
@@ -55,7 +55,7 @@ export default function XpMultiplier({
         </div>
 
         <div
-          className="h-full w-6 right-0 ml-auto mr-4 py-3 text-2xl text-discord-red active:text-red-600 transition-colors cursor-pointer"
+          className="right-0 py-3 mr-4 ml-auto w-6 h-full text-2xl text-discord-red active:text-red-600 transition-colors cursor-pointer"
           onClick={() => onDelete(id)}
         >
           <MdClear />
@@ -63,7 +63,7 @@ export default function XpMultiplier({
       </div>
 
       {type !== 'global' && targets && (
-        <div className="w-full mx-2">
+        <div className="mx-2 w-full">
           <Selector
             id={`m-${id}-selector`}
             limit={getDatabaseLimit('xpMultiplierTargets', premium).maxLength}

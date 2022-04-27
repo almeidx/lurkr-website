@@ -45,12 +45,12 @@ export default function BasicSelect({
   return (
     <div ref={elementRef} className={`relative text-white w-full ${disabled ? 'text-opacity-25' : 'cursor-pointer'}`}>
       <div
-        className="flex flex-row flex-wrap gap-1.5 h-12 w-full px-5 py-3 bg-discord-not-quite-black focus:outline-none rounded-md shadow"
+        className="flex flex-row flex-wrap gap-1.5 py-3 px-5 w-full h-12 bg-discord-not-quite-black rounded-md focus:outline-none shadow"
         onClick={() => (disabled ? null : setDropdownOpen(!dropdownOpen))}
       >
-        <span className="flex items-center w-full px-1.5 py-1 leading-3 z-50 ">{selected}</span>
+        <span className="flex z-50 items-center py-1 px-1.5 w-full leading-3 ">{selected}</span>
 
-        <div className="absolute right-0 my-auto mx-4 text-2xl transition-colors h-full">
+        <div className="absolute right-0 my-auto mx-4 h-full text-2xl transition-colors">
           <AiFillCaretDown />
         </div>
       </div>
@@ -60,10 +60,10 @@ export default function BasicSelect({
           !dropdownOpen ? 'hidden' : ''
         } absolute z-[100] max-h-64 w-full bg-[#36393f] flex flex-col items-center mt-2 rounded-md`}
       >
-        <div className="flex flex-col overflow-y-scroll w-full h-full my-2 gap-1">
+        <div className="flex overflow-y-scroll flex-col gap-1 my-2 w-full h-full">
           {items.map((name, i) => (
             <div
-              className="flex items-center text-center px-4 py-2 hover:bg-discord-lighter rounded-lg cursor-pointer"
+              className="flex items-center py-2 px-4 text-center hover:bg-discord-lighter rounded-lg cursor-pointer"
               data-id={i.toString()}
               key={i.toString()}
               onClick={handleItemChange}

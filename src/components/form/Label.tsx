@@ -17,7 +17,7 @@ export default function Label({ htmlFor, name, url, withMargin = true }: LabelPr
     >
       {name}
       <BsFillQuestionCircleFill
-        className="w-4 h-4 cursor-pointer text-gray-200 fill-current duration-100 hover:text-gray-400"
+        className="w-4 h-4 text-gray-200 hover:text-gray-400 duration-100 cursor-pointer fill-current"
         onClick={() => window.open(url)}
       />
     </label>

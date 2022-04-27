@@ -278,7 +278,7 @@ export default function Leveling({ channels, database, roles, openMenu }: Leveli
                 }}
               />
             </div>
-            <div className="w-full lg:w-1/2 lg:pl-2">
+            <div className="w-full lg:pl-2 lg:w-1/2">
               {xpResponseType === ResponseType.CHANNEL && (
                 <Selector
                   id="xpResponseTypeChannel"
@@ -310,7 +310,7 @@ export default function Leveling({ channels, database, roles, openMenu }: Leveli
         </Field>
 
         <Field direction="row">
-          <div className="flex flex-row justify-between w-full gap-x-3 items-center p-2 pl-4 rounded-lg bg-discord-dark">
+          <div className="flex flex-row gap-x-3 justify-between items-center p-2 pl-4 w-full bg-discord-dark rounded-lg">
             <Label
               htmlFor="stackXpRoles"
               name="Stack XP Roles"
@@ -327,7 +327,7 @@ export default function Leveling({ channels, database, roles, openMenu }: Leveli
         </Field>
 
         <Field direction="row">
-          <div className="flex flex-row justify-between w-full gap-x-3 items-center p-2 pl-4 rounded-lg bg-discord-dark">
+          <div className="flex flex-row gap-x-3 justify-between items-center p-2 pl-4 w-full bg-discord-dark rounded-lg">
             <Label
               htmlFor="prioritiseMultiplierRoleHierarchy"
               name="XP Multiplier Priority"
@@ -344,7 +344,7 @@ export default function Leveling({ channels, database, roles, openMenu }: Leveli
         </Field>
 
         <Field direction="row">
-          <div className="flex flex-row justify-between w-full gap-x-3 items-center p-2 pl-4 rounded-lg bg-discord-dark">
+          <div className="flex flex-row gap-x-3 justify-between items-center p-2 pl-4 w-full bg-discord-dark rounded-lg">
             <Label
               htmlFor="xpInThreads"
               name="XP In Threads"
@@ -383,7 +383,7 @@ export default function Leveling({ channels, database, roles, openMenu }: Leveli
               </div>
             )}
           </div>
-          <div className="flex flex-col mb-4 gap-y-2">
+          <div className="flex flex-col gap-y-2 mb-4">
             {Object.keys(xpRoles).map((level) => (
               <XpRole
                 key={level}
@@ -419,7 +419,7 @@ export default function Leveling({ channels, database, roles, openMenu }: Leveli
                     onSelect={(i) => setNewXpMultiplierType(i.toLowerCase() as Multiplier['type'])}
                   />
                   <button
-                    className="shrink-0 h-12 w-12 bg-discord-not-quite-black rounded-md flex justify-center items-center text-white disabled:text-opacity-25 duration-150 transition-colors"
+                    className="flex shrink-0 justify-center items-center w-12 h-12 text-white bg-discord-not-quite-black rounded-md transition-colors duration-150 disabled:text-opacity-25"
                     onClick={() => {
                       const finalMultipliers = [
                         ...xpMultipliers,
@@ -434,7 +434,7 @@ export default function Leveling({ channels, database, roles, openMenu }: Leveli
                       addChange('xpMultipliers', resolveMultiplierValues(finalMultipliers));
                     }}
                   >
-                    <BiLayerPlus className="fill-current text-3xl" />
+                    <BiLayerPlus className="text-3xl fill-current" />
                   </button>
                 </div>
               </>
@@ -467,7 +467,7 @@ export default function Leveling({ channels, database, roles, openMenu }: Leveli
           />
           <div className="flex flex-row justify-start mb-3">
             <button
-              className="text-white disabled:text-opacity-25 w-fit bg-discord-not-quite-black px-2 py-1.5 rounded-md shadow-sm duration-150 transition-colors active:bg-discord-dark focus:outline-none"
+              className="py-1.5 px-2 w-fit text-white bg-discord-not-quite-black active:bg-discord-dark rounded-md focus:outline-none shadow-sm transition-colors duration-150 disabled:text-opacity-25"
               onClick={handleXpChannelsTypeChange}
             >
               Use {xpChannelsType === 'blacklist' ? 'Whitelist' : 'Blacklist'}
@@ -526,7 +526,7 @@ export default function Leveling({ channels, database, roles, openMenu }: Leveli
           </div>
 
           {!!xpDisallowedPrefixes.length && (
-            <div className="flex flex-row flex-wrap mb-4 gap-2">
+            <div className="flex flex-row flex-wrap gap-2 mb-4">
               {xpDisallowedPrefixes.map((prefix, index) => (
                 <XpDisallowedPrefix
                   index={index}

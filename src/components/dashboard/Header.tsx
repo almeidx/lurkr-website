@@ -23,7 +23,7 @@ export default function Header(props: HeaderProps | HeaderWithToggleProps) {
     <>
       <BiArrowBack
         onClick={props.openMenu}
-        className="inline-block sm:hidden z-[99999] text-white ml-4 mb-4 h-6 w-6 cursor-pointer"
+        className="inline-block z-[99999] mb-4 ml-4 w-6 h-6 text-white cursor-pointer sm:hidden"
       />
       <div className="flex justify-between mx-4">
         <h1 className="text-white">{props.title}</h1>
@@ -46,7 +46,7 @@ export default function Header(props: HeaderProps | HeaderWithToggleProps) {
         )}
       </div>
 
-      <p className="text-gray-400 font-light mt-3 mb-3 mx-4">{props.description}</p>
+      <p className="my-3 mx-4 font-light text-gray-400">{props.description}</p>
     </>
   );
 }

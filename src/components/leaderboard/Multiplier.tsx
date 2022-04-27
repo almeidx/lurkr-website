@@ -14,14 +14,14 @@ export default function Multiplier({ items, multiplier, targets, type }: Multipl
   const Icon = type === 'channel' ? IoMdChatbubbles : type === 'role' ? FaUserFriends : FaGlobe;
 
   return (
-    <div className="flex flex-col gap-2 mx-4 my-2">
-      <span className="text-white flex flex-row items-center text-center gap-2">
+    <div className="flex flex-col gap-2 my-2 mx-4">
+      <span className="flex flex-row gap-2 items-center text-center text-white">
         <Icon />
         {type[0].toUpperCase() + type.slice(1)} - x{multiplier}
       </span>
 
       {type !== 'global' && targets && items && (
-        <div className="flex flex-row flex-wrap gap-1.5 shrink-0">
+        <div className="flex flex-row flex-wrap shrink-0 gap-1.5">
           {type === 'channel'
             ? targets.map((id) => {
                 const item = items.find((item) => item.id === id) as Channel | void;

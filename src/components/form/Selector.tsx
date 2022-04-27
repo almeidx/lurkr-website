@@ -126,7 +126,7 @@ export default function Selector({ id, limit, items, initialItems, onSelect, typ
 
   return (
     <div className="relative" ref={elementRef}>
-      <div className="flex flex-row flex-wrap gap-1.5 min-w-[6rem] min-h-[3rem] bg-discord-not-quite-black px-5 py-3 focus:outline-none rounded-md shadow">
+      <div className="flex flex-row flex-wrap gap-1.5 py-3 px-5 min-w-[6rem] min-h-[3rem] bg-discord-not-quite-black rounded-md focus:outline-none shadow">
         {selected.map((i) => (
           <RoleChannelBullet
             data-id={i.id}
@@ -165,10 +165,10 @@ export default function Selector({ id, limit, items, initialItems, onSelect, typ
           />
         </div>
 
-        <div className="flex flex-col w-full max-h-48 overflow-y-auto gap-y-0.5">
+        <div className="flex overflow-y-auto flex-col gap-y-0.5 w-full max-h-48">
           {options.map((i) => (
             <div
-              className="flex items-center w-full text-left text-white px-6 py-3 hover:bg-discord-lighter cursor-pointer"
+              className="flex items-center py-3 px-6 w-full text-left text-white hover:bg-discord-lighter cursor-pointer"
               data-id={i.id}
               key={i.id}
               onClick={handleClickedItem}
@@ -176,11 +176,11 @@ export default function Selector({ id, limit, items, initialItems, onSelect, typ
               {type === 'role' && 'color' in i && (
                 <div
                   data-id={i.id}
-                  className="w-4 h-4 rounded-full mr-2 select-none"
+                  className="mr-2 w-4 h-4 rounded-full select-none"
                   style={{ backgroundColor: resolveColour(i.color) }}
                 />
               )}
-              <div data-id={i.id} className=" leading-4 select-none break-all">
+              <div data-id={i.id} className=" leading-4 break-all select-none">
                 {type === 'channel' && '#'}
                 {i.name}
               </div>

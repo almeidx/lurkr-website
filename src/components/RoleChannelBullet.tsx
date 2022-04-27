@@ -28,7 +28,7 @@ export default function RoleChannelBullet({
       {type === 'role' && (
         <>
           {hoverX && <div className="role-x">&times;</div>}
-          <div className="w-3 h-3 ml-[5px] mr-[4px] rounded-full" style={{ backgroundColor: roleColour }} />
+          <div className="mr-[4px] ml-[5px] w-3 h-3 rounded-full" style={{ backgroundColor: roleColour }} />
         </>
       )}
 

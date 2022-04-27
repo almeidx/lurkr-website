@@ -3,5 +3,5 @@ interface SubtitleProps {
 }
 
 export default function Subtitle({ text }: SubtitleProps) {
-  return <p className="text-gray-300 text-xs mt-1">{text}</p>;
+  return <p className="mt-1 text-xs text-gray-300">{text}</p>;
 }

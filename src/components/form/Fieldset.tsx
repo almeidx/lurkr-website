@@ -6,7 +6,7 @@ interface FieldsetProps {
 
 export default function Input({ children, ...props }: FieldsetProps): JSX.Element {
   return (
-    <fieldset className="flex flex-col bg-discord-slightly-darker rounded-xl w-full px-4 py-7 gap-6" {...props}>
+    <fieldset className="flex flex-col gap-6 py-7 px-4 w-full bg-discord-slightly-darker rounded-xl" {...props}>
       {children}
     </fieldset>
   );

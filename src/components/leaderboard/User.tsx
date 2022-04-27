@@ -32,8 +32,8 @@ export default function User({ avatar, index, level, tag, userID, xp }: UserProp
   const percentage = userXp / levelXp;
 
   return (
-    <div className="flex flex-row justify-between px-6 py-4 rounded-lg" key={userID}>
-      <div className="flex flex-row justify-center items-center gap-6">
+    <div className="flex flex-row justify-between py-4 px-6 rounded-lg" key={userID}>
+      <div className="flex flex-row gap-6 justify-center items-center">
         <div className="flex justify-center items-center w-14">
           <span
             className={`text-white px-3 py-1 rounded-full w-8 flex justify-center items-center ${
@@ -64,14 +64,14 @@ export default function User({ avatar, index, level, tag, userID, xp }: UserProp
       </div>
 
       {typeof width === 'number' && width >= 648 && (
-        <div className="flex flex-row justify-center items-center w-64 bg-discord-dark rounded-full gap-x-4 my-3 relative">
+        <div className="flex relative flex-row gap-x-4 justify-center items-center my-3 w-64 bg-discord-dark rounded-full">
           <div
-            className="absolute bg-blurple left-0 h-full rounded-full"
+            className="absolute left-0 h-full bg-blurple rounded-full"
             style={{ width: percentage < 0.2 ? 42 : percentage * 256 }}
           />
 
-          <span className="text-white text-xl z-30">XP • {xp.toLocaleString('en')}</span>
-          <span className="text-white text-xl z-30">LVL • {level.toLocaleString('en')}</span>
+          <span className="z-30 text-xl text-white">XP • {xp.toLocaleString('en')}</span>
+          <span className="z-30 text-xl text-white">LVL • {level.toLocaleString('en')}</span>
         </div>
       )}
     </div>
