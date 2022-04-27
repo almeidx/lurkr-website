@@ -1,8 +1,9 @@
 import type { Snowflake } from 'discord-api-types/globals';
 import type { GetServerSideProps, InferGetServerSidePropsType } from 'next';
+import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { lazy, Suspense, useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import { Suspense, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { fetchQuery } from 'relay-runtime';
 
 import type { DashboardGuildQuery } from '../../__generated__/DashboardGuildQuery.graphql';
@@ -20,13 +21,13 @@ import DashboardGuild, {
 import environment from '../../relay/environment';
 import { isValidSnowflake, removeNonStringValues } from '../../utils/utils';
 
-const General = lazy(() => import('../../components/dashboard/pages/General'));
-const Autorole = lazy(() => import('../../components/dashboard/pages/Autorole'));
-const Leveling = lazy(() => import('../../components/dashboard/pages/Leveling'));
-const Milestones = lazy(() => import('../../components/dashboard/pages/Milestones'));
-const EmojiList = lazy(() => import('../../components/dashboard/pages/EmojiList'));
-const MentionCooldown = lazy(() => import('../../components/dashboard/pages/MentionCooldown'));
-const Miscellaneous = lazy(() => import('../../components/dashboard/pages/Miscellaneous'));
+const General = dynamic(() => import('../../components/dashboard/pages/General'), { suspense: true });
+const Autorole = dynamic(() => import('../../components/dashboard/pages/Autorole'), { suspense: true });
+const Leveling = dynamic(() => import('../../components/dashboard/pages/Leveling'), { suspense: true });
+const Milestones = dynamic(() => import('../../components/dashboard/pages/Milestones'), { suspense: true });
+const EmojiList = dynamic(() => import('../../components/dashboard/pages/EmojiList'), { suspense: true });
+const MentionCooldown = dynamic(() => import('../../components/dashboard/pages/MentionCooldown'), { suspense: true });
+const Miscellaneous = dynamic(() => import('../../components/dashboard/pages/Miscellaneous'), { suspense: true });
 
 interface GuildProps {
   channels: DashboardChannels | null;
