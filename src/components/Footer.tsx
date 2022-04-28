@@ -11,7 +11,7 @@ interface Section {
 const sections: Section[] = [
   {
     links: [
-      { href: 'https://discord.gg/pepe', name: 'Discord' },
+      { href: 'https://discord.gg/XUQAnkq2vy', name: 'Discord' },
       { href: 'https://pepe-is.life', name: 'Pepe Emoji' },
       { href: '/github', name: 'GitHub' },
     ],
