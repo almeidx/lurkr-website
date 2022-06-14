@@ -3586,7 +3586,7 @@ __metadata:
     relay-compiler-language-typescript: ^15.0.1
     relay-config: ^12.0.1
     relay-hooks: ^7.1.0
-    relay-runtime: ^13.2.0
+    relay-runtime: ^14.0.0
     tailwindcss: ^3.1.2
     tslib: ^2.4.0
     typescript: ^4.7.3
@@ -4004,7 +4004,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"relay-runtime@npm:13.2.0, relay-runtime@npm:^13.2.0":
+"relay-runtime@npm:13.2.0":
   version: 13.2.0
   resolution: "relay-runtime@npm:13.2.0"
   dependencies:
@@ -4012,6 +4012,17 @@ __metadata:
     fbjs: ^3.0.2
     invariant: ^2.2.4
   checksum: 4e03d5d3fabb12bd2e5f29da4e4664336af4077b215893e5e6cf4256e4b8f56a6ad1693b75465f1f6118bc682456714404e3f0fcdd51b5b6433a2ddd63ba8160
+  languageName: node
+  linkType: hard
+
+"relay-runtime@npm:^14.0.0":
+  version: 14.0.0
+  resolution: "relay-runtime@npm:14.0.0"
+  dependencies:
+    "@babel/runtime": ^7.0.0
+    fbjs: ^3.0.2
+    invariant: ^2.2.4
+  checksum: 5226f3dcf878ddf843c4248199021b679504668320e35b700237c6ae9ff0ead2710c9099f855cff0e840e14e78c5159f7a9c132a9096ad0cb32986837dcf75a0
   languageName: node
   linkType: hard
 
