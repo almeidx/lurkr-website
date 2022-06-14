@@ -3578,7 +3578,7 @@ __metadata:
     react: ^18.1.0
     react-dom: ^18.1.0
     react-icons: ^4.4.0
-    react-relay: ^13.2.0
+    react-relay: ^14.0.0
     react-relay-network-modern: ^6.2.1
     react-relay-network-modern-ssr: ^1.4.0
     regenerator-runtime: ^0.13.9
@@ -3870,18 +3870,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-relay@npm:^13.2.0":
-  version: 13.2.0
-  resolution: "react-relay@npm:13.2.0"
+"react-relay@npm:^14.0.0":
+  version: 14.0.0
+  resolution: "react-relay@npm:14.0.0"
   dependencies:
     "@babel/runtime": ^7.0.0
     fbjs: ^3.0.2
     invariant: ^2.2.4
     nullthrows: ^1.1.1
-    relay-runtime: 13.2.0
+    relay-runtime: 14.0.0
   peerDependencies:
     react: ^16.9.0 || ^17 || ^18
-  checksum: 2fcf09cc9f7799c2c27f8a931e103651f26077088320e994e17171ffd18a249a5a64e0d314330497e3ed0530579b1987506df89fd5fb4e391d4e4bc4b66312ee
+  checksum: c329e91cd6ab86421db1be11c46a7ebaf8ede5a7acf5d4dc14d767e31990094d124da8e16796c8f54045f72118742990ed0333250ca2e35fd4499c7d2fa2c2bc
   languageName: node
   linkType: hard
 
@@ -4004,7 +4004,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"relay-runtime@npm:13.2.0, relay-runtime@npm:^13.2.0":
+"relay-runtime@npm:14.0.0":
+  version: 14.0.0
+  resolution: "relay-runtime@npm:14.0.0"
+  dependencies:
+    "@babel/runtime": ^7.0.0
+    fbjs: ^3.0.2
+    invariant: ^2.2.4
+  checksum: 5226f3dcf878ddf843c4248199021b679504668320e35b700237c6ae9ff0ead2710c9099f855cff0e840e14e78c5159f7a9c132a9096ad0cb32986837dcf75a0
+  languageName: node
+  linkType: hard
+
+"relay-runtime@npm:^13.2.0":
   version: 13.2.0
   resolution: "relay-runtime@npm:13.2.0"
   dependencies:
