@@ -48,6 +48,11 @@ const nextConfig = {
         permanent: true,
         source: '/github',
       },
+      {
+        destination: 'https://discord.gg/XUQAnkq2vy',
+        permanent: true,
+        source: '/support',
+      },
     ];
   },
 };
