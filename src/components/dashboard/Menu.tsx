@@ -1,4 +1,3 @@
-import type { Snowflake } from 'discord-api-types/globals';
 import cloneDeep from 'lodash.clonedeep';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
@@ -19,7 +18,7 @@ import type {
 import { GuildContext, Section } from '../../contexts/GuildContext';
 import updateDatabaseGuild from '../../graphql/mutations/updateDatabaseGuild';
 import { guildIconCdn } from '../../utils/cdn';
-import { FALLBACK_AVATAR_PATH } from '../../utils/constants';
+import { type Snowflake, FALLBACK_AVATAR_PATH } from '../../utils/constants';
 
 interface MenuProps {
   closeMenu: () => void;

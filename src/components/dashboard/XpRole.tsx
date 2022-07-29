@@ -1,7 +1,7 @@
-import type { Snowflake } from 'discord-api-types/globals';
 import { MdClear } from 'react-icons/md';
 
 import type { DashboardRoles } from '../../graphql/queries/DashboardGuild';
+import type { Snowflake } from '../../utils/constants';
 import { getDatabaseLimit } from '../../utils/utils';
 import Selector from '../form/Selector';
 

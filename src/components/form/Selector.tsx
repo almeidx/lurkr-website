@@ -1,8 +1,8 @@
-import type { Snowflake } from 'discord-api-types/globals';
 import { MouseEventHandler, useCallback, useEffect, useRef, useState } from 'react';
 import { AiOutlinePlusCircle } from 'react-icons/ai';
 
 import useClickOutside from '../../hooks/useClickOutside';
+import type { Snowflake } from '../../utils/constants';
 import { resolveColour } from '../../utils/utils';
 import Input from '../form/Input';
 import RoleChannelBullet from '../RoleChannelBullet';

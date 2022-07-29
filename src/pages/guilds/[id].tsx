@@ -1,4 +1,3 @@
-import type { Snowflake } from 'discord-api-types/globals';
 import type { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
@@ -19,6 +18,7 @@ import DashboardGuild, {
   DashboardDiscordGuild,
 } from '../../graphql/queries/DashboardGuild';
 import environment from '../../relay/environment';
+import type { Snowflake } from '../../utils/constants';
 import { isValidSnowflake, removeNonStringValues } from '../../utils/utils';
 
 const General = dynamic(() => import('../../components/dashboard/pages/General'), { suspense: true });

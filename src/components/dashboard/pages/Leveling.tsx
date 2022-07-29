@@ -1,4 +1,3 @@
-import type { Snowflake } from 'discord-api-types/globals';
 import cloneDeep from 'lodash.clonedeep';
 import { MouseEventHandler, useCallback, useContext, useEffect, useRef, useState } from 'react';
 import { BiLayerPlus } from 'react-icons/bi';
@@ -10,6 +9,7 @@ import {
   DashboardDatabaseGuild,
   DashboardRoles,
 } from '../../../graphql/queries/DashboardGuild';
+import type { Snowflake } from '../../../utils/constants';
 import { generateRandomString, getDatabaseLimit, parseIntStrict, parseMultiplier } from '../../../utils/utils';
 import BasicSelect from '../../form/BasicSelect';
 import Field from '../../form/Field';

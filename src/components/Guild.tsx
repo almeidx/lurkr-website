@@ -1,8 +1,8 @@
-import type { Snowflake } from 'discord-api-types/globals';
 import Image from 'next/image';
 import Link from 'next/link';
 
 import { guildIconCdn } from '../utils/cdn';
+import type { Snowflake } from '../utils/constants';
 import { FALLBACK_AVATAR_PATH } from '../utils/constants';
 
 interface GuildProps {

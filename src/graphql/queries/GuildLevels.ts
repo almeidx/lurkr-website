@@ -1,7 +1,7 @@
-import type { Snowflake } from 'discord-api-types/globals';
 import { graphql } from 'relay-runtime';
 
 import type { GuildLevelsQueryResponse } from '../../__generated__/GuildLevelsQuery.graphql';
+import type { Snowflake } from '../../utils/constants';
 import type { CorrectSnowflakeTypes, DeepMutable } from '../../utils/utils';
 
 export type DiscordGuild = CorrectSnowflakeTypes<

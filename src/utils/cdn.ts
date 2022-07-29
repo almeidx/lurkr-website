@@ -1,4 +1,4 @@
-import type { Snowflake } from 'discord-api-types/globals';
+import type { Snowflake } from './constants';
 
 type ImageSizes = 16 | 32 | 64 | 128 | 256 | 512 | 1024 | 2048 | 4096;
 

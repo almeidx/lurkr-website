@@ -1,8 +1,8 @@
-import type { Snowflake } from 'discord-api-types/globals';
 import { useContext, useEffect } from 'react';
 
 import { GuildContext } from '../../../contexts/GuildContext';
 import type { DashboardDatabaseGuild, DashboardRoles } from '../../../graphql/queries/DashboardGuild';
+import type { Snowflake } from '../../../utils/constants';
 import { formatNumberToNDecimalPlaces, getDatabaseLimit, parseFloatStrict } from '../../../utils/utils';
 import Field from '../../form/Field';
 import Fieldset from '../../form/Fieldset';

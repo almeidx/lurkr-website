@@ -1,4 +1,3 @@
-import type { Snowflake } from 'discord-api-types/globals';
 import type { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
@@ -15,7 +14,7 @@ import type { Multiplier as IMultiplier } from '../../graphql/queries/DashboardG
 import GuildLevels, { Channel, DiscordGuild, GuildLevelsUserInfo, Levels } from '../../graphql/queries/GuildLevels';
 import environment from '../../relay/environment';
 import { guildIconCdn } from '../../utils/cdn';
-import { FALLBACK_AVATAR_PATH } from '../../utils/constants';
+import { type Snowflake, FALLBACK_AVATAR_PATH } from '../../utils/constants';
 import { isValidSnowflake } from '../../utils/utils';
 
 interface LeaderboardProps {

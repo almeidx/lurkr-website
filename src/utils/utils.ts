@@ -1,6 +1,5 @@
-import type { Snowflake } from 'discord-api-types/globals';
-
 import {
+  type Snowflake,
   DATABASE_LIMITS,
   DATABASE_PREMIUM_LIMITS,
   DEFAULT_ROLE_COLOUR,

@@ -1,8 +1,7 @@
-import type { Snowflake } from 'discord-api-types/globals';
 import Cookie from 'js-cookie';
 import { createContext, ReactNode, useEffect, useState } from 'react';
 
-import { API_BASE_URL } from '../utils/constants';
+import { type Snowflake, API_BASE_URL } from '../utils/constants';
 
 interface UserContextData {
   accessToken: string;

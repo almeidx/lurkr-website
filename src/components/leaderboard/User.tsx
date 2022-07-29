@@ -1,10 +1,9 @@
-import type { Snowflake } from 'discord-api-types/globals';
 import Image from 'next/image';
 import type { ChangeEvent } from 'react';
 
 import useWindowDimensions from '../../hooks/useWindowDimensions';
 import { userAvatarCdn, userDefaultAvatarCdn } from '../../utils/cdn';
-import { FALLBACK_AVATAR_PATH, XP } from '../../utils/constants';
+import { type Snowflake, FALLBACK_AVATAR_PATH, XP } from '../../utils/constants';
 
 interface UserProps {
   avatar: string | null;

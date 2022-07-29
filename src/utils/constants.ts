@@ -2,6 +2,9 @@ import { stripIndents } from 'common-tags';
 
 import type { ShowcaseProps } from '../components/Showcase';
 
+// TODO: Use `${bigint}`
+export type Snowflake = string;
+
 export const showcases: Omit<ShowcaseProps, 'align'>[] = [
   {
     description:

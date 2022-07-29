@@ -1,4 +1,3 @@
-import type { Snowflake } from 'discord-api-types/globals';
 import type { GetStaticProps, InferGetStaticPropsType } from 'next';
 import Head from 'next/head';
 import { useRef, useState } from 'react';
@@ -6,7 +5,7 @@ import { useRef, useState } from 'react';
 import Input from '../components/form/Input';
 import Message from '../components/Message';
 import Shard from '../components/Shard';
-import { BOT_API_BASE_URL } from '../utils/constants';
+import { type Snowflake, BOT_API_BASE_URL } from '../utils/constants';
 import { isValidSnowflake } from '../utils/utils';
 
 interface GetStatsResponse {

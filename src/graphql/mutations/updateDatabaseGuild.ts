@@ -1,7 +1,7 @@
-import type { Snowflake } from 'discord-api-types/globals';
 import { graphql } from 'relay-runtime';
 
 import type { DatabaseGuildChanges } from '../../__generated__/updateDatabaseGuildMutation.graphql';
+import type { Snowflake } from '../../utils/constants';
 
 export type DatabaseChanges = Omit<DatabaseGuildChanges, 'xpRoles'> & { xpRoles: Record<string, Snowflake[]> };
 

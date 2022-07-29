@@ -1,10 +1,9 @@
-import type { Snowflake } from 'discord-api-types/globals';
 import cloneDeep from 'lodash.clonedeep';
 import { createContext, ReactNode, useCallback, useState } from 'react';
 
 import type { DatabaseChanges } from '../graphql/mutations/updateDatabaseGuild';
 import type { DashboardDatabaseGuild } from '../graphql/queries/DashboardGuild';
-import { API_BASE_URL, DATABASE_LIMITS, VANITY_REGEX } from '../utils/constants';
+import { type Snowflake, API_BASE_URL, DATABASE_LIMITS, VANITY_REGEX } from '../utils/constants';
 import { getDatabaseLimit } from '../utils/utils';
 
 export type Section =

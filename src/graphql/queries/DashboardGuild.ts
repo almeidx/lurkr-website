@@ -1,7 +1,7 @@
-import type { Snowflake } from 'discord-api-types/globals';
 import { graphql } from 'relay-runtime';
 
 import type { DashboardGuildQueryResponse } from '../../__generated__/DashboardGuildQuery.graphql';
+import type { Snowflake } from '../../utils/constants';
 import type { CorrectSnowflakeTypes, DeepMutable } from '../../utils/utils';
 
 type DatabaseGuildWithoutMultipliers = Omit<
