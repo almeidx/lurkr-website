@@ -121,10 +121,10 @@ export default function Menu({ closeMenu, guild, guildId: argGuildId, menuOpen, 
     <aside
       className={`${
         !menuOpen ? 'hidden' : ''
-      } w-full sm:w-96 min-w-[300px] mt-20 sm:mt-0 absolute top-0 left-0 sm:block sm:relative bg-discord-dark`}
+      } absolute top-0 left-0 mt-20 w-full min-w-[300px] bg-discord-dark sm:relative sm:mt-0 sm:block sm:w-96`}
     >
       <div className="sticky top-0 sm:py-6">
-        <header className="flex flex-col gap-4 items-center py-4 px-6 mb-6 bg-discord-slightly-darker sm:flex-row sm:bg-discord-dark">
+        <header className="mb-6 flex flex-col items-center gap-4 bg-discord-slightly-darker py-4 px-6 sm:flex-row sm:bg-discord-dark">
           {guild.icon ? (
             <img
               alt={`${guild.name} server icon`}
@@ -138,12 +138,12 @@ export default function Menu({ closeMenu, guild, guildId: argGuildId, menuOpen, 
           )}
 
           <div className="flex flex-col gap-2">
-            <h2 className="w-full text-center text-white break-words sm:text-base">{guild.name}</h2>
+            <h2 className="w-full break-words text-center text-white sm:text-base">{guild.name}</h2>
 
             <span
-              className={`flex flex-row justify-center items-center gap-2 ${
+              className={`flex flex-row items-center justify-center gap-2 ${
                 premium ? 'bg-[#ff424d] hover:bg-[#c0323a]' : 'bg-[#c0323a] hover:bg-[#802127]'
-              } transition-colors duration-100 py-1 px-2 w-full text-center text-white rounded-lg cursor-pointer`}
+              } w-full cursor-pointer rounded-lg py-1 px-2 text-center text-white transition-colors duration-100`}
               onClick={() => window.open('https://docs.pepemanager.com/information/patreon-perks')}
             >
               <FaPatreon />
@@ -152,9 +152,9 @@ export default function Menu({ closeMenu, guild, guildId: argGuildId, menuOpen, 
           </div>
         </header>
 
-        <section className="flex flex-col gap-y-3 px-6 sm:p-0 sm:pr-4 sm:ml-auto sm:max-w-[14rem]">
+        <section className="flex flex-col gap-y-3 px-6 sm:ml-auto sm:max-w-[14rem] sm:p-0 sm:pr-4">
           <button
-            className={`flex flex-row items-center gap-2 py-2 px-4 w-full text-center duration-200 transition-colors bg-[${saveButtonDefaultColour}] hover:bg-[#25c959] text-white focus:outline-none rounded-lg cursor-pointer`}
+            className="flex w-full cursor-pointer flex-row items-center gap-2 rounded-lg py-2 px-4 text-center text-white transition-colors duration-200 hover:bg-[#25c959] focus:outline-none"
             disabled={!Object.keys(changes).length || isSaving.current || !!errors.length}
             onClick={handleSaveButtonClick}
             ref={saveButtonRef}
@@ -172,7 +172,7 @@ export default function Menu({ closeMenu, guild, guildId: argGuildId, menuOpen, 
             <button
               className={`${
                 section === id ? 'sm:bg-gray-500 ' : ''
-              }flex flex-row items-center gap-2 py-2 px-4 w-full text-center duration-200 hover:bg-discord-lighter text-white focus:outline-none rounded-lg cursor-pointer`}
+              }flex w-full cursor-pointer flex-row items-center gap-2 rounded-lg py-2 px-4 text-center text-white duration-200 hover:bg-discord-lighter focus:outline-none`}
               key={i}
               onClick={() => {
                 updateSection(id);

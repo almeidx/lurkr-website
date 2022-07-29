@@ -126,7 +126,7 @@ export default function Selector({ id, limit, items, initialItems, onSelect, typ
 
   return (
     <div className="relative" ref={elementRef}>
-      <div className="flex flex-row flex-wrap gap-1.5 py-3 px-5 min-w-[6rem] min-h-[3rem] bg-discord-not-quite-black rounded-md focus:outline-none shadow">
+      <div className="flex min-h-[3rem] min-w-[6rem] flex-row flex-wrap gap-1.5 rounded-md bg-discord-not-quite-black py-3 px-5 shadow focus:outline-none">
         {selected.map((i) => (
           <RoleChannelBullet
             data-id={i.id}
@@ -142,8 +142,8 @@ export default function Selector({ id, limit, items, initialItems, onSelect, typ
         {selected.length < limit && (
           <AiOutlinePlusCircle
             className={`${
-              disabled ? 'text-opacity-25' : 'hover:text-opacity-75 cursor-pointer'
-            } text-white fill-current w-6 h-6`}
+              disabled ? 'text-opacity-25' : 'cursor-pointer hover:text-opacity-75'
+            } h-6 w-6 fill-current text-white`}
             onClick={() => (disabled ? null : setDropdownOpen(!dropdownOpen))}
           />
         )}
@@ -152,7 +152,7 @@ export default function Selector({ id, limit, items, initialItems, onSelect, typ
       <div
         className={`${
           !dropdownOpen ? 'hidden' : ''
-        } absolute z-[100] max-h-72 w-full mt-2 pb-3 bg-[#36393f] rounded-md`}
+        } absolute z-[100] mt-2 max-h-72 w-full rounded-md bg-[#36393f] pb-3`}
       >
         <div className="w-full">
           <Input
@@ -165,10 +165,10 @@ export default function Selector({ id, limit, items, initialItems, onSelect, typ
           />
         </div>
 
-        <div className="flex overflow-y-auto flex-col gap-y-0.5 w-full max-h-48">
+        <div className="flex max-h-48 w-full flex-col gap-y-0.5 overflow-y-auto">
           {options.map((i) => (
             <div
-              className="flex items-center py-3 px-6 w-full text-left text-white hover:bg-discord-lighter cursor-pointer"
+              className="flex w-full cursor-pointer items-center py-3 px-6 text-left text-white hover:bg-discord-lighter"
               data-id={i.id}
               key={i.id}
               onClick={handleClickedItem}
@@ -176,11 +176,11 @@ export default function Selector({ id, limit, items, initialItems, onSelect, typ
               {type === 'role' && 'color' in i && (
                 <div
                   data-id={i.id}
-                  className="mr-2 w-4 h-4 rounded-full select-none"
+                  className="mr-2 h-4 w-4 select-none rounded-full"
                   style={{ backgroundColor: resolveColour(i.color) }}
                 />
               )}
-              <div data-id={i.id} className=" leading-4 break-all select-none">
+              <div data-id={i.id} className=" select-none break-all leading-4">
                 {type === 'channel' && '#'}
                 {i.name}
               </div>

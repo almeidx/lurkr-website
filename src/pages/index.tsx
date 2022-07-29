@@ -19,17 +19,17 @@ export default function Home() {
     <div className="flex flex-col items-center bg-discord-dark">
       <Image src="/static/avatar.png" width={64} height={64} />
 
-      <header className="flex flex-col justify-center items-center py-5">
+      <header className="flex flex-col items-center justify-center py-5">
         <h1>Pepe Manager</h1>
 
-        <p className="my-6 text-lg font-light text-center text-gray-400">
+        <p className="my-6 text-center text-lg font-light text-gray-400">
           A Discord bot with focus on automation, leveling, emoji management, and image manipulation
         </p>
 
-        <div className="flex flex-row gap-4 justify-center items-center">
+        <div className="flex flex-row items-center justify-center gap-4">
           {buttons.map(({ path, text }, i) => (
             <Link href={path} key={i}>
-              <a className="flex justify-center py-2 px-3 w-40 text-white bg-blurple hover:bg-[#414AB9] rounded-md transition-colors duration-100">
+              <a className="flex w-40 justify-center rounded-md bg-blurple py-2 px-3 text-white transition-colors duration-100 hover:bg-[#414AB9]">
                 {text}
               </a>
             </Link>
@@ -37,7 +37,7 @@ export default function Home() {
         </div>
       </header>
 
-      <main className="flex flex-col gap-12 justify-center items-center my-12 max-w-screen-2xl">
+      <main className="my-12 flex max-w-screen-2xl flex-col items-center justify-center gap-12">
         {showcases.map(({ description, src, title }, i) => (
           <Showcase key={i} align={i % 2 === 0 ? 'right' : 'left'} description={description} src={src} title={title} />
         ))}

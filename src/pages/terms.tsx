@@ -3,12 +3,12 @@ import Link from 'next/link';
 
 export default function Terms() {
   return (
-    <div className="flex flex-col items-center w-full bg-discord-dark">
+    <div className="flex w-full flex-col items-center bg-discord-dark">
       <Head>
         <title>Terms and Conditions | Pepe Manager</title>
       </Head>
 
-      <header className="flex flex-col justify-center items-center pt-3 sm:pt-1">
+      <header className="flex flex-col items-center justify-center pt-3 sm:pt-1">
         <h1>Terms and Conditions</h1>
         <span className="mt-3 text-gray-400">Last modified: June 20, 2021.</span>
       </header>
@@ -36,7 +36,7 @@ export default function Terms() {
         </p>
 
         <Link href="#age-requirement">
-          <a className="mx-3 text-xl font-bold text-gray-200 uppercase sm:mx-0 sm:text-3xl" id="age-requirement">
+          <a className="mx-3 text-xl font-bold uppercase text-gray-200 sm:mx-0 sm:text-3xl" id="age-requirement">
             Age requirement
           </a>
         </Link>
@@ -48,7 +48,7 @@ export default function Terms() {
 
         <Link href="#links-to-other-resources">
           <a
-            className="mx-3 text-xl font-bold text-gray-200 uppercase sm:mx-0 sm:text-3xl"
+            className="mx-3 text-xl font-bold uppercase text-gray-200 sm:mx-0 sm:text-3xl"
             id="links-to-other-resources"
           >
             Links to other resources
@@ -67,7 +67,7 @@ export default function Terms() {
         </p>
 
         <Link href="#prohibited-uses">
-          <a className="mx-3 text-xl font-bold text-gray-200 uppercase sm:mx-0 sm:text-3xl" id="prohibited-uses">
+          <a className="mx-3 text-xl font-bold uppercase text-gray-200 sm:mx-0 sm:text-3xl" id="prohibited-uses">
             Prohibited uses
           </a>
         </Link>
@@ -89,7 +89,7 @@ export default function Terms() {
 
         <Link href="#intellectual-property-rights">
           <a
-            className="mx-3 text-xl font-bold text-gray-200 uppercase sm:mx-0 sm:text-3xl"
+            className="mx-3 text-xl font-bold uppercase text-gray-200 sm:mx-0 sm:text-3xl"
             id="intellectual-property-rights"
           >
             Intellectual property rights
@@ -113,7 +113,7 @@ export default function Terms() {
         </p>
 
         <Link href="#severability">
-          <a className="mx-3 text-xl font-bold text-gray-200 uppercase sm:mx-0 sm:text-3xl" id="severability">
+          <a className="mx-3 text-xl font-bold uppercase text-gray-200 sm:mx-0 sm:text-3xl" id="severability">
             Severability
           </a>
         </Link>
@@ -129,7 +129,7 @@ export default function Terms() {
         </p>
 
         <Link href="#changes">
-          <a className="mx-3 text-xl font-bold text-gray-200 uppercase sm:mx-0 sm:text-3xl" id="changes">
+          <a className="mx-3 text-xl font-bold uppercase text-gray-200 sm:mx-0 sm:text-3xl" id="changes">
             Changes and amendments
           </a>
         </Link>
@@ -142,7 +142,7 @@ export default function Terms() {
         </p>
 
         <Link href="#acceptance">
-          <a className="mx-3 text-xl font-bold text-gray-200 uppercase sm:mx-0 sm:text-3xl" id="acceptance">
+          <a className="mx-3 text-xl font-bold uppercase text-gray-200 sm:mx-0 sm:text-3xl" id="acceptance">
             Acceptance of these terms
           </a>
         </Link>
@@ -154,7 +154,7 @@ export default function Terms() {
         </p>
 
         <Link href="#contact">
-          <a className="mx-3 text-xl font-bold text-gray-200 uppercase sm:mx-0 sm:text-3xl" id="contact">
+          <a className="mx-3 text-xl font-bold uppercase text-gray-200 sm:mx-0 sm:text-3xl" id="contact">
             Contacting us
           </a>
         </Link>

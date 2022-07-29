@@ -3,12 +3,12 @@ import Link from 'next/link';
 
 export default function Privacy() {
   return (
-    <div className="flex flex-col items-center w-full bg-discord-dark">
+    <div className="flex w-full flex-col items-center bg-discord-dark">
       <Head>
         <title>Privacy Policy | Pepe Manager</title>
       </Head>
 
-      <header className="flex flex-col justify-center items-center pt-3 sm:pt-1">
+      <header className="flex flex-col items-center justify-center pt-3 sm:pt-1">
         <h1>Privacy Policy</h1>
         <span className="mt-3 text-gray-400">Last updated and effective: June 20, 2021.</span>
       </header>
@@ -26,7 +26,7 @@ export default function Privacy() {
 
         <Link href="#information-collection-and-use">
           <a
-            className="mx-3 text-xl font-bold text-gray-200 uppercase sm:mx-0 sm:text-3xl"
+            className="mx-3 text-xl font-bold uppercase text-gray-200 sm:mx-0 sm:text-3xl"
             id="information-collection-and-use"
           >
             Information Collection and Use
@@ -40,7 +40,7 @@ export default function Privacy() {
         </p>
 
         <Link href="#log-data">
-          <a className="mx-3 text-xl font-bold text-gray-200 uppercase sm:mx-0 sm:text-3xl" id="log-data">
+          <a className="mx-3 text-xl font-bold uppercase text-gray-200 sm:mx-0 sm:text-3xl" id="log-data">
             Log Data
           </a>
         </Link>
@@ -54,7 +54,7 @@ export default function Privacy() {
         </p>
 
         <Link href="#cookies">
-          <a className="mx-3 text-xl font-bold text-gray-200 uppercase sm:mx-0 sm:text-3xl" id="cookies">
+          <a className="mx-3 text-xl font-bold uppercase text-gray-200 sm:mx-0 sm:text-3xl" id="cookies">
             Cookies
           </a>
         </Link>
@@ -72,7 +72,7 @@ export default function Privacy() {
         </p>
 
         <Link href="#security">
-          <a className="mx-3 text-xl font-bold text-gray-200 uppercase sm:mx-0 sm:text-3xl" id="security">
+          <a className="mx-3 text-xl font-bold uppercase text-gray-200 sm:mx-0 sm:text-3xl" id="security">
             Security
           </a>
         </Link>
@@ -84,7 +84,7 @@ export default function Privacy() {
         </p>
 
         <Link href="#links-to-other-sites">
-          <a className="mx-3 text-xl font-bold text-gray-200 uppercase sm:mx-0 sm:text-3xl" id="links-to-other-sites">
+          <a className="mx-3 text-xl font-bold uppercase text-gray-200 sm:mx-0 sm:text-3xl" id="links-to-other-sites">
             Links to Other Sites
           </a>
         </Link>
@@ -97,7 +97,7 @@ export default function Privacy() {
         </p>
 
         <Link href="#children-privacy">
-          <a className="mx-3 text-xl font-bold text-gray-200 uppercase sm:mx-0 sm:text-3xl" id="children-privacy">
+          <a className="mx-3 text-xl font-bold uppercase text-gray-200 sm:mx-0 sm:text-3xl" id="children-privacy">
             Children&apos;s Privacy
           </a>
         </Link>
@@ -111,7 +111,7 @@ export default function Privacy() {
         </p>
 
         <Link href="#changes">
-          <a className="mx-3 text-xl font-bold text-gray-200 uppercase sm:mx-0 sm:text-3xl" id="changes">
+          <a className="mx-3 text-xl font-bold uppercase text-gray-200 sm:mx-0 sm:text-3xl" id="changes">
             Changes to This Privacy Policy
           </a>
         </Link>
@@ -122,7 +122,7 @@ export default function Privacy() {
         </p>
 
         <Link href="#contact">
-          <a className="mx-3 text-xl font-bold text-gray-200 uppercase sm:mx-0 sm:text-3xl" id="contact">
+          <a className="mx-3 text-xl font-bold uppercase text-gray-200 sm:mx-0 sm:text-3xl" id="contact">
             Contact Us
           </a>
         </Link>

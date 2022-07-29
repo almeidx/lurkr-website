@@ -10,14 +10,14 @@ interface XpDisallowedPrefixProps {
 
 export default function XpDisallowedPrefix({ index, prefix, onDelete }: XpDisallowedPrefixProps) {
   return (
-    <div className="flex relative flex-row flex-wrap gap-y-2 justify-between p-2 bg-discord-dark rounded-lg">
+    <div className="relative flex flex-row flex-wrap justify-between gap-y-2 rounded-lg bg-discord-dark p-2">
       <label
-        className="flex shrink-0 justify-center items-center px-4 mr-2 text-white bg-discord-not-quite-black rounded-full shadow-lg"
+        className="mr-2 flex shrink-0 items-center justify-center rounded-full bg-discord-not-quite-black px-4 text-white shadow-lg"
         htmlFor={`${index}-disallowed-prefix`}
       >
         {prefix}
       </label>
-      <MdClear onClick={() => onDelete(index)} className="py-3 ml-auto w-8 h-12 text-red-500 cursor-pointer" />
+      <MdClear onClick={() => onDelete(index)} className="ml-auto h-12 w-8 cursor-pointer py-3 text-red-500" />
     </div>
   );
 }

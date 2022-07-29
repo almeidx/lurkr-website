@@ -15,7 +15,7 @@ interface GuildProps {
 export default function Guild({ baseRedirectPath, icon, id, name }: GuildProps) {
   return (
     <Link href={`${baseRedirectPath}${id}`} key={id}>
-      <a className="flex relative flex-col flex-wrap gap-2 py-4 px-6 w-40 h-44 text-center bg-discord-slightly-darker rounded-2xl shadow-sm">
+      <a className="relative flex h-44 w-40 flex-col flex-wrap gap-2 rounded-2xl bg-discord-slightly-darker py-4 px-6 text-center shadow-sm">
         {icon ? (
           <img
             alt={`${name} server icon`}
@@ -28,7 +28,7 @@ export default function Guild({ baseRedirectPath, icon, id, name }: GuildProps) 
           <Image className="rounded-lg" height={128} src={FALLBACK_AVATAR_PATH} width={128} />
         )}
 
-        <span className="absolute bottom-4 left-0 mx-2 w-[calc(100%-1rem)] text-white truncate">{name}</span>
+        <span className="absolute bottom-4 left-0 mx-2 w-[calc(100%-1rem)] truncate text-white">{name}</span>
       </a>
     </Link>
   );

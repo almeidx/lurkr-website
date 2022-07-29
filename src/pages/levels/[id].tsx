@@ -60,8 +60,8 @@ export default function Leaderboard({
 
   if (isFallback) {
     return (
-      <div className="flex justify-center items-center min-h-screen-no-footer bg-discord-dark">
-        <Spinner className="w-60 h-auto" />
+      <div className="flex min-h-screen-no-footer items-center justify-center bg-discord-dark">
+        <Spinner className="h-auto w-60" />
       </div>
     );
   }
@@ -74,12 +74,12 @@ export default function Leaderboard({
   }
 
   return (
-    <div className="flex flex-col gap-y-10 items-start min-h-screen-no-footer bg-discord-dark sm:px-6">
+    <div className="flex min-h-screen-no-footer flex-col items-start gap-y-10 bg-discord-dark sm:px-6">
       <Head>
         <title>{guild.name} Leaderboard | Pepe Manager</title>
       </Head>
 
-      <header className="flex flex-row gap-6 justify-center items-center mt-3 ml-10 sm:mt-10 xl:mt-0">
+      <header className="mt-3 ml-10 flex flex-row items-center justify-center gap-6 sm:mt-10 xl:mt-0">
         {guild.icon ? (
           <img
             alt={`${guild.name} server icon`}
@@ -94,20 +94,20 @@ export default function Leaderboard({
         <p className="text-xl font-bold text-white sm:text-4xl">{guild.name}</p>
       </header>
 
-      <main className="flex flex-col gap-y-6 justify-center my-4 w-full sm:justify-between md:flex-row">
-        <section className="w-full h-[fit-content] bg-discord-not-quite-black rounded-2xl divide-y-2 divide-gray-400 divide-solid">
+      <main className="my-4 flex w-full flex-col justify-center gap-y-6 sm:justify-between md:flex-row">
+        <section className="h-[fit-content] w-full divide-y-2 divide-solid divide-gray-400 rounded-2xl bg-discord-not-quite-black">
           {levels.map((user, i) => (
             <User {...user} index={i} key={user.userID} />
           ))}
         </section>
 
         {(roles || !!multipliers?.length) && (
-          <div className="flex flex-col gap-4 items-center mb-8 sm:ml-6">
+          <div className="mb-8 flex flex-col items-center gap-4 sm:ml-6">
             {roles && (
-              <div className="flex flex-col items-center pb-4 min-w-[15rem] max-w-[23rem] h-[fit-content] bg-discord-not-quite-black rounded-2xl divide-y-2 divide-gray-400 divide-solid">
-                <span className="py-3 mx-1 text-2xl font-medium text-white whitespace-nowrap">XP Roles</span>
+              <div className="flex h-[fit-content] min-w-[15rem] max-w-[23rem] flex-col items-center divide-y-2 divide-solid divide-gray-400 rounded-2xl bg-discord-not-quite-black pb-4">
+                <span className="mx-1 whitespace-nowrap py-3 text-2xl font-medium text-white">XP Roles</span>
 
-                <div className="flex flex-col w-full max-w-lg rounded-lg">
+                <div className="flex w-full max-w-lg flex-col rounded-lg">
                   {roles
                     .sort((a, b) => a.level - b.level)
                     .map(({ level, roles: levelRoles }) => (
@@ -118,10 +118,10 @@ export default function Leaderboard({
             )}
 
             {!!multipliers?.length && (
-              <div className="flex flex-col items-center pb-4 min-w-[15rem] max-w-[23rem] h-[fit-content] bg-discord-not-quite-black rounded-2xl divide-y-2 divide-gray-400 divide-solid">
-                <span className="py-3 mx-1 text-2xl font-medium text-white whitespace-nowrap">XP Multipliers</span>
+              <div className="flex h-[fit-content] min-w-[15rem] max-w-[23rem] flex-col items-center divide-y-2 divide-solid divide-gray-400 rounded-2xl bg-discord-not-quite-black pb-4">
+                <span className="mx-1 whitespace-nowrap py-3 text-2xl font-medium text-white">XP Multipliers</span>
 
-                <div className="flex flex-col w-full max-w-lg rounded-lg">
+                <div className="flex w-full max-w-lg flex-col rounded-lg">
                   {multipliers
                     .filter(({ type }) => (type === 'role' ? !!guild.roles : type === 'channel' ? !!channels : true))
                     .sort((a, b) => a.multiplier - b.multiplier)

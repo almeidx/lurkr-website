@@ -9,9 +9,9 @@ interface RoleProps {
 
 export default function Role({ level, roles }: RoleProps) {
   return (
-    <div className="flex flex-col gap-2 my-2 mx-4" key={level}>
+    <div className="my-2 mx-4 flex flex-col gap-2" key={level}>
       <span className="text-white">Level {level}</span>
-      <div className="flex flex-row flex-wrap shrink-0 gap-1.5">
+      <div className="flex shrink-0 flex-row flex-wrap gap-1.5">
         {roles.map(({ color, id, name }) => (
           <RoleChannelBullet type="role" key={id} roleColour={resolveColour(color)} name={name} />
         ))}

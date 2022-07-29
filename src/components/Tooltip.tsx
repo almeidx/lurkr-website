@@ -6,13 +6,13 @@ interface TooltipProps {
 
 export default function Tooltip({ text }: TooltipProps) {
   return (
-    <div className="group relative w-max h-max">
-      <BsFillQuestionCircleFill className="w-4 h-4 text-gray-200 hover:text-gray-400 duration-100 cursor-pointer fill-current" />
+    <div className="group relative h-max w-max">
+      <BsFillQuestionCircleFill className="h-4 w-4 cursor-pointer fill-current text-gray-200 duration-100 hover:text-gray-400" />
 
-      <div className="group hidden group-hover:block absolute bottom-full left-1/2 mb-2 bg-black rounded-md transition-colors -translate-x-1/2">
-        <p className="py-2 px-3 w-72 leading-5 text-white">{text}</p>
+      <div className="group absolute bottom-full left-1/2 mb-2 hidden -translate-x-1/2 rounded-md bg-black transition-colors group-hover:block">
+        <p className="w-72 py-2 px-3 leading-5 text-white">{text}</p>
         <div className="relative">
-          <div className="absolute -top-1 left-1/2 border-4 border-black group-active:border-gray-800 transition-colors rotate-45 -translate-x-1/2" />
+          <div className="absolute -top-1 left-1/2 -translate-x-1/2 rotate-45 border-4 border-black transition-colors group-active:border-gray-800" />
         </div>
       </div>
     </div>

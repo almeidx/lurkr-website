@@ -21,11 +21,11 @@ export default function Checkbox({ id, initialValue, disabled, onChange }: Check
     <div
       className={`${
         disabled ? 'bg-discord-not-quite-black' : checked ? 'bg-[#3ba55d]' : 'bg-[#ed4245]'
-      } flex items-center justify-center content-none w-6 h-6 rounded-md cursor-pointer shadow-md`}
+      } flex h-6 w-6 cursor-pointer items-center justify-center rounded-md shadow-md content-none`}
       id={id}
       onClick={handleClick}
     >
-      {checked ? <FaCheck className="text-white fill-current" onClick={handleClick} /> : null}
+      {checked ? <FaCheck className="fill-current text-white" onClick={handleClick} /> : null}
     </div>
   );
 }

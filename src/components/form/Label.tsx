@@ -12,12 +12,12 @@ export default function Label({ htmlFor, name, url, withMargin = true }: LabelPr
     <label
       className={`${
         withMargin ? 'mb-1' : ''
-      } text-gray-300 flex gap-2 w-min items-center text-center text-lg whitespace-nowrap`}
+      } flex w-min items-center gap-2 whitespace-nowrap text-center text-lg text-gray-300`}
       htmlFor={htmlFor}
     >
       {name}
       <BsFillQuestionCircleFill
-        className="w-4 h-4 text-gray-200 hover:text-gray-400 duration-100 cursor-pointer fill-current"
+        className="h-4 w-4 cursor-pointer fill-current text-gray-200 duration-100 hover:text-gray-400"
         onClick={() => window.open(url)}
       />
     </label>

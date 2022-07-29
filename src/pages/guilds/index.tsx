@@ -38,14 +38,14 @@ export default function Guilds({ guilds }: InferGetServerSidePropsType<typeof ge
   }
 
   return (
-    <div className="flex flex-col gap-y-8 justify-center items-center py-6 min-h-screen-no-footer text-center bg-discord-dark sm:pt-0">
+    <div className="flex min-h-screen-no-footer flex-col items-center justify-center gap-y-8 bg-discord-dark py-6 text-center sm:pt-0">
       <Head>
         <title>Guilds | Pepe Manager</title>
       </Head>
 
       <h1>Pick the server you would like to configure</h1>
 
-      <main className="flex flex-row flex-wrap gap-6 justify-center items-start max-w-7xl">
+      <main className="flex max-w-7xl flex-row flex-wrap items-start justify-center gap-6">
         {guilds.map(({ icon, id, name }) => (
           <Guild baseRedirectPath="/guilds/" icon={icon} id={id} key={id} name={name} />
         ))}

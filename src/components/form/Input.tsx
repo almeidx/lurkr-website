@@ -28,11 +28,11 @@ export default function Input(props: InputProps | InputWithSubmitProps): JSX.Ele
 
   return (
     <div className={`flex w-full ${props.className ?? ''}`}>
-      <div className="relative grow w-full">
+      <div className="relative w-full grow">
         <input
-          className={`text-white bg-discord-not-quite-black ${
+          className={`bg-discord-not-quite-black text-white ${
             props.prefix ? 'pl-[30px]' : 'pl-5'
-          } pr-5 py-3 placeholder:text-opacity-75 disabled:text-opacity-25 disabled:select-none focus:outline-none rounded-md shadow w-full`}
+          } w-full rounded-md py-3 pr-5 shadow placeholder:text-opacity-75 focus:outline-none disabled:select-none disabled:text-opacity-25`}
           disabled={props.disabled}
           id={props.id}
           maxLength={props.maxLength}
@@ -53,7 +53,7 @@ export default function Input(props: InputProps | InputWithSubmitProps): JSX.Ele
         )}
         {value && !props.noClearButton && (
           <label
-            className="absolute right-0 py-3 my-auto mx-4 h-full text-2xl text-discord-red active:text-red-600 transition-colors cursor-pointer"
+            className="absolute right-0 my-auto mx-4 h-full cursor-pointer py-3 text-2xl text-discord-red transition-colors active:text-red-600"
             onClick={() => {
               setValue('');
               props.onChange('');
@@ -66,7 +66,7 @@ export default function Input(props: InputProps | InputWithSubmitProps): JSX.Ele
 
       {'onSubmit' in props && (
         <button
-          className="flex shrink-0 justify-center items-center ml-3 w-12 h-12 text-white bg-discord-not-quite-black rounded-md transition-colors duration-150 disabled:select-none"
+          className="ml-3 flex h-12 w-12 shrink-0 items-center justify-center rounded-md bg-discord-not-quite-black text-white transition-colors duration-150 disabled:select-none"
           disabled={props.disabled}
           onClick={() => {
             if (props.clearOnSubmit) setValue('');
@@ -74,7 +74,7 @@ export default function Input(props: InputProps | InputWithSubmitProps): JSX.Ele
           }}
           ref={props.submitRef}
         >
-          <Icon className="text-3xl fill-current" />
+          <Icon className="fill-current text-3xl" />
         </button>
       )}
     </div>

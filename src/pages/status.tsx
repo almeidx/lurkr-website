@@ -64,12 +64,12 @@ export default function Status({ shards, totalShards }: InferGetStaticPropsType<
   };
 
   return (
-    <div className="flex flex-col items-center min-h-screen-no-footer bg-discord-dark">
+    <div className="flex min-h-screen-no-footer flex-col items-center bg-discord-dark">
       <Head>
         <title>Bot Status | Pepe Manager</title>
       </Head>
 
-      <header className="flex flex-col gap-4 items-center my-4 mx-3 text-center sm:mx-0 sm:mb-6">
+      <header className="my-4 mx-3 flex flex-col items-center gap-4 text-center sm:mx-0 sm:mb-6">
         <h1>Bot Status</h1>
         <p className="font-light text-gray-400">Check if the bot is online in your server!</p>
       </header>
@@ -100,7 +100,7 @@ export default function Status({ shards, totalShards }: InferGetStaticPropsType<
         )}
 
         {!!shards && (
-          <table className="gap-4 text-white bg-discord-not-quite-black rounded-md shadow-md">
+          <table className="gap-4 rounded-md bg-discord-not-quite-black text-white shadow-md">
             <thead>
               <tr>
                 {tableHeaders.map((name, i) => (

@@ -111,16 +111,16 @@ export default function Guild({
 
   return (
     <div className="w-full bg-discord-dark">
-      <div className="flex flex-col mx-auto max-w-[992px] min-h-screen-no-footer divide-gray-600 sm:flex-row sm:divide-x-2 xl:max-w-[1440px]">
+      <div className="mx-auto flex min-h-screen-no-footer max-w-[992px] flex-col divide-gray-600 sm:flex-row sm:divide-x-2 xl:max-w-[1440px]">
         <Head>
           <title>{guild.name} Dashboard | Pepe Manager</title>
         </Head>
 
         <Menu closeMenu={closeMenu} guild={guild} guildId={guildId} menuOpen={menuOpen} premium={database.premium} />
 
-        <main className={`pb-5 px-4 md:pt-6 w-full ${menuOpen ? 'hidden' : 'block'} sm:block`}>
+        <main className={`w-full px-4 pb-5 md:pt-6 ${menuOpen ? 'hidden' : 'block'} sm:block`}>
           {warnings.length > 0 || errors.length > 0 ? (
-            <div className="flex flex-col gap-3 mb-2">
+            <div className="mb-2 flex flex-col gap-3">
               {errors.length > 0 && errors.map((m, i) => <Message key={i} message={m} />)}
               {warnings.length > 0 && warnings.map((m, i) => <Message key={i} message={m} type="warning" />)}
             </div>
@@ -128,8 +128,8 @@ export default function Guild({
 
           <Suspense
             fallback={
-              <div className="flex justify-center items-center min-h-screen-no-footer bg-discord-dark">
-                <Spinner className="w-60 h-auto" />
+              <div className="flex min-h-screen-no-footer items-center justify-center bg-discord-dark">
+                <Spinner className="h-auto w-60" />
               </div>
             }
           >

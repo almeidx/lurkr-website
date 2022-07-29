@@ -23,13 +23,13 @@ export default function Header(props: HeaderProps | HeaderWithToggleProps) {
     <>
       <BiArrowBack
         onClick={props.openMenu}
-        className="inline-block z-[99999] mb-4 ml-4 w-6 h-6 text-white cursor-pointer sm:hidden"
+        className="z-[99999] mb-4 ml-4 inline-block h-6 w-6 cursor-pointer text-white sm:hidden"
       />
-      <div className="flex justify-between mx-4">
+      <div className="mx-4 flex justify-between">
         <h1 className="text-white">{props.title}</h1>
 
         {'initialValue' in props && (
-          <div className="flex flex-row gap-x-3 items-center">
+          <div className="flex flex-row items-center gap-x-3">
             <label className="text-white" htmlFor={props.id}>
               {enabled ? 'Enabled' : 'Disabled'}
             </label>

@@ -36,9 +36,9 @@ export default function XpMultiplier({
   type,
 }: XpMultiplierProps) {
   return (
-    <div className="flex relative flex-row flex-wrap gap-y-2 justify-between p-2 w-full bg-discord-dark rounded-lg">
+    <div className="relative flex w-full flex-row flex-wrap justify-between gap-y-2 rounded-lg bg-discord-dark p-2">
       <div className="flex w-full">
-        <label className="flex items-center ml-4 w-[6rem] font-bold text-white" htmlFor={`m-${id}-selector`}>
+        <label className="ml-4 flex w-[6rem] items-center font-bold text-white" htmlFor={`m-${id}-selector`}>
           {type[0].toUpperCase() + type.slice(1)}
         </label>
 
@@ -55,7 +55,7 @@ export default function XpMultiplier({
         </div>
 
         <div
-          className="right-0 py-3 mr-4 ml-auto w-6 h-full text-2xl text-discord-red active:text-red-600 transition-colors cursor-pointer"
+          className="right-0 mr-4 ml-auto h-full w-6 cursor-pointer py-3 text-2xl text-discord-red transition-colors active:text-red-600"
           onClick={() => onDelete(id)}
         >
           <MdClear />
