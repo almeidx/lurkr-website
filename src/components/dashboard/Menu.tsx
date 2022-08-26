@@ -13,7 +13,7 @@ import { useMutation } from 'relay-hooks';
 import type {
   DatabaseGuildChanges,
   updateDatabaseGuildMutation,
-  updateDatabaseGuildMutationVariables,
+  updateDatabaseGuildMutation$variables,
 } from '../../__generated__/updateDatabaseGuildMutation.graphql';
 import { GuildContext, Section } from '../../contexts/GuildContext';
 import updateDatabaseGuild from '../../graphql/mutations/updateDatabaseGuild';
@@ -78,7 +78,7 @@ export default function Menu({ closeMenu, guild, guildId: argGuildId, menuOpen, 
     const clone = cloneDeep<Partial<DatabaseGuildChanges>>(changes);
     if (!Object.keys(clone).length || !guildId) return;
 
-    const dataForMutation = cloneDeep<updateDatabaseGuildMutationVariables['data']>(clone);
+    const dataForMutation = cloneDeep<updateDatabaseGuildMutation$variables['data']>(clone);
 
     if (dataForMutation.autoRoleTimeout === 0) dataForMutation.autoRoleTimeout = null;
     else if (dataForMutation.autoRoleTimeout) dataForMutation.autoRoleTimeout *= 60_000;

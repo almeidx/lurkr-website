@@ -1,12 +1,12 @@
 import { graphql } from 'relay-runtime';
 
-import type { DashboardGuildQueryResponse } from '../../__generated__/DashboardGuildQuery.graphql';
+import type { DashboardGuildQuery$data } from '../../__generated__/DashboardGuildQuery.graphql';
 import type { Snowflake } from '../../utils/constants';
 import type { CorrectSnowflakeTypes, DeepMutable } from '../../utils/utils';
 
 type DatabaseGuildWithoutMultipliers = Omit<
-  Exclude<DashboardGuildQueryResponse['getDatabaseGuild'], null>,
-  'xpMultipliers' | 'xpRoles'
+  Exclude<DashboardGuildQuery$data['getDatabaseGuild'], null>,
+  'xpMultipliers'
 >;
 
 export interface Multiplier {
@@ -17,13 +17,13 @@ export interface Multiplier {
 }
 
 export type DashboardDatabaseGuild = CorrectSnowflakeTypes<
-  DeepMutable<DatabaseGuildWithoutMultipliers & { xpMultipliers: Multiplier[]; xpRoles: Record<string, Snowflake[]> }>
+  DeepMutable<DatabaseGuildWithoutMultipliers & { xpMultipliers: Multiplier[] }>
 >;
 export type DashboardDiscordGuild = CorrectSnowflakeTypes<
-  DeepMutable<Exclude<DashboardGuildQueryResponse['getDiscordGuild'], null>>
+  DeepMutable<Exclude<DashboardGuildQuery$data['getDiscordGuild'], null>>
 >;
 export type DashboardChannels = CorrectSnowflakeTypes<
-  DeepMutable<Exclude<DashboardGuildQueryResponse['getDiscordGuildChannels'], null>>
+  DeepMutable<Exclude<DashboardGuildQuery$data['getDiscordGuildChannels'], null>>
 >;
 export type DashboardRoles = CorrectSnowflakeTypes<DeepMutable<DashboardDiscordGuild['roles']>>;
 
@@ -88,7 +88,10 @@ export default graphql`
         type
       }
       xpResponseType
-      xpRoles
+      xpRoleRewards {
+        level
+        roleIds
+      }
       xpWhitelistedChannels
     }
   }

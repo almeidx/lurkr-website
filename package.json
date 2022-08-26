@@ -8,7 +8,7 @@
     "lint": "prettier --check . && eslint src --ext ts,tsx",
     "format": "prettier --write . && eslint src --ext ts,tsx --fix",
     "postinstall": "husky install .github/husky",
-    "relay": "relay-compiler --artifactDirectory './src/__generated__' --exclude '**/node_modules/**', '**/.next/**', '**/__generated__/**' --extensions 'ts' 'tsx' --language 'typescript' --schema './schema.gql' --src './src'",
+    "relay": "relay-compiler",
     "start": "next start",
     "update": "yarn upgrade-interactive"
   },

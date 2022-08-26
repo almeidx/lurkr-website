@@ -1,36 +1,28 @@
+/**
+ * @generated SignedSource<<0c8ec853698437d19681926da6eadc94>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-export type UserGuildsQueryVariables = {
-    withPermissions: boolean;
+import { ConcreteRequest, Query } from 'relay-runtime';
+export type UserGuildsQuery$variables = {
+  withPermissions: boolean;
 };
-export type UserGuildsQueryResponse = {
-    readonly getUserGuilds: ReadonlyArray<{
-        readonly icon: string | null;
-        readonly id: string;
-        readonly name: string;
-    }> | null;
+export type UserGuildsQuery$data = {
+  readonly getUserGuilds: ReadonlyArray<{
+    readonly icon: string | null;
+    readonly id: string;
+    readonly name: string;
+  }> | null;
 };
 export type UserGuildsQuery = {
-    readonly response: UserGuildsQueryResponse;
-    readonly variables: UserGuildsQueryVariables;
+  variables: UserGuildsQuery$variables;
+  response: UserGuildsQuery$data;
 };
-
-
-
-/*
-query UserGuildsQuery(
-  $withPermissions: Boolean!
-) {
-  getUserGuilds(withPermissions: $withPermissions) {
-    icon
-    id
-    name
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -107,5 +99,7 @@ return {
   }
 };
 })();
-(node as any).hash = 'ef579441696d9e27e9a4ba24a002bbb1';
+
+(node as any).hash = "ef579441696d9e27e9a4ba24a002bbb1";
+
 export default node;

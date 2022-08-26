@@ -4,14 +4,14 @@ import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
 import { fetchQuery } from 'relay-runtime';
 
-import type { UserGuildsQuery, UserGuildsQueryResponse } from '../../__generated__/UserGuildsQuery.graphql';
+import type { UserGuildsQuery, UserGuildsQuery$data } from '../../__generated__/UserGuildsQuery.graphql';
 import Input from '../../components/form/Input';
 import Guild from '../../components/Guild';
 import UserGuilds from '../../graphql/queries/UserGuilds';
 import environment from '../../relay/environment';
 import { CorrectSnowflakeTypes, DeepMutable, isValidSnowflake, removeNonStringValues } from '../../utils/utils';
 
-type Guilds = CorrectSnowflakeTypes<DeepMutable<UserGuildsQueryResponse['getUserGuilds']>>;
+type Guilds = CorrectSnowflakeTypes<DeepMutable<UserGuildsQuery$data['getUserGuilds']>>;
 
 export const getServerSideProps: GetServerSideProps<{ guilds: Guilds }> = async (ctx) => {
   const env = environment(undefined, removeNonStringValues(ctx.req.headers));
