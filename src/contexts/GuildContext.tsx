@@ -6,14 +6,7 @@ import type { DashboardDatabaseGuild } from '../graphql/queries/DashboardGuild';
 import { type Snowflake, API_BASE_URL, DATABASE_LIMITS, VANITY_REGEX } from '../utils/constants';
 import { getDatabaseLimit } from '../utils/utils';
 
-export type Section =
-  | 'general'
-  | 'leveling'
-  | 'autorole'
-  | 'milestones'
-  | 'emojiList'
-  | 'mentionCooldown'
-  | 'miscellaneous';
+export type Section = 'leveling' | 'autorole' | 'milestones' | 'emojiList' | 'mentionCooldown' | 'miscellaneous';
 
 interface VanityCheckResponse {
   available: boolean;
@@ -64,7 +57,7 @@ let vanityAvailabilityTimeout: NodeJS.Timeout | undefined;
 
 export default function GuildContextProvider({ children }: GuildContextProps) {
   const [guildId, setGuildId] = useState<Snowflake | null>(null);
-  const [section, setSection] = useState<Section>('general');
+  const [section, setSection] = useState<Section>('leveling');
   const [changes, setChanges] = useState<Partial<DatabaseChanges>>({});
   const [data, setData] = useState<DashboardDatabaseGuild | null>(null);
   const [errors, setErrors] = useState<string[]>([]);
@@ -115,10 +108,6 @@ export default function GuildContextProvider({ children }: GuildContextProps) {
         } else if (changes.milestonesInterval > milestonesIntervalLimits.max) {
           newErrors.push(`The milestones interval is larger than ${milestonesIntervalLimits.max}.`);
         }
-      }
-
-      if ('prefix' in changes && (!changes.prefix || changes.prefix.length < 1)) {
-        newErrors.push('The prefix cannot be empty.');
       }
 
       if (typeof changes.vanity === 'string' && changes.vanity !== '') {

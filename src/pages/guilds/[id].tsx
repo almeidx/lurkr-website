@@ -21,7 +21,6 @@ import environment from '../../relay/environment';
 import type { Snowflake } from '../../utils/constants';
 import { isValidSnowflake, removeNonStringValues } from '../../utils/utils';
 
-const General = dynamic(() => import('../../components/dashboard/pages/General'), { suspense: true });
 const Autorole = dynamic(() => import('../../components/dashboard/pages/Autorole'), { suspense: true });
 const Leveling = dynamic(() => import('../../components/dashboard/pages/Leveling'), { suspense: true });
 const Milestones = dynamic(() => import('../../components/dashboard/pages/Milestones'), { suspense: true });
@@ -83,7 +82,7 @@ export default function Guild({
     const pageQuery = String(router.query.p);
 
     if (pageQuery && pageQuery !== section) {
-      const pageName = isValidSection(pageQuery) ? pageQuery : 'general';
+      const pageName = isValidSection(pageQuery) ? pageQuery : 'leveling';
       console.log("Found initial dashboard page '%s'", pageName);
       void router.push(`/guilds/${guildId}?p=${pageName}`, `/guilds/${guildId}?p=${pageName}`, { shallow: true });
       updateSection(pageName);
@@ -135,8 +134,6 @@ export default function Guild({
           >
             {section === 'autorole' ? (
               <Autorole openMenu={openMenu} database={database} roles={sortedRoles} />
-            ) : section === 'leveling' ? (
-              <Leveling openMenu={openMenu} channels={sortedChannels} database={database} roles={sortedRoles} />
             ) : section === 'milestones' ? (
               <Milestones openMenu={openMenu} channels={sortedChannels} database={database} roles={sortedRoles} />
             ) : section === 'emojiList' ? (
@@ -146,7 +143,7 @@ export default function Guild({
             ) : section === 'miscellaneous' ? (
               <Miscellaneous openMenu={openMenu} channels={sortedChannels} database={database} />
             ) : (
-              <General openMenu={openMenu} channels={sortedChannels} database={database} />
+              <Leveling openMenu={openMenu} channels={sortedChannels} database={database} roles={sortedRoles} />
             )}
           </Suspense>
         </main>

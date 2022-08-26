@@ -223,7 +223,6 @@ export const DATABASE_DEFAULTS = {
 
     <:PES2_Party:685143619501293616> Congratulations to {user}, you were the {milestone}th person to join!
   `,
-  prefix: 'p!',
   prioritiseMultiplierRoleHierarchy: false,
   stackXpRoles: true,
   storeCounts: true,
@@ -242,9 +241,6 @@ export const DATABASE_LIMITS = {
   autoRoleTimeout: {
     max: 1_800_000,
     min: 60_000,
-  },
-  blacklistedChannels: {
-    maxLength: 20,
   },
   mentionCooldown: {
     max: 1_800_000,
@@ -265,9 +261,6 @@ export const DATABASE_LIMITS = {
   },
   noXpRoles: {
     maxLength: 30,
-  },
-  prefix: {
-    maxLength: 5,
   },
   vanity: {
     maxLength: 32,
@@ -307,9 +300,6 @@ export const DATABASE_PREMIUM_LIMITS = {
     max: 1_800_000,
     min: 60_000,
   },
-  blacklistedChannels: {
-    maxLength: 20,
-  },
   mentionCooldown: {
     max: 1_800_000,
     min: 300_000,
@@ -329,9 +319,6 @@ export const DATABASE_PREMIUM_LIMITS = {
   },
   noXpRoles: {
     maxLength: 30,
-  },
-  prefix: {
-    maxLength: 5,
   },
   vanity: {
     maxLength: 32,

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<f2f504ab2cbba66ced2f07c578f07d98>>
+ * @generated SignedSource<<1324b31af7b2a2318f5ad69cb2a72e92>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -64,7 +64,6 @@ export type updateDatabaseGuildMutation$data = {
     readonly autoResetLevels: number;
     readonly autoRole: ReadonlyArray<string> | null;
     readonly autoRoleTimeout: number | null;
-    readonly blacklistedChannels: ReadonlyArray<string> | null;
     readonly emojiList: boolean;
     readonly emojiListChannel: string | null;
     readonly levels: boolean;
@@ -75,7 +74,6 @@ export type updateDatabaseGuildMutation$data = {
     readonly milestonesMessage: string | null;
     readonly milestonesRoles: ReadonlyArray<string> | null;
     readonly noXpRoles: ReadonlyArray<string> | null;
-    readonly prefix: string;
     readonly premium: boolean;
     readonly prioritiseMultiplierRoleHierarchy: boolean;
     readonly stackXpRoles: boolean;
@@ -168,13 +166,6 @@ v2 = [
         "alias": null,
         "args": null,
         "kind": "ScalarField",
-        "name": "blacklistedChannels",
-        "storageKey": null
-      },
-      {
-        "alias": null,
-        "args": null,
-        "kind": "ScalarField",
         "name": "emojiList",
         "storageKey": null
       },
@@ -239,13 +230,6 @@ v2 = [
         "args": null,
         "kind": "ScalarField",
         "name": "noXpRoles",
-        "storageKey": null
-      },
-      {
-        "alias": null,
-        "args": null,
-        "kind": "ScalarField",
-        "name": "prefix",
         "storageKey": null
       },
       {
@@ -424,16 +408,16 @@ return {
     "selections": (v2/*: any*/)
   },
   "params": {
-    "cacheID": "b3192b480a45c66274d7b89ed4fa7b75",
+    "cacheID": "fe194db482b255397961fbe06a56ec12",
     "id": null,
     "metadata": {},
     "name": "updateDatabaseGuildMutation",
     "operationKind": "mutation",
-    "text": "mutation updateDatabaseGuildMutation(\n  $id: String!\n  $data: DatabaseGuildChanges!\n) {\n  updateDatabase(id: $id, changes: $data) {\n    autoPublishChannels\n    autoResetLevels\n    autoRole\n    autoRoleTimeout\n    blacklistedChannels\n    emojiList\n    emojiListChannel\n    levels\n    mentionCooldown\n    mentionCooldownRoles\n    milestonesChannel\n    milestonesInterval\n    milestonesMessage\n    milestonesRoles\n    noXpRoles\n    prefix\n    premium\n    prioritiseMultiplierRoleHierarchy\n    stackXpRoles\n    storeCounts\n    storeMilestones\n    topXpRole\n    vanity\n    xpBlacklistedChannels\n    xpDisallowedPrefixes\n    xpMessage\n    xpMultipliers {\n      _id\n      multiplier\n      targets\n      type\n    }\n    xpResponseType\n    xpRoleRewards {\n      level\n      roleIds\n    }\n    xpWhitelistedChannels\n  }\n}\n"
+    "text": "mutation updateDatabaseGuildMutation(\n  $id: String!\n  $data: DatabaseGuildChanges!\n) {\n  updateDatabase(id: $id, changes: $data) {\n    autoPublishChannels\n    autoResetLevels\n    autoRole\n    autoRoleTimeout\n    emojiList\n    emojiListChannel\n    levels\n    mentionCooldown\n    mentionCooldownRoles\n    milestonesChannel\n    milestonesInterval\n    milestonesMessage\n    milestonesRoles\n    noXpRoles\n    premium\n    prioritiseMultiplierRoleHierarchy\n    stackXpRoles\n    storeCounts\n    storeMilestones\n    topXpRole\n    vanity\n    xpBlacklistedChannels\n    xpDisallowedPrefixes\n    xpMessage\n    xpMultipliers {\n      _id\n      multiplier\n      targets\n      type\n    }\n    xpResponseType\n    xpRoleRewards {\n      level\n      roleIds\n    }\n    xpWhitelistedChannels\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "f6f6ab2ba66239d491a21c36513142fa";
+(node as any).hash = "15a6f57b8db6e3b27f6fb037b6bfbaf2";
 
 export default node;

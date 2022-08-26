@@ -11,7 +11,6 @@ export default graphql`
       autoResetLevels
       autoRole
       autoRoleTimeout
-      blacklistedChannels
       emojiList
       emojiListChannel
       levels
@@ -22,7 +21,6 @@ export default graphql`
       milestonesMessage
       milestonesRoles
       noXpRoles
-      prefix
       premium
       prioritiseMultiplierRoleHierarchy
       stackXpRoles

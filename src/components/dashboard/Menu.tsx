@@ -6,7 +6,6 @@ import type { IconType } from 'react-icons';
 import { BsFillShiftFill, BsPersonPlusFill } from 'react-icons/bs';
 import { FaPatreon, FaShapes, FaTrophy } from 'react-icons/fa';
 import { HiEmojiHappy } from 'react-icons/hi';
-import { ImCog } from 'react-icons/im';
 import { RiSave3Fill, RiTimerFlashFill } from 'react-icons/ri';
 import { useMutation } from 'relay-hooks';
 
@@ -39,7 +38,6 @@ interface MenuItem {
 }
 
 const menuItems: MenuItem[] = [
-  { Icon: ImCog, id: 'general', name: 'Settings' },
   { Icon: BsFillShiftFill, id: 'leveling', name: 'Leveling' },
   { Icon: BsPersonPlusFill, id: 'autorole', name: 'Autorole' },
   { Icon: FaTrophy, id: 'milestones', name: 'Milestones' },
@@ -48,8 +46,7 @@ const menuItems: MenuItem[] = [
   { Icon: FaShapes, id: 'miscellaneous', name: 'Miscellaneous' },
 ];
 
-// @ts-expect-error
-export const isValidSection = (str: string): str is Section => menuItems.map((i) => i.id).includes(str);
+export const isValidSection = (str: string): str is Section => menuItems.map((i) => i.id).includes(str as Section);
 
 const saveButtonDefaultColour = '#3ea25e';
 
