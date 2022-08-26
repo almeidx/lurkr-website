@@ -5,6 +5,7 @@ import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import Script from 'next/script';
+import NavigationProgress from 'nextjs-progressbar';
 import { useEffect, useMemo } from 'react';
 import { RelayEnvironmentProvider } from 'react-relay';
 import type { RecordMap } from 'relay-runtime/lib/store/RelayStoreTypes';
@@ -79,6 +80,7 @@ export default function MyApp({ Component, pageProps, records: r }: AppProps & P
           )}
 
           <Navbar />
+          <NavigationProgress color="#2ecc71" />
           <Component {...pageProps} />
           <Footer />
         </GuildProvider>
