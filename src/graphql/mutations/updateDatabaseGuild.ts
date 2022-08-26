@@ -1,9 +1,8 @@
 import { graphql } from 'relay-runtime';
 
 import type { DatabaseGuildChanges } from '../../__generated__/updateDatabaseGuildMutation.graphql';
-import type { Snowflake } from '../../utils/constants';
 
-export type DatabaseChanges = Omit<DatabaseGuildChanges, 'xpRoles'> & { xpRoles: Record<string, Snowflake[]> };
+export type DatabaseChanges = DatabaseGuildChanges;
 
 export default graphql`
   mutation updateDatabaseGuildMutation($id: String!, $data: DatabaseGuildChanges!) {
@@ -41,7 +40,10 @@ export default graphql`
         type
       }
       xpResponseType
-      xpRoles
+      xpRoleRewards {
+        level
+        roleIds
+      }
       xpWhitelistedChannels
     }
   }

@@ -288,6 +288,9 @@ export const DATABASE_LIMITS = {
   xpMultipliers: {
     maxLength: 10,
   },
+  xpRoleRewards: {
+    maxLength: 100,
+  },
   xpRolesPerLevel: {
     maxLength: 5,
   },
@@ -348,6 +351,9 @@ export const DATABASE_PREMIUM_LIMITS = {
   },
   xpMultipliers: {
     maxLength: 25,
+  },
+  xpRoleRewards: {
+    maxLength: 100,
   },
   xpRolesPerLevel: {
     maxLength: 25,

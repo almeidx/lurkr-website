@@ -74,7 +74,7 @@ export const isNumeric = (str: string) => {
 export const generateRandomString = (length = 10): string => Math.random().toString(36).substr(2, length);
 
 export const getDatabaseLimit = <
-  K extends keyof typeof DATABASE_LIMITS | keyof typeof DATABASE_PREMIUM_LIMITS = keyof typeof DATABASE_LIMITS,
+  K extends keyof typeof DATABASE_LIMITS & keyof typeof DATABASE_PREMIUM_LIMITS = keyof typeof DATABASE_LIMITS,
 >(
   key: K,
   premium: boolean,

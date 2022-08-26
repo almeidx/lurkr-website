@@ -1,5 +1,4 @@
-import cloneDeep from 'lodash.clonedeep';
-import { MouseEventHandler, useCallback, useContext, useEffect, useRef, useState } from 'react';
+import { MouseEventHandler, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { BiLayerPlus } from 'react-icons/bi';
 
 import { GuildContext } from '../../../contexts/GuildContext';
@@ -36,6 +35,7 @@ interface LevelingProps {
   openMenu: () => void;
 }
 
+type RoleReward = DashboardDatabaseGuild['xpRoleRewards'][0];
 type Multiplier = DashboardDatabaseGuild['xpMultipliers'][0];
 type MultiplierWithStringValue = Omit<Multiplier, 'multiplier'> & { multiplier: string };
 
@@ -98,7 +98,7 @@ const resolveMultiplierValues = (multipliers: MultiplierWithStringValue[]) =>
 let timeout: NodeJS.Timeout | undefined;
 
 export default function Leveling({ channels, database, roles, openMenu }: LevelingProps) {
-  const [xpRoles, setXpRoles] = useState<Record<string, Snowflake[]>>(database.xpRoles);
+  const [xpRoleRewards, setXpRoleRewards] = useState<RoleReward[]>(database.xpRoleRewards);
   const [xpChannels, setXpChannels] = useState<Snowflake[]>(
     (database.xpWhitelistedChannels as Snowflake[] | null) ??
       (database.xpBlacklistedChannels as Snowflake[] | null) ??
@@ -129,8 +129,10 @@ export default function Leveling({ channels, database, roles, openMenu }: Leveli
     window.scroll({ behavior: 'auto', left: 0, top: 0 });
   }, [openMenu]);
 
+  const sortedRoleRewards = useMemo(() => xpRoleRewards.sort((a, b) => a.level - b.level), [xpRoleRewards]);
+
   const handleNewXpRoleCreated: () => unknown = useCallback(() => {
-    const clone = cloneDeep<Record<string, Snowflake[]>>(xpRoles);
+    const clone = [...xpRoleRewards];
     const level = parseIntStrict(newXpRolesLevel);
 
     if (newXpRolesLevel in clone || level <= 0 || level > 500) {
@@ -143,23 +145,35 @@ export default function Leveling({ channels, database, roles, openMenu }: Leveli
         if (newXpRoleSubmitRef.current) newXpRoleSubmitRef.current.style.color = '#fff';
       }, 1_000);
     } else {
-      clone[level] = [];
-      setXpRoles(clone);
-      addChange('xpRoles', clone);
+      const index = clone.findIndex((r) => r.level === level);
+      if (index === -1) {
+        clone.push({ level, roleIds: [] });
+      }
+      setXpRoleRewards(clone);
+      addChange('xpRoleRewards', clone);
     }
-  }, [addChange, newXpRolesLevel, xpRoles, newXpRoleSubmitRef]);
+  }, [addChange, newXpRolesLevel, xpRoleRewards, newXpRoleSubmitRef]);
 
   const handleXpRolesChange: XpRoleOnChangeFn = useCallback(
     (roleIds, level) => {
-      const clone = cloneDeep<Record<string, Snowflake[]>>(xpRoles);
+      const clone = [...xpRoleRewards];
 
-      if (roleIds.length) clone[level] = roleIds;
-      else delete clone[level];
+      const index = clone.findIndex((r) => r.level === level);
 
-      setXpRoles(clone);
-      addChange('xpRoles', clone);
+      if (roleIds.length) {
+        if (index === -1) {
+          clone.push({ level, roleIds });
+        } else {
+          clone[index].roleIds = roleIds;
+        }
+      } else {
+        clone.splice(index, 1);
+      }
+
+      setXpRoleRewards(clone);
+      addChange('xpRoleRewards', clone);
     },
-    [addChange, xpRoles],
+    [addChange, xpRoleRewards],
   );
 
   const handleXpChannelsTypeChange: MouseEventHandler<HTMLButtonElement> = useCallback(() => {
@@ -362,12 +376,12 @@ export default function Leveling({ channels, database, roles, openMenu }: Leveli
 
         <Field>
           <Label
-            htmlFor="xpRoles"
-            name="XP Roles"
+            htmlFor="xpRoleRewards"
+            name="XP Role Rewards"
             url="https://docs.pepemanager.com/guides/setting-up-server-xp-leveling#adding-role-rewards"
           />
           <div className="mb-4 divide-y-2">
-            {Object.keys(xpRoles).length < 100 && (
+            {xpRoleRewards.length < getDatabaseLimit('xpRoleRewards', database.premium).maxLength && (
               <div className="w-full">
                 <Input
                   clearOnSubmit
@@ -384,11 +398,11 @@ export default function Leveling({ channels, database, roles, openMenu }: Leveli
             )}
           </div>
           <div className="mb-4 flex flex-col gap-y-2">
-            {Object.keys(xpRoles).map((level) => (
+            {sortedRoleRewards.map(({ level, roleIds }) => (
               <XpRole
                 key={level}
-                level={parseInt(level, 10)}
-                initialRoles={xpRoles[level]}
+                level={level}
+                initialRoles={roleIds}
                 premium={database.premium}
                 onChange={handleXpRolesChange}
                 roles={roles}
@@ -404,7 +418,7 @@ export default function Leveling({ channels, database, roles, openMenu }: Leveli
             url="https://docs.pepemanager.com/guides/setting-up-xp-multipliers"
           />
           <div>
-            {Object.keys(xpMultipliers).length < getDatabaseLimit('xpMultipliers', database.premium).maxLength && (
+            {xpMultipliers.length < getDatabaseLimit('xpMultipliers', database.premium).maxLength && (
               <>
                 <p className="text-white">Create a new multiplier</p>
                 <div className="mt-2 mb-4 flex flex-row gap-3">

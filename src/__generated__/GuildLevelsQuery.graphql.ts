@@ -1,102 +1,61 @@
+/**
+ * @generated SignedSource<<93047ebe4b6d5d12761a6551d3dd68ea>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-export type GuildLevelsQueryVariables = {
-    id: string;
+import { ConcreteRequest, Query } from 'relay-runtime';
+export type GuildLevelsQuery$variables = {
+  id: string;
 };
-export type GuildLevelsQueryResponse = {
-    readonly getDiscordGuild: {
-        readonly id: string;
-        readonly icon: string | null;
-        readonly name: string;
-        readonly roles: ReadonlyArray<{
-            readonly color: number;
-            readonly id: string;
-            readonly name: string;
-            readonly position: number;
-        }>;
-    } | null;
-    readonly getDiscordGuildChannels: ReadonlyArray<{
-        readonly id: string;
-        readonly name: string;
+export type GuildLevelsQuery$data = {
+  readonly getDiscordGuild: {
+    readonly id: string;
+    readonly icon: string | null;
+    readonly name: string;
+    readonly roles: ReadonlyArray<{
+      readonly color: number;
+      readonly id: string;
+      readonly name: string;
+      readonly position: number;
+    }>;
+  } | null;
+  readonly getDiscordGuildChannels: ReadonlyArray<{
+    readonly id: string;
+    readonly name: string;
+  }> | null;
+  readonly getGuildLevels: {
+    readonly levels: ReadonlyArray<{
+      readonly avatar: string | null;
+      readonly level: number;
+      readonly tag: string | null;
+      readonly userID: string;
+      readonly xp: number;
+    }>;
+    readonly multipliers: ReadonlyArray<{
+      readonly _id: string;
+      readonly multiplier: number;
+      readonly targets: ReadonlyArray<string> | null;
+      readonly type: string;
     }> | null;
-    readonly getGuildLevels: {
-        readonly levels: ReadonlyArray<{
-            readonly avatar: string | null;
-            readonly level: number;
-            readonly tag: string | null;
-            readonly userID: string;
-            readonly xp: number;
-        }>;
-        readonly multipliers: ReadonlyArray<{
-            readonly _id: string;
-            readonly multiplier: number;
-            readonly targets: ReadonlyArray<string> | null;
-            readonly type: string;
-        }> | null;
-        readonly roles: ReadonlyArray<{
-            readonly level: number;
-            readonly roles: ReadonlyArray<{
-                readonly id: string;
-                readonly name: string;
-                readonly color: number;
-            }>;
-        }> | null;
-    } | null;
+    readonly roles: ReadonlyArray<{
+      readonly level: number;
+      readonly roles: ReadonlyArray<{
+        readonly id: string;
+        readonly name: string;
+        readonly color: number;
+      }>;
+    }> | null;
+  } | null;
 };
 export type GuildLevelsQuery = {
-    readonly response: GuildLevelsQueryResponse;
-    readonly variables: GuildLevelsQueryVariables;
+  variables: GuildLevelsQuery$variables;
+  response: GuildLevelsQuery$data;
 };
-
-
-
-/*
-query GuildLevelsQuery(
-  $id: String!
-) {
-  getDiscordGuild(id: $id, requireAuth: false) {
-    id
-    icon
-    name
-    roles {
-      color
-      id
-      name
-      position
-    }
-  }
-  getDiscordGuildChannels(id: $id) {
-    id
-    name
-  }
-  getGuildLevels(id: $id, requireAuth: false) {
-    levels {
-      avatar
-      level
-      tag
-      userID
-      xp
-    }
-    multipliers {
-      _id
-      multiplier
-      targets
-      type
-    }
-    roles {
-      level
-      roles {
-        id
-        name
-        color
-      }
-    }
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -348,5 +307,7 @@ return {
   }
 };
 })();
-(node as any).hash = '39363fb656bfb9fa108a1c21ac78bbcb';
+
+(node as any).hash = "39363fb656bfb9fa108a1c21ac78bbcb";
+
 export default node;

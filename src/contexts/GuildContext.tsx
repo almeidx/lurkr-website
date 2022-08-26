@@ -95,7 +95,7 @@ export default function GuildContextProvider({ children }: GuildContextProps) {
         }
       };
 
-      const validateArray = (arr: unknown[], maxLength: number, keyName: string) =>
+      const validateArray = (arr: unknown[] | readonly unknown[], maxLength: number, keyName: string) =>
         arr.length > maxLength && newErrors.push(`The ${keyName} has more than ${maxLength} items`);
 
       if ('autoRoleTimeout' in changes) {
@@ -135,15 +135,10 @@ export default function GuildContextProvider({ children }: GuildContextProps) {
           }
 
           vanityAvailabilityTimeout = setTimeout(() => {
-            fetch(
-              `${API_BASE_URL}/vanity/check?${new URLSearchParams({ vanity: changes.vanity } as Record<
-                string,
-                string
-              >)}`,
-            )
+            fetch(`${API_BASE_URL}/vanity/check?${new URLSearchParams({ vanity: changes.vanity! })}`)
               .then(async (res) => {
                 const data = (await res.json()) as VanityCheckResponse;
-                if (!data.available) addNewError('The leaderboard vanity you used is not available.');
+                if (!data.available) addNewError('The leaderboard vanity used is not available.');
               })
               .catch((err) => console.error('vanity availability check error: ', err));
           }, 1000);
@@ -170,10 +165,18 @@ export default function GuildContextProvider({ children }: GuildContextProps) {
 
       if (changes.xpMultipliers) {
         validateArray(changes.xpMultipliers, 5, 'xp multipliers');
+
+        if (changes.xpMultipliers.some(({ multiplier }) => multiplier < 0)) {
+          newErrors.push('One of the XP Multipliers has a negative multiplier value.');
+        }
       }
 
-      if (changes.xpRoles && Object.values(changes.xpRoles).some((r) => r.length === 0)) {
-        newErrors.push('One of the XP Roles is empty.');
+      if (changes.xpRoleRewards?.some((r) => !r.roleIds.length)) {
+        newErrors.push('One of the XP Role Rewards is empty.');
+      }
+
+      if (changes.xpRoleRewards) {
+        validateArray(changes.xpRoleRewards, 100, 'xp role rewards');
       }
 
       if (data) {

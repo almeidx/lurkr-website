@@ -3,7 +3,7 @@ import Head from 'next/head';
 import { useContext } from 'react';
 import { fetchQuery } from 'relay-runtime';
 
-import type { UserGuildsQuery, UserGuildsQueryResponse } from '../../__generated__/UserGuildsQuery.graphql';
+import type { UserGuildsQuery, UserGuildsQuery$data } from '../../__generated__/UserGuildsQuery.graphql';
 import Failure from '../../components/Failure';
 import Guild from '../../components/Guild';
 import { UserContext } from '../../contexts/UserContext';
@@ -12,7 +12,7 @@ import environment from '../../relay/environment';
 import { removeNonStringValues } from '../../utils/utils';
 
 interface GuildsProps {
-  guilds: UserGuildsQueryResponse['getUserGuilds'];
+  guilds: UserGuildsQuery$data['getUserGuilds'];
 }
 
 export const getServerSideProps: GetServerSideProps<GuildsProps> = async (ctx) => {
