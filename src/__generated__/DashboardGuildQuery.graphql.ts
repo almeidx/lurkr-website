@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<36cbde6d2d4d64919beca1eb792873d7>>
+ * @generated SignedSource<<70ead1143a1addc3f83db8fdb5664b26>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -57,7 +57,7 @@ export type DashboardGuildQuery$data = {
     readonly xpMultipliers: ReadonlyArray<{
       readonly id: string;
       readonly multiplier: number;
-      readonly targets: ReadonlyArray<string> | null;
+      readonly targets: ReadonlyArray<string>;
       readonly type: string;
     }>;
     readonly xpResponseType: string | null;

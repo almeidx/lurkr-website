@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<6289c7cdf1bb3af7fa62f3ff4ff26c0f>>
+ * @generated SignedSource<<550259d3d9d7eb6af8cbdac5f9875330>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -39,7 +39,7 @@ export type GuildLevelsQuery$data = {
     readonly multipliers: ReadonlyArray<{
       readonly id: string;
       readonly multiplier: number;
-      readonly targets: ReadonlyArray<string> | null;
+      readonly targets: ReadonlyArray<string>;
       readonly type: string;
     }> | null;
     readonly roles: ReadonlyArray<{

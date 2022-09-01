@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<bc62ded90406d09ffd646505ee2b02c3>>
+ * @generated SignedSource<<886b5b30ddb7d44078f9efcb368e36ae>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -46,7 +46,7 @@ export type DatabaseGuildChanges = {
 export type DatabaseXpMultiplierType = {
   id: string;
   multiplier: number;
-  targets?: ReadonlyArray<string> | null;
+  targets: ReadonlyArray<string>;
   type: string;
 };
 export type DatabaseXpRoleRewardType = {
@@ -86,7 +86,7 @@ export type updateDatabaseGuildMutation$data = {
     readonly xpMultipliers: ReadonlyArray<{
       readonly id: string;
       readonly multiplier: number;
-      readonly targets: ReadonlyArray<string> | null;
+      readonly targets: ReadonlyArray<string>;
       readonly type: string;
     }>;
     readonly xpResponseType: string | null;

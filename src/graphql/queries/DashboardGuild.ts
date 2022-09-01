@@ -17,7 +17,7 @@ export enum MultiplierType {
 export interface Multiplier {
 	id: string;
 	multiplier: number;
-	targets: Snowflake[] | null;
+	targets: Snowflake[];
 	type: MultiplierType;
 }
 

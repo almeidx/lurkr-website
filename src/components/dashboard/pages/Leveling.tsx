@@ -49,57 +49,64 @@ enum ResponseType {
 	SAME_CHANNEL = "channel",
 }
 
-const resolveXpResponseTypeByName = (name: string) =>
-	name === "Custom Channel"
+function resolveXpResponseTypeByName(name: string) {
+	return name === "Custom Channel"
 		? ResponseType.CHANNEL
 		: name === "DM"
 		? ResponseType.DM
 		: name === "None"
 		? ResponseType.NONE
 		: ResponseType.SAME_CHANNEL;
+}
 
-const resolveInitialXpResponseType = (database: DashboardDatabaseGuild) =>
-	database.xpResponseType
+function resolveInitialXpResponseType(database: DashboardDatabaseGuild) {
+	return database.xpResponseType
 		? /^\d+$/.test(database.xpResponseType)
 			? "Custom Channel"
 			: database.xpResponseType === "dm"
 			? "DM"
 			: "Same Channel"
 		: "None";
+}
 
-const resolveInitialXpResponseTypeValue = (database: DashboardDatabaseGuild) =>
-	database.xpResponseType
+function resolveInitialXpResponseTypeValue(database: DashboardDatabaseGuild) {
+	return database.xpResponseType
 		? /^\d+$/.test(database.xpResponseType)
 			? ResponseType.CHANNEL
 			: database.xpResponseType
 		: ResponseType.NONE;
+}
 
-const resolveAutoResetLevelsNameByType = (type: AutoResetLevels) =>
-	type === AutoResetLevels.BAN
+function resolveAutoResetLevelsNameByType(type: AutoResetLevels) {
+	return type === AutoResetLevels.BAN
 		? "Ban"
 		: type === AutoResetLevels.LEAVE
 		? "Leave"
 		: type === AutoResetLevels.BOTH
 		? "Ban & Leave"
 		: "None";
+}
 
-const resolveAutoResetLevelsTypeByName = (name: string) =>
-	name === "Ban & Leave"
+function resolveAutoResetLevelsTypeByName(name: string) {
+	return name === "Ban & Leave"
 		? AutoResetLevels.BOTH
 		: name === "Ban"
 		? AutoResetLevels.BAN
 		: name === "Leave"
 		? AutoResetLevels.LEAVE
 		: AutoResetLevels.NONE;
+}
 
-const resolveInitialXpResponseChannel = (database: DashboardDatabaseGuild): Snowflake[] =>
-	database.xpResponseType ? (/^\d+$/.test(database.xpResponseType) ? [database.xpResponseType] : []) : [];
+function resolveInitialXpResponseChannel(database: DashboardDatabaseGuild): Snowflake[] {
+	return database.xpResponseType ? (/^\d+$/.test(database.xpResponseType) ? [database.xpResponseType] : []) : [];
+}
 
-const resolveMultiplierValues = (multipliers: MultiplierWithStringValue[]) =>
-	multipliers.map((multiplier) => ({
+function resolveMultiplierValues(multipliers: MultiplierWithStringValue[]) {
+	return multipliers.map((multiplier) => ({
 		...multiplier,
 		multiplier: parseMultiplier(multiplier.multiplier) ?? Number.NaN,
 	}));
+}
 
 let timeout: NodeJS.Timeout | undefined;
 
@@ -483,12 +490,7 @@ export default function Leveling({ channels, database, roles, openMenu }: Leveli
 
 											const finalMultipliers = [
 												...xpMultipliers,
-												{
-													id: cuid(),
-													multiplier: "1",
-													targets: newXpMultiplierType === MultiplierType.Global ? null : [],
-													type: newXpMultiplierType,
-												},
+												{ id: cuid(), multiplier: "1", targets: [], type: newXpMultiplierType },
 											];
 											setXpMultipliers(finalMultipliers);
 											addChange("xpMultipliers", resolveMultiplierValues(finalMultipliers));
@@ -513,7 +515,7 @@ export default function Leveling({ channels, database, roles, openMenu }: Leveli
 								onMultiplierChange={handleXpMultiplierValueChange}
 								premium={database.premium}
 								roles={roles}
-								targets={targets as Snowflake[] | null}
+								targets={targets as Snowflake[]}
 								type={type}
 							/>
 						))}
