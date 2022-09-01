@@ -8,8 +8,12 @@ import Guild from "../../components/Guild";
 import Input from "../../components/form/Input";
 import UserGuilds from "../../graphql/queries/UserGuilds";
 import environment from "../../relay/environment";
-import type { CorrectSnowflakeTypes, DeepMutable } from "../../utils/utils";
-import { isValidSnowflake, removeNonStringValues } from "../../utils/utils";
+import {
+	isValidSnowflake,
+	removeNonStringValues,
+	type CorrectSnowflakeTypes,
+	type DeepMutable,
+} from "../../utils/utils";
 
 type Guilds = CorrectSnowflakeTypes<DeepMutable<UserGuildsQuery$data["getUserGuilds"]>>;
 

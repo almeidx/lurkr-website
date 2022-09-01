@@ -1,14 +1,14 @@
 import cuid from "cuid";
-import type { MouseEventHandler } from "react";
-import { useCallback, useContext, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useContext, useEffect, useMemo, useRef, useState, type MouseEventHandler } from "react";
 import { BiLayerPlus } from "react-icons/bi";
 import { GuildContext } from "../../../contexts/GuildContext";
-import type {
-	DashboardChannels,
-	DashboardDatabaseGuild,
-	DashboardRoles,
+import {
+	type DashboardChannels,
+	type DashboardDatabaseGuild,
+	type DashboardRoles,
+	AutoResetLevels,
+	MultiplierType,
 } from "../../../graphql/queries/DashboardGuild";
-import { AutoResetLevels, MultiplierType } from "../../../graphql/queries/DashboardGuild";
 import type { Snowflake } from "../../../utils/constants";
 import { getDatabaseLimit, parseIntStrict, parseMultiplier } from "../../../utils/utils";
 import BasicSelect from "../../form/BasicSelect";
@@ -22,14 +22,12 @@ import Textarea from "../../form/Textarea";
 import Toggle from "../../form/Toggle";
 import Header from "../Header";
 import XpDisallowedPrefix from "../XpDisallowedPrefix";
-import type {
-	XpMultiplierOnDeleteFn,
-	XpMultiplierOnItemChangeFn,
-	XpMultiplierOnMultiplierChangeFn,
+import XpMultiplier, {
+	type XpMultiplierOnDeleteFn,
+	type XpMultiplierOnItemChangeFn,
+	type XpMultiplierOnMultiplierChangeFn,
 } from "../XpMultiplier";
-import XpMultiplier from "../XpMultiplier";
-import type { XpRoleOnChangeFn } from "../XpRole";
-import XpRole from "../XpRole";
+import XpRole, { type XpRoleOnChangeFn } from "../XpRole";
 
 interface LevelingProps {
 	channels: DashboardChannels;

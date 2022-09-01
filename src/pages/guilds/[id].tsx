@@ -11,12 +11,11 @@ import Spinner from "../../components/Spinner";
 import Menu, { isValidSection } from "../../components/dashboard/Menu";
 import { GuildContext } from "../../contexts/GuildContext";
 import { UserContext } from "../../contexts/UserContext";
-import type {
-	DashboardChannels,
-	DashboardDatabaseGuild,
-	DashboardDiscordGuild,
+import DashboardGuild, {
+	type DashboardChannels,
+	type DashboardDatabaseGuild,
+	type DashboardDiscordGuild,
 } from "../../graphql/queries/DashboardGuild";
-import DashboardGuild from "../../graphql/queries/DashboardGuild";
 import environment from "../../relay/environment";
 import type { Snowflake } from "../../utils/constants";
 import { isValidSnowflake, removeNonStringValues } from "../../utils/utils";

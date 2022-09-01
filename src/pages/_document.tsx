@@ -1,7 +1,6 @@
 import "regenerator-runtime/runtime";
 
-import type { DocumentContext, DocumentInitialProps } from "next/document";
-import Document, { Head, Html, Main, NextScript } from "next/document";
+import Document, { Head, Html, Main, NextScript, type DocumentContext, type DocumentInitialProps } from "next/document";
 import { RelayEnvironmentProvider } from "react-relay";
 import RelayServerSSR from "react-relay-network-modern-ssr/lib/server";
 import type { RecordMap } from "relay-runtime/lib/store/RelayStoreTypes";

@@ -1,7 +1,6 @@
 import { FaGlobe, FaUserFriends } from "react-icons/fa";
 import { IoMdChatbubbles } from "react-icons/io";
-import type { Multiplier as IMultiplier } from "../../graphql/queries/DashboardGuild";
-import { MultiplierType } from "../../graphql/queries/DashboardGuild";
+import { type Multiplier as IMultiplier, MultiplierType } from "../../graphql/queries/DashboardGuild";
 import type { Channel, Role } from "../../graphql/queries/GuildLevels";
 import { resolveColour } from "../../utils/utils";
 import RoleChannelBullet from "../RoleChannelBullet";

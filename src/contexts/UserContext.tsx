@@ -1,8 +1,7 @@
-/* eslint-disable promise/prefer-await-to-callbacks */
-/* eslint-disable promise/prefer-await-to-then */
+/* eslint-disable promise/prefer-await-to-callbacks, promise/prefer-await-to-then */
+
 import Cookie from "js-cookie";
-import type { ReactNode } from "react";
-import { createContext, useEffect, useState } from "react";
+import { createContext, useEffect, useState, type ReactNode } from "react";
 import { type Snowflake, API_BASE_URL } from "../utils/constants";
 
 interface UserContextData {

@@ -9,10 +9,13 @@ import Spinner from "../../components/Spinner";
 import Multiplier from "../../components/leaderboard/Multiplier";
 import Role from "../../components/leaderboard/Role";
 import User from "../../components/leaderboard/User";
-import type { Multiplier as IMultiplier } from "../../graphql/queries/DashboardGuild";
-import { MultiplierType } from "../../graphql/queries/DashboardGuild";
-import type { Channel, DiscordGuild, GuildLevelsUserInfo, Levels } from "../../graphql/queries/GuildLevels";
-import GuildLevels from "../../graphql/queries/GuildLevels";
+import { type Multiplier as IMultiplier, MultiplierType } from "../../graphql/queries/DashboardGuild";
+import GuildLevels, {
+	type Channel,
+	type DiscordGuild,
+	type GuildLevelsUserInfo,
+	type Levels,
+} from "../../graphql/queries/GuildLevels";
 import environment from "../../relay/environment";
 import { guildIconCdn } from "../../utils/cdn";
 import { type Snowflake, FALLBACK_AVATAR_PATH } from "../../utils/constants";

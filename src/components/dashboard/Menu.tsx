@@ -1,8 +1,7 @@
 import cloneDeep from "lodash.clonedeep";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import type { MouseEventHandler } from "react";
-import { useCallback, useContext, useRef, useState } from "react";
+import { useCallback, useContext, useRef, useState, type MouseEventHandler } from "react";
 import type { IconType } from "react-icons";
 import { BsFillShiftFill, BsPersonPlusFill } from "react-icons/bs";
 import { FaPatreon, FaShapes, FaTrophy } from "react-icons/fa";
@@ -14,8 +13,7 @@ import type {
 	updateDatabaseGuildMutation,
 	updateDatabaseGuildMutation$variables,
 } from "../../__generated__/updateDatabaseGuildMutation.graphql";
-import type { Section } from "../../contexts/GuildContext";
-import { GuildContext } from "../../contexts/GuildContext";
+import { GuildContext, type Section } from "../../contexts/GuildContext";
 import updateDatabaseGuild from "../../graphql/mutations/updateDatabaseGuild";
 import { guildIconCdn } from "../../utils/cdn";
 import { type Snowflake, FALLBACK_AVATAR_PATH } from "../../utils/constants";

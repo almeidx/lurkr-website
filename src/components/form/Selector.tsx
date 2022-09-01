@@ -1,5 +1,4 @@
-import type { MouseEventHandler } from "react";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState, type MouseEventHandler } from "react";
 import { AiOutlinePlusCircle } from "react-icons/ai";
 import useClickOutside from "../../hooks/useClickOutside";
 import type { Snowflake } from "../../utils/constants";

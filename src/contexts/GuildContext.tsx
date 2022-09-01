@@ -1,12 +1,10 @@
-/* eslint-disable promise/prefer-await-to-callbacks */
-/* eslint-disable promise/prefer-await-to-then */
+/* eslint-disable promise/prefer-await-to-callbacks, promise/prefer-await-to-then */
+
 import cloneDeep from "lodash.clonedeep";
-import type { ReactNode } from "react";
-import { createContext, useCallback, useState } from "react";
+import { createContext, useCallback, useState, type ReactNode } from "react";
 import type { DatabaseChanges } from "../graphql/mutations/updateDatabaseGuild";
 import type { DashboardDatabaseGuild } from "../graphql/queries/DashboardGuild";
-import type { DATABASE_LIMITS } from "../utils/constants";
-import { type Snowflake, API_BASE_URL, VANITY_REGEX } from "../utils/constants";
+import { API_BASE_URL, VANITY_REGEX, type DATABASE_LIMITS, type Snowflake } from "../utils/constants";
 import { getDatabaseLimit } from "../utils/utils";
 
 export type Section = "autorole" | "emojiList" | "leveling" | "mentionCooldown" | "milestones" | "miscellaneous";

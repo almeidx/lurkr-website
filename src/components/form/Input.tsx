@@ -1,5 +1,4 @@
-import type { Ref } from "react";
-import { useState } from "react";
+import { useState, type Ref } from "react";
 import type { IconType } from "react-icons";
 import { IoMdSend } from "react-icons/io";
 import { MdClear } from "react-icons/md";
