@@ -1,17 +1,18 @@
 import { FaGlobe, FaUserFriends } from 'react-icons/fa';
 import { IoMdChatbubbles } from 'react-icons/io';
 
-import type { Multiplier as IMultiplier } from '../../graphql/queries/DashboardGuild';
+import { Multiplier as IMultiplier, MultiplierType } from '../../graphql/queries/DashboardGuild';
 import type { Channel, Role } from '../../graphql/queries/GuildLevels';
 import { resolveColour } from '../../utils/utils';
 import RoleChannelBullet from '../RoleChannelBullet';
 
-interface MultiplierProps extends Omit<IMultiplier, '_id'> {
+interface MultiplierProps extends Omit<IMultiplier, 'id'> {
   items: Channel[] | Role[] | null;
 }
 
 export default function Multiplier({ items, multiplier, targets, type }: MultiplierProps) {
-  const Icon = type === 'channel' ? IoMdChatbubbles : type === 'role' ? FaUserFriends : FaGlobe;
+  const Icon =
+    type === MultiplierType.Channel ? IoMdChatbubbles : type === MultiplierType.Role ? FaUserFriends : FaGlobe;
 
   return (
     <div className="my-2 mx-4 flex flex-col gap-2">
@@ -20,9 +21,9 @@ export default function Multiplier({ items, multiplier, targets, type }: Multipl
         {type[0].toUpperCase() + type.slice(1)} - x{multiplier}
       </span>
 
-      {type !== 'global' && targets && items && (
+      {type !== MultiplierType.Global && targets && items && (
         <div className="flex shrink-0 flex-row flex-wrap gap-1.5">
-          {type === 'channel'
+          {type === MultiplierType.Channel
             ? targets.map((id) => {
                 const item = items.find((item) => item.id === id) as Channel | void;
                 if (!item) return null;

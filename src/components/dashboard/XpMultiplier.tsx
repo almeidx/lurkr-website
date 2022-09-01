@@ -1,6 +1,11 @@
 import { MdClear } from 'react-icons/md';
 
-import type { DashboardChannels, DashboardDatabaseGuild, DashboardRoles } from '../../graphql/queries/DashboardGuild';
+import {
+  DashboardChannels,
+  DashboardDatabaseGuild,
+  DashboardRoles,
+  MultiplierType,
+} from '../../graphql/queries/DashboardGuild';
 import type { Snowflake } from '../../utils/constants';
 import { getDatabaseLimit } from '../../utils/utils';
 import Input from '../form/Input';
@@ -62,15 +67,15 @@ export default function XpMultiplier({
         </div>
       </div>
 
-      {type !== 'global' && targets && (
+      {type !== MultiplierType.Global && targets && (
         <div className="mx-2 w-full">
           <Selector
             id={`m-${id}-selector`}
             limit={getDatabaseLimit('xpMultiplierTargets', premium).maxLength}
             initialItems={targets}
-            items={type === 'channel' ? channels : roles}
+            items={type === MultiplierType.Channel ? channels : roles}
             onSelect={(i) => onItemChange(i, id)}
-            type={type}
+            type={type === MultiplierType.Channel ? 'channel' : 'role'}
           />
         </div>
       )}

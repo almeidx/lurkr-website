@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<1324b31af7b2a2318f5ad69cb2a72e92>>
+ * @generated SignedSource<<bc62ded90406d09ffd646505ee2b02c3>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -14,7 +14,6 @@ export type DatabaseGuildChanges = {
   autoResetLevels?: number | null;
   autoRole?: ReadonlyArray<string> | null;
   autoRoleTimeout?: number | null;
-  blacklistedChannels?: ReadonlyArray<string> | null;
   emojiList?: boolean | null;
   emojiListChannel?: string | null;
   levels?: boolean | null;
@@ -25,7 +24,6 @@ export type DatabaseGuildChanges = {
   milestonesMessage?: string | null;
   milestonesRoles?: ReadonlyArray<string> | null;
   noXpRoles?: ReadonlyArray<string> | null;
-  prefix?: string | null;
   prioritiseMultiplierRoleHierarchy?: boolean | null;
   stackXpRoles?: boolean | null;
   storeCounts?: boolean | null;
@@ -46,6 +44,7 @@ export type DatabaseGuildChanges = {
   xpWhitelistedChannels?: ReadonlyArray<string> | null;
 };
 export type DatabaseXpMultiplierType = {
+  id: string;
   multiplier: number;
   targets?: ReadonlyArray<string> | null;
   type: string;
@@ -85,7 +84,7 @@ export type updateDatabaseGuildMutation$data = {
     readonly xpDisallowedPrefixes: ReadonlyArray<string>;
     readonly xpMessage: string;
     readonly xpMultipliers: ReadonlyArray<{
-      readonly _id: string;
+      readonly id: string;
       readonly multiplier: number;
       readonly targets: ReadonlyArray<string> | null;
       readonly type: string;
@@ -314,7 +313,7 @@ v2 = [
             "alias": null,
             "args": null,
             "kind": "ScalarField",
-            "name": "_id",
+            "name": "id",
             "storageKey": null
           },
           {
@@ -408,16 +407,16 @@ return {
     "selections": (v2/*: any*/)
   },
   "params": {
-    "cacheID": "fe194db482b255397961fbe06a56ec12",
+    "cacheID": "10271ddea6c8f7ee8e96683b8d173219",
     "id": null,
     "metadata": {},
     "name": "updateDatabaseGuildMutation",
     "operationKind": "mutation",
-    "text": "mutation updateDatabaseGuildMutation(\n  $id: String!\n  $data: DatabaseGuildChanges!\n) {\n  updateDatabase(id: $id, changes: $data) {\n    autoPublishChannels\n    autoResetLevels\n    autoRole\n    autoRoleTimeout\n    emojiList\n    emojiListChannel\n    levels\n    mentionCooldown\n    mentionCooldownRoles\n    milestonesChannel\n    milestonesInterval\n    milestonesMessage\n    milestonesRoles\n    noXpRoles\n    premium\n    prioritiseMultiplierRoleHierarchy\n    stackXpRoles\n    storeCounts\n    storeMilestones\n    topXpRole\n    vanity\n    xpBlacklistedChannels\n    xpDisallowedPrefixes\n    xpMessage\n    xpMultipliers {\n      _id\n      multiplier\n      targets\n      type\n    }\n    xpResponseType\n    xpRoleRewards {\n      level\n      roleIds\n    }\n    xpWhitelistedChannels\n  }\n}\n"
+    "text": "mutation updateDatabaseGuildMutation(\n  $id: String!\n  $data: DatabaseGuildChanges!\n) {\n  updateDatabase(id: $id, changes: $data) {\n    autoPublishChannels\n    autoResetLevels\n    autoRole\n    autoRoleTimeout\n    emojiList\n    emojiListChannel\n    levels\n    mentionCooldown\n    mentionCooldownRoles\n    milestonesChannel\n    milestonesInterval\n    milestonesMessage\n    milestonesRoles\n    noXpRoles\n    premium\n    prioritiseMultiplierRoleHierarchy\n    stackXpRoles\n    storeCounts\n    storeMilestones\n    topXpRole\n    vanity\n    xpBlacklistedChannels\n    xpDisallowedPrefixes\n    xpMessage\n    xpMultipliers {\n      id\n      multiplier\n      targets\n      type\n    }\n    xpResponseType\n    xpRoleRewards {\n      level\n      roleIds\n    }\n    xpWhitelistedChannels\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "15a6f57b8db6e3b27f6fb037b6bfbaf2";
+(node as any).hash = "48d11f96d0e9092dfe890e625ca7482d";
 
 export default node;

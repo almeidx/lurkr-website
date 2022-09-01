@@ -13,7 +13,7 @@ export default function ErrorPage({ code, message, title }: ErrorPageProps) {
       style={{ height: 'calc(100vh - 4rem)' }}
     >
       <Head>
-        <title>{title} | Pepe Manager</title>
+        <title>{`${title} | Pepe Manager`}</title>
       </Head>
 
       <div>

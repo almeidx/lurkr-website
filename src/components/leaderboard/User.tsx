@@ -10,7 +10,7 @@ interface UserProps {
   index: number;
   level: number;
   tag: string | null;
-  userID: Snowflake;
+  userId: Snowflake;
   xp: number;
 }
 
@@ -21,7 +21,7 @@ const makeUserAvatarUrl = (id: Snowflake, hash: string | null, tag: string | nul
     ? userDefaultAvatarCdn(tag.split(/#(\d{4})$/)[1], 64)
     : FALLBACK_AVATAR_PATH;
 
-export default function User({ avatar, index, level, tag, userID, xp }: UserProps) {
+export default function User({ avatar, index, level, tag, userId, xp }: UserProps) {
   const { width } = useWindowDimensions();
 
   const currentLevelRequiredXp = XP(level);
@@ -31,7 +31,7 @@ export default function User({ avatar, index, level, tag, userID, xp }: UserProp
   const percentage = userXp / levelXp;
 
   return (
-    <div className="flex flex-row justify-between rounded-lg py-4 px-6" key={userID}>
+    <div className="flex flex-row justify-between rounded-lg py-4 px-6" key={userId}>
       <div className="flex flex-row items-center justify-center gap-6">
         <div className="flex w-14 items-center justify-center">
           <span
@@ -48,7 +48,7 @@ export default function User({ avatar, index, level, tag, userID, xp }: UserProp
             alt={`${tag} avatar`}
             className="rounded-full"
             height={64}
-            src={makeUserAvatarUrl(userID, avatar, tag)}
+            src={makeUserAvatarUrl(userId, avatar, tag)}
             width={64}
             onError={(e: ChangeEvent<HTMLImageElement>) => {
               e.target.onerror = null;
@@ -59,7 +59,7 @@ export default function User({ avatar, index, level, tag, userID, xp }: UserProp
           <Image className="rounded-full" height={64} src={FALLBACK_AVATAR_PATH} width={64} />
         )}
 
-        <p className="text-gray-200">{tag ?? userID}</p>
+        <p className="text-gray-200">{tag ?? userId}</p>
       </div>
 
       {typeof width === 'number' && width >= 648 && (

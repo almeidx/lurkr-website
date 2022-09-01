@@ -7,7 +7,7 @@ import type { CorrectSnowflakeTypes, DeepMutable } from '../../utils/utils';
 export type DiscordGuild = CorrectSnowflakeTypes<DeepMutable<Exclude<GuildLevelsQuery$data['getDiscordGuild'], null>>>;
 export type Levels = CorrectSnowflakeTypes<DeepMutable<Exclude<GuildLevelsQuery$data['getGuildLevels'], null>>>;
 
-export type GuildLevelsUserInfo = Omit<Levels['levels'][0], 'userID'> & { userID: Snowflake };
+export type GuildLevelsUserInfo = Omit<Levels['levels'][0], 'userId'> & { userId: Snowflake };
 
 export type Channel = CorrectSnowflakeTypes<
   DeepMutable<Exclude<GuildLevelsQuery$data['getDiscordGuildChannels'], null>[0]>
@@ -46,12 +46,12 @@ export default graphql`
         avatar
         level
         tag
-        userID
+        userId
         xp
       }
 
       multipliers {
-        _id
+        id
         multiplier
         targets
         type

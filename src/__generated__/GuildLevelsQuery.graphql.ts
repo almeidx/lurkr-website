@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<93047ebe4b6d5d12761a6551d3dd68ea>>
+ * @generated SignedSource<<6289c7cdf1bb3af7fa62f3ff4ff26c0f>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -33,11 +33,11 @@ export type GuildLevelsQuery$data = {
       readonly avatar: string | null;
       readonly level: number;
       readonly tag: string | null;
-      readonly userID: string;
+      readonly userId: string;
       readonly xp: number;
     }>;
     readonly multipliers: ReadonlyArray<{
-      readonly _id: string;
+      readonly id: string;
       readonly multiplier: number;
       readonly targets: ReadonlyArray<string> | null;
       readonly type: string;
@@ -198,7 +198,7 @@ v7 = [
             "alias": null,
             "args": null,
             "kind": "ScalarField",
-            "name": "userID",
+            "name": "userId",
             "storageKey": null
           },
           {
@@ -219,13 +219,7 @@ v7 = [
         "name": "multipliers",
         "plural": true,
         "selections": [
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "_id",
-            "storageKey": null
-          },
+          (v3/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -298,16 +292,16 @@ return {
     "selections": (v7/*: any*/)
   },
   "params": {
-    "cacheID": "e402da818c3e480e29e77602b645e747",
+    "cacheID": "c172874c3ec68e539890f933cd79cd44",
     "id": null,
     "metadata": {},
     "name": "GuildLevelsQuery",
     "operationKind": "query",
-    "text": "query GuildLevelsQuery(\n  $id: String!\n) {\n  getDiscordGuild(id: $id, requireAuth: false) {\n    id\n    icon\n    name\n    roles {\n      color\n      id\n      name\n      position\n    }\n  }\n  getDiscordGuildChannels(id: $id) {\n    id\n    name\n  }\n  getGuildLevels(id: $id, requireAuth: false) {\n    levels {\n      avatar\n      level\n      tag\n      userID\n      xp\n    }\n    multipliers {\n      _id\n      multiplier\n      targets\n      type\n    }\n    roles {\n      level\n      roles {\n        id\n        name\n        color\n      }\n    }\n  }\n}\n"
+    "text": "query GuildLevelsQuery(\n  $id: String!\n) {\n  getDiscordGuild(id: $id, requireAuth: false) {\n    id\n    icon\n    name\n    roles {\n      color\n      id\n      name\n      position\n    }\n  }\n  getDiscordGuildChannels(id: $id) {\n    id\n    name\n  }\n  getGuildLevels(id: $id, requireAuth: false) {\n    levels {\n      avatar\n      level\n      tag\n      userId\n      xp\n    }\n    multipliers {\n      id\n      multiplier\n      targets\n      type\n    }\n    roles {\n      level\n      roles {\n        id\n        name\n        color\n      }\n    }\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "39363fb656bfb9fa108a1c21ac78bbcb";
+(node as any).hash = "6ee587adf72123465969aff232cfd12b";
 
 export default node;
