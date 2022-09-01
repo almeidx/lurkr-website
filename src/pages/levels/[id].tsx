@@ -10,7 +10,7 @@ import Multiplier from '../../components/leaderboard/Multiplier';
 import Role from '../../components/leaderboard/Role';
 import User from '../../components/leaderboard/User';
 import Spinner from '../../components/Spinner';
-import type { Multiplier as IMultiplier } from '../../graphql/queries/DashboardGuild';
+import { Multiplier as IMultiplier, MultiplierType } from '../../graphql/queries/DashboardGuild';
 import GuildLevels, { Channel, DiscordGuild, GuildLevelsUserInfo, Levels } from '../../graphql/queries/GuildLevels';
 import environment from '../../relay/environment';
 import { guildIconCdn } from '../../utils/cdn';
@@ -76,7 +76,7 @@ export default function Leaderboard({
   return (
     <div className="flex min-h-screen-no-footer flex-col items-start gap-y-10 bg-discord-dark sm:px-6">
       <Head>
-        <title>{guild.name} Leaderboard | Pepe Manager</title>
+        <title>{`${guild.name} Leaderboard | Pepe Manager`}</title>
       </Head>
 
       <header className="mt-3 ml-10 flex flex-row items-center justify-center gap-6 sm:mt-10 xl:mt-0">
@@ -97,7 +97,7 @@ export default function Leaderboard({
       <main className="my-4 flex w-full flex-col justify-center gap-y-6 sm:justify-between md:flex-row">
         <section className="h-[fit-content] w-full divide-y-2 divide-solid divide-gray-400 rounded-2xl bg-discord-not-quite-black">
           {levels.map((user, i) => (
-            <User {...user} index={i} key={user.userID} />
+            <User {...user} index={i} key={user.userId} />
           ))}
         </section>
 
@@ -123,12 +123,20 @@ export default function Leaderboard({
 
                 <div className="flex w-full max-w-lg flex-col rounded-lg">
                   {multipliers
-                    .filter(({ type }) => (type === 'role' ? !!guild.roles : type === 'channel' ? !!channels : true))
+                    .filter(({ type }) =>
+                      type === MultiplierType.Role
+                        ? !!guild.roles
+                        : type === MultiplierType.Channel
+                        ? !!channels
+                        : true,
+                    )
                     .sort((a, b) => a.multiplier - b.multiplier)
-                    .map(({ _id, multiplier, targets, type }) => (
+                    .map(({ id, multiplier, targets, type }) => (
                       <Multiplier
-                        key={_id}
-                        items={type === 'role' ? guild.roles : type === 'channel' ? channels : null}
+                        key={id}
+                        items={
+                          type === MultiplierType.Role ? guild.roles : type === MultiplierType.Channel ? channels : null
+                        }
                         multiplier={multiplier}
                         targets={targets}
                         type={type}

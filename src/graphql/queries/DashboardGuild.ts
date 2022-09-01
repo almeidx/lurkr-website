@@ -9,11 +9,17 @@ type DatabaseGuildWithoutMultipliers = Omit<
   'xpMultipliers'
 >;
 
+export enum MultiplierType {
+  Channel = 'Channel',
+  Global = 'Global',
+  Role = 'Role',
+}
+
 export interface Multiplier {
-  _id: string;
+  id: string;
   multiplier: number;
   targets: Snowflake[] | null;
-  type: 'channel' | 'global' | 'role';
+  type: MultiplierType;
 }
 
 export type DashboardDatabaseGuild = CorrectSnowflakeTypes<
@@ -80,7 +86,7 @@ export default graphql`
       xpInThreads
       xpMessage
       xpMultipliers {
-        _id
+        id
         multiplier
         targets
         type

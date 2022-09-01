@@ -1,3 +1,4 @@
+import cuid from 'cuid';
 import { MouseEventHandler, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { BiLayerPlus } from 'react-icons/bi';
 
@@ -7,9 +8,10 @@ import {
   DashboardChannels,
   DashboardDatabaseGuild,
   DashboardRoles,
+  MultiplierType,
 } from '../../../graphql/queries/DashboardGuild';
 import type { Snowflake } from '../../../utils/constants';
-import { generateRandomString, getDatabaseLimit, parseIntStrict, parseMultiplier } from '../../../utils/utils';
+import { getDatabaseLimit, parseIntStrict, parseMultiplier } from '../../../utils/utils';
 import BasicSelect from '../../form/BasicSelect';
 import Field from '../../form/Field';
 import Fieldset from '../../form/Fieldset';
@@ -111,7 +113,7 @@ export default function Leveling({ channels, database, roles, openMenu }: Leveli
   const [xpChannelsType, setXpChannelsType] = useState<'whitelist' | 'blacklist'>(
     database.xpBlacklistedChannels ? 'blacklist' : 'whitelist',
   );
-  const [newXpMultiplierType, setNewXpMultiplierType] = useState<Multiplier['type']>('channel');
+  const [newXpMultiplierType, setNewXpMultiplierType] = useState<Multiplier['type']>(MultiplierType.Channel);
   const [newXpRolesLevel, setNewXpRolesLevel] = useState<string>('');
   const [newDisallowedPrefix, setNewDisallowedPrefix] = useState<string>('');
   const [xpDisallowedPrefixes, setXpDisallowedPrefixes] = useState<string[]>(database.xpDisallowedPrefixes);
@@ -192,7 +194,7 @@ export default function Leveling({ channels, database, roles, openMenu }: Leveli
   const handleXpMultiplierDelete: XpMultiplierOnDeleteFn = useCallback(
     (id) => {
       const clone = [...xpMultipliers];
-      const index = clone.findIndex((m) => m._id === id);
+      const index = clone.findIndex((m) => m.id === id);
 
       if (index < 0) {
         return console.log(
@@ -211,7 +213,7 @@ export default function Leveling({ channels, database, roles, openMenu }: Leveli
   const handleXpMultiplierItemsChange: XpMultiplierOnItemChangeFn = useCallback(
     (itemIds, id) => {
       const clone = [...xpMultipliers];
-      const index = clone.findIndex((m) => m._id === id);
+      const index = clone.findIndex((m) => m.id === id);
 
       if (index < 0) {
         return console.log(
@@ -238,7 +240,7 @@ export default function Leveling({ channels, database, roles, openMenu }: Leveli
   const handleXpMultiplierValueChange: XpMultiplierOnMultiplierChangeFn = useCallback(
     (multiplier, id) => {
       const clone = [...xpMultipliers];
-      const index = clone.findIndex((m) => m._id === id);
+      const index = clone.findIndex((m) => m.id === id);
 
       if (index < 0) {
         return console.log(
@@ -426,11 +428,11 @@ export default function Leveling({ channels, database, roles, openMenu }: Leveli
                     closeOnSelect
                     initialItem="Channel"
                     items={
-                      xpMultipliers.some((m) => m.type === 'global')
+                      xpMultipliers.some((m) => m.type === MultiplierType.Global)
                         ? ['Channel', 'Role']
                         : ['Channel', 'Global', 'Role']
                     }
-                    onSelect={(i) => setNewXpMultiplierType(i.toLowerCase() as Multiplier['type'])}
+                    onSelect={(i) => setNewXpMultiplierType(i as MultiplierType)}
                   />
                   <button
                     className="flex h-12 w-12 shrink-0 items-center justify-center rounded-md bg-discord-not-quite-black text-white transition-colors duration-150"
@@ -438,9 +440,9 @@ export default function Leveling({ channels, database, roles, openMenu }: Leveli
                       const finalMultipliers = [
                         ...xpMultipliers,
                         {
-                          _id: generateRandomString(12),
+                          id: cuid(),
                           multiplier: '1',
-                          targets: newXpMultiplierType !== 'global' ? [] : null,
+                          targets: newXpMultiplierType !== MultiplierType.Global ? [] : null,
                           type: newXpMultiplierType,
                         },
                       ];
@@ -455,11 +457,11 @@ export default function Leveling({ channels, database, roles, openMenu }: Leveli
             )}
           </div>
           <div className="flex flex-col gap-y-2">
-            {xpMultipliers.map(({ _id, multiplier, targets, type }) => (
+            {xpMultipliers.map(({ id, multiplier, targets, type }) => (
               <XpMultiplier
                 channels={channels}
-                id={_id}
-                key={_id}
+                id={id}
+                key={id}
                 multiplier={multiplier}
                 onDelete={handleXpMultiplierDelete}
                 onItemChange={handleXpMultiplierItemsChange}

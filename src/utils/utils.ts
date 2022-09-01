@@ -71,8 +71,6 @@ export const isNumeric = (str: string) => {
   return !isNaN(str as unknown as number) && !isNaN(parseFloat(str));
 };
 
-export const generateRandomString = (length = 10): string => Math.random().toString(36).substr(2, length);
-
 export const getDatabaseLimit = <
   K extends keyof typeof DATABASE_LIMITS & keyof typeof DATABASE_PREMIUM_LIMITS = keyof typeof DATABASE_LIMITS,
 >(

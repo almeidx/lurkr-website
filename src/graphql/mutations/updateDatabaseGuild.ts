@@ -32,7 +32,7 @@ export default graphql`
       xpDisallowedPrefixes
       xpMessage
       xpMultipliers {
-        _id
+        id
         multiplier
         targets
         type
