@@ -1,70 +1,69 @@
-import { graphql } from 'relay-runtime';
+import { graphql } from "relay-runtime";
+import type { GuildLevelsQuery$data } from "../../__generated__/GuildLevelsQuery.graphql";
+import type { Snowflake } from "../../utils/constants";
+import type { CorrectSnowflakeTypes, DeepMutable } from "../../utils/utils";
 
-import type { GuildLevelsQuery$data } from '../../__generated__/GuildLevelsQuery.graphql';
-import type { Snowflake } from '../../utils/constants';
-import type { CorrectSnowflakeTypes, DeepMutable } from '../../utils/utils';
+export type DiscordGuild = CorrectSnowflakeTypes<DeepMutable<Exclude<GuildLevelsQuery$data["getDiscordGuild"], null>>>;
+export type Levels = CorrectSnowflakeTypes<DeepMutable<Exclude<GuildLevelsQuery$data["getGuildLevels"], null>>>;
 
-export type DiscordGuild = CorrectSnowflakeTypes<DeepMutable<Exclude<GuildLevelsQuery$data['getDiscordGuild'], null>>>;
-export type Levels = CorrectSnowflakeTypes<DeepMutable<Exclude<GuildLevelsQuery$data['getGuildLevels'], null>>>;
-
-export type GuildLevelsUserInfo = Omit<Levels['levels'][0], 'userId'> & { userId: Snowflake };
+export type GuildLevelsUserInfo = Omit<Levels["levels"][0], "userId"> & { userId: Snowflake };
 
 export type Channel = CorrectSnowflakeTypes<
-  DeepMutable<Exclude<GuildLevelsQuery$data['getDiscordGuildChannels'], null>[0]>
+	DeepMutable<Exclude<GuildLevelsQuery$data["getDiscordGuildChannels"], null>[0]>
 >;
 export type Role = CorrectSnowflakeTypes<
-  DeepMutable<Exclude<GuildLevelsQuery$data['getDiscordGuild'], null>['roles'][0]>
+	DeepMutable<Exclude<GuildLevelsQuery$data["getDiscordGuild"], null>["roles"][0]>
 >;
 
 export interface GuildLevelsRoleInfo {
-  id: Snowflake;
-  name: string;
-  color: number;
+	color: number;
+	id: Snowflake;
+	name: string;
 }
 
 export default graphql`
-  query GuildLevelsQuery($id: String!) {
-    getDiscordGuild(id: $id, requireAuth: false) {
-      id
-      icon
-      name
-      roles {
-        color
-        id
-        name
-        position
-      }
-    }
+	query GuildLevelsQuery($id: String!) {
+		getDiscordGuild(id: $id, requireAuth: false) {
+			id
+			icon
+			name
+			roles {
+				color
+				id
+				name
+				position
+			}
+		}
 
-    getDiscordGuildChannels(id: $id) {
-      id
-      name
-    }
+		getDiscordGuildChannels(id: $id) {
+			id
+			name
+		}
 
-    getGuildLevels(id: $id, requireAuth: false) {
-      levels {
-        avatar
-        level
-        tag
-        userId
-        xp
-      }
+		getGuildLevels(id: $id, requireAuth: false) {
+			levels {
+				avatar
+				level
+				tag
+				userId
+				xp
+			}
 
-      multipliers {
-        id
-        multiplier
-        targets
-        type
-      }
+			multipliers {
+				id
+				multiplier
+				targets
+				type
+			}
 
-      roles {
-        level
-        roles {
-          id
-          name
-          color
-        }
-      }
-    }
-  }
+			roles {
+				level
+				roles {
+					id
+					name
+					color
+				}
+			}
+		}
+	}
 `;

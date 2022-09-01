@@ -1,14 +1,14 @@
-import type { ReactNode } from 'react';
+import type { ReactNode } from "react";
 
 interface FieldProps {
-  direction?: string;
-  children: ReactNode;
+	children: ReactNode;
+	direction?: string;
 }
 
 export default function Input({ children, direction, ...props }: FieldProps): JSX.Element {
-  return (
-    <div className={`${direction === 'row' ? 'flex-row' : 'flex-col'} flex w-full`} {...props}>
-      {children}
-    </div>
-  );
+	return (
+		<div className={`${direction === "row" ? "flex-row" : "flex-col"} flex w-full`} {...props}>
+			{children}
+		</div>
+	);
 }

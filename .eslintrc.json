@@ -1,80 +1,27 @@
 {
-  "$schema": "http://json.schemastore.org/eslintrc",
-  "root": true,
-  "extends": ["marine/prettier/react", "plugin:@next/next/recommended", "plugin:tailwindcss/recommended"],
-  "plugins": ["simple-import-sort"],
-  "ignorePatterns": [".next/*", ".vercel/*", ".yarn/*", "node_modules/*", "__generated__/*"],
-  "env": {
-    "node": true
-  },
-  "globals": {
-    "NodeJS": "readonly",
-    "JSX": "readonly"
-  },
-  "rules": {
-    "@typescript-eslint/indent": 0,
-    "@typescript-eslint/naming-convention": [
-      2,
-      {
-        "format": ["PascalCase", "UPPER_CASE", "camelCase"],
-        "leadingUnderscore": "allow",
-        "selector": "variable"
-      },
-      {
-        "format": ["PascalCase"],
-        "leadingUnderscore": "allow",
-        "selector": "typeLike"
-      },
-      {
-        "format": ["camelCase", "PascalCase"],
-        "leadingUnderscore": "allow",
-        "selector": "function"
-      }
-    ],
-    "@typescript-eslint/no-dynamic-delete": 0,
-    "@typescript-eslint/no-extraneous-class": 0,
-    "@typescript-eslint/no-non-null-assertion": 0,
-    "@typescript-eslint/space-before-function-paren": 0,
-    "@typescript-eslint/restrict-template-expressions": 0,
-    "import/order": 0,
-    "no-implicit-coercion": 0,
-    "no-negated-condition": 0,
-    "no-redeclare": 0,
-    "no-undef": 0,
-    "no-unused-vars": 0,
-    "react/jsx-filename-extension": [
-      2,
-      {
-        "extensions": [".tsx"]
-      }
-    ],
-    "react/react-in-jsx-scope": 0,
-    "simple-import-sort/exports": 2,
-    "simple-import-sort/imports": 2,
-    "spaced-comment": [
-      1,
-      "always",
-      {
-        "line": {
-          "markers": ["#region", "#endregion", "region", "endregion", "/"]
-        }
-      }
-    ],
-    "sort-imports": 0,
-    "sort-keys": 2,
-    "sort-vars": 2
-  },
-  "settings": {
-    "react": {
-      "version": "detect"
-    }
-  },
-  "overrides": [
-    {
-      "files": "*.js",
-      "rules": {
-        "simple-import-sort/imports": 0
-      }
-    }
-  ]
+	"root": true,
+	"extends": [
+		"neon/common",
+		"neon/browser",
+		"neon/typescript",
+		"neon/react",
+		"neon/next",
+		"neon/prettier",
+		"plugin:tailwindcss/recommended"
+	],
+	"ignorePatterns": [".next/*", ".vercel/*", ".yarn/*", "node_modules/*", "**/__generated__/*"],
+	"parserOptions": {
+		"project": "./tsconfig.eslint.json"
+	},
+	"rules": {
+		"@typescript-eslint/consistent-type-definitions": [2, "interface"],
+		"default-case": 0,
+		"no-warning-comments": 0,
+		"prefer-named-capture-group": 0
+	},
+	"settings": {
+		"react": {
+			"version": "detect"
+		}
+	}
 }

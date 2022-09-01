@@ -1,188 +1,246 @@
-import cloneDeep from 'lodash.clonedeep';
-import Image from 'next/image';
-import { useRouter } from 'next/router';
-import { MouseEventHandler, useCallback, useContext, useRef, useState } from 'react';
-import type { IconType } from 'react-icons';
-import { BsFillShiftFill, BsPersonPlusFill } from 'react-icons/bs';
-import { FaPatreon, FaShapes, FaTrophy } from 'react-icons/fa';
-import { HiEmojiHappy } from 'react-icons/hi';
-import { RiSave3Fill, RiTimerFlashFill } from 'react-icons/ri';
-import { useMutation } from 'relay-hooks';
-
+import cloneDeep from "lodash.clonedeep";
+import Image from "next/image";
+import { useRouter } from "next/router";
+import type { MouseEventHandler } from "react";
+import { useCallback, useContext, useRef, useState } from "react";
+import type { IconType } from "react-icons";
+import { BsFillShiftFill, BsPersonPlusFill } from "react-icons/bs";
+import { FaPatreon, FaShapes, FaTrophy } from "react-icons/fa";
+import { HiEmojiHappy } from "react-icons/hi";
+import { RiSave3Fill, RiTimerFlashFill } from "react-icons/ri";
+import { useMutation } from "relay-hooks";
 import type {
-  DatabaseGuildChanges,
-  updateDatabaseGuildMutation,
-  updateDatabaseGuildMutation$variables,
-} from '../../__generated__/updateDatabaseGuildMutation.graphql';
-import { GuildContext, Section } from '../../contexts/GuildContext';
-import updateDatabaseGuild from '../../graphql/mutations/updateDatabaseGuild';
-import { guildIconCdn } from '../../utils/cdn';
-import { type Snowflake, FALLBACK_AVATAR_PATH } from '../../utils/constants';
+	DatabaseGuildChanges,
+	updateDatabaseGuildMutation,
+	updateDatabaseGuildMutation$variables,
+} from "../../__generated__/updateDatabaseGuildMutation.graphql";
+import type { Section } from "../../contexts/GuildContext";
+import { GuildContext } from "../../contexts/GuildContext";
+import updateDatabaseGuild from "../../graphql/mutations/updateDatabaseGuild";
+import { guildIconCdn } from "../../utils/cdn";
+import { type Snowflake, FALLBACK_AVATAR_PATH } from "../../utils/constants";
 
 interface MenuProps {
-  closeMenu: () => void;
-  guild: {
-    icon: string | null;
-    id: Snowflake;
-    name: string;
-  };
-  guildId: Snowflake;
-  menuOpen: boolean;
-  premium: boolean;
+	closeMenu(): void;
+	guild: {
+		icon: string | null;
+		id: Snowflake;
+		name: string;
+	};
+	guildId: Snowflake;
+	menuOpen: boolean;
+	premium: boolean;
 }
 
 interface MenuItem {
-  Icon: IconType;
-  id: Section;
-  name: string;
+	Icon: IconType;
+	id: Section;
+	name: string;
 }
 
 const menuItems: MenuItem[] = [
-  { Icon: BsFillShiftFill, id: 'leveling', name: 'Leveling' },
-  { Icon: BsPersonPlusFill, id: 'autorole', name: 'Autorole' },
-  { Icon: FaTrophy, id: 'milestones', name: 'Milestones' },
-  { Icon: HiEmojiHappy, id: 'emojiList', name: 'Emoji List' },
-  { Icon: RiTimerFlashFill, id: 'mentionCooldown', name: 'Mention Cooldown' },
-  { Icon: FaShapes, id: 'miscellaneous', name: 'Miscellaneous' },
+	{
+		Icon: BsFillShiftFill,
+		id: "leveling",
+		name: "Leveling",
+	},
+	{
+		Icon: BsPersonPlusFill,
+		id: "autorole",
+		name: "Autorole",
+	},
+	{
+		Icon: FaTrophy,
+		id: "milestones",
+		name: "Milestones",
+	},
+	{
+		Icon: HiEmojiHappy,
+		id: "emojiList",
+		name: "Emoji List",
+	},
+	{
+		Icon: RiTimerFlashFill,
+		id: "mentionCooldown",
+		name: "Mention Cooldown",
+	},
+	{
+		Icon: FaShapes,
+		id: "miscellaneous",
+		name: "Miscellaneous",
+	},
 ];
 
-export const isValidSection = (str: string): str is Section => menuItems.map((i) => i.id).includes(str as Section);
+export function isValidSection(str: string): str is Section {
+	return menuItems.map((item) => item.id).includes(str as Section);
+}
 
-const saveButtonDefaultColour = '#3ea25e';
+const saveButtonDefaultColour = "#3ea25e";
 
-let timeout: NodeJS.Timeout | void;
+let timeout: NodeJS.Timeout | undefined;
 
 export default function Menu({ closeMenu, guild, guildId: argGuildId, menuOpen, premium }: MenuProps) {
-  const [saveButtonText, setSaveButtonText] = useState('Save');
-  const saveButtonRef = useRef<HTMLButtonElement>(null);
-  const isSaving = useRef<boolean>(false);
+	const [saveButtonText, setSaveButtonText] = useState("Save");
+	const saveButtonRef = useRef<HTMLButtonElement>(null);
+	const isSaving = useRef<boolean>(false);
 
-  const { changes, clearChanges, errors, guildId, section, updateSection } = useContext(GuildContext);
-  const [updateDatabase] = useMutation<updateDatabaseGuildMutation>(updateDatabaseGuild, {});
-  const router = useRouter();
+	// eslint-disable-next-line @typescript-eslint/unbound-method
+	const { changes, clearChanges, errors, guildId, section, updateSection } = useContext(GuildContext);
+	const [updateDatabase] = useMutation<updateDatabaseGuildMutation>(updateDatabaseGuild, {});
+	const router = useRouter();
 
-  const saveButtonDisabled = (Object.keys(changes).length || isSaving.current) && !errors.length;
+	const saveButtonDisabled = (Object.keys(changes).length || isSaving.current) && !errors.length;
 
-  // eslint-disable-next-line @typescript-eslint/no-misused-promises
-  const handleSaveButtonClick: MouseEventHandler<HTMLButtonElement> = useCallback(async () => {
-    if (isSaving.current || errors.length) return;
+	// eslint-disable-next-line @typescript-eslint/no-misused-promises
+	const handleSaveButtonClick: MouseEventHandler<HTMLButtonElement> = useCallback(
+		async (event) => {
+			event.preventDefault();
 
-    if (saveButtonRef.current) {
-      saveButtonRef.current.style.background = '#158d3b';
-      setSaveButtonText('Saving...');
-    }
+			if (isSaving.current || errors.length) {
+				return;
+			}
 
-    const clone = cloneDeep<Partial<DatabaseGuildChanges>>(changes);
-    if (!Object.keys(clone).length || !guildId) return;
+			if (saveButtonRef.current) {
+				saveButtonRef.current.style.background = "#158d3b";
+				setSaveButtonText("Saving...");
+			}
 
-    const dataForMutation = cloneDeep<updateDatabaseGuildMutation$variables['data']>(clone);
+			const clone = cloneDeep<Partial<DatabaseGuildChanges>>(changes);
+			if (!Object.keys(clone).length || !guildId) {
+				return;
+			}
 
-    if (dataForMutation.autoRoleTimeout === 0) dataForMutation.autoRoleTimeout = null;
-    else if (dataForMutation.autoRoleTimeout) dataForMutation.autoRoleTimeout *= 60_000;
+			const dataForMutation = cloneDeep<updateDatabaseGuildMutation$variables["data"]>(clone);
 
-    if (dataForMutation.mentionCooldown) dataForMutation.mentionCooldown *= 60_000;
+			if (dataForMutation.autoRoleTimeout === 0) {
+				dataForMutation.autoRoleTimeout = null;
+			} else if (dataForMutation.autoRoleTimeout) {
+				dataForMutation.autoRoleTimeout *= 60_000;
+			}
 
-    if ('xpMultipliers' in clone && clone.xpMultipliers) {
-      // @ts-expect-error: The 'clone' type isn't actually DatabaseGuildChanges, the Multipliers have _id's here
-      dataForMutation.xpMultipliers = clone.xpMultipliers.map(({ _id, ...rest }) => rest);
-    }
+			if (dataForMutation.mentionCooldown) {
+				dataForMutation.mentionCooldown *= 60_000;
+			}
 
-    let hasFailed = false;
+			if ("xpMultipliers" in clone && clone.xpMultipliers) {
+				// @ts-expect-error: The 'clone' type isn't actually DatabaseGuildChanges, the Multipliers have _id's here
+				dataForMutation.xpMultipliers = clone.xpMultipliers.map(({ _id, ...rest }) => rest);
+			}
 
-    try {
-      await updateDatabase({ variables: { data: dataForMutation, id: guildId } });
-    } catch (error) {
-      // @ts-expect-error
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-      console.error(error, error?.networkError, error?.networkError?.result?.errors);
-      hasFailed = true;
-    } finally {
-      if (saveButtonRef.current) {
-        saveButtonRef.current.style.background = hasFailed ? '#ed4245' : saveButtonDefaultColour;
-      }
+			let hasFailed = false;
 
-      setSaveButtonText(hasFailed ? 'Failed to save' : 'Saved!');
-      if (!hasFailed) clearChanges();
+			try {
+				await updateDatabase({
+					variables: {
+						data: dataForMutation,
+						id: guildId,
+					},
+				});
+			} catch (error) {
+				// @ts-expect-error: 'error' is unknown
+				// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+				console.error(error, error?.networkError, error?.networkError?.result?.errors);
+				hasFailed = true;
+			} finally {
+				if (saveButtonRef.current) {
+					saveButtonRef.current.style.background = hasFailed ? "#ed4245" : saveButtonDefaultColour;
+				}
 
-      if (timeout) clearTimeout(timeout);
+				setSaveButtonText(hasFailed ? "Failed to save" : "Saved!");
+				if (!hasFailed) {
+					clearChanges();
+				}
 
-      timeout = setTimeout(() => {
-        setSaveButtonText('Save');
-        if (saveButtonRef.current && hasFailed) saveButtonRef.current.style.background = saveButtonDefaultColour;
-        isSaving.current = false;
-      }, 3_000);
-    }
-  }, [changes, clearChanges, errors, guildId, saveButtonRef, updateDatabase]);
+				if (timeout) {
+					clearTimeout(timeout);
+				}
 
-  return (
-    <aside
-      className={`${
-        !menuOpen ? 'hidden' : ''
-      } absolute top-0 left-0 mt-20 w-full min-w-[300px] bg-discord-dark sm:relative sm:mt-0 sm:block sm:w-96`}
-    >
-      <div className="sticky top-0 sm:py-6">
-        <header className="mb-6 flex flex-col items-center gap-4 bg-discord-slightly-darker py-4 px-6 sm:flex-row sm:bg-discord-dark">
-          {guild.icon ? (
-            <img
-              alt={`${guild.name} server icon`}
-              className="rounded-full"
-              height={64}
-              src={guildIconCdn(argGuildId, guild.icon, 64)}
-              width={64}
-            />
-          ) : (
-            <Image className="rounded-full" height={64} src={FALLBACK_AVATAR_PATH} width={64} />
-          )}
+				timeout = setTimeout(() => {
+					setSaveButtonText("Save");
+					if (saveButtonRef.current && hasFailed) {
+						saveButtonRef.current.style.background = saveButtonDefaultColour;
+					}
 
-          <div className="flex flex-col gap-2">
-            <h2 className="w-full break-words text-center text-white sm:text-base">{guild.name}</h2>
+					isSaving.current = false;
+				}, 3_000);
+			}
+		},
+		[changes, clearChanges, errors, guildId, saveButtonRef, updateDatabase],
+	);
 
-            <span
-              className={`flex flex-row items-center justify-center gap-2 ${
-                premium ? 'bg-[#ff424d] hover:bg-[#c0323a]' : 'bg-[#c0323a] hover:bg-[#802127]'
-              } w-full cursor-pointer rounded-lg py-1 px-2 text-center text-white transition-colors duration-100`}
-              onClick={() => window.open('https://docs.pepemanager.com/information/patreon-perks')}
-            >
-              <FaPatreon />
-              {premium ? 'Premium' : 'Get Premium'}
-            </span>
-          </div>
-        </header>
+	return (
+		<aside
+			className={`${
+				menuOpen ? "" : "hidden"
+			} absolute top-0 left-0 mt-20 w-full min-w-[300px] bg-discord-dark sm:relative sm:mt-0 sm:block sm:w-96`}
+		>
+			<div className="sticky top-0 sm:py-6">
+				<header className="mb-6 flex flex-col items-center gap-4 bg-discord-slightly-darker py-4 px-6 sm:flex-row sm:bg-discord-dark">
+					{guild.icon ? (
+						<img
+							alt={`${guild.name} server icon`}
+							className="rounded-full"
+							height={64}
+							src={guildIconCdn(argGuildId, guild.icon, 64)}
+							width={64}
+						/>
+					) : (
+						<Image className="rounded-full" height={64} src={FALLBACK_AVATAR_PATH} width={64} />
+					)}
 
-        <section className="flex flex-col gap-y-3 px-6 sm:ml-auto sm:max-w-[14rem] sm:p-0 sm:pr-4">
-          <button
-            className="flex w-full cursor-pointer flex-row items-center gap-2 rounded-lg py-2 px-4 text-center text-white transition-colors duration-200 hover:bg-[#25c959] focus:outline-none"
-            disabled={!Object.keys(changes).length || isSaving.current || !!errors.length}
-            onClick={handleSaveButtonClick}
-            ref={saveButtonRef}
-            style={{
-              backgroundColor: saveButtonDisabled ? saveButtonDefaultColour : '#40444b',
-              cursor: saveButtonDisabled ? 'pointer' : 'not-allowed',
-              opacity: saveButtonDisabled ? '1' : '0.3',
-            }}
-          >
-            <RiSave3Fill className="fill-current" />
-            {saveButtonText}
-          </button>
+					<div className="flex flex-col gap-2">
+						<h2 className="w-full break-words text-center text-white sm:text-base">{guild.name}</h2>
 
-          {menuItems.map(({ Icon, id, name }, i) => (
-            <button
-              className={`${
-                section === id ? 'sm:bg-gray-500 ' : ''
-              }flex w-full cursor-pointer flex-row items-center gap-2 rounded-lg py-2 px-4 text-center text-white duration-200 hover:bg-discord-lighter focus:outline-none`}
-              key={i}
-              onClick={() => {
-                updateSection(id);
-                void router.push(`/guilds/${guildId}?p=${id}`, `/guilds/${guildId}?p=${id}`, { shallow: true });
-                closeMenu();
-              }}
-            >
-              <Icon className="fill-current" />
-              {name}
-            </button>
-          ))}
-        </section>
-      </div>
-    </aside>
-  );
+						<span
+							className={`flex flex-row items-center justify-center gap-2 ${
+								premium ? "bg-[#ff424d] hover:bg-[#c0323a]" : "bg-[#c0323a] hover:bg-[#802127]"
+							} w-full cursor-pointer rounded-lg py-1 px-2 text-center text-white transition-colors duration-100`}
+							onClick={() => window.open("https://docs.pepemanager.com/information/patreon-perks")}
+						>
+							<FaPatreon />
+							{premium ? "Premium" : "Get Premium"}
+						</span>
+					</div>
+				</header>
+
+				<section className="flex flex-col gap-y-3 px-6 sm:ml-auto sm:max-w-[14rem] sm:p-0 sm:pr-4">
+					<button
+						className="flex w-full cursor-pointer flex-row items-center gap-2 rounded-lg py-2 px-4 text-center text-white transition-colors duration-200 hover:bg-[#25c959] focus:outline-none"
+						disabled={!Object.keys(changes).length || isSaving.current || Boolean(errors.length)}
+						onClick={handleSaveButtonClick}
+						ref={saveButtonRef}
+						style={{
+							backgroundColor: saveButtonDisabled ? saveButtonDefaultColour : "#40444b",
+							cursor: saveButtonDisabled ? "pointer" : "not-allowed",
+							opacity: saveButtonDisabled ? "1" : "0.3",
+						}}
+						type="button"
+					>
+						<RiSave3Fill className="fill-current" />
+						{saveButtonText}
+					</button>
+
+					{menuItems.map(({ Icon, id, name }, idx) => (
+						<button
+							className={`${
+								section === id ? "sm:bg-gray-500 " : ""
+							}flex w-full cursor-pointer flex-row items-center gap-2 rounded-lg py-2 px-4 text-center text-white duration-200 hover:bg-discord-lighter focus:outline-none`}
+							key={idx}
+							onClick={(event) => {
+								event.preventDefault();
+
+								updateSection(id);
+								void router.push(`/guilds/${guildId}?p=${id}`, `/guilds/${guildId}?p=${id}`, { shallow: true });
+								closeMenu();
+							}}
+							type="button"
+						>
+							<Icon className="fill-current" />
+							{name}
+						</button>
+					))}
+				</section>
+			</div>
+		</aside>
+	);
 }

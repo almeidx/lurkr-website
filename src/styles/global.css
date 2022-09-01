@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -11,23 +11,23 @@ h3,
 h4,
 h5,
 h6 {
-  /* @apply text-white font-display font-bold; */
-  --tw-text-opacity: 1;
-  color: rgb(255 255 255 / var(--tw-text-opacity));
-  font-family: 'Noto Sans KR', sans-serif;
-  font-weight: 700;
+	/* @apply text-white font-display font-bold; */
+	--tw-text-opacity: 1;
+	color: rgb(255 255 255 / var(--tw-text-opacity));
+	font-family: "Noto Sans KR", sans-serif;
+	font-weight: 700;
 }
 
 h1 {
-  /* @apply text-2xl; */
-  font-size: 1.5rem /* 24px */;
-  line-height: 2rem /* 32px */;
+	/* @apply text-2xl; */
+	font-size: 1.5rem /* 24px */;
+	line-height: 2rem /* 32px */;
 }
 
 h2 {
-  /* @apply text-lg; */
-  font-size: 1.125rem /* 18px */;
-  line-height: 1.75rem /* 28px */;
+	/* @apply text-lg; */
+	font-size: 1.125rem /* 18px */;
+	line-height: 1.75rem /* 28px */;
 }
 
 /* @screen sm {
@@ -43,51 +43,51 @@ h2 {
 } */
 
 @media (min-width: 640px) {
-  h1 {
-    /* @apply text-4xl; */
-    font-size: 2.25rem /* 36px */;
-    line-height: 2.5rem /* 40px */;
-  }
+	h1 {
+		/* @apply text-4xl; */
+		font-size: 2.25rem /* 36px */;
+		line-height: 2.5rem /* 40px */;
+	}
 
-  h2 {
-    /* @apply text-xl; */
-    font-size: 1.25rem /* 20px */;
-    line-height: 1.75rem /* 28px */;
-  }
+	h2 {
+		/* @apply text-xl; */
+		font-size: 1.25rem /* 20px */;
+		line-height: 1.75rem /* 28px */;
+	}
 }
 
 .role-x {
-  display: none;
-  font-size: 0.7rem;
-  line-height: 0.7rem;
-  color: black;
-  position: absolute;
-  margin-left: 5px;
+	display: none;
+	font-size: 0.7rem;
+	line-height: 0.7rem;
+	color: black;
+	position: absolute;
+	margin-left: 5px;
 }
 
 .role-bullet:hover .role-x {
-  display: block;
+	display: block;
 }
 
-@import url('./Toggle.css');
+@import url("./Toggle.css");
 
 ::selection {
-  background: #add8e6;
+	background: #add8e6;
 }
 
 ::-moz-selection {
-  background: #add8e6;
+	background: #add8e6;
 }
 
 ::-webkit-scrollbar {
-  width: 8px;
+	width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #202327;
+	background: #202327;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #56595e;
-  border-radius: 10px;
+	background: #56595e;
+	border-radius: 10px;
 }

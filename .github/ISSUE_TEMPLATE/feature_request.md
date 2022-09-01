@@ -1,8 +1,8 @@
 ---
 name: Feature request
 about: Request a feature for the website
-title: ''
-labels: 'type: enhancement'
+title: ""
+labels: "type: enhancement"
 ---
 
 **Is your feature request related to a problem? Please describe.**

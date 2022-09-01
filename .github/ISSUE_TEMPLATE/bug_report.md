@@ -1,8 +1,8 @@
 ---
 name: Bug report
 about: Report incorrect or unexpected behavior of the website.
-title: ''
-labels: 'type: bug'
+title: ""
+labels: "type: bug"
 ---
 
 **Describe the bug**
