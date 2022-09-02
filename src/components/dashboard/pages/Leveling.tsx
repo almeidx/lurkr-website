@@ -154,7 +154,7 @@ export default function Leveling({ channels, database, roles, openMenu }: Leveli
 		const clone = [...xpRoleRewards];
 		const level = parseIntStrict(newXpRolesLevel);
 
-		if (newXpRolesLevel in clone || level <= 0 || level > 500) {
+		if (Number.isNaN(level) || clone.some((roleReward) => roleReward.level === level) || level <= 0 || level > 500) {
 			if (newXpRoleSubmitRef.current) {
 				newXpRoleSubmitRef.current.style.color = "#ed4245";
 			}
@@ -170,13 +170,7 @@ export default function Leveling({ channels, database, roles, openMenu }: Leveli
 				}
 			}, 1_000);
 		} else {
-			const index = clone.findIndex((roleReward) => roleReward.level === level);
-			if (index === -1) {
-				clone.push({
-					level,
-					roleIds: [],
-				});
-			}
+			clone.push({ level, roleIds: [] });
 
 			setXpRoleRewards(clone);
 			addChange("xpRoleRewards", clone);
