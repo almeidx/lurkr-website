@@ -40,7 +40,9 @@ export default function Guilds({ guilds }: InferGetServerSidePropsType<typeof ge
 				<title>Guilds | Pepe Manager</title>
 			</Head>
 
-			<h1>Pick the server you would like to configure</h1>
+			<h1 className="font-display text-2xl font-bold text-white sm:text-4xl">
+				Pick the server you would like to configure
+			</h1>
 
 			<main className="flex max-w-7xl flex-row flex-wrap items-start justify-center gap-6">
 				{guilds.map(({ icon, id, name }) => (

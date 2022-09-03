@@ -70,7 +70,7 @@ export default function Showcase({ align, description, src, title }: ShowcasePro
 					align === "left" ? "row-start-1" : ""
 				} col-span-2 mx-3 flex h-full flex-col justify-center px-2 text-center sm:px-16 lg:px-0 lg:text-left`}
 			>
-				<h2>{title}</h2>
+				<h2 className="font-display text-lg font-bold text-white sm:text-xl">{title}</h2>
 				<p className="mt-3 font-light text-gray-400">{description}</p>
 			</div>
 		</section>

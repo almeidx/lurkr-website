@@ -77,7 +77,7 @@ export default function Status({ shards, totalShards }: InferGetStaticPropsType<
 			</Head>
 
 			<header className="my-4 mx-3 flex flex-col items-center gap-4 text-center sm:mx-0 sm:mb-6">
-				<h1>Bot Status</h1>
+				<h1 className="font-display text-2xl font-bold text-white sm:text-4xl">Bot Status</h1>
 				<p className="font-light text-gray-400">Check if the bot is online in your server!</p>
 			</header>
 

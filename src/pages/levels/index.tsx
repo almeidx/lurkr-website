@@ -76,7 +76,9 @@ export default function Levels({ guilds }: InferGetServerSidePropsType<typeof ge
 
 			{guilds && (
 				<>
-					<h1>Pick a server to view the levels of</h1>
+					<h1 className="font-display text-2xl font-bold text-white sm:text-4xl">
+						Pick a server to view the levels of
+					</h1>
 					<main className="flex max-w-7xl flex-row flex-wrap items-start justify-center gap-6">
 						{guilds.map(({ icon, id, name }) => (
 							<Guild baseRedirectPath="/levels/" icon={icon} id={id} key={id} name={name} />
@@ -86,7 +88,9 @@ export default function Levels({ guilds }: InferGetServerSidePropsType<typeof ge
 			)}
 
 			<div className="flex w-full flex-col items-center justify-center px-4 text-center">
-				<h1>{guilds ? "Alternatively, enter a server ID" : "Enter the ID of the server you want to view"}</h1>
+				<h1 className="font-display text-2xl font-bold text-white sm:text-4xl">
+					{guilds ? "Alternatively, enter a server ID" : "Enter the ID of the server you want to view"}
+				</h1>
 
 				<div className="w-full sm:w-8/12 md:w-6/12 lg:w-4/12">
 					<Input

@@ -4,58 +4,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* @apply's don't work in production for some reason */
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-	/* @apply text-white font-display font-bold; */
-	--tw-text-opacity: 1;
-	color: rgb(255 255 255 / var(--tw-text-opacity));
-	font-family: "Noto Sans KR", sans-serif;
-	font-weight: 700;
-}
-
-h1 {
-	/* @apply text-2xl; */
-	font-size: 1.5rem /* 24px */;
-	line-height: 2rem /* 32px */;
-}
-
-h2 {
-	/* @apply text-lg; */
-	font-size: 1.125rem /* 18px */;
-	line-height: 1.75rem /* 28px */;
-}
-
-/* @screen sm {
-  h1 {
-    @apply text-4xl;
-  }
-} */
-
-/* @screen sm {
-  h2 {
-    @apply text-xl;
-  }
-} */
-
-@media (min-width: 640px) {
-	h1 {
-		/* @apply text-4xl; */
-		font-size: 2.25rem /* 36px */;
-		line-height: 2.5rem /* 40px */;
-	}
-
-	h2 {
-		/* @apply text-xl; */
-		font-size: 1.25rem /* 20px */;
-		line-height: 1.75rem /* 28px */;
-	}
-}
-
 .role-x {
 	display: none;
 	font-size: 0.7rem;

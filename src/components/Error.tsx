@@ -17,12 +17,12 @@ export default function ErrorPage({ code, message, title }: ErrorPageProps) {
 			</Head>
 
 			<div>
-				<h1 className="my-0 mr-5 ml-0 inline-block border-r border-solid border-white py-2 pr-6 pl-0 align-top text-2xl font-bold text-white">
+				<span className="my-0 mr-5 ml-0 inline-block border-r border-solid border-white py-2 pr-6 pl-0 align-top text-2xl font-bold text-white">
 					{code}
-				</h1>
+				</span>
 
 				<div className="inline-block h-12 text-left align-middle" style={{ lineHeight: "49px" }}>
-					<h2
+					<p
 						className="m-0 p-0 text-sm text-white"
 						style={{
 							fontWeight: "normal",
@@ -30,7 +30,7 @@ export default function ErrorPage({ code, message, title }: ErrorPageProps) {
 						}}
 					>
 						{message}
-					</h2>
+					</p>
 				</div>
 			</div>
 		</div>

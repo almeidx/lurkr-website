@@ -36,7 +36,7 @@ export default function Home() {
 			<Image src="/static/avatar.png" width={64} height={64} />
 
 			<header className="flex flex-col items-center justify-center py-5">
-				<h1>Pepe Manager</h1>
+				<h1 className="font-display text-2xl font-bold text-white sm:text-4xl">Pepe Manager</h1>
 
 				<p className="my-6 text-center text-lg font-light text-gray-400">
 					A Discord bot with focus on automation, leveling, emoji management, and image manipulation

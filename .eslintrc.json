@@ -9,7 +9,7 @@
 		"neon/prettier",
 		"plugin:tailwindcss/recommended"
 	],
-	"ignorePatterns": [".next/*", ".vercel/*", ".yarn/*", "node_modules/*", "**/__generated__/*"],
+	"ignorePatterns": [".next/*", ".vercel/*", ".yarn/*", "node_modules/*", "**/__generated__/*", "next-env.d.ts"],
 	"parserOptions": {
 		"project": "./tsconfig.eslint.json"
 	},

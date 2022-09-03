@@ -1,5 +1,5 @@
 module.exports = {
-	content: ["./src/pages/**/*.{ts,tsx}", "./src/components/**/*.{ts,tsx}", "./src/styles/*.css"],
+	content: ["./src/pages/**/*.{ts,tsx}", "./src/components/**/*.{ts,tsx}", "./src/styles/*"],
 	theme: {
 		fontFamily: {
 			sans: ['"Noto Sans KR"', "sans-serif"],

@@ -26,7 +26,7 @@ export default function Header(props: HeaderProps | HeaderWithToggleProps) {
 				className="z-[99999] mb-4 ml-4 inline-block h-6 w-6 cursor-pointer text-white sm:hidden"
 			/>
 			<div className="mx-4 flex justify-between">
-				<h1 className="text-white">{props.title}</h1>
+				<h1 className="font-display text-2xl font-bold text-white sm:text-4xl">{props.title}</h1>
 
 				{"initialValue" in props && (
 					<div className="flex flex-row items-center gap-x-3">

@@ -187,7 +187,7 @@ export default function Menu({ closeMenu, guild, guildId: argGuildId, menuOpen, 
 					)}
 
 					<div className="flex flex-col gap-2">
-						<h2 className="w-full break-words text-center text-white sm:text-base">{guild.name}</h2>
+						<span className="w-full break-words text-center text-white sm:text-base">{guild.name}</span>
 
 						<span
 							className={`flex flex-row items-center justify-center gap-2 ${
