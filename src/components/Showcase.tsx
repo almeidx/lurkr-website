@@ -23,14 +23,8 @@ export default function Showcase({ align, description, src, title }: ShowcasePro
 		const right = x + width; // right
 		const bottom = y + height; // bottom
 
-		const visibleX = Math.max(
-			0,
-			Math.min(width, window.pageXOffset + window.innerWidth - x, right - window.pageXOffset),
-		);
-		const visibleY = Math.max(
-			0,
-			Math.min(height, window.pageYOffset + window.innerHeight - y, bottom - window.pageYOffset),
-		);
+		const visibleX = Math.max(0, Math.min(width, window.scrollX + window.innerWidth - x, right - window.scrollX));
+		const visibleY = Math.max(0, Math.min(height, window.scrollY + window.innerHeight - y, bottom - window.scrollY));
 
 		const visible = (visibleX * visibleY) / (width * height);
 
