@@ -59,7 +59,7 @@
 	},
 	"lint-staged": {
 		"*.tsx": "eslint --fix",
-		"*.{ts,tsx,js,json,yml}": "prettier --write"
+		"*.{ts,tsx,js,mjs,cjs,json,yml}": "prettier --write"
 	},
 	"packageManager": "yarn@3.2.3"
 }
