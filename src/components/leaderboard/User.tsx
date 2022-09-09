@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from "next/future/image";
 import type { ChangeEvent } from "react";
 import useWindowDimensions from "../../hooks/useWindowDimensions";
 import { userAvatarCdn, userDefaultAvatarCdn } from "../../utils/cdn";
@@ -13,12 +13,13 @@ interface UserProps {
 	xp: number;
 }
 
-const makeUserAvatarUrl = (id: Snowflake, hash: string | null, tag: string | null) =>
-	hash
+function makeUserAvatarUrl(id: Snowflake, hash: string | null, tag: string | null) {
+	return hash
 		? userAvatarCdn(id, hash, 64, false)
 		: tag
 		? userDefaultAvatarCdn(tag.split(/#(\d{4})$/)[1], 64)
 		: FALLBACK_AVATAR_PATH;
+}
 
 export default function User({ avatar, index, level, tag, userId, xp }: UserProps) {
 	const { width } = useWindowDimensions();
@@ -42,21 +43,17 @@ export default function User({ avatar, index, level, tag, userId, xp }: UserProp
 					</span>
 				</div>
 
-				{avatar || tag ? (
-					<img
-						alt={`${tag} avatar`}
-						className="rounded-full"
-						height={64}
-						src={makeUserAvatarUrl(userId, avatar, tag)}
-						width={64}
-						onError={(event: ChangeEvent<HTMLImageElement>) => {
-							event.target.onerror = null;
-							event.target.src = FALLBACK_AVATAR_PATH;
-						}}
-					/>
-				) : (
-					<Image className="rounded-full" height={64} src={FALLBACK_AVATAR_PATH} width={64} />
-				)}
+				<Image
+					alt={`${tag} avatar`}
+					className="rounded-full"
+					height={64}
+					src={avatar || tag ? makeUserAvatarUrl(userId, avatar, tag) : FALLBACK_AVATAR_PATH}
+					width={64}
+					onError={(event: ChangeEvent<HTMLImageElement>) => {
+						event.target.onerror = null;
+						event.target.src = FALLBACK_AVATAR_PATH;
+					}}
+				/>
 
 				<p className="text-gray-200">{tag ?? userId}</p>
 			</div>

@@ -1,5 +1,5 @@
 import cloneDeep from "lodash.clonedeep";
-import Image from "next/image";
+import Image from "next/future/image";
 import { useRouter } from "next/router";
 import { useCallback, useContext, useRef, useState, type MouseEventHandler } from "react";
 import type { IconType } from "react-icons";
@@ -174,17 +174,13 @@ export default function Menu({ closeMenu, guild, guildId: argGuildId, menuOpen, 
 		>
 			<div className="sticky top-0 sm:py-6">
 				<header className="mb-6 flex flex-col items-center gap-4 bg-discord-slightly-darker py-4 px-6 sm:flex-row sm:bg-discord-dark">
-					{guild.icon ? (
-						<img
-							alt={`${guild.name} server icon`}
-							className="rounded-full"
-							height={64}
-							src={guildIconCdn(argGuildId, guild.icon, 64)}
-							width={64}
-						/>
-					) : (
-						<Image className="rounded-full" height={64} src={FALLBACK_AVATAR_PATH} width={64} />
-					)}
+					<Image
+						alt={`${guild.name} guild icon`}
+						className="rounded-full"
+						height={64}
+						src={guild.icon ? guildIconCdn(argGuildId, guild.icon, 64) : FALLBACK_AVATAR_PATH}
+						width={64}
+					/>
 
 					<div className="flex flex-col gap-2">
 						<span className="w-full break-words text-center text-white sm:text-base">{guild.name}</span>

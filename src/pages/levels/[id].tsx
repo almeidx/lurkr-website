@@ -1,6 +1,6 @@
 import type { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from "next";
+import Image from "next/future/image";
 import Head from "next/head";
-import Image from "next/image";
 import { useRouter } from "next/router";
 import { fetchQuery } from "relay-runtime";
 import type { GuildLevelsQuery } from "../../__generated__/GuildLevelsQuery.graphql";
@@ -91,17 +91,14 @@ export default function Leaderboard({
 			</Head>
 
 			<header className="mt-3 ml-10 flex flex-row items-center justify-center gap-6 sm:mt-10 xl:mt-0">
-				{guild.icon ? (
-					<img
-						alt={`${guild.name} server icon`}
-						className="rounded-md"
-						height={64}
-						src={guildIconCdn(guildId, guild.icon, 64)}
-						width={64}
-					/>
-				) : (
-					<Image className="rounded-md" height={64} src={FALLBACK_AVATAR_PATH} width={64} />
-				)}
+				<Image
+					alt={`${guild.name} guild icon`}
+					className="rounded-md"
+					height={64}
+					src={guild.icon ? guildIconCdn(guildId, guild.icon, 64) : FALLBACK_AVATAR_PATH}
+					width={64}
+				/>
+
 				<p className="text-xl font-bold text-white sm:text-4xl">{guild.name}</p>
 			</header>
 

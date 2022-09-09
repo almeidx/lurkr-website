@@ -1,3 +1,5 @@
+/* eslint-disable tsdoc/syntax */
+
 /**
  * @type {import('next').NextConfig}
  */
@@ -9,6 +11,15 @@ const nextConfig = {
 			src: "./src",
 		},
 	},
+	images: {
+		remotePatterns: [
+			{
+				hostname: 'cdn.discordapp.com',
+				protocol: 'https',
+			},
+		],
+	},
+	swcMinify: true,
 	reactStrictMode: true,
 	redirects() {
 		return [

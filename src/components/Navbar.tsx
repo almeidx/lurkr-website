@@ -1,3 +1,4 @@
+import Image from "next/future/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useCallback, useContext, useEffect, useRef, useState } from "react";
@@ -5,7 +6,7 @@ import { GoSignIn, GoSignOut } from "react-icons/go";
 import { MdClose, MdMenu } from "react-icons/md";
 import { UserContext } from "../contexts/UserContext";
 import useClickOutside from "../hooks/useClickOutside";
-import { userAvatarCdn } from "../utils/cdn";
+import { userAvatarCdn, userDefaultAvatarCdn } from "../utils/cdn";
 import { API_BASE_URL } from "../utils/constants";
 
 const links: { name: string; requireAuth?: boolean; url: string }[] = [
@@ -92,16 +93,17 @@ export default function Navbar() {
 								<div className="mx-2 mt-6 flex flex-row gap-2 text-white md:mx-0 md:mt-0 md:ml-auto">
 									<Link href="/guilds">
 										<a className="flex cursor-pointer flex-row items-center justify-center gap-2 rounded-md bg-gray-700 py-1 px-2 duration-200 hover:bg-discord-lighter focus:outline-none md:bg-transparent">
-											{avatar && (
-												<img
-													alt="Your profile picture"
-													className="block rounded-full"
-													height={30}
-													src={userAvatarCdn(id, avatar, 32)}
-													width={30}
-												/>
-											)}
-											{username}#{discriminator}
+											<Image
+												alt="Your profile picture"
+												className="block rounded-full"
+												height={30}
+												src={avatar ? userAvatarCdn(id, avatar, 32) : userDefaultAvatarCdn(discriminator, 32)}
+												width={30}
+											/>
+
+											<p>
+												{username}#{discriminator}
+											</p>
 										</a>
 									</Link>
 

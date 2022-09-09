@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from "next/future/image";
 import Link from "next/link";
 import { GiPartyPopper } from "react-icons/gi";
 import Showcase from "../components/Showcase";
@@ -33,7 +33,7 @@ export default function Home() {
 				</a>
 			</Link>
 
-			<Image src="/static/avatar.png" width={64} height={64} />
+			<Image alt="Pepe Manager avatar" src="/static/avatar.png" width={64} height={64} />
 
 			<header className="flex flex-col items-center justify-center py-5">
 				<h1 className="font-display text-2xl font-bold text-white sm:text-4xl">Pepe Manager</h1>
