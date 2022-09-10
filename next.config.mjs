@@ -18,6 +18,7 @@ const nextConfig = {
 				protocol: "https",
 			},
 		],
+		unoptimized: true,
 	},
 	swcMinify: true,
 	reactStrictMode: true,
