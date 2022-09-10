@@ -3,14 +3,7 @@
 /**
  * @type {import('next').NextConfig}
  */
-const nextConfig = {
-	compiler: {
-		relay: {
-			artifactDirectory: "./src/__generated__",
-			language: "typescript",
-			src: "./src",
-		},
-	},
+export default {
 	images: {
 		remotePatterns: [
 			{
@@ -19,6 +12,14 @@ const nextConfig = {
 			},
 		],
 		unoptimized: true,
+	},
+	eslint: {
+		ignoreDuringBuilds: true,
+	},
+	experimental: {
+		// Broken on dev
+		// fallbackNodePolyfills: false,
+		fallbackNodePolyfills: true,
 	},
 	swcMinify: true,
 	reactStrictMode: true,
@@ -68,5 +69,3 @@ const nextConfig = {
 		];
 	},
 };
-
-export default nextConfig;

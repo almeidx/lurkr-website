@@ -1,6 +1,5 @@
 import { useContext, useEffect } from "react";
-import { GuildContext } from "../../../contexts/GuildContext";
-import type { DashboardChannels, DashboardDatabaseGuild } from "../../../graphql/queries/DashboardGuild";
+import { GuildContext, type Channel, type GuildSettings } from "../../../contexts/GuildContext";
 import Field from "../../form/Field";
 import Fieldset from "../../form/Fieldset";
 import Label from "../../form/Label";
@@ -8,12 +7,12 @@ import Selector from "../../form/Selector";
 import Header from "../Header";
 
 interface EmojiListProps {
-	channels: DashboardChannels;
-	database: DashboardDatabaseGuild;
+	channels: Channel[];
 	openMenu(): void;
+	settings: GuildSettings;
 }
 
-export default function EmojiList({ channels, database, openMenu }: EmojiListProps) {
+export default function EmojiList({ channels, settings, openMenu }: EmojiListProps) {
 	// eslint-disable-next-line @typescript-eslint/unbound-method
 	const { addChange } = useContext(GuildContext);
 
@@ -31,7 +30,7 @@ export default function EmojiList({ channels, database, openMenu }: EmojiListPro
 				openMenu={openMenu}
 				description="Automatically populate a channel with all the emojis in your server."
 				id="emojiList"
-				initialValue={database.emojiList}
+				initialValue={settings.emojiList}
 				onChange={(state) => addChange("emojiList", state)}
 				title="Emoji List"
 			/>
@@ -47,7 +46,7 @@ export default function EmojiList({ channels, database, openMenu }: EmojiListPro
 						<Selector
 							id="emojiListChannel"
 							limit={1}
-							initialItems={database.emojiListChannel ? [database.emojiListChannel] : []}
+							initialItems={settings.emojiListChannel ? [settings.emojiListChannel] : []}
 							items={channels}
 							onSelect={(channelIds) => addChange("emojiListChannel", channelIds[0] ?? null)}
 							type="channel"

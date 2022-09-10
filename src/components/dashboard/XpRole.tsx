@@ -1,7 +1,7 @@
 import { MdClear } from "react-icons/md";
-import type { DashboardRoles } from "../../graphql/queries/DashboardGuild";
+import type { Role } from "../../contexts/GuildContext";
+import { getDatabaseLimit } from "../../utils/common";
 import type { Snowflake } from "../../utils/constants";
-import { getDatabaseLimit } from "../../utils/utils";
 import Selector from "../form/Selector";
 
 export type XpRoleOnChangeFn = (roleIds: Snowflake[], level: number) => unknown;
@@ -12,10 +12,10 @@ interface XpRoleProps {
 	level: number;
 	onChange: XpRoleOnChangeFn;
 	premium: boolean;
-	roles: DashboardRoles;
+	roles: Role[];
 }
 
-export default function XpRole({ level, initialRoles, onChange, premium, roles, disabled }: XpRoleProps) {
+export default function XpRole({ level, initialRoles, onChange, premium, roles, disabled = false }: XpRoleProps) {
 	return (
 		<div className="flex flex-col items-center justify-between gap-y-2 rounded-lg bg-discord-dark py-2 px-4 shadow-lg">
 			<div className="flex w-full">

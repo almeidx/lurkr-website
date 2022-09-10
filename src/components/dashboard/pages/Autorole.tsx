@@ -1,8 +1,7 @@
 import { useContext, useEffect } from "react";
-import { GuildContext } from "../../../contexts/GuildContext";
-import type { DashboardDatabaseGuild, DashboardRoles } from "../../../graphql/queries/DashboardGuild";
+import { GuildContext, type GuildSettings, type Role } from "../../../contexts/GuildContext";
+import { formatNumberToNDecimalPlaces, getDatabaseLimit, parseFloatStrict } from "../../../utils/common";
 import type { Snowflake } from "../../../utils/constants";
-import { formatNumberToNDecimalPlaces, getDatabaseLimit, parseFloatStrict } from "../../../utils/utils";
 import Field from "../../form/Field";
 import Fieldset from "../../form/Fieldset";
 import Input from "../../form/Input";
@@ -12,17 +11,17 @@ import Subtitle from "../../form/Subtitle";
 import Header from "../Header";
 
 interface AutoroleProps {
-	database: DashboardDatabaseGuild;
 	openMenu(): void;
-	roles: DashboardRoles;
+	roles: Role[];
+	settings: GuildSettings;
 }
 
-export default function Autorole({ database, roles, openMenu }: AutoroleProps) {
+export default function Autorole({ settings, roles, openMenu }: AutoroleProps) {
 	// eslint-disable-next-line @typescript-eslint/unbound-method
 	const { addChange } = useContext(GuildContext);
 
-	const autoRoleLimit = getDatabaseLimit("autoRole", database.premium).maxLength;
-	const autoRoleTimeoutLimits = getDatabaseLimit("autoRoleTimeout", database.premium);
+	const autoRoleLimit = getDatabaseLimit("autoRole", settings.premium).maxLength;
+	const autoRoleTimeoutLimits = getDatabaseLimit("autoRoleTimeout", settings.premium);
 
 	useEffect(() => {
 		window.scroll({
@@ -50,7 +49,7 @@ export default function Autorole({ database, roles, openMenu }: AutoroleProps) {
 					<Selector
 						id="autoRole"
 						limit={autoRoleLimit}
-						initialItems={(database.autoRole as Snowflake[] | null) ?? []}
+						initialItems={(settings.autoRole as Snowflake[] | null) ?? []}
 						items={roles}
 						onSelect={(roleIds) => addChange("autoRole", roleIds)}
 						type="role"
@@ -68,7 +67,7 @@ export default function Autorole({ database, roles, openMenu }: AutoroleProps) {
 						<Input
 							id="autoRoleTimeout"
 							initialValue={
-								database.autoRoleTimeout ? formatNumberToNDecimalPlaces(database.autoRoleTimeout / 60_000) : ""
+								settings.autoRoleTimeout ? formatNumberToNDecimalPlaces(settings.autoRoleTimeout / 60_000) : ""
 							}
 							maxLength={32}
 							onChange={(text) => addChange("autoRoleTimeout", text ? parseFloatStrict(text) : null)}

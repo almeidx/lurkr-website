@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useRef, useState, type MouseEventHandler } from "react";
 import { AiOutlinePlusCircle } from "react-icons/ai";
 import useClickOutside from "../../hooks/useClickOutside";
+import { resolveColour } from "../../utils/common";
 import type { Snowflake } from "../../utils/constants";
-import { resolveColour } from "../../utils/utils";
 import RoleChannelBullet from "../RoleChannelBullet";
 import Input from "../form/Input";
 
@@ -145,8 +145,8 @@ export default function Selector({ id, limit, items, initialItems, onSelect, typ
 						key={item.id}
 						name={item.name}
 						onClick={handleChannelRemove}
-						roleColour={"color" in item ? resolveColour(item.color) : undefined}
 						type={type}
+						{...("color" in item ? { roleColour: resolveColour(item.color) } : {})}
 					/>
 				))}
 

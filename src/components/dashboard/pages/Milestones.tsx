@@ -1,12 +1,7 @@
 import { useContext, useEffect } from "react";
-import { GuildContext } from "../../../contexts/GuildContext";
-import type {
-	DashboardChannels,
-	DashboardDatabaseGuild,
-	DashboardRoles,
-} from "../../../graphql/queries/DashboardGuild";
+import { GuildContext, type Channel, type GuildSettings, type Role } from "../../../contexts/GuildContext";
+import { getDatabaseLimit, parseIntStrict } from "../../../utils/common";
 import type { Snowflake } from "../../../utils/constants";
-import { getDatabaseLimit, parseIntStrict } from "../../../utils/utils";
 import Field from "../../form/Field";
 import Fieldset from "../../form/Fieldset";
 import Input from "../../form/Input";
@@ -17,19 +12,19 @@ import Textarea from "../../form/Textarea";
 import Header from "../Header";
 
 interface MilestonesProps {
-	channels: DashboardChannels;
-	database: DashboardDatabaseGuild;
+	channels: Channel[];
 	openMenu(): void;
-	roles: DashboardRoles;
+	roles: Role[];
+	settings: GuildSettings;
 }
 
-export default function Milestones({ channels, database, roles, openMenu }: MilestonesProps) {
+export default function Milestones({ channels, settings, roles, openMenu }: MilestonesProps) {
 	// eslint-disable-next-line @typescript-eslint/unbound-method
 	const { addChange } = useContext(GuildContext);
 
-	const milestonesIntervalLimits = getDatabaseLimit("milestonesInterval", database.premium);
-	const milestonesMessageLimit = getDatabaseLimit("milestonesMessage", database.premium).maxLength;
-	const milestonesRolesLimit = getDatabaseLimit("milestonesRoles", database.premium).maxLength;
+	const milestonesIntervalLimits = getDatabaseLimit("milestonesInterval", settings.premium);
+	const milestonesMessageLimit = getDatabaseLimit("milestonesMessage", settings.premium).maxLength;
+	const milestonesRolesLimit = getDatabaseLimit("milestonesRoles", settings.premium).maxLength;
 
 	useEffect(() => {
 		window.scroll({
@@ -45,7 +40,7 @@ export default function Milestones({ channels, database, roles, openMenu }: Mile
 				openMenu={openMenu}
 				description="Automatically announce member milestones in your server."
 				id="milestones"
-				initialValue={database.storeMilestones}
+				initialValue={settings.storeMilestones}
 				onChange={(state) => addChange("storeMilestones", state)}
 				title="Milestones"
 			/>
@@ -60,7 +55,7 @@ export default function Milestones({ channels, database, roles, openMenu }: Mile
 					<div className="max-w-[20rem]">
 						<Selector
 							id="milestonesChannel"
-							initialItems={database.milestonesChannel ? [database.milestonesChannel] : []}
+							initialItems={settings.milestonesChannel ? [settings.milestonesChannel] : []}
 							items={channels}
 							limit={1}
 							onSelect={(channelIds) => addChange("milestonesChannel", channelIds[0] ?? null)}
@@ -78,7 +73,7 @@ export default function Milestones({ channels, database, roles, openMenu }: Mile
 					<div className="max-w-[20rem]">
 						<Input
 							id="milestonesInterval"
-							initialValue={database.milestonesInterval.toString()}
+							initialValue={settings.milestonesInterval.toString()}
 							maxLength={6}
 							onChange={(text) => addChange("milestonesInterval", text ? parseIntStrict(text) : 0)}
 							placeholder="Enter the milestones interval"
@@ -96,7 +91,7 @@ export default function Milestones({ channels, database, roles, openMenu }: Mile
 						url="https://docs.pepemanager.com/guides/automatically-controlled-member-milestones#setting-the-milestones-message"
 					/>
 					<Textarea
-						initialText={database.milestonesMessage ?? ""}
+						initialText={settings.milestonesMessage ?? ""}
 						id="milestonesMessage"
 						maxLength={milestonesMessageLimit}
 						onChange={(text) => addChange("milestonesMessage", text)}
@@ -113,7 +108,7 @@ export default function Milestones({ channels, database, roles, openMenu }: Mile
 					/>
 					<Selector
 						id="milestoneRoles"
-						initialItems={(database.milestonesRoles as Snowflake[] | null) ?? []}
+						initialItems={(settings.milestonesRoles as Snowflake[] | null) ?? []}
 						items={roles}
 						limit={milestonesRolesLimit}
 						onSelect={(roleIds) => addChange("milestonesRoles", roleIds)}

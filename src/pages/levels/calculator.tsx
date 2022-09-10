@@ -4,8 +4,8 @@ import { useCallback, useMemo, useState } from "react";
 import Message from "../../components/Message";
 import Tooltip from "../../components/Tooltip";
 import Input from "../../components/form/Input";
+import { parseMultiplier } from "../../utils/common";
 import { getRequiredXp } from "../../utils/constants";
-import { parseMultiplier } from "../../utils/utils";
 
 const averageXpPerMessage = (40 + 15) / 2;
 const timePerMessage = ms("1m20s");

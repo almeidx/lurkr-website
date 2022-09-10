@@ -1,13 +1,8 @@
-import type { GuildLevelsRoleInfo } from "../../graphql/queries/GuildLevels";
-import { resolveColour } from "../../utils/utils";
+import type { RoleReward } from "../../contexts/GuildContext";
+import { resolveColour } from "../../utils/common";
 import RoleChannelBullet from "../RoleChannelBullet";
 
-interface RoleProps {
-	level: number;
-	roles: GuildLevelsRoleInfo[];
-}
-
-export default function Role({ level, roles }: RoleProps) {
+export default function Role({ level, roles }: RoleReward) {
 	return (
 		<div className="my-2 mx-4 flex flex-col gap-2" key={level}>
 			<span className="text-white">Level {level}</span>

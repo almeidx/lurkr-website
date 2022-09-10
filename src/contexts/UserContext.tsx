@@ -68,3 +68,9 @@ export default function UserProvider({ children }: UserContextProps) {
 
 	return <UserContext.Provider value={userData}>{children}</UserContext.Provider>;
 }
+
+export interface UserGuild {
+	icon: string | null;
+	id: Snowflake;
+	name: string;
+}

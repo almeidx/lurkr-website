@@ -1,4 +1,3 @@
-import cloneDeep from "lodash.clonedeep";
 import Image from "next/future/image";
 import { useRouter } from "next/router";
 import { useCallback, useContext, useRef, useState, type MouseEventHandler } from "react";
@@ -7,16 +6,9 @@ import { BsFillShiftFill, BsPersonPlusFill } from "react-icons/bs";
 import { FaPatreon, FaShapes, FaTrophy } from "react-icons/fa";
 import { HiEmojiHappy } from "react-icons/hi";
 import { RiSave3Fill, RiTimerFlashFill } from "react-icons/ri";
-import { useMutation } from "relay-hooks";
-import type {
-	DatabaseGuildChanges,
-	updateDatabaseGuildMutation,
-	updateDatabaseGuildMutation$variables,
-} from "../../__generated__/updateDatabaseGuildMutation.graphql";
-import { GuildContext, type Section } from "../../contexts/GuildContext";
-import updateDatabaseGuild from "../../graphql/mutations/updateDatabaseGuild";
+import { GuildContext, type PatchGuildData, type Section } from "../../contexts/GuildContext";
 import { guildIconCdn } from "../../utils/cdn";
-import { type Snowflake, FALLBACK_AVATAR_PATH } from "../../utils/constants";
+import { type Snowflake, FALLBACK_AVATAR_PATH, API_BASE_URL } from "../../utils/constants";
 
 interface MenuProps {
 	closeMenu(): void;
@@ -84,7 +76,6 @@ export default function Menu({ closeMenu, guild, guildId: argGuildId, menuOpen, 
 
 	// eslint-disable-next-line @typescript-eslint/unbound-method
 	const { changes, clearChanges, errors, guildId, section, updateSection } = useContext(GuildContext);
-	const [updateDatabase] = useMutation<updateDatabaseGuildMutation>(updateDatabaseGuild, {});
 	const router = useRouter();
 
 	const saveButtonDisabled = (Object.keys(changes).length || isSaving.current) && !errors.length;
@@ -103,41 +94,36 @@ export default function Menu({ closeMenu, guild, guildId: argGuildId, menuOpen, 
 				setSaveButtonText("Saving...");
 			}
 
-			const clone = cloneDeep<Partial<DatabaseGuildChanges>>(changes);
-			if (!Object.keys(clone).length || !guildId) {
+			const clonedData = JSON.parse(JSON.stringify(changes)) as PatchGuildData;
+
+			if (!guildId || !Object.keys(clonedData).length) {
 				return;
 			}
 
-			const dataForMutation = cloneDeep<updateDatabaseGuildMutation$variables["data"]>(clone);
-
-			if (dataForMutation.autoRoleTimeout === 0) {
-				dataForMutation.autoRoleTimeout = null;
-			} else if (dataForMutation.autoRoleTimeout) {
-				dataForMutation.autoRoleTimeout *= 60_000;
+			if (clonedData.autoRoleTimeout === 0) {
+				clonedData.autoRoleTimeout = null;
+			} else if (clonedData.autoRoleTimeout) {
+				clonedData.autoRoleTimeout *= 60_000;
 			}
 
-			if (dataForMutation.mentionCooldown) {
-				dataForMutation.mentionCooldown *= 60_000;
-			}
-
-			if ("xpMultipliers" in clone && clone.xpMultipliers) {
-				// @ts-expect-error: The 'clone' type isn't actually DatabaseGuildChanges, the Multipliers have _id's here
-				dataForMutation.xpMultipliers = clone.xpMultipliers.map(({ _id, ...rest }) => rest);
+			if (clonedData.mentionCooldown) {
+				clonedData.mentionCooldown *= 60_000;
 			}
 
 			let hasFailed = false;
 
 			try {
-				await updateDatabase({
-					variables: {
-						data: dataForMutation,
-						id: guildId,
-					},
+				const response = await fetch(`${API_BASE_URL}/guilds/${guildId}`, {
+					body: JSON.stringify(clonedData),
+					credentials: "include",
+					headers: { "Content-Type": "application/json" },
 				});
+
+				if (response.status !== 200) {
+					throw new Error(`${response.status}: ${response.statusText}`);
+				}
 			} catch (error) {
-				// @ts-expect-error: 'error' is unknown
-				// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-				console.error(error, error?.networkError, error?.networkError?.result?.errors);
+				console.error(error);
 				hasFailed = true;
 			} finally {
 				if (saveButtonRef.current) {
@@ -163,7 +149,7 @@ export default function Menu({ closeMenu, guild, guildId: argGuildId, menuOpen, 
 				}, 3_000);
 			}
 		},
-		[changes, clearChanges, errors, guildId, saveButtonRef, updateDatabase],
+		[changes, clearChanges, errors, guildId, saveButtonRef],
 	);
 
 	return (

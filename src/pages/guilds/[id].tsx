@@ -3,22 +3,14 @@ import dynamic from "next/dynamic";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { Suspense, useCallback, useContext, useEffect, useMemo, useState } from "react";
-import { fetchQuery } from "relay-runtime";
-import type { DashboardGuildQuery } from "../../__generated__/DashboardGuildQuery.graphql";
 import Failure from "../../components/Failure";
 import Message from "../../components/Message";
 import Spinner from "../../components/Spinner";
 import Menu, { isValidSection } from "../../components/dashboard/Menu";
-import { GuildContext } from "../../contexts/GuildContext";
+import { GuildContext, type Channel, type DiscordGuild, type GuildSettings } from "../../contexts/GuildContext";
 import { UserContext } from "../../contexts/UserContext";
-import DashboardGuild, {
-	type DashboardChannels,
-	type DashboardDatabaseGuild,
-	type DashboardDiscordGuild,
-} from "../../graphql/queries/DashboardGuild";
-import environment from "../../relay/environment";
-import type { Snowflake } from "../../utils/constants";
-import { isValidSnowflake, removeNonStringValues } from "../../utils/utils";
+import { isValidSnowflake } from "../../utils/common";
+import { API_BASE_URL, type Snowflake } from "../../utils/constants";
 
 const Autorole = dynamic(async () => import("../../components/dashboard/pages/Autorole"), { suspense: true });
 const Leveling = dynamic(async () => import("../../components/dashboard/pages/Leveling"), { suspense: true });
@@ -29,40 +21,62 @@ const MentionCooldown = dynamic(async () => import("../../components/dashboard/p
 });
 const Miscellaneous = dynamic(async () => import("../../components/dashboard/pages/Miscellaneous"), { suspense: true });
 
-interface GuildProps {
-	channels: DashboardChannels | null;
-	database: DashboardDatabaseGuild | null;
-	guild: DashboardDiscordGuild | null;
-	guildId: Snowflake;
+type PageProps = GetGuildResult & { guildId: Snowflake };
+
+interface ErrorProps extends PageProps {
+	error: string;
+	withSignIn?: boolean;
 }
 
-export const getServerSideProps: GetServerSideProps<GuildProps> = async (ctx) => {
+export const getServerSideProps: GetServerSideProps<ErrorProps | PageProps> = async (ctx) => {
 	if (typeof ctx.params?.id !== "string" || !isValidSnowflake(ctx.params.id)) {
 		return { notFound: true };
 	}
 
-	const env = environment(undefined, removeNonStringValues(ctx.req.headers));
-	const data = await fetchQuery<DashboardGuildQuery>(env, DashboardGuild, { id: ctx.params.id }).toPromise();
-	if (!data) {
-		return { notFound: true };
+	const response = await fetch(`${API_BASE_URL}/guilds/${ctx.params.id}`, {
+		credentials: "include",
+		headers: ctx.req.headers.cookie ? { cookie: ctx.req.headers.cookie } : {},
+	}).catch(() => null);
+
+	// eslint-disable-next-line unicorn/consistent-function-scoping
+	function makeErrorProps(error: string, withSignIn?: boolean) {
+		return {
+			guild: {} as DiscordGuild,
+			channels: [],
+			error,
+			guildId: "",
+			settings: {} as GuildSettings,
+			withSignIn: withSignIn ?? false,
+		};
 	}
+
+	if (!response) {
+		return { props: makeErrorProps("Failed to retrieve guild information") };
+	}
+
+	if (response.status === 404) {
+		return { props: makeErrorProps("Guild not found") };
+	}
+
+	if (response.status === 401) {
+		return { props: makeErrorProps("You need to sign in to view this page", true) };
+	}
+
+	if (response.status === 403) {
+		return { props: makeErrorProps("You are not authorized to view this page") };
+	}
+
+	const data = (await response.json()) as GetGuildResult;
 
 	return {
 		props: {
-			channels: data.getDiscordGuildChannels as DashboardChannels,
-			database: data.getDatabaseGuild as DashboardDatabaseGuild,
-			guild: data.getDiscordGuild as DashboardDiscordGuild,
+			...data,
 			guildId: ctx.params.id,
 		},
 	};
 };
 
-export default function Guild({
-	channels,
-	database,
-	guild,
-	guildId,
-}: InferGetServerSidePropsType<typeof getServerSideProps>) {
+export default function Guild(props: InferGetServerSidePropsType<typeof getServerSideProps>) {
 	const [menuOpen, setMenuOpen] = useState<boolean>(true);
 	// eslint-disable-next-line @typescript-eslint/unbound-method
 	const { changes, errors, section, updateData, updateGuildId, updateSection, warnings } = useContext(GuildContext);
@@ -71,6 +85,8 @@ export default function Guild({
 
 	const closeMenu = useCallback((): void => setMenuOpen(false), []);
 	const openMenu = useCallback((): void => setMenuOpen(true), []);
+
+	const { channels, settings, guild, guildId } = props;
 
 	const sortedChannels = useMemo(() => [...(channels ?? [])].sort((a, b) => a.name.localeCompare(b.name)), [channels]);
 	const sortedRoles = useMemo(() => [...(guild?.roles ?? [])].sort((a, b) => b.position - a.position), [guild]);
@@ -89,7 +105,7 @@ export default function Guild({
 	useEffect(() => {
 		const pageQuery = String(router.query.p);
 
-		if (pageQuery && pageQuery !== section) {
+		if (pageQuery && guildId && pageQuery !== section) {
 			const pageName = isValidSection(pageQuery) ? pageQuery : "leveling";
 			console.log("Found initial dashboard page '%s'", pageName);
 			void router.push(`/guilds/${guildId}?p=${pageName}`, `/guilds/${guildId}?p=${pageName}`, { shallow: true });
@@ -104,21 +120,17 @@ export default function Guild({
 			updateGuildId(guildId);
 		}
 
-		if (database) {
-			updateData(database);
+		if (settings) {
+			updateData(settings);
 		}
-	}, [database, guild, guildId, updateData, updateGuildId]);
+	}, [settings, guild, guildId, updateData, updateGuildId]);
+
+	if ("error" in props) {
+		return <Failure href="/guilds" message={props.error} withSignIn={props.withSignIn} />;
+	}
 
 	if (!authenticated) {
-		return <Failure message="You need to sign in to view this page." />;
-	}
-
-	if (!guild) {
-		return <Failure message="Could not find the guild you were trying to edit." />;
-	}
-
-	if (!database) {
-		return <Failure message="Found the guild you were trying to edit, but couldn't find the database document." />;
+		return <Failure href="/guilds" message="You need to sign in to view this page" withSignIn />;
 	}
 
 	return (
@@ -128,7 +140,7 @@ export default function Guild({
 					<title>{`${guild.name} Dashboard | Pepe Manager`}</title>
 				</Head>
 
-				<Menu closeMenu={closeMenu} guild={guild} guildId={guildId} menuOpen={menuOpen} premium={database.premium} />
+				<Menu closeMenu={closeMenu} guild={guild} guildId={guildId} menuOpen={menuOpen} premium={settings.premium} />
 
 				<main className={`w-full px-4 pb-5 md:pt-6 ${menuOpen ? "hidden" : "block"} sm:block`}>
 					{warnings.length > 0 || errors.length > 0 ? (
@@ -146,21 +158,27 @@ export default function Guild({
 						}
 					>
 						{section === "autorole" ? (
-							<Autorole openMenu={openMenu} database={database} roles={sortedRoles} />
+							<Autorole openMenu={openMenu} settings={settings} roles={sortedRoles} />
 						) : section === "milestones" ? (
-							<Milestones openMenu={openMenu} channels={sortedChannels} database={database} roles={sortedRoles} />
+							<Milestones openMenu={openMenu} channels={sortedChannels} settings={settings} roles={sortedRoles} />
 						) : section === "emojiList" ? (
-							<EmojiList openMenu={openMenu} channels={sortedChannels} database={database} />
+							<EmojiList openMenu={openMenu} channels={sortedChannels} settings={settings} />
 						) : section === "mentionCooldown" ? (
-							<MentionCooldown openMenu={openMenu} database={database} roles={sortedRoles} />
+							<MentionCooldown openMenu={openMenu} settings={settings} roles={sortedRoles} />
 						) : section === "miscellaneous" ? (
-							<Miscellaneous openMenu={openMenu} channels={sortedChannels} database={database} />
+							<Miscellaneous openMenu={openMenu} channels={sortedChannels} settings={settings} />
 						) : (
-							<Leveling openMenu={openMenu} channels={sortedChannels} database={database} roles={sortedRoles} />
+							<Leveling openMenu={openMenu} channels={sortedChannels} settings={settings} roles={sortedRoles} />
 						)}
 					</Suspense>
 				</main>
 			</div>
 		</div>
 	);
+}
+
+interface GetGuildResult {
+	channels: Channel[];
+	guild: DiscordGuild;
+	settings: GuildSettings;
 }

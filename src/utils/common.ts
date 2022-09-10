@@ -7,12 +7,6 @@ import {
 	MIN_SNOWFLAKE,
 } from "./constants";
 
-export type CorrectSnowflakeTypes<T> = {
-	[K in keyof T]: K extends "id" ? Snowflake : CorrectSnowflakeTypes<T[K]>;
-};
-
-export type DeepMutable<T> = { -readonly [K in keyof T]: DeepMutable<T[K]> };
-
 type RGBColourString = `rgb(${number}, ${number}, ${number})`;
 
 /**
@@ -30,23 +24,13 @@ export function parseIntStrict(number: string): number {
 
 export const parseFloatStrict = Number;
 
-/**
- * Rounds a number to n decimal places.
- *
- * @param number - The number that will be rounded.
- * @param decimals - The amount of decimal places to round the number to.
- */
-export function roundNumberToNDecimalPlaces(number: number, decimals = 2): number {
-	return parseFloatStrict(number.toFixed(decimals));
-}
-
 export function parseMultiplier(phrase: string): number | null {
 	const numberCandidate = phrase.replace(/x/gi, "");
 	if (!numberCandidate) {
 		return null;
 	}
 
-	const number = roundNumberToNDecimalPlaces(Number(numberCandidate));
+	const number = parseFloatStrict(Number(numberCandidate).toFixed(2));
 	if (!number || number <= 0 || number > 5) {
 		return null;
 	}
@@ -81,15 +65,6 @@ export function formatNumberToNDecimalPlaces(number: number, decimals = 2): stri
 	return Number(number.toFixed(decimals)).toString();
 }
 
-export function isNumeric(str: string): boolean {
-	if (typeof str !== "string") {
-		return false;
-	}
-
-	// eslint-disable-next-line unicorn/prefer-number-properties
-	return !isNaN(str as unknown as number) && !Number.isNaN(Number.parseFloat(str));
-}
-
 export function getDatabaseLimit<
 	K extends keyof typeof DATABASE_LIMITS & keyof typeof DATABASE_PREMIUM_LIMITS = keyof typeof DATABASE_LIMITS,
 >(key: K, premium: boolean): typeof DATABASE_LIMITS[K] | typeof DATABASE_PREMIUM_LIMITS[K] {
@@ -98,16 +73,6 @@ export function getDatabaseLimit<
 	}
 
 	return DATABASE_LIMITS[key];
-}
-
-export function removeNonStringValues(obj: Record<string, any>): Record<string, string> {
-	return Object.keys(obj)
-		.filter((key) => typeof obj[key] === "string")
-		.reduce<Record<string, string>>((acc, key) => {
-			// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-			acc[key] = obj[key];
-			return acc;
-		}, {});
 }
 
 export function inProductionEnvironment(): boolean {
