@@ -15,7 +15,7 @@ export default function Failure({ href, message, withSignIn }: FailureProps) {
 			{withSignIn ? (
 				<div className="flex gap-3">
 					<button
-						className="rounded-lg bg-blurple px-2 py-3 text-white shadow-md transition-colors duration-100 hover:bg-[#414AB9]"
+						className="rounded-lg bg-blurple px-4 py-2 text-white shadow-md transition-colors duration-100 hover:bg-[#414AB9]"
 						onClick={(event) => {
 							event.preventDefault();
 							window.open(`${API_BASE_URL}/auth`, "_self");
@@ -26,14 +26,14 @@ export default function Failure({ href, message, withSignIn }: FailureProps) {
 					</button>
 
 					<Link href={href}>
-						<a className="rounded-lg bg-blurple px-2 py-3 text-white shadow-md transition-colors duration-100 hover:bg-[#414AB9]">
+						<a className="rounded-lg bg-gray-600 px-4 py-2 text-white shadow-md transition-colors duration-100 hover:bg-gray-700">
 							Go back
 						</a>
 					</Link>
 				</div>
 			) : (
 				<Link href={href}>
-					<a className="rounded-lg bg-blurple px-2 py-3 text-white shadow-md transition-colors duration-100 hover:bg-[#414AB9]">
+					<a className="rounded-lg bg-gray-600 px-4 py-2 text-white shadow-md transition-colors duration-100 hover:bg-gray-700">
 						Go back
 					</a>
 				</Link>

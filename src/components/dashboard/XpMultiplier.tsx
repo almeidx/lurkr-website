@@ -1,3 +1,5 @@
+import { FaGlobe, FaUserFriends } from "react-icons/fa";
+import { IoMdChatbubbles } from "react-icons/io";
 import { MdClear } from "react-icons/md";
 import { XpMultiplierType, type Channel, type Role } from "../../contexts/GuildContext";
 import { getDatabaseLimit } from "../../utils/common";
@@ -34,10 +36,17 @@ export default function XpMultiplier({
 	targets,
 	type,
 }: XpMultiplierProps) {
+	const Icon =
+		type === XpMultiplierType.Channel ? IoMdChatbubbles : type === XpMultiplierType.Role ? FaUserFriends : FaGlobe;
+
 	return (
 		<div className="relative flex w-full flex-row flex-wrap justify-between gap-y-2 rounded-lg bg-discord-dark p-2">
 			<div className="flex w-full">
-				<label className="ml-4 flex w-[6rem] items-center font-bold text-white" htmlFor={`m-${id}-selector`}>
+				<label
+					className="ml-4 flex w-28 flex-row items-center gap-2 text-center font-bold text-white"
+					htmlFor={`m-${id}-selector`}
+				>
+					<Icon />
 					{type[0]!.toUpperCase() + type.slice(1)}
 				</label>
 
@@ -69,7 +78,7 @@ export default function XpMultiplier({
 						initialItems={targets}
 						items={type === XpMultiplierType.Channel ? channels : roles}
 						onSelect={(ids) => onItemChange(ids, id)}
-						type={type === XpMultiplierType.Channel ? "channel" : "role"}
+						type={type}
 					/>
 				</div>
 			)}

@@ -42,14 +42,14 @@ export default function EmojiList({ channels, settings, openMenu }: EmojiListPro
 						name="Emoji List Channel"
 						url="https://docs.pepemanager.com/guides/automatically-controlled-emoji-list"
 					/>
-					<div className="max-w-[20rem]">
+					<div className="max-w-md">
 						<Selector
 							id="emojiListChannel"
 							limit={1}
 							initialItems={settings.emojiListChannel ? [settings.emojiListChannel] : []}
 							items={channels}
 							onSelect={(channelIds) => addChange("emojiListChannel", channelIds[0] ?? null)}
-							type="channel"
+							type="Channel"
 						/>
 					</div>
 				</Field>

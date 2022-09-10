@@ -1,6 +1,6 @@
 import cuid from "cuid";
 import { useCallback, useContext, useEffect, useMemo, useRef, useState, type MouseEventHandler } from "react";
-import { BiLayerPlus } from "react-icons/bi";
+import { MdPlaylistAdd } from "react-icons/md";
 import {
 	AutoResetLevels,
 	GuildContext,
@@ -308,7 +308,7 @@ export default function Leveling({ channels, settings, roles, openMenu }: Leveli
 				<Field>
 					<Label
 						htmlFor="xpResponseType"
-						name="XP Response Channel"
+						name="Level Up Message Destination"
 						url="https://docs.pepemanager.com/guides/setting-up-server-xp-leveling#where-to-send-the-level-up-message"
 					/>
 					<div className="flex flex-row flex-wrap gap-y-2">
@@ -343,7 +343,7 @@ export default function Leveling({ channels, settings, roles, openMenu }: Leveli
 									items={channels}
 									limit={1}
 									onSelect={(channelIds) => addChange("xpResponseType", channelIds[0] ?? null)}
-									type="channel"
+									type="Channel"
 								/>
 							)}
 						</div>
@@ -353,7 +353,7 @@ export default function Leveling({ channels, settings, roles, openMenu }: Leveli
 				<Field>
 					<Label
 						htmlFor="xpMessage"
-						name="XP Message"
+						name="Level Up Message"
 						url="https://docs.pepemanager.com/guides/setting-up-server-xp-leveling#customizing-the-level-up-message"
 					/>
 					<Textarea
@@ -370,7 +370,7 @@ export default function Leveling({ channels, settings, roles, openMenu }: Leveli
 					<div className="flex w-full flex-row items-center justify-between gap-x-3 rounded-lg bg-discord-dark p-2 pl-4">
 						<Label
 							htmlFor="stackXpRoles"
-							name="Stack XP Roles"
+							name="Stack Leveling Role Rewards"
 							url="https://docs.pepemanager.com/guides/setting-up-server-xp-leveling#toggling-role-stacking"
 							withMargin={false}
 						/>
@@ -387,7 +387,7 @@ export default function Leveling({ channels, settings, roles, openMenu }: Leveli
 					<div className="flex w-full flex-row items-center justify-between gap-x-3 rounded-lg bg-discord-dark p-2 pl-4">
 						<Label
 							htmlFor="prioritiseMultiplierRoleHierarchy"
-							name="XP Multiplier Priority"
+							name="Leveling Role Hierarchy/Multiplier Value Priority"
 							url="https://docs.pepemanager.com/guides/setting-up-xp-multipliers#changing-role-multiplier-hierarchy"
 							withMargin={false}
 						/>
@@ -404,7 +404,7 @@ export default function Leveling({ channels, settings, roles, openMenu }: Leveli
 					<div className="flex w-full flex-row items-center justify-between gap-x-3 rounded-lg bg-discord-dark p-2 pl-4">
 						<Label
 							htmlFor="xpInThreads"
-							name="XP In Threads"
+							name="Leveling in Threads"
 							url="https://docs.pepemanager.com/guides/setting-up-server-xp-leveling#toggling-leveling-in-threads"
 							withMargin={false}
 						/>
@@ -420,12 +420,14 @@ export default function Leveling({ channels, settings, roles, openMenu }: Leveli
 				<Field>
 					<Label
 						htmlFor="xpRoleRewards"
-						name="XP Role Rewards"
+						name="Leveling Role Rewards"
 						url="https://docs.pepemanager.com/guides/setting-up-server-xp-leveling#adding-role-rewards"
 					/>
 					<div className="mb-4 divide-y-2">
 						{xpRoleRewards.length < getDatabaseLimit("xpRoleRewards", settings.premium).maxLength && (
-							<div className="w-full">
+							<div className="flex max-w-md flex-col gap-2">
+								<p className="text-white">Create a new role reward</p>
+
 								<Input
 									clearOnSubmit
 									id="newXpRole"
@@ -434,7 +436,7 @@ export default function Leveling({ channels, settings, roles, openMenu }: Leveli
 									onChange={(text) => (text ? /^\d+$/.test(text) && setNewXpRolesLevel(text) : setNewXpRolesLevel(""))}
 									onSubmit={handleNewXpRoleCreated}
 									placeholder="Enter a level to reward roles to"
-									submitIcon={BiLayerPlus}
+									submitIcon={MdPlaylistAdd}
 									submitRef={newXpRoleSubmitRef}
 								/>
 							</div>
@@ -457,12 +459,12 @@ export default function Leveling({ channels, settings, roles, openMenu }: Leveli
 				<Field>
 					<Label
 						htmlFor="xpMultipliers"
-						name="XP Multipliers"
+						name="Leveling Multipliers"
 						url="https://docs.pepemanager.com/guides/setting-up-xp-multipliers"
 					/>
 					<div>
 						{xpMultipliers.length < getDatabaseLimit("xpMultipliers", settings.premium).maxLength && (
-							<>
+							<div className="flex max-w-md flex-col">
 								<p className="text-white">Create a new multiplier</p>
 								<div className="mt-2 mb-4 flex flex-row gap-3">
 									<BasicSelect
@@ -476,7 +478,7 @@ export default function Leveling({ channels, settings, roles, openMenu }: Leveli
 										onSelect={(type) => setNewXpMultiplierType(type as XpMultiplierType)}
 									/>
 									<button
-										className="flex h-12 w-12 shrink-0 items-center justify-center rounded-md bg-discord-not-quite-black text-white transition-colors duration-150"
+										className="flex h-12 w-12 shrink-0 items-center justify-center rounded-md bg-discord-not-quite-black text-white transition-colors duration-150 hover:text-opacity-75"
 										onClick={(event) => {
 											event.preventDefault();
 
@@ -489,10 +491,10 @@ export default function Leveling({ channels, settings, roles, openMenu }: Leveli
 										}}
 										type="button"
 									>
-										<BiLayerPlus className="fill-current text-3xl" />
+										<MdPlaylistAdd className="fill-current text-3xl" />
 									</button>
 								</div>
-							</>
+							</div>
 						)}
 					</div>
 					<div className="flex flex-col gap-y-2">
@@ -517,7 +519,7 @@ export default function Leveling({ channels, settings, roles, openMenu }: Leveli
 				<Field>
 					<Label
 						htmlFor="xpChannels"
-						name={`XP ${xpChannelsType === "blacklist" ? "Blacklisted" : "Whitelisted"} Channels`}
+						name={`Leveling Channels (${xpChannelsType === "blacklist" ? "Blacklist" : "Whitelist"})`}
 						url="https://docs.pepemanager.com/guides/setting-up-server-xp-leveling#adding-allowed-channels"
 					/>
 					<div className="mb-3 flex flex-row justify-start">
@@ -544,7 +546,7 @@ export default function Leveling({ channels, settings, roles, openMenu }: Leveli
 							setXpChannels(channelIds);
 							addChange(xpChannelsType === "whitelist" ? "xpWhitelistedChannels" : "xpBlacklistedChannels", channelIds);
 						}}
-						type="channel"
+						type="Channel"
 					/>
 					<Subtitle text={`Maximum of ${xpChannelsLimit} channels.`} />
 				</Field>
@@ -552,37 +554,35 @@ export default function Leveling({ channels, settings, roles, openMenu }: Leveli
 				<Field>
 					<Label
 						htmlFor="xpDisallowedPrefixes"
-						name="Disallowed Prefixes"
+						name="Ignored Leveling Bot Prefixes"
 						url="https://docs.pepemanager.com/guides/setting-up-server-xp-leveling#blacklisting-bot-prefixes"
 					/>
 
-					<div className="mb-4 divide-y-2">
-						<div className="w-full">
-							<Input
-								clearOnSubmit
-								id="newXpDisallowedPrefix"
-								initialValue=""
-								maxLength={12}
-								onChange={(text) => setNewDisallowedPrefix(text)}
-								onSubmit={() => {
-									if (
-										!xpDisallowedPrefixes.includes(newDisallowedPrefix) &&
-										xpDisallowedPrefixes.length < xpDisallowedPrefixesLimit
-									) {
-										const newArr = [...xpDisallowedPrefixes, newDisallowedPrefix];
-										setXpDisallowedPrefixes(newArr);
-										addChange("xpDisallowedPrefixes", newArr);
-									}
-								}}
-								placeholder="Enter a prefix to add to the disallowed list"
-								submitIcon={BiLayerPlus}
-								submitRef={newXpDisallowedPrefixSubmitRef}
-							/>
-						</div>
+					<div className="max-w-md divide-y-2">
+						<Input
+							clearOnSubmit
+							id="newXpDisallowedPrefix"
+							initialValue=""
+							maxLength={12}
+							onChange={(text) => setNewDisallowedPrefix(text)}
+							onSubmit={() => {
+								if (
+									!xpDisallowedPrefixes.includes(newDisallowedPrefix) &&
+									xpDisallowedPrefixes.length < xpDisallowedPrefixesLimit
+								) {
+									const newArr = [...xpDisallowedPrefixes, newDisallowedPrefix];
+									setXpDisallowedPrefixes(newArr);
+									addChange("xpDisallowedPrefixes", newArr);
+								}
+							}}
+							placeholder="Enter a prefix to add to the disallowed list"
+							submitIcon={MdPlaylistAdd}
+							submitRef={newXpDisallowedPrefixSubmitRef}
+						/>
 					</div>
 
 					{Boolean(xpDisallowedPrefixes.length) && (
-						<div className="mb-4 flex flex-row flex-wrap gap-2">
+						<div className="my-4 flex flex-row flex-wrap gap-2">
 							{xpDisallowedPrefixes.map((prefix, index) => (
 								<XpDisallowedPrefix
 									index={index}
@@ -605,17 +605,17 @@ export default function Leveling({ channels, settings, roles, openMenu }: Leveli
 				<Field>
 					<Label
 						htmlFor="topXpRole"
-						name="Top XP Role"
+						name="Daily Top Leveling Role"
 						url="https://docs.pepemanager.com/guides/setting-up-server-xp-leveling#adding-the-top-xp-role"
 					/>
-					<div className="w-full sm:w-1/2 sm:min-w-[20rem]">
+					<div className="w-full max-w-md sm:min-w-[20rem]">
 						<Selector
 							id="topXpRole"
 							initialItems={settings.topXpRole ? [settings.topXpRole] : []}
 							items={roles}
 							limit={1}
 							onSelect={(roleIds) => addChange("topXpRole", roleIds[0] ?? null)}
-							type="role"
+							type="Role"
 						/>
 					</div>
 				</Field>
@@ -623,7 +623,7 @@ export default function Leveling({ channels, settings, roles, openMenu }: Leveli
 				<Field>
 					<Label
 						htmlFor="noXpRoles"
-						name="No-XP Roles"
+						name="No Leveling Roles"
 						url="https://docs.pepemanager.com/guides/setting-up-server-xp-leveling#adding-no-xp-roles"
 					/>
 					<Selector
@@ -632,7 +632,7 @@ export default function Leveling({ channels, settings, roles, openMenu }: Leveli
 						items={roles}
 						limit={noXpRolesLimit}
 						onSelect={(roleIds) => addChange("noXpRoles", roleIds)}
-						type="role"
+						type="Role"
 					/>
 					<Subtitle text={`Maximum of ${noXpRolesLimit} roles.`} />
 				</Field>
@@ -640,24 +640,26 @@ export default function Leveling({ channels, settings, roles, openMenu }: Leveli
 				<Field>
 					<Label
 						htmlFor="autoResetLevels"
-						name="Auto Reset Levels"
+						name="Automatic Level Resets"
 						url="https://docs.pepemanager.com/guides/setting-up-server-xp-leveling#automatically-resetting-levels"
 					/>
-					<BasicSelect
-						closeOnSelect
-						initialItem={resolveAutoResetLevelsNameByType(settings.autoResetLevels)}
-						items={["None", "Leave", "Ban", "Ban & Leave"]}
-						onSelect={(option) => addChange("autoResetLevels", resolveAutoResetLevelsTypeByName(option))}
-					/>
+					<div className="max-w-md">
+						<BasicSelect
+							closeOnSelect
+							initialItem={resolveAutoResetLevelsNameByType(settings.autoResetLevels)}
+							items={["None", "Leave", "Ban", "Ban & Leave"]}
+							onSelect={(option) => addChange("autoResetLevels", resolveAutoResetLevelsTypeByName(option))}
+						/>
+					</div>
 				</Field>
 
 				<Field>
 					<Label
 						htmlFor="vanity"
-						name="Leaderboard Vanity"
+						name="Leaderboard Vanity URL"
 						url="https://docs.pepemanager.com/guides/setting-a-leaderboard-vanity-url"
 					/>
-					<div className="flex max-w-[20rem] flex-row gap-4">
+					<div className="max-w-md">
 						<Input
 							id="vanity"
 							initialValue={settings.vanity ?? ""}

@@ -43,7 +43,7 @@ export default function Autorole({ settings, roles, openMenu }: AutoroleProps) {
 				<Field>
 					<Label
 						htmlFor="autoRole"
-						name="Autoroles"
+						name="On Join Roles"
 						url="https://docs.pepemanager.com/guides/automatically-added-roles-with-timeout"
 					/>
 					<Selector
@@ -52,7 +52,7 @@ export default function Autorole({ settings, roles, openMenu }: AutoroleProps) {
 						initialItems={(settings.autoRole as Snowflake[] | null) ?? []}
 						items={roles}
 						onSelect={(roleIds) => addChange("autoRole", roleIds)}
-						type="role"
+						type="Role"
 					/>
 					<Subtitle text={`Maximum of ${autoRoleLimit} roles.`} />
 				</Field>
@@ -60,10 +60,10 @@ export default function Autorole({ settings, roles, openMenu }: AutoroleProps) {
 				<Field>
 					<Label
 						htmlFor="autoRoleTimeout"
-						name="Autorole Timeout (Minutes)"
+						name="On Join Role Timer (Minutes)"
 						url="https://docs.pepemanager.com/guides/automatically-added-roles-with-timeout#setting-your-timeout"
 					/>
-					<div className="max-w-[20rem]">
+					<div className="max-w-md">
 						<Input
 							id="autoRoleTimeout"
 							initialValue={

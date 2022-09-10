@@ -117,6 +117,7 @@ export default function Menu({ closeMenu, guild, guildId: argGuildId, menuOpen, 
 					body: JSON.stringify(clonedData),
 					credentials: "include",
 					headers: { "Content-Type": "application/json" },
+					method: "PATCH",
 				});
 
 				if (response.status !== 200) {

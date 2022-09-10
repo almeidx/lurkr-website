@@ -49,17 +49,17 @@ export default function Milestones({ channels, settings, roles, openMenu }: Mile
 				<Field>
 					<Label
 						htmlFor="milestonesChannel"
-						name="Milestones Channel"
+						name="Milestone Channel"
 						url="https://docs.pepemanager.com/guides/automatically-controlled-member-milestones#setting-the-milestones-channel"
 					/>
-					<div className="max-w-[20rem]">
+					<div className="max-w-md">
 						<Selector
 							id="milestonesChannel"
 							initialItems={settings.milestonesChannel ? [settings.milestonesChannel] : []}
 							items={channels}
 							limit={1}
 							onSelect={(channelIds) => addChange("milestonesChannel", channelIds[0] ?? null)}
-							type="channel"
+							type="Channel"
 						/>
 					</div>
 				</Field>
@@ -67,10 +67,10 @@ export default function Milestones({ channels, settings, roles, openMenu }: Mile
 				<Field>
 					<Label
 						htmlFor="milestonesInterval"
-						name="Milestones Interval"
+						name="Milestone Announcement Interval"
 						url="https://docs.pepemanager.com/guides/automatically-controlled-member-milestones#setting-the-milestones-interval"
 					/>
-					<div className="max-w-[20rem]">
+					<div className="max-w-md">
 						<Input
 							id="milestonesInterval"
 							initialValue={settings.milestonesInterval.toString()}
@@ -87,7 +87,7 @@ export default function Milestones({ channels, settings, roles, openMenu }: Mile
 				<Field>
 					<Label
 						htmlFor="milestonesMessage"
-						name="Milestone Message"
+						name="Milestone Announcement Message"
 						url="https://docs.pepemanager.com/guides/automatically-controlled-member-milestones#setting-the-milestones-message"
 					/>
 					<Textarea
@@ -103,7 +103,7 @@ export default function Milestones({ channels, settings, roles, openMenu }: Mile
 				<Field>
 					<Label
 						htmlFor="milestoneRoles"
-						name="Milestone Roles"
+						name="Milestone Reward Roles"
 						url="https://docs.pepemanager.com/guides/automatically-controlled-member-milestones#setting-the-milestones-role"
 					/>
 					<Selector
@@ -112,7 +112,7 @@ export default function Milestones({ channels, settings, roles, openMenu }: Mile
 						items={roles}
 						limit={milestonesRolesLimit}
 						onSelect={(roleIds) => addChange("milestonesRoles", roleIds)}
-						type="role"
+						type="Role"
 					/>
 					<Subtitle text={`Maximum of ${milestonesRolesLimit} roles.`} />
 				</Field>

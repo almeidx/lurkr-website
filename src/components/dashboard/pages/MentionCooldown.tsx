@@ -43,10 +43,10 @@ export default function MentionCooldown({ settings, roles, openMenu }: MentionCo
 				<Field>
 					<Label
 						htmlFor="mentionCooldown"
-						name="Mention Cooldown (Minutes)"
+						name="Role Mention Cooldown Time (Minutes)"
 						url="https://docs.pepemanager.com/guides/automatic-role-mention-cooldown#setting-up-the-cooldown-time"
 					/>
-					<div className="max-w-[20rem]">
+					<div className="max-w-md">
 						<Input
 							id="mentionCooldown"
 							initialValue={formatNumberToNDecimalPlaces(
@@ -65,7 +65,7 @@ export default function MentionCooldown({ settings, roles, openMenu }: MentionCo
 				<Field>
 					<Label
 						htmlFor="mentionCooldownRoles"
-						name="Mention Cooldown Roles"
+						name="Role Mention Cooldown Roles"
 						url="https://docs.pepemanager.com/guides/automatic-role-mention-cooldown#setting-up-the-roles"
 					/>
 					<Selector
@@ -74,7 +74,7 @@ export default function MentionCooldown({ settings, roles, openMenu }: MentionCo
 						initialItems={(settings.mentionCooldownRoles as Snowflake[] | null) ?? []}
 						items={roles}
 						onSelect={(roleIds) => addChange("mentionCooldownRoles", roleIds)}
-						type="role"
+						type="Role"
 					/>
 					<Subtitle text={`Maximum of ${mentionCooldownRolesLimit} roles.`} />
 				</Field>

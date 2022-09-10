@@ -26,11 +26,11 @@ interface SelectorProps {
 	items: Items;
 	limit: number;
 	onSelect: OnSelectFn;
-	type: "channel" | "role";
+	type: "Channel" | "Role";
 }
 
 const resolveItem = (item: Channel | Role | null, type: SelectorProps["type"]) =>
-	type === "channel"
+	type === "Channel"
 		? { id: item?.id, name: item?.name } // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
 		: ({ color: (item as Role | null)?.color, id: item?.id, name: item?.name } as Role);
 
@@ -170,7 +170,7 @@ export default function Selector({ id, limit, items, initialItems, onSelect, typ
 						initialValue={""}
 						maxLength={50}
 						onChange={(text) => setSearchTerm(text)}
-						placeholder={`${type === "channel" ? "Channel" : "Role"} name`}
+						placeholder={`${type} name`}
 					/>
 				</div>
 
@@ -182,7 +182,7 @@ export default function Selector({ id, limit, items, initialItems, onSelect, typ
 							key={item.id}
 							onClick={handleClickedItem}
 						>
-							{type === "role" && "color" in item && (
+							{type === "Role" && "color" in item && (
 								<div
 									data-id={item.id}
 									className="mr-2 h-4 w-4 select-none rounded-full"
@@ -190,7 +190,7 @@ export default function Selector({ id, limit, items, initialItems, onSelect, typ
 								/>
 							)}
 							<div data-id={item.id} className=" select-none break-all leading-4">
-								{type === "channel" && "#"}
+								{type === "Channel" && "#"}
 								{item.name}
 							</div>
 						</div>

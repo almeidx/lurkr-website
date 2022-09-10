@@ -43,7 +43,7 @@ export default function Miscellaneous({ channels, settings, openMenu }: Miscella
 					<div className="flex w-full flex-row items-center justify-between gap-x-3 rounded-lg bg-discord-dark p-2 pl-4">
 						<Label
 							htmlFor="storeCounts"
-							name="Store Member Counts"
+							name="Member Join/Leave Tracking"
 							url="https://docs.pepemanager.com/config-commands/config/toggle"
 							withMargin={false}
 						/>
@@ -59,7 +59,7 @@ export default function Miscellaneous({ channels, settings, openMenu }: Miscella
 				<Field>
 					<Label
 						htmlFor="autoPublishChannels"
-						name="Auto Publish Channels"
+						name="Auto-Publishing Announcement Channels"
 						url="https://docs.pepemanager.com/guides/automatically-published-announcements"
 					/>
 					<Selector
@@ -68,7 +68,7 @@ export default function Miscellaneous({ channels, settings, openMenu }: Miscella
 						initialItems={(settings.autoPublishChannels as Snowflake[] | null) ?? []}
 						items={channels}
 						onSelect={(channelIds) => addChange("autoPublishChannels", channelIds)}
-						type="channel"
+						type="Channel"
 					/>
 					<Subtitle text={`Maximum of ${autoPublishChannelsLimit} channels.`} />
 				</Field>

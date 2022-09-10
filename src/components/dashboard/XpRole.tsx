@@ -17,16 +17,21 @@ interface XpRoleProps {
 
 export default function XpRole({ level, initialRoles, onChange, premium, roles, disabled = false }: XpRoleProps) {
 	return (
-		<div className="flex flex-col items-center justify-between gap-y-2 rounded-lg bg-discord-dark py-2 px-4 shadow-lg">
-			<div className="flex w-full">
+		<div className="flex flex-col items-center justify-between gap-y-2 rounded-lg bg-discord-dark px-4 py-2 shadow-lg">
+			<div className="flex h-8 w-full">
 				<label
-					className="mr-2 flex shrink-0 items-center justify-center rounded-full bg-discord-not-quite-black px-4 text-white shadow-lg"
+					className="mr-2 flex shrink-0 items-center justify-center rounded-full bg-discord-not-quite-black px-3 text-white shadow-lg"
 					htmlFor={`l-${level}-roles`}
 				>
 					Level {level}
 				</label>
-				<MdClear onClick={() => onChange([], level)} className="ml-auto h-12 w-8 cursor-pointer py-3 text-red-500" />
+
+				<MdClear
+					onClick={() => onChange([], level)}
+					className="ml-auto mt-0 h-8 w-8 cursor-pointer py-1 text-red-500"
+				/>
 			</div>
+
 			<div className="w-full">
 				<Selector
 					id={`l-${level}-roles`}
@@ -35,7 +40,7 @@ export default function XpRole({ level, initialRoles, onChange, premium, roles, 
 					initialItems={initialRoles}
 					items={roles}
 					onSelect={(roleIds) => onChange(roleIds, level)}
-					type="role"
+					type="Role"
 				/>
 			</div>
 		</div>
