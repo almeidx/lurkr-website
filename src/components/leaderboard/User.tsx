@@ -17,7 +17,7 @@ function makeUserAvatarUrl(id: Snowflake, hash: string | null, tag: string | nul
 	return hash
 		? userAvatarCdn(id, hash, 64, false)
 		: tag
-		? userDefaultAvatarCdn(tag.split(/#(\d{4})$/)[1], 64)
+		? userDefaultAvatarCdn(tag.split(/#(\d{4})$/)[1]!, 64)
 		: FALLBACK_AVATAR_PATH;
 }
 

@@ -1,12 +1,9 @@
+import { FaGlobe, FaUserFriends } from "react-icons/fa";
+import { IoMdChatbubbles } from "react-icons/io";
 import { MdClear } from "react-icons/md";
-import {
-	MultiplierType,
-	type DashboardChannels,
-	type DashboardDatabaseGuild,
-	type DashboardRoles,
-} from "../../graphql/queries/DashboardGuild";
+import { XpMultiplierType, type Channel, type Role } from "../../contexts/GuildContext";
+import { getDatabaseLimit } from "../../utils/common";
 import type { Snowflake } from "../../utils/constants";
-import { getDatabaseLimit } from "../../utils/utils";
 import Input from "../form/Input";
 import Selector from "../form/Selector";
 
@@ -15,16 +12,16 @@ export type XpMultiplierOnItemChangeFn = (itemIds: Snowflake[], id: string) => u
 export type XpMultiplierOnMultiplierChangeFn = (multiplier: string, id: string) => unknown;
 
 interface XpMultiplierProps {
-	channels: DashboardChannels;
+	channels: Channel[];
 	id: string;
 	multiplier: string;
 	onDelete: XpMultiplierOnDeleteFn;
 	onItemChange: XpMultiplierOnItemChangeFn;
 	onMultiplierChange: XpMultiplierOnMultiplierChangeFn;
 	premium: boolean;
-	roles: DashboardRoles;
+	roles: Role[];
 	targets: Snowflake[] | null;
-	type: DashboardDatabaseGuild["xpMultipliers"][0]["type"];
+	type: XpMultiplierType;
 }
 
 export default function XpMultiplier({
@@ -39,11 +36,18 @@ export default function XpMultiplier({
 	targets,
 	type,
 }: XpMultiplierProps) {
+	const Icon =
+		type === XpMultiplierType.Channel ? IoMdChatbubbles : type === XpMultiplierType.Role ? FaUserFriends : FaGlobe;
+
 	return (
 		<div className="relative flex w-full flex-row flex-wrap justify-between gap-y-2 rounded-lg bg-discord-dark p-2">
 			<div className="flex w-full">
-				<label className="ml-4 flex w-[6rem] items-center font-bold text-white" htmlFor={`m-${id}-selector`}>
-					{type[0].toUpperCase() + type.slice(1)}
+				<label
+					className="ml-4 flex w-28 flex-row items-center gap-2 text-center font-bold text-white"
+					htmlFor={`m-${id}-selector`}
+				>
+					<Icon />
+					{type[0]!.toUpperCase() + type.slice(1)}
 				</label>
 
 				<div className="w-[6rem]">
@@ -66,15 +70,15 @@ export default function XpMultiplier({
 				</div>
 			</div>
 
-			{type !== MultiplierType.Global && targets && (
+			{type !== XpMultiplierType.Global && targets && (
 				<div className="mx-2 w-full">
 					<Selector
 						id={`m-${id}-selector`}
 						limit={getDatabaseLimit("xpMultiplierTargets", premium).maxLength}
 						initialItems={targets}
-						items={type === MultiplierType.Channel ? channels : roles}
+						items={type === XpMultiplierType.Channel ? channels : roles}
 						onSelect={(ids) => onItemChange(ids, id)}
-						type={type === MultiplierType.Channel ? "channel" : "role"}
+						type={type}
 					/>
 				</div>
 			)}

@@ -1,11 +1,8 @@
 /* eslint-disable promise/prefer-await-to-callbacks, promise/prefer-await-to-then */
 
-import cloneDeep from "lodash.clonedeep";
 import { createContext, useCallback, useState, type ReactNode } from "react";
-import type { DatabaseChanges } from "../graphql/mutations/updateDatabaseGuild";
-import type { DashboardDatabaseGuild } from "../graphql/queries/DashboardGuild";
+import { getDatabaseLimit } from "../utils/common";
 import { API_BASE_URL, VANITY_REGEX, type DATABASE_LIMITS, type Snowflake } from "../utils/constants";
-import { getDatabaseLimit } from "../utils/utils";
 
 export type Section = "autorole" | "emojiList" | "leveling" | "mentionCooldown" | "milestones" | "miscellaneous";
 
@@ -13,9 +10,9 @@ interface VanityCheckResponse {
 	available: boolean;
 }
 
-const emojiListKeys: (keyof DatabaseChanges)[] = ["emojiListChannel"];
+const emojiListKeys: (keyof PatchGuildData)[] = ["emojiListChannel"];
 
-const levelingKeys: (keyof DatabaseChanges)[] = [
+const levelingKeys: (keyof PatchGuildData)[] = [
 	"noXpRoles",
 	"stackXpRoles",
 	"topXpRole",
@@ -27,7 +24,7 @@ const levelingKeys: (keyof DatabaseChanges)[] = [
 	"xpWhitelistedChannels",
 ];
 
-const milestonesKeys: (keyof DatabaseChanges)[] = [
+const milestonesKeys: (keyof PatchGuildData)[] = [
 	"milestonesChannel",
 	"milestonesInterval",
 	"milestonesMessage",
@@ -35,14 +32,14 @@ const milestonesKeys: (keyof DatabaseChanges)[] = [
 ];
 
 interface GuildContextData {
-	addChange<T extends keyof DashboardDatabaseGuild & keyof DatabaseChanges>(key: T, value: DatabaseChanges[T]): void;
-	changes: Partial<DatabaseChanges>;
+	addChange<T extends keyof GuildSettings & keyof PatchGuildData>(key: T, value: PatchGuildData[T]): void;
+	changes: Partial<PatchGuildData>;
 	clearChanges(): void;
-	data: DatabaseChanges | null;
+	data: PatchGuildData | null;
 	errors: string[];
 	guildId: Snowflake | null;
 	section: Section;
-	updateData(newData: DashboardDatabaseGuild): void;
+	updateData(newData: GuildSettings): void;
 	updateGuildId(newId: Snowflake): void;
 	updateSection(newSection: Section): void;
 	warnings: string[];
@@ -59,15 +56,15 @@ let vanityAvailabilityTimeout: NodeJS.Timeout | undefined;
 export default function GuildContextProvider({ children }: GuildContextProps) {
 	const [guildId, setGuildId] = useState<Snowflake | null>(null);
 	const [section, setSection] = useState<Section>("leveling");
-	const [changes, setChanges] = useState<Partial<DatabaseChanges>>({});
-	const [data, setData] = useState<DashboardDatabaseGuild | null>(null);
+	const [changes, setChanges] = useState<Partial<PatchGuildData>>({});
+	const [data, setData] = useState<GuildSettings | null>(null);
 	const [errors, setErrors] = useState<string[]>([]);
 	const [warnings, setWarnings] = useState<string[]>([]);
 
 	const addNewError = useCallback((error: string) => setErrors((prevErrors) => [...prevErrors, error]), []);
 
 	const updateErrorsAndWarnings = useCallback(
-		(changes: Partial<DatabaseChanges>, data: DashboardDatabaseGuild | null) => {
+		(changes: Partial<PatchGuildData>, data: GuildSettings | null) => {
 			if (!Object.keys(changes).length) {
 				setErrors([]);
 				setWarnings([]);
@@ -207,18 +204,14 @@ export default function GuildContextProvider({ children }: GuildContextProps) {
 	);
 
 	const addChange = useCallback(
-		<
-			T extends keyof DashboardDatabaseGuild & keyof DatabaseChanges = keyof DashboardDatabaseGuild &
-				keyof DatabaseChanges,
-		>(
+		<T extends keyof GuildSettings & keyof PatchGuildData = keyof GuildSettings & keyof PatchGuildData>(
 			key: T,
-			value: DatabaseChanges[T],
+			value: PatchGuildData[T],
 		) => {
-			const clone = cloneDeep<Partial<DatabaseChanges>>(changes);
+			const clone = JSON.parse(JSON.stringify(changes)) as Partial<PatchGuildData>;
 
 			if (
 				data &&
-				// TODO: Figure out the types
 				(data[key] === value ||
 					(Array.isArray(value) && !value.length && data[key] === null) ||
 					(Array.isArray(data[key]) && !(data[key] as any[]).length && value === null) ||
@@ -274,4 +267,109 @@ export default function GuildContextProvider({ children }: GuildContextProps) {
 			{children}
 		</GuildContext.Provider>
 	);
+}
+
+export interface GuildSettings {
+	autoPublishChannels: string[];
+	autoResetLevels: AutoResetLevels;
+	autoRole: string[];
+	autoRoleTimeout: number | null;
+	emojiList: boolean;
+	emojiListChannel: string | null;
+	id: string;
+	levels: boolean;
+	mentionCooldown: number | null;
+	mentionCooldownRoles: string[];
+	milestonesChannel: string | null;
+	milestonesInterval: number;
+	milestonesMessage: string | null;
+	milestonesRoles: string[];
+	noXpRoles: string[];
+	prefix: string;
+	premium: boolean;
+	prioritiseMultiplierRoleHierarchy: boolean;
+	stackXpRoles: boolean;
+	storeCounts: boolean;
+	storeMilestones: boolean;
+	topXp: string | null;
+	topXpRole: string | null;
+	vanity: string | null;
+	xpAnnounceLevels: number[];
+	xpAnnounceMinimumLevel: number;
+	xpAnnounceMultipleOf: number | null;
+	xpAnnounceOnlyXpRoles: boolean;
+	xpBlacklistedChannels: string[];
+	xpDisallowedPrefixes: string[];
+	xpInThreads: boolean;
+	xpMessage: string | null;
+	xpMultipliers: XpMultiplier[];
+	xpResponseType: string | null;
+	xpRoleRewards: XpRoleReward[];
+	xpWhitelistedChannels: string[];
+}
+
+export enum AutoResetLevels {
+	None,
+	Leave,
+	Ban,
+	Both,
+}
+
+export enum XpMultiplierType {
+	Channel = "Channel",
+	Global = "Global",
+	Role = "Role",
+}
+
+export interface XpMultiplier {
+	id: string;
+	multiplier: number;
+	targets: string[];
+	type: XpMultiplierType;
+}
+
+export interface XpRoleReward {
+	level: number;
+	roleIds: string[];
+}
+
+export type PatchGuildData = Partial<Omit<GuildSettings, "id" | "premium">>;
+
+export interface Channel {
+	id: Snowflake;
+	name: string;
+}
+
+export interface DiscordGuild {
+	icon: string | null;
+	id: Snowflake;
+	name: string;
+	roles: Role[];
+}
+
+export interface Role {
+	color: number;
+	id: Snowflake;
+	name: string;
+	position: number;
+}
+
+export interface ILevel {
+	avatar: string | null;
+	level: number;
+	tag: string | null;
+	userId: Snowflake;
+	xp: number;
+}
+
+export interface IMultiplier {
+	id: string;
+	multiplier: number;
+	targets: Snowflake[];
+	type: "Channel" | "Global" | "Role";
+}
+
+export interface RoleReward {
+	level: number;
+	roles: Role[];
 }

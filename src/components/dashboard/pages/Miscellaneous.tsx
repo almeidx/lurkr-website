@@ -1,8 +1,7 @@
 import { useContext, useEffect } from "react";
-import { GuildContext } from "../../../contexts/GuildContext";
-import type { DashboardChannels, DashboardDatabaseGuild } from "../../../graphql/queries/DashboardGuild";
+import { GuildContext, type Channel, type GuildSettings } from "../../../contexts/GuildContext";
+import { getDatabaseLimit } from "../../../utils/common";
 import type { Snowflake } from "../../../utils/constants";
-import { getDatabaseLimit } from "../../../utils/utils";
 import Field from "../../form/Field";
 import Fieldset from "../../form/Fieldset";
 import Label from "../../form/Label";
@@ -12,16 +11,16 @@ import Toggle from "../../form/Toggle";
 import Header from "../Header";
 
 interface MiscellaneousProps {
-	channels: DashboardChannels;
-	database: DashboardDatabaseGuild;
+	channels: Channel[];
 	openMenu(): void;
+	settings: GuildSettings;
 }
 
-export default function Miscellaneous({ channels, database, openMenu }: MiscellaneousProps) {
+export default function Miscellaneous({ channels, settings, openMenu }: MiscellaneousProps) {
 	// eslint-disable-next-line @typescript-eslint/unbound-method
 	const { addChange } = useContext(GuildContext);
 
-	const autoPublishChannelsLimit = getDatabaseLimit("autoPublishChannels", database.premium).maxLength;
+	const autoPublishChannelsLimit = getDatabaseLimit("autoPublishChannels", settings.premium).maxLength;
 
 	useEffect(() => {
 		window.scroll({
@@ -44,14 +43,14 @@ export default function Miscellaneous({ channels, database, openMenu }: Miscella
 					<div className="flex w-full flex-row items-center justify-between gap-x-3 rounded-lg bg-discord-dark p-2 pl-4">
 						<Label
 							htmlFor="storeCounts"
-							name="Store Member Counts"
+							name="Member Join/Leave Tracking"
 							url="https://docs.pepemanager.com/config-commands/config/toggle"
 							withMargin={false}
 						/>
 						<Toggle
 							size="small"
 							id="storeCounts"
-							initialValue={database.storeCounts}
+							initialValue={settings.storeCounts}
 							onChange={(state) => addChange("storeCounts", state)}
 						/>
 					</div>
@@ -60,16 +59,16 @@ export default function Miscellaneous({ channels, database, openMenu }: Miscella
 				<Field>
 					<Label
 						htmlFor="autoPublishChannels"
-						name="Auto Publish Channels"
+						name="Auto-Publishing Announcement Channels"
 						url="https://docs.pepemanager.com/guides/automatically-published-announcements"
 					/>
 					<Selector
 						id="autoPublishChannels"
 						limit={autoPublishChannelsLimit}
-						initialItems={(database.autoPublishChannels as Snowflake[] | null) ?? []}
+						initialItems={(settings.autoPublishChannels as Snowflake[] | null) ?? []}
 						items={channels}
 						onSelect={(channelIds) => addChange("autoPublishChannels", channelIds)}
-						type="channel"
+						type="Channel"
 					/>
 					<Subtitle text={`Maximum of ${autoPublishChannelsLimit} channels.`} />
 				</Field>

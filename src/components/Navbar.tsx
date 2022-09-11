@@ -120,7 +120,7 @@ export default function Navbar() {
 								</div>
 							) : (
 								<button
-									className="mx-2 mt-6 flex flex-row items-center justify-center gap-2 rounded-md bg-blurple py-1 px-2 text-white shadow-md transition-colors duration-100 hover:bg-[#414AB9] focus:outline-none  md:mx-0 md:mt-0 md:ml-auto"
+									className="mx-2 mt-6 flex flex-row items-center justify-center gap-2 rounded-md bg-blurple py-1 px-2 text-white shadow-md transition-colors duration-100 hover:bg-[#414AB9] focus:outline-none md:mx-0 md:mt-0 md:ml-auto"
 									onClick={(event) => {
 										event.preventDefault();
 										window.open(`${API_BASE_URL}/auth`, "_self");

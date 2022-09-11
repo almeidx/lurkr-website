@@ -6,22 +6,15 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import Script from "next/script";
 import NextProgress from "next-progress";
-import { useEffect, useMemo } from "react";
-import { RelayEnvironmentProvider } from "react-relay";
-import type { RecordMap } from "relay-runtime/lib/store/RelayStoreTypes";
+import { useEffect } from "react";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import GuildProvider from "../contexts/GuildContext";
 import UserProvider from "../contexts/UserContext";
-import environment from "../relay/environment";
+import { inProductionEnvironment } from "../utils/common";
 import * as gtag from "../utils/gtag";
-import { inProductionEnvironment } from "../utils/utils";
 
-interface Props {
-	records?: RecordMap;
-}
-
-export default function MyApp({ Component, pageProps, records: rec }: AppProps & Props) {
+export default function MyApp({ Component, pageProps }: AppProps) {
 	const router = useRouter();
 
 	useEffect(() => {
@@ -38,61 +31,35 @@ export default function MyApp({ Component, pageProps, records: rec }: AppProps &
 		};
 	}, [router.events]);
 
-	// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-	const records: RecordMap = useMemo(() => {
-		if (rec) {
-			return rec;
-		}
-
-		if (typeof document !== "undefined") {
-			const recordsData = document.querySelector("#relay-data")?.innerHTML;
-			// eslint-disable-next-line @typescript-eslint/no-unsafe-return
-			if (recordsData) {
-				return JSON.parse(Buffer.from(recordsData, "base64").toString());
-			}
-		}
-
-		return {};
-	}, [rec]);
-
 	return (
-		<RelayEnvironmentProvider environment={environment(records)}>
-			<UserProvider>
-				<GuildProvider>
-					<Head>
-						<title>Pepe Manager</title>
-					</Head>
+		<UserProvider>
+			<GuildProvider>
+				<Head>
+					<title>Pepe Manager</title>
+				</Head>
 
-					{inProductionEnvironment() && (
-						<>
-							{/* Global Site Tag (gtag.js) - Google Analytics */}
-							<Script
-								strategy="afterInteractive"
-								src={`https://www.googletagmanager.com/gtag/js?id=${gtag.GA_TRACKING_ID}`}
-							/>
-							<Script
-								id="gtag-init"
-								strategy="afterInteractive"
-								dangerouslySetInnerHTML={{
-									__html: `
-                    window.dataLayer = window.dataLayer || [];
-                    function gtag(){dataLayer.push(arguments);}
-                    gtag('js', new Date());
-                    gtag('config', '${gtag.GA_TRACKING_ID}', {
-                      page_path: window.location.pathname,
-                    });
-                  `,
-								}}
-							/>
-						</>
-					)}
+				{inProductionEnvironment() && (
+					<>
+						{/* Global Site Tag (gtag.js) - Google Analytics */}
+						<Script
+							strategy="afterInteractive"
+							src={`https://www.googletagmanager.com/gtag/js?id=${gtag.GA_TRACKING_ID}`}
+						/>
+						<Script
+							id="gtag-init"
+							strategy="afterInteractive"
+							dangerouslySetInnerHTML={{
+								__html: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date);gtag('config','${gtag.GA_TRACKING_ID}',{page_path:window.location.pathname});`,
+							}}
+						/>
+					</>
+				)}
 
-					<Navbar />
-					<NextProgress color="#2ecc71" />
-					<Component {...pageProps} />
-					<Footer />
-				</GuildProvider>
-			</UserProvider>
-		</RelayEnvironmentProvider>
+				<Navbar />
+				<NextProgress color="#2ecc71" />
+				<Component {...pageProps} />
+				<Footer />
+			</GuildProvider>
+		</UserProvider>
 	);
 }

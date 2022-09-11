@@ -1,8 +1,7 @@
 import { useContext, useEffect } from "react";
-import { GuildContext } from "../../../contexts/GuildContext";
-import type { DashboardDatabaseGuild, DashboardRoles } from "../../../graphql/queries/DashboardGuild";
+import { GuildContext, type GuildSettings, type Role } from "../../../contexts/GuildContext";
+import { formatNumberToNDecimalPlaces, getDatabaseLimit, parseFloatStrict } from "../../../utils/common";
 import type { Snowflake } from "../../../utils/constants";
-import { formatNumberToNDecimalPlaces, getDatabaseLimit, parseFloatStrict } from "../../../utils/utils";
 import Field from "../../form/Field";
 import Fieldset from "../../form/Fieldset";
 import Input from "../../form/Input";
@@ -12,17 +11,17 @@ import Subtitle from "../../form/Subtitle";
 import Header from "../Header";
 
 interface MentionCooldownProps {
-	database: DashboardDatabaseGuild;
 	openMenu(): void;
-	roles: DashboardRoles;
+	roles: Role[];
+	settings: GuildSettings;
 }
 
-export default function MentionCooldown({ database, roles, openMenu }: MentionCooldownProps) {
+export default function MentionCooldown({ settings, roles, openMenu }: MentionCooldownProps) {
 	// eslint-disable-next-line @typescript-eslint/unbound-method
 	const { addChange } = useContext(GuildContext);
 
-	const mentionCooldownLimits = getDatabaseLimit("mentionCooldown", database.premium);
-	const mentionCooldownRolesLimit = getDatabaseLimit("mentionCooldownRoles", database.premium).maxLength;
+	const mentionCooldownLimits = getDatabaseLimit("mentionCooldown", settings.premium);
+	const mentionCooldownRolesLimit = getDatabaseLimit("mentionCooldownRoles", settings.premium).maxLength;
 
 	useEffect(() => {
 		window.scroll({
@@ -44,13 +43,15 @@ export default function MentionCooldown({ database, roles, openMenu }: MentionCo
 				<Field>
 					<Label
 						htmlFor="mentionCooldown"
-						name="Mention Cooldown (Minutes)"
+						name="Role Mention Cooldown Time (Minutes)"
 						url="https://docs.pepemanager.com/guides/automatic-role-mention-cooldown#setting-up-the-cooldown-time"
 					/>
-					<div className="max-w-[20rem]">
+					<div className="max-w-md">
 						<Input
 							id="mentionCooldown"
-							initialValue={formatNumberToNDecimalPlaces(database.mentionCooldown / 60_000)}
+							initialValue={formatNumberToNDecimalPlaces(
+								settings.mentionCooldown ? settings.mentionCooldown / 60_000 : 0,
+							)}
 							maxLength={5}
 							onChange={(text) => addChange("mentionCooldown", parseFloatStrict(text))}
 							placeholder="Enter the role mention cooldown"
@@ -64,16 +65,16 @@ export default function MentionCooldown({ database, roles, openMenu }: MentionCo
 				<Field>
 					<Label
 						htmlFor="mentionCooldownRoles"
-						name="Mention Cooldown Roles"
+						name="Role Mention Cooldown Roles"
 						url="https://docs.pepemanager.com/guides/automatic-role-mention-cooldown#setting-up-the-roles"
 					/>
 					<Selector
 						id="mentionCooldownRoles"
 						limit={mentionCooldownRolesLimit}
-						initialItems={(database.mentionCooldownRoles as Snowflake[] | null) ?? []}
+						initialItems={(settings.mentionCooldownRoles as Snowflake[] | null) ?? []}
 						items={roles}
 						onSelect={(roleIds) => addChange("mentionCooldownRoles", roleIds)}
-						type="role"
+						type="Role"
 					/>
 					<Subtitle text={`Maximum of ${mentionCooldownRolesLimit} roles.`} />
 				</Field>

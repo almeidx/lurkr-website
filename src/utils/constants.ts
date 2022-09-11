@@ -1,4 +1,3 @@
-import { stripIndents } from "common-tags";
 import type { ShowcaseProps } from "../components/Showcase";
 
 // TODO: Use `${bigint}`
@@ -211,27 +210,6 @@ export function getRequiredXp(level: number): number {
 	return level === 0 ? 0 : 100 + 50 * (level - 1) ** 2;
 }
 
-export const DATABASE_DEFAULTS = {
-	autoResetLevels: 0 as const,
-	emojiList: false,
-	levels: false,
-	mentionCooldown: 600_000,
-	milestonesInterval: 100,
-	milestonesMessage: stripIndents`
-    <a:aPES_Cog:498482209494401054><a:aPES_Cog:498482209494401054><a:aPES_Cog:498482209494401054>
-    **{milestone} Members**
-    <a:aPES_Cog:498482209494401054><a:aPES_Cog:498482209494401054><a:aPES_Cog:498482209494401054>
-
-    <:PES2_Party:685143619501293616> Congratulations to {user}, you were the {milestone}th person to join!
-  `,
-	prioritiseMultiplierRoleHierarchy: false,
-	stackXpRoles: true,
-	storeCounts: true,
-	storeMilestones: false,
-	xpMessage: "<:PES_Stonks:800129864870133760> {user} has reached level **{level}**",
-	xpResponseType: "channel" as const,
-};
-
 export const DATABASE_LIMITS = {
 	autoPublishChannels: { maxLength: 5 },
 	autoRole: { maxLength: 5 },
@@ -272,4 +250,5 @@ export const DATABASE_PREMIUM_LIMITS = {
 	xpRolesPerLevel: { maxLength: 25 },
 };
 
+// Length is not being validated here as it's done separately
 export const VANITY_REGEX = /^[\da-z]+$/i;

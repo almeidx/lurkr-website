@@ -9,7 +9,7 @@
 		"neon/prettier",
 		"plugin:tailwindcss/recommended"
 	],
-	"ignorePatterns": [".next/*", ".vercel/*", ".yarn/*", "node_modules/*", "**/__generated__/*", "next-env.d.ts"],
+	"ignorePatterns": [".next/*", ".vercel/*", ".yarn/*", "node_modules/*", "next-env.d.ts"],
 	"parserOptions": {
 		"project": "./tsconfig.eslint.json"
 	},
@@ -18,7 +18,8 @@
 		"default-case": 0,
 		"no-duplicate-imports": 2,
 		"no-warning-comments": 0,
-		"prefer-named-capture-group": 0
+		"prefer-named-capture-group": 0,
+		"tailwindcss/no-custom-classname": 0
 	},
 	"settings": {
 		"react": {

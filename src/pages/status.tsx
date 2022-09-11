@@ -4,8 +4,8 @@ import { useRef, useState } from "react";
 import Message from "../components/Message";
 import Shard from "../components/Shard";
 import Input from "../components/form/Input";
+import { isValidSnowflake } from "../utils/common";
 import { type Snowflake, BOT_API_BASE_URL } from "../utils/constants";
-import { isValidSnowflake } from "../utils/utils";
 
 interface GetStatsResponse {
 	shards: {

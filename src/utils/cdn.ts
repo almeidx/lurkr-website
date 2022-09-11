@@ -10,10 +10,11 @@ type ImageSizes = 1_024 | 2_048 | 4_096 | 16 | 32 | 64 | 128 | 256 | 512;
  * @param size - The size for the icon.
  * @param allowAnimated - Whether to allow animated icons.
  */
-export const guildIconCdn = (id: Snowflake, hash: string, size: ImageSizes, allowAnimated = true) =>
-	`https://cdn.discordapp.com/icons/${id}/${hash}.${
+export function guildIconCdn(id: Snowflake, hash: string, size: ImageSizes, allowAnimated = true) {
+	return `https://cdn.discordapp.com/icons/${id}/${hash}.${
 		allowAnimated && hash.startsWith("a_") ? "gif" : "webp"
 	}?size=${size}`;
+}
 
 /**
  * Resolves a Discord user avatar CDN URL.
@@ -23,10 +24,11 @@ export const guildIconCdn = (id: Snowflake, hash: string, size: ImageSizes, allo
  * @param size - The size for the avatar.
  * @param allowAnimated - Whether to allow animated avatars.
  */
-export const userAvatarCdn = (id: Snowflake, hash: string, size: ImageSizes, allowAnimated = true) =>
-	`https://cdn.discordapp.com/avatars/${id}/${hash}.${
+export function userAvatarCdn(id: Snowflake, hash: string, size: ImageSizes, allowAnimated = true) {
+	return `https://cdn.discordapp.com/avatars/${id}/${hash}.${
 		allowAnimated && hash.startsWith("a_") ? "gif" : "webp"
 	}?size=${size}`;
+}
 
 /**
  * Resolves a Discord user default avatar CDN URL.
@@ -34,5 +36,6 @@ export const userAvatarCdn = (id: Snowflake, hash: string, size: ImageSizes, all
  * @param discriminator - The user discriminator.
  * @param size - The size for the avatar.
  */
-export const userDefaultAvatarCdn = (discriminator: string, size: ImageSizes) =>
-	`https://cdn.discordapp.com/avatars/${Number.parseInt(discriminator, 10) % 4}.webp?size=${size}`;
+export function userDefaultAvatarCdn(discriminator: string, size: ImageSizes) {
+	return `https://cdn.discordapp.com/avatars/${Number.parseInt(discriminator, 10) % 4}.webp?size=${size}`;
+}

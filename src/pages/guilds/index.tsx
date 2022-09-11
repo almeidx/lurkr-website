@@ -1,43 +1,56 @@
 import type { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import Head from "next/head";
 import { useContext } from "react";
-import { fetchQuery } from "relay-runtime";
-import type { UserGuildsQuery, UserGuildsQuery$data } from "../../__generated__/UserGuildsQuery.graphql";
 import Failure from "../../components/Failure";
 import Guild from "../../components/Guild";
-import { UserContext } from "../../contexts/UserContext";
-import UserGuilds from "../../graphql/queries/UserGuilds";
-import environment from "../../relay/environment";
-import { removeNonStringValues } from "../../utils/utils";
+import { UserContext, type UserGuild } from "../../contexts/UserContext";
+import { API_BASE_URL } from "../../utils/constants";
 
-interface GuildsProps {
-	guilds: UserGuildsQuery$data["getUserGuilds"];
+interface ErrorProps {
+	error: string;
+	withSignIn?: boolean;
 }
 
-export const getServerSideProps: GetServerSideProps<GuildsProps> = async (ctx) => {
-	const env = environment(undefined, removeNonStringValues(ctx.req.headers));
-	const res = await fetchQuery<UserGuildsQuery>(env, UserGuilds, { withPermissions: true }).toPromise();
+export const getServerSideProps: GetServerSideProps<ErrorProps | { guilds: GetGuildsMeResult }> = async (ctx) => {
+	const response = await fetch(`${API_BASE_URL}/guilds/@me?withPermissions=true`, {
+		credentials: "include",
+		headers: ctx.req.headers.cookie ? { cookie: ctx.req.headers.cookie } : {},
+	}).catch(() => null);
+
+	if (!response || response.status === 500) {
+		return { props: { error: "Failed to retrieve guilds. Try again later" } };
+	}
+
+	if (response.status === 401) {
+		return { props: { error: "You need to sign in to view this page", withSignIn: true } };
+	}
+
+	const data = (await response.json()) as GetGuildsMeResult;
+
+	if (!data.length) {
+		return { props: { error: "You are not the manager of any guilds" } };
+	}
 
 	return {
-		props: { guilds: res?.getUserGuilds ? [...res.getUserGuilds].sort((a, b) => a.name.localeCompare(b.name)) : null },
+		props: { guilds: data.sort((a, b) => a.name.localeCompare(b.name)) },
 	};
 };
 
-export default function Guilds({ guilds }: InferGetServerSidePropsType<typeof getServerSideProps>) {
+export default function Guilds(props: InferGetServerSidePropsType<typeof getServerSideProps>) {
 	const { authenticated } = useContext(UserContext);
 
-	if (!authenticated) {
-		return <Failure message="You need to sign in to view this page." />;
+	if ("error" in props) {
+		return <Failure href="/" message={props.error} withSignIn={props.withSignIn} />;
 	}
 
-	if (!guilds) {
-		return <Failure message="You are not the manager of any servers." />;
+	if (!authenticated) {
+		return <Failure href="/" message="You need to sign in to view this page" />;
 	}
 
 	return (
 		<div className="flex min-h-screen-no-footer flex-col items-center justify-center gap-y-8 bg-discord-dark py-6 text-center sm:pt-0">
 			<Head>
-				<title>Guilds | Pepe Manager</title>
+				<title>Dashboard | Pepe Manager</title>
 			</Head>
 
 			<h1 className="font-display text-2xl font-bold text-white sm:text-4xl">
@@ -45,10 +58,12 @@ export default function Guilds({ guilds }: InferGetServerSidePropsType<typeof ge
 			</h1>
 
 			<main className="flex max-w-7xl flex-row flex-wrap items-start justify-center gap-6">
-				{guilds.map(({ icon, id, name }) => (
+				{props.guilds.map(({ icon, id, name }) => (
 					<Guild baseRedirectPath="/guilds/" icon={icon} id={id} key={id} name={name} />
 				))}
 			</main>
 		</div>
 	);
 }
+
+type GetGuildsMeResult = UserGuild[];

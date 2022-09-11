@@ -72,7 +72,7 @@ export default function Input(props: InputProps | InputWithSubmitProps): JSX.Ele
 
 			{"onSubmit" in props && (
 				<button
-					className="ml-3 flex h-12 w-12 shrink-0 items-center justify-center rounded-md bg-discord-not-quite-black text-white transition-colors duration-150 disabled:select-none"
+					className="ml-3 flex h-12 w-12 shrink-0 items-center justify-center rounded-md bg-discord-not-quite-black text-white transition-colors duration-150 hover:text-opacity-75 disabled:select-none"
 					disabled={props.disabled}
 					onClick={(event) => {
 						event.preventDefault();
