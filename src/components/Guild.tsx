@@ -12,7 +12,7 @@ interface GuildProps {
 
 export default function Guild({ baseRedirectPath, icon, id, name }: GuildProps) {
 	return (
-		<Link href={`${baseRedirectPath}${id}`} key={id}>
+		<Link href={`${baseRedirectPath}${id}`} key={id} prefetch={false}>
 			<a className="relative flex h-44 w-40 flex-col flex-wrap gap-2 rounded-2xl bg-discord-slightly-darker py-4 px-6 text-center shadow-sm">
 				<Image
 					alt={`${name} guild icon`}
