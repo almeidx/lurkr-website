@@ -139,7 +139,7 @@ export default function GuildContextProvider({ children }: GuildContextProps) {
 									addNewError("The leaderboard vanity used is not available.");
 								}
 							})
-							.catch((error) => console.error("vanity availability check error: ", error));
+							.catch(() => {});
 					}, 1_000);
 				} else {
 					newErrors.push("The leveling leaderboard vanity can only contain alphanumeric characters.");

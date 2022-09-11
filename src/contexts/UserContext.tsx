@@ -49,12 +49,9 @@ export default function UserProvider({ children }: UserContextProps) {
 						const data = (await res.json()) as AuthSuccessResponse;
 						setUserData({ ...data.user, authenticated: true });
 						Cookie.set("connect.sid", data.cookie);
-					} else {
-						console.error("Failed to authenticate", res);
-						throw new Error("Failed to authenticate user");
 					}
 				})
-				.catch((error) => console.error("Failed to authenticate", error));
+				.catch(() => {});
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);

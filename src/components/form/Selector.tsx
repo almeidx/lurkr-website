@@ -70,7 +70,7 @@ export default function Selector({ id, limit, items, initialItems, onSelect, typ
 			}
 
 			if (selectedIndex < 0) {
-				console.error("[Selector] Couldn't find item index when user tried removing an item");
+				console.warn("[Selector] Couldn't find item index when user tried removing an item");
 				return;
 			}
 
@@ -95,7 +95,7 @@ export default function Selector({ id, limit, items, initialItems, onSelect, typ
 
 			const item = items.find((channel) => channel.id === id);
 			if (!item) {
-				console.error("[Selector] Couldn't find item when user tried adding an item");
+				console.warn("[Selector] Couldn't find item when user tried adding an item");
 				return;
 			}
 

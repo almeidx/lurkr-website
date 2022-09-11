@@ -107,7 +107,6 @@ export default function Guild(props: InferGetServerSidePropsType<typeof getServe
 
 		if (pageQuery && guildId && pageQuery !== section) {
 			const pageName = isValidSection(pageQuery) ? pageQuery : "leveling";
-			console.log("Found initial dashboard page '%s'", pageName);
 			void router.push(`/guilds/${guildId}?p=${pageName}`, `/guilds/${guildId}?p=${pageName}`, { shallow: true });
 			updateSection(pageName);
 			closeMenu();

@@ -35,7 +35,7 @@ export default function BasicSelect({
 			}
 
 			if (!item) {
-				console.error("[BasicSelect] Couldn't find the item when user tried changing item");
+				console.warn("[BasicSelect] Couldn't find the item when user tried changing item");
 				return;
 			}
 
