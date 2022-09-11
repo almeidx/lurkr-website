@@ -18,11 +18,7 @@ interface UserContextProps {
 }
 
 interface AuthSuccessResponse {
-	cookies: {
-		"connect.sid": string;
-	};
-	message: string;
-	success: true;
+	cookie: string;
 	user: Omit<UserContextData, "authenticated">;
 }
 
@@ -49,13 +45,10 @@ export default function UserProvider({ children }: UserContextProps) {
 				},
 			})
 				.then(async (res) => {
-					const data = (await res.json()) as AuthSuccessResponse;
 					if (res.status === 200) {
-						setUserData({
-							authenticated: true,
-							...data.user,
-						});
-						Cookie.set("connect.sid", data.cookies["connect.sid"]);
+						const data = (await res.json()) as AuthSuccessResponse;
+						setUserData({ ...data.user, authenticated: true });
+						Cookie.set("connect.sid", data.cookie);
 					} else {
 						console.error("Failed to authenticate", res);
 						throw new Error("Failed to authenticate user");
