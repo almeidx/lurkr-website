@@ -17,19 +17,12 @@ export default {
 		ignoreDuringBuilds: true,
 	},
 	experimental: {
-		// Broken on dev
-		// fallbackNodePolyfills: false,
-		fallbackNodePolyfills: true,
+		fallbackNodePolyfills: false,
 	},
 	swcMinify: true,
 	reactStrictMode: true,
 	redirects() {
 		return [
-			{
-				destination: "https://pepe-is.life",
-				permanent: true,
-				source: "/emojis",
-			},
 			{
 				destination:
 					"https://discord.com/oauth2/authorize?client_id=506186003816513538&scope=bot%20applications.commands&permissions=1074129920",
