@@ -146,9 +146,41 @@ export default function GuildContextProvider({ children }: GuildContextProps) {
 				}
 			}
 
+			const xpAnnounceLevelsLimits = getLimit("xpAnnounceLevels");
+			const xpAnnounceLevelLimits = getLimit("xpAnnounceLevel");
+			if (changes.xpAnnounceLevels) {
+				validateArray(changes.xpAnnounceLevels, xpAnnounceLevelsLimits.maxLength, "xp announce levels");
+
+				if (
+					changes.xpAnnounceLevels.some(
+						(level) => level > xpAnnounceLevelLimits.max || level < xpAnnounceLevelLimits.min,
+					)
+				) {
+					newErrors.push("One of the leveling announcement levels has an invalid value");
+				}
+			}
+
+			const xpAnnounceMinimumLevelLimits = getLimit("xpAnnounceMinimumLevel");
+			if (
+				typeof changes.xpAnnounceMinimumLevel === "number" &&
+				(changes.xpAnnounceMinimumLevel > xpAnnounceMinimumLevelLimits.max ||
+					changes.xpAnnounceMinimumLevel < xpAnnounceMinimumLevelLimits.min)
+			) {
+				newErrors.push("The leveling announcement minimum level has an invalid value");
+			}
+
+			const xpAnnounceMultipleOfLimits = getLimit("xpAnnounceMultipleOf");
+			if (
+				typeof changes.xpAnnounceMultipleOf === "number" &&
+				(changes.xpAnnounceMultipleOf > xpAnnounceMultipleOfLimits.max ||
+					changes.xpAnnounceMultipleOf < xpAnnounceMultipleOfLimits.min)
+			) {
+				newErrors.push("The leveling announcement factor has an invalid value");
+			}
+
 			const xpDisallowedPrefixesLimit = getLimit("xpDisallowedPrefixes");
-			if (changes.xpDisallowedPrefixes && changes.xpDisallowedPrefixes.length > xpDisallowedPrefixesLimit.maxLength) {
-				newErrors.push(`You cannot have more than ${xpDisallowedPrefixesLimit.maxLength} xp disallowed prefixes.`);
+			if (changes.xpDisallowedPrefixes) {
+				validateArray(changes.xpDisallowedPrefixes, xpDisallowedPrefixesLimit.maxLength, "xp disallowed prefixes");
 			}
 
 			const xpMessageLimits = getLimit("xpMessage");

@@ -23,7 +23,7 @@ import Subtitle from "../../form/Subtitle";
 import Textarea from "../../form/Textarea";
 import Toggle from "../../form/Toggle";
 import Header from "../Header";
-import XpDisallowedPrefix from "../XpDisallowedPrefix";
+import SmallClearableItem from "../SmallClearableItem";
 import XpMultiplier, {
 	type XpMultiplierOnDeleteFn,
 	type XpMultiplierOnItemChangeFn,
@@ -129,8 +129,11 @@ export default function Leveling({ channels, settings, roles, openMenu }: Leveli
 	const [newXpRolesLevel, setNewXpRolesLevel] = useState<string>("");
 	const [newDisallowedPrefix, setNewDisallowedPrefix] = useState<string>("");
 	const [xpDisallowedPrefixes, setXpDisallowedPrefixes] = useState<string[]>(settings.xpDisallowedPrefixes);
+	const [xpAnnounceLevels, setXpAnnounceLevels] = useState<number[]>(settings.xpAnnounceLevels);
+	const [newXpAnnounceLevel, setNewXpAnnounceLevel] = useState<string>("");
 	const newXpRoleSubmitRef = useRef<HTMLButtonElement>(null);
 	const newXpDisallowedPrefixSubmitRef = useRef<HTMLButtonElement>(null);
+	const newXpAnnounceLevelsSubmitRef = useRef<HTMLButtonElement>(null);
 	// eslint-disable-next-line @typescript-eslint/unbound-method
 	const { addChange } = useContext(GuildContext);
 
@@ -139,6 +142,10 @@ export default function Leveling({ channels, settings, roles, openMenu }: Leveli
 	const xpMessageLimit = getDatabaseLimit("xpMessage", settings.premium).maxLength;
 	const xpChannelsLimit = getDatabaseLimit("xpChannels", settings.premium).maxLength;
 	const xpDisallowedPrefixesLimit = getDatabaseLimit("xpDisallowedPrefixes", settings.premium).maxLength;
+	const xpAnnounceLevelsLimit = getDatabaseLimit("xpAnnounceLevels", settings.premium).maxLength;
+	const xpAnnounceLevelLimits = getDatabaseLimit("xpAnnounceLevel", settings.premium);
+	const xpAnnounceMinimumLevelLimits = getDatabaseLimit("xpAnnounceMinimumLevel", settings.premium);
+	const xpAnnounceMultipleOfLimits = getDatabaseLimit("xpAnnounceMultipleOf", settings.premium);
 
 	useEffect(() => {
 		window.scroll({
@@ -584,10 +591,10 @@ export default function Leveling({ channels, settings, roles, openMenu }: Leveli
 					{Boolean(xpDisallowedPrefixes.length) && (
 						<div className="my-4 flex flex-row flex-wrap gap-2">
 							{xpDisallowedPrefixes.map((prefix, index) => (
-								<XpDisallowedPrefix
+								<SmallClearableItem
 									index={index}
 									key={prefix}
-									prefix={prefix}
+									item={prefix}
 									onDelete={(index) => {
 										const clone = [...xpDisallowedPrefixes];
 										clone.splice(index, 1);
@@ -669,6 +676,111 @@ export default function Leveling({ channels, settings, roles, openMenu }: Leveli
 						/>
 					</div>
 					<Subtitle text={`Between ${vanityLimits.minLength} - ${vanityLimits.maxLength} characters.`} />
+				</Field>
+
+				<Field>
+					<Label htmlFor="xpAnnounceLevels" name="Specific Announcement Levels" url="https://google.com/" />
+
+					<div className="max-w-md divide-y-2">
+						<Input
+							clearOnSubmit
+							id="newXpAnnounceLevel"
+							initialValue=""
+							maxLength={3}
+							onChange={(text) => setNewXpAnnounceLevel(text)}
+							onSubmit={() => {
+								const level = parseIntStrict(newXpAnnounceLevel);
+								if (
+									level >= xpAnnounceLevelLimits.min &&
+									level <= xpAnnounceLevelLimits.max &&
+									!xpAnnounceLevels.includes(level) &&
+									xpAnnounceLevels.length < xpAnnounceLevelsLimit
+								) {
+									const newArr = [...xpAnnounceLevels, level];
+									setXpAnnounceLevels(newArr);
+									addChange("xpAnnounceLevels", newArr);
+								}
+							}}
+							placeholder="Enter a level to add to the announce levels list"
+							submitIcon={MdPlaylistAdd}
+							submitRef={newXpAnnounceLevelsSubmitRef}
+						/>
+					</div>
+
+					{Boolean(xpAnnounceLevels.length) && (
+						<div className="my-4 flex flex-row flex-wrap gap-2">
+							{xpAnnounceLevels.map((prefix, index) => (
+								<SmallClearableItem
+									index={index}
+									key={prefix}
+									item={prefix}
+									onDelete={(index) => {
+										const clone = [...xpAnnounceLevels];
+										clone.splice(index, 1);
+										setXpAnnounceLevels(clone);
+										addChange("xpAnnounceLevels", clone);
+									}}
+								/>
+							))}
+						</div>
+					)}
+
+					<Subtitle text={`Maximum of ${xpAnnounceLevelsLimit} levels.`} />
+				</Field>
+
+				<Field>
+					<Label
+						htmlFor="xpAnnounceMinimumLevel"
+						name="Minimum Leveling Announcement Threshold"
+						url="https://google.com/"
+					/>
+					<div className="max-w-md">
+						<Input
+							id="xpAnnounceMinimumLevel"
+							initialValue={settings.xpAnnounceMinimumLevel.toString()}
+							maxLength={6}
+							onChange={(text) => addChange("xpAnnounceMinimumLevel", text ? parseIntStrict(text) : 0)}
+							placeholder="Enter the minimum threshold for leveling announcements"
+						/>
+					</div>
+					<Subtitle
+						text={`Between ${xpAnnounceMinimumLevelLimits.min} - ${xpAnnounceMinimumLevelLimits.max.toLocaleString(
+							"en",
+						)}.`}
+					/>
+				</Field>
+
+				<Field>
+					<Label htmlFor="xpAnnounceMultipleOf" name="Factor for Leveling Announcements" url="https://google.com/" />
+					<div className="max-w-md">
+						<Input
+							id="xpAnnounceMultipleOf"
+							initialValue={settings.xpAnnounceMultipleOf?.toString() ?? "1"}
+							maxLength={6}
+							onChange={(text) => addChange("xpAnnounceMultipleOf", text ? parseIntStrict(text) : 0)}
+							placeholder="Enter the factor for leveling announcements"
+						/>
+					</div>
+					<Subtitle
+						text={`Between ${xpAnnounceMultipleOfLimits.min} - ${xpAnnounceMultipleOfLimits.max.toLocaleString("en")}.`}
+					/>
+				</Field>
+
+				<Field direction="row">
+					<div className="flex w-full flex-row items-center justify-between gap-x-3 rounded-lg bg-discord-dark p-2 pl-4">
+						<Label
+							htmlFor="xpAnnounceOnlyXpRoles"
+							name="Only Announce Level-Ups Together With Role Rewards"
+							url="https://google.com/"
+							withMargin={false}
+						/>
+						<Toggle
+							size="small"
+							id="xpAnnounceOnlyXpRoles"
+							initialValue={settings.xpAnnounceOnlyXpRoles}
+							onChange={(state) => addChange("xpAnnounceOnlyXpRoles", state)}
+						/>
+					</div>
 				</Field>
 			</Fieldset>
 		</>
