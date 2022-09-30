@@ -16,17 +16,12 @@ export default function EmojiList({ channels, settings, openMenu }: EmojiListPro
 	// eslint-disable-next-line @typescript-eslint/unbound-method
 	const { addChange } = useContext(GuildContext);
 
-	useEffect(() => {
-		window.scroll({
-			behavior: "auto",
-			left: 0,
-			top: 0,
-		});
-	}, [openMenu]);
+	useEffect(() => window.scroll({ behavior: "auto", left: 0, top: 0 }), [openMenu]);
 
 	return (
 		<>
 			<Header
+				guildId={settings.id}
 				openMenu={openMenu}
 				description="Automatically populate a channel with all the emojis in your server."
 				id="emojiList"

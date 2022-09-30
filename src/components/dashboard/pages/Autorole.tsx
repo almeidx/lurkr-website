@@ -23,17 +23,12 @@ export default function Autorole({ settings, roles, openMenu }: AutoroleProps) {
 	const autoRoleLimit = getDatabaseLimit("autoRole", settings.premium).maxLength;
 	const autoRoleTimeoutLimits = getDatabaseLimit("autoRoleTimeout", settings.premium);
 
-	useEffect(() => {
-		window.scroll({
-			behavior: "auto",
-			left: 0,
-			top: 0,
-		});
-	}, [openMenu]);
+	useEffect(() => window.scroll({ behavior: "auto", left: 0, top: 0 }), [openMenu]);
 
 	return (
 		<>
 			<Header
+				guildId={settings.id}
 				openMenu={openMenu}
 				description="Autoroles consist of roles that are given to users when they join the server."
 				title="Autorole"

@@ -26,17 +26,12 @@ export default function Milestones({ channels, settings, roles, openMenu }: Mile
 	const milestonesMessageLimit = getDatabaseLimit("milestonesMessage", settings.premium).maxLength;
 	const milestonesRolesLimit = getDatabaseLimit("milestonesRoles", settings.premium).maxLength;
 
-	useEffect(() => {
-		window.scroll({
-			behavior: "auto",
-			left: 0,
-			top: 0,
-		});
-	}, [openMenu]);
+	useEffect(() => window.scroll({ behavior: "auto", left: 0, top: 0 }), [openMenu]);
 
 	return (
 		<>
 			<Header
+				guildId={settings.id}
 				openMenu={openMenu}
 				description="Automatically announce member milestones in your server."
 				id="milestones"
