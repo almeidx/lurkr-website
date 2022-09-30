@@ -147,13 +147,7 @@ export default function Leveling({ channels, settings, roles, openMenu }: Leveli
 	const xpAnnounceMinimumLevelLimits = getDatabaseLimit("xpAnnounceMinimumLevel", settings.premium);
 	const xpAnnounceMultipleOfLimits = getDatabaseLimit("xpAnnounceMultipleOf", settings.premium);
 
-	useEffect(() => {
-		window.scroll({
-			behavior: "auto",
-			left: 0,
-			top: 0,
-		});
-	}, [openMenu]);
+	useEffect(() => window.scroll({ behavior: "auto", left: 0, top: 0 }), [openMenu]);
 
 	const sortedRoleRewards = useMemo(() => xpRoleRewards.sort((a, b) => a.level - b.level), [xpRoleRewards]);
 
@@ -303,6 +297,7 @@ export default function Leveling({ channels, settings, roles, openMenu }: Leveli
 	return (
 		<>
 			<Header
+				guildId={settings.id}
 				openMenu={openMenu}
 				description="Allow users to gain xp and level up by sending messages."
 				id="levels"

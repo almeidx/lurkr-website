@@ -22,17 +22,12 @@ export default function Miscellaneous({ channels, settings, openMenu }: Miscella
 
 	const autoPublishChannelsLimit = getDatabaseLimit("autoPublishChannels", settings.premium).maxLength;
 
-	useEffect(() => {
-		window.scroll({
-			behavior: "auto",
-			left: 0,
-			top: 0,
-		});
-	}, [openMenu]);
+	useEffect(() => window.scroll({ behavior: "auto", left: 0, top: 0 }), [openMenu]);
 
 	return (
 		<>
 			<Header
+				guildId={settings.id}
 				openMenu={openMenu}
 				description="Miscellaneous options that don't fit into any other category."
 				title="Miscellaneous"

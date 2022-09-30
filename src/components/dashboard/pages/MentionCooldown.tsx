@@ -23,17 +23,12 @@ export default function MentionCooldown({ settings, roles, openMenu }: MentionCo
 	const mentionCooldownLimits = getDatabaseLimit("mentionCooldown", settings.premium);
 	const mentionCooldownRolesLimit = getDatabaseLimit("mentionCooldownRoles", settings.premium).maxLength;
 
-	useEffect(() => {
-		window.scroll({
-			behavior: "auto",
-			left: 0,
-			top: 0,
-		});
-	}, [openMenu]);
+	useEffect(() => window.scroll({ behavior: "auto", left: 0, top: 0 }), [openMenu]);
 
 	return (
 		<>
 			<Header
+				guildId={settings.id}
 				openMenu={openMenu}
 				description="Automatically make roles non-mentionable after being mentioned for a certain amount of time."
 				title="Mention Cooldown"
