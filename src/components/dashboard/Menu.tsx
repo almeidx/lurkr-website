@@ -6,6 +6,7 @@ import { BsFillShiftFill, BsPersonPlusFill } from "react-icons/bs";
 import { FaPatreon, FaShapes, FaTrophy } from "react-icons/fa";
 import { HiEmojiHappy } from "react-icons/hi";
 import { RiSave3Fill, RiTimerFlashFill } from "react-icons/ri";
+import { TiWarningOutline } from "react-icons/ti";
 import { GuildContext, type PatchGuildData, type Section } from "../../contexts/GuildContext";
 import { guildIconCdn } from "../../utils/cdn";
 import { type Snowflake, FALLBACK_AVATAR_PATH, API_BASE_URL } from "../../utils/constants";
@@ -58,6 +59,11 @@ const menuItems: MenuItem[] = [
 		Icon: FaShapes,
 		id: "miscellaneous",
 		name: "Miscellaneous",
+	},
+	{
+		Icon: TiWarningOutline,
+		id: "dangerZone",
+		name: "Danger Zone",
 	},
 ];
 
@@ -203,9 +209,9 @@ export default function Menu({ closeMenu, guild, guildId: argGuildId, menuOpen, 
 
 					{menuItems.map(({ Icon, id, name }, idx) => (
 						<button
-							className={`${
-								section === id ? "sm:bg-gray-500 " : ""
-							}flex w-full cursor-pointer flex-row items-center gap-2 rounded-lg py-2 px-4 text-center text-white duration-200 hover:bg-discord-lighter focus:outline-none`}
+							className={`${section === id ? "sm:bg-gray-500 " : ""}${
+								id === "dangerZone" ? "text-yellow-300" : "text-white"
+							} flex w-full cursor-pointer flex-row items-center gap-2 rounded-lg py-2 px-4 text-center duration-200 hover:bg-discord-lighter focus:outline-none`}
 							key={idx}
 							onClick={(event) => {
 								event.preventDefault();

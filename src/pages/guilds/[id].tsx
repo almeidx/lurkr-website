@@ -20,6 +20,7 @@ const MentionCooldown = dynamic(async () => import("../../components/dashboard/p
 	suspense: true,
 });
 const Miscellaneous = dynamic(async () => import("../../components/dashboard/pages/Miscellaneous"), { suspense: true });
+const DangerZone = dynamic(async () => import("../../components/dashboard/pages/DangerZone"), { suspense: true });
 
 type PageProps = GetGuildResult & { guildId: Snowflake };
 
@@ -166,6 +167,8 @@ export default function Guild(props: InferGetServerSidePropsType<typeof getServe
 							<MentionCooldown openMenu={openMenu} settings={settings} roles={sortedRoles} />
 						) : section === "miscellaneous" ? (
 							<Miscellaneous openMenu={openMenu} channels={sortedChannels} settings={settings} />
+						) : section === "dangerZone" ? (
+							<DangerZone openMenu={openMenu} settings={settings} />
 						) : (
 							<Leveling openMenu={openMenu} channels={sortedChannels} settings={settings} roles={sortedRoles} />
 						)}
