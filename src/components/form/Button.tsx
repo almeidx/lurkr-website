@@ -14,7 +14,7 @@ export default function Button({ children, onClick, red, withConfirmation }: But
 	return (
 		<div className="flex items-center gap-2 text-white">
 			<button
-				className={`flex cursor-pointer items-center justify-center rounded-md px-2 py-1  shadow-md duration-200 ${
+				className={`flex cursor-pointer items-center justify-center rounded-md px-2 py-1 shadow-md duration-200 ${
 					red ? "bg-red-500 hover:bg-red-400" : "bg-discord-not-quite-black hover:bg-discord-lighter"
 				} disabled:cursor-not-allowed disabled:bg-gray-500 disabled:opacity-75`}
 				disabled={disabled}
