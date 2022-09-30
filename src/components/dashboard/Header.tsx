@@ -35,7 +35,7 @@ export default function Header(props: HeaderProps | HeaderWithToggleProps) {
 
 					{"id" in props && props.id === "levels" && (
 						<Link href={`/levels/${props.guildId}`}>
-							<a className="flex h-fit items-center justify-center rounded-lg bg-discord-green py-1 px-3 text-center text-white">
+							<a className="flex h-fit items-center justify-center rounded-lg bg-[#3ba55d] py-1 px-3 text-center text-white duration-200 hover:bg-green-700">
 								Go to Leaderboard
 							</a>
 						</Link>
