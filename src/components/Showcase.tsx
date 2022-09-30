@@ -50,11 +50,12 @@ export default function Showcase({ align, description, src, title }: ShowcasePro
 		<section className="flex flex-col items-center gap-6 lg:grid lg:grid-cols-3 lg:px-6 xl:px-48">
 			<video
 				autoPlay
-				className="w-[93%] rounded-md  sm:w-3/4 lg:h-auto lg:w-full"
+				className="w-[93%] rounded-md sm:w-3/4 lg:h-auto lg:w-full"
 				controls={false}
 				loop
 				muted
 				playsInline
+				preload="none"
 				src={src}
 				ref={videoRef}
 			/>
