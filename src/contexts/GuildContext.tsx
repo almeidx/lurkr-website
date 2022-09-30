@@ -4,7 +4,14 @@ import { createContext, useCallback, useState, type ReactNode } from "react";
 import { getDatabaseLimit } from "../utils/common";
 import { API_BASE_URL, VANITY_REGEX, type DATABASE_LIMITS, type Snowflake } from "../utils/constants";
 
-export type Section = "autorole" | "emojiList" | "leveling" | "mentionCooldown" | "milestones" | "miscellaneous";
+export type Section =
+	| "autorole"
+	| "dangerZone"
+	| "emojiList"
+	| "leveling"
+	| "mentionCooldown"
+	| "milestones"
+	| "miscellaneous";
 
 interface VanityCheckResponse {
 	available: boolean;
