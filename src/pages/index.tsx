@@ -1,3 +1,5 @@
+/* eslint-disable react/iframe-missing-sandbox */
+
 import Image from "next/future/image";
 import Link from "next/link";
 import { GiPartyPopper } from "react-icons/gi";
@@ -52,6 +54,26 @@ export default function Home() {
 					))}
 				</div>
 			</header>
+
+			<div className="mt-3 flex flex-col items-center justify-center gap-4">
+				<h2 className="font-display text-lg font-bold text-white sm:text-xl">
+					Check out this Demonstration video by No Text To Speech
+				</h2>
+
+				<div className="relative block w-full pb-[56.25%]">
+					<iframe
+						width="100%"
+						height="100%"
+						className="absolute top-0 left-0"
+						src="https://www.youtube.com/embed/uEHGNx3idFM"
+						frameBorder={0}
+						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+						allowFullScreen
+						title="Free Mee6 Leveling Bot? | Pepe Manager"
+						sandbox="allow-scripts allow-same-origin"
+					/>
+				</div>
+			</div>
 
 			<main className="my-12 flex max-w-screen-2xl flex-col items-center justify-center gap-12">
 				{showcases.map(({ description, src, title }, idx) => (
