@@ -28,7 +28,6 @@ export default function MentionCooldown({ settings, roles, openMenu }: MentionCo
 	return (
 		<>
 			<Header
-				guildId={settings.id}
 				openMenu={openMenu}
 				description="Automatically make roles non-mentionable after being mentioned for a certain amount of time."
 				title="Mention Cooldown"

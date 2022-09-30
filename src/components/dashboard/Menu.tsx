@@ -81,7 +81,7 @@ export default function Menu({ closeMenu, guild, guildId: argGuildId, menuOpen, 
 	const isSaving = useRef<boolean>(false);
 
 	// eslint-disable-next-line @typescript-eslint/unbound-method
-	const { changes, clearChanges, errors, guildId, section, updateSection } = useContext(GuildContext);
+	const { changes, clearChanges, errors, guildId, section, updateData, updateSection } = useContext(GuildContext);
 	const router = useRouter();
 
 	const saveButtonDisabled = (Object.keys(changes).length || isSaving.current) && !errors.length;
@@ -129,6 +129,8 @@ export default function Menu({ closeMenu, guild, guildId: argGuildId, menuOpen, 
 				if (response.status !== 200) {
 					throw new Error(`${response.status}: ${response.statusText}`);
 				}
+
+				updateData(await response.json());
 			} catch (error) {
 				console.error(error);
 				hasFailed = true;
@@ -156,7 +158,7 @@ export default function Menu({ closeMenu, guild, guildId: argGuildId, menuOpen, 
 				}, 3_000);
 			}
 		},
-		[changes, clearChanges, errors, guildId, saveButtonRef],
+		[changes, clearChanges, errors, guildId, saveButtonRef, updateData],
 	);
 
 	return (

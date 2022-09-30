@@ -27,7 +27,6 @@ export default function Miscellaneous({ channels, settings, openMenu }: Miscella
 	return (
 		<>
 			<Header
-				guildId={settings.id}
 				openMenu={openMenu}
 				description="Miscellaneous options that don't fit into any other category."
 				title="Miscellaneous"

@@ -31,7 +31,6 @@ export default function Milestones({ channels, settings, roles, openMenu }: Mile
 	return (
 		<>
 			<Header
-				guildId={settings.id}
 				openMenu={openMenu}
 				description="Automatically announce member milestones in your server."
 				id="milestones"

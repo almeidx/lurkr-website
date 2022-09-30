@@ -36,7 +36,7 @@ export default function DangerZone({ settings, openMenu }: MentionCooldownProps)
 
 	return (
 		<>
-			<Header guildId={settings.id} openMenu={openMenu} description="Dangerous settings." title="Danger Zone" />
+			<Header openMenu={openMenu} description="Dangerous settings." title="Danger Zone" />
 
 			<Fieldset>
 				<Field>

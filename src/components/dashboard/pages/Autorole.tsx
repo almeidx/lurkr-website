@@ -28,7 +28,6 @@ export default function Autorole({ settings, roles, openMenu }: AutoroleProps) {
 	return (
 		<>
 			<Header
-				guildId={settings.id}
 				openMenu={openMenu}
 				description="Autoroles consist of roles that are given to users when they join the server."
 				title="Autorole"

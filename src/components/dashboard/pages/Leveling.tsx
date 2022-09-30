@@ -135,7 +135,7 @@ export default function Leveling({ channels, settings, roles, openMenu }: Leveli
 	const newXpDisallowedPrefixSubmitRef = useRef<HTMLButtonElement>(null);
 	const newXpAnnounceLevelsSubmitRef = useRef<HTMLButtonElement>(null);
 	// eslint-disable-next-line @typescript-eslint/unbound-method
-	const { addChange } = useContext(GuildContext);
+	const { addChange, changes, data } = useContext(GuildContext);
 
 	const noXpRolesLimit = getDatabaseLimit("noXpRoles", settings.premium).maxLength;
 	const vanityLimits = getDatabaseLimit("vanity", settings.premium);
@@ -297,7 +297,16 @@ export default function Leveling({ channels, settings, roles, openMenu }: Leveli
 	return (
 		<>
 			<Header
-				guildId={settings.id}
+				extras={
+					<button
+						className="flex h-fit items-center justify-center rounded-lg bg-[#3ba55d] py-1 px-3 text-center text-white duration-200 hover:bg-green-700 disabled:cursor-not-allowed disabled:bg-gray-500 disabled:opacity-75 disabled:hover:bg-gray-500"
+						disabled={!(changes.levels ?? data?.levels ?? settings.levels)}
+						onClick={() => void window.open(`/levels/${settings.id}`, "_blank")}
+						type="button"
+					>
+						Go to Leaderboard
+					</button>
+				}
 				openMenu={openMenu}
 				description="Allow users to gain xp and level up by sending messages."
 				id="levels"

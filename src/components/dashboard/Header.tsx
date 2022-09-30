@@ -1,12 +1,10 @@
-import Link from "next/link";
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 import { BiArrowBack } from "react-icons/bi";
-import type { Snowflake } from "../../utils/constants";
 import Toggle from "../form/Toggle";
 
 interface HeaderProps {
 	description: string;
-	guildId: Snowflake;
+	extras?: ReactNode;
 	openMenu(): void;
 	title: string;
 }
@@ -33,13 +31,7 @@ export default function Header(props: HeaderProps | HeaderWithToggleProps) {
 				<div className="flex flex-row flex-wrap items-center gap-3 md:gap-6">
 					<h1 className="font-display text-2xl font-bold text-white sm:text-4xl">{props.title}</h1>
 
-					{"id" in props && props.id === "levels" && (
-						<Link href={`/levels/${props.guildId}`}>
-							<a className="flex h-fit items-center justify-center rounded-lg bg-[#3ba55d] py-1 px-3 text-center text-white duration-200 hover:bg-green-700">
-								Go to Leaderboard
-							</a>
-						</Link>
-					)}
+					{"extras" in props && props.extras}
 				</div>
 
 				{"initialValue" in props && (

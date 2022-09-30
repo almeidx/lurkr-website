@@ -21,7 +21,6 @@ export default function EmojiList({ channels, settings, openMenu }: EmojiListPro
 	return (
 		<>
 			<Header
-				guildId={settings.id}
 				openMenu={openMenu}
 				description="Automatically populate a channel with all the emojis in your server."
 				id="emojiList"
