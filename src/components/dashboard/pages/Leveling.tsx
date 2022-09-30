@@ -679,7 +679,11 @@ export default function Leveling({ channels, settings, roles, openMenu }: Leveli
 				</Field>
 
 				<Field>
-					<Label htmlFor="xpAnnounceLevels" name="Specific Announcement Levels" url="https://google.com/" />
+					<Label
+						htmlFor="xpAnnounceLevels"
+						name="Specific Announcement Levels"
+						url="https://docs.pepemanager.com/guides/setting-up-server-xp-leveling#when-to-send-the-level-up-message"
+					/>
 
 					<div className="max-w-md divide-y-2">
 						<Input
@@ -732,7 +736,7 @@ export default function Leveling({ channels, settings, roles, openMenu }: Leveli
 					<Label
 						htmlFor="xpAnnounceMinimumLevel"
 						name="Minimum Leveling Announcement Threshold"
-						url="https://google.com/"
+						url="https://docs.pepemanager.com/guides/setting-up-server-xp-leveling#when-to-send-the-level-up-message"
 					/>
 					<div className="max-w-md">
 						<Input
@@ -751,7 +755,11 @@ export default function Leveling({ channels, settings, roles, openMenu }: Leveli
 				</Field>
 
 				<Field>
-					<Label htmlFor="xpAnnounceMultipleOf" name="Factor for Leveling Announcements" url="https://google.com/" />
+					<Label
+						htmlFor="xpAnnounceMultipleOf"
+						name="Factor for Leveling Announcements"
+						url="https://docs.pepemanager.com/guides/setting-up-server-xp-leveling#when-to-send-the-level-up-message"
+					/>
 					<div className="max-w-md">
 						<Input
 							id="xpAnnounceMultipleOf"
@@ -771,7 +779,7 @@ export default function Leveling({ channels, settings, roles, openMenu }: Leveli
 						<Label
 							htmlFor="xpAnnounceOnlyXpRoles"
 							name="Only Announce Level-Ups Together With Role Rewards"
-							url="https://google.com/"
+							url="https://docs.pepemanager.com/guides/setting-up-server-xp-leveling#when-to-send-the-level-up-message"
 							withMargin={false}
 						/>
 						<Toggle
