@@ -30,12 +30,12 @@ export default function Header(props: HeaderProps | HeaderWithToggleProps) {
 			/>
 
 			<div className="mx-4 flex justify-between">
-				<div className="flex flex-row flex-wrap gap-3 md:gap-6">
+				<div className="flex flex-row flex-wrap items-center gap-3 md:gap-6">
 					<h1 className="font-display text-2xl font-bold text-white sm:text-4xl">{props.title}</h1>
 
 					{"id" in props && props.id === "levels" && (
 						<Link href={`/levels/${props.guildId}`}>
-							<a className="flex items-center justify-center rounded-lg bg-discord-green px-3 text-center text-white">
+							<a className="flex h-fit items-center justify-center rounded-lg bg-discord-green py-1 px-3 text-center text-white">
 								Go to Leaderboard
 							</a>
 						</Link>
