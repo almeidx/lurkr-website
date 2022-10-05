@@ -31,11 +31,11 @@ export default function Milestones({ channels, settings, roles, openMenu }: Mile
 	return (
 		<>
 			<Header
-				openMenu={openMenu}
 				description="Automatically announce member milestones in your server."
 				id="milestones"
 				initialValue={settings.storeMilestones}
 				onChange={(state) => addChange("storeMilestones", state)}
+				openMenu={openMenu}
 				title="Milestones"
 			/>
 
@@ -85,8 +85,8 @@ export default function Milestones({ channels, settings, roles, openMenu }: Mile
 						url="https://docs.pepemanager.com/guides/automatically-controlled-member-milestones#setting-the-milestones-message"
 					/>
 					<Textarea
-						initialText={settings.milestonesMessage ?? ""}
 						id="milestonesMessage"
+						initialText={settings.milestonesMessage ?? ""}
 						maxLength={milestonesMessageLimit}
 						onChange={(text) => addChange("milestonesMessage", text)}
 						placeholder="Enter the milestone message"

@@ -47,12 +47,12 @@ export default function User({ avatar, index, level, tag, userId, xp }: UserProp
 					alt={`${tag} avatar`}
 					className="rounded-full"
 					height={64}
-					src={avatar || tag ? makeUserAvatarUrl(userId, avatar, tag) : FALLBACK_AVATAR_PATH}
-					width={64}
 					onError={(event: ChangeEvent<HTMLImageElement>) => {
 						event.target.onerror = null;
 						event.target.src = FALLBACK_AVATAR_PATH;
 					}}
+					src={avatar || tag ? makeUserAvatarUrl(userId, avatar, tag) : FALLBACK_AVATAR_PATH}
+					width={64}
 				/>
 
 				<p className="text-gray-200">{tag ?? userId}</p>

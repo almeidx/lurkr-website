@@ -15,8 +15,8 @@ export default function Textarea({ id, initialText, maxLength, placeholder, disa
 	return (
 		<textarea
 			className="w-full rounded-md bg-discord-not-quite-black py-1.5 px-2 text-white shadow focus:outline-none disabled:select-none"
+			disabled={disabled}
 			id={id}
-			placeholder={placeholder}
 			onChange={({ target }) => {
 				if (target.value.length > maxLength) {
 					return;
@@ -25,10 +25,10 @@ export default function Textarea({ id, initialText, maxLength, placeholder, disa
 				setText(target.value);
 				onChange(target.value);
 			}}
+			placeholder={placeholder}
 			rows={text.split("\n").length + 2}
 			value={text}
 			wrap="soft"
-			disabled={disabled}
 		/>
 	);
 }

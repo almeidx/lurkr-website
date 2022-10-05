@@ -47,10 +47,10 @@ export default function Footer() {
 			<div className="flex flex-col gap-12">
 				<div className="ml-10 grid grid-rows-2 gap-6 pt-8 sm:ml-0 sm:grid-cols-2 sm:grid-rows-none sm:gap-0">
 					{sections.map(({ links, title }, idx) => (
-						<div key={idx} className="flex flex-col gap-1 text-white">
+						<div className="flex flex-col gap-1 text-white" key={idx}>
 							<span className="mb-2 font-bold text-gray-400">{title}</span>
 							{links.map(({ href, name }, idx_) => (
-								<Link key={idx_} href={href}>
+								<Link href={href} key={idx_}>
 									<a className="w-fit hover:underline">{name}</a>
 								</Link>
 							))}

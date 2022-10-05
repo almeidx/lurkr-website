@@ -27,18 +27,18 @@ export default function XpRole({ level, initialRoles, onChange, premium, roles, 
 				</label>
 
 				<MdClear
-					onClick={() => onChange([], level)}
 					className="ml-auto mt-0 h-8 w-8 cursor-pointer py-1 text-red-500"
+					onClick={() => onChange([], level)}
 				/>
 			</div>
 
 			<div className="w-full">
 				<Selector
-					id={`l-${level}-roles`}
 					disabled={disabled}
-					limit={getDatabaseLimit("xpRolesPerLevel", premium).maxLength}
+					id={`l-${level}-roles`}
 					initialItems={initialRoles}
 					items={roles}
+					limit={getDatabaseLimit("xpRolesPerLevel", premium).maxLength}
 					onSelect={(roleIds) => onChange(roleIds, level)}
 					type="Role"
 				/>

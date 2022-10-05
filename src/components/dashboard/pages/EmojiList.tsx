@@ -21,11 +21,11 @@ export default function EmojiList({ channels, settings, openMenu }: EmojiListPro
 	return (
 		<>
 			<Header
-				openMenu={openMenu}
 				description="Automatically populate a channel with all the emojis in your server."
 				id="emojiList"
 				initialValue={settings.emojiList}
 				onChange={(state) => addChange("emojiList", state)}
+				openMenu={openMenu}
 				title="Emoji List"
 			/>
 
@@ -39,9 +39,9 @@ export default function EmojiList({ channels, settings, openMenu }: EmojiListPro
 					<div className="max-w-md">
 						<Selector
 							id="emojiListChannel"
-							limit={1}
 							initialItems={settings.emojiListChannel ? [settings.emojiListChannel] : []}
 							items={channels}
+							limit={1}
 							onSelect={(channelIds) => addChange("emojiListChannel", channelIds[0] ?? null)}
 							type="Channel"
 						/>

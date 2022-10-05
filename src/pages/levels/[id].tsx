@@ -143,7 +143,6 @@ export default function Leaderboard(props: InferGetStaticPropsType<typeof getSta
 										.sort((a, b) => (a.multiplier - b.multiplier) * multiplierSortDir)
 										.map(({ id, multiplier, targets, type }) => (
 											<Multiplier
-												key={id}
 												items={
 													type === XpMultiplierType.Role
 														? guild.roles
@@ -151,6 +150,7 @@ export default function Leaderboard(props: InferGetStaticPropsType<typeof getSta
 														? channels
 														: null
 												}
+												key={id}
 												multiplier={multiplier}
 												targets={targets}
 												type={type}

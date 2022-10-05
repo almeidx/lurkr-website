@@ -55,10 +55,10 @@ export default function XpMultiplier({
 						id={`m-${id}-input`}
 						initialValue={multiplier.toString()}
 						maxLength={5}
+						noClearButton
 						onChange={(text) => onMultiplierChange(text, id)}
 						placeholder="1.0"
 						prefix="x"
-						noClearButton
 					/>
 				</div>
 
@@ -74,9 +74,9 @@ export default function XpMultiplier({
 				<div className="mx-2 w-full">
 					<Selector
 						id={`m-${id}-selector`}
-						limit={getDatabaseLimit("xpMultiplierTargets", premium).maxLength}
 						initialItems={targets}
 						items={type === XpMultiplierType.Channel ? channels : roles}
+						limit={getDatabaseLimit("xpMultiplierTargets", premium).maxLength}
 						onSelect={(ids) => onItemChange(ids, id)}
 						type={type}
 					/>

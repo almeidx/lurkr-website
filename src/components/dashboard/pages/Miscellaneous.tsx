@@ -27,8 +27,8 @@ export default function Miscellaneous({ channels, settings, openMenu }: Miscella
 	return (
 		<>
 			<Header
-				openMenu={openMenu}
 				description="Miscellaneous options that don't fit into any other category."
+				openMenu={openMenu}
 				title="Miscellaneous"
 			/>
 
@@ -42,10 +42,10 @@ export default function Miscellaneous({ channels, settings, openMenu }: Miscella
 							withMargin={false}
 						/>
 						<Toggle
-							size="small"
 							id="storeCounts"
 							initialValue={settings.storeCounts}
 							onChange={(state) => addChange("storeCounts", state)}
+							size="small"
 						/>
 					</div>
 				</Field>
@@ -58,9 +58,9 @@ export default function Miscellaneous({ channels, settings, openMenu }: Miscella
 					/>
 					<Selector
 						id="autoPublishChannels"
-						limit={autoPublishChannelsLimit}
 						initialItems={(settings.autoPublishChannels as Snowflake[] | null) ?? []}
 						items={channels}
+						limit={autoPublishChannelsLimit}
 						onSelect={(channelIds) => addChange("autoPublishChannels", channelIds)}
 						type="Channel"
 					/>

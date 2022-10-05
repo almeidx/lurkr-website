@@ -36,7 +36,7 @@ export default function DangerZone({ settings, openMenu }: MentionCooldownProps)
 
 	return (
 		<>
-			<Header openMenu={openMenu} description="Dangerous settings." title="Danger Zone" />
+			<Header description="Dangerous settings." openMenu={openMenu} title="Danger Zone" />
 
 			<Fieldset>
 				<Field>
@@ -50,7 +50,7 @@ export default function DangerZone({ settings, openMenu }: MentionCooldownProps)
 						CAUTION: This action is irreversible. Please make sure you want to do this before proceeding.
 					</p>
 
-					<Button red onClick={handleDeleteGuild} withConfirmation>
+					<Button onClick={handleDeleteGuild} red withConfirmation>
 						Reset Settings
 					</Button>
 				</Field>

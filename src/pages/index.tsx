@@ -35,7 +35,7 @@ export default function Home() {
 				</a>
 			</Link>
 
-			<Image alt="Pepe Manager avatar" src="/static/avatar.png" width={64} height={64} />
+			<Image alt="Pepe Manager avatar" height={64} src="/static/avatar.png" width={64} />
 
 			<header className="flex flex-col items-center justify-center py-5">
 				<h1 className="font-display text-2xl font-bold text-white sm:text-4xl">Pepe Manager</h1>
@@ -62,15 +62,15 @@ export default function Home() {
 
 				<div className="relative block w-full pb-[56.25%]">
 					<iframe
-						width="100%"
-						height="100%"
-						className="absolute top-0 left-0"
-						src="https://www.youtube.com/embed/uEHGNx3idFM"
-						frameBorder={0}
 						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
 						allowFullScreen
-						title="Free Mee6 Leveling Bot? | Pepe Manager"
+						className="absolute top-0 left-0"
+						frameBorder={0}
+						height="100%"
 						sandbox="allow-scripts allow-same-origin"
+						src="https://www.youtube.com/embed/uEHGNx3idFM"
+						title="Free Mee6 Leveling Bot? | Pepe Manager"
+						width="100%"
 					/>
 				</div>
 			</div>
@@ -78,9 +78,9 @@ export default function Home() {
 			<main className="my-12 flex max-w-screen-2xl flex-col items-center justify-center gap-12">
 				{showcases.map(({ description, src, title }, idx) => (
 					<Showcase
-						key={idx}
 						align={idx % 2 === 0 ? "right" : "left"}
 						description={description}
+						key={idx}
 						src={src}
 						title={title}
 					/>

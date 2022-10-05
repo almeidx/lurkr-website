@@ -167,7 +167,7 @@ export default function Selector({ id, limit, items, initialItems, onSelect, typ
 					<Input
 						className="p-3"
 						id={id}
-						initialValue={""}
+						initialValue=""
 						maxLength={50}
 						onChange={(text) => setSearchTerm(text)}
 						placeholder={`${type} name`}
@@ -184,12 +184,12 @@ export default function Selector({ id, limit, items, initialItems, onSelect, typ
 						>
 							{type === "Role" && "color" in item && (
 								<div
-									data-id={item.id}
 									className="mr-2 h-4 w-4 select-none rounded-full"
+									data-id={item.id}
 									style={{ backgroundColor: resolveColour(item.color) }}
 								/>
 							)}
-							<div data-id={item.id} className=" select-none break-all leading-4">
+							<div className=" select-none break-all leading-4" data-id={item.id}>
 								{type === "Channel" && "#"}
 								{item.name}
 							</div>

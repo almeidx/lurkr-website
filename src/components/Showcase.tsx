@@ -56,8 +56,8 @@ export default function Showcase({ align, description, src, title }: ShowcasePro
 				muted
 				playsInline
 				preload="none"
-				src={src}
 				ref={videoRef}
+				src={src}
 			/>
 
 			<div
