@@ -89,8 +89,6 @@ export default function Guild(props: InferGetServerSidePropsType<typeof getServe
 
 	const { channels, settings, guild, guildId } = props;
 
-	console.log("render");
-
 	const sortedChannels = useMemo(() => [...(channels ?? [])].sort((a, b) => a.name.localeCompare(b.name)), [channels]);
 	const sortedRoles = useMemo(() => [...(guild?.roles ?? [])].sort((a, b) => b.position - a.position), [guild]);
 
