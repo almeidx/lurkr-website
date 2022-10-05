@@ -17,7 +17,7 @@ export default function SmallClearableItem({ index, item, onDelete }: SmallClear
 			>
 				{item}
 			</label>
-			<MdClear onClick={() => onDelete(index)} className="ml-auto h-12 w-8 cursor-pointer py-3 text-red-500" />
+			<MdClear className="ml-auto h-12 w-8 cursor-pointer py-3 text-red-500" onClick={() => onDelete(index)} />
 		</div>
 	);
 }

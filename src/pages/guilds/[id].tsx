@@ -158,19 +158,19 @@ export default function Guild(props: InferGetServerSidePropsType<typeof getServe
 						}
 					>
 						{section === "autorole" ? (
-							<Autorole openMenu={openMenu} settings={settings} roles={sortedRoles} />
+							<Autorole openMenu={openMenu} roles={sortedRoles} settings={settings} />
 						) : section === "milestones" ? (
-							<Milestones openMenu={openMenu} channels={sortedChannels} settings={settings} roles={sortedRoles} />
+							<Milestones channels={sortedChannels} openMenu={openMenu} roles={sortedRoles} settings={settings} />
 						) : section === "emojiList" ? (
-							<EmojiList openMenu={openMenu} channels={sortedChannels} settings={settings} />
+							<EmojiList channels={sortedChannels} openMenu={openMenu} settings={settings} />
 						) : section === "mentionCooldown" ? (
-							<MentionCooldown openMenu={openMenu} settings={settings} roles={sortedRoles} />
+							<MentionCooldown openMenu={openMenu} roles={sortedRoles} settings={settings} />
 						) : section === "miscellaneous" ? (
-							<Miscellaneous openMenu={openMenu} channels={sortedChannels} settings={settings} />
+							<Miscellaneous channels={sortedChannels} openMenu={openMenu} settings={settings} />
 						) : section === "dangerZone" ? (
 							<DangerZone openMenu={openMenu} settings={settings} />
 						) : (
-							<Leveling openMenu={openMenu} channels={sortedChannels} settings={settings} roles={sortedRoles} />
+							<Leveling channels={sortedChannels} openMenu={openMenu} roles={sortedRoles} settings={settings} />
 						)}
 					</Suspense>
 				</main>

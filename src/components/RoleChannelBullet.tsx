@@ -21,8 +21,8 @@ export default function RoleChannelBullet({
 			className={`${type === "Role" ? "role-bullet" : ""} ${onClick ? "cursor-pointer" : ""} ${
 				type === "Channel" && onClick ? "hover:text-red-400" : ""
 			} z-10 flex h-6 max-w-[175px] select-none items-center rounded-full border text-xs text-white`}
-			style={{ borderColor: roleColour }}
 			onClick={onClick}
+			style={{ borderColor: roleColour }}
 			{...props}
 		>
 			{type === "Role" && (

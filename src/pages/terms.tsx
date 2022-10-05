@@ -18,7 +18,7 @@ export default function Terms() {
 					These terms and conditions (&quot;Agreement&quot;) set forth the general terms and conditions of your use of
 					the{" "}
 					<Link href="https://pepemanager.com">
-						<a target="_blank" rel="nofollow noreferrer" className="text-blue-300">
+						<a className="text-blue-300" rel="nofollow noreferrer" target="_blank">
 							pepemanager.com
 						</a>
 					</Link>{" "}
@@ -162,7 +162,7 @@ export default function Terms() {
 				<p className="mx-3 mt-6 mb-9 font-light text-gray-400 sm:mx-0">
 					If you would like to contact us to understand more about this Agreement or wish to contact us concerning any
 					matter relating to it, you may send an email to{" "}
-					<a href="mailto:admin@almeidx.dev" className="text-blue-300">
+					<a className="text-blue-300" href="mailto:admin@almeidx.dev">
 						admin@almeidx.dev
 					</a>
 					.

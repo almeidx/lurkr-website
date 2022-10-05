@@ -22,9 +22,9 @@ export default function Header(props: HeaderProps | HeaderWithToggleProps) {
 	return (
 		<>
 			<BiArrowBack
-				// eslint-disable-next-line @typescript-eslint/unbound-method
-				onClick={props.openMenu}
 				className="z-[99999] mb-4 ml-4 inline-block h-6 w-6 cursor-pointer text-white sm:hidden"
+				// eslint-disable-next-line react/jsx-handler-names, @typescript-eslint/unbound-method
+				onClick={props.openMenu}
 			/>
 
 			<div className="mx-4 flex justify-between">
@@ -35,23 +35,21 @@ export default function Header(props: HeaderProps | HeaderWithToggleProps) {
 				</div>
 
 				{"initialValue" in props && (
-					<>
-						<div className="flex flex-row items-center gap-x-3">
-							<label className="text-white" htmlFor={props.id}>
-								{enabled ? "Enabled" : "Disabled"}
-							</label>
+					<div className="flex flex-row items-center gap-x-3">
+						<label className="text-white" htmlFor={props.id}>
+							{enabled ? "Enabled" : "Disabled"}
+						</label>
 
-							<Toggle
-								id={props.id}
-								initialValue={props.initialValue}
-								size="small"
-								onChange={(state) => {
-									setEnabled(state);
-									props.onChange(state);
-								}}
-							/>
-						</div>
-					</>
+						<Toggle
+							id={props.id}
+							initialValue={props.initialValue}
+							onChange={(state) => {
+								setEnabled(state);
+								props.onChange(state);
+							}}
+							size="small"
+						/>
+					</div>
 				)}
 			</div>
 

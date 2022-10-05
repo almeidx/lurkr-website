@@ -55,7 +55,7 @@ export default function Navbar() {
 	useClickOutside(dropdownRef, handleClickOutside);
 
 	return (
-		<div ref={dropdownRef} className="w-full bg-discord-dark">
+		<div className="w-full bg-discord-dark" ref={dropdownRef}>
 			<header className="mx-auto flex max-w-[992px] p-6 md:items-center xl:max-w-[1440px]">
 				<Link href="/">
 					<a className=" mr-4 whitespace-nowrap py-1 font-bold uppercase text-white md:p-0 md:text-xl">Pepe Manager</a>

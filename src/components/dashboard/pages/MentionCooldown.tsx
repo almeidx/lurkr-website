@@ -28,8 +28,8 @@ export default function MentionCooldown({ settings, roles, openMenu }: MentionCo
 	return (
 		<>
 			<Header
-				openMenu={openMenu}
 				description="Automatically make roles non-mentionable after being mentioned for a certain amount of time."
+				openMenu={openMenu}
 				title="Mention Cooldown"
 			/>
 
@@ -64,9 +64,9 @@ export default function MentionCooldown({ settings, roles, openMenu }: MentionCo
 					/>
 					<Selector
 						id="mentionCooldownRoles"
-						limit={mentionCooldownRolesLimit}
 						initialItems={(settings.mentionCooldownRoles as Snowflake[] | null) ?? []}
 						items={roles}
+						limit={mentionCooldownRolesLimit}
 						onSelect={(roleIds) => addChange("mentionCooldownRoles", roleIds)}
 						type="Role"
 					/>

@@ -28,8 +28,8 @@ export default function Autorole({ settings, roles, openMenu }: AutoroleProps) {
 	return (
 		<>
 			<Header
-				openMenu={openMenu}
 				description="Autoroles consist of roles that are given to users when they join the server."
+				openMenu={openMenu}
 				title="Autorole"
 			/>
 
@@ -42,9 +42,9 @@ export default function Autorole({ settings, roles, openMenu }: AutoroleProps) {
 					/>
 					<Selector
 						id="autoRole"
-						limit={autoRoleLimit}
 						initialItems={(settings.autoRole as Snowflake[] | null) ?? []}
 						items={roles}
+						limit={autoRoleLimit}
 						onSelect={(roleIds) => addChange("autoRole", roleIds)}
 						type="Role"
 					/>

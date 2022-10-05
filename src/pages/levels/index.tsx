@@ -88,7 +88,7 @@ export default function Levels({ guilds }: InferGetServerSidePropsType<typeof ge
 					<Input
 						className="my-5"
 						id="searchTerm"
-						initialValue={""}
+						initialValue=""
 						maxLength={32}
 						onChange={(text) =>
 							text

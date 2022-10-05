@@ -83,8 +83,8 @@ export default function Input(props: InputProps | InputWithSubmitProps): JSX.Ele
 
 						props.onSubmit();
 					}}
-					type="button"
 					ref={props.submitRef}
+					type="button"
 				>
 					<Icon className="fill-current text-3xl" />
 				</button>

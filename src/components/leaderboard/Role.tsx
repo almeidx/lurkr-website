@@ -8,7 +8,7 @@ export default function Role({ level, roles }: RoleReward) {
 			<span className="text-white">Level {level}</span>
 			<div className="flex shrink-0 flex-row flex-wrap gap-1.5">
 				{roles.map(({ color, id, name }) => (
-					<RoleChannelBullet type="Role" key={id} roleColour={resolveColour(color)} name={name} />
+					<RoleChannelBullet key={id} name={name} roleColour={resolveColour(color)} type="Role" />
 				))}
 			</div>
 		</div>

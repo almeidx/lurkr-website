@@ -85,7 +85,7 @@ export default function Status({ shards, totalShards }: InferGetStaticPropsType<
 				<Input
 					className="my-5"
 					id="searchTerm"
-					initialValue={""}
+					initialValue=""
 					maxLength={20}
 					onChange={(text) => {
 						if (selectedShardId !== null) {
@@ -123,9 +123,9 @@ export default function Status({ shards, totalShards }: InferGetStaticPropsType<
 						<tbody className="text-center text-gray-300">
 							{shards!.map(({ guilds, id, members, memory, ping, uptime }) => (
 								<Shard
-									key={id}
 									guilds={guilds}
 									id={id}
+									key={id}
 									members={members}
 									memory={memory}
 									ping={ping}

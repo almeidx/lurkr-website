@@ -289,6 +289,8 @@ export default function GuildContextProvider({ children }: GuildContextProps) {
 
 	return (
 		<GuildContext.Provider
+			// TODO: Investigate
+			// eslint-disable-next-line react/jsx-no-constructed-context-values
 			value={{
 				addChange,
 				changes,

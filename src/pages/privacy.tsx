@@ -129,7 +129,7 @@ export default function Privacy() {
 
 				<p className="mx-3 mt-3 mb-9 font-light text-gray-400 sm:mx-0">
 					If you have any questions or suggestions about our Privacy Policy, do not hesitate to contact us at{" "}
-					<a href="mailto:admin@almeidx.dev" className="text-blue-300">
+					<a className="text-blue-300" href="mailto:admin@almeidx.dev">
 						admin@almeidx.dev
 					</a>
 					.

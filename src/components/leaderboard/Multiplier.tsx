@@ -38,7 +38,7 @@ export default function Multiplier({ items, multiplier, targets, type }: Multipl
 								}
 
 								return (
-									<RoleChannelBullet key={id} name={item.name} type={type} roleColour={resolveColour(item.color)} />
+									<RoleChannelBullet key={id} name={item.name} roleColour={resolveColour(item.color)} type={type} />
 								);
 						  })}
 				</div>

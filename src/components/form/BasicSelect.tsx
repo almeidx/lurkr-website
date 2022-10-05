@@ -50,7 +50,7 @@ export default function BasicSelect({
 	);
 
 	return (
-		<div ref={elementRef} className={`relative w-full text-white ${disabled ? "text-opacity-25" : "cursor-pointer"}`}>
+		<div className={`relative w-full text-white ${disabled ? "text-opacity-25" : "cursor-pointer"}`} ref={elementRef}>
 			<div
 				className="flex h-12 w-full flex-row flex-wrap gap-1.5 rounded-md bg-discord-not-quite-black py-3 px-5 shadow focus:outline-none"
 				onClick={() => (disabled ? null : setDropdownOpen(!dropdownOpen))}

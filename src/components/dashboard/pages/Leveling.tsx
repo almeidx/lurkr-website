@@ -297,6 +297,7 @@ export default function Leveling({ channels, settings, roles, openMenu }: Leveli
 	return (
 		<>
 			<Header
+				description="Allow users to gain xp and level up by sending messages."
 				extras={
 					<button
 						className="flex h-fit items-center justify-center rounded-lg bg-[#3ba55d] py-1 px-3 text-center text-white duration-200 hover:bg-green-700 disabled:cursor-not-allowed disabled:bg-gray-500 disabled:opacity-75 disabled:hover:bg-gray-500"
@@ -307,11 +308,10 @@ export default function Leveling({ channels, settings, roles, openMenu }: Leveli
 						Go to Leaderboard
 					</button>
 				}
-				openMenu={openMenu}
-				description="Allow users to gain xp and level up by sending messages."
 				id="levels"
 				initialValue={settings.levels}
 				onChange={(state) => addChange("levels", state)}
+				openMenu={openMenu}
 				title="Leveling"
 			/>
 
@@ -368,8 +368,8 @@ export default function Leveling({ channels, settings, roles, openMenu }: Leveli
 						url="https://docs.pepemanager.com/guides/setting-up-server-xp-leveling#customizing-the-level-up-message"
 					/>
 					<Textarea
-						initialText={settings.xpMessage ?? ""}
 						id="xpMessage"
+						initialText={settings.xpMessage ?? ""}
 						maxLength={xpMessageLimit}
 						onChange={(text) => addChange("xpMessage", text)}
 						placeholder="Enter the level up message"
@@ -386,10 +386,10 @@ export default function Leveling({ channels, settings, roles, openMenu }: Leveli
 							withMargin={false}
 						/>
 						<Toggle
-							size="small"
 							id="stackXpRoles"
 							initialValue={settings.stackXpRoles}
 							onChange={(state) => addChange("stackXpRoles", state)}
+							size="small"
 						/>
 					</div>
 				</Field>
@@ -403,10 +403,10 @@ export default function Leveling({ channels, settings, roles, openMenu }: Leveli
 							withMargin={false}
 						/>
 						<Toggle
-							size="small"
 							id="prioritiseMultiplierRoleHierarchy"
 							initialValue={settings.prioritiseMultiplierRoleHierarchy}
 							onChange={(state) => addChange("prioritiseMultiplierRoleHierarchy", state)}
+							size="small"
 						/>
 					</div>
 				</Field>
@@ -420,10 +420,10 @@ export default function Leveling({ channels, settings, roles, openMenu }: Leveli
 							withMargin={false}
 						/>
 						<Toggle
-							size="small"
 							id="xpInThreads"
 							initialValue={settings.xpInThreads}
 							onChange={(state) => addChange("xpInThreads", state)}
+							size="small"
 						/>
 					</div>
 				</Field>
@@ -442,7 +442,7 @@ export default function Leveling({ channels, settings, roles, openMenu }: Leveli
 								<Input
 									clearOnSubmit
 									id="newXpRole"
-									initialValue={""}
+									initialValue=""
 									maxLength={3}
 									onChange={(text) => (text ? /^\d+$/.test(text) && setNewXpRolesLevel(text) : setNewXpRolesLevel(""))}
 									onSubmit={handleNewXpRoleCreated}
@@ -456,11 +456,11 @@ export default function Leveling({ channels, settings, roles, openMenu }: Leveli
 					<div className="mb-4 flex flex-col gap-y-2">
 						{sortedRoleRewards.map(({ level, roleIds }) => (
 							<XpRole
+								initialRoles={roleIds}
 								key={level}
 								level={level}
-								initialRoles={roleIds}
-								premium={settings.premium}
 								onChange={handleXpRolesChange}
+								premium={settings.premium}
 								roles={roles}
 							/>
 						))}
@@ -597,8 +597,8 @@ export default function Leveling({ channels, settings, roles, openMenu }: Leveli
 							{xpDisallowedPrefixes.map((prefix, index) => (
 								<SmallClearableItem
 									index={index}
-									key={prefix}
 									item={prefix}
+									key={prefix}
 									onDelete={(index) => {
 										const clone = [...xpDisallowedPrefixes];
 										clone.splice(index, 1);
@@ -720,8 +720,8 @@ export default function Leveling({ channels, settings, roles, openMenu }: Leveli
 							{xpAnnounceLevels.map((prefix, index) => (
 								<SmallClearableItem
 									index={index}
-									key={prefix}
 									item={prefix}
+									key={prefix}
 									onDelete={(index) => {
 										const clone = [...xpAnnounceLevels];
 										clone.splice(index, 1);
@@ -787,10 +787,10 @@ export default function Leveling({ channels, settings, roles, openMenu }: Leveli
 							withMargin={false}
 						/>
 						<Toggle
-							size="small"
 							id="xpAnnounceOnlyXpRoles"
 							initialValue={settings.xpAnnounceOnlyXpRoles}
 							onChange={(state) => addChange("xpAnnounceOnlyXpRoles", state)}
+							size="small"
 						/>
 					</div>
 				</Field>
