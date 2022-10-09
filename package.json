@@ -5,8 +5,8 @@
 	"scripts": {
 		"dev": "next dev",
 		"build": "next build",
-		"lint": "prettier --check . && eslint src --ext ts,tsx",
-		"format": "prettier --write . && eslint src --ext ts,tsx --fix",
+		"lint": "prettier --check . && cross-env TIMING=1 eslint src --ext ts,tsx",
+		"format": "prettier --write . && cross-env TIMING=1 eslint src --ext ts,tsx --fix",
 		"postinstall": "husky install .github/husky",
 		"start": "next start",
 		"update": "yarn upgrade-interactive"
@@ -27,6 +27,7 @@
 		"@types/node": "^16.11.64",
 		"@types/react": "^18.0.21",
 		"autoprefixer": "^10.4.12",
+		"cross-env": "^7.0.3",
 		"eslint": "^8.24.0",
 		"eslint-config-neon": "^0.1.34",
 		"eslint-plugin-tailwindcss": "^3.6.2",
