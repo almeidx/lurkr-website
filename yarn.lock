@@ -1899,9 +1899,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-config-neon@npm:^0.1.35":
-  version: 0.1.35
-  resolution: "eslint-config-neon@npm:0.1.35"
+"eslint-config-neon@npm:^0.1.37":
+  version: 0.1.37
+  resolution: "eslint-config-neon@npm:0.1.37"
   dependencies:
     "@angular-eslint/eslint-plugin": ^14.1.2
     "@angular-eslint/eslint-plugin-template": ^14.1.2
@@ -1914,7 +1914,6 @@ __metadata:
     eslint-config-prettier: ^8.5.0
     eslint-plugin-astro: ^0.20.0
     eslint-plugin-cypress: ^2.12.1
-    eslint-plugin-deprecation: ^1.3.2
     eslint-plugin-import: "npm:eslint-plugin-i@latest"
     eslint-plugin-jest: ^27.1.1
     eslint-plugin-jsdoc: ^39.3.6
@@ -1922,7 +1921,7 @@ __metadata:
     eslint-plugin-lodash: ^7.4.0
     eslint-plugin-n: ^15.3.0
     eslint-plugin-promise: ^6.0.1
-    eslint-plugin-react: ^7.31.8
+    eslint-plugin-react: ^7.31.9
     eslint-plugin-react-hooks: ^4.6.0
     eslint-plugin-rxjs: ^5.0.2
     eslint-plugin-rxjs-angular: ^2.0.0
@@ -1933,7 +1932,7 @@ __metadata:
     eslint-plugin-unicorn: ^44.0.2
     eslint-plugin-vue: ^9.6.0
     vue-eslint-parser: ^9.1.0
-  checksum: afb926a0e228ad61b59489169d20dc27e1a512c8e46887cee3e410a3a590fe48dbe9e3d0114a3dffb2aabdbcde7694562dcec5a358802409217c5f50bf7f13ae
+  checksum: b415486beda6ae9e0615a2ef8b841b296ca6ef4cbea27e8e075f078f2b81f6010f49e9ed2d187296189bd2f41aa971f135e01040fee0b467764814528a4f46ae
   languageName: node
   linkType: hard
 
@@ -2008,20 +2007,6 @@ __metadata:
   peerDependencies:
     eslint: ">= 3.2.1"
   checksum: 1f1c36e149304e9a6f58e2292a761abad58274da33b3a48b24ad55ad20cbce3ac7467321f2b6fcb052f9563c89f67004de4766eba2e2bdbcb010a6a0666989cf
-  languageName: node
-  linkType: hard
-
-"eslint-plugin-deprecation@npm:^1.3.2":
-  version: 1.3.2
-  resolution: "eslint-plugin-deprecation@npm:1.3.2"
-  dependencies:
-    "@typescript-eslint/experimental-utils": ^5.0.0
-    tslib: ^2.3.1
-    tsutils: ^3.21.0
-  peerDependencies:
-    eslint: ^6.0.0 || ^7.0.0 || ^8.0.0
-    typescript: ^3.7.5 || ^4.0.0
-  checksum: 763776eec6af02ad442bf9ed7e73da198da6969b51418b43f79b3f0a27395e85e9988a3b182e61fab7812a35e17539ba72464d1123a87cc25b195288cbd0c31d
   languageName: node
   linkType: hard
 
@@ -2166,9 +2151,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-react@npm:^7.31.8":
-  version: 7.31.8
-  resolution: "eslint-plugin-react@npm:7.31.8"
+"eslint-plugin-react@npm:^7.31.9":
+  version: 7.31.9
+  resolution: "eslint-plugin-react@npm:7.31.9"
   dependencies:
     array-includes: ^3.1.5
     array.prototype.flatmap: ^1.3.0
@@ -2186,7 +2171,7 @@ __metadata:
     string.prototype.matchall: ^4.0.7
   peerDependencies:
     eslint: ^3 || ^4 || ^5 || ^6 || ^7 || ^8
-  checksum: 0683e2a624a4df6f08264a3f6bc614a81e8f961c83173bdf2d8d3523f84ed5d234cddc976dbc6815913e007c5984df742ba61be0c0592b27c3daabe0f68165a3
+  checksum: 073256ceaaa8b0425f76544a44fe15c2f08ba4786847035f640b1e0144a023f2c854a93d77a3951969303962feaaa93f1d4a038d322b029cdce2190e8e3338a4
   languageName: node
   linkType: hard
 
@@ -4186,7 +4171,7 @@ __metadata:
     cross-env: ^7.0.3
     cuid: ^2.1.8
     eslint: ^8.25.0
-    eslint-config-neon: ^0.1.35
+    eslint-config-neon: ^0.1.37
     eslint-plugin-tailwindcss: ^3.6.2
     husky: ^8.0.1
     js-cookie: ^3.0.1
@@ -5195,7 +5180,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tslib@npm:^2.0.0, tslib@npm:^2.1.0, tslib@npm:^2.3.1, tslib@npm:^2.4.0":
+"tslib@npm:^2.0.0, tslib@npm:^2.1.0, tslib@npm:^2.4.0":
   version: 2.4.0
   resolution: "tslib@npm:2.4.0"
   checksum: 8c4aa6a3c5a754bf76aefc38026134180c053b7bd2f81338cb5e5ebf96fefa0f417bff221592bf801077f5bf990562f6264fecbc42cd3309b33872cb6fc3b113
