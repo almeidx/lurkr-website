@@ -63,6 +63,7 @@ export default function Home() {
 				<div className="relative block w-full pb-[56.25%]">
 					<iframe
 						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+						// eslint-disable-next-line react/no-unknown-property
 						allowFullScreen
 						className="absolute top-0 left-0"
 						frameBorder={0}
