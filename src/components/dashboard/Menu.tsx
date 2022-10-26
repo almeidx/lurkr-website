@@ -1,4 +1,4 @@
-import Image from "next/future/image";
+import Image from "next/image";
 import { useRouter } from "next/router";
 import { useCallback, useContext, useRef, useState, type MouseEventHandler } from "react";
 import type { IconType } from "react-icons";

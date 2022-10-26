@@ -24,13 +24,12 @@ export default function Privacy() {
 					use or share your information with anyone except as described in this Privacy Policy.
 				</p>
 
-				<Link href="#information-collection-and-use">
-					<a
-						className="mx-3 text-xl font-bold uppercase text-gray-200 sm:mx-0 sm:text-3xl"
-						id="information-collection-and-use"
-					>
-						Information Collection and Use
-					</a>
+				<Link
+					className="mx-3 text-xl font-bold uppercase text-gray-200 sm:mx-0 sm:text-3xl"
+					href="#information-collection-and-use"
+					id="information-collection-and-use"
+				>
+					Information Collection and Use
 				</Link>
 
 				<p className="mx-3 mt-6 mb-9 font-light text-gray-400 sm:mx-0">
@@ -39,10 +38,12 @@ export default function Privacy() {
 					retained by us and used as described in this privacy policy.
 				</p>
 
-				<Link href="#log-data">
-					<a className="mx-3 text-xl font-bold uppercase text-gray-200 sm:mx-0 sm:text-3xl" id="log-data">
-						Log Data
-					</a>
+				<Link
+					className="mx-3 text-xl font-bold uppercase text-gray-200 sm:mx-0 sm:text-3xl"
+					href="#log-data"
+					id="log-data"
+				>
+					Log Data
 				</Link>
 
 				<p className="mx-3 mt-6 mb-9 font-light text-gray-400 sm:mx-0">
@@ -53,10 +54,12 @@ export default function Privacy() {
 					Service, and other statistics.
 				</p>
 
-				<Link href="#cookies">
-					<a className="mx-3 text-xl font-bold uppercase text-gray-200 sm:mx-0 sm:text-3xl" id="cookies">
-						Cookies
-					</a>
+				<Link
+					className="mx-3 text-xl font-bold uppercase text-gray-200 sm:mx-0 sm:text-3xl"
+					href="#cookies"
+					id="cookies"
+				>
+					Cookies
 				</Link>
 
 				<p className="mx-3 mt-6 font-light text-gray-400 sm:mx-0">
@@ -71,10 +74,12 @@ export default function Privacy() {
 					refuse our cookies, you may not be able to use some portions of this Service.
 				</p>
 
-				<Link href="#security">
-					<a className="mx-3 text-xl font-bold uppercase text-gray-200 sm:mx-0 sm:text-3xl" id="security">
-						Security
-					</a>
+				<Link
+					className="mx-3 text-xl font-bold uppercase text-gray-200 sm:mx-0 sm:text-3xl"
+					href="#security"
+					id="security"
+				>
+					Security
 				</Link>
 
 				<p className="mx-3 mt-3 mb-9 font-light text-gray-400 sm:mx-0">
@@ -83,10 +88,12 @@ export default function Privacy() {
 					electronic storage is 100% secure and reliable, and we cannot guarantee its absolute security.
 				</p>
 
-				<Link href="#links-to-other-sites">
-					<a className="mx-3 text-xl font-bold uppercase text-gray-200 sm:mx-0 sm:text-3xl" id="links-to-other-sites">
-						Links to Other Sites
-					</a>
+				<Link
+					className="mx-3 text-xl font-bold uppercase text-gray-200 sm:mx-0 sm:text-3xl"
+					href="#links-to-other-sites"
+					id="links-to-other-sites"
+				>
+					Links to Other Sites
 				</Link>
 
 				<p className="mx-3 mt-3 mb-9 font-light text-gray-400 sm:mx-0">
@@ -96,10 +103,12 @@ export default function Privacy() {
 					privacy policies, or practices of any third-party sites or services.
 				</p>
 
-				<Link href="#children-privacy">
-					<a className="mx-3 text-xl font-bold uppercase text-gray-200 sm:mx-0 sm:text-3xl" id="children-privacy">
-						Children&apos;s Privacy
-					</a>
+				<Link
+					className="mx-3 text-xl font-bold uppercase text-gray-200 sm:mx-0 sm:text-3xl"
+					href="#children-privacy"
+					id="children-privacy"
+				>
+					Children&apos;s Privacy
 				</Link>
 
 				<p className="mx-3 mt-3 mb-9 font-light text-gray-400 sm:mx-0">
@@ -110,10 +119,12 @@ export default function Privacy() {
 					able to do necessary actions.
 				</p>
 
-				<Link href="#changes">
-					<a className="mx-3 text-xl font-bold uppercase text-gray-200 sm:mx-0 sm:text-3xl" id="changes">
-						Changes to This Privacy Policy
-					</a>
+				<Link
+					className="mx-3 text-xl font-bold uppercase text-gray-200 sm:mx-0 sm:text-3xl"
+					href="#changes"
+					id="changes"
+				>
+					Changes to This Privacy Policy
 				</Link>
 
 				<p className="mx-3 mt-3 mb-9 font-light text-gray-400 sm:mx-0">
@@ -121,10 +132,12 @@ export default function Privacy() {
 					any changes. We will notify you of any changes by posting the new Privacy Policy on this page.
 				</p>
 
-				<Link href="#contact">
-					<a className="mx-3 text-xl font-bold uppercase text-gray-200 sm:mx-0 sm:text-3xl" id="contact">
-						Contact Us
-					</a>
+				<Link
+					className="mx-3 text-xl font-bold uppercase text-gray-200 sm:mx-0 sm:text-3xl"
+					href="#contact"
+					id="contact"
+				>
+					Contact Us
 				</Link>
 
 				<p className="mx-3 mt-3 mb-9 font-light text-gray-400 sm:mx-0">

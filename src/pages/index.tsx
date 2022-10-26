@@ -1,6 +1,6 @@
 /* eslint-disable react/iframe-missing-sandbox */
 
-import Image from "next/future/image";
+import Image from "next/image";
 import Link from "next/link";
 import { GiPartyPopper } from "react-icons/gi";
 import Showcase from "../components/Showcase";
@@ -25,14 +25,15 @@ const buttons: ButtonData[] = [
 export default function Home() {
 	return (
 		<div className="flex flex-col items-center bg-discord-dark">
-			<Link href="/invite">
-				<a className="mt-1 mb-5 flex items-center justify-center gap-x-2 rounded-md bg-green-700 py-2 px-3 text-base text-white duration-150 hover:bg-green-600	md:mt-2 md:text-xl">
-					<GiPartyPopper className="text-lg md:text-2xl" />
-					<div className="flex flex-col items-center justify-center gap-x-1 md:flex-row">
-						<p>Slash Commands update is live now!</p>
-						<p>Try it out!</p>
-					</div>
-				</a>
+			<Link
+				className="mt-1 mb-5 flex items-center justify-center gap-x-2 rounded-md bg-green-700 py-2 px-3 text-base text-white duration-150 hover:bg-green-600	md:mt-2 md:text-xl"
+				href="/invite"
+			>
+				<GiPartyPopper className="text-lg md:text-2xl" />
+				<div className="flex flex-col items-center justify-center gap-x-1 md:flex-row">
+					<p>Slash Commands update is live now!</p>
+					<p>Try it out!</p>
+				</div>
 			</Link>
 
 			<Image alt="Pepe Manager avatar" height={64} src="/static/avatar.png" width={64} />
@@ -46,10 +47,12 @@ export default function Home() {
 
 				<div className="flex flex-row items-center justify-center gap-4">
 					{buttons.map(({ path, text }, idx) => (
-						<Link href={path} key={idx}>
-							<a className="flex w-40 justify-center rounded-md bg-blurple py-2 px-3 text-white transition-colors duration-100 hover:bg-[#414AB9]">
-								{text}
-							</a>
+						<Link
+							className="flex w-40 justify-center rounded-md bg-blurple py-2 px-3 text-white transition-colors duration-100 hover:bg-[#414AB9]"
+							href={path}
+							key={idx}
+						>
+							{text}
 						</Link>
 					))}
 				</div>

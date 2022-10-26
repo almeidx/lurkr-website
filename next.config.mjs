@@ -19,7 +19,6 @@ export default {
 	experimental: {
 		fallbackNodePolyfills: false,
 	},
-	swcMinify: true,
 	reactStrictMode: true,
 	redirects() {
 		return [

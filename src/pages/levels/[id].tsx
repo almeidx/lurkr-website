@@ -1,6 +1,6 @@
 import type { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from "next";
-import Image from "next/future/image";
 import Head from "next/head";
+import Image from "next/image";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { TbArrowsDownUp } from "react-icons/tb";

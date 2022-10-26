@@ -1,4 +1,4 @@
-import Image from "next/future/image";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useCallback, useContext, useEffect, useRef, useState } from "react";
@@ -57,8 +57,8 @@ export default function Navbar() {
 	return (
 		<div className="w-full bg-discord-dark" ref={dropdownRef}>
 			<header className="mx-auto flex max-w-[992px] p-6 md:items-center xl:max-w-[1440px]">
-				<Link href="/">
-					<a className=" mr-4 whitespace-nowrap py-1 font-bold uppercase text-white md:p-0 md:text-xl">Pepe Manager</a>
+				<Link className=" mr-4 whitespace-nowrap py-1 font-bold uppercase text-white md:p-0 md:text-xl" href="/">
+					Pepe Manager
 				</Link>
 
 				<nav className="z-20 ml-auto md:w-full">
@@ -80,10 +80,11 @@ export default function Navbar() {
 								({ name, requireAuth, url }, idx) =>
 									(!requireAuth || authenticated) && (
 										<li key={idx}>
-											<Link href={url}>
-												<a className="block w-full px-4 font-normal leading-7 text-gray-300 hover:underline md:px-0 md:text-gray-400">
-													{name}
-												</a>
+											<Link
+												className="block w-full px-4 font-normal leading-7 text-gray-300 hover:underline md:px-0 md:text-gray-400"
+												href={url}
+											>
+												{name}
 											</Link>
 										</li>
 									),
@@ -91,20 +92,20 @@ export default function Navbar() {
 
 							{authenticated ? (
 								<div className="mx-2 mt-6 flex flex-row gap-2 text-white md:mx-0 md:mt-0 md:ml-auto">
-									<Link href="/guilds">
-										<a className="flex cursor-pointer flex-row items-center justify-center gap-2 rounded-md bg-gray-700 py-1 px-2 duration-200 hover:bg-discord-lighter focus:outline-none md:bg-transparent">
-											<Image
-												alt="Your profile picture"
-												className="block rounded-full"
-												height={30}
-												src={avatar ? userAvatarCdn(id, avatar, 32) : userDefaultAvatarCdn(discriminator, 32)}
-												width={30}
-											/>
-
-											<p>
-												{username}#{discriminator}
-											</p>
-										</a>
+									<Link
+										className="flex cursor-pointer flex-row items-center justify-center gap-2 rounded-md bg-gray-700 py-1 px-2 duration-200 hover:bg-discord-lighter focus:outline-none md:bg-transparent"
+										href="/guilds"
+									>
+										<Image
+											alt="Your profile picture"
+											className="block rounded-full"
+											height={30}
+											src={avatar ? userAvatarCdn(id, avatar, 32) : userDefaultAvatarCdn(discriminator, 32)}
+											width={30}
+										/>
+										<p>
+											{username}#{discriminator}
+										</p>
 									</Link>
 
 									<button

@@ -25,17 +25,19 @@ export default function Failure({ href, message, withSignIn }: FailureProps) {
 						Sign in
 					</button>
 
-					<Link href={href}>
-						<a className="rounded-lg bg-gray-600 px-4 py-2 text-white shadow-md transition-colors duration-100 hover:bg-gray-700">
-							Go back
-						</a>
+					<Link
+						className="rounded-lg bg-gray-600 px-4 py-2 text-white shadow-md transition-colors duration-100 hover:bg-gray-700"
+						href={href}
+					>
+						Go back
 					</Link>
 				</div>
 			) : (
-				<Link href={href}>
-					<a className="rounded-lg bg-gray-600 px-4 py-2 text-white shadow-md transition-colors duration-100 hover:bg-gray-700">
-						Go back
-					</a>
+				<Link
+					className="rounded-lg bg-gray-600 px-4 py-2 text-white shadow-md transition-colors duration-100 hover:bg-gray-700"
+					href={href}
+				>
+					Go back
 				</Link>
 			)}
 		</div>

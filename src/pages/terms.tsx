@@ -17,10 +17,8 @@ export default function Terms() {
 				<p className="mx-3 mt-6 mb-9 font-light text-gray-400 sm:mx-0">
 					These terms and conditions (&quot;Agreement&quot;) set forth the general terms and conditions of your use of
 					the{" "}
-					<Link href="https://pepemanager.com">
-						<a className="text-blue-300" rel="nofollow noreferrer" target="_blank">
-							pepemanager.com
-						</a>
+					<Link className="text-blue-300" href="https://pepemanager.com" rel="nofollow noreferrer" target="_blank">
+						pepemanager.com
 					</Link>{" "}
 					website (&quot;Website&quot; or &quot;Service&quot;) and any of its related products and services
 					(collectively, &quot;Services&quot;). This Agreement is legally binding between you (&quot;User&quot;,
@@ -35,10 +33,12 @@ export default function Terms() {
 					is not physically signed by you, and it governs your use of the Website and Services.
 				</p>
 
-				<Link href="#age-requirement">
-					<a className="mx-3 text-xl font-bold uppercase text-gray-200 sm:mx-0 sm:text-3xl" id="age-requirement">
-						Age requirement
-					</a>
+				<Link
+					className="mx-3 text-xl font-bold uppercase text-gray-200 sm:mx-0 sm:text-3xl"
+					href="#age-requirement"
+					id="age-requirement"
+				>
+					Age requirement
 				</Link>
 
 				<p className="mx-3 mt-6 mb-9 font-light text-gray-400 sm:mx-0">
@@ -46,13 +46,12 @@ export default function Terms() {
 					agreeing to this Agreement you warrant and represent that you are at least 13 years of age.
 				</p>
 
-				<Link href="#links-to-other-resources">
-					<a
-						className="mx-3 text-xl font-bold uppercase text-gray-200 sm:mx-0 sm:text-3xl"
-						id="links-to-other-resources"
-					>
-						Links to other resources
-					</a>
+				<Link
+					className="mx-3 text-xl font-bold uppercase text-gray-200 sm:mx-0 sm:text-3xl"
+					href="#links-to-other-resources"
+					id="links-to-other-resources"
+				>
+					Links to other resources
 				</Link>
 
 				<p className="mx-3 mt-6 mb-9 font-light text-gray-400 sm:mx-0">
@@ -66,10 +65,12 @@ export default function Terms() {
 					resources is at your own risk.
 				</p>
 
-				<Link href="#prohibited-uses">
-					<a className="mx-3 text-xl font-bold uppercase text-gray-200 sm:mx-0 sm:text-3xl" id="prohibited-uses">
-						Prohibited uses
-					</a>
+				<Link
+					className="mx-3 text-xl font-bold uppercase text-gray-200 sm:mx-0 sm:text-3xl"
+					href="#prohibited-uses"
+					id="prohibited-uses"
+				>
+					Prohibited uses
 				</Link>
 
 				<p className="mx-3 mt-6 mb-9 font-light text-gray-400 sm:mx-0">
@@ -87,13 +88,12 @@ export default function Terms() {
 					the right to terminate your use of the Website and Services for violating any of the prohibited uses.
 				</p>
 
-				<Link href="#intellectual-property-rights">
-					<a
-						className="mx-3 text-xl font-bold uppercase text-gray-200 sm:mx-0 sm:text-3xl"
-						id="intellectual-property-rights"
-					>
-						Intellectual property rights
-					</a>
+				<Link
+					className="mx-3 text-xl font-bold uppercase text-gray-200 sm:mx-0 sm:text-3xl"
+					href="#intellectual-property-rights"
+					id="intellectual-property-rights"
+				>
+					Intellectual property rights
 				</Link>
 
 				<p className="mx-3 mt-6 mb-9 font-light text-gray-400 sm:mx-0">
@@ -112,10 +112,12 @@ export default function Terms() {
 					right or license to reproduce or otherwise use any of the Operator or third party trademarks.
 				</p>
 
-				<Link href="#severability">
-					<a className="mx-3 text-xl font-bold uppercase text-gray-200 sm:mx-0 sm:text-3xl" id="severability">
-						Severability
-					</a>
+				<Link
+					className="mx-3 text-xl font-bold uppercase text-gray-200 sm:mx-0 sm:text-3xl"
+					href="#severability"
+					id="severability"
+				>
+					Severability
 				</Link>
 
 				<p className="mx-3 mt-6 mb-9 font-light text-gray-400 sm:mx-0">
@@ -128,10 +130,12 @@ export default function Terms() {
 					or portions thereof shall remain in full force and effect.
 				</p>
 
-				<Link href="#changes">
-					<a className="mx-3 text-xl font-bold uppercase text-gray-200 sm:mx-0 sm:text-3xl" id="changes">
-						Changes and amendments
-					</a>
+				<Link
+					className="mx-3 text-xl font-bold uppercase text-gray-200 sm:mx-0 sm:text-3xl"
+					href="#changes"
+					id="changes"
+				>
+					Changes and amendments
 				</Link>
 
 				<p className="mx-3 mt-6 mb-9 font-light text-gray-400 sm:mx-0">
@@ -141,10 +145,12 @@ export default function Terms() {
 					shall constitute your consent to such changes.
 				</p>
 
-				<Link href="#acceptance">
-					<a className="mx-3 text-xl font-bold uppercase text-gray-200 sm:mx-0 sm:text-3xl" id="acceptance">
-						Acceptance of these terms
-					</a>
+				<Link
+					className="mx-3 text-xl font-bold uppercase text-gray-200 sm:mx-0 sm:text-3xl"
+					href="#acceptance"
+					id="acceptance"
+				>
+					Acceptance of these terms
 				</Link>
 
 				<p className="mx-3 mt-6 mb-9 font-light text-gray-400 sm:mx-0">
@@ -153,10 +159,12 @@ export default function Terms() {
 					terms of this Agreement, you are not authorized to access or use the Website and Services.
 				</p>
 
-				<Link href="#contact">
-					<a className="mx-3 text-xl font-bold uppercase text-gray-200 sm:mx-0 sm:text-3xl" id="contact">
-						Contacting us
-					</a>
+				<Link
+					className="mx-3 text-xl font-bold uppercase text-gray-200 sm:mx-0 sm:text-3xl"
+					href="#contact"
+					id="contact"
+				>
+					Contacting us
 				</Link>
 
 				<p className="mx-3 mt-6 mb-9 font-light text-gray-400 sm:mx-0">

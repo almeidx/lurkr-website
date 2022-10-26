@@ -1,4 +1,4 @@
-import Image from "next/future/image";
+import Image from "next/image";
 import type { ChangeEvent } from "react";
 import useWindowDimensions from "../../hooks/useWindowDimensions";
 import { userAvatarCdn, userDefaultAvatarCdn } from "../../utils/cdn";
