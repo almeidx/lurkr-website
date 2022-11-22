@@ -45,5 +45,19 @@
 	"packageManager": "yarn@3.3.0",
 	"engines": {
 		"node": ">=16"
+	},
+	"resolutions": {
+		"@angular-eslint/eslint-plugin": "npm:@almeidx/empty@1.0.1",
+		"@angular-eslint/eslint-plugin-template": "npm:@almeidx/empty@1.0.1",
+		"@angular-eslint/template-parser": "npm:@almeidx/empty@1.0.1",
+		"astro-eslint-parser": "npm:@almeidx/empty@1.0.1",
+		"eslint-plugin-astro": "npm:@almeidx/empty@1.0.1",
+		"eslint-plugin-cypress": "npm:@almeidx/empty@1.0.1",
+		"eslint-plugin-jest": "npm:@almeidx/empty@1.0.1",
+		"eslint-plugin-rxjs": "npm:@almeidx/empty@1.0.1",
+		"eslint-plugin-rxjs-angular": "npm:@almeidx/empty@1.0.1",
+		"eslint-plugin-svelte3": "npm:@almeidx/empty@1.0.1",
+		"eslint-plugin-vue": "npm:@almeidx/empty@1.0.1",
+		"vue-eslint-parser": "npm:@almeidx/empty@1.0.1"
 	}
 }
