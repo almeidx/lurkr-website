@@ -25,7 +25,7 @@ export function parseIntStrict(number: string): number {
 export const parseFloatStrict = Number;
 
 export function parseMultiplier(phrase: string): number | null {
-	const numberCandidate = phrase.replace(/x/gi, "");
+	const numberCandidate = phrase.replaceAll(/x/gi, "");
 	if (!numberCandidate) {
 		return null;
 	}
