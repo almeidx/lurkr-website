@@ -47,7 +47,7 @@ export const getStaticProps: GetStaticProps<ErrorProps | (GetLevelsResult & { gu
 
 	return {
 		props: { ...data, guildId: data.guild.id },
-		revalidate: 180,
+		revalidate: 60,
 	};
 };
 
