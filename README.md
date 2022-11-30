@@ -2,12 +2,13 @@
 
 # Table of Contents
 
-- [Overview](#overview)
-- [Local setup](#local-setup)
-  - [Cloning repository](#cloning-repository)
-  - [Running the website](#running-the-website)
-- [Deployment](#deployment)
-- [Author](#author)
+- [Table of Contents](#table-of-contents)
+  - [Overview](#overview)
+    - [Local setup](#local-setup)
+      - [Cloning repository](#cloning-repository)
+      - [Running the website](#running-the-website)
+    - [Deployment](#deployment)
+    - [Author](#author)
 
 ---
 
@@ -19,7 +20,7 @@ This repository houses the [pepemanager.com] website, which is the website for t
 
 ### Local setup
 
-This setup assumes you have [Git], and [Node.js] setup on your machine. This repository requires [Node.js] version 16 or higher, and uses the [Yarn 3] package manager, so you should have basic knowledge about how to use them.
+This setup assumes you have [Git], and [Node.js] setup on your machine. This repository requires [Node.js] version 18 or higher, and uses the [Yarn 3] package manager, so you should have basic knowledge about how to use them.
 
 #### Cloning repository
 
