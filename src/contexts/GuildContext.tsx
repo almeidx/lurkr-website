@@ -80,7 +80,7 @@ export default function GuildContextProvider({ children }: GuildContextProps) {
 
 			const newErrors: string[] = [];
 			const newWarnings: string[] = [];
-			const getLimit = <K extends keyof typeof DATABASE_LIMITS>(key: K): typeof DATABASE_LIMITS[K] =>
+			const getLimit = <K extends keyof typeof DATABASE_LIMITS>(key: K): (typeof DATABASE_LIMITS)[K] =>
 				getDatabaseLimit(key, data?.premium ?? false);
 
 			const validateMinutes = (

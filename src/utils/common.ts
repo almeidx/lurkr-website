@@ -67,7 +67,7 @@ export function formatNumberToNDecimalPlaces(number: number, decimals = 2): stri
 
 export function getDatabaseLimit<
 	K extends keyof typeof DATABASE_LIMITS & keyof typeof DATABASE_PREMIUM_LIMITS = keyof typeof DATABASE_LIMITS,
->(key: K, premium: boolean): typeof DATABASE_LIMITS[K] | typeof DATABASE_PREMIUM_LIMITS[K] {
+>(key: K, premium: boolean): (typeof DATABASE_LIMITS)[K] | (typeof DATABASE_PREMIUM_LIMITS)[K] {
 	if (premium) {
 		return DATABASE_PREMIUM_LIMITS[key];
 	}
