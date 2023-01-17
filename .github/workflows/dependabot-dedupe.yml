@@ -1,0 +1,37 @@
+name: Dedupe Dependabot PRs
+
+on:
+  push:
+    branches: ["dependabot/**"]
+
+permissions:
+  contents: write
+  pull-requests: write
+  repository-projects: write
+
+jobs:
+  dedupe:
+    name: Dedupe Dependabot PRs
+    runs-on: ubuntu-latest
+    if: github.actor == 'dependabot[bot]'
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          cache: yarn
+          node-version: 18
+
+      - run: yarn dedupe
+
+      - name: Commit lockfile
+        run: |
+          git config user.name "dependabot[bot]"
+          git config user.email "49699333+dependabot[bot]@users.noreply.github.com"
+          git add .
+          git commit -m '[dependabot skip] Fix yarn.lock' || true
+          git push || true
+        env:
+          HUSKY: 0
