@@ -1,5 +1,3 @@
-/* eslint-disable react/iframe-missing-sandbox */
-
 import Image from "next/image";
 import Link from "next/link";
 import { GiPartyPopper } from "react-icons/gi";
@@ -63,20 +61,45 @@ export default function Home() {
 					Check out this Demonstration video by No Text To Speech
 				</h2>
 
-				<div className="relative block w-full pb-[56.25%]">
-					<iframe
-						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-						// eslint-disable-next-line react/no-unknown-property
-						allowFullScreen
-						className="absolute top-0 left-0"
-						frameBorder={0}
-						height="100%"
-						sandbox="allow-scripts allow-same-origin"
-						src="https://www.youtube.com/embed/uEHGNx3idFM"
-						title="Free Mee6 Leveling Bot? | Pepe Manager"
-						width="100%"
+				<a
+					className="relative flex h-56 w-full items-center justify-center bg-black/20 bg-[url(/static/video.jpg)] bg-cover bg-blend-multiply md:h-80"
+					href="https://www.youtube.com/watch?v=uEHGNx3idFM"
+					rel="noreferrer"
+					target="_blank"
+				>
+					<div className="absolute top-3 left-3 flex items-center gap-2">
+						<Image
+							alt="No Text To Speech YouTube channel icon"
+							className="rounded-full"
+							height={40}
+							src="/static/no-text-to-speech.jpg"
+							width={40}
+						/>
+
+						<span className="overflow-hidden text-ellipsis whitespace-nowrap text-lg text-white">
+							Free Mee6 Leveling Bot? | Pepe Manager
+						</span>
+					</div>
+
+					<Image
+						alt="YouTube play button"
+						className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+						height={72}
+						src="/static/youtube-play.svg"
+						width={72}
 					/>
-				</div>
+
+					<div className="absolute bottom-1 left-0 flex gap-2 bg-[#1a1a1d] p-4 text-sm font-semibold text-white">
+						Watch on{" "}
+						<Image
+							alt="YouTube logo"
+							className="fill-white text-white"
+							height={16}
+							src="/static/youtube-logo-with-text.svg"
+							width={72}
+						/>
+					</div>
+				</a>
 			</div>
 
 			<main className="my-12 flex max-w-screen-2xl flex-col items-center justify-center gap-12">
