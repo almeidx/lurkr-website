@@ -79,7 +79,6 @@ export const getServerSideProps: GetServerSideProps<ErrorProps | PageProps> = as
 
 export default function Guild(props: InferGetServerSidePropsType<typeof getServerSideProps>) {
 	const [menuOpen, setMenuOpen] = useState<boolean>(true);
-	// eslint-disable-next-line @typescript-eslint/unbound-method
 	const { changes, errors, section, updateData, updateGuildId, updateSection, warnings } = useContext(GuildContext);
 	const { authenticated } = useContext(UserContext);
 	const router = useRouter();

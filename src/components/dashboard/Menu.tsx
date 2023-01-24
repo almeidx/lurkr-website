@@ -80,7 +80,6 @@ export default function Menu({ closeMenu, guild, guildId: argGuildId, menuOpen, 
 	const saveButtonRef = useRef<HTMLButtonElement>(null);
 	const isSaving = useRef<boolean>(false);
 
-	// eslint-disable-next-line @typescript-eslint/unbound-method
 	const { changes, clearChanges, errors, guildId, section, updateData, updateSection } = useContext(GuildContext);
 	const router = useRouter();
 

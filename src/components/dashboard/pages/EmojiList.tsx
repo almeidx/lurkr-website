@@ -1,10 +1,8 @@
 import { useContext, useEffect } from "react";
 import { GuildContext, type Channel, type GuildSettings } from "../../../contexts/GuildContext";
-import Field from "../../form/Field";
 import Fieldset from "../../form/Fieldset";
-import Label from "../../form/Label";
-import Selector from "../../form/Selector";
 import Header from "../Header";
+import { EmojiListChannel } from "../entries/EmojiListChannel";
 
 interface EmojiListProps {
 	channels: Channel[];
@@ -13,7 +11,6 @@ interface EmojiListProps {
 }
 
 export default function EmojiList({ channels, settings, openMenu }: EmojiListProps) {
-	// eslint-disable-next-line @typescript-eslint/unbound-method
 	const { addChange } = useContext(GuildContext);
 
 	useEffect(() => window.scroll({ behavior: "auto", left: 0, top: 0 }), [openMenu]);
@@ -30,23 +27,7 @@ export default function EmojiList({ channels, settings, openMenu }: EmojiListPro
 			/>
 
 			<Fieldset>
-				<Field>
-					<Label
-						htmlFor="emojiListChannel"
-						name="Emoji List Channel"
-						url="https://docs.pepemanager.com/guides/automatically-controlled-emoji-list"
-					/>
-					<div className="max-w-md">
-						<Selector
-							id="emojiListChannel"
-							initialItems={settings.emojiListChannel ? [settings.emojiListChannel] : []}
-							items={channels}
-							limit={1}
-							onSelect={(channelIds) => addChange("emojiListChannel", channelIds[0] ?? null)}
-							type="Channel"
-						/>
-					</div>
-				</Field>
+				<EmojiListChannel addChange={addChange} channels={channels} settings={settings} />
 			</Fieldset>
 		</>
 	);

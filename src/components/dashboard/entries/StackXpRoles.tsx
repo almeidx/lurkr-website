@@ -1,0 +1,30 @@
+import type { GuildSettings, AddChangeFn } from "../../../contexts/GuildContext";
+import Field from "../../form/Field";
+import Label from "../../form/Label";
+import Toggle from "../../form/Toggle";
+
+interface StackXpRolesProps {
+	addChange: AddChangeFn;
+	settings: GuildSettings;
+}
+
+export function StackXpRoles({ addChange, settings }: StackXpRolesProps) {
+	return (
+		<Field direction="row">
+			<div className="flex w-full flex-row items-center justify-between gap-x-3 rounded-lg bg-discord-dark p-2 pl-4">
+				<Label
+					htmlFor="stackXpRoles"
+					name="Stack Leveling Role Rewards"
+					url="https://docs.pepemanager.com/guides/setting-up-server-xp-leveling#toggling-role-stacking"
+					withMargin={false}
+				/>
+				<Toggle
+					id="stackXpRoles"
+					initialValue={settings.stackXpRoles}
+					onChange={(state) => addChange("stackXpRoles", state)}
+					size="small"
+				/>
+			</div>
+		</Field>
+	);
+}
