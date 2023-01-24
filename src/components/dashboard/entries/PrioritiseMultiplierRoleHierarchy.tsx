@@ -1,10 +1,10 @@
-import type { GuildSettings, GuildContextData } from "../../../contexts/GuildContext";
+import type { GuildSettings, AddChangeFn } from "../../../contexts/GuildContext";
 import Field from "../../form/Field";
 import Label from "../../form/Label";
 import Toggle from "../../form/Toggle";
 
 interface PrioritiseMultiplierRoleHierarchyProps {
-	addChange: GuildContextData["addChange"];
+	addChange: AddChangeFn;
 	settings: GuildSettings;
 }
 

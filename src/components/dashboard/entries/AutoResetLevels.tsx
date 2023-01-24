@@ -1,10 +1,10 @@
-import { AutoResetLevelsEnum, type GuildSettings, type GuildContextData } from "../../../contexts/GuildContext";
+import { AutoResetLevelsEnum, type GuildSettings, type AddChangeFn } from "../../../contexts/GuildContext";
 import BasicSelect from "../../form/BasicSelect";
 import Field from "../../form/Field";
 import Label from "../../form/Label";
 
 interface AutoResetLevelsProps {
-	addChange: GuildContextData["addChange"];
+	addChange: AddChangeFn;
 	settings: GuildSettings;
 }
 

@@ -1,4 +1,4 @@
-import type { GuildSettings, GuildContextData, Role } from "../../../contexts/GuildContext";
+import type { GuildSettings, AddChangeFn, Role } from "../../../contexts/GuildContext";
 import { getDatabaseLimit } from "../../../utils/common";
 import type { Snowflake } from "../../../utils/constants";
 import Field from "../../form/Field";
@@ -7,7 +7,7 @@ import Selector from "../../form/Selector";
 import Subtitle from "../../form/Subtitle";
 
 interface NoXpRoleProps {
-	addChange: GuildContextData["addChange"];
+	addChange: AddChangeFn;
 	roles: Role[];
 	settings: GuildSettings;
 }
