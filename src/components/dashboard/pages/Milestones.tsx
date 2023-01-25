@@ -1,15 +1,11 @@
 import { useContext, useEffect } from "react";
 import { GuildContext, type Channel, type GuildSettings, type Role } from "../../../contexts/GuildContext";
-import { getDatabaseLimit, parseIntStrict } from "../../../utils/common";
-import type { Snowflake } from "../../../utils/constants";
-import Field from "../../form/Field";
 import Fieldset from "../../form/Fieldset";
-import Input from "../../form/Input";
-import Label from "../../form/Label";
-import Selector from "../../form/Selector";
-import Subtitle from "../../form/Subtitle";
-import Textarea from "../../form/Textarea";
 import Header from "../Header";
+import { MilestonesChannel } from "../entries/MilestonesChannel";
+import { MilestonesInterval } from "../entries/MilestonesInterval";
+import { MilestonesMessage } from "../entries/MilestonesMessage";
+import { MilestonesRoles } from "../entries/MilestonesRoles";
 
 interface MilestonesProps {
 	channels: Channel[];
@@ -19,12 +15,7 @@ interface MilestonesProps {
 }
 
 export default function Milestones({ channels, settings, roles, openMenu }: MilestonesProps) {
-	// eslint-disable-next-line @typescript-eslint/unbound-method
 	const { addChange } = useContext(GuildContext);
-
-	const milestonesIntervalLimits = getDatabaseLimit("milestonesInterval", settings.premium);
-	const milestonesMessageLimit = getDatabaseLimit("milestonesMessage", settings.premium).maxLength;
-	const milestonesRolesLimit = getDatabaseLimit("milestonesRoles", settings.premium).maxLength;
 
 	useEffect(() => window.scroll({ behavior: "auto", left: 0, top: 0 }), [openMenu]);
 
@@ -40,76 +31,13 @@ export default function Milestones({ channels, settings, roles, openMenu }: Mile
 			/>
 
 			<Fieldset>
-				<Field>
-					<Label
-						htmlFor="milestonesChannel"
-						name="Milestone Channel"
-						url="https://docs.pepemanager.com/guides/automatically-controlled-member-milestones#setting-the-milestones-channel"
-					/>
-					<div className="max-w-md">
-						<Selector
-							id="milestonesChannel"
-							initialItems={settings.milestonesChannel ? [settings.milestonesChannel] : []}
-							items={channels}
-							limit={1}
-							onSelect={(channelIds) => addChange("milestonesChannel", channelIds[0] ?? null)}
-							type="Channel"
-						/>
-					</div>
-				</Field>
+				<MilestonesChannel addChange={addChange} channels={channels} settings={settings} />
 
-				<Field>
-					<Label
-						htmlFor="milestonesInterval"
-						name="Milestone Announcement Interval"
-						url="https://docs.pepemanager.com/guides/automatically-controlled-member-milestones#setting-the-milestones-interval"
-					/>
-					<div className="max-w-md">
-						<Input
-							id="milestonesInterval"
-							initialValue={settings.milestonesInterval.toString()}
-							maxLength={6}
-							onChange={(text) => addChange("milestonesInterval", text ? parseIntStrict(text) : 0)}
-							placeholder="Enter the milestones interval"
-						/>
-					</div>
-					<Subtitle
-						text={`Between ${milestonesIntervalLimits.min} - ${milestonesIntervalLimits.max.toLocaleString("en")}.`}
-					/>
-				</Field>
+				<MilestonesInterval addChange={addChange} settings={settings} />
 
-				<Field>
-					<Label
-						htmlFor="milestonesMessage"
-						name="Milestone Announcement Message"
-						url="https://docs.pepemanager.com/guides/automatically-controlled-member-milestones#setting-the-milestones-message"
-					/>
-					<Textarea
-						id="milestonesMessage"
-						initialText={settings.milestonesMessage ?? ""}
-						maxLength={milestonesMessageLimit}
-						onChange={(text) => addChange("milestonesMessage", text)}
-						placeholder="Enter the milestone message"
-					/>
-					<Subtitle text={`Maximum of ${milestonesMessageLimit.toLocaleString("en")} characters.`} />
-				</Field>
+				<MilestonesMessage addChange={addChange} settings={settings} />
 
-				<Field>
-					<Label
-						htmlFor="milestoneRoles"
-						name="Milestone Reward Roles"
-						url="https://docs.pepemanager.com/guides/automatically-controlled-member-milestones#setting-the-milestones-role"
-					/>
-					<Selector
-						id="milestoneRoles"
-						initialItems={(settings.milestonesRoles as Snowflake[] | null) ?? []}
-						items={roles}
-						limit={milestonesRolesLimit}
-						onSelect={(roleIds) => addChange("milestonesRoles", roleIds)}
-						type="Role"
-					/>
-					<Subtitle text={`Maximum of ${milestonesRolesLimit} roles.`} />
-				</Field>
+				<MilestonesRoles addChange={addChange} roles={roles} settings={settings} />
 			</Fieldset>
 		</>
 	);

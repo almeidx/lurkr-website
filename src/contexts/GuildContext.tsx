@@ -38,7 +38,7 @@ const milestonesKeys: (keyof PatchGuildData)[] = [
 	"milestonesRoles",
 ];
 
-interface GuildContextData {
+export interface GuildContextData {
 	addChange<T extends keyof GuildSettings & keyof PatchGuildData>(key: T, value: PatchGuildData[T]): void;
 	changes: Partial<PatchGuildData>;
 	clearChanges(): void;
@@ -51,6 +51,8 @@ interface GuildContextData {
 	updateSection(newSection: Section): void;
 	warnings: string[];
 }
+
+export type AddChangeFn = GuildContextData["addChange"];
 
 interface GuildContextProps {
 	children: ReactNode;
@@ -312,7 +314,7 @@ export default function GuildContextProvider({ children }: GuildContextProps) {
 
 export interface GuildSettings {
 	autoPublishChannels: string[];
-	autoResetLevels: AutoResetLevels;
+	autoResetLevels: AutoResetLevelsEnum;
 	autoRole: string[];
 	autoRoleTimeout: number | null;
 	emojiList: boolean;
@@ -349,7 +351,7 @@ export interface GuildSettings {
 	xpWhitelistedChannels: string[];
 }
 
-export enum AutoResetLevels {
+export enum AutoResetLevelsEnum {
 	None,
 	Leave,
 	Ban,

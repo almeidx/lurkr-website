@@ -4,7 +4,7 @@ interface FieldsetProps {
 	children: ReactNode;
 }
 
-export default function Input({ children, ...props }: FieldsetProps): JSX.Element {
+export default function Fieldset({ children, ...props }: FieldsetProps): JSX.Element {
 	return (
 		<fieldset className="flex w-full flex-col gap-6 rounded-xl bg-discord-slightly-darker py-7 px-4" {...props}>
 			{children}

@@ -23,7 +23,7 @@ export default function Header(props: HeaderProps | HeaderWithToggleProps) {
 		<>
 			<BiArrowBack
 				className="z-[99999] mb-4 ml-4 inline-block h-6 w-6 cursor-pointer text-white sm:hidden"
-				// eslint-disable-next-line react/jsx-handler-names, @typescript-eslint/unbound-method
+				// eslint-disable-next-line react/jsx-handler-names
 				onClick={props.openMenu}
 			/>
 

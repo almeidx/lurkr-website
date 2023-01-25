@@ -5,7 +5,7 @@ interface FieldProps {
 	direction?: string;
 }
 
-export default function Input({ children, direction, ...props }: FieldProps): JSX.Element {
+export default function Field({ children, direction, ...props }: FieldProps): JSX.Element {
 	return (
 		<div className={`${direction === "row" ? "" : "flex-col "}flex w-full`} {...props}>
 			{children}
