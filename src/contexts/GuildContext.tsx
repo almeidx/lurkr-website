@@ -1,8 +1,8 @@
 /* eslint-disable promise/prefer-await-to-callbacks, promise/prefer-await-to-then */
 
 import { createContext, useCallback, useState, type ReactNode } from "react";
-import { getDatabaseLimit } from "../utils/common";
-import { API_BASE_URL, VANITY_REGEX, type DATABASE_LIMITS, type Snowflake } from "../utils/constants";
+import { getDatabaseLimit } from "~/utils/common";
+import { API_BASE_URL, VANITY_REGEX, type DATABASE_LIMITS, type Snowflake } from "~/utils/constants";
 
 export type Section =
 	| "autorole"

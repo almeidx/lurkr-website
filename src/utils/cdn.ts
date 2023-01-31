@@ -1,4 +1,4 @@
-import type { Snowflake } from "./constants";
+import type { Snowflake } from "~/utils/constants";
 
 type ImageSizes = 1_024 | 2_048 | 4_096 | 16 | 32 | 64 | 128 | 256 | 512;
 

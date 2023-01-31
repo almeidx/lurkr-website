@@ -1,7 +1,7 @@
-import type { AddChangeFn, GuildSettings, Role } from "../../../contexts/GuildContext";
-import Field from "../../form/Field";
-import Label from "../../form/Label";
-import Selector from "../../form/Selector";
+import Field from "@/form/Field";
+import Label from "@/form/Label";
+import Selector from "@/form/Selector";
+import type { AddChangeFn, GuildSettings, Role } from "~/contexts/GuildContext";
 
 interface TopXpRoleProps {
 	addChange: AddChangeFn;

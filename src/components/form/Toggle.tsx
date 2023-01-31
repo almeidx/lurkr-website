@@ -1,13 +1,5 @@
 import { useCallback, useState } from "react";
 
-interface ToggleProps {
-	disabled?: boolean;
-	id: string;
-	initialValue: boolean;
-	onChange(value: boolean): unknown;
-	size: "large" | "small";
-}
-
 export default function Toggle({ id, initialValue, disabled, size, onChange }: ToggleProps) {
 	const [checked, setChecked] = useState<boolean>(initialValue);
 
@@ -26,4 +18,12 @@ export default function Toggle({ id, initialValue, disabled, size, onChange }: T
 			<span className={`slider ${size === "small" ? "before:h-4 before:w-4" : ""}`} />
 		</label>
 	);
+}
+
+interface ToggleProps {
+	disabled?: boolean;
+	id: string;
+	initialValue: boolean;
+	onChange(value: boolean): unknown;
+	size: "large" | "small";
 }

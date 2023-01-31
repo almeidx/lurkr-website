@@ -1,20 +1,6 @@
 import { useState, type ReactNode } from "react";
 import { BiArrowBack } from "react-icons/bi";
-import Toggle from "../form/Toggle";
-
-interface HeaderProps {
-	description: string;
-	extras?: ReactNode;
-	openMenu(): void;
-	title: string;
-}
-
-type HeaderWithToggleProps = HeaderProps & {
-	id: string;
-	initialValue: boolean;
-	onChange(value: boolean): unknown;
-	openMenu(): void;
-};
+import Toggle from "@/form/Toggle";
 
 export default function Header(props: HeaderProps | HeaderWithToggleProps) {
 	const [enabled, setEnabled] = useState<boolean>("initialValue" in props && props.initialValue);
@@ -56,4 +42,18 @@ export default function Header(props: HeaderProps | HeaderWithToggleProps) {
 			<p className="my-3 mx-4 font-light text-gray-400">{props.description}</p>
 		</>
 	);
+}
+
+interface HeaderProps {
+	description: string;
+	extras?: ReactNode;
+	openMenu(): void;
+	title: string;
+}
+
+interface HeaderWithToggleProps extends HeaderProps {
+	id: string;
+	initialValue: boolean;
+	onChange(value: boolean): unknown;
+	openMenu(): void;
 }

@@ -1,11 +1,11 @@
 import { useCallback, useMemo, useRef, useState } from "react";
 import { MdPlaylistAdd } from "react-icons/md";
-import type { AddChangeFn, GuildSettings, Role, XpRoleReward } from "../../../contexts/GuildContext";
-import { getDatabaseLimit, parseIntStrict } from "../../../utils/common";
-import Field from "../../form/Field";
-import Input from "../../form/Input";
-import Label from "../../form/Label";
-import XpRole, { type XpRoleOnChangeFn } from "../XpRole";
+import XpRole, { type XpRoleOnChangeFn } from "@/dashboard/XpRole";
+import Field from "@/form/Field";
+import Input from "@/form/Input";
+import Label from "@/form/Label";
+import type { AddChangeFn, GuildSettings, Role, XpRoleReward } from "~/contexts/GuildContext";
+import { getDatabaseLimit, parseIntStrict } from "~/utils/common";
 
 interface XpRoleRewardsProps {
 	addChange: AddChangeFn;

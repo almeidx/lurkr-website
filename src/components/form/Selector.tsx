@@ -1,45 +1,10 @@
 import { useCallback, useEffect, useRef, useState, type MouseEventHandler } from "react";
 import { AiOutlinePlusCircle } from "react-icons/ai";
-import useClickOutside from "../../hooks/useClickOutside";
-import { resolveColour } from "../../utils/common";
-import type { Snowflake } from "../../utils/constants";
-import RoleChannelBullet from "../RoleChannelBullet";
-import Input from "../form/Input";
-
-interface Channel {
-	id: Snowflake;
-	name: string;
-}
-
-type Role = Channel & {
-	color: number;
-};
-
-type Items = Channel[] | Role[];
-
-export type OnSelectFn = (items: Snowflake[]) => unknown;
-
-interface SelectorProps {
-	disabled?: boolean;
-	id: string;
-	initialItems: Snowflake[];
-	items: Items;
-	limit: number;
-	onSelect: OnSelectFn;
-	type: "Channel" | "Role";
-}
-
-const resolveItem = (item: Channel | Role | null, type: SelectorProps["type"]) =>
-	type === "Channel"
-		? { id: item?.id, name: item?.name } // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-		: ({ color: (item as Role | null)?.color, id: item?.id, name: item?.name } as Role);
-
-// eslint-disable-next-line @typescript-eslint/no-namespace, @typescript-eslint/no-unused-vars
-declare namespace JSX {
-	interface IntrinsicElements {
-		"data-id": string;
-	}
-}
+import Input from "@/form/Input";
+import RoleChannelBullet from "~/components/RoleChannelBullet";
+import useClickOutside from "~/hooks/useClickOutside";
+import { resolveColour } from "~/utils/common";
+import type { Snowflake } from "~/utils/constants";
 
 export default function Selector({ id, limit, items, initialItems, onSelect, type, disabled }: SelectorProps) {
 	const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
@@ -199,4 +164,40 @@ export default function Selector({ id, limit, items, initialItems, onSelect, typ
 			</div>
 		</div>
 	);
+}
+
+// eslint-disable-next-line @typescript-eslint/no-namespace, @typescript-eslint/no-unused-vars
+declare namespace JSX {
+	interface IntrinsicElements {
+		"data-id": string;
+	}
+}
+
+function resolveItem(item: Channel | Role | null, type: SelectorProps["type"]) {
+	return type === "Channel"
+		? { id: item?.id, name: item?.name }
+		: ({ color: (item as Role | null)?.color, id: item?.id, name: item?.name } as Role);
+}
+
+interface Channel {
+	id: Snowflake;
+	name: string;
+}
+
+type Role = Channel & {
+	color: number;
+};
+
+type Items = Channel[] | Role[];
+
+export type OnSelectFn = (items: Snowflake[]) => unknown;
+
+interface SelectorProps {
+	disabled?: boolean;
+	id: string;
+	initialItems: Snowflake[];
+	items: Items;
+	limit: number;
+	onSelect: OnSelectFn;
+	type: "Channel" | "Role";
 }

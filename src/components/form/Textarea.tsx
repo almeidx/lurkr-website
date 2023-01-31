@@ -1,14 +1,5 @@
 import { useState } from "react";
 
-interface TextareaProps {
-	disabled?: boolean;
-	id: string;
-	initialText: string;
-	maxLength: number;
-	onChange(text: string): unknown;
-	placeholder: string;
-}
-
 export default function Textarea({ id, initialText, maxLength, placeholder, disabled, onChange }: TextareaProps) {
 	const [text, setText] = useState(initialText);
 
@@ -31,4 +22,13 @@ export default function Textarea({ id, initialText, maxLength, placeholder, disa
 			wrap="soft"
 		/>
 	);
+}
+
+interface TextareaProps {
+	disabled?: boolean;
+	id: string;
+	initialText: string;
+	maxLength: number;
+	onChange(text: string): unknown;
+	placeholder: string;
 }

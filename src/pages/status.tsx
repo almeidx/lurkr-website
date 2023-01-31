@@ -1,11 +1,11 @@
 import type { GetStaticProps, InferGetStaticPropsType } from "next";
 import Head from "next/head";
 import { useRef, useState } from "react";
-import Message from "../components/Message";
-import Shard from "../components/Shard";
-import Input from "../components/form/Input";
-import { isValidSnowflake } from "../utils/common";
-import { type Snowflake, BOT_API_BASE_URL } from "../utils/constants";
+import Message from "~/components/Message";
+import Shard from "~/components/Shard";
+import Input from "~/components/form/Input";
+import { isValidSnowflake } from "~/utils/common";
+import { type Snowflake, BOT_API_BASE_URL } from "~/utils/constants";
 
 interface GetStatsResponse {
 	shards: {

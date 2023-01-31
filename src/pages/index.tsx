@@ -1,16 +1,16 @@
 import Image from "next/image";
 import Link from "next/link";
-import avatarImg from "../assets/avatar.png";
-import promotionalVideoAuthorImg from "../assets/promotional-video-author.jpg";
-import promotionalVideoImg from "../assets/promotional-video.jpg";
-import customizableRankCardsImg from "../assets/showcases/customizable-rank-cards.png";
-import endlessLevelRewardsImg from "../assets/showcases/endless-level-rewards.png";
-import flexibleLevelingRatesImg from "../assets/showcases/flexible-leveling-rates.png";
-import freeForeverLevelingImg from "../assets/showcases/free-forever-leveling.png";
-import uniqueLevelingFeaturesImg from "../assets/showcases/unique-leveling-features.png";
-import youtubeLogoWithTextSvg from "../assets/youtube-logo-with-text.svg";
-import youtubePlaySvg from "../assets/youtube-play.svg";
-import Showcase, { type ShowcaseProps } from "../components/Showcase";
+import avatarImg from "~/assets/avatar.png";
+import promotionalVideoAuthorImg from "~/assets/promotional-video-author.jpg";
+import promotionalVideoImg from "~/assets/promotional-video.jpg";
+import customizableRankCardsImg from "~/assets/showcases/customizable-rank-cards.png";
+import endlessLevelRewardsImg from "~/assets/showcases/endless-level-rewards.png";
+import flexibleLevelingRatesImg from "~/assets/showcases/flexible-leveling-rates.png";
+import freeForeverLevelingImg from "~/assets/showcases/free-forever-leveling.png";
+import uniqueLevelingFeaturesImg from "~/assets/showcases/unique-leveling-features.png";
+import youtubeLogoWithTextSvg from "~/assets/youtube-logo-with-text.svg";
+import youtubePlaySvg from "~/assets/youtube-play.svg";
+import Showcase, { type ShowcaseProps } from "~/components/Showcase";
 
 const buttons = [
 	{ path: "/invite", text: "Invite the bot" },

@@ -2,11 +2,11 @@ import type { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
-import Guild from "../../components/Guild";
-import Input from "../../components/form/Input";
-import type { UserGuild } from "../../contexts/UserContext";
-import { isValidSnowflake } from "../../utils/common";
-import { API_BASE_URL } from "../../utils/constants";
+import Input from "@/form/Input";
+import Guild from "~/components/Guild";
+import type { UserGuild } from "~/contexts/UserContext";
+import { isValidSnowflake } from "~/utils/common";
+import { API_BASE_URL } from "~/utils/constants";
 
 export const getServerSideProps: GetServerSideProps<{ guilds: GetGuildsMeResult | null }> = async (ctx) => {
 	const response = await fetch(API_BASE_URL + "/guilds/@me", {

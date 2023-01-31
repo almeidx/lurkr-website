@@ -1,6 +1,6 @@
-import type { RoleReward } from "../../contexts/GuildContext";
-import { resolveColour } from "../../utils/common";
-import RoleChannelBullet from "../RoleChannelBullet";
+import RoleChannelBullet from "~/components/RoleChannelBullet";
+import type { RoleReward } from "~/contexts/GuildContext";
+import { resolveColour } from "~/utils/common";
 
 export default function Role({ level, roles }: RoleReward) {
 	return (

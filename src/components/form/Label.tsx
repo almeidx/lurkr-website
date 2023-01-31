@@ -1,12 +1,5 @@
 import { BsFillQuestionCircleFill } from "react-icons/bs";
 
-interface LabelProps {
-	htmlFor: string;
-	name: string;
-	url: string;
-	withMargin?: boolean;
-}
-
 export default function Label({ htmlFor, name, url, withMargin = true }: LabelProps) {
 	return (
 		<label
@@ -22,4 +15,11 @@ export default function Label({ htmlFor, name, url, withMargin = true }: LabelPr
 			/>
 		</label>
 	);
+}
+
+interface LabelProps {
+	htmlFor: string;
+	name: string;
+	url: string;
+	withMargin?: boolean;
 }

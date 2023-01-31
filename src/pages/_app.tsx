@@ -1,5 +1,5 @@
 import "tailwindcss/tailwind.css";
-import "../styles/global.css";
+import "~/styles/global.css";
 
 import type { AppProps } from "next/app";
 import Head from "next/head";
@@ -7,12 +7,12 @@ import { useRouter } from "next/router";
 import Script from "next/script";
 import NextProgress from "next-progress";
 import { useEffect } from "react";
-import Footer from "../components/Footer";
-import Navbar from "../components/Navbar";
-import GuildProvider from "../contexts/GuildContext";
-import UserProvider from "../contexts/UserContext";
-import { inProductionEnvironment } from "../utils/common";
-import * as gtag from "../utils/gtag";
+import Footer from "~/components/Footer";
+import Navbar from "~/components/Navbar";
+import GuildProvider from "~/contexts/GuildContext";
+import UserProvider from "~/contexts/UserContext";
+import { inProductionEnvironment } from "~/utils/common";
+import * as gtag from "~/utils/gtag";
 
 export default function MyApp({ Component, pageProps }: AppProps) {
 	const router = useRouter();

@@ -1,14 +1,14 @@
 import type { ReactNode } from "react";
 
-interface FieldProps {
-	children: ReactNode;
-	direction?: string;
-}
-
 export default function Field({ children, direction, ...props }: FieldProps): JSX.Element {
 	return (
 		<div className={`${direction === "row" ? "" : "flex-col "}flex w-full`} {...props}>
 			{children}
 		</div>
 	);
+}
+
+interface FieldProps {
+	children: ReactNode;
+	direction?: string;
 }

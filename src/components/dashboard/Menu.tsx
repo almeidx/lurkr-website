@@ -7,69 +7,19 @@ import { FaPatreon, FaShapes, FaTrophy } from "react-icons/fa";
 import { HiEmojiHappy } from "react-icons/hi";
 import { RiSave3Fill, RiTimerFlashFill } from "react-icons/ri";
 import { TiWarningOutline } from "react-icons/ti";
-import { GuildContext, type PatchGuildData, type Section } from "../../contexts/GuildContext";
-import { guildIconCdn } from "../../utils/cdn";
-import { type Snowflake, FALLBACK_AVATAR, API_BASE_URL } from "../../utils/constants";
+import { GuildContext, type PatchGuildData, type Section } from "~/contexts/GuildContext";
+import { guildIconCdn } from "~/utils/cdn";
+import { type Snowflake, FALLBACK_AVATAR, API_BASE_URL } from "~/utils/constants";
 
-interface MenuProps {
-	closeMenu(): void;
-	guild: {
-		icon: string | null;
-		id: Snowflake;
-		name: string;
-	};
-	guildId: Snowflake;
-	menuOpen: boolean;
-	premium: boolean;
-}
-
-interface MenuItem {
-	Icon: IconType;
-	id: Section;
-	name: string;
-}
-
-const menuItems: MenuItem[] = [
-	{
-		Icon: BsFillShiftFill,
-		id: "leveling",
-		name: "Leveling",
-	},
-	{
-		Icon: BsPersonPlusFill,
-		id: "autorole",
-		name: "Autorole",
-	},
-	{
-		Icon: FaTrophy,
-		id: "milestones",
-		name: "Milestones",
-	},
-	{
-		Icon: HiEmojiHappy,
-		id: "emojiList",
-		name: "Emoji List",
-	},
-	{
-		Icon: RiTimerFlashFill,
-		id: "mentionCooldown",
-		name: "Mention Cooldown",
-	},
-	{
-		Icon: FaShapes,
-		id: "miscellaneous",
-		name: "Miscellaneous",
-	},
-	{
-		Icon: TiWarningOutline,
-		id: "dangerZone",
-		name: "Danger Zone",
-	},
-];
-
-export function isValidSection(str: string): str is Section {
-	return menuItems.map((item) => item.id).includes(str as Section);
-}
+const menuItems = [
+	{ Icon: BsFillShiftFill, id: "leveling", name: "Leveling" },
+	{ Icon: BsPersonPlusFill, id: "autorole", name: "Autorole" },
+	{ Icon: FaTrophy, id: "milestones", name: "Milestones" },
+	{ Icon: HiEmojiHappy, id: "emojiList", name: "Emoji List" },
+	{ Icon: RiTimerFlashFill, id: "mentionCooldown", name: "Mention Cooldown" },
+	{ Icon: FaShapes, id: "miscellaneous", name: "Miscellaneous" },
+	{ Icon: TiWarningOutline, id: "dangerZone", name: "Danger Zone" },
+] satisfies MenuItem[];
 
 const saveButtonDefaultColour = "#3ea25e";
 
@@ -231,4 +181,26 @@ export default function Menu({ closeMenu, guild, guildId: argGuildId, menuOpen, 
 			</div>
 		</aside>
 	);
+}
+
+export function isValidSection(str: string): str is Section {
+	return menuItems.map((item) => item.id).includes(str as Section);
+}
+
+interface MenuProps {
+	closeMenu(): void;
+	guild: {
+		icon: string | null;
+		id: Snowflake;
+		name: string;
+	};
+	guildId: Snowflake;
+	menuOpen: boolean;
+	premium: boolean;
+}
+
+interface MenuItem {
+	Icon: IconType;
+	id: Section;
+	name: string;
 }

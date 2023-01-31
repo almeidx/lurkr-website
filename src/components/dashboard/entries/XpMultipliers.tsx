@@ -1,6 +1,14 @@
 import cuid from "cuid";
 import { useCallback, useState } from "react";
 import { MdPlaylistAdd } from "react-icons/md";
+import XpMultiplier, {
+	type XpMultiplierOnDeleteFn,
+	type XpMultiplierOnItemChangeFn,
+	type XpMultiplierOnMultiplierChangeFn,
+} from "@/dashboard/XpMultiplier";
+import BasicSelect from "@/form/BasicSelect";
+import Field from "@/form/Field";
+import Label from "@/form/Label";
 import {
 	XpMultiplierType,
 	type Channel,
@@ -8,17 +16,9 @@ import {
 	type Role,
 	type XpMultiplier as IXpMultiplier,
 	type AddChangeFn,
-} from "../../../contexts/GuildContext";
-import { getDatabaseLimit, parseMultiplier } from "../../../utils/common";
-import type { Snowflake } from "../../../utils/constants";
-import BasicSelect from "../../form/BasicSelect";
-import Field from "../../form/Field";
-import Label from "../../form/Label";
-import XpMultiplier, {
-	type XpMultiplierOnDeleteFn,
-	type XpMultiplierOnItemChangeFn,
-	type XpMultiplierOnMultiplierChangeFn,
-} from "../XpMultiplier";
+} from "~/contexts/GuildContext";
+import { getDatabaseLimit, parseMultiplier } from "~/utils/common";
+import type { Snowflake } from "~/utils/constants";
 
 interface XpMultipliersProps {
 	addChange: AddChangeFn;

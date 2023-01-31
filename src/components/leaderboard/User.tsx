@@ -1,25 +1,8 @@
 import Image from "next/image";
 import type { ChangeEvent } from "react";
-import useWindowDimensions from "../../hooks/useWindowDimensions";
-import { userAvatarCdn, userDefaultAvatarCdn } from "../../utils/cdn";
-import { type Snowflake, FALLBACK_AVATAR, getRequiredXp } from "../../utils/constants";
-
-interface UserProps {
-	avatar: string | null;
-	index: number;
-	level: number;
-	tag: string | null;
-	userId: Snowflake;
-	xp: number;
-}
-
-function makeUserAvatarUrl(id: Snowflake, hash: string | null, tag: string | null) {
-	return hash
-		? userAvatarCdn(id, hash, 64, false)
-		: tag
-		? userDefaultAvatarCdn(tag.split(/#(\d{4})$/)[1]!, 64)
-		: FALLBACK_AVATAR;
-}
+import useWindowDimensions from "~/hooks/useWindowDimensions";
+import { userAvatarCdn, userDefaultAvatarCdn } from "~/utils/cdn";
+import { type Snowflake, FALLBACK_AVATAR, getRequiredXp } from "~/utils/constants";
 
 export default function User({ avatar, index, level, tag, userId, xp }: UserProps) {
 	const { width } = useWindowDimensions();
@@ -71,4 +54,21 @@ export default function User({ avatar, index, level, tag, userId, xp }: UserProp
 			)}
 		</div>
 	);
+}
+
+function makeUserAvatarUrl(id: Snowflake, hash: string | null, tag: string | null) {
+	return hash
+		? userAvatarCdn(id, hash, 64, false)
+		: tag
+		? userDefaultAvatarCdn(tag.split(/#(\d{4})$/)[1]!, 64)
+		: FALLBACK_AVATAR;
+}
+
+interface UserProps {
+	avatar: string | null;
+	index: number;
+	level: number;
+	tag: string | null;
+	userId: Snowflake;
+	xp: number;
 }

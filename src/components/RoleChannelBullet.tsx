@@ -1,13 +1,5 @@
 import type { MouseEventHandler } from "react";
 
-interface RoleChannelBulletProps {
-	hoverX?: boolean;
-	name: string;
-	onClick?: MouseEventHandler<HTMLDivElement>;
-	roleColour?: string;
-	type: "Channel" | "Role";
-}
-
 export default function RoleChannelBullet({
 	hoverX,
 	name,
@@ -38,4 +30,12 @@ export default function RoleChannelBullet({
 			</div>
 		</div>
 	);
+}
+
+interface RoleChannelBulletProps {
+	hoverX?: boolean;
+	name: string;
+	onClick?: MouseEventHandler<HTMLDivElement>;
+	roleColour?: string;
+	type: "Channel" | "Role";
 }

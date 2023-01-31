@@ -1,11 +1,11 @@
 import ms from "@almeidx/ms";
 import Head from "next/head";
 import { useCallback, useMemo, useState } from "react";
-import Message from "../../components/Message";
-import Tooltip from "../../components/Tooltip";
-import Input from "../../components/form/Input";
-import { parseMultiplier } from "../../utils/common";
-import { getRequiredXp } from "../../utils/constants";
+import Input from "@/form/Input";
+import Message from "~/components/Message";
+import Tooltip from "~/components/Tooltip";
+import { parseMultiplier } from "~/utils/common";
+import { getRequiredXp } from "~/utils/constants";
 
 const averageXpPerMessage = (40 + 15) / 2;
 const timePerMessage = ms("1m20s");

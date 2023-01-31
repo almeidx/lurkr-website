@@ -5,7 +5,7 @@ import {
 	DEFAULT_ROLE_COLOUR,
 	MAX_SNOWFLAKE,
 	MIN_SNOWFLAKE,
-} from "./constants";
+} from "~/utils/constants";
 
 type RGBColourString = `rgb(${number}, ${number}, ${number})`;
 

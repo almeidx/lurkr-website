@@ -3,25 +3,6 @@ import type { IconType } from "react-icons";
 import { IoMdSend } from "react-icons/io";
 import { MdClear } from "react-icons/md";
 
-interface InputProps {
-	className?: string;
-	clearOnSubmit?: boolean;
-	disabled?: boolean;
-	id: string;
-	initialValue: string;
-	maxLength: number;
-	noClearButton?: boolean;
-	onChange(text: string): unknown;
-	placeholder: string;
-	prefix?: string;
-}
-
-type InputWithSubmitProps = InputProps & {
-	onSubmit(): unknown;
-	submitIcon?: IconType;
-	submitRef: Ref<HTMLButtonElement>;
-};
-
 export default function Input(props: InputProps | InputWithSubmitProps): JSX.Element {
 	const [value, setValue] = useState<string>(props.initialValue);
 	const Icon = "submitIcon" in props ? props.submitIcon! : IoMdSend;
@@ -92,3 +73,22 @@ export default function Input(props: InputProps | InputWithSubmitProps): JSX.Ele
 		</div>
 	);
 }
+
+interface InputProps {
+	className?: string;
+	clearOnSubmit?: boolean;
+	disabled?: boolean;
+	id: string;
+	initialValue: string;
+	maxLength: number;
+	noClearButton?: boolean;
+	onChange(text: string): unknown;
+	placeholder: string;
+	prefix?: string;
+}
+
+type InputWithSubmitProps = InputProps & {
+	onSubmit(): unknown;
+	submitIcon?: IconType;
+	submitRef: Ref<HTMLButtonElement>;
+};

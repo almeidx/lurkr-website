@@ -1,14 +1,6 @@
 import Link from "next/link";
 
-interface Section {
-	links: {
-		href: string;
-		name: string;
-	}[];
-	title: string;
-}
-
-const sections: Section[] = [
+const sections = [
 	{
 		links: [
 			{
@@ -39,7 +31,7 @@ const sections: Section[] = [
 		],
 		title: "Legal",
 	},
-];
+] satisfies Section[];
 
 export default function Footer() {
 	return (
@@ -64,4 +56,12 @@ export default function Footer() {
 			</div>
 		</footer>
 	);
+}
+
+interface Section {
+	links: {
+		href: string;
+		name: string;
+	}[];
+	title: string;
 }

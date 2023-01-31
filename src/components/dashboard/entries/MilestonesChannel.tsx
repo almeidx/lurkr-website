@@ -1,7 +1,7 @@
-import type { Channel, GuildSettings, AddChangeFn } from "../../../contexts/GuildContext";
-import Field from "../../form/Field";
-import Label from "../../form/Label";
-import Selector from "../../form/Selector";
+import Field from "@/form/Field";
+import Label from "@/form/Label";
+import Selector from "@/form/Selector";
+import type { Channel, GuildSettings, AddChangeFn } from "~/contexts/GuildContext";
 
 interface MilestonesChannelProps {
 	addChange: AddChangeFn;

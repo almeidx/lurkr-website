@@ -1,28 +1,11 @@
 import { FaGlobe, FaUserFriends } from "react-icons/fa";
 import { IoMdChatbubbles } from "react-icons/io";
 import { MdClear } from "react-icons/md";
-import { XpMultiplierType, type Channel, type Role } from "../../contexts/GuildContext";
-import { getDatabaseLimit } from "../../utils/common";
-import type { Snowflake } from "../../utils/constants";
-import Input from "../form/Input";
-import Selector from "../form/Selector";
-
-export type XpMultiplierOnDeleteFn = (id: string) => unknown;
-export type XpMultiplierOnItemChangeFn = (itemIds: Snowflake[], id: string) => unknown;
-export type XpMultiplierOnMultiplierChangeFn = (multiplier: string, id: string) => unknown;
-
-interface XpMultiplierProps {
-	channels: Channel[];
-	id: string;
-	multiplier: string;
-	onDelete: XpMultiplierOnDeleteFn;
-	onItemChange: XpMultiplierOnItemChangeFn;
-	onMultiplierChange: XpMultiplierOnMultiplierChangeFn;
-	premium: boolean;
-	roles: Role[];
-	targets: Snowflake[] | null;
-	type: XpMultiplierType;
-}
+import Input from "@/form/Input";
+import Selector from "@/form/Selector";
+import { XpMultiplierType, type Channel, type Role } from "~/contexts/GuildContext";
+import { getDatabaseLimit } from "~/utils/common";
+import type { Snowflake } from "~/utils/constants";
 
 export default function XpMultiplier({
 	channels,
@@ -84,4 +67,21 @@ export default function XpMultiplier({
 			)}
 		</div>
 	);
+}
+
+export type XpMultiplierOnDeleteFn = (id: string) => unknown;
+export type XpMultiplierOnItemChangeFn = (itemIds: Snowflake[], id: string) => unknown;
+export type XpMultiplierOnMultiplierChangeFn = (multiplier: string, id: string) => unknown;
+
+interface XpMultiplierProps {
+	channels: Channel[];
+	id: string;
+	multiplier: string;
+	onDelete: XpMultiplierOnDeleteFn;
+	onItemChange: XpMultiplierOnItemChangeFn;
+	onMultiplierChange: XpMultiplierOnMultiplierChangeFn;
+	premium: boolean;
+	roles: Role[];
+	targets: Snowflake[] | null;
+	type: XpMultiplierType;
 }

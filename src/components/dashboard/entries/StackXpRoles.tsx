@@ -1,7 +1,7 @@
-import type { GuildSettings, AddChangeFn } from "../../../contexts/GuildContext";
-import Field from "../../form/Field";
-import Label from "../../form/Label";
-import Toggle from "../../form/Toggle";
+import Field from "@/form/Field";
+import Label from "@/form/Label";
+import Toggle from "@/form/Toggle";
+import type { GuildSettings, AddChangeFn } from "~/contexts/GuildContext";
 
 interface StackXpRolesProps {
 	addChange: AddChangeFn;

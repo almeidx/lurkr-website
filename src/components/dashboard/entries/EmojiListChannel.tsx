@@ -1,7 +1,7 @@
-import type { Channel, AddChangeFn, GuildSettings } from "../../../contexts/GuildContext";
-import Field from "../../form/Field";
-import Label from "../../form/Label";
-import Selector from "../../form/Selector";
+import Field from "@/form/Field";
+import Label from "@/form/Label";
+import Selector from "@/form/Selector";
+import type { Channel, AddChangeFn, GuildSettings } from "~/contexts/GuildContext";
 
 interface EmojiListChannelProps {
 	addChange: AddChangeFn;

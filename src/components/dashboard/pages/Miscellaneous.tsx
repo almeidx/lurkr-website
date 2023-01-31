@@ -1,15 +1,9 @@
 import { useContext, useEffect } from "react";
-import { type Channel, GuildContext, type GuildSettings } from "../../../contexts/GuildContext";
-import Fieldset from "../../form/Fieldset";
-import Header from "../Header";
-import { AutoPublishChannels } from "../entries/AutoPublishChannels";
-import { StoreCounts } from "../entries/StoreCounts";
-
-interface MiscellaneousProps {
-	channels: Channel[];
-	openMenu(): void;
-	settings: GuildSettings;
-}
+import Header from "@/dashboard/Header";
+import { AutoPublishChannels } from "@/entries/AutoPublishChannels";
+import { StoreCounts } from "@/entries/StoreCounts";
+import Fieldset from "@/form/Fieldset";
+import { type Channel, GuildContext, type GuildSettings } from "~/contexts/GuildContext";
 
 export default function Miscellaneous({ channels, settings, openMenu }: MiscellaneousProps) {
 	const { addChange } = useContext(GuildContext);
@@ -31,4 +25,10 @@ export default function Miscellaneous({ channels, settings, openMenu }: Miscella
 			</Fieldset>
 		</>
 	);
+}
+
+interface MiscellaneousProps {
+	channels: Channel[];
+	openMenu(): void;
+	settings: GuildSettings;
 }

@@ -1,14 +1,6 @@
 import { useCallback, useRef, useState, type MouseEventHandler } from "react";
 import { AiFillCaretDown } from "react-icons/ai";
-import useClickOutside from "../../hooks/useClickOutside";
-
-interface BasicSelectProps {
-	closeOnSelect?: boolean;
-	disabled?: boolean;
-	initialItem: string;
-	items: string[];
-	onSelect(item: string): unknown;
-}
+import useClickOutside from "~/hooks/useClickOutside";
 
 export default function BasicSelect({
 	closeOnSelect = false,
@@ -82,4 +74,12 @@ export default function BasicSelect({
 			</div>
 		</div>
 	);
+}
+
+interface BasicSelectProps {
+	closeOnSelect?: boolean;
+	disabled?: boolean;
+	initialItem: string;
+	items: string[];
+	onSelect(item: string): unknown;
 }

@@ -1,7 +1,3 @@
-interface SpinnerProps {
-	className?: string;
-}
-
 export default function Spinner({ className }: SpinnerProps) {
 	return (
 		<svg
@@ -18,4 +14,8 @@ export default function Spinner({ className }: SpinnerProps) {
 			/>
 		</svg>
 	);
+}
+
+interface SpinnerProps {
+	className?: string;
 }

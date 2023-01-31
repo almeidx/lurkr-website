@@ -1,19 +1,8 @@
 import { MdClear } from "react-icons/md";
-import type { Role } from "../../contexts/GuildContext";
-import { getDatabaseLimit } from "../../utils/common";
-import type { Snowflake } from "../../utils/constants";
-import Selector from "../form/Selector";
-
-export type XpRoleOnChangeFn = (roleIds: Snowflake[], level: number) => unknown;
-
-interface XpRoleProps {
-	disabled?: boolean;
-	initialRoles: Snowflake[];
-	level: number;
-	onChange: XpRoleOnChangeFn;
-	premium: boolean;
-	roles: Role[];
-}
+import Selector from "@/form/Selector";
+import type { Role } from "~/contexts/GuildContext";
+import { getDatabaseLimit } from "~/utils/common";
+import type { Snowflake } from "~/utils/constants";
 
 export default function XpRole({ level, initialRoles, onChange, premium, roles, disabled = false }: XpRoleProps) {
 	return (
@@ -45,4 +34,15 @@ export default function XpRole({ level, initialRoles, onChange, premium, roles, 
 			</div>
 		</div>
 	);
+}
+
+export type XpRoleOnChangeFn = (roleIds: Snowflake[], level: number) => unknown;
+
+interface XpRoleProps {
+	disabled?: boolean;
+	initialRoles: Snowflake[];
+	level: number;
+	onChange: XpRoleOnChangeFn;
+	premium: boolean;
+	roles: Role[];
 }
