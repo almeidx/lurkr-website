@@ -1,45 +1,5 @@
-import customizableRankCards from "../assets/showcases/customizable-rank-cards.png";
-import endlessLevelRewards from "../assets/showcases/endless-level-rewards.png";
-import flexibleLevelingRates from "../assets/showcases/flexible-leveling-rates.png";
-import freeForeverLeveling from "../assets/showcases/free-forever-leveling.png";
-import uniqueLevelingFeatures from "../assets/showcases/unique-leveling-features.png";
-import type { ShowcaseProps } from "../components/Showcase";
-
 // TODO: Use `${bigint}`?
 export type Snowflake = string;
-
-export const showcases = [
-	{
-		description:
-			"We have created Pepe Manager after being outraged at finding out how much money certain bot developers/companies charge for basic features like role rewards or adjustable leveling rate, adding or removing levels, etc. We vow NEVER to lock leveling features behind a monthly paywall, so you can rest easy knowing that years down the line, you won't be asked to pay for a feature you've been using forever.",
-		src: freeForeverLeveling,
-		title: "Free Forever Leveling",
-	},
-	{
-		description:
-			"With the same principle as leveling features, customizing rank cards is free and very in-depth! You can change your progress bar colour dynamically based on roles or profile colours or just a solid colour and your background to any image you want to give your rank card the personality it deserves!",
-		src: customizableRankCards,
-		title: "Customizable Rank Cards",
-	},
-	{
-		description:
-			"Reward your members for participating in chat! Everyone loves shiny new roles with flashy colours, and with Pepe Manager you can assign a near infinite amount of level rewards, from initiating roles at level 1 to grand master server champions all the way at level 100! ",
-		src: endlessLevelRewards,
-		title: "Endless Level Rewards",
-	},
-	{
-		description:
-			"With our multiplier system you can dynamically and easily change the rate at which your members gain experience based on what channel they're in, what roles they have or don't have, or even change the rate of the whole server if our leveling is too fast for your liking!",
-		src: flexibleLevelingRates,
-		title: "Flexible Leveling Rates",
-	},
-	{
-		description:
-			"Our team of Developers are constantly focused on developing new and interesting features for leveling, such as daily top leveling role, automatic level resets, ignored leveling bot prefixes, leveling in threads and so many more!",
-		src: uniqueLevelingFeatures,
-		title: "Unique Leveling Features",
-	},
-] satisfies Omit<ShowcaseProps, "align">[];
 
 export const API_BASE_URL =
 	process.env.NODE_ENV === "development" ? "http://localhost:3333" : "https://api.pepemanager.com";
