@@ -1,12 +1,12 @@
 import { useState, useRef } from "react";
 import { MdPlaylistAdd } from "react-icons/md";
-import type { AddChangeFn, GuildSettings } from "../../../contexts/GuildContext";
-import { getDatabaseLimit } from "../../../utils/common";
-import Field from "../../form/Field";
-import Input from "../../form/Input";
-import Label from "../../form/Label";
-import Subtitle from "../../form/Subtitle";
-import SmallClearableItem from "../SmallClearableItem";
+import SmallClearableItem from "@/dashboard/SmallClearableItem";
+import Field from "@/form/Field";
+import Input from "@/form/Input";
+import Label from "@/form/Label";
+import Subtitle from "@/form/Subtitle";
+import type { AddChangeFn, GuildSettings } from "~/contexts/GuildContext";
+import { getDatabaseLimit } from "~/utils/common";
 
 interface XpDisallowedPrefixesProps {
 	addChange: AddChangeFn;

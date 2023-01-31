@@ -3,24 +3,24 @@ import dynamic from "next/dynamic";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { Suspense, useCallback, useContext, useEffect, useMemo, useState } from "react";
-import Failure from "../../components/Failure";
-import Message from "../../components/Message";
-import Spinner from "../../components/Spinner";
-import Menu, { isValidSection } from "../../components/dashboard/Menu";
-import { GuildContext, type Channel, type DiscordGuild, type GuildSettings } from "../../contexts/GuildContext";
-import { UserContext } from "../../contexts/UserContext";
-import { isValidSnowflake } from "../../utils/common";
-import { API_BASE_URL, type Snowflake } from "../../utils/constants";
+import Menu, { isValidSection } from "@/dashboard/Menu";
+import Failure from "~/components/Failure";
+import Message from "~/components/Message";
+import Spinner from "~/components/Spinner";
+import { GuildContext, type Channel, type DiscordGuild, type GuildSettings } from "~/contexts/GuildContext";
+import { UserContext } from "~/contexts/UserContext";
+import { isValidSnowflake } from "~/utils/common";
+import { API_BASE_URL, type Snowflake } from "~/utils/constants";
 
-const Autorole = dynamic(async () => import("../../components/dashboard/pages/Autorole"), { suspense: true });
-const Leveling = dynamic(async () => import("../../components/dashboard/pages/Leveling"), { suspense: true });
-const Milestones = dynamic(async () => import("../../components/dashboard/pages/Milestones"), { suspense: true });
-const EmojiList = dynamic(async () => import("../../components/dashboard/pages/EmojiList"), { suspense: true });
-const MentionCooldown = dynamic(async () => import("../../components/dashboard/pages/MentionCooldown"), {
+const Autorole = dynamic(async () => import("@/dashboard-pages/Autorole"), { suspense: true });
+const Leveling = dynamic(async () => import("@/dashboard-pages/Leveling"), { suspense: true });
+const Milestones = dynamic(async () => import("@/dashboard-pages/Milestones"), { suspense: true });
+const EmojiList = dynamic(async () => import("@/dashboard-pages/EmojiList"), { suspense: true });
+const MentionCooldown = dynamic(async () => import("@/dashboard-pages/MentionCooldown"), {
 	suspense: true,
 });
-const Miscellaneous = dynamic(async () => import("../../components/dashboard/pages/Miscellaneous"), { suspense: true });
-const DangerZone = dynamic(async () => import("../../components/dashboard/pages/DangerZone"), { suspense: true });
+const Miscellaneous = dynamic(async () => import("@/dashboard-pages/Miscellaneous"), { suspense: true });
+const DangerZone = dynamic(async () => import("@/dashboard-pages/DangerZone"), { suspense: true });
 
 type PageProps = GetGuildResult & { guildId: Snowflake };
 

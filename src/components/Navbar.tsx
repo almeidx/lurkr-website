@@ -4,42 +4,20 @@ import { useRouter } from "next/router";
 import { useCallback, useContext, useEffect, useRef, useState } from "react";
 import { GoSignIn, GoSignOut } from "react-icons/go";
 import { MdClose, MdMenu } from "react-icons/md";
-import { UserContext } from "../contexts/UserContext";
-import useClickOutside from "../hooks/useClickOutside";
-import { userAvatarCdn, userDefaultAvatarCdn } from "../utils/cdn";
-import { API_BASE_URL } from "../utils/constants";
+import { UserContext } from "~/contexts/UserContext";
+import useClickOutside from "~/hooks/useClickOutside";
+import { userAvatarCdn, userDefaultAvatarCdn } from "~/utils/cdn";
+import { API_BASE_URL } from "~/utils/constants";
 
-const links: { name: string; requireAuth?: boolean; url: string }[] = [
-	{
-		name: "Home",
-		url: "/",
-	},
-	{
-		name: "Dashboard",
-		requireAuth: true,
-		url: "/guilds",
-	},
-	{
-		name: "Levels",
-		url: "/levels",
-	},
-	{
-		name: "Calculator",
-		url: "/levels/calculator",
-	},
-	{
-		name: "Tutorials",
-		url: "/tutorials",
-	},
-	{
-		name: "Docs",
-		url: "/docs",
-	},
-	{
-		name: "Status",
-		url: "/status",
-	},
-];
+const links = [
+	{ name: "Home", url: "/" },
+	{ name: "Dashboard", requireAuth: true, url: "/guilds" },
+	{ name: "Levels", url: "/levels" },
+	{ name: "Calculator", url: "/levels/calculator" },
+	{ name: "Tutorials", url: "/tutorials" },
+	{ name: "Docs", url: "/docs" },
+	{ name: "Status", url: "/status" },
+] satisfies { name: string; requireAuth?: boolean; url: string }[];
 
 export default function Navbar() {
 	const router = useRouter();

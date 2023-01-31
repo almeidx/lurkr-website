@@ -1,31 +1,24 @@
 import { useContext, useEffect } from "react";
-import { GuildContext, type Channel, type GuildSettings, type Role } from "../../../contexts/GuildContext";
-import Fieldset from "../../form/Fieldset";
-import Header from "../Header";
-import { AutoResetLevels } from "../entries/AutoResetLevels";
-import { NoXpRoles } from "../entries/NoXpRoles";
-import { PrioritiseMultiplierRoleHierarchy } from "../entries/PrioritiseMultiplierRoleHierarchy";
-import { StackXpRoles } from "../entries/StackXpRoles";
-import { TopXpRole } from "../entries/TopXpRole";
-import { Vanity } from "../entries/Vanity";
-import { XpAnnounceMiniumLevel } from "../entries/XpAnnounceMinimumLevel";
-import { XpAnnounceMultipleOf } from "../entries/XpAnnounceMultipleOf";
-import { XpAnnounceOnlyXpRoles } from "../entries/XpAnnounceOnlyXpRoles";
-import { XpAnnouncementLevels } from "../entries/XpAnnouncementLevels";
-import { XpChannels } from "../entries/XpChannels";
-import { XpDisallowedPrefixes } from "../entries/XpDisallowedPrefixes";
-import { XpInThreads } from "../entries/XpInThreads";
-import { XpMessage } from "../entries/XpMessage";
-import { XpMultipliers } from "../entries/XpMultipliers";
-import { XpResponseType } from "../entries/XpResponseType";
-import { XpRoleRewards } from "../entries/XpRoleRewards";
-
-interface LevelingProps {
-	channels: Channel[];
-	openMenu(): void;
-	roles: Role[];
-	settings: GuildSettings;
-}
+import Header from "@/dashboard/Header";
+import { AutoResetLevels } from "@/entries/AutoResetLevels";
+import { NoXpRoles } from "@/entries/NoXpRoles";
+import { PrioritiseMultiplierRoleHierarchy } from "@/entries/PrioritiseMultiplierRoleHierarchy";
+import { StackXpRoles } from "@/entries/StackXpRoles";
+import { TopXpRole } from "@/entries/TopXpRole";
+import { Vanity } from "@/entries/Vanity";
+import { XpAnnounceMiniumLevel } from "@/entries/XpAnnounceMinimumLevel";
+import { XpAnnounceMultipleOf } from "@/entries/XpAnnounceMultipleOf";
+import { XpAnnounceOnlyXpRoles } from "@/entries/XpAnnounceOnlyXpRoles";
+import { XpAnnouncementLevels } from "@/entries/XpAnnouncementLevels";
+import { XpChannels } from "@/entries/XpChannels";
+import { XpDisallowedPrefixes } from "@/entries/XpDisallowedPrefixes";
+import { XpInThreads } from "@/entries/XpInThreads";
+import { XpMessage } from "@/entries/XpMessage";
+import { XpMultipliers } from "@/entries/XpMultipliers";
+import { XpResponseType } from "@/entries/XpResponseType";
+import { XpRoleRewards } from "@/entries/XpRoleRewards";
+import Fieldset from "@/form/Fieldset";
+import { GuildContext, type Channel, type GuildSettings, type Role } from "~/contexts/GuildContext";
 
 export default function Leveling({ channels, settings, roles, openMenu }: LevelingProps) {
 	const { addChange, data } = useContext(GuildContext);
@@ -90,4 +83,11 @@ export default function Leveling({ channels, settings, roles, openMenu }: Leveli
 			</Fieldset>
 		</>
 	);
+}
+
+interface LevelingProps {
+	channels: Channel[];
+	openMenu(): void;
+	roles: Role[];
+	settings: GuildSettings;
 }

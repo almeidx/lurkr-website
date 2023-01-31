@@ -1,12 +1,5 @@
 import Image, { type StaticImageData } from "next/image";
 
-export interface ShowcaseProps {
-	align: "left" | "right";
-	description: string;
-	src: StaticImageData;
-	title: string;
-}
-
 export default function Showcase({ align, description, src, title }: ShowcaseProps) {
 	return (
 		<section className="flex flex-col items-center gap-6 lg:grid lg:grid-cols-3 lg:px-6 xl:px-48">
@@ -22,4 +15,11 @@ export default function Showcase({ align, description, src, title }: ShowcasePro
 			</div>
 		</section>
 	);
+}
+
+export interface ShowcaseProps {
+	align: "left" | "right";
+	description: string;
+	src: StaticImageData;
+	title: string;
 }

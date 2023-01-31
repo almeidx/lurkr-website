@@ -2,18 +2,13 @@
 
 import { useRouter } from "next/router";
 import { useEffect } from "react";
-import type { GuildSettings } from "../../../contexts/GuildContext";
-import { API_BASE_URL } from "../../../utils/constants";
-import Button from "../../form/Button";
-import Field from "../../form/Field";
-import Fieldset from "../../form/Fieldset";
-import Label from "../../form/Label";
-import Header from "../Header";
-
-interface MentionCooldownProps {
-	openMenu(): void;
-	settings: GuildSettings;
-}
+import Header from "@/dashboard/Header";
+import Button from "@/form/Button";
+import Field from "@/form/Field";
+import Fieldset from "@/form/Fieldset";
+import Label from "@/form/Label";
+import type { GuildSettings } from "~/contexts/GuildContext";
+import { API_BASE_URL } from "~/utils/constants";
 
 export default function DangerZone({ settings, openMenu }: MentionCooldownProps) {
 	const router = useRouter();
@@ -57,4 +52,9 @@ export default function DangerZone({ settings, openMenu }: MentionCooldownProps)
 			</Fieldset>
 		</>
 	);
+}
+
+interface MentionCooldownProps {
+	openMenu(): void;
+	settings: GuildSettings;
 }

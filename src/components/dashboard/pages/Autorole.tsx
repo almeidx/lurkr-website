@@ -1,15 +1,9 @@
 import { useContext, useEffect } from "react";
-import { GuildContext, type GuildSettings, type Role } from "../../../contexts/GuildContext";
-import Fieldset from "../../form/Fieldset";
-import Header from "../Header";
-import { AutoRole } from "../entries/AutoRole";
-import { AutoRoleTimeout } from "../entries/AutoRoleTimeout";
-
-interface AutoroleProps {
-	openMenu(): void;
-	roles: Role[];
-	settings: GuildSettings;
-}
+import Header from "@/dashboard/Header";
+import { AutoRole } from "@/entries/AutoRole";
+import { AutoRoleTimeout } from "@/entries/AutoRoleTimeout";
+import Fieldset from "@/form/Fieldset";
+import { GuildContext, type GuildSettings, type Role } from "~/contexts/GuildContext";
 
 export default function Autorole({ settings, roles, openMenu }: AutoroleProps) {
 	const { addChange } = useContext(GuildContext);
@@ -31,4 +25,10 @@ export default function Autorole({ settings, roles, openMenu }: AutoroleProps) {
 			</Fieldset>
 		</>
 	);
+}
+
+interface AutoroleProps {
+	openMenu(): void;
+	roles: Role[];
+	settings: GuildSettings;
 }

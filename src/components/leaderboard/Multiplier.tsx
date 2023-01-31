@@ -1,12 +1,8 @@
 import { FaGlobe, FaUserFriends } from "react-icons/fa";
 import { IoMdChatbubbles } from "react-icons/io";
-import { XpMultiplierType, type Channel, type IMultiplier, type Role } from "../../contexts/GuildContext";
-import { resolveColour } from "../../utils/common";
-import RoleChannelBullet from "../RoleChannelBullet";
-
-type MultiplierProps = Omit<IMultiplier, "id"> & {
-	items: Channel[] | Role[] | null;
-};
+import RoleChannelBullet from "~/components/RoleChannelBullet";
+import { XpMultiplierType, type Channel, type IMultiplier, type Role } from "~/contexts/GuildContext";
+import { resolveColour } from "~/utils/common";
 
 export default function Multiplier({ items, multiplier, targets, type }: MultiplierProps) {
 	const Icon =
@@ -31,7 +27,6 @@ export default function Multiplier({ items, multiplier, targets, type }: Multipl
 								return <RoleChannelBullet key={id} name={item.name} type={type} />;
 						  })
 						: targets.map((id) => {
-								// eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
 								const item = items.find((item) => item.id === id) as Role | undefined;
 								if (!item) {
 									return null;
@@ -46,3 +41,7 @@ export default function Multiplier({ items, multiplier, targets, type }: Multipl
 		</div>
 	);
 }
+
+type MultiplierProps = Omit<IMultiplier, "id"> & {
+	items: Channel[] | Role[] | null;
+};

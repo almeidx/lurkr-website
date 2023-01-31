@@ -4,11 +4,11 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { TbArrowsDownUp } from "react-icons/tb";
-import Failure from "../../components/Failure";
-import Spinner from "../../components/Spinner";
-import Multiplier from "../../components/leaderboard/Multiplier";
-import Role from "../../components/leaderboard/Role";
-import User from "../../components/leaderboard/User";
+import Multiplier from "@/leaderboard/Multiplier";
+import Role from "@/leaderboard/Role";
+import User from "@/leaderboard/User";
+import Failure from "~/components/Failure";
+import Spinner from "~/components/Spinner";
 import {
 	XpMultiplierType,
 	type Channel,
@@ -16,9 +16,9 @@ import {
 	type ILevel,
 	type IMultiplier,
 	type RoleReward,
-} from "../../contexts/GuildContext";
-import { guildIconCdn } from "../../utils/cdn";
-import { type Snowflake, FALLBACK_AVATAR, API_BASE_URL } from "../../utils/constants";
+} from "~/contexts/GuildContext";
+import { guildIconCdn } from "~/utils/cdn";
+import { type Snowflake, FALLBACK_AVATAR, API_BASE_URL } from "~/utils/constants";
 
 interface ErrorProps {
 	error: string;

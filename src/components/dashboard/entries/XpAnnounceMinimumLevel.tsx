@@ -1,9 +1,9 @@
-import type { AddChangeFn, GuildSettings } from "../../../contexts/GuildContext";
-import { getDatabaseLimit, parseIntStrict } from "../../../utils/common";
-import Field from "../../form/Field";
-import Input from "../../form/Input";
-import Label from "../../form/Label";
-import Subtitle from "../../form/Subtitle";
+import Field from "@/form/Field";
+import Input from "@/form/Input";
+import Label from "@/form/Label";
+import Subtitle from "@/form/Subtitle";
+import type { AddChangeFn, GuildSettings } from "~/contexts/GuildContext";
+import { getDatabaseLimit, parseIntStrict } from "~/utils/common";
 
 interface XpAnnounceMinimumLevelProps {
 	addChange: AddChangeFn;

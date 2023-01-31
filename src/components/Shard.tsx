@@ -1,15 +1,5 @@
 import ms from "@almeidx/ms";
 
-interface ShardProps {
-	guilds: number;
-	id: number;
-	members: number;
-	memory: number;
-	ping: number;
-	selected: boolean;
-	uptime: number;
-}
-
 export default function Shard({ guilds, id, members, memory, ping, selected, uptime }: ShardProps) {
 	return (
 		<tr
@@ -24,4 +14,14 @@ export default function Shard({ guilds, id, members, memory, ping, selected, upt
 			<td>{ms(uptime, false)}</td>
 		</tr>
 	);
+}
+
+interface ShardProps {
+	guilds: number;
+	id: number;
+	members: number;
+	memory: number;
+	ping: number;
+	selected: boolean;
+	uptime: number;
 }

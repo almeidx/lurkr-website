@@ -1,9 +1,9 @@
-import type { GuildSettings, AddChangeFn } from "../../../contexts/GuildContext";
-import { getDatabaseLimit } from "../../../utils/common";
-import Field from "../../form/Field";
-import Label from "../../form/Label";
-import Subtitle from "../../form/Subtitle";
-import Textarea from "../../form/Textarea";
+import Field from "@/form/Field";
+import Label from "@/form/Label";
+import Subtitle from "@/form/Subtitle";
+import Textarea from "@/form/Textarea";
+import type { GuildSettings, AddChangeFn } from "~/contexts/GuildContext";
+import { getDatabaseLimit } from "~/utils/common";
 
 interface MilestonesMessageProps {
 	addChange: AddChangeFn;

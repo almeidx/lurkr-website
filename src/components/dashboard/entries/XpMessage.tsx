@@ -1,9 +1,9 @@
-import type { AddChangeFn, GuildSettings } from "../../../contexts/GuildContext";
-import { getDatabaseLimit } from "../../../utils/common";
-import Field from "../../form/Field";
-import Label from "../../form/Label";
-import Subtitle from "../../form/Subtitle";
-import Textarea from "../../form/Textarea";
+import Field from "@/form/Field";
+import Label from "@/form/Label";
+import Subtitle from "@/form/Subtitle";
+import Textarea from "@/form/Textarea";
+import type { AddChangeFn, GuildSettings } from "~/contexts/GuildContext";
+import { getDatabaseLimit } from "~/utils/common";
 
 interface XpMessageProps {
 	addChange: AddChangeFn;

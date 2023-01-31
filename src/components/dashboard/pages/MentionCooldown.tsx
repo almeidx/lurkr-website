@@ -1,15 +1,9 @@
 import { useContext, useEffect } from "react";
-import { GuildContext, type GuildSettings, type Role } from "../../../contexts/GuildContext";
-import Fieldset from "../../form/Fieldset";
-import Header from "../Header";
-import { MentionCooldown } from "../entries/MentionCooldown";
-import { MentionCooldownRoles } from "../entries/MentionCooldownRoles";
-
-interface MentionCooldownProps {
-	openMenu(): void;
-	roles: Role[];
-	settings: GuildSettings;
-}
+import Header from "@/dashboard/Header";
+import { MentionCooldown } from "@/entries/MentionCooldown";
+import { MentionCooldownRoles } from "@/entries/MentionCooldownRoles";
+import Fieldset from "@/form/Fieldset";
+import { GuildContext, type GuildSettings, type Role } from "~/contexts/GuildContext";
 
 export default function MentionCooldownPage({ settings, roles, openMenu }: MentionCooldownProps) {
 	const { addChange } = useContext(GuildContext);
@@ -31,4 +25,10 @@ export default function MentionCooldownPage({ settings, roles, openMenu }: Menti
 			</Fieldset>
 		</>
 	);
+}
+
+interface MentionCooldownProps {
+	openMenu(): void;
+	roles: Role[];
+	settings: GuildSettings;
 }

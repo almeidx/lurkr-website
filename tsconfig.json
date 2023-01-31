@@ -23,7 +23,16 @@
 		"skipLibCheck": true,
 		"sourceMap": true,
 		"strict": true,
-		"target": "ES5"
+		"target": "ES5",
+		"paths": {
+			"@/dashboard/*": ["./src/components/dashboard/*"],
+			"@/entries/*": ["./src/components/dashboard/entries/*"],
+			"@/dashboard-pages/*": ["./src/components/dashboard/pages/*"],
+			"@/form/*": ["./src/components/form/*"],
+			"@/leaderboard/*": ["./src/components/leaderboard/*"],
+			"~/*": ["./src/*"]
+		},
+		"plugins": [{ "name": "next" }]
 	},
 	"exclude": ["node_modules"],
 	"include": ["**/*.ts", "**/*.tsx", "next-env.d.ts"]

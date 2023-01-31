@@ -1,9 +1,9 @@
-import type { GuildSettings, AddChangeFn } from "../../../contexts/GuildContext";
-import { formatNumberToNDecimalPlaces, getDatabaseLimit, parseFloatStrict } from "../../../utils/common";
-import Field from "../../form/Field";
-import Input from "../../form/Input";
-import Label from "../../form/Label";
-import Subtitle from "../../form/Subtitle";
+import Field from "@/form/Field";
+import Input from "@/form/Input";
+import Label from "@/form/Label";
+import Subtitle from "@/form/Subtitle";
+import type { GuildSettings, AddChangeFn } from "~/contexts/GuildContext";
+import { formatNumberToNDecimalPlaces, getDatabaseLimit, parseFloatStrict } from "~/utils/common";
 
 interface AutoRoleTimeoutProps {
 	addChange: AddChangeFn;

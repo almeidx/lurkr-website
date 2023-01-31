@@ -1,5 +1,5 @@
 import Document, { Head, Html, Main, NextScript } from "next/document";
-import { appleIcons, keywords } from "../utils/constants";
+import { appleIcons, keywords } from "~/utils/constants";
 
 export default class MyDocument extends Document {
 	public override render() {
@@ -24,7 +24,7 @@ export default class MyDocument extends Document {
 					/>
 					<meta content="website" property="og:type" />
 
-					<link href="icons/apple-icon-180.png" rel="apple-touch-icon" />
+					<link href="/apple-icon-180.png" rel="apple-touch-icon" />
 					<meta content="yes" name="apple-mobile-web-app-capable" />
 
 					<link

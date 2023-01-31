@@ -1,18 +1,11 @@
 import { useContext, useEffect } from "react";
-import { GuildContext, type Channel, type GuildSettings, type Role } from "../../../contexts/GuildContext";
-import Fieldset from "../../form/Fieldset";
-import Header from "../Header";
-import { MilestonesChannel } from "../entries/MilestonesChannel";
-import { MilestonesInterval } from "../entries/MilestonesInterval";
-import { MilestonesMessage } from "../entries/MilestonesMessage";
-import { MilestonesRoles } from "../entries/MilestonesRoles";
-
-interface MilestonesProps {
-	channels: Channel[];
-	openMenu(): void;
-	roles: Role[];
-	settings: GuildSettings;
-}
+import Header from "@/dashboard/Header";
+import { MilestonesChannel } from "@/entries/MilestonesChannel";
+import { MilestonesInterval } from "@/entries/MilestonesInterval";
+import { MilestonesMessage } from "@/entries/MilestonesMessage";
+import { MilestonesRoles } from "@/entries/MilestonesRoles";
+import Fieldset from "@/form/Fieldset";
+import { GuildContext, type Channel, type GuildSettings, type Role } from "~/contexts/GuildContext";
 
 export default function Milestones({ channels, settings, roles, openMenu }: MilestonesProps) {
 	const { addChange } = useContext(GuildContext);
@@ -41,4 +34,11 @@ export default function Milestones({ channels, settings, roles, openMenu }: Mile
 			</Fieldset>
 		</>
 	);
+}
+
+interface MilestonesProps {
+	channels: Channel[];
+	openMenu(): void;
+	roles: Role[];
+	settings: GuildSettings;
 }

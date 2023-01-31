@@ -1,11 +1,5 @@
 import Head from "next/head";
 
-interface ErrorPageProps {
-	code: number;
-	message: string;
-	title: string;
-}
-
 export default function ErrorPage({ code, message, title }: ErrorPageProps) {
 	return (
 		<div
@@ -35,4 +29,10 @@ export default function ErrorPage({ code, message, title }: ErrorPageProps) {
 			</div>
 		</div>
 	);
+}
+
+interface ErrorPageProps {
+	code: number;
+	message: string;
+	title: string;
 }

@@ -1,14 +1,8 @@
 import { useContext, useEffect } from "react";
-import { GuildContext, type Channel, type GuildSettings } from "../../../contexts/GuildContext";
-import Fieldset from "../../form/Fieldset";
-import Header from "../Header";
-import { EmojiListChannel } from "../entries/EmojiListChannel";
-
-interface EmojiListProps {
-	channels: Channel[];
-	openMenu(): void;
-	settings: GuildSettings;
-}
+import Header from "@/dashboard/Header";
+import { EmojiListChannel } from "@/entries/EmojiListChannel";
+import Fieldset from "@/form/Fieldset";
+import { GuildContext, type Channel, type GuildSettings } from "~/contexts/GuildContext";
 
 export default function EmojiList({ channels, settings, openMenu }: EmojiListProps) {
 	const { addChange } = useContext(GuildContext);
@@ -31,4 +25,10 @@ export default function EmojiList({ channels, settings, openMenu }: EmojiListPro
 			</Fieldset>
 		</>
 	);
+}
+
+interface EmojiListProps {
+	channels: Channel[];
+	openMenu(): void;
+	settings: GuildSettings;
 }

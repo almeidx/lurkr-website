@@ -1,10 +1,5 @@
 import { RiErrorWarningFill } from "react-icons/ri";
 
-interface MessageProps {
-	message: string;
-	type?: "error" | "warning";
-}
-
 export default function Message({ message, type = "error" }: MessageProps) {
 	return (
 		<div
@@ -16,4 +11,9 @@ export default function Message({ message, type = "error" }: MessageProps) {
 			<span>{message}</span>
 		</div>
 	);
+}
+
+interface MessageProps {
+	message: string;
+	type?: "error" | "warning";
 }

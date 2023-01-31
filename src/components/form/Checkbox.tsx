@@ -1,13 +1,6 @@
 import { useCallback, useState } from "react";
 import { FaCheck } from "react-icons/fa";
 
-interface CheckboxProps {
-	disabled?: boolean;
-	id: string;
-	initialValue: boolean;
-	onChange(value: boolean): unknown;
-}
-
 export default function Checkbox({ id, initialValue, disabled, onChange }: CheckboxProps) {
 	const [checked, setChecked] = useState<boolean>(initialValue);
 
@@ -31,4 +24,11 @@ export default function Checkbox({ id, initialValue, disabled, onChange }: Check
 			{checked ? <FaCheck className="fill-current text-white" onClick={handleClick} /> : null}
 		</div>
 	);
+}
+
+interface CheckboxProps {
+	disabled?: boolean;
+	id: string;
+	initialValue: boolean;
+	onChange(value: boolean): unknown;
 }

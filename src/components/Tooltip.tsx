@@ -1,9 +1,5 @@
 import { BsFillQuestionCircleFill } from "react-icons/bs";
 
-interface TooltipProps {
-	text: string;
-}
-
 export default function Tooltip({ text }: TooltipProps) {
 	return (
 		<div className="group relative h-max w-max">
@@ -17,4 +13,8 @@ export default function Tooltip({ text }: TooltipProps) {
 			</div>
 		</div>
 	);
+}
+
+interface TooltipProps {
+	text: string;
 }

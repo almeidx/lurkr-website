@@ -1,11 +1,5 @@
 import Link from "next/link";
-import { API_BASE_URL } from "../utils/constants";
-
-interface FailureProps {
-	href: string;
-	message: string;
-	withSignIn?: boolean;
-}
+import { API_BASE_URL } from "~/utils/constants";
 
 export default function Failure({ href, message, withSignIn }: FailureProps) {
 	return (
@@ -42,4 +36,10 @@ export default function Failure({ href, message, withSignIn }: FailureProps) {
 			)}
 		</div>
 	);
+}
+
+interface FailureProps {
+	href: string;
+	message: string;
+	withSignIn?: boolean;
 }

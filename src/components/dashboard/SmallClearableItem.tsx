@@ -1,13 +1,5 @@
 import { MdClear } from "react-icons/md";
 
-export type SmallClearableItemOnDeleteFn = (index: number) => unknown;
-
-interface SmallClearableItemProps {
-	index: number;
-	item: number | string;
-	onDelete: SmallClearableItemOnDeleteFn;
-}
-
 export default function SmallClearableItem({ index, item, onDelete }: SmallClearableItemProps) {
 	return (
 		<div className="relative flex flex-row flex-wrap justify-between gap-y-2 rounded-lg bg-discord-dark p-2">
@@ -20,4 +12,12 @@ export default function SmallClearableItem({ index, item, onDelete }: SmallClear
 			<MdClear className="ml-auto h-12 w-8 cursor-pointer py-3 text-red-500" onClick={() => onDelete(index)} />
 		</div>
 	);
+}
+
+export type SmallClearableItemOnDeleteFn = (index: number) => unknown;
+
+interface SmallClearableItemProps {
+	index: number;
+	item: number | string;
+	onDelete: SmallClearableItemOnDeleteFn;
 }
