@@ -1,24 +1,16 @@
 import Image from "next/image";
 import Link from "next/link";
-import avatarImg from "../assets/avatar.png";
-<<<<<<< HEAD
-import promotionalVideoAuthorImg from "../assets/promotional-video-author.jpg";
-import promotionalVideoImg from "../assets/promotional-video.jpg";
-=======
-import noTextToSpeechImg from "../assets/no-text-to-speech.jpg";
->>>>>>> abdfb76 (move certain assets to src)
-import customizableRankCardsImg from "../assets/showcases/customizable-rank-cards.png";
-import endlessLevelRewardsImg from "../assets/showcases/endless-level-rewards.png";
-import flexibleLevelingRatesImg from "../assets/showcases/flexible-leveling-rates.png";
-import freeForeverLevelingImg from "../assets/showcases/free-forever-leveling.png";
-import uniqueLevelingFeaturesImg from "../assets/showcases/unique-leveling-features.png";
-<<<<<<< HEAD
-=======
-import videoImg from "../assets/video.jpg";
->>>>>>> abdfb76 (move certain assets to src)
-import youtubeLogoWithTextSvg from "../assets/youtube-logo-with-text.svg";
-import youtubePlaySvg from "../assets/youtube-play.svg";
-import Showcase, { type ShowcaseProps } from "../components/Showcase";
+import avatarImg from "~/assets/avatar.png";
+import promotionalVideoAuthorImg from "~/assets/promotional-video-author.jpg";
+import promotionalVideoImg from "~/assets/promotional-video.jpg";
+import customizableRankCardsImg from "~/assets/showcases/customizable-rank-cards.png";
+import endlessLevelRewardsImg from "~/assets/showcases/endless-level-rewards.png";
+import flexibleLevelingRatesImg from "~/assets/showcases/flexible-leveling-rates.png";
+import freeForeverLevelingImg from "~/assets/showcases/free-forever-leveling.png";
+import uniqueLevelingFeaturesImg from "~/assets/showcases/unique-leveling-features.png";
+import youtubeLogoWithTextSvg from "~/assets/youtube-logo-with-text.svg";
+import youtubePlaySvg from "~/assets/youtube-play.svg";
+import Showcase, { type ShowcaseProps } from "~/components/Showcase";
 
 const buttons = [
 	{ path: "/invite", text: "Invite the bot" },
@@ -92,11 +84,7 @@ export default function Home() {
 					className="relative flex h-56 w-full items-center justify-center bg-black/20 bg-cover bg-blend-multiply md:h-80"
 					href="https://www.youtube.com/watch?v=uEHGNx3idFM"
 					rel="noreferrer"
-<<<<<<< HEAD
 					style={{ backgroundImage: `url(${promotionalVideoImg.src})` }}
-=======
-					style={{ backgroundImage: `url(${videoImg.src})` }}
->>>>>>> abdfb76 (move certain assets to src)
 					target="_blank"
 				>
 					<div className="absolute top-3 left-3 flex items-center gap-2">
@@ -104,11 +92,7 @@ export default function Home() {
 							alt="No Text To Speech YouTube channel icon"
 							className="rounded-full"
 							height={40}
-<<<<<<< HEAD
 							src={promotionalVideoAuthorImg}
-=======
-							src={noTextToSpeechImg}
->>>>>>> abdfb76 (move certain assets to src)
 							width={40}
 						/>
 
