@@ -3,7 +3,7 @@ import Image, { type StaticImageData } from "next/image";
 export default function Showcase({ align, description, src, title }: ShowcaseProps) {
 	return (
 		<section className="flex flex-col items-center gap-6 lg:grid lg:grid-cols-3 lg:px-6 xl:px-48">
-			<Image alt={title} className="rounded-md" height={200} src={src} width={420} />
+			<Image alt={title} className="rounded-md" height={206} src={src} width={367} />
 
 			<div
 				className={`${
