@@ -18,7 +18,7 @@ import {
 	type RoleReward,
 } from "../../contexts/GuildContext";
 import { guildIconCdn } from "../../utils/cdn";
-import { type Snowflake, FALLBACK_AVATAR_PATH, API_BASE_URL } from "../../utils/constants";
+import { type Snowflake, FALLBACK_AVATAR, API_BASE_URL } from "../../utils/constants";
 
 interface ErrorProps {
 	error: string;
@@ -86,7 +86,7 @@ export default function Leaderboard(props: InferGetStaticPropsType<typeof getSta
 					alt={`${guild.name} guild icon`}
 					className="rounded-md"
 					height={64}
-					src={guild.icon ? guildIconCdn(guildId, guild.icon, 64) : FALLBACK_AVATAR_PATH}
+					src={guild.icon ? guildIconCdn(guildId, guild.icon, 64) : FALLBACK_AVATAR}
 					width={64}
 				/>
 
