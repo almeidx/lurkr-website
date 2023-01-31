@@ -1,40 +1,45 @@
+import customizableRankCards from "../assets/showcases/customizable-rank-cards.png";
+import endlessLevelRewards from "../assets/showcases/endless-level-rewards.png";
+import flexibleLevelingRates from "../assets/showcases/flexible-leveling-rates.png";
+import freeForeverLeveling from "../assets/showcases/free-forever-leveling.png";
+import uniqueLevelingFeatures from "../assets/showcases/unique-leveling-features.png";
 import type { ShowcaseProps } from "../components/Showcase";
 
-// TODO: Use `${bigint}`
+// TODO: Use `${bigint}`?
 export type Snowflake = string;
 
-export const showcases: Omit<ShowcaseProps, "align">[] = [
+export const showcases = [
 	{
 		description:
-			"Almost all levelling systems have one massive drawback: you need to pay to get any sort of meaningful features. With Pepe Manager we aim to give you a fully functional levelling system without having to pay for basic features. You can add limitless role rewards, with up to 5 roles per level-up, feature-rich leaderboard embed with pagination up to 100 members, a custom rank card with colour-coordination, the ability to add roles that don't earn any XP, the ability to whitelist which channels users can gain XP in, whether or not role rewards can stack, or whether levels are even enabled or not, with so many more free features in the works!",
-		src: "/static/showcases/levelling.mp4",
-		title: "No-Paywall Levelling System",
+			"We have created Pepe Manager after being outraged at finding out how much money certain bot developers/companies charge for basic features like role rewards or adjustable leveling rate, adding or removing levels, etc. We vow NEVER to lock leveling features behind a monthly paywall, so you can rest easy knowing that years down the line, you won't be asked to pay for a feature you've been using forever.",
+		src: freeForeverLeveling,
+		title: "Free Forever Leveling",
 	},
 	{
 		description:
-			"As if emoji servers couldn't be even more automated, with Pepe Manager you can now set automated emoji list channels which will not only obviously list all emojis in a convenient copy+paste format, but will also update itself whenever you add, remove, rename or update any and/or all emojis! Set it and forget it, and keep all of your emojis sorted alphabetically easily and worry-free!",
-		src: "/static/showcases/emoji-list.mp4",
-		title: "Emoji List Channels",
+			"With the same principle as leveling features, customizing rank cards is free and very in-depth! You can change your progress bar colour dynamically based on roles or profile colours or just a solid colour and your background to any image you want to give your rank card the personality it deserves!",
+		src: customizableRankCards,
+		title: "Customizable Rank Cards",
 	},
 	{
 		description:
-			"We get it, MEE6 is very popular, and there's no shame in running levelling through MEE6, but if you want we offer a fully automatic way to import your MEE6 leaderboard directly into Pepe Manager! By default it will import all user data down to level 5, which can be adjusted down to level 3 for smaller servers. Make the leap into paywall freedom with Pepe Manager!",
-		src: "/static/showcases/mee6-import.mp4",
-		title: "Super Simple Levelling Migration",
+			"Reward your members for participating in chat! Everyone loves shiny new roles with flashy colours, and with Pepe Manager you can assign a near infinite amount of level rewards, from initiating roles at level 1 to grand master server champions all the way at level 100! ",
+		src: endlessLevelRewards,
+		title: "Endless Level Rewards",
 	},
 	{
 		description:
-			"Every way you want and need to interact with your emojis, you can now do so easily and competently with Pepe Manager. Whether you're on-the-go on mobile, or simply prefer the speed and simplicity of commands, Pepe Manager allows you to create, rename, delete and even re-upload emojis. For extra utility, Pepe Manager also offers a fast search command to look through all of your server emotes with keywords, or if you're feeling lucky, ask it to show you a random emote from your server!",
-		src: "/static/showcases/emojis.mp4",
-		title: "All Inclusive Emoji Management",
+			"With our multiplier system you can dynamically and easily change the rate at which your members gain experience based on what channel they're in, what roles they have or don't have, or even change the rate of the whole server if our leveling is too fast for your liking!",
+		src: flexibleLevelingRates,
+		title: "Flexible Leveling Rates",
 	},
 	{
 		description:
-			"Pepe Manager can be as utilitarian or as entertaining as you want it to be! With 20+ image manipulation commands currently supported and with more on the way, Pepe Manager can turn your avatar, the server icon, other people avatar and basically any image you throw at it, and manipulate it to fit our Pepe-based templates! Make your avatar drive a toy police car, see it in a hazmat suit, have it peek around a brick wall or even make Pepe hold up a sign with your custom text on it!",
-		src: "/static/showcases/images.mp4",
-		title: "Fun & Flavourful Image Manipulation",
+			"Our team of Developers are constantly focused on developing new and interesting features for leveling, such as daily top leveling role, automatic level resets, ignored leveling bot prefixes, leveling in threads and so many more!",
+		src: uniqueLevelingFeatures,
+		title: "Unique Leveling Features",
 	},
-];
+] satisfies Omit<ShowcaseProps, "align">[];
 
 export const API_BASE_URL =
 	process.env.NODE_ENV === "development" ? "http://localhost:3333" : "https://api.pepemanager.com";
