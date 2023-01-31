@@ -1,10 +1,15 @@
 import Image from "next/image";
 import Link from "next/link";
-import customizableRankCards from "../assets/showcases/customizable-rank-cards.png";
-import endlessLevelRewards from "../assets/showcases/endless-level-rewards.png";
-import flexibleLevelingRates from "../assets/showcases/flexible-leveling-rates.png";
-import freeForeverLeveling from "../assets/showcases/free-forever-leveling.png";
-import uniqueLevelingFeatures from "../assets/showcases/unique-leveling-features.png";
+import avatarImg from "../assets/avatar.png";
+import noTextToSpeechImg from "../assets/no-text-to-speech.jpg";
+import customizableRankCardsImg from "../assets/showcases/customizable-rank-cards.png";
+import endlessLevelRewardsImg from "../assets/showcases/endless-level-rewards.png";
+import flexibleLevelingRatesImg from "../assets/showcases/flexible-leveling-rates.png";
+import freeForeverLevelingImg from "../assets/showcases/free-forever-leveling.png";
+import uniqueLevelingFeaturesImg from "../assets/showcases/unique-leveling-features.png";
+import videoImg from "../assets/video.jpg";
+import youtubeLogoWithTextSvg from "../assets/youtube-logo-with-text.svg";
+import youtubePlaySvg from "../assets/youtube-play.svg";
 import Showcase, { type ShowcaseProps } from "../components/Showcase";
 
 const buttons = [
@@ -16,31 +21,31 @@ export const showcases = [
 	{
 		description:
 			"We have created Pepe Manager after being outraged at finding out how much money certain bot developers/companies charge for basic features like role rewards or adjustable leveling rate, adding or removing levels, etc. We vow NEVER to lock leveling features behind a monthly paywall, so you can rest easy knowing that years down the line, you won't be asked to pay for a feature you've been using forever.",
-		src: freeForeverLeveling,
+		src: freeForeverLevelingImg,
 		title: "Free Forever Leveling",
 	},
 	{
 		description:
 			"With the same principle as leveling features, customizing rank cards is free and very in-depth! You can change your progress bar colour dynamically based on roles or profile colours or just a solid colour and your background to any image you want to give your rank card the personality it deserves!",
-		src: customizableRankCards,
+		src: customizableRankCardsImg,
 		title: "Customizable Rank Cards",
 	},
 	{
 		description:
 			"Reward your members for participating in chat! Everyone loves shiny new roles with flashy colours, and with Pepe Manager you can assign a near infinite amount of level rewards, from initiating roles at level 1 to grand master server champions all the way at level 100! ",
-		src: endlessLevelRewards,
+		src: endlessLevelRewardsImg,
 		title: "Endless Level Rewards",
 	},
 	{
 		description:
 			"With our multiplier system you can dynamically and easily change the rate at which your members gain experience based on what channel they're in, what roles they have or don't have, or even change the rate of the whole server if our leveling is too fast for your liking!",
-		src: flexibleLevelingRates,
+		src: flexibleLevelingRatesImg,
 		title: "Flexible Leveling Rates",
 	},
 	{
 		description:
 			"Our team of Developers are constantly focused on developing new and interesting features for leveling, such as daily top leveling role, automatic level resets, ignored leveling bot prefixes, leveling in threads and so many more!",
-		src: uniqueLevelingFeatures,
+		src: uniqueLevelingFeaturesImg,
 		title: "Unique Leveling Features",
 	},
 ] satisfies Omit<ShowcaseProps, "align">[];
@@ -48,7 +53,7 @@ export const showcases = [
 export default function Home() {
 	return (
 		<div className="flex flex-col items-center bg-discord-dark">
-			<Image alt="Pepe Manager avatar" height={64} src="/static/avatar.png" width={64} />
+			<Image alt="Pepe Manager avatar" height={64} src={avatarImg} width={64} />
 
 			<header className="flex flex-col items-center justify-center py-5">
 				<h1 className="font-display text-2xl font-bold text-white sm:text-4xl">Pepe Manager</h1>
@@ -76,9 +81,10 @@ export default function Home() {
 				</h2>
 
 				<a
-					className="relative flex h-56 w-full items-center justify-center bg-black/20 bg-[url(/static/video.jpg)] bg-cover bg-blend-multiply md:h-80"
+					className="relative flex h-56 w-full items-center justify-center bg-black/20 bg-cover bg-blend-multiply md:h-80"
 					href="https://www.youtube.com/watch?v=uEHGNx3idFM"
 					rel="noreferrer"
+					style={{ backgroundImage: `url(${videoImg.src})` }}
 					target="_blank"
 				>
 					<div className="absolute top-3 left-3 flex items-center gap-2">
@@ -86,7 +92,7 @@ export default function Home() {
 							alt="No Text To Speech YouTube channel icon"
 							className="rounded-full"
 							height={40}
-							src="/static/no-text-to-speech.jpg"
+							src={noTextToSpeechImg}
 							width={40}
 						/>
 
@@ -99,7 +105,7 @@ export default function Home() {
 						alt="YouTube play button"
 						className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
 						height={72}
-						src="/static/youtube-play.svg"
+						src={youtubePlaySvg}
 						width={72}
 					/>
 
@@ -109,7 +115,7 @@ export default function Home() {
 							alt="YouTube logo"
 							className="fill-white text-white"
 							height={16}
-							src="/static/youtube-logo-with-text.svg"
+							src={youtubeLogoWithTextSvg}
 							width={72}
 						/>
 					</div>

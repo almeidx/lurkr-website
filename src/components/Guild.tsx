@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { guildIconCdn } from "../utils/cdn";
-import { FALLBACK_AVATAR_PATH, type Snowflake } from "../utils/constants";
+import { FALLBACK_AVATAR, type Snowflake } from "../utils/constants";
 
 interface GuildProps {
 	baseRedirectPath: string;
@@ -22,7 +22,7 @@ export default function Guild({ baseRedirectPath, icon, id, name }: GuildProps) 
 				alt={`${name} guild icon`}
 				className="rounded-lg"
 				height={128}
-				src={icon ? guildIconCdn(id, icon, 128) : FALLBACK_AVATAR_PATH}
+				src={icon ? guildIconCdn(id, icon, 128) : FALLBACK_AVATAR}
 				width={128}
 			/>
 			<span className="absolute bottom-4 left-0 mx-2 w-[calc(100%-1rem)] truncate text-white">{name}</span>

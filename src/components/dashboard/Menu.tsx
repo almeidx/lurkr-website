@@ -9,7 +9,7 @@ import { RiSave3Fill, RiTimerFlashFill } from "react-icons/ri";
 import { TiWarningOutline } from "react-icons/ti";
 import { GuildContext, type PatchGuildData, type Section } from "../../contexts/GuildContext";
 import { guildIconCdn } from "../../utils/cdn";
-import { type Snowflake, FALLBACK_AVATAR_PATH, API_BASE_URL } from "../../utils/constants";
+import { type Snowflake, FALLBACK_AVATAR, API_BASE_URL } from "../../utils/constants";
 
 interface MenuProps {
 	closeMenu(): void;
@@ -172,7 +172,7 @@ export default function Menu({ closeMenu, guild, guildId: argGuildId, menuOpen, 
 						alt={`${guild.name} guild icon`}
 						className="rounded-full"
 						height={64}
-						src={guild.icon ? guildIconCdn(argGuildId, guild.icon, 64) : FALLBACK_AVATAR_PATH}
+						src={guild.icon ? guildIconCdn(argGuildId, guild.icon, 64) : FALLBACK_AVATAR}
 						width={64}
 					/>
 

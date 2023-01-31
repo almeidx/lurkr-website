@@ -2,7 +2,7 @@ import Image from "next/image";
 import type { ChangeEvent } from "react";
 import useWindowDimensions from "../../hooks/useWindowDimensions";
 import { userAvatarCdn, userDefaultAvatarCdn } from "../../utils/cdn";
-import { type Snowflake, FALLBACK_AVATAR_PATH, getRequiredXp } from "../../utils/constants";
+import { type Snowflake, FALLBACK_AVATAR, getRequiredXp } from "../../utils/constants";
 
 interface UserProps {
 	avatar: string | null;
@@ -18,7 +18,7 @@ function makeUserAvatarUrl(id: Snowflake, hash: string | null, tag: string | nul
 		? userAvatarCdn(id, hash, 64, false)
 		: tag
 		? userDefaultAvatarCdn(tag.split(/#(\d{4})$/)[1]!, 64)
-		: FALLBACK_AVATAR_PATH;
+		: FALLBACK_AVATAR;
 }
 
 export default function User({ avatar, index, level, tag, userId, xp }: UserProps) {
@@ -49,9 +49,9 @@ export default function User({ avatar, index, level, tag, userId, xp }: UserProp
 					height={64}
 					onError={(event: ChangeEvent<HTMLImageElement>) => {
 						event.target.onerror = null;
-						event.target.src = FALLBACK_AVATAR_PATH;
+						event.target.src = FALLBACK_AVATAR.src;
 					}}
-					src={avatar || tag ? makeUserAvatarUrl(userId, avatar, tag) : FALLBACK_AVATAR_PATH}
+					src={avatar || tag ? makeUserAvatarUrl(userId, avatar, tag) : FALLBACK_AVATAR}
 					width={64}
 				/>
 

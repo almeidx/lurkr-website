@@ -161,8 +161,6 @@ export const MIN_SNOWFLAKE = 0b0000_0000_0000_0000_0000_0000_0000_0000_0000_0000
 // 0b111111111111111111111111111111111111111111_11111_11111_111111111111 without _ which BigInt doesn't support
 export const MAX_SNOWFLAKE = BigInt("0b1111111111111111111111111111111111111111111111111111111111111111");
 
-export const FALLBACK_AVATAR_PATH = "/static/fallback-avatar.png";
-
 export const DEFAULT_ROLE_COLOUR = "rgb(185, 187, 190)";
 
 /**
@@ -225,3 +223,5 @@ export const DATABASE_PREMIUM_LIMITS = {
 
 // Length is not being validated here as it's done separately
 export const VANITY_REGEX = /^[\da-z]+$/i;
+
+export { default as FALLBACK_AVATAR } from "../assets/fallback-avatar.png";
