@@ -422,7 +422,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/parser@npm:^5.44.0, @typescript-eslint/parser@npm:^5.48.2":
+"@typescript-eslint/parser@npm:^5.44.0":
   version: 5.49.0
   resolution: "@typescript-eslint/parser@npm:5.49.0"
   dependencies:
@@ -1873,18 +1873,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-tailwindcss@npm:^3.8.2":
-  version: 3.8.2
-  resolution: "eslint-plugin-tailwindcss@npm:3.8.2"
+"eslint-plugin-tailwindcss@npm:^3.8.3":
+  version: 3.8.3
+  resolution: "eslint-plugin-tailwindcss@npm:3.8.3"
   dependencies:
-    "@angular-eslint/template-parser": ^15.2.0
-    "@typescript-eslint/parser": ^5.48.2
     fast-glob: ^3.2.5
     postcss: ^8.4.4
-    vue-eslint-parser: ^9.0.1
   peerDependencies:
     tailwindcss: ^3.2.2
-  checksum: 7f4c534296efb45e8fb7e4f7e5b6e0b572b17195e7add917f15ac3b15bc13f8ff2e86d69e32628934aa01f9d21cf4420883e37a244f4ea820dfd1f91bad42f4b
+  checksum: 4c213205c020ae97c8dd39edf6696ff8791542acc536d645fbdeff1de8b4b037be87282205d30bb7374b67414b38bbb3acd528cc5a0a5296464437ba0c18c202
   languageName: node
   linkType: hard
 
@@ -3814,7 +3811,7 @@ __metadata:
     cuid: ^3.0.0
     eslint: ^8.33.0
     eslint-config-neon: ^0.1.40
-    eslint-plugin-tailwindcss: ^3.8.2
+    eslint-plugin-tailwindcss: ^3.8.3
     husky: ^8.0.3
     js-cookie: ^3.0.1
     lint-staged: ^13.1.0
