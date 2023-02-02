@@ -4,31 +4,19 @@ import { createContext, useCallback, useState, type ReactNode } from "react";
 import { getDatabaseLimit } from "~/utils/common";
 import { API_BASE_URL, VANITY_REGEX, type DATABASE_LIMITS, type Snowflake } from "~/utils/constants";
 
-export type Section =
-	| "autorole"
-	| "dangerZone"
-	| "emojiList"
-	| "leveling"
-	| "mentionCooldown"
-	| "milestones"
-	| "miscellaneous";
-
-interface VanityCheckResponse {
-	available: boolean;
-}
-
 const emojiListKeys: (keyof PatchGuildData)[] = ["emojiListChannel"];
 
 const levelingKeys: (keyof PatchGuildData)[] = [
 	"noXpRoles",
 	"stackXpRoles",
 	"topXpRole",
-	"xpBlacklistedChannels",
+	"xpChannels",
+	"xpChannelMode",
+	"xpDisallowedPrefixes",
 	"xpDisallowedPrefixes",
 	"xpMessage",
 	"xpMultipliers",
 	"xpResponseType",
-	"xpWhitelistedChannels",
 ];
 
 const milestonesKeys: (keyof PatchGuildData)[] = [
@@ -38,24 +26,9 @@ const milestonesKeys: (keyof PatchGuildData)[] = [
 	"milestonesRoles",
 ];
 
-export interface GuildContextData {
-	addChange<T extends keyof GuildSettings & keyof PatchGuildData>(key: T, value: PatchGuildData[T]): void;
-	changes: Partial<PatchGuildData>;
-	clearChanges(): void;
-	data: PatchGuildData | null;
-	errors: string[];
-	guildId: Snowflake | null;
-	section: Section;
-	updateData(newData: GuildSettings): void;
-	updateGuildId(newId: Snowflake): void;
-	updateSection(newSection: Section): void;
-	warnings: string[];
-}
-
-export type AddChangeFn = GuildContextData["addChange"];
-
-interface GuildContextProps {
-	children: ReactNode;
+export enum XpChannelMode {
+	Blacklist,
+	Whitelist,
 }
 
 export const GuildContext = createContext({} as GuildContextData);
@@ -187,6 +160,24 @@ export default function GuildContextProvider({ children }: GuildContextProps) {
 				newErrors.push("The leveling announcement factor has an invalid value");
 			}
 
+			const xpChannelsLimit = getLimit("xpChannels").maxLength;
+			if (changes.xpChannels) {
+				validateArray(changes.xpChannels, xpChannelsLimit, "leveling channels");
+			}
+
+			if (typeof changes.xpChannelMode === "number") {
+				if (changes.xpChannelMode !== XpChannelMode.Blacklist && changes.xpChannelMode !== XpChannelMode.Whitelist) {
+					newErrors.push("The leveling channel mode is invalid.");
+				} else if (
+					(changes.xpChannels ?? data?.xpChannels ?? []).length === 0 &&
+					changes.xpChannelMode === XpChannelMode.Whitelist
+				) {
+					newWarnings.push(
+						"You have set the leveling channel mode to whitelist, but you have not added any leveling channels. This means that members cannot gain xp.",
+					);
+				}
+			}
+
 			const xpDisallowedPrefixesLimit = getLimit("xpDisallowedPrefixes");
 			if (changes.xpDisallowedPrefixes) {
 				validateArray(changes.xpDisallowedPrefixes, xpDisallowedPrefixesLimit.maxLength, "xp disallowed prefixes");
@@ -312,6 +303,39 @@ export default function GuildContextProvider({ children }: GuildContextProps) {
 	);
 }
 
+export type Section =
+	| "autorole"
+	| "dangerZone"
+	| "emojiList"
+	| "leveling"
+	| "mentionCooldown"
+	| "milestones"
+	| "miscellaneous";
+
+interface VanityCheckResponse {
+	available: boolean;
+}
+
+export interface GuildContextData {
+	addChange<T extends keyof GuildSettings & keyof PatchGuildData>(key: T, value: PatchGuildData[T]): void;
+	changes: Partial<PatchGuildData>;
+	clearChanges(): void;
+	data: PatchGuildData | null;
+	errors: string[];
+	guildId: Snowflake | null;
+	section: Section;
+	updateData(newData: GuildSettings): void;
+	updateGuildId(newId: Snowflake): void;
+	updateSection(newSection: Section): void;
+	warnings: string[];
+}
+
+export type AddChangeFn = GuildContextData["addChange"];
+
+interface GuildContextProps {
+	children: ReactNode;
+}
+
 export interface GuildSettings {
 	autoPublishChannels: string[];
 	autoResetLevels: AutoResetLevelsEnum;
@@ -341,14 +365,14 @@ export interface GuildSettings {
 	xpAnnounceMinimumLevel: number;
 	xpAnnounceMultipleOf: number | null;
 	xpAnnounceOnlyXpRoles: boolean;
-	xpBlacklistedChannels: string[];
+	xpChannelMode: XpChannelMode;
+	xpChannels: string[];
 	xpDisallowedPrefixes: string[];
 	xpInThreads: boolean;
 	xpMessage: string | null;
 	xpMultipliers: XpMultiplier[];
 	xpResponseType: string | null;
 	xpRoleRewards: XpRoleReward[];
-	xpWhitelistedChannels: string[];
 }
 
 export enum AutoResetLevelsEnum {
