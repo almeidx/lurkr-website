@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import avatarImg from "~/assets/avatar.png";
 import promotionalVideoAuthorImg from "~/assets/promotional-video-author.jpg";
-import promotionalVideoImg from "~/assets/promotional-video.jpg";
+import promotionalVideoImg from "~/assets/promotional-video.png";
 import customizableRankCardsImg from "~/assets/showcases/customizable-rank-cards.png";
 import endlessLevelRewardsImg from "~/assets/showcases/endless-level-rewards.png";
 import flexibleLevelingRatesImg from "~/assets/showcases/flexible-leveling-rates.png";
