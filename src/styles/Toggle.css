@@ -14,10 +14,7 @@
 .slider {
 	position: absolute;
 	cursor: pointer;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
+	inset: 0;
 	background-color: #ed4245;
 	transition: 0.1s;
 	border-radius: 34px;

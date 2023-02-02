@@ -1,5 +1,8 @@
+/* eslint-disable tsdoc/syntax */
+
+/** @type {import("tailwindcss").Config} */
 module.exports = {
-	content: ["./src/pages/**/*.{ts,tsx}", "./src/components/**/*.{ts,tsx}", "./src/styles/*"],
+	content: ["./src/**/*.{ts,tsx,css}"],
 	theme: {
 		fontFamily: {
 			sans: ['"Noto Sans KR"', "sans-serif"],
