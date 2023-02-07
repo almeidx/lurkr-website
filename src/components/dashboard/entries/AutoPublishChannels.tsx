@@ -17,7 +17,7 @@ export function AutoPublishChannels({ addChange, channels, settings }: AutoPubli
 	const autoPublishChannelsLimit = getDatabaseLimit("autoPublishChannels", settings.premium).maxLength;
 
 	const allowedChannels = useMemo(
-		() => channels.filter((channel) => channel.type !== ChannelType.GuildForum),
+		() => channels.filter((channel) => channel.type === ChannelType.GuildAnnouncement),
 		[channels],
 	);
 
