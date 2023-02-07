@@ -1,7 +1,8 @@
+import { useMemo } from "react";
 import Field from "@/form/Field";
 import Label from "@/form/Label";
 import Selector from "@/form/Selector";
-import type { Channel, AddChangeFn, GuildSettings } from "~/contexts/GuildContext";
+import { type Channel, type AddChangeFn, type GuildSettings, ChannelType } from "~/contexts/GuildContext";
 
 interface EmojiListChannelProps {
 	addChange: AddChangeFn;
@@ -10,6 +11,11 @@ interface EmojiListChannelProps {
 }
 
 export function EmojiListChannel({ addChange, channels, settings }: EmojiListChannelProps) {
+	const allowedChannels = useMemo(
+		() => channels.filter((channel) => channel.type !== ChannelType.GuildForum),
+		[channels],
+	);
+
 	return (
 		<Field>
 			<Label
@@ -21,7 +27,7 @@ export function EmojiListChannel({ addChange, channels, settings }: EmojiListCha
 				<Selector
 					id="emojiListChannel"
 					initialItems={settings.emojiListChannel ? [settings.emojiListChannel] : []}
-					items={channels}
+					items={allowedChannels}
 					limit={1}
 					onSelect={(channelIds) => addChange("emojiListChannel", channelIds[0] ?? null)}
 					type="Channel"

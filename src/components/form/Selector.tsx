@@ -1,5 +1,10 @@
 import { useCallback, useEffect, useRef, useState, type MouseEventHandler } from "react";
 import { AiOutlinePlusCircle } from "react-icons/ai";
+import { CiHashtag } from "react-icons/ci";
+import { HiSpeakerphone } from "react-icons/hi";
+import { HiSpeakerWave } from "react-icons/hi2";
+import { TbMessages } from "react-icons/tb";
+import { ChannelType, type Channel, type Role } from "../../contexts/GuildContext";
 import Input from "@/form/Input";
 import RoleChannelBullet from "~/components/RoleChannelBullet";
 import useClickOutside from "~/hooks/useClickOutside";
@@ -105,6 +110,7 @@ export default function Selector({ id, limit, items, initialItems, onSelect, typ
 			<div className="flex min-h-[3rem] min-w-[6rem] flex-row flex-wrap gap-1.5 rounded-md bg-discord-not-quite-black py-3 px-5 shadow focus:outline-none">
 				{selected.map((item) => (
 					<RoleChannelBullet
+						channelType={"type" in item ? item.type : undefined}
 						data-id={item.id}
 						hoverX
 						key={item.id}
@@ -154,8 +160,18 @@ export default function Selector({ id, limit, items, initialItems, onSelect, typ
 									style={{ backgroundColor: resolveColour(item.color) }}
 								/>
 							)}
-							<div className=" select-none break-all leading-4" data-id={item.id}>
-								{type === "Channel" && "#"}
+							<div className="flex select-none gap-2 break-all leading-4" data-id={item.id}>
+								{type === "Channel" ? (
+									(item as Channel).type === ChannelType.GuildText ? (
+										<CiHashtag />
+									) : (item as Channel).type === ChannelType.GuildVoice ? (
+										<HiSpeakerWave />
+									) : (item as Channel).type === ChannelType.GuildAnnouncement ? (
+										<HiSpeakerphone />
+									) : (item as Channel).type === ChannelType.GuildForum ? (
+										<TbMessages />
+									) : null
+								) : null}
 								{item.name}
 							</div>
 						</div>
@@ -175,20 +191,11 @@ declare namespace JSX {
 
 function resolveItem(item: Channel | Role | null, type: SelectorProps["type"]) {
 	return type === "Channel"
-		? { id: item?.id, name: item?.name }
+		? { id: item?.id, name: item?.name, type: (item as Channel | null)?.type }
 		: ({ color: (item as Role | null)?.color, id: item?.id, name: item?.name } as Role);
 }
 
-interface Channel {
-	id: Snowflake;
-	name: string;
-}
-
-type Role = Channel & {
-	color: number;
-};
-
-type Items = Channel[] | Role[];
+type Items = (Channel | Role)[];
 
 export type OnSelectFn = (items: Snowflake[]) => unknown;
 

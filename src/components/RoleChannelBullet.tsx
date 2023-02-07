@@ -1,6 +1,12 @@
 import type { MouseEventHandler } from "react";
+import { CiHashtag } from "react-icons/ci";
+import { HiSpeakerphone } from "react-icons/hi";
+import { HiSpeakerWave } from "react-icons/hi2";
+import { TbMessages } from "react-icons/tb";
+import { ChannelType } from "../contexts/GuildContext";
 
 export default function RoleChannelBullet({
+	channelType,
 	hoverX,
 	name,
 	roleColour,
@@ -24,8 +30,18 @@ export default function RoleChannelBullet({
 				</>
 			)}
 
-			<div className="truncate pr-2 pb-[2px] leading-3 text-inherit">
-				{type === "Channel" && <span className="pl-2">#</span>}
+			<div className="flex gap-1.5 truncate pr-2 pb-[2px] leading-3 text-inherit">
+				{type === "Channel" ? (
+					channelType === ChannelType.GuildText ? (
+						<CiHashtag className="ml-2" />
+					) : channelType === ChannelType.GuildVoice ? (
+						<HiSpeakerWave className="ml-2" />
+					) : channelType === ChannelType.GuildAnnouncement ? (
+						<HiSpeakerphone className="ml-2" />
+					) : channelType === ChannelType.GuildForum ? (
+						<TbMessages className="ml-2" />
+					) : null
+				) : null}
 				{name}
 			</div>
 		</div>
@@ -33,6 +49,7 @@ export default function RoleChannelBullet({
 }
 
 interface RoleChannelBulletProps {
+	channelType?: ChannelType;
 	hoverX?: boolean;
 	name: string;
 	onClick?: MouseEventHandler<HTMLDivElement>;
