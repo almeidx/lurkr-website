@@ -63,7 +63,7 @@ export default function Selector({ id, limit, items, initialItems, onSelect, typ
 				return;
 			}
 
-			const item = (items as (Channel | Role)[]).find((channel) => channel.id === id);
+			const item = items.find((channel) => channel.id === id);
 			if (!item) {
 				console.warn("[Selector] Couldn't find item when user tried adding an item");
 				return;
