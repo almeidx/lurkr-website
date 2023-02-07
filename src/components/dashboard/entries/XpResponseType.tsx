@@ -1,9 +1,9 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import BasicSelect from "@/form/BasicSelect";
 import Field from "@/form/Field";
 import Label from "@/form/Label";
 import Selector from "@/form/Selector";
-import type { Channel, GuildSettings, AddChangeFn } from "~/contexts/GuildContext";
+import { type Channel, type GuildSettings, type AddChangeFn, ChannelType } from "~/contexts/GuildContext";
 import type { Snowflake } from "~/utils/constants";
 
 interface XpResponseTypeProps {
@@ -21,6 +21,11 @@ enum ResponseType {
 
 export function XpResponseType({ addChange, channels, settings }: XpResponseTypeProps) {
 	const [xpResponseType, setXpResponseType] = useState<string>(resolveInitialXpResponseTypeValue(settings));
+
+	const allowedChannels = useMemo(
+		() => channels.filter((channel) => channel.type !== ChannelType.GuildForum),
+		[channels],
+	);
 
 	return (
 		<Field>
@@ -58,7 +63,7 @@ export function XpResponseType({ addChange, channels, settings }: XpResponseType
 						<Selector
 							id="xpResponseTypeChannel"
 							initialItems={resolveInitialXpResponseChannel(settings)}
-							items={channels}
+							items={allowedChannels}
 							limit={1}
 							onSelect={(channelIds) => addChange("xpResponseType", channelIds[0] ?? null)}
 							type="Channel"

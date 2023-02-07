@@ -1,7 +1,8 @@
+import { useMemo } from "react";
 import Field from "@/form/Field";
 import Label from "@/form/Label";
 import Selector from "@/form/Selector";
-import type { Channel, GuildSettings, AddChangeFn } from "~/contexts/GuildContext";
+import { type Channel, type GuildSettings, type AddChangeFn, ChannelType } from "~/contexts/GuildContext";
 
 interface MilestonesChannelProps {
 	addChange: AddChangeFn;
@@ -10,6 +11,11 @@ interface MilestonesChannelProps {
 }
 
 export function MilestonesChannel({ addChange, channels, settings }: MilestonesChannelProps) {
+	const allowedChannels = useMemo(
+		() => channels.filter((channel) => channel.type !== ChannelType.GuildForum),
+		[channels],
+	);
+
 	return (
 		<Field>
 			<Label
@@ -21,7 +27,7 @@ export function MilestonesChannel({ addChange, channels, settings }: MilestonesC
 				<Selector
 					id="milestonesChannel"
 					initialItems={settings.milestonesChannel ? [settings.milestonesChannel] : []}
-					items={channels}
+					items={allowedChannels}
 					limit={1}
 					onSelect={(channelIds) => addChange("milestonesChannel", channelIds[0] ?? null)}
 					type="Channel"

@@ -405,6 +405,7 @@ export type PatchGuildData = Partial<Omit<GuildSettings, "id" | "premium">>;
 export interface Channel {
 	id: Snowflake;
 	name: string;
+	type: ChannelType;
 }
 
 export interface DiscordGuild {
@@ -439,4 +440,11 @@ export interface IMultiplier {
 export interface RoleReward {
 	level: number;
 	roles: Role[];
+}
+
+export enum ChannelType {
+	GuildText,
+	GuildVoice = 2,
+	GuildAnnouncement = 5,
+	GuildForum = 15,
 }

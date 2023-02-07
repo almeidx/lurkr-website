@@ -19,15 +19,15 @@ export default function Multiplier({ items, multiplier, targets, type }: Multipl
 				<div className="flex shrink-0 flex-row flex-wrap gap-1.5">
 					{type === XpMultiplierType.Channel
 						? targets.map((id) => {
-								const item = items.find((item) => item.id === id) as Channel | undefined;
+								const item = (items as Channel[]).find((item) => item.id === id);
 								if (!item) {
 									return null;
 								}
 
-								return <RoleChannelBullet key={id} name={item.name} type={type} />;
+								return <RoleChannelBullet channelType={item.type} key={id} name={item.name} type={type} />;
 						  })
 						: targets.map((id) => {
-								const item = items.find((item) => item.id === id) as Role | undefined;
+								const item = (items as Role[]).find((item) => item.id === id);
 								if (!item) {
 									return null;
 								}
