@@ -5,7 +5,7 @@ import Message from "~/components/Message";
 import Shard from "~/components/Shard";
 import Input from "~/components/form/Input";
 import { isValidSnowflake } from "~/utils/common";
-import { type Snowflake, BOT_API_BASE_URL } from "~/utils/constants";
+import { type Snowflake, API_BASE_URL } from "~/utils/constants";
 
 interface GetStatsResponse {
 	shards: {
@@ -31,7 +31,7 @@ function calculateShardId(guildId: Snowflake, shards: number): number {
 }
 
 export const getStaticProps: GetStaticProps<StatusProps> = async () => {
-	const response = await fetch(`${BOT_API_BASE_URL}/stats`).catch(() => null);
+	const response = await fetch(`${API_BASE_URL}/stats`).catch(() => null);
 	const data = (await response?.json().catch(() => null)) as GetStatsResponse | null;
 
 	return {
