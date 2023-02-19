@@ -20,7 +20,9 @@ export default function Button({ children, id, onClick, red, withConfirmation }:
 				} disabled:cursor-not-allowed disabled:bg-gray-500 disabled:opacity-75`}
 				disabled={disabled}
 				id={id}
-				onClick={() => {
+				onClick={(event) => {
+					event.preventDefault();
+
 					if (!withConfirmation) {
 						onClick();
 						return;
