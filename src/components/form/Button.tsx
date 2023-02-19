@@ -2,12 +2,13 @@ import { useState } from "react";
 
 interface ButtonProps {
 	children: React.ReactNode;
+	id: string;
 	onClick(): unknown;
 	red?: boolean;
 	withConfirmation?: boolean;
 }
 
-export default function Button({ children, onClick, red, withConfirmation }: ButtonProps) {
+export default function Button({ children, id, onClick, red, withConfirmation }: ButtonProps) {
 	const [msg, setMsg] = useState<string | null>(null);
 	const [disabled, setDisabled] = useState(false);
 
@@ -18,6 +19,7 @@ export default function Button({ children, onClick, red, withConfirmation }: But
 					red ? "bg-red-500 hover:bg-red-400" : "bg-discord-not-quite-black hover:bg-discord-lighter"
 				} disabled:cursor-not-allowed disabled:bg-gray-500 disabled:opacity-75`}
 				disabled={disabled}
+				id={id}
 				onClick={() => {
 					if (!withConfirmation) {
 						onClick();
