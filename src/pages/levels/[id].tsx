@@ -87,6 +87,7 @@ export default function Leaderboard(props: InferGetStaticPropsType<typeof getSta
 					className="rounded-md"
 					height={64}
 					src={guild.icon ? guildIconCdn(guildId, guild.icon, 64) : FALLBACK_AVATAR}
+					unoptimized
 					width={64}
 				/>
 

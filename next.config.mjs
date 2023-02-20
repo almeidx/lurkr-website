@@ -11,7 +11,6 @@ export default {
 				protocol: "https",
 			},
 		],
-		unoptimized: true,
 	},
 	eslint: {
 		ignoreDuringBuilds: true,

@@ -123,6 +123,7 @@ export default function Menu({ closeMenu, guild, guildId: argGuildId, menuOpen, 
 						className="rounded-full"
 						height={64}
 						src={guild.icon ? guildIconCdn(argGuildId, guild.icon, 64) : FALLBACK_AVATAR}
+						unoptimized
 						width={64}
 					/>
 

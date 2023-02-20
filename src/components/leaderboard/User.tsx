@@ -35,6 +35,7 @@ export default function User({ avatar, index, level, tag, userId, xp }: UserProp
 						event.target.src = FALLBACK_AVATAR.src;
 					}}
 					src={avatar || tag ? makeUserAvatarUrl(userId, avatar, tag) : FALLBACK_AVATAR}
+					unoptimized
 					width={64}
 				/>
 

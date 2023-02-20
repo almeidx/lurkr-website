@@ -79,6 +79,7 @@ export default function Navbar() {
 											className="block rounded-full"
 											height={30}
 											src={avatar ? userAvatarCdn(id, avatar, 32) : userDefaultAvatarCdn(discriminator, 32)}
+											unoptimized
 											width={30}
 										/>
 										<p>

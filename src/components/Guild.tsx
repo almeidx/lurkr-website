@@ -16,6 +16,7 @@ export default function Guild({ baseRedirectPath, icon, id, name }: GuildProps) 
 				className="rounded-lg"
 				height={128}
 				src={icon ? guildIconCdn(id, icon, 128) : FALLBACK_AVATAR}
+				unoptimized
 				width={128}
 			/>
 			<span className="absolute bottom-4 left-0 mx-2 w-[calc(100%-1rem)] truncate text-white">{name}</span>
