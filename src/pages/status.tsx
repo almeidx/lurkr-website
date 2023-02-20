@@ -7,32 +7,11 @@ import Input from "~/components/form/Input";
 import { isValidSnowflake } from "~/utils/common";
 import { type Snowflake, API_BASE_URL } from "~/utils/constants";
 
-interface GetStatsResponse {
-	shards: {
-		guilds: number;
-		id: number;
-		members: number;
-		memory: number;
-		ping: number;
-		uptime: number;
-	}[];
-	totalShards: number;
-}
+const tableHeaders = ["ID", "Guilds", "Users", "Ping (ms)", "Memory (MB)", "Uptime", "Last Updated"];
 
-interface StatusProps {
-	shards: GetStatsResponse["shards"] | null;
-	totalShards: GetStatsResponse["totalShards"] | null;
-}
-
-const tableHeaders = ["ID", "Guilds", "Users", "Ping (ms)", "Memory (MB)", "Uptime"];
-
-function calculateShardId(guildId: Snowflake, shards: number): number {
-	return Number(BigInt(guildId) >> BigInt(22)) % shards;
-}
-
-export const getStaticProps: GetStaticProps<StatusProps> = async () => {
+export const getStaticProps = (async () => {
 	const response = await fetch(`${API_BASE_URL}/stats`).catch(() => null);
-	const data = (await response?.json().catch(() => null)) as GetStatsResponse | null;
+	const data = (await response?.json().catch(() => null)) as GetBotStatisticsResponse | null;
 
 	return {
 		props: {
@@ -41,13 +20,14 @@ export const getStaticProps: GetStaticProps<StatusProps> = async () => {
 		},
 		revalidate: 5,
 	};
-};
+}) satisfies GetStaticProps;
 
 export default function Status({ shards, totalShards }: InferGetStaticPropsType<typeof getStaticProps>) {
 	const [serverId, setServerId] = useState<string>("");
 	const [selectedShardId, setSelectedShardId] = useState<number | null>(null);
 	const submitRef = useRef<HTMLButtonElement>(null);
 
+	const now = Date.now();
 	let timeout: NodeJS.Timeout | null = null;
 
 	const handleServerIdSubmit = () => {
@@ -121,15 +101,17 @@ export default function Status({ shards, totalShards }: InferGetStaticPropsType<
 							</tr>
 						</thead>
 						<tbody className="text-center text-gray-300">
-							{shards!.map(({ guilds, id, members, memory, ping, uptime }) => (
+							{shards!.map(({ guilds, shardId, members, memory, ping, uptime, updatedAt }) => (
 								<Shard
 									guilds={guilds}
-									id={id}
-									key={id}
+									key={shardId}
 									members={members}
 									memory={memory}
+									now={now}
 									ping={ping}
-									selected={id === selectedShardId}
+									selected={shardId === selectedShardId}
+									shardId={shardId}
+									updatedAt={updatedAt}
 									uptime={uptime}
 								/>
 							))}
@@ -139,4 +121,21 @@ export default function Status({ shards, totalShards }: InferGetStaticPropsType<
 			</main>
 		</div>
 	);
+}
+
+function calculateShardId(guildId: Snowflake, shards: number): number {
+	return Number(BigInt(guildId) >> BigInt(22)) % shards;
+}
+
+export interface GetBotStatisticsResponse {
+	shards: {
+		guilds: number;
+		members: number;
+		memory: number;
+		ping: number;
+		shardId: number;
+		updatedAt: number;
+		uptime: number;
+	}[];
+	totalShards: number;
 }

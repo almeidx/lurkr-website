@@ -1,27 +1,36 @@
 import ms from "@almeidx/ms";
+import type { GetBotStatisticsResponse } from "~/pages/status";
 
-export default function Shard({ guilds, id, members, memory, ping, selected, uptime }: ShardProps) {
+export default function Shard({
+	guilds,
+	shardId,
+	members,
+	memory,
+	ping,
+	selected,
+	uptime,
+	updatedAt,
+	now,
+}: ShardProps) {
 	return (
 		<tr
 			className={selected ? "animate-pulse" : ""}
 			style={{ backgroundColor: selected ? "rgba(16, 185, 129, 0.5)" : "inherit" }}
 		>
-			<td className="py-3">{id.toLocaleString("en")}</td>
+			<td className="py-3">{shardId.toLocaleString("en")}</td>
 			<td>{guilds.toLocaleString("en")}</td>
 			<td>{members.toLocaleString("en")}</td>
 			<td>{ping.toLocaleString("en")}</td>
 			<td>{memory.toLocaleString("en")}</td>
-			<td>{ms(uptime, false)}</td>
+			<td>{uptime ? ms(uptime) : -1}</td>
+			<td
+				// Using this here since it relies on browser timings (Date.now()) and usually differs from pre-rendered HTML
+				suppressHydrationWarning
+			>
+				{updatedAt ? ms(now - updatedAt) : -1}
+			</td>
 		</tr>
 	);
 }
 
-interface ShardProps {
-	guilds: number;
-	id: number;
-	members: number;
-	memory: number;
-	ping: number;
-	selected: boolean;
-	uptime: number;
-}
+type ShardProps = GetBotStatisticsResponse["shards"][number] & { now: number; selected: boolean };
