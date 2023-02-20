@@ -18,7 +18,7 @@ export const getStaticProps = (async () => {
 			shards: data?.shards ?? null,
 			totalShards: data?.totalShards ?? null,
 		},
-		revalidate: 5,
+		revalidate: 2,
 	};
 }) satisfies GetStaticProps;
 
