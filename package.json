@@ -5,8 +5,8 @@
 	"scripts": {
 		"build": "next build",
 		"dev": "next dev",
-		"format": "prettier --write . && cross-env TIMING=1 eslint src --ext ts,tsx --fix",
 		"fmt": "yarn format",
+		"format": "prettier --write . && cross-env TIMING=1 eslint src --ext ts,tsx --fix",
 		"postinstall": "husky install .github/husky",
 		"lint": "prettier --check . && cross-env TIMING=1 eslint src --ext ts,tsx",
 		"start": "next start",
