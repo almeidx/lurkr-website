@@ -36,7 +36,8 @@
 			{
 				"name": "next"
 			}
-		]
+		],
+		"ignoreDeprecations": "5.0"
 	},
 	"exclude": ["node_modules"],
 	"include": ["src/**/*.ts", "src/**/*.tsx", "next-env.d.ts", ".next/types/**/*.ts"]

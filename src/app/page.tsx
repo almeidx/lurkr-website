@@ -68,6 +68,7 @@ export default function Home() {
 
 					<Link
 						className="flex w-40 justify-center rounded-md bg-blurple py-2 px-3 text-white transition-colors duration-100 hover:bg-[#414AB9]"
+						// @ts-expect-error: Not implementable yet
 						href="/guilds"
 					>
 						Go to Dashboard

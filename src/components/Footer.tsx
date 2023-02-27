@@ -42,6 +42,7 @@ export default function Footer() {
 						<div className="flex flex-col gap-1 text-white" key={idx}>
 							<span className="mb-2 font-bold text-gray-400">{title}</span>
 							{links.map(({ href, name }, idx_) => (
+								// @ts-expect-error: TODO
 								<Link className="w-fit hover:underline" href={href} key={idx_}>
 									{name}
 								</Link>

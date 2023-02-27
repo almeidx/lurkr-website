@@ -62,6 +62,7 @@ export default function Navbar() {
 										<li key={idx}>
 											<Link
 												className="block w-full px-4 font-normal leading-7 text-gray-300 hover:underline md:px-0 md:text-gray-400"
+												// @ts-expect-error: TODO
 												href={url}
 											>
 												{name}
@@ -74,6 +75,7 @@ export default function Navbar() {
 								<div className="mx-2 mt-6 flex flex-row gap-2 text-white md:mx-0 md:mt-0 md:ml-auto">
 									<Link
 										className="flex cursor-pointer flex-row items-center justify-center gap-2 rounded-md bg-gray-700 py-1 px-2 duration-200 hover:bg-discord-lighter focus:outline-none md:bg-transparent"
+										// @ts-expect-error: TODO
 										href="/guilds"
 									>
 										<Image

@@ -21,6 +21,7 @@ export default function Failure({ href, message, withSignIn }: FailureProps) {
 
 					<Link
 						className="rounded-lg bg-gray-600 px-4 py-2 text-white shadow-md transition-colors duration-100 hover:bg-gray-700"
+						// @ts-expect-error: TODO
 						href={href}
 					>
 						Go back
@@ -29,6 +30,7 @@ export default function Failure({ href, message, withSignIn }: FailureProps) {
 			) : (
 				<Link
 					className="rounded-lg bg-gray-600 px-4 py-2 text-white shadow-md transition-colors duration-100 hover:bg-gray-700"
+					// @ts-expect-error: TODO
 					href={href}
 				>
 					Go back
