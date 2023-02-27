@@ -1,13 +1,8 @@
-import Head from "next/head";
 import Link from "next/link";
 
 export default function Terms() {
 	return (
 		<div className="flex w-full flex-col items-center bg-discord-dark">
-			<Head>
-				<title>Terms and Conditions | Pepe Manager</title>
-			</Head>
-
 			<header className="flex flex-col items-center justify-center pt-3 sm:pt-1">
 				<h1 className="font-display text-2xl font-bold text-white sm:text-4xl">Terms and Conditions</h1>
 				<span className="mt-3 text-gray-400">Last modified: June 20, 2021.</span>
@@ -17,7 +12,7 @@ export default function Terms() {
 				<p className="mx-3 mt-6 mb-9 font-light text-gray-400 sm:mx-0">
 					These terms and conditions (&quot;Agreement&quot;) set forth the general terms and conditions of your use of
 					the{" "}
-					<Link className="text-blue-300" href="https://pepemanager.com" rel="nofollow noreferrer" target="_blank">
+					<Link className="text-blue-300" href="/" rel="nofollow noreferrer" target="_blank">
 						pepemanager.com
 					</Link>{" "}
 					website (&quot;Website&quot; or &quot;Service&quot;) and any of its related products and services
@@ -33,26 +28,26 @@ export default function Terms() {
 					is not physically signed by you, and it governs your use of the Website and Services.
 				</p>
 
-				<Link
+				<a
 					className="mx-3 text-xl font-bold uppercase text-gray-200 sm:mx-0 sm:text-3xl"
 					href="#age-requirement"
 					id="age-requirement"
 				>
 					Age requirement
-				</Link>
+				</a>
 
 				<p className="mx-3 mt-6 mb-9 font-light text-gray-400 sm:mx-0">
 					You must be at least 13 years of age to use the Website and Services. By using the Website and Services and by
 					agreeing to this Agreement you warrant and represent that you are at least 13 years of age.
 				</p>
 
-				<Link
+				<a
 					className="mx-3 text-xl font-bold uppercase text-gray-200 sm:mx-0 sm:text-3xl"
 					href="#links-to-other-resources"
 					id="links-to-other-resources"
 				>
 					Links to other resources
-				</Link>
+				</a>
 
 				<p className="mx-3 mt-6 mb-9 font-light text-gray-400 sm:mx-0">
 					Although the Website and Services may link to other resources (such as websites, mobile applications, etc.),
@@ -65,13 +60,13 @@ export default function Terms() {
 					resources is at your own risk.
 				</p>
 
-				<Link
+				<a
 					className="mx-3 text-xl font-bold uppercase text-gray-200 sm:mx-0 sm:text-3xl"
 					href="#prohibited-uses"
 					id="prohibited-uses"
 				>
 					Prohibited uses
-				</Link>
+				</a>
 
 				<p className="mx-3 mt-6 mb-9 font-light text-gray-400 sm:mx-0">
 					In addition to other terms as set forth in the Agreement, you are prohibited from using the Website and
@@ -88,13 +83,13 @@ export default function Terms() {
 					the right to terminate your use of the Website and Services for violating any of the prohibited uses.
 				</p>
 
-				<Link
+				<a
 					className="mx-3 text-xl font-bold uppercase text-gray-200 sm:mx-0 sm:text-3xl"
 					href="#intellectual-property-rights"
 					id="intellectual-property-rights"
 				>
 					Intellectual property rights
-				</Link>
+				</a>
 
 				<p className="mx-3 mt-6 mb-9 font-light text-gray-400 sm:mx-0">
 					&quot;Intellectual Property Rights&quot; means all present and future rights conferred by statute, common law
@@ -112,13 +107,13 @@ export default function Terms() {
 					right or license to reproduce or otherwise use any of the Operator or third party trademarks.
 				</p>
 
-				<Link
+				<a
 					className="mx-3 text-xl font-bold uppercase text-gray-200 sm:mx-0 sm:text-3xl"
 					href="#severability"
 					id="severability"
 				>
 					Severability
-				</Link>
+				</a>
 
 				<p className="mx-3 mt-6 mb-9 font-light text-gray-400 sm:mx-0">
 					All rights and restrictions contained in this Agreement may be exercised and shall be applicable and binding
@@ -130,13 +125,9 @@ export default function Terms() {
 					or portions thereof shall remain in full force and effect.
 				</p>
 
-				<Link
-					className="mx-3 text-xl font-bold uppercase text-gray-200 sm:mx-0 sm:text-3xl"
-					href="#changes"
-					id="changes"
-				>
+				<a className="mx-3 text-xl font-bold uppercase text-gray-200 sm:mx-0 sm:text-3xl" href="#changes" id="changes">
 					Changes and amendments
-				</Link>
+				</a>
 
 				<p className="mx-3 mt-6 mb-9 font-light text-gray-400 sm:mx-0">
 					We reserve the right to modify this Agreement or its terms relating to the Website and Services at any time,
@@ -145,13 +136,13 @@ export default function Terms() {
 					shall constitute your consent to such changes.
 				</p>
 
-				<Link
+				<a
 					className="mx-3 text-xl font-bold uppercase text-gray-200 sm:mx-0 sm:text-3xl"
 					href="#acceptance"
 					id="acceptance"
 				>
 					Acceptance of these terms
-				</Link>
+				</a>
 
 				<p className="mx-3 mt-6 mb-9 font-light text-gray-400 sm:mx-0">
 					You acknowledge that you have read this Agreement and agree to all its terms and conditions. By accessing and
@@ -159,13 +150,9 @@ export default function Terms() {
 					terms of this Agreement, you are not authorized to access or use the Website and Services.
 				</p>
 
-				<Link
-					className="mx-3 text-xl font-bold uppercase text-gray-200 sm:mx-0 sm:text-3xl"
-					href="#contact"
-					id="contact"
-				>
+				<a className="mx-3 text-xl font-bold uppercase text-gray-200 sm:mx-0 sm:text-3xl" href="#contact" id="contact">
 					Contacting us
-				</Link>
+				</a>
 
 				<p className="mx-3 mt-6 mb-9 font-light text-gray-400 sm:mx-0">
 					If you would like to contact us to understand more about this Agreement or wish to contact us concerning any
@@ -179,3 +166,7 @@ export default function Terms() {
 		</div>
 	);
 }
+
+export const metadata = {
+	title: "Terms and Conditions | Pepe Manager",
+};

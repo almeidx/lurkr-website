@@ -16,7 +16,9 @@ export default {
 		ignoreDuringBuilds: true,
 	},
 	experimental: {
+		appDir: true,
 		fallbackNodePolyfills: false,
+		typedRoutes: true,
 	},
 	reactStrictMode: true,
 	redirects() {

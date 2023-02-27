@@ -1,5 +1,4 @@
 import ms from "@almeidx/ms";
-import type { GetBotStatisticsResponse } from "~/pages/status";
 
 export default function Shard({
 	guilds,
@@ -34,3 +33,16 @@ export default function Shard({
 }
 
 type ShardProps = GetBotStatisticsResponse["shards"][number] & { now: number; selected: boolean };
+
+export interface GetBotStatisticsResponse {
+	shards: {
+		guilds: number;
+		members: number;
+		memory: number;
+		ping: number;
+		shardId: number;
+		updatedAt: number;
+		uptime: number;
+	}[];
+	totalShards: number;
+}

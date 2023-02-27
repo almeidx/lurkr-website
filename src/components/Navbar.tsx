@@ -1,6 +1,8 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/router";
+// import { useRouter } from "next/router";
 import { useCallback, useContext, useEffect, useRef, useState } from "react";
 import { GoSignIn, GoSignOut } from "react-icons/go";
 import { MdClose, MdMenu } from "react-icons/md";
@@ -20,12 +22,12 @@ const links = [
 ] satisfies { name: string; requireAuth?: boolean; url: string }[];
 
 export default function Navbar() {
-	const router = useRouter();
+	// const router = useRouter();
 	const { authenticated, avatar, discriminator, id, username } = useContext(UserContext);
 	const [dropdownOpen, setDropdownOpen] = useState(false);
 	const dropdownRef = useRef(null);
 
-	useEffect(() => setDropdownOpen(false), [router]);
+	useEffect(() => setDropdownOpen(false), []);
 
 	const handleDropdownClick = useCallback(() => setDropdownOpen(!dropdownOpen), [dropdownOpen]);
 	const handleClickOutside = useCallback(() => setDropdownOpen(false), []);

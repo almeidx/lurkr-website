@@ -12,12 +12,7 @@ import youtubeLogoWithTextSvg from "~/assets/youtube-logo-with-text.svg";
 import youtubePlaySvg from "~/assets/youtube-play.svg";
 import Showcase, { type ShowcaseProps } from "~/components/Showcase";
 
-const buttons = [
-	{ path: "/invite", text: "Invite the bot" },
-	{ path: "/guilds", text: "Go to Dashboard" },
-] satisfies ButtonData[];
-
-export const showcases = [
+const showcases = [
 	{
 		description:
 			"We have created Pepe Manager after being outraged at finding out how much money certain bot developers/companies charge for basic features like role rewards or adjustable leveling rate, adding or removing levels, etc. We vow NEVER to lock leveling features behind a monthly paywall, so you can rest easy knowing that years down the line, you won't be asked to pay for a feature you've been using forever.",
@@ -63,15 +58,20 @@ export default function Home() {
 				</p>
 
 				<div className="flex flex-row items-center justify-center gap-4">
-					{buttons.map(({ path, text }, idx) => (
-						<Link
-							className="flex w-40 justify-center rounded-md bg-blurple py-2 px-3 text-white transition-colors duration-100 hover:bg-[#414AB9]"
-							href={path}
-							key={idx}
-						>
-							{text}
-						</Link>
-					))}
+					<Link
+						className="flex w-40 justify-center rounded-md bg-blurple py-2 px-3 text-white transition-colors duration-100 hover:bg-[#414AB9]"
+						// @ts-expect-error: This is a redirect defined in next.config.mjs
+						href="/invite"
+					>
+						Invite
+					</Link>
+
+					<Link
+						className="flex w-40 justify-center rounded-md bg-blurple py-2 px-3 text-white transition-colors duration-100 hover:bg-[#414AB9]"
+						href="/guilds"
+					>
+						Go to Dashboard
+					</Link>
 				</div>
 			</header>
 
@@ -135,9 +135,4 @@ export default function Home() {
 			</main>
 		</div>
 	);
-}
-
-interface ButtonData {
-	path: string;
-	text: string;
 }
