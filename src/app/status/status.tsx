@@ -58,7 +58,7 @@ export function Status({ shards, totalShards }: GetBotStatisticsResponse) {
 				/>
 			</div>
 
-			<main className="mt-4">
+			<main className="mt-4 pb-2">
 				{!shards && totalShards === null && <Message message="The bot is down" type="error" />}
 
 				{typeof totalShards === "number" && (

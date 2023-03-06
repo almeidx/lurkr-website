@@ -31,7 +31,7 @@ const sections = [
 		],
 		title: "Legal",
 	},
-] satisfies Section[];
+] as const satisfies readonly Section[];
 
 export default function Footer() {
 	return (
@@ -60,7 +60,7 @@ export default function Footer() {
 }
 
 interface Section {
-	links: {
+	links: readonly {
 		href: string;
 		name: string;
 	}[];

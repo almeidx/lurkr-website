@@ -8,7 +8,7 @@ import Tooltip from "~/components/Tooltip";
 import { parseMultiplier } from "~/utils/common";
 import { getRequiredXp } from "~/utils/constants";
 
-const averageXpPerMessage = (40 - 15) / 2;
+const averageXpPerMessage = (40 + 15) / 2;
 const timePerMessage = ms("1m20s");
 
 export function Calculator() {

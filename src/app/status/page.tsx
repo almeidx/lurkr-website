@@ -2,7 +2,7 @@ import { Status } from "./status";
 import type { GetBotStatisticsResponse } from "~/components/Shard";
 import { API_BASE_URL } from "~/utils/constants";
 
-async function getData() {
+async function getBotStatistics() {
 	const response = await fetch(`${API_BASE_URL}/stats`, { next: { revalidate: 60 } });
 
 	if (!response.ok) {
@@ -13,7 +13,7 @@ async function getData() {
 }
 
 export default async function Page() {
-	const { shards, totalShards } = await getData();
+	const { shards, totalShards } = await getBotStatistics();
 
 	return (
 		<div className="flex min-h-screen-no-footer flex-col items-center bg-discord-dark">

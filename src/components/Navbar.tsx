@@ -12,14 +12,14 @@ import { userAvatarCdn, userDefaultAvatarCdn } from "~/utils/cdn";
 import { API_BASE_URL } from "~/utils/constants";
 
 const links = [
-	{ name: "Home", url: "/" },
-	{ name: "Dashboard", requireAuth: true, url: "/guilds" },
-	{ name: "Levels", url: "/levels" },
-	{ name: "Calculator", url: "/levels/calculator" },
-	{ name: "Tutorials", url: "/tutorials" },
-	{ name: "Docs", url: "/docs" },
-	{ name: "Status", url: "/status" },
-] satisfies { name: string; requireAuth?: boolean; url: string }[];
+	{ name: "Home", needsAuth: false, url: "/" },
+	{ name: "Dashboard", needsAuth: true, url: "/guilds" },
+	{ name: "Levels", needsAuth: false, url: "/levels" },
+	{ name: "Calculator", needsAuth: false, url: "/levels/calculator" },
+	{ name: "Tutorials", needsAuth: false, url: "/tutorials" },
+	{ name: "Docs", needsAuth: false, url: "/docs" },
+	{ name: "Status", needsAuth: false, url: "/status" },
+] as const satisfies readonly { name: string; needsAuth: boolean; url: string }[];
 
 export default function Navbar() {
 	// const router = useRouter();
@@ -57,12 +57,11 @@ export default function Navbar() {
 					>
 						<ul className="flex flex-col gap-4 py-4 pr-4 md:flex-row md:items-center md:p-0">
 							{links.map(
-								({ name, requireAuth, url }, idx) =>
+								({ name, needsAuth: requireAuth, url }, idx) =>
 									(!requireAuth || authenticated) && (
 										<li key={idx}>
 											<Link
 												className="block w-full px-4 font-normal leading-7 text-gray-300 hover:underline md:px-0 md:text-gray-400"
-												// @ts-expect-error: TODO
 												href={url}
 											>
 												{name}
@@ -75,7 +74,6 @@ export default function Navbar() {
 								<div className="mx-2 mt-6 flex flex-row gap-2 text-white md:mx-0 md:mt-0 md:ml-auto">
 									<Link
 										className="flex cursor-pointer flex-row items-center justify-center gap-2 rounded-md bg-gray-700 py-1 px-2 duration-200 hover:bg-discord-lighter focus:outline-none md:bg-transparent"
-										// @ts-expect-error: TODO
 										href="/guilds"
 									>
 										<Image

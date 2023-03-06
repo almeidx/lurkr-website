@@ -7,7 +7,7 @@ export default function Guild({ baseRedirectPath, icon, id, name }: GuildProps) 
 	return (
 		<Link
 			className="relative flex h-44 w-40 flex-col flex-wrap gap-2 rounded-2xl bg-discord-slightly-darker py-4 px-6 text-center shadow-sm"
-			// @ts-expect-error: TODO
+			// @ts-expect-error: This is a valid Link href
 			href={`${baseRedirectPath}${id}`}
 			key={id}
 			prefetch={false}
@@ -27,7 +27,7 @@ export default function Guild({ baseRedirectPath, icon, id, name }: GuildProps) 
 }
 
 interface GuildProps {
-	baseRedirectPath: string;
+	baseRedirectPath: "/guilds/" | "/levels/";
 	icon: string | null;
 	id: Snowflake;
 	name: string;

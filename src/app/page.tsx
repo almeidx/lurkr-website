@@ -60,7 +60,6 @@ export default function Home() {
 				<div className="flex flex-row items-center justify-center gap-4">
 					<Link
 						className="flex w-40 justify-center rounded-md bg-blurple py-2 px-3 text-white transition-colors duration-100 hover:bg-[#414AB9]"
-						// @ts-expect-error: This is a redirect defined in next.config.mjs
 						href="/invite"
 					>
 						Invite
@@ -68,7 +67,6 @@ export default function Home() {
 
 					<Link
 						className="flex w-40 justify-center rounded-md bg-blurple py-2 px-3 text-white transition-colors duration-100 hover:bg-[#414AB9]"
-						// @ts-expect-error: Not implementable yet
 						href="/guilds"
 					>
 						Go to Dashboard
