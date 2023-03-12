@@ -32,6 +32,7 @@
 	},
 	"dependencies": {
 		"@almeidx/ms": "^1.2.1",
+		"@vercel/analytics": "^0.1.11",
 		"cuid": "^3.0.0",
 		"js-cookie": "^3.0.1",
 		"next": "^13.2.4",
@@ -42,7 +43,6 @@
 		"sharp": "^0.31.3"
 	},
 	"devDependencies": {
-		"@types/gtag.js": "^0.0.12",
 		"@types/js-cookie": "^3.0.3",
 		"@types/node": "^18.15.0",
 		"@types/react": "^18.0.28",
@@ -60,6 +60,6 @@
 	},
 	"packageManager": "yarn@3.4.1",
 	"engines": {
-		"node": ">=18"
+		"node": "18"
 	}
 }
