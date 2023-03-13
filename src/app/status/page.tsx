@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { Status } from "./status";
 import type { GetBotStatisticsResponse } from "~/components/Shard";
 import { API_BASE_URL } from "~/utils/constants";
@@ -27,6 +28,6 @@ export default async function Page() {
 	);
 }
 
-export const metadata = {
+export const metadata: Metadata = {
 	title: "Bot Status | Pepe Manager",
 };

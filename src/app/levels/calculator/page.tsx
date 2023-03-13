@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { Calculator } from "./calculator";
 
 export default function LevelCalculator() {
@@ -15,6 +16,6 @@ export default function LevelCalculator() {
 	);
 }
 
-export const metadata = {
+export const metadata: Metadata = {
 	title: "Level Calculator | Pepe Manager",
 };

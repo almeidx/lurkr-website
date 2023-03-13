@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 
 export default function Terms() {
@@ -167,6 +168,6 @@ export default function Terms() {
 	);
 }
 
-export const metadata = {
+export const metadata: Metadata = {
 	title: "Terms and Conditions | Pepe Manager",
 };

@@ -1,25 +1,29 @@
 import "tailwindcss/tailwind.css";
 import "~/styles/global.css";
 
+import { Analytics } from "@vercel/analytics/react";
 import type { Metadata } from "next";
 // import NextProgress from "next-progress";
-import { Noto_Sans_KR } from "next/font/google";
+import { Noto_Sans } from "next/font/google";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
+import { inProductionEnvironment } from "../utils/common";
 
-const NotoSansKR = Noto_Sans_KR({
+const NotoSans = Noto_Sans({
 	weight: ["100", "300", "400", "500", "700", "900"],
 	subsets: ["latin"],
 });
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
 	return (
-		<html className={`scroll-smooth ${NotoSansKR.className}`} lang="en">
+		<html className={`scroll-smooth ${NotoSans.className}`} lang="en">
 			<body>
 				<Navbar />
 				{/* <NextProgress color="#2ecc71" /> */}
 				{children}
 				<Footer />
+
+				{inProductionEnvironment() ? <Analytics /> : null}
 			</body>
 		</html>
 	);

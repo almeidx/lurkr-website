@@ -1,3 +1,5 @@
+import type { Metadata } from "next";
+
 export default function Privacy() {
 	return (
 		<div className="flex w-full flex-col items-center bg-discord-dark">
@@ -134,6 +136,6 @@ export default function Privacy() {
 	);
 }
 
-export const metadata = {
+export const metadata: Metadata = {
 	title: "Privacy Policy | Pepe Manager",
 };
