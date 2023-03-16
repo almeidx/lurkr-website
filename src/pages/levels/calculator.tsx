@@ -34,7 +34,7 @@ export default function Calculator() {
 	return (
 		<div className="flex min-h-screen-no-footer flex-col items-center bg-discord-dark">
 			<Head>
-				<title>Level Calculator | Pepe Manager</title>
+				<title>Level Calculator | Lurkr</title>
 			</Head>
 
 			<header className="my-4 mx-3 flex flex-col items-center gap-4 text-center sm:mx-0 sm:mb-6">

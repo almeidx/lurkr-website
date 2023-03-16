@@ -1,4 +1,4 @@
-![Pepe Website banner](https://i.imgur.com/LHyZGz9.png)
+![Lurkr Banner](src/assets/banner.png)
 
 # Table of Contents
 
@@ -14,7 +14,7 @@
 
 ## Overview
 
-This repository houses the [pepemanager.com] website, which is the website for the Pepe Manager Discord bot.
+This repository houses the [lurkr.gg] website, which is the website for the Lurkr Discord bot.
 
 ---
 
@@ -50,7 +50,7 @@ The deployment of the website is all automated by [Vercel]
 
 > GitHub [@almeidx]
 
-[pepemanager.com]: https://pepemanager.com
+[lurkr.gg]: https://lurkr.gg
 [git]: https://git-scm.com/
 [node.js]: https://nodejs.org
 [vercel]: https://vercel.com

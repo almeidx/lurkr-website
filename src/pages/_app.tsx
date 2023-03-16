@@ -16,7 +16,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
 		<UserProvider>
 			<GuildProvider>
 				<Head>
-					<title>Pepe Manager</title>
+					<title>Lurkr</title>
 				</Head>
 
 				<NextProgress color="#2ecc71" />

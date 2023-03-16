@@ -5,7 +5,7 @@ export default function Terms() {
 	return (
 		<div className="flex w-full flex-col items-center bg-discord-dark">
 			<Head>
-				<title>Terms and Conditions | Pepe Manager</title>
+				<title>Terms and Conditions | Lurkr</title>
 			</Head>
 
 			<header className="flex flex-col items-center justify-center pt-3 sm:pt-1">
@@ -17,8 +17,8 @@ export default function Terms() {
 				<p className="mx-3 mt-6 mb-9 font-light text-gray-400 sm:mx-0">
 					These terms and conditions (&quot;Agreement&quot;) set forth the general terms and conditions of your use of
 					the{" "}
-					<Link className="text-blue-300" href="https://pepemanager.com" rel="nofollow noreferrer" target="_blank">
-						pepemanager.com
+					<Link className="text-blue-300" href="https://lurkr.gg" rel="nofollow noreferrer" target="_blank">
+						lurkr.gg
 					</Link>{" "}
 					website (&quot;Website&quot; or &quot;Service&quot;) and any of its related products and services
 					(collectively, &quot;Services&quot;). This Agreement is legally binding between you (&quot;User&quot;,

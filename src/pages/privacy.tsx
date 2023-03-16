@@ -5,7 +5,7 @@ export default function Privacy() {
 	return (
 		<div className="flex w-full flex-col items-center bg-discord-dark">
 			<Head>
-				<title>Privacy Policy | Pepe Manager</title>
+				<title>Privacy Policy | Lurkr</title>
 			</Head>
 
 			<header className="flex flex-col items-center justify-center pt-3 sm:pt-1">

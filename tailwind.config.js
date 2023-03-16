@@ -9,6 +9,10 @@ module.exports = {
 			display: ['"Noto Sans KR"', "sans-serif"],
 		},
 		extend: {
+			animation: {
+				"bounce-slow": "bounce-slow 1s infinite alternate",
+			},
+
 			backgroundColor: {
 				blurple: "#5662f6",
 				"lighter-blurple": "#6e78fa",
@@ -18,9 +22,22 @@ module.exports = {
 				"discord-lighter": "#40444b",
 				"discord-green": "#3ea25e",
 			},
+
+			keyframes: {
+				"bounce-slow": {
+					"0%": {
+						transform: "translateY(0)",
+					},
+					"100%": {
+						transform: "translateY(-10px)",
+					},
+				},
+			},
+
 			textColor: {
 				"discord-red": "#ED4245",
 			},
+
 			minHeight: {
 				"screen-no-footer": "calc(100vh - 5rem)",
 			},

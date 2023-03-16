@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import avatarImg from "~/assets/avatar.png";
+import bannerImg from "~/assets/banner.png";
 import promotionalVideoAuthorImg from "~/assets/promotional-video-author.jpg";
 import promotionalVideoImg from "~/assets/promotional-video.png";
 import customizableRankCardsImg from "~/assets/showcases/customizable-rank-cards.png";
@@ -17,10 +17,10 @@ const buttons = [
 	{ path: "/guilds", text: "Go to Dashboard" },
 ] satisfies ButtonData[];
 
-export const showcases = [
+const showcases = [
 	{
 		description:
-			"We have created Pepe Manager after being outraged at finding out how much money certain bot developers/companies charge for basic features like role rewards or adjustable leveling rate, adding or removing levels, etc. We vow NEVER to lock leveling features behind a monthly paywall, so you can rest easy knowing that years down the line, you won't be asked to pay for a feature you've been using forever.",
+			"We have created Lurkr after being outraged at finding out how much money certain bot developers/companies charge for basic features like role rewards or adjustable leveling rate, adding or removing levels, etc. We vow NEVER to lock leveling features behind a monthly paywall, so you can rest easy knowing that years down the line, you won't be asked to pay for a feature you've been using forever.",
 		src: freeForeverLevelingImg,
 		title: "Free Forever Leveling",
 	},
@@ -32,7 +32,7 @@ export const showcases = [
 	},
 	{
 		description:
-			"Reward your members for participating in chat! Everyone loves shiny new roles with flashy colours, and with Pepe Manager you can assign a near infinite amount of level rewards, from initiating roles at level 1 to grand master server champions all the way at level 100! ",
+			"Reward your members for participating in chat! Everyone loves shiny new roles with flashy colours, and with Lurkr you can assign a near infinite amount of level rewards, from initiating roles at level 1 to grand master server champions all the way at level 100! ",
 		src: endlessLevelRewardsImg,
 		title: "Endless Level Rewards",
 	},
@@ -53,10 +53,8 @@ export const showcases = [
 export default function Home() {
 	return (
 		<div className="flex flex-col items-center bg-discord-dark">
-			<Image alt="Pepe Manager avatar" height={64} src={avatarImg} width={64} />
-
 			<header className="flex flex-col items-center justify-center py-5">
-				<h1 className="font-display text-2xl font-bold text-white sm:text-4xl">Pepe Manager</h1>
+				<Image alt="Lurkr banner" className="animate-bounce-slow" height={64} src={bannerImg} width={300} />
 
 				<p className="my-6 text-center text-lg font-light text-gray-400">
 					A Discord bot with focus on automation, leveling, emoji management, and image manipulation
