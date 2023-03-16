@@ -21,6 +21,7 @@ export default class MyDocument extends Document {
 						content="Lurkr, Lurkr Bot, Lurkr Invite, Lurkr Discord, Emoji Manager, Emoji Manager Discord, Lurker"
 						name="keywords"
 					/>
+					<meta content="#ff7077" name="theme-color" />
 					<meta content="website" property="og:type" />
 				</Head>
 				<body>
