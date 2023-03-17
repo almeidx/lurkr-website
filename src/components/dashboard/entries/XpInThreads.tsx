@@ -15,7 +15,7 @@ export function XpInThreads({ addChange, settings }: XpInThreadsProps) {
 				<Label
 					htmlFor="xpInThreads"
 					name="Leveling in Threads"
-					url="https://docs.pepemanager.com/guides/setting-up-server-xp-leveling#toggling-leveling-in-threads"
+					url="https://docs.lurkr.gg/guides/setting-up-server-xp-leveling#toggling-leveling-in-threads"
 					withMargin={false}
 				/>
 				<Toggle

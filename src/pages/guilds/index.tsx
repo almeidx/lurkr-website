@@ -50,7 +50,7 @@ export default function Guilds(props: InferGetServerSidePropsType<typeof getServ
 	return (
 		<div className="flex min-h-screen-no-footer flex-col items-center justify-center gap-y-8 bg-discord-dark py-6 text-center sm:pt-0">
 			<Head>
-				<title>Dashboard | Pepe Manager</title>
+				<title>Dashboard | Lurkr</title>
 			</Head>
 
 			<h1 className="font-display text-2xl font-bold text-white sm:text-4xl">

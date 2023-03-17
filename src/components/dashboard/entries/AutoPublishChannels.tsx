@@ -26,7 +26,7 @@ export function AutoPublishChannels({ addChange, channels, settings }: AutoPubli
 			<Label
 				htmlFor="autoPublishChannels"
 				name="Auto-Publishing Announcement Channels"
-				url="https://docs.pepemanager.com/guides/automatically-published-announcements"
+				url="https://docs.lurkr.gg/guides/automatically-published-announcements"
 			/>
 			<Selector
 				id="autoPublishChannels"

@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import { useCallback, useContext, useEffect, useRef, useState } from "react";
 import { GoSignIn, GoSignOut } from "react-icons/go";
 import { MdClose, MdMenu } from "react-icons/md";
+import avatarImg from "~/assets/avatar.png";
 import { UserContext } from "~/contexts/UserContext";
 import useClickOutside from "~/hooks/useClickOutside";
 import { userAvatarCdn, userDefaultAvatarCdn } from "~/utils/cdn";
@@ -35,9 +36,7 @@ export default function Navbar() {
 	return (
 		<div className="w-full bg-discord-dark" ref={dropdownRef}>
 			<header className="mx-auto flex max-w-[992px] p-6 md:items-center xl:max-w-[1440px]">
-				<Link className=" mr-4 whitespace-nowrap py-1 font-bold uppercase text-white md:p-0 md:text-xl" href="/">
-					Pepe Manager
-				</Link>
+				<Image alt="Lurkr banner" className="mr-4" height={33} src={avatarImg} width={33} />
 
 				<nav className="z-20 ml-auto md:w-full">
 					<span onClick={handleDropdownClick}>

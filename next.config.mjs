@@ -38,7 +38,7 @@ export default {
 				source: "/patreon",
 			},
 			{
-				destination: "https://docs.pepemanager.com/",
+				destination: "https://docs.lurkr.gg/",
 				permanent: true,
 				source: "/docs",
 			},
@@ -48,7 +48,7 @@ export default {
 				source: "/tutorials",
 			},
 			{
-				destination: "https://github.com/almeidx/pepe-website",
+				destination: "https://github.com/almeidx/lurkr-website",
 				permanent: true,
 				source: "/github",
 			},

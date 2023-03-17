@@ -78,7 +78,7 @@ export default function Leaderboard(props: InferGetStaticPropsType<typeof getSta
 	return (
 		<div className="flex min-h-screen-no-footer flex-col items-start gap-y-10 bg-discord-dark sm:px-6">
 			<Head>
-				<title>{`${guild.name} Leaderboard | Pepe Manager`}</title>
+				<title>{`${guild.name} Leaderboard | Lurkr`}</title>
 			</Head>
 
 			<header className="mt-3 ml-10 flex flex-row items-center justify-center gap-6 sm:mt-10 xl:mt-0">

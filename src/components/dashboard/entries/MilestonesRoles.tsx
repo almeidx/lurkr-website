@@ -20,7 +20,7 @@ export function MilestonesRoles({ addChange, roles, settings }: MilestonesRolesP
 			<Label
 				htmlFor="milestoneRoles"
 				name="Milestone Reward Roles"
-				url="https://docs.pepemanager.com/guides/automatically-controlled-member-milestones#setting-the-milestones-role"
+				url="https://docs.lurkr.gg/guides/automatically-controlled-member-milestones#setting-the-milestones-role"
 			/>
 			<Selector
 				id="milestoneRoles"

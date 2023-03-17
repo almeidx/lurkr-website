@@ -8,10 +8,6 @@ const sections = [
 				name: "Discord",
 			},
 			{
-				href: "https://pepe-is.life",
-				name: "Pepe Emoji",
-			},
-			{
 				href: "/github",
 				name: "GitHub",
 			},
@@ -51,7 +47,7 @@ export default function Footer() {
 				</div>
 
 				<span className="flex items-center justify-center text-sm font-light text-gray-300 sm:items-start sm:justify-start sm:text-base">
-					Copyright © {new Date().getFullYear()} Pepe Emoji. All rights reserved.
+					Copyright © {new Date().getFullYear()} Lurkr Team. All rights reserved.
 				</span>
 			</div>
 		</footer>

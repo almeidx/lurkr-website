@@ -15,7 +15,7 @@ export function XpAnnounceOnlyXpRoles({ addChange, settings }: XpAnnounceOnlyXpR
 				<Label
 					htmlFor="xpAnnounceOnlyXpRoles"
 					name="Only Announce Level-Ups Together With Role Rewards"
-					url="https://docs.pepemanager.com/guides/setting-up-server-xp-leveling#when-to-send-the-level-up-message"
+					url="https://docs.lurkr.gg/guides/setting-up-server-xp-leveling#when-to-send-the-level-up-message"
 					withMargin={false}
 				/>
 				<Toggle

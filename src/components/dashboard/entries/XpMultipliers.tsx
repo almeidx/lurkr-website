@@ -115,7 +115,7 @@ export function XpMultipliers({ addChange, channels, roles, settings }: XpMultip
 			<Label
 				htmlFor="xpMultipliers"
 				name="Leveling Multipliers"
-				url="https://docs.pepemanager.com/guides/setting-up-xp-multipliers"
+				url="https://docs.lurkr.gg/guides/setting-up-xp-multipliers"
 			/>
 			<div>
 				{xpMultipliers.length < xpMultipliersLimit && (

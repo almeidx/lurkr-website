@@ -136,7 +136,7 @@ export default function Guild(props: InferGetServerSidePropsType<typeof getServe
 		<div className="w-full bg-discord-dark">
 			<div className="mx-auto flex min-h-screen-no-footer max-w-[992px] flex-col divide-gray-600 sm:flex-row sm:divide-x-2 xl:max-w-[1440px]">
 				<Head>
-					<title>{`${guild.name} Dashboard | Pepe Manager`}</title>
+					<title>{`${guild.name} Dashboard | Lurkr`}</title>
 				</Head>
 
 				<Menu closeMenu={closeMenu} guild={guild} guildId={guildId} menuOpen={menuOpen} premium={settings.premium} />

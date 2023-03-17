@@ -15,7 +15,7 @@ export function TopXpRole({ addChange, roles, settings }: TopXpRoleProps) {
 			<Label
 				htmlFor="topXpRole"
 				name="Daily Top Leveling Role"
-				url="https://docs.pepemanager.com/guides/setting-up-server-xp-leveling#adding-the-top-xp-role"
+				url="https://docs.lurkr.gg/guides/setting-up-server-xp-leveling#adding-the-top-xp-role"
 			/>
 			<div className="w-full max-w-md sm:min-w-[20rem]">
 				<Selector

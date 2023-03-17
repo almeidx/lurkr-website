@@ -135,7 +135,7 @@ export default function Menu({ closeMenu, guild, guildId: argGuildId, menuOpen, 
 							className={`flex flex-row items-center justify-center gap-2 ${
 								premium ? "bg-[#ff424d] hover:bg-[#c0323a]" : "bg-[#c0323a] hover:bg-[#802127]"
 							} w-full cursor-pointer rounded-lg py-1 px-2 text-center text-white transition-colors duration-100`}
-							onClick={() => window.open("https://docs.pepemanager.com/information/patreon-perks")}
+							onClick={() => window.open("https://docs.lurkr.gg/information/patreon-perks")}
 						>
 							<FaPatreon />
 							{premium ? "Premium" : "Get Premium"}
@@ -162,7 +162,7 @@ export default function Menu({ closeMenu, guild, guildId: argGuildId, menuOpen, 
 
 					{menuItems.map(({ Icon, id, name }, idx) => (
 						<button
-							className={`${section === id ? "sm:bg-gray-500 " : ""}${
+							className={`${section === id ? "sm:bg-gray-500" : ""}${
 								id === "dangerZone" ? "text-yellow-300" : "text-white"
 							} flex w-full cursor-pointer flex-row items-center gap-2 rounded-lg py-2 px-4 text-center duration-200 hover:bg-discord-lighter focus:outline-none`}
 							key={idx}

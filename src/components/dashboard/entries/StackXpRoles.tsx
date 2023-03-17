@@ -15,7 +15,7 @@ export function StackXpRoles({ addChange, settings }: StackXpRolesProps) {
 				<Label
 					htmlFor="stackXpRoles"
 					name="Stack Leveling Role Rewards"
-					url="https://docs.pepemanager.com/guides/setting-up-server-xp-leveling#toggling-role-stacking"
+					url="https://docs.lurkr.gg/guides/setting-up-server-xp-leveling#toggling-role-stacking"
 					withMargin={false}
 				/>
 				<Toggle

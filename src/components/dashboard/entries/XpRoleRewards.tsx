@@ -81,7 +81,7 @@ export function XpRoleRewards({ addChange, roles, settings }: XpRoleRewardsProps
 			<Label
 				htmlFor="xpRoleRewards"
 				name="Leveling Role Rewards"
-				url="https://docs.pepemanager.com/guides/setting-up-server-xp-leveling#adding-role-rewards"
+				url="https://docs.lurkr.gg/guides/setting-up-server-xp-leveling#adding-role-rewards"
 			/>
 			<div className="mb-4 divide-y-2">
 				{xpRoleRewards.length < xpRoleRewardsLimit && (

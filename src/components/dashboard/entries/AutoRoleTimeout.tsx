@@ -18,7 +18,7 @@ export function AutoRoleTimeout({ addChange, settings }: AutoRoleTimeoutProps) {
 			<Label
 				htmlFor="autoRoleTimeout"
 				name="On Join Role Timer (Minutes)"
-				url="https://docs.pepemanager.com/guides/automatically-added-roles-with-timeout#setting-your-timeout"
+				url="https://docs.lurkr.gg/guides/automatically-added-roles-with-timeout#setting-your-timeout"
 			/>
 			<div className="max-w-md">
 				<Input

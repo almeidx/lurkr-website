@@ -5,7 +5,7 @@ export default function Privacy() {
 	return (
 		<div className="flex w-full flex-col items-center bg-discord-dark">
 			<Head>
-				<title>Privacy Policy | Pepe Manager</title>
+				<title>Privacy Policy | Lurkr</title>
 			</Head>
 
 			<header className="flex flex-col items-center justify-center pt-3 sm:pt-1">
@@ -142,8 +142,8 @@ export default function Privacy() {
 
 				<p className="mx-3 mt-3 mb-9 font-light text-gray-400 sm:mx-0">
 					If you have any questions or suggestions about our Privacy Policy, do not hesitate to contact us at{" "}
-					<a className="text-blue-300" href="mailto:admin@almeidx.dev">
-						admin@almeidx.dev
+					<a className="text-blue-300" href="mailto:admin@lurkr.gg">
+						admin@lurkr.gg
 					</a>
 					.
 				</p>

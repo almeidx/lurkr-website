@@ -34,7 +34,7 @@ export default function Input(props: InputProps | InputWithSubmitProps): JSX.Ele
 				/>
 
 				{props.prefix && (
-					<label className={`absolute left-0 py-3 pl-[20px] text-white${value.length > 0 ? "" : " text-opacity-50"}`}>
+					<label className={`absolute left-0 py-3 pl-[20px] text-white${value.length > 0 ? "" : "text-opacity-50"}`}>
 						{props.prefix}
 					</label>
 				)}
