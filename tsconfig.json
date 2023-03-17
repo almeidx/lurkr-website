@@ -4,9 +4,7 @@
 		"esModuleInterop": true,
 		"forceConsistentCasingInFileNames": true,
 		"importHelpers": true,
-		"importsNotUsedAsValues": "error",
 		"incremental": true,
-		"isolatedModules": true,
 		"jsx": "preserve",
 		"lib": ["DOM", "DOM.Iterable", "ESNext"],
 		"module": "ESNext",
@@ -24,6 +22,7 @@
 		"sourceMap": true,
 		"strict": true,
 		"target": "ES5",
+		"verbatimModuleSyntax": false,
 		"paths": {
 			"@/dashboard/*": ["./src/components/dashboard/*"],
 			"@/entries/*": ["./src/components/dashboard/entries/*"],
@@ -32,7 +31,12 @@
 			"@/leaderboard/*": ["./src/components/leaderboard/*"],
 			"~/*": ["./src/*"]
 		},
-		"plugins": [{ "name": "next" }]
+		"plugins": [
+			{
+				"name": "next"
+			}
+		],
+		"isolatedModules": true
 	},
 	"exclude": ["node_modules"],
 	"include": ["**/*.ts", "**/*.tsx", "next-env.d.ts"]
