@@ -19,7 +19,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
 					<title>Lurkr</title>
 				</Head>
 
-				<NextProgress color="#2ecc71" />
+				<NextProgress color="#ff7077" />
 				<Navbar />
 				<Component {...pageProps} />
 				<Footer />

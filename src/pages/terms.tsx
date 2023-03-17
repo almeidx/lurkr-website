@@ -170,8 +170,8 @@ export default function Terms() {
 				<p className="mx-3 mt-6 mb-9 font-light text-gray-400 sm:mx-0">
 					If you would like to contact us to understand more about this Agreement or wish to contact us concerning any
 					matter relating to it, you may send an email to{" "}
-					<a className="text-blue-300" href="mailto:admin@almeidx.dev">
-						admin@almeidx.dev
+					<a className="text-blue-300" href="mailto:admin@lurkr.gg">
+						admin@lurkr.gg
 					</a>
 					.
 				</p>
