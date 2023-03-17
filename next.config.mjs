@@ -33,7 +33,7 @@ export default {
 				source: "/vote",
 			},
 			{
-				destination: "https://patreon.com/pepemanager",
+				destination: "https://patreon.com/lurkrbot",
 				permanent: true,
 				source: "/patreon",
 			},
