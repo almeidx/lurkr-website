@@ -14,7 +14,7 @@ export default class MyDocument extends Document {
 					<link href="/favicon.png" rel="shortcut icon" type="image/png" />
 
 					<meta
-						content="A Discord bot with focus on automation, leveling, emoji management, and image manipulation"
+						content="The Ultimate No-Paywall & Featureful Leveling Bot. Powerful Utility and Automation for your Best Discord Server!"
 						property="description"
 					/>
 					<meta
