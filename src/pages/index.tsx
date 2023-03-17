@@ -95,7 +95,7 @@ export default function Home() {
 						/>
 
 						<span className="overflow-hidden text-ellipsis whitespace-nowrap text-lg text-white">
-							Free Mee6 Leveling Bot? | Pepe Manager
+							Free Mee6 Leveling Bot? | Lurkr
 						</span>
 					</div>
 
