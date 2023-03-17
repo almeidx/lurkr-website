@@ -18,7 +18,7 @@ export function MentionCooldown({ addChange, settings }: MentionCooldownProps) {
 			<Label
 				htmlFor="mentionCooldown"
 				name="Role Mention Cooldown Time (Minutes)"
-				url="https://docs.pepemanager.com/guides/automatic-role-mention-cooldown#setting-up-the-cooldown-time"
+				url="https://docs.lurkr.gg/guides/automatic-role-mention-cooldown#setting-up-the-cooldown-time"
 			/>
 			<div className="max-w-md">
 				<Input

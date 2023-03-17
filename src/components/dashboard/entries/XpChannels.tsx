@@ -34,7 +34,7 @@ export function XpChannels({ addChange, channels, settings }: XpChannelsProps) {
 			<Label
 				htmlFor="xpChannels"
 				name={`Leveling Channels (${xpChannelMode === XpChannelMode.Blacklist ? "Blacklist" : "Whitelist"})`}
-				url="https://docs.pepemanager.com/guides/setting-up-server-xp-leveling#adding-allowed-channels"
+				url="https://docs.lurkr.gg/guides/setting-up-server-xp-leveling#adding-allowed-channels"
 			/>
 			<div className="mb-3 flex flex-row justify-start">
 				<button

@@ -15,7 +15,7 @@ export function StoreCounts({ addChange, settings }: StoreCountsProps) {
 				<Label
 					htmlFor="storeCounts"
 					name="Member Join/Leave Tracking"
-					url="https://docs.pepemanager.com/config-commands/config/toggle"
+					url="https://docs.lurkr.gg/config-commands/config/toggle"
 					withMargin={false}
 				/>
 				<Toggle

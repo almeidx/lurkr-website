@@ -20,7 +20,7 @@ export function AutoRole({ addChange, roles, settings }: AutoRoleProps) {
 			<Label
 				htmlFor="autoRole"
 				name="On Join Roles"
-				url="https://docs.pepemanager.com/guides/automatically-added-roles-with-timeout"
+				url="https://docs.lurkr.gg/guides/automatically-added-roles-with-timeout"
 			/>
 			<Selector
 				id="autoRole"

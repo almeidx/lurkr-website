@@ -25,7 +25,7 @@ export function XpDisallowedPrefixes({ addChange, settings }: XpDisallowedPrefix
 			<Label
 				htmlFor="xpDisallowedPrefixes"
 				name="Ignored Leveling Bot Prefixes"
-				url="https://docs.pepemanager.com/guides/setting-up-server-xp-leveling#blacklisting-bot-prefixes"
+				url="https://docs.lurkr.gg/guides/setting-up-server-xp-leveling#blacklisting-bot-prefixes"
 			/>
 
 			<div className="max-w-md divide-y-2">

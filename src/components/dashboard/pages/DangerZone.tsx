@@ -42,7 +42,7 @@ export default function DangerZone({ settings, openMenu }: MentionCooldownProps)
 					<Label
 						htmlFor="downloadLevels"
 						name="Download Leveling Data"
-						url="https://docs.pepemanager.com/guides/exporting-leveling-leaderboard"
+						url="https://docs.lurkr.gg/guides/exporting-leveling-leaderboard"
 					/>
 
 					<p className="mb-2 rounded-lg text-white">
@@ -55,7 +55,7 @@ export default function DangerZone({ settings, openMenu }: MentionCooldownProps)
 				</Field>
 
 				<Field>
-					<Label htmlFor="resetSettings" name="Reset Settings" url="https://docs.pepemanager.com/" />
+					<Label htmlFor="resetSettings" name="Reset Settings" url="https://docs.lurkr.gg/" />
 
 					<p className="mb-2 rounded-lg text-white">
 						This will reset all settings to their default values. Additionally, it will remove all leveling data, member

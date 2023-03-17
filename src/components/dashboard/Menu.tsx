@@ -135,7 +135,7 @@ export default function Menu({ closeMenu, guild, guildId: argGuildId, menuOpen, 
 							className={`flex flex-row items-center justify-center gap-2 ${
 								premium ? "bg-[#ff424d] hover:bg-[#c0323a]" : "bg-[#c0323a] hover:bg-[#802127]"
 							} w-full cursor-pointer rounded-lg py-1 px-2 text-center text-white transition-colors duration-100`}
-							onClick={() => window.open("https://docs.pepemanager.com/information/patreon-perks")}
+							onClick={() => window.open("https://docs.lurkr.gg/information/patreon-perks")}
 						>
 							<FaPatreon />
 							{premium ? "Premium" : "Get Premium"}

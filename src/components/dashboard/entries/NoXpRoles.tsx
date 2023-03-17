@@ -20,7 +20,7 @@ export function NoXpRoles({ addChange, roles, settings }: NoXpRoleProps) {
 			<Label
 				htmlFor="noXpRoles"
 				name="No Leveling Roles"
-				url="https://docs.pepemanager.com/guides/setting-up-server-xp-leveling#adding-no-xp-roles"
+				url="https://docs.lurkr.gg/guides/setting-up-server-xp-leveling#adding-no-xp-roles"
 			/>
 			<Selector
 				id="noXpRoles"

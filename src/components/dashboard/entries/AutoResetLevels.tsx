@@ -14,7 +14,7 @@ export function AutoResetLevels({ addChange, settings }: AutoResetLevelsProps) {
 			<Label
 				htmlFor="autoResetLevels"
 				name="Automatic Level Resets"
-				url="https://docs.pepemanager.com/guides/setting-up-server-xp-leveling#automatically-resetting-levels"
+				url="https://docs.lurkr.gg/guides/setting-up-server-xp-leveling#automatically-resetting-levels"
 			/>
 			<div className="max-w-md">
 				<BasicSelect

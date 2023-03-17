@@ -18,7 +18,7 @@ export function Vanity({ addChange, settings }: VanityProps) {
 			<Label
 				htmlFor="vanity"
 				name="Leaderboard Vanity URL"
-				url="https://docs.pepemanager.com/guides/setting-a-leaderboard-vanity-url"
+				url="https://docs.lurkr.gg/guides/setting-a-leaderboard-vanity-url"
 			/>
 			<div className="max-w-md">
 				<Input

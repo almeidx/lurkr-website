@@ -32,7 +32,7 @@ export function XpResponseType({ addChange, channels, settings }: XpResponseType
 			<Label
 				htmlFor="xpResponseType"
 				name="Level Up Message Destination"
-				url="https://docs.pepemanager.com/guides/setting-up-server-xp-leveling#where-to-send-the-level-up-message"
+				url="https://docs.lurkr.gg/guides/setting-up-server-xp-leveling#where-to-send-the-level-up-message"
 			/>
 			<div className="flex flex-row flex-wrap gap-y-2">
 				<div className="w-full lg:w-1/2">

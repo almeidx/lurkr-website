@@ -26,7 +26,7 @@ export function XpAnnouncementLevels({ addChange, settings }: XpAnnouncementLeve
 			<Label
 				htmlFor="xpAnnounceLevels"
 				name="Specific Announcement Levels"
-				url="https://docs.pepemanager.com/guides/setting-up-server-xp-leveling#when-to-send-the-level-up-message"
+				url="https://docs.lurkr.gg/guides/setting-up-server-xp-leveling#when-to-send-the-level-up-message"
 			/>
 
 			<div className="max-w-md divide-y-2">

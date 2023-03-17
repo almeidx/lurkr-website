@@ -20,7 +20,7 @@ export function MentionCooldownRoles({ addChange, roles, settings }: MentionCool
 			<Label
 				htmlFor="mentionCooldownRoles"
 				name="Role Mention Cooldown Roles"
-				url="https://docs.pepemanager.com/guides/automatic-role-mention-cooldown#setting-up-the-roles"
+				url="https://docs.lurkr.gg/guides/automatic-role-mention-cooldown#setting-up-the-roles"
 			/>
 			<Selector
 				id="mentionCooldownRoles"

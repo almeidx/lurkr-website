@@ -18,7 +18,7 @@ export function XpMessage({ addChange, settings }: XpMessageProps) {
 			<Label
 				htmlFor="xpMessage"
 				name="Level Up Message"
-				url="https://docs.pepemanager.com/guides/setting-up-server-xp-leveling#customizing-the-level-up-message"
+				url="https://docs.lurkr.gg/guides/setting-up-server-xp-leveling#customizing-the-level-up-message"
 			/>
 			<Textarea
 				id="xpMessage"

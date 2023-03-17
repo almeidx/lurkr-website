@@ -15,7 +15,7 @@ export function PrioritiseMultiplierRoleHierarchy({ addChange, settings }: Prior
 				<Label
 					htmlFor="prioritiseMultiplierRoleHierarchy"
 					name="Leveling Role Hierarchy/Multiplier Value Priority"
-					url="https://docs.pepemanager.com/guides/setting-up-xp-multipliers#changing-role-multiplier-hierarchy"
+					url="https://docs.lurkr.gg/guides/setting-up-xp-multipliers#changing-role-multiplier-hierarchy"
 					withMargin={false}
 				/>
 				<Toggle

@@ -24,11 +24,11 @@ This setup assumes you have [Git], and [Node.js] setup on your machine. This rep
 
 #### Cloning repository
 
-- `git clone git@github.com:almeidx/pepe-website.git`
-- `cd pepe-website`
+- `git clone git@github.com:almeidx/lurkr-website.git`
+- `cd lurkr-website`
 - `yarn`
 
-Note: If you don't have yarn installed globally, you'll have to run `npm i -g yarn`.
+Note: If you don't have yarn installed globally, you'll have to run `corepack enable`.
 
 #### Running the website
 
@@ -46,7 +46,7 @@ The deployment of the website is all automated by [Vercel]
 
 ### Author
 
-**pepe-website** © [almeidx], released under the [GNU AGPLv3] license.
+**lurkr-website** © [almeidx], released under the [GNU AGPLv3] license.
 
 > GitHub [@almeidx]
 
@@ -55,6 +55,6 @@ The deployment of the website is all automated by [Vercel]
 [node.js]: https://nodejs.org
 [vercel]: https://vercel.com
 [yarn 3]: https://yarnpkg.com
-[gnu agplv3]: https://github.com/almeidx/pepe-website/blob/main/LICENSE
+[gnu agplv3]: https://github.com/almeidx/lurkr-website/blob/main/LICENSE
 [almeidx]: https://almeidx.dev
 [@almeidx]: https://github.com/almeidx

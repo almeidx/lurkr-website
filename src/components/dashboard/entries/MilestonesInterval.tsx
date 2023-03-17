@@ -18,7 +18,7 @@ export function MilestonesInterval({ addChange, settings }: MilestonesIntervalPr
 			<Label
 				htmlFor="milestonesInterval"
 				name="Milestone Announcement Interval"
-				url="https://docs.pepemanager.com/guides/automatically-controlled-member-milestones#setting-the-milestones-interval"
+				url="https://docs.lurkr.gg/guides/automatically-controlled-member-milestones#setting-the-milestones-interval"
 			/>
 			<div className="max-w-md">
 				<Input

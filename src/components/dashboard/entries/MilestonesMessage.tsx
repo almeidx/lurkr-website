@@ -18,7 +18,7 @@ export function MilestonesMessage({ addChange, settings }: MilestonesMessageProp
 			<Label
 				htmlFor="milestonesMessage"
 				name="Milestone Announcement Message"
-				url="https://docs.pepemanager.com/guides/automatically-controlled-member-milestones#setting-the-milestones-message"
+				url="https://docs.lurkr.gg/guides/automatically-controlled-member-milestones#setting-the-milestones-message"
 			/>
 			<Textarea
 				id="milestonesMessage"

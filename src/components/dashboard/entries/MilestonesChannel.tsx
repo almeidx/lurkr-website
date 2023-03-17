@@ -21,7 +21,7 @@ export function MilestonesChannel({ addChange, channels, settings }: MilestonesC
 			<Label
 				htmlFor="milestonesChannel"
 				name="Milestone Channel"
-				url="https://docs.pepemanager.com/guides/automatically-controlled-member-milestones#setting-the-milestones-channel"
+				url="https://docs.lurkr.gg/guides/automatically-controlled-member-milestones#setting-the-milestones-channel"
 			/>
 			<div className="max-w-md">
 				<Selector

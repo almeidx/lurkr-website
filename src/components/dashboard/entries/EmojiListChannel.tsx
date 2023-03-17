@@ -21,7 +21,7 @@ export function EmojiListChannel({ addChange, channels, settings }: EmojiListCha
 			<Label
 				htmlFor="emojiListChannel"
 				name="Emoji List Channel"
-				url="https://docs.pepemanager.com/guides/automatically-controlled-emoji-list"
+				url="https://docs.lurkr.gg/guides/automatically-controlled-emoji-list"
 			/>
 			<div className="max-w-md">
 				<Selector
