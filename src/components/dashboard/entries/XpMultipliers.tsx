@@ -1,7 +1,6 @@
 import cuid from "cuid";
 import { useCallback, useState } from "react";
 import { MdPlaylistAdd } from "react-icons/md";
-import { MAX_XP_MULTIPLIERS, MAX_XP_MULTIPLIERS_PREMIUM } from "../../../utils/guild-config";
 import XpMultiplier, {
 	type XpMultiplierOnDeleteFn,
 	type XpMultiplierOnItemChangeFn,
@@ -20,6 +19,7 @@ import {
 } from "~/contexts/GuildContext";
 import { parseMultiplier } from "~/utils/common";
 import type { Snowflake } from "~/utils/constants";
+import { MAX_XP_MULTIPLIERS, MAX_XP_MULTIPLIERS_PREMIUM } from "~/utils/guild-config";
 
 interface XpMultipliersProps {
 	addChange: AddChangeFn;

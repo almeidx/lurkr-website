@@ -1,10 +1,10 @@
-import { MAX_MENTION_COOLDOWN, MIN_MENTION_COOLDOWN } from "../../../utils/guild-config";
 import Field from "@/form/Field";
 import Input from "@/form/Input";
 import Label from "@/form/Label";
 import Subtitle from "@/form/Subtitle";
 import type { AddChangeFn, GuildSettings } from "~/contexts/GuildContext";
 import { formatNumberToNDecimalPlaces, parseFloatStrict } from "~/utils/common";
+import { MAX_MENTION_COOLDOWN, MIN_MENTION_COOLDOWN } from "~/utils/guild-config";
 
 interface MentionCooldownProps {
 	addChange: AddChangeFn;

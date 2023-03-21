@@ -1,4 +1,4 @@
-import { Time } from "./constants";
+import { Time } from "~/utils/constants";
 
 export const MAX_AUTO_PUBLISH_CHANNELS = 5;
 export const MAX_AUTO_PUBLISH_CHANNELS_PREMIUM = 25;

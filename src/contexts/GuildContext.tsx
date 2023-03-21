@@ -1,6 +1,7 @@
 /* eslint-disable promise/prefer-await-to-callbacks, promise/prefer-await-to-then */
 
 import { createContext, useCallback, useState, type ReactNode } from "react";
+import { API_BASE_URL, VANITY_REGEX, type Snowflake } from "~/utils/constants";
 import {
 	MAX_AUTO_ROLE_TIMEOUT,
 	MAX_MENTION_COOLDOWN,
@@ -31,8 +32,7 @@ import {
 	MIN_XP_ANNOUNCE_MULTIPLE_OF,
 	MIN_XP_MESSAGE_LENGTH,
 	MIN_XP_MULTIPLIER_VALUE,
-} from "../utils/guild-config";
-import { API_BASE_URL, VANITY_REGEX, type Snowflake } from "~/utils/constants";
+} from "~/utils/guild-config";
 
 const emojiListKeys = new Set<keyof PatchGuildData>(["emojiListChannel"]);
 

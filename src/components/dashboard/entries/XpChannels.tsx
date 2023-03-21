@@ -1,10 +1,10 @@
 import { useCallback, useState, type MouseEventHandler } from "react";
-import { MAX_XP_CHANNELS, MAX_XP_CHANNELS_PREMIUM } from "../../../utils/guild-config";
 import Field from "@/form/Field";
 import Label from "@/form/Label";
 import Selector from "@/form/Selector";
 import Subtitle from "@/form/Subtitle";
 import { XpChannelMode, type AddChangeFn, type Channel, type GuildSettings } from "~/contexts/GuildContext";
+import { MAX_XP_CHANNELS, MAX_XP_CHANNELS_PREMIUM } from "~/utils/guild-config";
 
 interface XpChannelsProps {
 	addChange: AddChangeFn;

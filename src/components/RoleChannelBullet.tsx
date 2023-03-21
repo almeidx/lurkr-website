@@ -3,7 +3,7 @@ import { CiHashtag } from "react-icons/ci";
 import { HiSpeakerphone } from "react-icons/hi";
 import { HiSpeakerWave } from "react-icons/hi2";
 import { TbMessages } from "react-icons/tb";
-import { ChannelType } from "../contexts/GuildContext";
+import { ChannelType } from "~/contexts/GuildContext";
 
 export default function RoleChannelBullet({
 	channelType,

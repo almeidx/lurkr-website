@@ -1,10 +1,10 @@
-import { MAX_MENTION_COOLDOWN_ROLES } from "../../../utils/guild-config";
 import Field from "@/form/Field";
 import Label from "@/form/Label";
 import Selector from "@/form/Selector";
 import Subtitle from "@/form/Subtitle";
 import type { Role, GuildSettings, AddChangeFn } from "~/contexts/GuildContext";
 import type { Snowflake } from "~/utils/constants";
+import { MAX_MENTION_COOLDOWN_ROLES } from "~/utils/guild-config";
 
 interface MentionCooldownRolesProps {
 	addChange: AddChangeFn;

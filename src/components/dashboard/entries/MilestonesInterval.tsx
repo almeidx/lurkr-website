@@ -1,10 +1,10 @@
-import { MAX_MILESTONES_INTERVAL, MIN_MILESTONES_INTERVAL } from "../../../utils/guild-config";
 import Field from "@/form/Field";
 import Input from "@/form/Input";
 import Label from "@/form/Label";
 import Subtitle from "@/form/Subtitle";
 import type { GuildSettings, AddChangeFn } from "~/contexts/GuildContext";
 import { parseIntStrict } from "~/utils/common";
+import { MAX_MILESTONES_INTERVAL, MIN_MILESTONES_INTERVAL } from "~/utils/guild-config";
 
 interface MilestonesIntervalProps {
 	addChange: AddChangeFn;

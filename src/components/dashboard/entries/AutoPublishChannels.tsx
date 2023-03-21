@@ -1,11 +1,11 @@
 import { useMemo } from "react";
-import { MAX_AUTO_PUBLISH_CHANNELS, MAX_AUTO_PUBLISH_CHANNELS_PREMIUM } from "../../../utils/guild-config";
 import Field from "@/form/Field";
 import Label from "@/form/Label";
 import Selector from "@/form/Selector";
 import Subtitle from "@/form/Subtitle";
 import { ChannelType, type AddChangeFn, type Channel, type GuildSettings } from "~/contexts/GuildContext";
 import type { Snowflake } from "~/utils/constants";
+import { MAX_AUTO_PUBLISH_CHANNELS, MAX_AUTO_PUBLISH_CHANNELS_PREMIUM } from "~/utils/guild-config";
 
 interface AutoPublishChannelsProps {
 	addChange: AddChangeFn;

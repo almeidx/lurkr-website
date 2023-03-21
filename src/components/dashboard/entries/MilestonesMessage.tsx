@@ -1,9 +1,9 @@
-import { MAX_MILESTONES_MESSAGE_LENGTH, MIN_MILESTONES_MESSAGE_LENGTH } from "../../../utils/guild-config";
 import Field from "@/form/Field";
 import Label from "@/form/Label";
 import Subtitle from "@/form/Subtitle";
 import Textarea from "@/form/Textarea";
 import type { GuildSettings, AddChangeFn } from "~/contexts/GuildContext";
+import { MAX_MILESTONES_MESSAGE_LENGTH, MIN_MILESTONES_MESSAGE_LENGTH } from "~/utils/guild-config";
 
 interface MilestonesMessageProps {
 	addChange: AddChangeFn;

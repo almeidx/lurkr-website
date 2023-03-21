@@ -1,16 +1,16 @@
 import { useState, useRef } from "react";
 import { MdPlaylistAdd } from "react-icons/md";
-import {
-	MAX_XP_DISALLOWED_PREFIXES,
-	MAX_XP_DISALLOWED_PREFIXES_PREMIUM,
-	MAX_XP_DISALLOWED_PREFIX_LENGTH,
-} from "../../../utils/guild-config";
 import SmallClearableItem from "@/dashboard/SmallClearableItem";
 import Field from "@/form/Field";
 import Input from "@/form/Input";
 import Label from "@/form/Label";
 import Subtitle from "@/form/Subtitle";
 import type { AddChangeFn, GuildSettings } from "~/contexts/GuildContext";
+import {
+	MAX_XP_DISALLOWED_PREFIXES,
+	MAX_XP_DISALLOWED_PREFIXES_PREMIUM,
+	MAX_XP_DISALLOWED_PREFIX_LENGTH,
+} from "~/utils/guild-config";
 
 interface XpDisallowedPrefixesProps {
 	addChange: AddChangeFn;

@@ -1,6 +1,5 @@
 import { useState, useRef } from "react";
 import { MdPlaylistAdd } from "react-icons/md";
-import { MAX_XP_ANNOUNCE_LEVEL, MAX_XP_ANNOUNCE_LEVELS, MIN_XP_ANNOUNCE_LEVEL } from "../../../utils/guild-config";
 import SmallClearableItem from "@/dashboard/SmallClearableItem";
 import Field from "@/form/Field";
 import Input from "@/form/Input";
@@ -8,6 +7,7 @@ import Label from "@/form/Label";
 import Subtitle from "@/form/Subtitle";
 import type { AddChangeFn, GuildSettings } from "~/contexts/GuildContext";
 import { parseIntStrict } from "~/utils/common";
+import { MAX_XP_ANNOUNCE_LEVEL, MAX_XP_ANNOUNCE_LEVELS, MIN_XP_ANNOUNCE_LEVEL } from "~/utils/guild-config";
 
 interface XpAnnouncementLevelsProps {
 	addChange: AddChangeFn;

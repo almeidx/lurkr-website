@@ -1,17 +1,17 @@
 import { useCallback, useMemo, useRef, useState } from "react";
 import { MdPlaylistAdd } from "react-icons/md";
-import {
-	MAX_XP_ROLE_REWARDS,
-	MAX_XP_ROLE_REWARDS_PREMIUM,
-	MAX_XP_ROLE_REWARD_LEVEL,
-	MIN_XP_ROLE_REWARD_LEVEL,
-} from "../../../utils/guild-config";
 import XpRole, { type XpRoleOnChangeFn } from "@/dashboard/XpRole";
 import Field from "@/form/Field";
 import Input from "@/form/Input";
 import Label from "@/form/Label";
 import type { AddChangeFn, GuildSettings, Role, XpRoleReward } from "~/contexts/GuildContext";
 import { parseIntStrict } from "~/utils/common";
+import {
+	MAX_XP_ROLE_REWARDS,
+	MAX_XP_ROLE_REWARDS_PREMIUM,
+	MAX_XP_ROLE_REWARD_LEVEL,
+	MIN_XP_ROLE_REWARD_LEVEL,
+} from "~/utils/guild-config";
 
 interface XpRoleRewardsProps {
 	addChange: AddChangeFn;

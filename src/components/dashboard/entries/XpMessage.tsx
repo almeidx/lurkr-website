@@ -1,9 +1,9 @@
-import { MAX_XP_MESSAGE_LENGTH } from "../../../utils/guild-config";
 import Field from "@/form/Field";
 import Label from "@/form/Label";
 import Subtitle from "@/form/Subtitle";
 import Textarea from "@/form/Textarea";
 import type { AddChangeFn, GuildSettings } from "~/contexts/GuildContext";
+import { MAX_XP_MESSAGE_LENGTH } from "~/utils/guild-config";
 
 interface XpMessageProps {
 	addChange: AddChangeFn;

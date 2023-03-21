@@ -1,10 +1,10 @@
-import { MAX_MILESTONES_ROLES, MAX_MILESTONES_ROLES_PREMIUM } from "../../../utils/guild-config";
 import Field from "@/form/Field";
 import Label from "@/form/Label";
 import Selector from "@/form/Selector";
 import Subtitle from "@/form/Subtitle";
 import type { GuildSettings, AddChangeFn, Role } from "~/contexts/GuildContext";
 import type { Snowflake } from "~/utils/constants";
+import { MAX_MILESTONES_ROLES, MAX_MILESTONES_ROLES_PREMIUM } from "~/utils/guild-config";
 
 interface MilestonesRolesProps {
 	addChange: AddChangeFn;

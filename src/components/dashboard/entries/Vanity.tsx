@@ -1,9 +1,9 @@
-import { MAX_VANITY_LENGTH, MIN_VANITY_LENGTH } from "../../../utils/guild-config";
 import Field from "@/form/Field";
 import Input from "@/form/Input";
 import Label from "@/form/Label";
 import Subtitle from "@/form/Subtitle";
 import type { AddChangeFn, GuildSettings } from "~/contexts/GuildContext";
+import { MAX_VANITY_LENGTH, MIN_VANITY_LENGTH } from "~/utils/guild-config";
 
 interface VanityProps {
 	addChange: AddChangeFn;

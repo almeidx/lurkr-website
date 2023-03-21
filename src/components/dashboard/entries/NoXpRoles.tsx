@@ -1,10 +1,10 @@
-import { MAX_NO_XP_ROLES, MAX_NO_XP_ROLES_PREMIUM } from "../../../utils/guild-config";
 import Field from "@/form/Field";
 import Label from "@/form/Label";
 import Selector from "@/form/Selector";
 import Subtitle from "@/form/Subtitle";
 import type { GuildSettings, AddChangeFn, Role } from "~/contexts/GuildContext";
 import type { Snowflake } from "~/utils/constants";
+import { MAX_NO_XP_ROLES, MAX_NO_XP_ROLES_PREMIUM } from "~/utils/guild-config";
 
 interface NoXpRoleProps {
 	addChange: AddChangeFn;

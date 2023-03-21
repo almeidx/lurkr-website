@@ -1,8 +1,8 @@
 import { MdClear } from "react-icons/md";
-import { MAX_XP_ROLE_REWARD_ROLES, MAX_XP_ROLE_REWARD_ROLES_PREMIUM } from "../../utils/guild-config";
 import Selector from "@/form/Selector";
 import type { Role } from "~/contexts/GuildContext";
 import type { Snowflake } from "~/utils/constants";
+import { MAX_XP_ROLE_REWARD_ROLES, MAX_XP_ROLE_REWARD_ROLES_PREMIUM } from "~/utils/guild-config";
 
 export default function XpRole({ level, initialRoles, onChange, premium, roles, disabled = false }: XpRoleProps) {
 	return (
