@@ -2,6 +2,7 @@ import type { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
+import { MAX_VANITY_LENGTH } from "../../utils/guild-config";
 import Input from "@/form/Input";
 import Guild from "~/components/Guild";
 import type { UserGuild } from "~/contexts/UserContext";
@@ -89,7 +90,7 @@ export default function Levels({ guilds }: InferGetServerSidePropsType<typeof ge
 						className="my-5"
 						id="searchTerm"
 						initialValue=""
-						maxLength={32}
+						maxLength={MAX_VANITY_LENGTH}
 						onChange={(text) =>
 							text
 								? /(?:^[1-9]\d{17,19}$)|(?:^[\da-z]+$)/i.test(text) && setServerIdOrVanity(text)

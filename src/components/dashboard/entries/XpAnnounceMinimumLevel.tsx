@@ -1,9 +1,10 @@
+import { MAX_XP_ANNOUNCE_MINIMUM_LEVEL, MIN_XP_ANNOUNCE_MINIMUM_LEVEL } from "../../../utils/guild-config";
 import Field from "@/form/Field";
 import Input from "@/form/Input";
 import Label from "@/form/Label";
 import Subtitle from "@/form/Subtitle";
 import type { AddChangeFn, GuildSettings } from "~/contexts/GuildContext";
-import { getDatabaseLimit, parseIntStrict } from "~/utils/common";
+import { parseIntStrict } from "~/utils/common";
 
 interface XpAnnounceMinimumLevelProps {
 	addChange: AddChangeFn;
@@ -11,8 +12,6 @@ interface XpAnnounceMinimumLevelProps {
 }
 
 export function XpAnnounceMiniumLevel({ addChange, settings }: XpAnnounceMinimumLevelProps) {
-	const xpAnnounceMinimumLevelLimits = getDatabaseLimit("xpAnnounceMinimumLevel", settings.premium);
-
 	return (
 		<Field>
 			<Label
@@ -30,7 +29,7 @@ export function XpAnnounceMiniumLevel({ addChange, settings }: XpAnnounceMinimum
 				/>
 			</div>
 			<Subtitle
-				text={`Between ${xpAnnounceMinimumLevelLimits.min} - ${xpAnnounceMinimumLevelLimits.max.toLocaleString("en")}.`}
+				text={`Between ${MIN_XP_ANNOUNCE_MINIMUM_LEVEL} - ${MAX_XP_ANNOUNCE_MINIMUM_LEVEL.toLocaleString("en")}.`}
 			/>
 		</Field>
 	);

@@ -1,9 +1,10 @@
+import { MAX_XP_ANNOUNCE_MULTIPLE_OF, MIN_XP_ANNOUNCE_MULTIPLE_OF } from "../../../utils/guild-config";
 import Field from "@/form/Field";
 import Input from "@/form/Input";
 import Label from "@/form/Label";
 import Subtitle from "@/form/Subtitle";
 import type { GuildSettings, AddChangeFn } from "~/contexts/GuildContext";
-import { getDatabaseLimit, parseIntStrict } from "~/utils/common";
+import { parseIntStrict } from "~/utils/common";
 
 interface XpAnnounceMultipleOfProps {
 	addChange: AddChangeFn;
@@ -11,8 +12,6 @@ interface XpAnnounceMultipleOfProps {
 }
 
 export function XpAnnounceMultipleOf({ addChange, settings }: XpAnnounceMultipleOfProps) {
-	const xpAnnounceMultipleOfLimits = getDatabaseLimit("xpAnnounceMultipleOf", settings.premium);
-
 	return (
 		<Field>
 			<Label
@@ -23,14 +22,14 @@ export function XpAnnounceMultipleOf({ addChange, settings }: XpAnnounceMultiple
 			<div className="max-w-md">
 				<Input
 					id="xpAnnounceMultipleOf"
-					initialValue={settings.xpAnnounceMultipleOf?.toString() ?? "1"}
-					maxLength={6}
-					onChange={(text) => addChange("xpAnnounceMultipleOf", text ? parseIntStrict(text) : 0)}
+					initialValue={settings.xpAnnounceMultipleOf?.toString() ?? ""}
+					maxLength={3}
+					onChange={(text) => addChange("xpAnnounceMultipleOf", text ? parseIntStrict(text) : null)}
 					placeholder="Enter the factor for leveling announcements"
 				/>
 			</div>
 			<Subtitle
-				text={`Between ${xpAnnounceMultipleOfLimits.min} - ${xpAnnounceMultipleOfLimits.max.toLocaleString("en")}.`}
+				text={`Between ${MIN_XP_ANNOUNCE_MULTIPLE_OF} - ${MAX_XP_ANNOUNCE_MULTIPLE_OF.toLocaleString("en")}.`}
 			/>
 		</Field>
 	);

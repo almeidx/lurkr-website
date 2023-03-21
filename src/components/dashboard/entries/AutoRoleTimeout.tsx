@@ -1,9 +1,10 @@
+import { MAX_AUTO_ROLE_TIMEOUT, MIN_AUTO_ROLE_TIMEOUT } from "../../../utils/guild-config";
 import Field from "@/form/Field";
 import Input from "@/form/Input";
 import Label from "@/form/Label";
 import Subtitle from "@/form/Subtitle";
 import type { GuildSettings, AddChangeFn } from "~/contexts/GuildContext";
-import { formatNumberToNDecimalPlaces, getDatabaseLimit, parseFloatStrict } from "~/utils/common";
+import { formatNumberToNDecimalPlaces, parseFloatStrict } from "~/utils/common";
 
 interface AutoRoleTimeoutProps {
 	addChange: AddChangeFn;
@@ -11,8 +12,6 @@ interface AutoRoleTimeoutProps {
 }
 
 export function AutoRoleTimeout({ addChange, settings }: AutoRoleTimeoutProps) {
-	const autoRoleTimeoutLimits = getDatabaseLimit("autoRoleTimeout", settings.premium);
-
 	return (
 		<Field>
 			<Label
@@ -29,9 +28,7 @@ export function AutoRoleTimeout({ addChange, settings }: AutoRoleTimeoutProps) {
 					placeholder="Enter the autorole timeout"
 				/>
 			</div>
-			<Subtitle
-				text={`Between ${autoRoleTimeoutLimits.min / 60_000} - ${autoRoleTimeoutLimits.max / 60_000} minutes.`}
-			/>
+			<Subtitle text={`Between ${MIN_AUTO_ROLE_TIMEOUT / 60_000} - ${MAX_AUTO_ROLE_TIMEOUT / 60_000} minutes.`} />
 		</Field>
 	);
 }

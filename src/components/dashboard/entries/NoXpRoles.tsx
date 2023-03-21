@@ -1,9 +1,9 @@
+import { MAX_NO_XP_ROLES, MAX_NO_XP_ROLES_PREMIUM } from "../../../utils/guild-config";
 import Field from "@/form/Field";
 import Label from "@/form/Label";
 import Selector from "@/form/Selector";
 import Subtitle from "@/form/Subtitle";
 import type { GuildSettings, AddChangeFn, Role } from "~/contexts/GuildContext";
-import { getDatabaseLimit } from "~/utils/common";
 import type { Snowflake } from "~/utils/constants";
 
 interface NoXpRoleProps {
@@ -13,7 +13,7 @@ interface NoXpRoleProps {
 }
 
 export function NoXpRoles({ addChange, roles, settings }: NoXpRoleProps) {
-	const noXpRolesLimit = getDatabaseLimit("noXpRoles", settings.premium).maxLength;
+	const noXpRolesLimit = settings.premium ? MAX_NO_XP_ROLES_PREMIUM : MAX_NO_XP_ROLES;
 
 	return (
 		<Field>

@@ -1,9 +1,9 @@
+import { MAX_VANITY_LENGTH, MIN_VANITY_LENGTH } from "../../../utils/guild-config";
 import Field from "@/form/Field";
 import Input from "@/form/Input";
 import Label from "@/form/Label";
 import Subtitle from "@/form/Subtitle";
 import type { AddChangeFn, GuildSettings } from "~/contexts/GuildContext";
-import { getDatabaseLimit } from "~/utils/common";
 
 interface VanityProps {
 	addChange: AddChangeFn;
@@ -11,8 +11,6 @@ interface VanityProps {
 }
 
 export function Vanity({ addChange, settings }: VanityProps) {
-	const vanityLimits = getDatabaseLimit("vanity", settings.premium);
-
 	return (
 		<Field>
 			<Label
@@ -24,12 +22,12 @@ export function Vanity({ addChange, settings }: VanityProps) {
 				<Input
 					id="vanity"
 					initialValue={settings.vanity ?? ""}
-					maxLength={32}
+					maxLength={MAX_VANITY_LENGTH}
 					onChange={(text) => addChange("vanity", text)}
 					placeholder="Enter the vanity used for the leveling leaderboard"
 				/>
 			</div>
-			<Subtitle text={`Between ${vanityLimits.minLength} - ${vanityLimits.maxLength} characters.`} />
+			<Subtitle text={`Between ${MIN_VANITY_LENGTH} - ${MAX_VANITY_LENGTH} characters.`} />
 		</Field>
 	);
 }

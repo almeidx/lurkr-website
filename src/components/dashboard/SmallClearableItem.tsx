@@ -14,7 +14,7 @@ export default function SmallClearableItem({ index, item, onDelete }: SmallClear
 	);
 }
 
-export type SmallClearableItemOnDeleteFn = (index: number) => unknown;
+type SmallClearableItemOnDeleteFn = (index: number) => unknown;
 
 interface SmallClearableItemProps {
 	index: number;

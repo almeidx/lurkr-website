@@ -1,9 +1,10 @@
+import { MAX_MILESTONES_INTERVAL, MIN_MILESTONES_INTERVAL } from "../../../utils/guild-config";
 import Field from "@/form/Field";
 import Input from "@/form/Input";
 import Label from "@/form/Label";
 import Subtitle from "@/form/Subtitle";
 import type { GuildSettings, AddChangeFn } from "~/contexts/GuildContext";
-import { getDatabaseLimit, parseIntStrict } from "~/utils/common";
+import { parseIntStrict } from "~/utils/common";
 
 interface MilestonesIntervalProps {
 	addChange: AddChangeFn;
@@ -11,8 +12,6 @@ interface MilestonesIntervalProps {
 }
 
 export function MilestonesInterval({ addChange, settings }: MilestonesIntervalProps) {
-	const milestonesIntervalLimits = getDatabaseLimit("milestonesInterval", settings.premium);
-
 	return (
 		<Field>
 			<Label
@@ -29,9 +28,7 @@ export function MilestonesInterval({ addChange, settings }: MilestonesIntervalPr
 					placeholder="Enter the milestones interval"
 				/>
 			</div>
-			<Subtitle
-				text={`Between ${milestonesIntervalLimits.min} - ${milestonesIntervalLimits.max.toLocaleString("en")}.`}
-			/>
+			<Subtitle text={`Between ${MIN_MILESTONES_INTERVAL} - ${MAX_MILESTONES_INTERVAL.toLocaleString("en")}.`} />
 		</Field>
 	);
 }

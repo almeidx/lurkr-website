@@ -1,5 +1,17 @@
+/* eslint-disable @typescript-eslint/prefer-literal-enum-member */
+
 // TODO: Use `${bigint}`?
 export type Snowflake = string;
+
+export const enum Time {
+	Seconds = 1_000,
+	Minutes = Seconds * 60,
+	Hours = Minutes * 60,
+	Days = Hours * 24,
+	Weeks = Days * 7,
+	Years = Days * 365.241_25,
+	Months = Years / 12,
+}
 
 export const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL as string;
 
@@ -20,54 +32,6 @@ export const DEFAULT_ROLE_COLOUR = "rgb(185, 187, 190)";
 export function getRequiredXp(level: number): number {
 	return level === 0 ? 0 : 100 + 50 * (level - 1) ** 2;
 }
-
-export const DATABASE_LIMITS = {
-	autoPublishChannels: { maxLength: 5 },
-	autoRole: { maxLength: 5 },
-	autoRoleTimeout: { max: 1_800_000, min: 60_000 },
-	mentionCooldown: { max: 1_800_000, min: 300_000 },
-	mentionCooldownRoles: { maxLength: 25 },
-	milestonesInterval: { max: 100_000, min: 10 },
-	milestonesMessage: { maxLength: 1_000 },
-	milestonesRoles: { maxLength: 5 },
-	noXpRoles: { maxLength: 30 },
-	vanity: { maxLength: 32, minLength: 2 },
-	xpChannels: { maxLength: 30 },
-	xpDisallowedPrefixes: { maxLength: 10 },
-	xpAnnounceLevels: { maxLength: 100 },
-	xpAnnounceLevel: { max: 100, min: 1 },
-	xpAnnounceMinimumLevel: { max: 500, min: 1 },
-	xpAnnounceMultipleOf: { min: 1, max: 250 },
-	xpMessage: { maxLength: 1_000 },
-	xpMultiplierTargets: { maxLength: 30 },
-	xpMultipliers: { maxLength: 10 },
-	xpRoleRewards: { maxLength: 100 },
-	xpRolesPerLevel: { maxLength: 5 },
-};
-
-export const DATABASE_PREMIUM_LIMITS = {
-	autoPublishChannels: { maxLength: 25 },
-	autoRole: { maxLength: 25 },
-	autoRoleTimeout: { max: 1_800_000, min: 60_000 },
-	mentionCooldown: { max: 1_800_000, min: 300_000 },
-	mentionCooldownRoles: { maxLength: 25 },
-	milestonesInterval: { max: 100_000, min: 10 },
-	milestonesMessage: { maxLength: 1_000 },
-	milestonesRoles: { maxLength: 10 },
-	noXpRoles: { maxLength: 30 },
-	vanity: { maxLength: 32, minLength: 2 },
-	xpAnnounceLevels: { maxLength: 100 },
-	xpAnnounceLevel: { max: 100, min: 1 },
-	xpAnnounceMinimumLevel: { max: 500, min: 1 },
-	xpAnnounceMultipleOf: { min: 1, max: 250 },
-	xpChannels: { maxLength: 50 },
-	xpDisallowedPrefixes: { maxLength: 25 },
-	xpMessage: { maxLength: 1_000 },
-	xpMultiplierTargets: { maxLength: 50 },
-	xpMultipliers: { maxLength: 25 },
-	xpRoleRewards: { maxLength: 100 },
-	xpRolesPerLevel: { maxLength: 25 },
-};
 
 // Length is not being validated here as it's done separately
 export const VANITY_REGEX = /^[\da-z]+$/i;

@@ -1,9 +1,9 @@
+import { MAX_XP_MESSAGE_LENGTH } from "../../../utils/guild-config";
 import Field from "@/form/Field";
 import Label from "@/form/Label";
 import Subtitle from "@/form/Subtitle";
 import Textarea from "@/form/Textarea";
 import type { AddChangeFn, GuildSettings } from "~/contexts/GuildContext";
-import { getDatabaseLimit } from "~/utils/common";
 
 interface XpMessageProps {
 	addChange: AddChangeFn;
@@ -11,8 +11,6 @@ interface XpMessageProps {
 }
 
 export function XpMessage({ addChange, settings }: XpMessageProps) {
-	const xpMessageLimit = getDatabaseLimit("xpMessage", settings.premium).maxLength;
-
 	return (
 		<Field>
 			<Label
@@ -23,11 +21,11 @@ export function XpMessage({ addChange, settings }: XpMessageProps) {
 			<Textarea
 				id="xpMessage"
 				initialText={settings.xpMessage ?? ""}
-				maxLength={xpMessageLimit}
+				maxLength={MAX_XP_MESSAGE_LENGTH}
 				onChange={(text) => addChange("xpMessage", text)}
 				placeholder="Enter the level up message"
 			/>
-			<Subtitle text={`Maximum of ${xpMessageLimit.toLocaleString("en")} characters.`} />
+			<Subtitle text={`Maximum of ${MAX_XP_MESSAGE_LENGTH.toLocaleString("en")} characters.`} />
 		</Field>
 	);
 }

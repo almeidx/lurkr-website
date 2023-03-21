@@ -1,11 +1,4 @@
-import {
-	type Snowflake,
-	DATABASE_LIMITS,
-	DATABASE_PREMIUM_LIMITS,
-	DEFAULT_ROLE_COLOUR,
-	MAX_SNOWFLAKE,
-	MIN_SNOWFLAKE,
-} from "~/utils/constants";
+import { DEFAULT_ROLE_COLOUR, MAX_SNOWFLAKE, MIN_SNOWFLAKE, type Snowflake } from "~/utils/constants";
 
 type RGBColourString = `rgb(${number}, ${number}, ${number})`;
 
@@ -63,16 +56,6 @@ export function resolveColour(colour: number): RGBColourString {
  */
 export function formatNumberToNDecimalPlaces(number: number, decimals = 2): string {
 	return Number(number.toFixed(decimals)).toString();
-}
-
-export function getDatabaseLimit<
-	K extends keyof typeof DATABASE_LIMITS & keyof typeof DATABASE_PREMIUM_LIMITS = keyof typeof DATABASE_LIMITS,
->(key: K, premium: boolean): (typeof DATABASE_LIMITS)[K] | (typeof DATABASE_PREMIUM_LIMITS)[K] {
-	if (premium) {
-		return DATABASE_PREMIUM_LIMITS[key];
-	}
-
-	return DATABASE_LIMITS[key];
 }
 
 export function inProductionEnvironment(): boolean {

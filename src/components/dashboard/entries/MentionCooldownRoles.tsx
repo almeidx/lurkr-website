@@ -1,9 +1,9 @@
+import { MAX_MENTION_COOLDOWN_ROLES } from "../../../utils/guild-config";
 import Field from "@/form/Field";
 import Label from "@/form/Label";
 import Selector from "@/form/Selector";
 import Subtitle from "@/form/Subtitle";
 import type { Role, GuildSettings, AddChangeFn } from "~/contexts/GuildContext";
-import { getDatabaseLimit } from "~/utils/common";
 import type { Snowflake } from "~/utils/constants";
 
 interface MentionCooldownRolesProps {
@@ -13,8 +13,6 @@ interface MentionCooldownRolesProps {
 }
 
 export function MentionCooldownRoles({ addChange, roles, settings }: MentionCooldownRolesProps) {
-	const mentionCooldownRolesLimit = getDatabaseLimit("mentionCooldownRoles", settings.premium).maxLength;
-
 	return (
 		<Field>
 			<Label
@@ -26,11 +24,11 @@ export function MentionCooldownRoles({ addChange, roles, settings }: MentionCool
 				id="mentionCooldownRoles"
 				initialItems={(settings.mentionCooldownRoles as Snowflake[] | null) ?? []}
 				items={roles}
-				limit={mentionCooldownRolesLimit}
+				limit={MAX_MENTION_COOLDOWN_ROLES}
 				onSelect={(roleIds) => addChange("mentionCooldownRoles", roleIds)}
 				type="Role"
 			/>
-			<Subtitle text={`Maximum of ${mentionCooldownRolesLimit} roles.`} />
+			<Subtitle text={`Maximum of ${MAX_MENTION_COOLDOWN_ROLES} roles.`} />
 		</Field>
 	);
 }

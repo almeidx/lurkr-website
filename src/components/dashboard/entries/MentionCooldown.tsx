@@ -1,9 +1,10 @@
+import { MAX_MENTION_COOLDOWN, MIN_MENTION_COOLDOWN } from "../../../utils/guild-config";
 import Field from "@/form/Field";
 import Input from "@/form/Input";
 import Label from "@/form/Label";
 import Subtitle from "@/form/Subtitle";
 import type { AddChangeFn, GuildSettings } from "~/contexts/GuildContext";
-import { formatNumberToNDecimalPlaces, getDatabaseLimit, parseFloatStrict } from "~/utils/common";
+import { formatNumberToNDecimalPlaces, parseFloatStrict } from "~/utils/common";
 
 interface MentionCooldownProps {
 	addChange: AddChangeFn;
@@ -11,8 +12,6 @@ interface MentionCooldownProps {
 }
 
 export function MentionCooldown({ addChange, settings }: MentionCooldownProps) {
-	const mentionCooldownLimits = getDatabaseLimit("mentionCooldown", settings.premium);
-
 	return (
 		<Field>
 			<Label
@@ -29,9 +28,7 @@ export function MentionCooldown({ addChange, settings }: MentionCooldownProps) {
 					placeholder="Enter the role mention cooldown"
 				/>
 			</div>
-			<Subtitle
-				text={`Between ${mentionCooldownLimits.min / 60_000} - ${mentionCooldownLimits.max / 60_000} minutes.`}
-			/>
+			<Subtitle text={`Between ${MIN_MENTION_COOLDOWN / 60_000} - ${MAX_MENTION_COOLDOWN / 60_000} minutes.`} />
 		</Field>
 	);
 }

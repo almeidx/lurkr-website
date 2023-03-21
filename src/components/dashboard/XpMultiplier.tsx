@@ -1,10 +1,10 @@
 import { FaGlobe, FaUserFriends } from "react-icons/fa";
 import { IoMdChatbubbles } from "react-icons/io";
 import { MdClear } from "react-icons/md";
+import { MAX_XP_MULTIPLIER_TARGETS, MAX_XP_MULTIPLIER_TARGETS_PREMIUM } from "../../utils/guild-config";
 import Input from "@/form/Input";
 import Selector from "@/form/Selector";
 import { XpMultiplierType, type Channel, type Role } from "~/contexts/GuildContext";
-import { getDatabaseLimit } from "~/utils/common";
 import type { Snowflake } from "~/utils/constants";
 
 export default function XpMultiplier({
@@ -59,7 +59,7 @@ export default function XpMultiplier({
 						id={`m-${id}-selector`}
 						initialItems={targets}
 						items={type === XpMultiplierType.Channel ? channels : roles}
-						limit={getDatabaseLimit("xpMultiplierTargets", premium).maxLength}
+						limit={premium ? MAX_XP_MULTIPLIER_TARGETS_PREMIUM : MAX_XP_MULTIPLIER_TARGETS}
 						onSelect={(ids) => onItemChange(ids, id)}
 						type={type}
 					/>

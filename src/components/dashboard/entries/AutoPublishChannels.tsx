@@ -1,10 +1,10 @@
 import { useMemo } from "react";
+import { MAX_AUTO_PUBLISH_CHANNELS, MAX_AUTO_PUBLISH_CHANNELS_PREMIUM } from "../../../utils/guild-config";
 import Field from "@/form/Field";
 import Label from "@/form/Label";
 import Selector from "@/form/Selector";
 import Subtitle from "@/form/Subtitle";
 import { ChannelType, type AddChangeFn, type Channel, type GuildSettings } from "~/contexts/GuildContext";
-import { getDatabaseLimit } from "~/utils/common";
 import type { Snowflake } from "~/utils/constants";
 
 interface AutoPublishChannelsProps {
@@ -14,7 +14,7 @@ interface AutoPublishChannelsProps {
 }
 
 export function AutoPublishChannels({ addChange, channels, settings }: AutoPublishChannelsProps) {
-	const autoPublishChannelsLimit = getDatabaseLimit("autoPublishChannels", settings.premium).maxLength;
+	const autoPublishChannelsLimit = settings.premium ? MAX_AUTO_PUBLISH_CHANNELS_PREMIUM : MAX_AUTO_PUBLISH_CHANNELS;
 
 	const allowedChannels = useMemo(
 		() => channels.filter((channel) => channel.type === ChannelType.GuildAnnouncement),

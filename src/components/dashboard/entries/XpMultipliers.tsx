@@ -1,6 +1,7 @@
 import cuid from "cuid";
 import { useCallback, useState } from "react";
 import { MdPlaylistAdd } from "react-icons/md";
+import { MAX_XP_MULTIPLIERS, MAX_XP_MULTIPLIERS_PREMIUM } from "../../../utils/guild-config";
 import XpMultiplier, {
 	type XpMultiplierOnDeleteFn,
 	type XpMultiplierOnItemChangeFn,
@@ -17,7 +18,7 @@ import {
 	type XpMultiplier as IXpMultiplier,
 	type AddChangeFn,
 } from "~/contexts/GuildContext";
-import { getDatabaseLimit, parseMultiplier } from "~/utils/common";
+import { parseMultiplier } from "~/utils/common";
 import type { Snowflake } from "~/utils/constants";
 
 interface XpMultipliersProps {
@@ -108,7 +109,7 @@ export function XpMultipliers({ addChange, channels, roles, settings }: XpMultip
 		[addChange, xpMultipliers],
 	);
 
-	const xpMultipliersLimit = getDatabaseLimit("xpMultipliers", settings.premium).maxLength;
+	const xpMultipliersLimit = settings.premium ? MAX_XP_MULTIPLIERS_PREMIUM : MAX_XP_MULTIPLIERS;
 
 	return (
 		<Field>

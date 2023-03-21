@@ -1,9 +1,9 @@
+import { MAX_MILESTONES_MESSAGE_LENGTH, MIN_MILESTONES_MESSAGE_LENGTH } from "../../../utils/guild-config";
 import Field from "@/form/Field";
 import Label from "@/form/Label";
 import Subtitle from "@/form/Subtitle";
 import Textarea from "@/form/Textarea";
 import type { GuildSettings, AddChangeFn } from "~/contexts/GuildContext";
-import { getDatabaseLimit } from "~/utils/common";
 
 interface MilestonesMessageProps {
 	addChange: AddChangeFn;
@@ -11,8 +11,6 @@ interface MilestonesMessageProps {
 }
 
 export function MilestonesMessage({ addChange, settings }: MilestonesMessageProps) {
-	const milestonesMessageLimit = getDatabaseLimit("milestonesMessage", settings.premium).maxLength;
-
 	return (
 		<Field>
 			<Label
@@ -23,11 +21,15 @@ export function MilestonesMessage({ addChange, settings }: MilestonesMessageProp
 			<Textarea
 				id="milestonesMessage"
 				initialText={settings.milestonesMessage ?? ""}
-				maxLength={milestonesMessageLimit}
+				maxLength={MAX_MILESTONES_MESSAGE_LENGTH}
 				onChange={(text) => addChange("milestonesMessage", text)}
 				placeholder="Enter the milestone message"
 			/>
-			<Subtitle text={`Maximum of ${milestonesMessageLimit.toLocaleString("en")} characters.`} />
+			<Subtitle
+				text={`Between ${MIN_MILESTONES_MESSAGE_LENGTH} - ${MAX_MILESTONES_MESSAGE_LENGTH.toLocaleString(
+					"en",
+				)} characters.`}
+			/>
 		</Field>
 	);
 }

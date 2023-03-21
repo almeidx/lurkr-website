@@ -1,9 +1,9 @@
+import { MAX_MILESTONES_ROLES, MAX_MILESTONES_ROLES_PREMIUM } from "../../../utils/guild-config";
 import Field from "@/form/Field";
 import Label from "@/form/Label";
 import Selector from "@/form/Selector";
 import Subtitle from "@/form/Subtitle";
 import type { GuildSettings, AddChangeFn, Role } from "~/contexts/GuildContext";
-import { getDatabaseLimit } from "~/utils/common";
 import type { Snowflake } from "~/utils/constants";
 
 interface MilestonesRolesProps {
@@ -13,7 +13,7 @@ interface MilestonesRolesProps {
 }
 
 export function MilestonesRoles({ addChange, roles, settings }: MilestonesRolesProps) {
-	const milestonesRolesLimit = getDatabaseLimit("milestonesRoles", settings.premium).maxLength;
+	const milestonesRolesLimit = settings.premium ? MAX_MILESTONES_ROLES_PREMIUM : MAX_MILESTONES_ROLES;
 
 	return (
 		<Field>

@@ -1,9 +1,9 @@
+import { MAX_AUTO_ROLES, MAX_AUTO_ROLES_PREMIUM } from "../../../utils/guild-config";
 import Field from "@/form/Field";
 import Label from "@/form/Label";
 import Selector from "@/form/Selector";
 import Subtitle from "@/form/Subtitle";
 import type { Role, GuildSettings, AddChangeFn } from "~/contexts/GuildContext";
-import { getDatabaseLimit } from "~/utils/common";
 import type { Snowflake } from "~/utils/constants";
 
 interface AutoRoleProps {
@@ -13,7 +13,7 @@ interface AutoRoleProps {
 }
 
 export function AutoRole({ addChange, roles, settings }: AutoRoleProps) {
-	const autoRoleLimit = getDatabaseLimit("autoRole", settings.premium).maxLength;
+	const autoRoleLimit = settings.premium ? MAX_AUTO_ROLES_PREMIUM : MAX_AUTO_ROLES;
 
 	return (
 		<Field>

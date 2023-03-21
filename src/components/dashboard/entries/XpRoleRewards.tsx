@@ -1,11 +1,17 @@
 import { useCallback, useMemo, useRef, useState } from "react";
 import { MdPlaylistAdd } from "react-icons/md";
+import {
+	MAX_XP_ROLE_REWARDS,
+	MAX_XP_ROLE_REWARDS_PREMIUM,
+	MAX_XP_ROLE_REWARD_LEVEL,
+	MIN_XP_ROLE_REWARD_LEVEL,
+} from "../../../utils/guild-config";
 import XpRole, { type XpRoleOnChangeFn } from "@/dashboard/XpRole";
 import Field from "@/form/Field";
 import Input from "@/form/Input";
 import Label from "@/form/Label";
 import type { AddChangeFn, GuildSettings, Role, XpRoleReward } from "~/contexts/GuildContext";
-import { getDatabaseLimit, parseIntStrict } from "~/utils/common";
+import { parseIntStrict } from "~/utils/common";
 
 interface XpRoleRewardsProps {
 	addChange: AddChangeFn;
@@ -26,7 +32,12 @@ export function XpRoleRewards({ addChange, roles, settings }: XpRoleRewardsProps
 		const clone = [...xpRoleRewards];
 		const level = parseIntStrict(newXpRolesLevel);
 
-		if (Number.isNaN(level) || clone.some((roleReward) => roleReward.level === level) || level <= 0 || level > 500) {
+		if (
+			Number.isNaN(level) ||
+			clone.some((roleReward) => roleReward.level === level) ||
+			level <= MIN_XP_ROLE_REWARD_LEVEL ||
+			level > MAX_XP_ROLE_REWARD_LEVEL
+		) {
 			if (newXpRoleSubmitRef.current) {
 				newXpRoleSubmitRef.current.style.color = "#ed4245";
 			}
@@ -74,7 +85,7 @@ export function XpRoleRewards({ addChange, roles, settings }: XpRoleRewardsProps
 		[addChange, xpRoleRewards],
 	);
 
-	const xpRoleRewardsLimit = getDatabaseLimit("xpRoleRewards", settings.premium).maxLength;
+	const xpRoleRewardsLimit = settings.premium ? MAX_XP_ROLE_REWARDS_PREMIUM : MAX_XP_ROLE_REWARDS;
 
 	return (
 		<Field>

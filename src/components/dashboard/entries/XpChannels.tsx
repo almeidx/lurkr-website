@@ -1,10 +1,10 @@
 import { useCallback, useState, type MouseEventHandler } from "react";
+import { MAX_XP_CHANNELS, MAX_XP_CHANNELS_PREMIUM } from "../../../utils/guild-config";
 import Field from "@/form/Field";
 import Label from "@/form/Label";
 import Selector from "@/form/Selector";
 import Subtitle from "@/form/Subtitle";
-import { XpChannelMode, type Channel, type GuildSettings, type AddChangeFn } from "~/contexts/GuildContext";
-import { getDatabaseLimit } from "~/utils/common";
+import { XpChannelMode, type AddChangeFn, type Channel, type GuildSettings } from "~/contexts/GuildContext";
 
 interface XpChannelsProps {
 	addChange: AddChangeFn;
@@ -15,7 +15,7 @@ interface XpChannelsProps {
 export function XpChannels({ addChange, channels, settings }: XpChannelsProps) {
 	const [xpChannelMode, setXpChannelMode] = useState<XpChannelMode>(settings.xpChannelMode);
 
-	const xpChannelsLimit = getDatabaseLimit("xpChannels", settings.premium).maxLength;
+	const xpChannelsLimit = settings.premium ? MAX_XP_CHANNELS_PREMIUM : MAX_XP_CHANNELS;
 
 	const handleXpChannelModeChange: MouseEventHandler<HTMLButtonElement> = useCallback(
 		(event) => {

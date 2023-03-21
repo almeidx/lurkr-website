@@ -1,30 +1,65 @@
 /* eslint-disable promise/prefer-await-to-callbacks, promise/prefer-await-to-then */
 
 import { createContext, useCallback, useState, type ReactNode } from "react";
-import { getDatabaseLimit } from "~/utils/common";
-import { API_BASE_URL, VANITY_REGEX, type DATABASE_LIMITS, type Snowflake } from "~/utils/constants";
+import {
+	MAX_AUTO_ROLE_TIMEOUT,
+	MAX_MENTION_COOLDOWN,
+	MAX_MILESTONES_INTERVAL,
+	MAX_VANITY_LENGTH,
+	MAX_XP_ANNOUNCE_LEVEL,
+	MAX_XP_ANNOUNCE_LEVELS,
+	MAX_XP_ANNOUNCE_MINIMUM_LEVEL,
+	MAX_XP_ANNOUNCE_MULTIPLE_OF,
+	MAX_XP_CHANNELS,
+	MAX_XP_CHANNELS_PREMIUM,
+	MAX_XP_DISALLOWED_PREFIXES,
+	MAX_XP_DISALLOWED_PREFIXES_PREMIUM,
+	MAX_XP_DISALLOWED_PREFIX_LENGTH,
+	MAX_XP_MESSAGE_LENGTH,
+	MAX_XP_MULTIPLIERS,
+	MAX_XP_MULTIPLIERS_PREMIUM,
+	MAX_XP_MULTIPLIER_VALUE,
+	MAX_XP_ROLE_REWARDS,
+	MAX_XP_ROLE_REWARDS_PREMIUM,
+	MILESTONES_INTERVAL_MULTIPLE_OF,
+	MIN_AUTO_ROLE_TIMEOUT,
+	MIN_MENTION_COOLDOWN,
+	MIN_MILESTONES_INTERVAL,
+	MIN_VANITY_LENGTH,
+	MIN_XP_ANNOUNCE_LEVEL,
+	MIN_XP_ANNOUNCE_MINIMUM_LEVEL,
+	MIN_XP_ANNOUNCE_MULTIPLE_OF,
+	MIN_XP_MESSAGE_LENGTH,
+	MIN_XP_MULTIPLIER_VALUE,
+} from "../utils/guild-config";
+import { API_BASE_URL, VANITY_REGEX, type Snowflake } from "~/utils/constants";
 
-const emojiListKeys: (keyof PatchGuildData)[] = ["emojiListChannel"];
+const emojiListKeys = new Set<keyof PatchGuildData>(["emojiListChannel"]);
 
-const levelingKeys: (keyof PatchGuildData)[] = [
+const levelingKeys = new Set<keyof PatchGuildData>([
 	"noXpRoles",
 	"stackXpRoles",
 	"topXpRole",
-	"xpChannels",
+	"xpAnnounceLevels",
+	"xpAnnounceMinimumLevel",
+	"xpAnnounceMultipleOf",
+	"xpAnnounceOnlyXpRoles",
 	"xpChannelMode",
+	"xpChannels",
 	"xpDisallowedPrefixes",
-	"xpDisallowedPrefixes",
+	"xpInThreads",
 	"xpMessage",
 	"xpMultipliers",
 	"xpResponseType",
-];
+	"xpRoleRewards",
+]);
 
-const milestonesKeys: (keyof PatchGuildData)[] = [
+const milestonesKeys = new Set<keyof PatchGuildData>([
 	"milestonesChannel",
 	"milestonesInterval",
 	"milestonesMessage",
 	"milestonesRoles",
-];
+]);
 
 export enum XpChannelMode {
 	Blacklist,
@@ -55,14 +90,8 @@ export default function GuildContextProvider({ children }: GuildContextProps) {
 
 			const newErrors: string[] = [];
 			const newWarnings: string[] = [];
-			const getLimit = <K extends keyof typeof DATABASE_LIMITS>(key: K): (typeof DATABASE_LIMITS)[K] =>
-				getDatabaseLimit(key, data?.premium ?? false);
 
-			const validateMinutes = (
-				number: number | null,
-				{ min, max }: { max: number; min: number },
-				keyName: string,
-			): void => {
+			const validateMinutes = (number: number | null, min: number, max: number, keyName: string): void => {
 				const minMinutes = min / 60_000;
 				const maxMinutes = max / 60_000;
 				if (Number.isNaN(number)) {
@@ -79,35 +108,37 @@ export default function GuildContextProvider({ children }: GuildContextProps) {
 			const validateArray = (arr: unknown[] | readonly unknown[], maxLength: number, keyName: string) =>
 				arr.length > maxLength && newErrors.push(`The ${keyName} has more than ${maxLength} items`);
 
+			const premium = data?.premium ?? false;
+
 			if ("autoRoleTimeout" in changes) {
-				validateMinutes(changes.autoRoleTimeout!, getLimit("autoRoleTimeout"), "auto role timeout");
+				validateMinutes(changes.autoRoleTimeout!, MIN_AUTO_ROLE_TIMEOUT, MAX_AUTO_ROLE_TIMEOUT, "auto role timeout");
 			}
 
 			if ("mentionCooldown" in changes) {
 				if (changes.mentionCooldown) {
-					validateMinutes(changes.mentionCooldown, getLimit("mentionCooldown"), "mention cooldown");
+					validateMinutes(changes.mentionCooldown, MIN_MENTION_COOLDOWN, MAX_MENTION_COOLDOWN, "mention cooldown");
 				} else {
 					newErrors.push("The mention cooldown cannot be empty.");
 				}
 			}
 
 			if ("milestonesInterval" in changes) {
-				const milestonesIntervalLimits = getLimit("milestonesInterval");
 				if (Number.isNaN(changes.milestonesInterval)) {
 					newErrors.push("The milestones interval is not a valid number.");
-				} else if (!changes.milestonesInterval || changes.milestonesInterval < milestonesIntervalLimits.min) {
-					newErrors.push(`The milestones interval is smaller than ${milestonesIntervalLimits.min}.`);
-				} else if (changes.milestonesInterval > milestonesIntervalLimits.max) {
-					newErrors.push(`The milestones interval is larger than ${milestonesIntervalLimits.max}.`);
+				} else if (!changes.milestonesInterval || changes.milestonesInterval < MIN_MILESTONES_INTERVAL) {
+					newErrors.push(`The milestones interval is smaller than ${MIN_MILESTONES_INTERVAL}.`);
+				} else if (changes.milestonesInterval > MAX_MILESTONES_INTERVAL) {
+					newErrors.push(`The milestones interval is larger than ${MAX_MILESTONES_INTERVAL}.`);
+				} else if (changes.milestonesInterval % MILESTONES_INTERVAL_MULTIPLE_OF !== 0) {
+					newErrors.push(`The milestones interval is not a multiple of ${MILESTONES_INTERVAL_MULTIPLE_OF}.`);
 				}
 			}
 
 			if (typeof changes.vanity === "string" && changes.vanity !== "") {
-				const vanityLimits = getLimit("vanity");
-				if (changes.vanity.length < vanityLimits.minLength) {
-					newErrors.push(`The leveling leaderboard vanity is shorter than ${vanityLimits.minLength} characters.`);
-				} else if (changes.vanity.length > vanityLimits.maxLength) {
-					newErrors.push(`The leveling leaderboard vanity is longer than ${vanityLimits.maxLength} characters.`);
+				if (changes.vanity.length < MIN_VANITY_LENGTH) {
+					newErrors.push(`The leveling leaderboard vanity is shorter than ${MIN_VANITY_LENGTH} characters.`);
+				} else if (changes.vanity.length > MAX_VANITY_LENGTH) {
+					newErrors.push(`The leveling leaderboard vanity is longer than ${MAX_VANITY_LENGTH} characters.`);
 				} else if (VANITY_REGEX.test(changes.vanity)) {
 					if (vanityAvailabilityTimeout) {
 						clearTimeout(vanityAvailabilityTimeout);
@@ -116,51 +147,45 @@ export default function GuildContextProvider({ children }: GuildContextProps) {
 					vanityAvailabilityTimeout = setTimeout(() => {
 						fetch(`${API_BASE_URL}/vanity/check?${new URLSearchParams({ vanity: changes.vanity! })}`)
 							.then(async (res) => {
+								if (!res.ok) return;
+
 								const data = (await res.json()) as VanityCheckResponse;
 								if (!data.available) {
 									addNewError("The leaderboard vanity used is not available.");
 								}
 							})
-							.catch(() => {});
+							.catch(() => null);
 					}, 1_000);
 				} else {
 					newErrors.push("The leveling leaderboard vanity can only contain alphanumeric characters.");
 				}
 			}
 
-			const xpAnnounceLevelsLimits = getLimit("xpAnnounceLevels");
-			const xpAnnounceLevelLimits = getLimit("xpAnnounceLevel");
 			if (changes.xpAnnounceLevels) {
-				validateArray(changes.xpAnnounceLevels, xpAnnounceLevelsLimits.maxLength, "xp announce levels");
+				validateArray(changes.xpAnnounceLevels, MAX_XP_ANNOUNCE_LEVELS, "xp announce levels");
 
-				if (
-					changes.xpAnnounceLevels.some(
-						(level) => level > xpAnnounceLevelLimits.max || level < xpAnnounceLevelLimits.min,
-					)
-				) {
+				if (changes.xpAnnounceLevels.some((level) => level > MAX_XP_ANNOUNCE_LEVEL || level < MIN_XP_ANNOUNCE_LEVEL)) {
 					newErrors.push("One of the leveling announcement levels has an invalid value");
 				}
 			}
 
-			const xpAnnounceMinimumLevelLimits = getLimit("xpAnnounceMinimumLevel");
 			if (
 				typeof changes.xpAnnounceMinimumLevel === "number" &&
-				(changes.xpAnnounceMinimumLevel > xpAnnounceMinimumLevelLimits.max ||
-					changes.xpAnnounceMinimumLevel < xpAnnounceMinimumLevelLimits.min)
+				(changes.xpAnnounceMinimumLevel > MAX_XP_ANNOUNCE_MINIMUM_LEVEL ||
+					changes.xpAnnounceMinimumLevel < MIN_XP_ANNOUNCE_MINIMUM_LEVEL)
 			) {
 				newErrors.push("The leveling announcement minimum level has an invalid value");
 			}
 
-			const xpAnnounceMultipleOfLimits = getLimit("xpAnnounceMultipleOf");
 			if (
 				typeof changes.xpAnnounceMultipleOf === "number" &&
-				(changes.xpAnnounceMultipleOf > xpAnnounceMultipleOfLimits.max ||
-					changes.xpAnnounceMultipleOf < xpAnnounceMultipleOfLimits.min)
+				(changes.xpAnnounceMultipleOf > MAX_XP_ANNOUNCE_MULTIPLE_OF ||
+					changes.xpAnnounceMultipleOf < MIN_XP_ANNOUNCE_MULTIPLE_OF)
 			) {
 				newErrors.push("The leveling announcement factor has an invalid value");
 			}
 
-			const xpChannelsLimit = getLimit("xpChannels").maxLength;
+			const xpChannelsLimit = premium ? MAX_XP_CHANNELS_PREMIUM : MAX_XP_CHANNELS;
 			if (changes.xpChannels) {
 				validateArray(changes.xpChannels, xpChannelsLimit, "leveling channels");
 			}
@@ -178,25 +203,35 @@ export default function GuildContextProvider({ children }: GuildContextProps) {
 				}
 			}
 
-			const xpDisallowedPrefixesLimit = getLimit("xpDisallowedPrefixes");
 			if (changes.xpDisallowedPrefixes) {
-				validateArray(changes.xpDisallowedPrefixes, xpDisallowedPrefixesLimit.maxLength, "xp disallowed prefixes");
+				const xpDisallowedPrefixesLimit = premium ? MAX_XP_DISALLOWED_PREFIXES_PREMIUM : MAX_XP_DISALLOWED_PREFIXES;
+				validateArray(changes.xpDisallowedPrefixes, xpDisallowedPrefixesLimit, "xp disallowed prefixes");
+
+				if (changes.xpDisallowedPrefixes.some((prefix) => prefix.length > MAX_XP_DISALLOWED_PREFIX_LENGTH)) {
+					newErrors.push("One of the leveling disallowed prefixes is too long.");
+				}
 			}
 
-			const xpMessageLimits = getLimit("xpMessage");
-			if (changes.xpMessage && changes.xpMessage.length > xpMessageLimits.maxLength) {
-				newErrors.push(`The xp message is longer than ${xpMessageLimits.maxLength} characters.`);
-			}
-
-			if (changes.xpMultipliers?.some(({ multiplier }) => Number.isNaN(multiplier))) {
-				newErrors.push("One of the XP Multipliers has an invalid multiplier value.");
+			if (
+				changes.xpMessage &&
+				(changes.xpMessage.length < MIN_XP_MESSAGE_LENGTH || changes.xpMessage.length > MAX_XP_MESSAGE_LENGTH)
+			) {
+				newErrors.push(
+					`The xp message is not within the ${MIN_XP_MESSAGE_LENGTH} - ${MAX_XP_MESSAGE_LENGTH} character limits.`,
+				);
 			}
 
 			if (changes.xpMultipliers) {
-				validateArray(changes.xpMultipliers, 5, "xp multipliers");
+				const xpMultipliersLimit = premium ? MAX_XP_MULTIPLIERS_PREMIUM : MAX_XP_MULTIPLIERS;
+				validateArray(changes.xpMultipliers, xpMultipliersLimit, "xp multipliers");
 
-				if (changes.xpMultipliers.some(({ multiplier }) => multiplier < 0)) {
-					newErrors.push("One of the XP Multipliers has a negative multiplier value.");
+				if (
+					changes.xpMultipliers.some(
+						({ multiplier }) =>
+							Number.isNaN(multiplier) || multiplier < MIN_XP_MULTIPLIER_VALUE || multiplier > MAX_XP_MULTIPLIER_VALUE,
+					)
+				) {
+					newErrors.push("One of the XP Multipliers has an invalid multiplier value.");
 				}
 			}
 
@@ -205,23 +240,26 @@ export default function GuildContextProvider({ children }: GuildContextProps) {
 			}
 
 			if (changes.xpRoleRewards) {
-				validateArray(changes.xpRoleRewards, 100, "xp role rewards");
+				const xpRoleRewardsLimit = premium ? MAX_XP_ROLE_REWARDS_PREMIUM : MAX_XP_ROLE_REWARDS;
+				validateArray(changes.xpRoleRewards, xpRoleRewardsLimit, "xp role rewards");
 			}
 
 			if (data) {
+				const keys = Object.keys(changes) as (keyof typeof changes)[];
+
 				if (
-					emojiListKeys.some((key) => key in changes) &&
+					keys.some((key) => emojiListKeys.has(key)) &&
 					("emojiList" in changes ? !changes.emojiList : !data.emojiList)
 				) {
 					newWarnings.push("You have made changes to the emoji list settings but the emoji list module is disabled.");
 				}
 
-				if (levelingKeys.some((key) => key in changes) && ("levels" in changes ? !changes.levels : !data.levels)) {
+				if (keys.some((key) => levelingKeys.has(key)) && ("levels" in changes ? !changes.levels : !data.levels)) {
 					newWarnings.push("You have made changes to the leveling settings but the leveling module is disabled.");
 				}
 
 				if (
-					milestonesKeys.some((key) => key in changes) &&
+					keys.some((key) => milestonesKeys.has(key)) &&
 					("storeMilestones" in changes ? !changes.storeMilestones : !data.storeMilestones)
 				) {
 					newWarnings.push("You have made changes to the milestones settings but the milestones module is disabled.");
@@ -316,7 +354,7 @@ interface VanityCheckResponse {
 	available: boolean;
 }
 
-export interface GuildContextData {
+interface GuildContextData {
 	addChange<T extends keyof GuildSettings & keyof PatchGuildData>(key: T, value: PatchGuildData[T]): void;
 	changes: Partial<PatchGuildData>;
 	clearChanges(): void;

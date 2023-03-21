@@ -1,12 +1,13 @@
 import { useState, useRef } from "react";
 import { MdPlaylistAdd } from "react-icons/md";
+import { MAX_XP_ANNOUNCE_LEVEL, MAX_XP_ANNOUNCE_LEVELS, MIN_XP_ANNOUNCE_LEVEL } from "../../../utils/guild-config";
 import SmallClearableItem from "@/dashboard/SmallClearableItem";
 import Field from "@/form/Field";
 import Input from "@/form/Input";
 import Label from "@/form/Label";
 import Subtitle from "@/form/Subtitle";
 import type { AddChangeFn, GuildSettings } from "~/contexts/GuildContext";
-import { getDatabaseLimit, parseIntStrict } from "~/utils/common";
+import { parseIntStrict } from "~/utils/common";
 
 interface XpAnnouncementLevelsProps {
 	addChange: AddChangeFn;
@@ -17,9 +18,6 @@ export function XpAnnouncementLevels({ addChange, settings }: XpAnnouncementLeve
 	const [xpAnnounceLevels, setXpAnnounceLevels] = useState<number[]>(settings.xpAnnounceLevels);
 	const [newXpAnnounceLevel, setNewXpAnnounceLevel] = useState<string>("");
 	const newXpAnnounceLevelsSubmitRef = useRef<HTMLButtonElement>(null);
-
-	const xpAnnounceLevelsLimit = getDatabaseLimit("xpAnnounceLevels", settings.premium).maxLength;
-	const xpAnnounceLevelLimits = getDatabaseLimit("xpAnnounceLevel", settings.premium);
 
 	return (
 		<Field>
@@ -39,10 +37,10 @@ export function XpAnnouncementLevels({ addChange, settings }: XpAnnouncementLeve
 					onSubmit={() => {
 						const level = parseIntStrict(newXpAnnounceLevel);
 						if (
-							level >= xpAnnounceLevelLimits.min &&
-							level <= xpAnnounceLevelLimits.max &&
+							level >= MIN_XP_ANNOUNCE_LEVEL &&
+							level <= MAX_XP_ANNOUNCE_LEVEL &&
 							!xpAnnounceLevels.includes(level) &&
-							xpAnnounceLevels.length < xpAnnounceLevelsLimit
+							xpAnnounceLevels.length < MAX_XP_ANNOUNCE_LEVELS
 						) {
 							const newArr = [...xpAnnounceLevels, level];
 							setXpAnnounceLevels(newArr);
@@ -73,7 +71,7 @@ export function XpAnnouncementLevels({ addChange, settings }: XpAnnouncementLeve
 				</div>
 			)}
 
-			<Subtitle text={`Maximum of ${xpAnnounceLevelsLimit} levels.`} />
+			<Subtitle text={`Maximum of ${MAX_XP_ANNOUNCE_LEVELS} levels.`} />
 		</Field>
 	);
 }

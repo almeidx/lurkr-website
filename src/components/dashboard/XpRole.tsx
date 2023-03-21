@@ -1,7 +1,7 @@
 import { MdClear } from "react-icons/md";
+import { MAX_XP_ROLE_REWARD_ROLES, MAX_XP_ROLE_REWARD_ROLES_PREMIUM } from "../../utils/guild-config";
 import Selector from "@/form/Selector";
 import type { Role } from "~/contexts/GuildContext";
-import { getDatabaseLimit } from "~/utils/common";
 import type { Snowflake } from "~/utils/constants";
 
 export default function XpRole({ level, initialRoles, onChange, premium, roles, disabled = false }: XpRoleProps) {
@@ -27,7 +27,7 @@ export default function XpRole({ level, initialRoles, onChange, premium, roles, 
 					id={`l-${level}-roles`}
 					initialItems={initialRoles}
 					items={roles}
-					limit={getDatabaseLimit("xpRolesPerLevel", premium).maxLength}
+					limit={premium ? MAX_XP_ROLE_REWARD_ROLES_PREMIUM : MAX_XP_ROLE_REWARD_ROLES}
 					onSelect={(roleIds) => onChange(roleIds, level)}
 					type="Role"
 				/>

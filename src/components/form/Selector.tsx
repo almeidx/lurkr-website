@@ -197,7 +197,7 @@ function resolveItem(item: Channel | Role | null, type: SelectorProps["type"]) {
 
 type Items = (Channel | Role)[];
 
-export type OnSelectFn = (items: Snowflake[]) => unknown;
+type OnSelectFn = (items: Snowflake[]) => unknown;
 
 interface SelectorProps {
 	disabled?: boolean;
