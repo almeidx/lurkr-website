@@ -15,7 +15,7 @@ export default class MyDocument extends Document {
 
 					<meta
 						content="The Ultimate No-Paywall & Featureful Leveling Bot. Powerful Utility and Automation for your Best Discord Server!"
-						property="description"
+						name="description"
 					/>
 					<meta
 						content="Lurkr, Lurkr Bot, Lurkr Invite, Lurkr Discord, Emoji Manager, Emoji Manager Discord, Lurker"
