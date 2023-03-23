@@ -45,7 +45,7 @@ export default function UserProvider({ children }: UserContextProps) {
 				},
 			})
 				.then(async (res) => {
-					if (res.status === 200) {
+					if (res.ok) {
 						const data = (await res.json()) as AuthSuccessResponse;
 						setUserData({ ...data.user, authenticated: true });
 						Cookie.set("connect.sid", data.cookie);

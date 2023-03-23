@@ -78,13 +78,18 @@ export default function Home() {
 					Check out this Demonstration video by No Text To Speech
 				</h2>
 
-				<a
-					className="relative flex h-56 w-full items-center justify-center bg-black/20 bg-cover bg-blend-multiply md:h-80"
+				<Link
+					className="relative flex h-56 w-full items-center justify-center md:h-80"
 					href="https://www.youtube.com/watch?v=uEHGNx3idFM"
-					rel="noreferrer"
-					style={{ backgroundImage: `url(${promotionalVideoImg.src})` }}
-					target="_blank"
+					prefetch={false}
 				>
+					<Image
+						alt="MEE6 bot icon pointing towards Lurkr bot icon with the text 'Import MEE6'"
+						height={320}
+						src={promotionalVideoImg}
+						width={563}
+					/>
+
 					<div className="absolute top-3 left-3 flex items-center gap-2">
 						<Image
 							alt="No Text To Speech YouTube channel icon"
@@ -117,7 +122,7 @@ export default function Home() {
 							width={72}
 						/>
 					</div>
-				</a>
+				</Link>
 			</div>
 
 			<main className="my-12 flex max-w-screen-2xl flex-col items-center justify-center gap-12">
