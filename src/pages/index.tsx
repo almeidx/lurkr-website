@@ -54,7 +54,7 @@ export default function Home() {
 	return (
 		<div className="flex flex-col items-center bg-discord-dark">
 			<header className="flex flex-col items-center justify-center py-5">
-				<Image alt="Lurkr banner" className="animate-bounce-slow" height={64} src={bannerImg} width={300} />
+				<Image alt="Lurkr banner" className="animate-bounce-slow" height={150} src={bannerImg} width={300} />
 
 				<p className="my-6 text-center text-lg font-light text-gray-400">
 					A Discord bot with focus on automation, leveling, emoji management, and image manipulation
