@@ -10,15 +10,11 @@ import { type Snowflake, API_BASE_URL } from "~/utils/constants";
 const tableHeaders = ["ID", "Guilds", "Users", "Ping (ms)", "Memory (MB)", "Uptime", "Last Updated"];
 
 export const getStaticProps = (async () => {
-	const response = await fetch(`${API_BASE_URL}/stats`);
+	const response = await fetch(`${API_BASE_URL}/stats`).catch(() => null);
 
-	if (!response.ok) {
+	if (!response?.ok) {
 		return {
-			props: {
-				shards: null,
-				totalShards: null,
-				fatal: true,
-			},
+			props: { shards: null, totalShards: null, fatal: true },
 			revalidate: 10,
 		};
 	}

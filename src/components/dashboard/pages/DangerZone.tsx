@@ -22,7 +22,7 @@ export default function DangerZone({ settings, openMenu }: MentionCooldownProps)
 	const handleDeleteGuild = () => {
 		fetch(`${API_BASE_URL}/guilds/${settings.id}`, { credentials: "include", method: "DELETE" })
 			.then((res) => {
-				if (res.status === 204) {
+				if (res.ok) {
 					void router.push("/guilds");
 				} else {
 					// TODO: Show failure message

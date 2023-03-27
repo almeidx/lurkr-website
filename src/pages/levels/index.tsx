@@ -9,13 +9,13 @@ import { isValidSnowflake } from "~/utils/common";
 import { API_BASE_URL } from "~/utils/constants";
 import { MAX_VANITY_LENGTH } from "~/utils/guild-config";
 
-export const getServerSideProps: GetServerSideProps<{ guilds: GetGuildsMeResult | null }> = async (ctx) => {
+export const getServerSideProps = (async (ctx) => {
 	const response = await fetch(API_BASE_URL + "/guilds/@me", {
 		credentials: "include",
 		headers: ctx.req.headers.cookie ? { cookie: ctx.req.headers.cookie } : {},
-	}).catch(() => null);
+	});
 
-	if (!response || response.status !== 200) {
+	if (!response?.ok) {
 		return { props: { guilds: null } };
 	}
 
@@ -26,7 +26,7 @@ export const getServerSideProps: GetServerSideProps<{ guilds: GetGuildsMeResult 
 			guilds: data.sort((a, b) => a.name.localeCompare(b.name)),
 		},
 	};
-};
+}) satisfies GetServerSideProps;
 
 export default function Levels({ guilds }: InferGetServerSidePropsType<typeof getServerSideProps>) {
 	const [serverIdOrVanity, setServerIdOrVanity] = useState<string>("");

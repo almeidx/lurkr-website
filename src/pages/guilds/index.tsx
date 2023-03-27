@@ -6,18 +6,13 @@ import Guild from "~/components/Guild";
 import { UserContext, type UserGuild } from "~/contexts/UserContext";
 import { API_BASE_URL } from "~/utils/constants";
 
-interface ErrorProps {
-	error: string;
-	withSignIn?: boolean;
-}
-
-export const getServerSideProps: GetServerSideProps<ErrorProps | { guilds: GetGuildsMeResult }> = async (ctx) => {
+export const getServerSideProps = (async (ctx) => {
 	const response = await fetch(`${API_BASE_URL}/guilds/@me?withPermissions=true`, {
 		credentials: "include",
 		headers: ctx.req.headers.cookie ? { cookie: ctx.req.headers.cookie } : {},
-	}).catch(() => null);
+	});
 
-	if (!response || response.status === 500) {
+	if (response.status === 500) {
 		return { props: { error: "Failed to retrieve guilds. Try again later" } };
 	}
 
@@ -34,13 +29,13 @@ export const getServerSideProps: GetServerSideProps<ErrorProps | { guilds: GetGu
 	return {
 		props: { guilds: data.sort((a, b) => a.name.localeCompare(b.name)) },
 	};
-};
+}) satisfies GetServerSideProps;
 
 export default function Guilds(props: InferGetServerSidePropsType<typeof getServerSideProps>) {
 	const { authenticated } = useContext(UserContext);
 
 	if ("error" in props) {
-		return <Failure href="/" message={props.error} withSignIn={props.withSignIn} />;
+		return <Failure href="/" message={props.error!} withSignIn={props.withSignIn} />;
 	}
 
 	if (!authenticated) {

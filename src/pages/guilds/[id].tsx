@@ -10,7 +10,7 @@ import Spinner from "~/components/Spinner";
 import { GuildContext, type Channel, type DiscordGuild, type GuildSettings } from "~/contexts/GuildContext";
 import { UserContext } from "~/contexts/UserContext";
 import { isValidSnowflake } from "~/utils/common";
-import { API_BASE_URL, type Snowflake } from "~/utils/constants";
+import { API_BASE_URL } from "~/utils/constants";
 
 const Autorole = dynamic(async () => import("@/dashboard-pages/Autorole"), { suspense: true });
 const Leveling = dynamic(async () => import("@/dashboard-pages/Leveling"), { suspense: true });
@@ -22,14 +22,7 @@ const MentionCooldown = dynamic(async () => import("@/dashboard-pages/MentionCoo
 const Miscellaneous = dynamic(async () => import("@/dashboard-pages/Miscellaneous"), { suspense: true });
 const DangerZone = dynamic(async () => import("@/dashboard-pages/DangerZone"), { suspense: true });
 
-type PageProps = GetGuildResult & { guildId: Snowflake };
-
-interface ErrorProps extends PageProps {
-	error: string;
-	withSignIn?: boolean;
-}
-
-export const getServerSideProps: GetServerSideProps<ErrorProps | PageProps> = async (ctx) => {
+export const getServerSideProps = (async (ctx) => {
 	if (typeof ctx.params?.id !== "string" || !isValidSnowflake(ctx.params.id)) {
 		return { notFound: true };
 	}
@@ -37,7 +30,7 @@ export const getServerSideProps: GetServerSideProps<ErrorProps | PageProps> = as
 	const response = await fetch(`${API_BASE_URL}/guilds/${ctx.params.id}`, {
 		credentials: "include",
 		headers: ctx.req.headers.cookie ? { cookie: ctx.req.headers.cookie } : {},
-	}).catch(() => null);
+	});
 
 	// eslint-disable-next-line unicorn/consistent-function-scoping
 	function makeErrorProps(error: string, withSignIn?: boolean) {
@@ -49,10 +42,6 @@ export const getServerSideProps: GetServerSideProps<ErrorProps | PageProps> = as
 			settings: {} as GuildSettings,
 			withSignIn: withSignIn ?? false,
 		};
-	}
-
-	if (!response) {
-		return { props: makeErrorProps("Failed to retrieve guild information") };
 	}
 
 	if (response.status === 404) {
@@ -75,7 +64,7 @@ export const getServerSideProps: GetServerSideProps<ErrorProps | PageProps> = as
 			guildId: ctx.params.id,
 		},
 	};
-};
+}) satisfies GetServerSideProps;
 
 export default function Guild(props: InferGetServerSidePropsType<typeof getServerSideProps>) {
 	const [menuOpen, setMenuOpen] = useState<boolean>(true);
