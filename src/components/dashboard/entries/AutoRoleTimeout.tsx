@@ -3,7 +3,7 @@ import Input from "@/form/Input";
 import Label from "@/form/Label";
 import Subtitle from "@/form/Subtitle";
 import type { GuildSettings, AddChangeFn } from "~/contexts/GuildContext";
-import { formatNumberToNDecimalPlaces, parseFloatStrict } from "~/utils/common";
+import { formatNumberToNDecimalPlaces } from "~/utils/common";
 import { MAX_AUTO_ROLE_TIMEOUT, MIN_AUTO_ROLE_TIMEOUT } from "~/utils/guild-config";
 
 interface AutoRoleTimeoutProps {
@@ -24,7 +24,7 @@ export function AutoRoleTimeout({ addChange, settings }: AutoRoleTimeoutProps) {
 					id="autoRoleTimeout"
 					initialValue={settings.autoRoleTimeout ? formatNumberToNDecimalPlaces(settings.autoRoleTimeout / 60_000) : ""}
 					maxLength={32}
-					onChange={(text) => addChange("autoRoleTimeout", text ? parseFloatStrict(text) : null)}
+					onChange={(text) => addChange("autoRoleTimeout", text ? Number(text) : null)}
 					placeholder="Enter the autorole timeout"
 				/>
 			</div>

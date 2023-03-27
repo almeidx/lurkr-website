@@ -15,15 +15,13 @@ export function parseIntStrict(number: string): number {
 	return Number.parseInt(Number(number).toString(), 10);
 }
 
-export const parseFloatStrict = Number;
-
 export function parseMultiplier(phrase: string): number | null {
 	const numberCandidate = phrase.replaceAll(/x/gi, "");
 	if (!numberCandidate) {
 		return null;
 	}
 
-	const number = parseFloatStrict(Number(numberCandidate).toFixed(2));
+	const number = Number(Number(numberCandidate).toFixed(2));
 	if (!number || number <= 0 || number > 5) {
 		return null;
 	}

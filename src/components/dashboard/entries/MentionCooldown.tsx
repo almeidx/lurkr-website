@@ -3,7 +3,7 @@ import Input from "@/form/Input";
 import Label from "@/form/Label";
 import Subtitle from "@/form/Subtitle";
 import type { AddChangeFn, GuildSettings } from "~/contexts/GuildContext";
-import { formatNumberToNDecimalPlaces, parseFloatStrict } from "~/utils/common";
+import { formatNumberToNDecimalPlaces } from "~/utils/common";
 import { MAX_MENTION_COOLDOWN, MIN_MENTION_COOLDOWN } from "~/utils/guild-config";
 
 interface MentionCooldownProps {
@@ -24,7 +24,7 @@ export function MentionCooldown({ addChange, settings }: MentionCooldownProps) {
 					id="mentionCooldown"
 					initialValue={formatNumberToNDecimalPlaces(settings.mentionCooldown ? settings.mentionCooldown / 60_000 : 0)}
 					maxLength={5}
-					onChange={(text) => addChange("mentionCooldown", parseFloatStrict(text))}
+					onChange={(text) => addChange("mentionCooldown", Number(text))}
 					placeholder="Enter the role mention cooldown"
 				/>
 			</div>
