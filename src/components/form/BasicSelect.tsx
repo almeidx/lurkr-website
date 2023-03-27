@@ -47,7 +47,7 @@ export default function BasicSelect({
 				className="flex h-12 w-full flex-row flex-wrap gap-1.5 rounded-md bg-discord-not-quite-black py-3 px-5 shadow focus:outline-none"
 				onClick={() => (disabled ? null : setDropdownOpen(!dropdownOpen))}
 			>
-				<span className="z-50 flex w-full items-center py-1 px-1.5 leading-3 ">{selected}</span>
+				<span className="z-20 flex w-full items-center py-1 px-1.5 leading-3 ">{selected}</span>
 
 				<div className="absolute right-0 my-auto mx-4 h-full text-2xl transition-colors">
 					<AiFillCaretDown />
@@ -57,7 +57,7 @@ export default function BasicSelect({
 			<div
 				className={`${
 					dropdownOpen ? "" : "hidden"
-				} absolute z-[100] mt-2 flex max-h-64 w-full flex-col items-center rounded-md bg-[#36393f]`}
+				} absolute z-30 mt-2 flex max-h-64 w-full flex-col items-center rounded-md bg-[#36393f]`}
 			>
 				<div className="my-2 flex h-full w-full flex-col gap-1 overflow-y-scroll">
 					{items.map((name, idx) => (

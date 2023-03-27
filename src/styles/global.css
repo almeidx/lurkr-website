@@ -2,38 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
-.role-x {
-	display: none;
-	font-size: 0.7rem;
-	line-height: 0.7rem;
-	color: black;
-	position: absolute;
-	margin-left: 5px;
-}
-
-.role-bullet:hover .role-x {
-	display: block;
-}
-
-@import url("./Toggle.css");
-
 ::selection {
 	background: #add8e6;
 }
 
 ::-moz-selection {
 	background: #add8e6;
-}
-
-::-webkit-scrollbar {
-	width: 8px;
-}
-
-::-webkit-scrollbar-track {
-	background: #202327;
-}
-
-::-webkit-scrollbar-thumb {
-	background: #56595e;
-	border-radius: 10px;
 }

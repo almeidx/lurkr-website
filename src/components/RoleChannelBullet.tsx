@@ -16,7 +16,7 @@ export default function RoleChannelBullet({
 }: RoleChannelBulletProps) {
 	return (
 		<div
-			className={`${type === "Role" ? "role-bullet" : ""} ${onClick ? "cursor-pointer" : ""} ${
+			className={`${type === "Role" ? "group" : ""} ${onClick ? "cursor-pointer" : ""} ${
 				type === "Channel" && onClick ? "hover:text-red-400" : ""
 			} z-10 flex h-6 max-w-[175px] select-none items-center rounded-full border text-xs text-white`}
 			onClick={onClick}
@@ -25,8 +25,10 @@ export default function RoleChannelBullet({
 		>
 			{type === "Role" && (
 				<>
-					{hoverX && <div className="role-x">&times;</div>}
-					<div className="mr-[4px] ml-[5px] h-3 w-3 rounded-full" style={{ backgroundColor: roleColour }} />
+					{hoverX && (
+						<div className="absolute ml-[4.5px] hidden text-xs leading-3 text-black group-hover:block">&times;</div>
+					)}
+					<div className="mr-1 ml-[5px] h-3 w-3 rounded-full" style={{ backgroundColor: roleColour }} />
 				</>
 			)}
 

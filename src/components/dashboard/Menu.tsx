@@ -21,8 +21,6 @@ const menuItems = [
 	{ Icon: TiWarningOutline, id: "dangerZone", name: "Danger Zone" },
 ] satisfies MenuItem[];
 
-const saveButtonDefaultColour = "#3ea25e";
-
 let timeout: NodeJS.Timeout | undefined;
 
 export default function Menu({ closeMenu, guild, guildId: argGuildId, menuOpen, premium }: MenuProps) {
@@ -33,7 +31,7 @@ export default function Menu({ closeMenu, guild, guildId: argGuildId, menuOpen, 
 	const { changes, clearChanges, errors, guildId, section, updateData, updateSection } = useContext(GuildContext);
 	const router = useRouter();
 
-	const saveButtonDisabled = (Object.keys(changes).length || isSaving.current) && !errors.length;
+	const saveButtonDisabled = !Object.keys(changes).length || Boolean(errors.length) || Boolean(isSaving.current);
 
 	// eslint-disable-next-line @typescript-eslint/no-misused-promises
 	const handleSaveButtonClick: MouseEventHandler<HTMLButtonElement> = useCallback(
@@ -85,7 +83,7 @@ export default function Menu({ closeMenu, guild, guildId: argGuildId, menuOpen, 
 				hasFailed = true;
 			} finally {
 				if (saveButtonRef.current) {
-					saveButtonRef.current.style.background = hasFailed ? "#ed4245" : saveButtonDefaultColour;
+					saveButtonRef.current.style.background = hasFailed ? "#ed4245" : "";
 				}
 
 				setSaveButtonText(hasFailed ? "Failed to save" : "Saved!");
@@ -99,8 +97,8 @@ export default function Menu({ closeMenu, guild, guildId: argGuildId, menuOpen, 
 
 				timeout = setTimeout(() => {
 					setSaveButtonText("Save");
-					if (saveButtonRef.current && hasFailed) {
-						saveButtonRef.current.style.background = saveButtonDefaultColour;
+					if (saveButtonRef.current) {
+						saveButtonRef.current.style.background = "";
 					}
 
 					isSaving.current = false;
@@ -145,15 +143,14 @@ export default function Menu({ closeMenu, guild, guildId: argGuildId, menuOpen, 
 
 				<section className="flex flex-col gap-y-3 px-6 sm:ml-auto sm:max-w-[14rem] sm:p-0 sm:pr-4">
 					<button
-						className="flex w-full cursor-pointer flex-row items-center gap-2 rounded-lg py-2 px-4 text-center text-white transition-colors duration-200 hover:bg-[#25c959] focus:outline-none"
+						className={`flex w-full flex-row items-center gap-2 rounded-lg py-2 px-4 text-center text-white transition-colors duration-200 focus:outline-none${
+							saveButtonDisabled
+								? " cursor-not-allowed bg-discord-lighter opacity-30"
+								: " cursor-pointer bg-discord-green opacity-100 hover:bg-[#25c959]"
+						}`}
 						disabled={!Object.keys(changes).length || isSaving.current || Boolean(errors.length)}
 						onClick={handleSaveButtonClick}
 						ref={saveButtonRef}
-						style={{
-							backgroundColor: saveButtonDisabled ? saveButtonDefaultColour : "#40444b",
-							cursor: saveButtonDisabled ? "pointer" : "not-allowed",
-							opacity: saveButtonDisabled ? "1" : "0.3",
-						}}
 						type="button"
 					>
 						<RiSave3Fill className="fill-current" />
@@ -164,7 +161,7 @@ export default function Menu({ closeMenu, guild, guildId: argGuildId, menuOpen, 
 						<button
 							className={`${section === id ? "sm:bg-gray-500 " : ""}${
 								id === "dangerZone" ? "text-yellow-300" : "text-white"
-							} flex w-full cursor-pointer flex-row items-center gap-2 rounded-lg py-2 px-4 text-center duration-200 hover:bg-discord-lighter focus:outline-none`}
+							} flex w-full cursor-pointer flex-row items-center gap-2 rounded-lg py-2 px-4 text-center duration-200 focus:outline-none hover:bg-discord-lighter`}
 							key={idx}
 							onClick={(event) => {
 								event.preventDefault();

@@ -49,8 +49,8 @@ export default function User({ avatar, index, level, tag, userId, xp }: UserProp
 						style={{ width: percentage < 0.2 ? 42 : percentage * 256 }}
 					/>
 
-					<span className="z-30 text-xl text-white">XP • {xp.toLocaleString("en")}</span>
-					<span className="z-30 text-xl text-white">LVL • {level.toLocaleString("en")}</span>
+					<span className="z-20 text-xl text-white">XP • {xp.toLocaleString("en")}</span>
+					<span className="z-20 text-xl text-white">LVL • {level.toLocaleString("en")}</span>
 				</div>
 			)}
 		</div>

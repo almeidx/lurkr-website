@@ -123,7 +123,7 @@ export default function Guild(props: InferGetServerSidePropsType<typeof getServe
 
 	return (
 		<div className="w-full bg-discord-dark">
-			<div className="mx-auto flex min-h-screen-no-footer max-w-[992px] flex-col divide-gray-600 sm:flex-row sm:divide-x-2 xl:max-w-[1440px]">
+			<div className="mx-auto flex min-h-screen-no-footer max-w-5xl flex-col divide-gray-600 sm:flex-row sm:divide-x-2 xl:max-w-screen-2xl">
 				<Head>
 					<title>{`${guild.name} Dashboard | Lurkr`}</title>
 				</Head>

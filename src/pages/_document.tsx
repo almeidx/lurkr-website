@@ -3,7 +3,7 @@ import Document, { Head, Html, Main, NextScript } from "next/document";
 export default class MyDocument extends Document {
 	public override render() {
 		return (
-			<Html className="scroll-smooth" lang="en">
+			<Html lang="en">
 				<Head>
 					<link
 						href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap"
@@ -24,7 +24,8 @@ export default class MyDocument extends Document {
 					<meta content="#ff7077" name="theme-color" />
 					<meta content="website" property="og:type" />
 				</Head>
-				<body>
+
+				<body className="scroll-smooth scrollbar-thin scrollbar-track-discord-dark scrollbar-thumb-discord-lighter scrollbar-thumb-rounded-xl">
 					<Main />
 					<NextScript />
 				</body>

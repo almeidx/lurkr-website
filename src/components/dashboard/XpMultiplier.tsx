@@ -33,7 +33,7 @@ export default function XpMultiplier({
 					{type[0]!.toUpperCase() + type.slice(1)}
 				</label>
 
-				<div className="w-[6rem]">
+				<div className="w-24">
 					<Input
 						id={`m-${id}-input`}
 						initialValue={multiplier.toString()}

@@ -8,14 +8,14 @@ export default function Header(props: HeaderProps | HeaderWithToggleProps) {
 	return (
 		<>
 			<BiArrowBack
-				className="z-[99999] mb-4 ml-4 inline-block h-6 w-6 cursor-pointer text-white sm:hidden"
+				className="z-50 mb-4 ml-4 inline-block h-6 w-6 cursor-pointer text-white sm:hidden"
 				// eslint-disable-next-line react/jsx-handler-names
 				onClick={props.openMenu}
 			/>
 
 			<div className="mx-4 flex justify-between">
 				<div className="flex flex-row flex-wrap items-center gap-3 md:gap-6">
-					<h1 className="font-display text-2xl font-bold text-white sm:text-4xl">{props.title}</h1>
+					<h1 className="text-2xl font-bold text-white sm:text-4xl">{props.title}</h1>
 
 					{"extras" in props && props.extras}
 				</div>

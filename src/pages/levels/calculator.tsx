@@ -38,7 +38,7 @@ export default function Calculator() {
 			</Head>
 
 			<header className="my-4 mx-3 flex flex-col items-center gap-4 text-center sm:mx-0 sm:mb-6">
-				<h1 className="font-display text-2xl font-bold text-white sm:text-4xl">Level Calculator</h1>
+				<h1 className="text-2xl font-bold text-white sm:text-4xl">Level Calculator</h1>
 				<p className="font-light text-gray-400">Calculate how much you need to message to reach a certain level!</p>
 			</header>
 
@@ -84,7 +84,7 @@ export default function Calculator() {
 								<span className="text-gray-200">Approximate Messages</span>
 								<Tooltip text="The amount of messages you need to write into a valid leveling enabled channel assuming all of your messages will be counted as XP gain, and assuming your XP gain is a perfect average between the lowest gain possible and the highest gain possible" />
 							</div>
-							<p className="text-center font-display text-4xl font-bold text-gray-200">
+							<p className="text-center text-4xl font-bold text-gray-200">
 								{calculateAmountOfMessages().toLocaleString("en")}
 							</p>
 						</div>
@@ -94,7 +94,7 @@ export default function Calculator() {
 								<span className="text-gray-200">Estimated Time</span>
 								<Tooltip text="The time it would take of constant chatting to reach this level, assuming you send a message every 1 minute and 20 seconds, and assuming all messages are counted as XP gain." />
 							</div>
-							<p className="text-center font-display text-4xl font-bold text-gray-200">{ms(calculateTime())}</p>
+							<p className="text-center text-4xl font-bold text-gray-200">{ms(calculateTime())}</p>
 						</div>
 
 						<div className="flex flex-col gap-2 rounded-md bg-discord-not-quite-black py-3 px-4">
@@ -102,7 +102,7 @@ export default function Calculator() {
 								<span className="text-gray-200">XP Required</span>
 								<Tooltip text="The total amount of XP needed to get to this level. The XP to Level conversion is a fixed constant." />
 							</div>
-							<p className="text-center font-display text-4xl font-bold text-gray-200">
+							<p className="text-center text-4xl font-bold text-gray-200">
 								{Math.ceil(requiredXp).toLocaleString("en")}
 							</p>
 						</div>

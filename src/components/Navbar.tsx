@@ -35,7 +35,7 @@ export default function Navbar() {
 
 	return (
 		<div className="w-full bg-discord-dark" ref={dropdownRef}>
-			<header className="mx-auto flex max-w-[992px] p-6 md:items-center xl:max-w-[1440px]">
+			<header className="mx-auto flex max-w-5xl p-6 md:items-center xl:max-w-screen-2xl">
 				<Image alt="Lurkr banner" className="mr-4" height={33} src={avatarImg} width={33} />
 
 				<nav className="z-20 ml-auto md:w-full">
@@ -70,7 +70,7 @@ export default function Navbar() {
 							{authenticated ? (
 								<div className="mx-2 mt-6 flex flex-row gap-2 text-white md:mx-0 md:mt-0 md:ml-auto">
 									<Link
-										className="flex cursor-pointer flex-row items-center justify-center gap-2 rounded-md bg-gray-700 py-1 px-2 duration-200 hover:bg-discord-lighter focus:outline-none md:bg-transparent"
+										className="flex cursor-pointer flex-row items-center justify-center gap-2 rounded-md bg-gray-700 py-1 px-2 duration-200 focus:outline-none hover:bg-discord-lighter md:bg-transparent"
 										href="/guilds"
 									>
 										<Image
@@ -88,7 +88,7 @@ export default function Navbar() {
 									</Link>
 
 									<button
-										className="flex h-auto w-10 cursor-pointer items-center justify-center rounded-md bg-gray-700 py-1 px-2 duration-200 content-none hover:bg-red-500 focus:outline-none md:bg-transparent"
+										className="flex h-auto w-10 cursor-pointer items-center justify-center rounded-md bg-gray-700 py-1 px-2 duration-200 content-none focus:outline-none hover:bg-red-500 md:bg-transparent"
 										onClick={(event) => {
 											event.preventDefault();
 											window.open(`${API_BASE_URL}/auth/logout`, "_self");
@@ -100,7 +100,7 @@ export default function Navbar() {
 								</div>
 							) : (
 								<button
-									className="mx-2 mt-6 flex flex-row items-center justify-center gap-2 rounded-md bg-blurple py-1 px-2 text-white shadow-md transition-colors duration-100 hover:bg-[#414AB9] focus:outline-none md:mx-0 md:mt-0 md:ml-auto"
+									className="mx-2 mt-6 flex flex-row items-center justify-center gap-2 rounded-md bg-blurple py-1 px-2 text-white shadow-md transition-colors duration-100 focus:outline-none hover:bg-[#414AB9] md:mx-0 md:mt-0 md:ml-auto"
 									onClick={(event) => {
 										event.preventDefault();
 										window.open(`${API_BASE_URL}/auth`, "_self");

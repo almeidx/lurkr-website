@@ -9,7 +9,7 @@ export default function Privacy() {
 			</Head>
 
 			<header className="flex flex-col items-center justify-center pt-3 sm:pt-1">
-				<h1 className="font-display text-2xl font-bold text-white sm:text-4xl">Privacy Policy</h1>
+				<h1 className="text-2xl font-bold text-white sm:text-4xl">Privacy Policy</h1>
 				<span className="mt-3 text-gray-400">Last updated and effective: June 20, 2021.</span>
 			</header>
 

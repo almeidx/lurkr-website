@@ -132,7 +132,7 @@ export default function Selector({ id, limit, items, initialItems, onSelect, typ
 			</div>
 
 			<div
-				className={`${dropdownOpen ? "" : "hidden"} absolute z-[100] mt-2 max-h-72 w-full rounded-md bg-[#36393f] pb-3`}
+				className={`${dropdownOpen ? "" : "hidden"} absolute z-40 mt-2 max-h-72 w-full rounded-md bg-[#36393f] pb-3`}
 			>
 				<div className="w-full">
 					<Input

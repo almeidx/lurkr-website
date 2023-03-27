@@ -74,7 +74,7 @@ export default function Home() {
 			</header>
 
 			<div className="mt-3 flex flex-col items-center justify-center gap-4">
-				<h2 className="font-display text-lg font-bold text-white sm:text-xl">
+				<h2 className="text-lg font-bold text-white sm:text-xl">
 					Check out this Demonstration video by No Text To Speech
 				</h2>
 
