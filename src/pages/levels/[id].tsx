@@ -18,13 +18,9 @@ import {
 	type RoleReward,
 } from "~/contexts/GuildContext";
 import { guildIconCdn } from "~/utils/cdn";
-import { type Snowflake, FALLBACK_AVATAR, API_BASE_URL } from "~/utils/constants";
+import { FALLBACK_AVATAR, API_BASE_URL } from "~/utils/constants";
 
-interface ErrorProps {
-	error: string;
-}
-
-export const getStaticProps: GetStaticProps<ErrorProps | (GetLevelsResult & { guildId: Snowflake })> = async (ctx) => {
+export const getStaticProps = (async (ctx) => {
 	if (typeof ctx.params?.id !== "string") {
 		return { notFound: true };
 	}
@@ -49,7 +45,7 @@ export const getStaticProps: GetStaticProps<ErrorProps | (GetLevelsResult & { gu
 		props: { ...data, guildId: data.guild.id },
 		revalidate: 60,
 	};
-};
+}) satisfies GetStaticProps;
 
 export const getStaticPaths: GetStaticPaths = () => ({
 	fallback: true,
@@ -70,7 +66,7 @@ export default function Leaderboard(props: InferGetStaticPropsType<typeof getSta
 	}
 
 	if ("error" in props) {
-		return <Failure href="/levels" message={props.error} />;
+		return <Failure href="/levels" message={props.error!} />;
 	}
 
 	const { channels, guild, guildId, levels, multipliers, roleRewards } = props;

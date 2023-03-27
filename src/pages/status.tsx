@@ -10,19 +10,28 @@ import { type Snowflake, API_BASE_URL } from "~/utils/constants";
 const tableHeaders = ["ID", "Guilds", "Users", "Ping (ms)", "Memory (MB)", "Uptime", "Last Updated"];
 
 export const getStaticProps = (async () => {
-	const response = await fetch(`${API_BASE_URL}/stats`).catch(() => null);
-	const data = (await response?.json().catch(() => null)) as GetBotStatisticsResponse | null;
+	const response = await fetch(`${API_BASE_URL}/stats`);
+
+	if (!response.ok) {
+		return {
+			props: {
+				shards: null,
+				totalShards: null,
+				fatal: true,
+			},
+			revalidate: 10,
+		};
+	}
+
+	const data = (await response.json()) as GetBotStatisticsResponse;
 
 	return {
-		props: {
-			shards: data?.shards ?? null,
-			totalShards: data?.totalShards ?? null,
-		},
-		revalidate: 2,
+		props: { ...data, fatal: false },
+		revalidate: 10,
 	};
 }) satisfies GetStaticProps;
 
-export default function Status({ shards, totalShards }: InferGetStaticPropsType<typeof getStaticProps>) {
+export default function Status({ shards, totalShards, fatal }: InferGetStaticPropsType<typeof getStaticProps>) {
 	const [serverId, setServerId] = useState<string>("");
 	const [selectedShardId, setSelectedShardId] = useState<number | null>(null);
 	const submitRef = useRef<HTMLButtonElement>(null);
@@ -81,7 +90,9 @@ export default function Status({ shards, totalShards }: InferGetStaticPropsType<
 			</div>
 
 			<main className="mt-4">
-				{!shards && totalShards === null && <Message message="The bot is down" type="error" />}
+				{!shards && totalShards === null && (
+					<Message message={fatal ? "The bot is unreachable" : "The bot is unavailable"} type="error" />
+				)}
 
 				{typeof totalShards === "number" && (
 					<span className="text-lg text-white">
