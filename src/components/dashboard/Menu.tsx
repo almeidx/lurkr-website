@@ -162,7 +162,7 @@ export default function Menu({ closeMenu, guild, guildId: argGuildId, menuOpen, 
 
 					{menuItems.map(({ Icon, id, name }, idx) => (
 						<button
-							className={`${section === id ? "sm:bg-gray-500" : ""}${
+							className={`${section === id ? "sm:bg-gray-500 " : ""}${
 								id === "dangerZone" ? "text-yellow-300" : "text-white"
 							} flex w-full cursor-pointer flex-row items-center gap-2 rounded-lg py-2 px-4 text-center duration-200 hover:bg-discord-lighter focus:outline-none`}
 							key={idx}
