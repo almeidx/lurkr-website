@@ -112,10 +112,10 @@ export default function Menu({ closeMenu, guild, guildId: argGuildId, menuOpen, 
 		<aside
 			className={`${
 				menuOpen ? "" : "hidden"
-			} absolute top-0 left-0 mt-20 w-full min-w-[300px] bg-discord-dark sm:relative sm:mt-0 sm:block sm:w-96`}
+			} bg-discord-dark absolute left-0 top-0 mt-20 w-full min-w-[300px] sm:relative sm:mt-0 sm:block sm:w-96`}
 		>
 			<div className="sticky top-0 sm:py-6">
-				<header className="mb-6 flex flex-col items-center gap-4 bg-discord-slightly-darker py-4 px-6 sm:flex-row sm:bg-discord-dark">
+				<header className="bg-discord-slightly-darker sm:bg-discord-dark mb-6 flex flex-col items-center gap-4 px-6 py-4 sm:flex-row">
 					<Image
 						alt={`${guild.name} guild icon`}
 						className="rounded-full"
@@ -132,7 +132,7 @@ export default function Menu({ closeMenu, guild, guildId: argGuildId, menuOpen, 
 						<span
 							className={`flex flex-row items-center justify-center gap-2 ${
 								premium ? "bg-[#ff424d] hover:bg-[#c0323a]" : "bg-[#c0323a] hover:bg-[#802127]"
-							} w-full cursor-pointer rounded-lg py-1 px-2 text-center text-white transition-colors duration-100`}
+							} w-full cursor-pointer rounded-lg px-2 py-1 text-center text-white transition-colors duration-100`}
 							onClick={() => window.open("https://docs.lurkr.gg/information/patreon-perks")}
 						>
 							<FaPatreon />
@@ -143,10 +143,10 @@ export default function Menu({ closeMenu, guild, guildId: argGuildId, menuOpen, 
 
 				<section className="flex flex-col gap-y-3 px-6 sm:ml-auto sm:max-w-[14rem] sm:p-0 sm:pr-4">
 					<button
-						className={`flex w-full flex-row items-center gap-2 rounded-lg py-2 px-4 text-center text-white transition-colors duration-200 focus:outline-none${
+						className={`flex w-full flex-row items-center gap-2 rounded-lg px-4 py-2 text-center text-white transition-colors duration-200 focus:outline-none${
 							saveButtonDisabled
-								? " cursor-not-allowed bg-discord-lighter opacity-30"
-								: " cursor-pointer bg-discord-green opacity-100 hover:bg-[#25c959]"
+								? " bg-discord-lighter cursor-not-allowed opacity-30"
+								: " bg-discord-green cursor-pointer opacity-100 hover:bg-[#25c959]"
 						}`}
 						disabled={!Object.keys(changes).length || isSaving.current || Boolean(errors.length)}
 						onClick={handleSaveButtonClick}
@@ -161,7 +161,7 @@ export default function Menu({ closeMenu, guild, guildId: argGuildId, menuOpen, 
 						<button
 							className={`${section === id ? "sm:bg-gray-500 " : ""}${
 								id === "dangerZone" ? "text-yellow-300" : "text-white"
-							} flex w-full cursor-pointer flex-row items-center gap-2 rounded-lg py-2 px-4 text-center duration-200 focus:outline-none hover:bg-discord-lighter`}
+							} hover:bg-discord-lighter flex w-full cursor-pointer flex-row items-center gap-2 rounded-lg px-4 py-2 text-center duration-200 focus:outline-none`}
 							key={idx}
 							onClick={(event) => {
 								event.preventDefault();

@@ -107,7 +107,7 @@ export default function Selector({ id, limit, items, initialItems, onSelect, typ
 
 	return (
 		<div className="relative" ref={elementRef}>
-			<div className="flex min-h-[3rem] min-w-[6rem] flex-row flex-wrap gap-1.5 rounded-md bg-discord-not-quite-black py-3 px-5 shadow focus:outline-none">
+			<div className="bg-discord-not-quite-black flex min-h-[3rem] min-w-[6rem] flex-row flex-wrap gap-1.5 rounded-md px-5 py-3 shadow focus:outline-none">
 				{selected.map((item) => (
 					<RoleChannelBullet
 						channelType={"type" in item ? item.type : undefined}
@@ -148,7 +148,7 @@ export default function Selector({ id, limit, items, initialItems, onSelect, typ
 				<div className="flex max-h-48 w-full flex-col gap-y-0.5 overflow-y-auto">
 					{options.map((item) => (
 						<div
-							className="flex w-full cursor-pointer items-center py-3 px-6 text-left text-white hover:bg-discord-lighter"
+							className="hover:bg-discord-lighter flex w-full cursor-pointer items-center px-6 py-3 text-left text-white"
 							data-id={item.id}
 							key={item.id}
 							onClick={handleClickedItem}

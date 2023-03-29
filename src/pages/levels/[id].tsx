@@ -59,7 +59,7 @@ export default function Leaderboard(props: InferGetStaticPropsType<typeof getSta
 
 	if (isFallback) {
 		return (
-			<div className="flex min-h-screen-no-footer items-center justify-center bg-discord-dark">
+			<div className="min-h-screen-no-footer bg-discord-dark flex items-center justify-center">
 				<Spinner className="h-auto w-60" />
 			</div>
 		);
@@ -72,12 +72,12 @@ export default function Leaderboard(props: InferGetStaticPropsType<typeof getSta
 	const { channels, guild, guildId, levels, multipliers, roleRewards } = props;
 
 	return (
-		<div className="flex min-h-screen-no-footer flex-col items-start gap-y-10 bg-discord-dark sm:px-6">
+		<div className="min-h-screen-no-footer bg-discord-dark flex flex-col items-start gap-y-10 sm:px-6">
 			<Head>
 				<title>{`${guild.name} Leaderboard | Lurkr`}</title>
 			</Head>
 
-			<header className="mt-3 ml-10 flex flex-row items-center justify-center gap-6 sm:mt-10 xl:mt-0">
+			<header className="ml-10 mt-3 flex flex-row items-center justify-center gap-6 sm:mt-10 xl:mt-0">
 				<Image
 					alt={`${guild.name} guild icon`}
 					className="rounded-md"
@@ -93,13 +93,13 @@ export default function Leaderboard(props: InferGetStaticPropsType<typeof getSta
 
 			<main className="my-4 flex w-full flex-col justify-center gap-y-6 sm:justify-between md:flex-row">
 				{levels.length ? (
-					<section className="h-fit w-full divide-y-2 divide-solid divide-gray-400 rounded-2xl bg-discord-not-quite-black">
+					<section className="bg-discord-not-quite-black h-fit w-full divide-y-2 divide-solid divide-gray-400 rounded-2xl">
 						{levels.map((user, idx) => (
 							<User {...user} index={idx} key={user.userId} />
 						))}
 					</section>
 				) : (
-					<p className="h-12 w-full rounded-2xl bg-discord-not-quite-black px-3 py-2 text-xl text-white">
+					<p className="bg-discord-not-quite-black h-12 w-full rounded-2xl px-3 py-2 text-xl text-white">
 						No leveling entries yet!
 					</p>
 				)}
@@ -107,11 +107,11 @@ export default function Leaderboard(props: InferGetStaticPropsType<typeof getSta
 				{(roleRewards || Boolean(multipliers.length)) && (
 					<div className="mb-8 flex flex-col items-center gap-4 sm:ml-6">
 						{roleRewards && (
-							<div className="flex h-fit min-w-[15rem] max-w-sm flex-col items-center divide-y-2 divide-solid divide-gray-400 rounded-2xl bg-discord-not-quite-black pb-4">
+							<div className="bg-discord-not-quite-black flex h-fit min-w-[15rem] max-w-sm flex-col items-center divide-y-2 divide-solid divide-gray-400 rounded-2xl pb-4">
 								<span className="mx-1 flex flex-row items-center gap-2 whitespace-nowrap py-3 text-center text-2xl font-medium text-white">
 									Role Rewards
 									<TbArrowsDownUp
-										className="cursor-pointer rounded-lg bg-discord-slightly-darker p-1"
+										className="bg-discord-slightly-darker cursor-pointer rounded-lg p-1"
 										onClick={() => setRoleRewardsSortDir((dir) => (dir === 1 ? -1 : 1))}
 									/>
 								</span>
@@ -127,11 +127,11 @@ export default function Leaderboard(props: InferGetStaticPropsType<typeof getSta
 						)}
 
 						{Boolean(multipliers.length) && (
-							<div className="flex h-fit min-w-[15rem] max-w-xs flex-col items-center divide-y-2 divide-solid divide-gray-400 rounded-2xl bg-discord-not-quite-black pb-4">
+							<div className="bg-discord-not-quite-black flex h-fit min-w-[15rem] max-w-xs flex-col items-center divide-y-2 divide-solid divide-gray-400 rounded-2xl pb-4">
 								<span className="mx-1 flex flex-row items-center gap-2 whitespace-nowrap py-3 text-center text-2xl font-medium text-white">
 									Multipliers
 									<TbArrowsDownUp
-										className="cursor-pointer rounded-lg bg-discord-slightly-darker p-1"
+										className="bg-discord-slightly-darker cursor-pointer rounded-lg p-1"
 										onClick={() => setMultiplierSortDir((dir) => (dir === 1 ? -1 : 1))}
 									/>
 								</span>

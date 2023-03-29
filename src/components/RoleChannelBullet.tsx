@@ -28,11 +28,11 @@ export default function RoleChannelBullet({
 					{hoverX && (
 						<div className="absolute ml-[4.5px] hidden text-xs leading-3 text-black group-hover:block">&times;</div>
 					)}
-					<div className="mr-1 ml-[5px] h-3 w-3 rounded-full" style={{ backgroundColor: roleColour }} />
+					<div className="ml-[5px] mr-1 h-3 w-3 rounded-full" style={{ backgroundColor: roleColour }} />
 				</>
 			)}
 
-			<div className="flex gap-1.5 truncate pr-2 pb-[2px] leading-3 text-inherit">
+			<div className="flex gap-1.5 truncate pb-[2px] pr-2 leading-3 text-inherit">
 				{type === "Channel" ? (
 					channelType === ChannelType.GuildText ? (
 						<CiHashtag className="ml-2" />

@@ -9,7 +9,7 @@ export default function Multiplier({ items, multiplier, targets, type }: Multipl
 		type === XpMultiplierType.Channel ? IoMdChatbubbles : type === XpMultiplierType.Role ? FaUserFriends : FaGlobe;
 
 	return (
-		<div className="my-2 mx-4 flex flex-col gap-2">
+		<div className="mx-4 my-2 flex flex-col gap-2">
 			<span className="flex flex-row items-center gap-2 text-center text-white">
 				<Icon />
 				{type[0]!.toUpperCase() + type.slice(1)} - x{multiplier}

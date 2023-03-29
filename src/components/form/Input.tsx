@@ -40,7 +40,7 @@ export default function Input(props: InputProps | InputWithSubmitProps): JSX.Ele
 				)}
 				{value && !props.noClearButton && (
 					<label
-						className="absolute right-0 my-auto mx-4 h-full cursor-pointer py-3 text-2xl text-discord-red transition-colors active:text-red-600"
+						className="text-discord-red absolute right-0 mx-4 my-auto h-full cursor-pointer py-3 text-2xl transition-colors active:text-red-600"
 						onClick={() => {
 							setValue("");
 							props.onChange("");
@@ -53,7 +53,7 @@ export default function Input(props: InputProps | InputWithSubmitProps): JSX.Ele
 
 			{"onSubmit" in props && (
 				<button
-					className="ml-3 flex h-12 w-12 shrink-0 items-center justify-center rounded-md bg-discord-not-quite-black text-white transition-colors duration-150 disabled:select-none hover:text-opacity-75"
+					className="bg-discord-not-quite-black ml-3 flex h-12 w-12 shrink-0 items-center justify-center rounded-md text-white transition-colors duration-150 hover:text-opacity-75 disabled:select-none"
 					disabled={props.disabled}
 					onClick={(event) => {
 						event.preventDefault();

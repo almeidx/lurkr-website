@@ -1,10 +1,8 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-/* eslint-disable @typescript-eslint/no-require-imports, tsdoc/syntax */
+import tailwindScrollbar from "tailwind-scrollbar";
+import type { Config } from "tailwindcss";
+import colors from "tailwindcss/colors";
 
-const colors = require("tailwindcss/colors");
-
-/** @type {import("tailwindcss").Config} */
-module.exports = {
+export default {
 	content: ["./src/**/*.{ts,tsx,css}"],
 
 	theme: {
@@ -50,6 +48,6 @@ module.exports = {
 
 	plugins: [
 		//
-		require("tailwind-scrollbar")({ nocompatible: true }),
+		tailwindScrollbar({ nocompatible: true }),
 	],
-};
+} satisfies Config;

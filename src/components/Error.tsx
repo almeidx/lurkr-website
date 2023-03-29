@@ -2,13 +2,13 @@ import Head from "next/head";
 
 export default function ErrorPage({ code, message, title }: ErrorPageProps) {
 	return (
-		<div className="flex min-h-screen-no-footer flex-col items-center justify-center bg-discord-dark text-center text-black">
+		<div className="min-h-screen-no-footer bg-discord-dark flex flex-col items-center justify-center text-center text-black">
 			<Head>
 				<title>{`${title} | Lurkr`}</title>
 			</Head>
 
 			<div>
-				<span className="my-0 mr-5 ml-0 inline-block border-r border-solid border-white py-2 pr-6 pl-0 align-top text-2xl font-bold text-white">
+				<span className="my-0 ml-0 mr-5 inline-block border-r border-solid border-white py-2 pl-0 pr-6 align-top text-2xl font-bold text-white">
 					{code}
 				</span>
 

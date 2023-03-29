@@ -56,12 +56,12 @@ export default function Status({ shards, totalShards, fatal }: InferGetStaticPro
 	};
 
 	return (
-		<div className="flex min-h-screen-no-footer flex-col items-center bg-discord-dark">
+		<div className="min-h-screen-no-footer bg-discord-dark flex flex-col items-center">
 			<Head>
 				<title>Bot Status | Lurkr</title>
 			</Head>
 
-			<header className="my-4 mx-3 flex flex-col items-center gap-4 text-center sm:mx-0 sm:mb-6">
+			<header className="mx-3 my-4 flex flex-col items-center gap-4 text-center sm:mx-0 sm:mb-6">
 				<h1 className="text-2xl font-bold text-white sm:text-4xl">Bot Status</h1>
 				<p className="font-light text-gray-400">Check if the bot is online in your server!</p>
 			</header>
@@ -97,11 +97,11 @@ export default function Status({ shards, totalShards, fatal }: InferGetStaticPro
 				)}
 
 				{Boolean(shards) && (
-					<table className="gap-4 rounded-md bg-discord-not-quite-black text-white shadow-md">
+					<table className="bg-discord-not-quite-black gap-4 rounded-md text-white shadow-md">
 						<thead>
 							<tr>
 								{tableHeaders.map((name, idx) => (
-									<th className="py-3 px-5 text-lg" key={idx}>
+									<th className="px-5 py-3 text-lg" key={idx}>
 										{name}
 									</th>
 								))}

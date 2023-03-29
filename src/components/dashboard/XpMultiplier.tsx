@@ -23,7 +23,7 @@ export default function XpMultiplier({
 		type === XpMultiplierType.Channel ? IoMdChatbubbles : type === XpMultiplierType.Role ? FaUserFriends : FaGlobe;
 
 	return (
-		<div className="relative flex w-full flex-row flex-wrap justify-between gap-y-2 rounded-lg bg-discord-dark p-2">
+		<div className="bg-discord-dark relative flex w-full flex-row flex-wrap justify-between gap-y-2 rounded-lg p-2">
 			<div className="flex w-full">
 				<label
 					className="ml-4 flex w-28 flex-row items-center gap-2 text-center font-bold text-white"
@@ -46,7 +46,7 @@ export default function XpMultiplier({
 				</div>
 
 				<div
-					className="right-0 mr-4 ml-auto h-full w-6 cursor-pointer py-3 text-2xl text-discord-red transition-colors active:text-red-600"
+					className="text-discord-red right-0 ml-auto mr-4 h-full w-6 cursor-pointer py-3 text-2xl transition-colors active:text-red-600"
 					onClick={() => onDelete(id)}
 				>
 					<MdClear />

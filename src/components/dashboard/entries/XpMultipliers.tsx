@@ -122,7 +122,7 @@ export function XpMultipliers({ addChange, channels, roles, settings }: XpMultip
 				{xpMultipliers.length < xpMultipliersLimit && (
 					<div className="flex max-w-md flex-col">
 						<p className="text-white">Create a new multiplier</p>
-						<div className="mt-2 mb-4 flex flex-row gap-3">
+						<div className="mb-4 mt-2 flex flex-row gap-3">
 							<BasicSelect
 								closeOnSelect
 								initialItem="Channel"
@@ -134,7 +134,7 @@ export function XpMultipliers({ addChange, channels, roles, settings }: XpMultip
 								onSelect={(type) => setNewXpMultiplierType(type as XpMultiplierType)}
 							/>
 							<button
-								className="flex h-12 w-12 shrink-0 items-center justify-center rounded-md bg-discord-not-quite-black text-white transition-colors duration-150 hover:text-opacity-75"
+								className="bg-discord-not-quite-black flex h-12 w-12 shrink-0 items-center justify-center rounded-md text-white transition-colors duration-150 hover:text-opacity-75"
 								onClick={(event) => {
 									event.preventDefault();
 

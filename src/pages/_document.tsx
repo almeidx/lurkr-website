@@ -25,7 +25,7 @@ export default class MyDocument extends Document {
 					<meta content="website" property="og:type" />
 				</Head>
 
-				<body className="scroll-smooth scrollbar-thin scrollbar-track-discord-dark scrollbar-thumb-discord-lighter scrollbar-thumb-rounded-xl">
+				<body className="scrollbar-thin scrollbar-track-discord-dark scrollbar-thumb-discord-lighter scrollbar-thumb-rounded-xl scroll-smooth">
 					<Main />
 					<NextScript />
 				</body>

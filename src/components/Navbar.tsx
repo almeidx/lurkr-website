@@ -34,7 +34,7 @@ export default function Navbar() {
 	useClickOutside(dropdownRef, handleClickOutside);
 
 	return (
-		<div className="w-full bg-discord-dark" ref={dropdownRef}>
+		<div className="bg-discord-dark w-full" ref={dropdownRef}>
 			<header className="mx-auto flex max-w-5xl p-6 md:items-center xl:max-w-screen-2xl">
 				<Image alt="Lurkr banner" className="mr-4" height={33} src={avatarImg} width={33} />
 
@@ -50,7 +50,7 @@ export default function Navbar() {
 					<nav
 						className={`${
 							dropdownOpen ? "block" : "hidden"
-						} absolute left-0 z-50 mt-6 w-full bg-discord-not-quite-black md:relative md:mt-0 md:block md:bg-transparent`}
+						} bg-discord-not-quite-black absolute left-0 z-50 mt-6 w-full md:relative md:mt-0 md:block md:bg-transparent`}
 					>
 						<ul className="flex flex-col gap-4 py-4 pr-4 md:flex-row md:items-center md:p-0">
 							{links.map(
@@ -68,9 +68,9 @@ export default function Navbar() {
 							)}
 
 							{authenticated ? (
-								<div className="mx-2 mt-6 flex flex-row gap-2 text-white md:mx-0 md:mt-0 md:ml-auto">
+								<div className="mx-2 mt-6 flex flex-row gap-2 text-white md:mx-0 md:ml-auto md:mt-0">
 									<Link
-										className="flex cursor-pointer flex-row items-center justify-center gap-2 rounded-md bg-gray-700 py-1 px-2 duration-200 focus:outline-none hover:bg-discord-lighter md:bg-transparent"
+										className="hover:bg-discord-lighter flex cursor-pointer flex-row items-center justify-center gap-2 rounded-md bg-gray-700 px-2 py-1 duration-200 focus:outline-none md:bg-transparent"
 										href="/guilds"
 									>
 										<Image
@@ -88,7 +88,7 @@ export default function Navbar() {
 									</Link>
 
 									<button
-										className="flex h-auto w-10 cursor-pointer items-center justify-center rounded-md bg-gray-700 py-1 px-2 duration-200 content-none focus:outline-none hover:bg-red-500 md:bg-transparent"
+										className="flex h-auto w-10 cursor-pointer items-center justify-center rounded-md bg-gray-700 px-2 py-1 duration-200 content-none hover:bg-red-500 focus:outline-none md:bg-transparent"
 										onClick={(event) => {
 											event.preventDefault();
 											window.open(`${API_BASE_URL}/auth/logout`, "_self");
@@ -100,7 +100,7 @@ export default function Navbar() {
 								</div>
 							) : (
 								<button
-									className="mx-2 mt-6 flex flex-row items-center justify-center gap-2 rounded-md bg-blurple py-1 px-2 text-white shadow-md transition-colors duration-100 focus:outline-none hover:bg-[#414AB9] md:mx-0 md:mt-0 md:ml-auto"
+									className="bg-blurple mx-2 mt-6 flex flex-row items-center justify-center gap-2 rounded-md px-2 py-1 text-white shadow-md transition-colors duration-100 hover:bg-[#414AB9] focus:outline-none md:mx-0 md:ml-auto md:mt-0"
 									onClick={(event) => {
 										event.preventDefault();
 										window.open(`${API_BASE_URL}/auth`, "_self");

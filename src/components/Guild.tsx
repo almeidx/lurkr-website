@@ -6,7 +6,7 @@ import { FALLBACK_AVATAR, type Snowflake } from "~/utils/constants";
 export default function Guild({ baseRedirectPath, icon, id, name }: GuildProps) {
 	return (
 		<Link
-			className="relative flex h-44 w-40 flex-col flex-wrap gap-2 rounded-2xl bg-discord-slightly-darker py-4 px-6 text-center shadow-sm"
+			className="bg-discord-slightly-darker relative flex h-44 w-40 flex-col flex-wrap gap-2 rounded-2xl px-6 py-4 text-center shadow-sm"
 			href={`${baseRedirectPath}${id}`}
 			key={id}
 			prefetch={false}

@@ -44,12 +44,12 @@ export default function BasicSelect({
 	return (
 		<div className={`relative w-full text-white ${disabled ? "text-opacity-25" : "cursor-pointer"}`} ref={elementRef}>
 			<div
-				className="flex h-12 w-full flex-row flex-wrap gap-1.5 rounded-md bg-discord-not-quite-black py-3 px-5 shadow focus:outline-none"
+				className="bg-discord-not-quite-black flex h-12 w-full flex-row flex-wrap gap-1.5 rounded-md px-5 py-3 shadow focus:outline-none"
 				onClick={() => (disabled ? null : setDropdownOpen(!dropdownOpen))}
 			>
-				<span className="z-20 flex w-full items-center py-1 px-1.5 leading-3 ">{selected}</span>
+				<span className="z-20 flex w-full items-center px-1.5 py-1 leading-3 ">{selected}</span>
 
-				<div className="absolute right-0 my-auto mx-4 h-full text-2xl transition-colors">
+				<div className="absolute right-0 mx-4 my-auto h-full text-2xl transition-colors">
 					<AiFillCaretDown />
 				</div>
 			</div>
@@ -62,7 +62,7 @@ export default function BasicSelect({
 				<div className="my-2 flex h-full w-full flex-col gap-1 overflow-y-scroll">
 					{items.map((name, idx) => (
 						<div
-							className="flex cursor-pointer items-center rounded-lg py-2 px-4 text-center hover:bg-discord-lighter"
+							className="hover:bg-discord-lighter flex cursor-pointer items-center rounded-lg px-4 py-2 text-center"
 							data-id={idx.toString()}
 							key={idx.toString()}
 							onClick={handleItemChange}

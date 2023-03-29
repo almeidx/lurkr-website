@@ -39,7 +39,7 @@ export default function Header(props: HeaderProps | HeaderWithToggleProps) {
 				)}
 			</div>
 
-			<p className="my-3 mx-4 font-light text-gray-400">{props.description}</p>
+			<p className="mx-4 my-3 font-light text-gray-400">{props.description}</p>
 		</>
 	);
 }

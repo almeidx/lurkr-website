@@ -14,7 +14,7 @@ export default function User({ avatar, index, level, tag, userId, xp }: UserProp
 	const percentage = userXp / levelXp;
 
 	return (
-		<div className="flex flex-row justify-between rounded-lg py-4 px-6" key={userId}>
+		<div className="flex flex-row justify-between rounded-lg px-6 py-4" key={userId}>
 			<div className="flex flex-row items-center justify-center gap-6">
 				<div className="flex w-14 items-center justify-center">
 					<span
@@ -43,9 +43,9 @@ export default function User({ avatar, index, level, tag, userId, xp }: UserProp
 			</div>
 
 			{typeof width === "number" && width >= 648 && (
-				<div className="relative my-3 flex w-64 flex-row items-center justify-center gap-x-4 rounded-full bg-discord-dark">
+				<div className="bg-discord-dark relative my-3 flex w-64 flex-row items-center justify-center gap-x-4 rounded-full">
 					<div
-						className="absolute left-0 h-full rounded-full bg-blurple"
+						className="bg-blurple absolute left-0 h-full rounded-full"
 						style={{ width: percentage < 0.2 ? 42 : percentage * 256 }}
 					/>
 

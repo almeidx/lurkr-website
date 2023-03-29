@@ -52,7 +52,7 @@ const showcases = [
 
 export default function Home() {
 	return (
-		<div className="flex flex-col items-center bg-discord-dark">
+		<div className="bg-discord-dark flex flex-col items-center">
 			<header className="flex flex-col items-center justify-center py-5">
 				<Image alt="Lurkr banner" className="animate-bounce-slow" height={150} src={bannerImg} width={300} />
 
@@ -63,7 +63,7 @@ export default function Home() {
 				<div className="flex flex-row items-center justify-center gap-4">
 					{buttons.map(({ path, text }, idx) => (
 						<Link
-							className="flex w-40 justify-center rounded-md bg-blurple py-2 px-3 text-white transition-colors duration-100 hover:bg-[#414AB9]"
+							className="bg-blurple flex w-40 justify-center rounded-md px-3 py-2 text-white transition-colors duration-100 hover:bg-[#414AB9]"
 							href={path}
 							key={idx}
 						>
@@ -90,7 +90,7 @@ export default function Home() {
 						width={563}
 					/>
 
-					<div className="absolute top-3 left-3 flex items-center gap-2">
+					<div className="absolute left-3 top-3 flex items-center gap-2">
 						<Image
 							alt="No Text To Speech YouTube channel icon"
 							className="rounded-full"
@@ -106,7 +106,7 @@ export default function Home() {
 
 					<Image
 						alt="YouTube play button"
-						className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+						className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
 						height={72}
 						src={youtubePlaySvg}
 						width={72}

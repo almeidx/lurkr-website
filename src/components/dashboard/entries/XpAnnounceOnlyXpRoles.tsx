@@ -11,7 +11,7 @@ interface XpAnnounceOnlyXpRolesProps {
 export function XpAnnounceOnlyXpRoles({ addChange, settings }: XpAnnounceOnlyXpRolesProps) {
 	return (
 		<Field direction="row">
-			<div className="flex w-full flex-row items-center justify-between gap-x-3 rounded-lg bg-discord-dark p-2 pl-4">
+			<div className="bg-discord-dark flex w-full flex-row items-center justify-between gap-x-3 rounded-lg p-2 pl-4">
 				<Label
 					htmlFor="xpAnnounceOnlyXpRoles"
 					name="Only Announce Level-Ups Together With Role Rewards"

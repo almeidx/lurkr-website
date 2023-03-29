@@ -38,7 +38,7 @@ export function XpChannels({ addChange, channels, settings }: XpChannelsProps) {
 			/>
 			<div className="mb-3 flex flex-row justify-start">
 				<button
-					className="w-fit rounded-md bg-discord-not-quite-black py-1.5 px-2 text-white shadow-sm transition-colors duration-150 focus:outline-none active:bg-discord-dark"
+					className="bg-discord-not-quite-black active:bg-discord-dark w-fit rounded-md px-2 py-1.5 text-white shadow-sm transition-colors duration-150 focus:outline-none"
 					onClick={handleXpChannelModeChange}
 					type="button"
 				>
