@@ -35,7 +35,7 @@ export function XpRoleRewards({ addChange, roles, settings }: XpRoleRewardsProps
 		if (
 			Number.isNaN(level) ||
 			clone.some((roleReward) => roleReward.level === level) ||
-			level <= MIN_XP_ROLE_REWARD_LEVEL ||
+			level < MIN_XP_ROLE_REWARD_LEVEL ||
 			level > MAX_XP_ROLE_REWARD_LEVEL
 		) {
 			if (newXpRoleSubmitRef.current) {
