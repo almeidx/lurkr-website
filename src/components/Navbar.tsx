@@ -36,7 +36,7 @@ export default function Navbar() {
 	return (
 		<div className="bg-discord-dark w-full" ref={dropdownRef}>
 			<header className="mx-auto flex max-w-5xl p-6 md:items-center xl:max-w-screen-2xl">
-				<Image alt="Lurkr banner" className="mr-4" height={33} src={avatarImg} width={33} />
+				<Image alt="Lurkr banner" className="mr-4" height={33} priority src={avatarImg} width={33} />
 
 				<nav className="z-20 ml-auto md:w-full">
 					<span onClick={handleDropdownClick}>

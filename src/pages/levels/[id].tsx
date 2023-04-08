@@ -82,6 +82,7 @@ export default function Leaderboard(props: InferGetStaticPropsType<typeof getSta
 					alt={`${guild.name} guild icon`}
 					className="rounded-md"
 					height={64}
+					priority
 					src={guild.icon ? guildIconCdn(guildId, guild.icon, 64) : FALLBACK_AVATAR}
 					// Only optimize if the image is the fallback avatar
 					unoptimized={Boolean(guild.icon)}

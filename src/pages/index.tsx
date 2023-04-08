@@ -54,7 +54,7 @@ export default function Home() {
 	return (
 		<div className="bg-discord-dark flex flex-col items-center">
 			<header className="flex flex-col items-center justify-center py-5">
-				<Image alt="Lurkr banner" className="animate-bounce-slow" height={150} src={bannerImg} width={300} />
+				<Image alt="Lurkr banner" className="animate-bounce-slow" height={150} priority src={bannerImg} width={300} />
 
 				<p className="my-6 text-center text-lg font-light text-gray-400">
 					A Discord bot with focus on automation, leveling, emoji management, and image manipulation
@@ -86,6 +86,7 @@ export default function Home() {
 					<Image
 						alt="MEE6 bot icon pointing towards Lurkr bot icon with the text 'Import MEE6'"
 						height={320}
+						priority
 						src={promotionalVideoImg}
 						width={563}
 					/>
@@ -95,6 +96,7 @@ export default function Home() {
 							alt="No Text To Speech YouTube channel icon"
 							className="rounded-full"
 							height={40}
+							priority
 							src={promotionalVideoAuthorImg}
 							width={40}
 						/>
@@ -108,6 +110,7 @@ export default function Home() {
 						alt="YouTube play button"
 						className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
 						height={72}
+						priority
 						src={youtubePlaySvg}
 						width={72}
 					/>
