@@ -14,6 +14,7 @@ export default {
 		colors: {
 			...colors,
 
+			brand: "#ff7077",
 			blurple: "#5662f6",
 			"lighter-blurple": "#6e78fa",
 			"discord-dark": "#202327",

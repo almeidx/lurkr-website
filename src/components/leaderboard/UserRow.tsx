@@ -62,7 +62,7 @@ export default function UserRow({ avatar, index, level, messageCount, tag, userI
 							strokeWidth="5"
 						/>
 						<circle
-							className="text-red-400"
+							className="text-brand"
 							cx="40"
 							cy="40"
 							fill="transparent"
