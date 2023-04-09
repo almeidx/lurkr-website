@@ -4,7 +4,7 @@ import RoleChannelBullet from "~/components/RoleChannelBullet";
 import { XpMultiplierType, type Channel, type IMultiplier, type Role } from "~/contexts/GuildContext";
 import { resolveColour } from "~/utils/common";
 
-export default function Multiplier({ items, multiplier, targets, type }: MultiplierProps) {
+export default function Multiplier({ multiplier, targets, type }: MultiplierProps) {
 	const Icon =
 		type === XpMultiplierType.Channel ? IoMdChatbubbles : type === XpMultiplierType.Role ? FaUserFriends : FaGlobe;
 
@@ -15,33 +15,19 @@ export default function Multiplier({ items, multiplier, targets, type }: Multipl
 				{type[0]!.toUpperCase() + type.slice(1)} - x{multiplier}
 			</span>
 
-			{type !== XpMultiplierType.Global && targets && items && (
+			{type !== XpMultiplierType.Global && targets && (
 				<div className="flex shrink-0 flex-row flex-wrap gap-1.5">
 					{type === XpMultiplierType.Channel
-						? targets.map((id) => {
-								const item = (items as Channel[]).find((item) => item.id === id);
-								if (!item) {
-									return null;
-								}
-
-								return <RoleChannelBullet channelType={item.type} key={id} name={item.name} type={type} />;
-						  })
-						: targets.map((id) => {
-								const item = (items as Role[]).find((item) => item.id === id);
-								if (!item) {
-									return null;
-								}
-
-								return (
-									<RoleChannelBullet key={id} name={item.name} roleColour={resolveColour(item.color)} type={type} />
-								);
-						  })}
+						? (targets as Channel[]).map((channel) => (
+								<RoleChannelBullet channelType={channel.type} key={channel.id} name={channel.name} type={type} />
+						  ))
+						: (targets as Role[]).map((role) => (
+								<RoleChannelBullet key={role.id} name={role.name} roleColour={resolveColour(role.color)} type={type} />
+						  ))}
 				</div>
 			)}
 		</div>
 	);
 }
 
-type MultiplierProps = Omit<IMultiplier, "id"> & {
-	items: Channel[] | Role[] | null;
-};
+type MultiplierProps = Omit<IMultiplier, "id">;

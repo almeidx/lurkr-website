@@ -9,6 +9,10 @@ import { isValidSnowflake } from "~/utils/common";
 import { API_BASE_URL } from "~/utils/constants";
 import { MAX_VANITY_LENGTH } from "~/utils/guild-config";
 
+export const config = {
+	runtime: "experimental-edge",
+};
+
 export const getServerSideProps = (async (ctx) => {
 	const response = await fetch(API_BASE_URL + "/guilds/@me", {
 		credentials: "include",
@@ -34,11 +38,7 @@ export default function Levels({ guilds }: InferGetServerSidePropsType<typeof ge
 	const router = useRouter();
 
 	useEffect(() => {
-		window.scroll({
-			behavior: "auto",
-			left: 0,
-			top: 0,
-		});
+		window.scroll({ behavior: "auto", left: 0, top: 0 });
 	}, []);
 
 	let timeout: NodeJS.Timeout | null = null;

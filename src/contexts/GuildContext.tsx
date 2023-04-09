@@ -461,8 +461,10 @@ export interface Role {
 }
 
 export interface ILevel {
+	accentColour: `#${string}`;
 	avatar: string | null;
 	level: number;
+	messageCount: number;
 	tag: string | null;
 	userId: Snowflake;
 	xp: number;
@@ -471,7 +473,7 @@ export interface ILevel {
 export interface IMultiplier {
 	id: string;
 	multiplier: number;
-	targets: Snowflake[];
+	targets: Channel[] | Role[];
 	type: "Channel" | "Global" | "Role";
 }
 
