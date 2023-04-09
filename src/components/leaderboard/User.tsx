@@ -1,59 +1,87 @@
 import Image from "next/image";
 import type { ChangeEvent } from "react";
-import useWindowDimensions from "~/hooks/useWindowDimensions";
+import type { ILevel } from "~/contexts/GuildContext";
 import { userAvatarCdn, userDefaultAvatarCdn } from "~/utils/cdn";
 import { type Snowflake, FALLBACK_AVATAR, getRequiredXp } from "~/utils/constants";
 
-export default function User({ avatar, index, level, tag, userId, xp }: UserProps) {
-	const { width } = useWindowDimensions();
-
+export default function User({ avatar, index, level, messageCount, tag, userId, xp }: UserProps) {
 	const currentLevelRequiredXp = getRequiredXp(level);
 	const nextLevelRequiredXp = getRequiredXp(level + 1);
 	const levelXp = nextLevelRequiredXp - currentLevelRequiredXp;
 	const userXp = xp - currentLevelRequiredXp;
 	const percentage = userXp / levelXp;
 
+	const formatter = new Intl.NumberFormat(undefined, {
+		compactDisplay: "long",
+	});
+
+	const circumference = 30 * 2 * Math.PI;
+
 	return (
-		<div className="flex flex-row justify-between rounded-lg px-6 py-4" key={userId}>
-			<div className="flex flex-row items-center justify-center gap-6">
-				<div className="flex w-14 items-center justify-center">
-					<span
-						className={`flex w-8 items-center justify-center rounded-full px-3 py-1 text-white ${
-							index >= 3 ? "bg-[#15181c]" : index === 2 ? "bg-[#a54e00]" : index === 1 ? "bg-[#cad5db]" : "bg-[#faa61a]"
-						}`}
-					>
-						{index + 1}
-					</span>
-				</div>
-
-				<Image
-					alt={`${tag} avatar`}
-					className="rounded-full"
-					height={64}
-					onError={(event: ChangeEvent<HTMLImageElement>) => {
-						event.target.onerror = null;
-						event.target.src = FALLBACK_AVATAR.src;
-					}}
-					src={avatar || tag ? makeUserAvatarUrl(userId, avatar, tag) : FALLBACK_AVATAR}
-					unoptimized
-					width={64}
-				/>
-
-				<p className="text-gray-200">{tag ?? userId}</p>
-			</div>
-
-			{typeof width === "number" && width >= 648 && (
-				<div className="bg-discord-dark relative my-3 flex w-64 flex-row items-center justify-center gap-x-4 rounded-full">
-					<div
-						className="bg-blurple absolute left-0 h-full rounded-full"
-						style={{ width: percentage < 0.2 ? 42 : percentage * 256 }}
+		<tr className="h-24 text-xl font-medium text-white">
+			<td align="center" className="mx-auto flex h-full items-center justify-center px-3 py-2">
+				<span
+					className={`flex w-9 items-center justify-center rounded-full px-3 py-1 text-white ${
+						index >= 3 ? "bg-[#15181c]" : index === 2 ? "bg-[#a54e00]" : index === 1 ? "bg-[#cad5db]" : "bg-[#faa61a]"
+					}`}
+				>
+					{index + 1}
+				</span>
+			</td>
+			<td className="px-3 py-2">
+				<div className="flex items-center gap-4 sm:gap-8">
+					<Image
+						alt={`${tag} avatar`}
+						className="rounded-full"
+						height={64}
+						onError={(event: ChangeEvent<HTMLImageElement>) => {
+							event.target.onerror = null;
+							event.target.src = FALLBACK_AVATAR.src;
+						}}
+						src={avatar || tag ? makeUserAvatarUrl(userId, avatar, tag) : FALLBACK_AVATAR}
+						unoptimized
+						width={64}
 					/>
 
-					<span className="z-20 text-xl text-white">XP • {xp.toLocaleString("en")}</span>
-					<span className="z-20 text-xl text-white">LVL • {level.toLocaleString("en")}</span>
+					<span className="overflow-hidden text-ellipsis">{tag ?? userId}</span>
 				</div>
-			)}
-		</div>
+			</td>
+			<td align="center" className="hidden px-3 py-2 lg:table-cell">
+				{formatter.format(messageCount)}
+			</td>
+			<td align="center" className="hidden whitespace-nowrap px-3 py-2 lg:table-cell">
+				{formatter.format(xp)} / {formatter.format(nextLevelRequiredXp)}
+			</td>
+			<td align="center" className="mx-auto px-3 py-2">
+				<div className="inline-flex items-center justify-center overflow-hidden rounded-full">
+					<svg className="h-20 w-20">
+						<circle
+							className="text-white"
+							cx="40"
+							cy="40"
+							fill="transparent"
+							r="30"
+							stroke="currentColor"
+							strokeWidth="5"
+						/>
+						<circle
+							className="text-red-400"
+							cx="40"
+							cy="40"
+							fill="transparent"
+							r="30"
+							stroke="currentColor"
+							strokeDasharray={circumference}
+							strokeDashoffset={circumference - percentage * circumference}
+							strokeLinecap="round"
+							strokeWidth="5"
+							transform="rotate(-90 40 40)"
+						/>
+					</svg>
+					<span className="absolute text-xl">{formatter.format(level)}</span>
+				</div>
+			</td>
+		</tr>
 	);
 }
 
@@ -65,11 +93,4 @@ function makeUserAvatarUrl(id: Snowflake, hash: string | null, tag: string | nul
 		: FALLBACK_AVATAR;
 }
 
-interface UserProps {
-	avatar: string | null;
-	index: number;
-	level: number;
-	tag: string | null;
-	userId: Snowflake;
-	xp: number;
-}
+type UserProps = ILevel & { index: number };

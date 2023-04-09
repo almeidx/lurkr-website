@@ -463,6 +463,7 @@ export interface Role {
 export interface ILevel {
 	avatar: string | null;
 	level: number;
+	messageCount: number;
 	tag: string | null;
 	userId: Snowflake;
 	xp: number;
