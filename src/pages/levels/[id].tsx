@@ -82,7 +82,7 @@ export default function Leaderboard(props: InferGetStaticPropsType<typeof getSta
 		return <Failure href="/levels" message={props.error!} />;
 	}
 
-	const { channels, guild, guildId, levels, roleRewards } = props;
+	const { channels, guild, guildId, levels } = props;
 
 	return (
 		<div className="min-h-screen-no-footer bg-discord-dark flex flex-col items-start gap-y-10 sm:px-6">
