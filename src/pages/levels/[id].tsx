@@ -2,7 +2,7 @@ import type { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from "ne
 import Head from "next/head";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { TbArrowsDownUp } from "react-icons/tb";
 import Multiplier from "@/leaderboard/Multiplier";
 import Role from "@/leaderboard/Role";
@@ -57,6 +57,19 @@ export default function Leaderboard(props: InferGetStaticPropsType<typeof getSta
 	const [roleRewardsSortDir, setRoleRewardsSortDir] = useState<-1 | 1>(1);
 	const { isFallback } = useRouter();
 
+	const sortedRoleRewards = useMemo(
+		() => ("roleRewards" in props ? props.roleRewards.sort((a, b) => (a.level - b.level) * roleRewardsSortDir) : null),
+		[props, roleRewardsSortDir],
+	);
+
+	const sortedMultipliers = useMemo(
+		() =>
+			"multipliers" in props
+				? props.multipliers.sort((a, b) => (a.multiplier - b.multiplier) * multiplierSortDir)
+				: null,
+		[multiplierSortDir, props],
+	);
+
 	if (isFallback) {
 		return (
 			<div className="min-h-screen-no-footer bg-discord-dark flex items-center justify-center">
@@ -69,7 +82,7 @@ export default function Leaderboard(props: InferGetStaticPropsType<typeof getSta
 		return <Failure href="/levels" message={props.error!} />;
 	}
 
-	const { channels, guild, guildId, levels, multipliers, roleRewards } = props;
+	const { channels, guild, guildId, levels, roleRewards } = props;
 
 	return (
 		<div className="min-h-screen-no-footer bg-discord-dark flex flex-col items-start gap-y-10 sm:px-6">
@@ -105,9 +118,9 @@ export default function Leaderboard(props: InferGetStaticPropsType<typeof getSta
 					</p>
 				)}
 
-				{(roleRewards || Boolean(multipliers.length)) && (
+				{sortedRoleRewards?.length || sortedMultipliers?.length ? (
 					<div className="mb-8 flex flex-col items-center gap-6 sm:ml-6">
-						{roleRewards && (
+						{sortedRoleRewards?.length ? (
 							<div className="bg-discord-not-quite-black mx-8 flex h-fit w-full flex-col items-center divide-y-2 divide-solid divide-gray-400 rounded-2xl pb-4 md:mx-0 md:w-72">
 								<span className="mx-1 flex flex-row items-center gap-2 whitespace-nowrap py-3 text-center text-2xl font-medium text-white">
 									Role Rewards
@@ -118,16 +131,14 @@ export default function Leaderboard(props: InferGetStaticPropsType<typeof getSta
 								</span>
 
 								<div className="flex w-full max-w-lg flex-col rounded-lg">
-									{roleRewards
-										.sort((a, b) => (a.level - b.level) * roleRewardsSortDir)
-										.map(({ level, roles }) => (
-											<Role key={level} level={level} roles={roles} />
-										))}
+									{sortedRoleRewards.map(({ level, roles }) => (
+										<Role key={level} level={level} roles={roles} />
+									))}
 								</div>
 							</div>
-						)}
+						) : null}
 
-						{Boolean(multipliers.length) && (
+						{sortedMultipliers?.length ? (
 							<div className="bg-discord-not-quite-black mx-8 flex h-fit w-full flex-col items-center divide-y-2 divide-solid divide-gray-400 rounded-2xl pb-4 md:mx-0 md:w-72">
 								<span className="mx-1 flex flex-row items-center gap-2 whitespace-nowrap py-3 text-center text-2xl font-medium text-white">
 									Multipliers
@@ -138,28 +149,26 @@ export default function Leaderboard(props: InferGetStaticPropsType<typeof getSta
 								</span>
 
 								<div className="flex w-full max-w-lg flex-col rounded-lg">
-									{multipliers
-										.sort((a, b) => (a.multiplier - b.multiplier) * multiplierSortDir)
-										.map(({ id, multiplier, targets, type }) => (
-											<Multiplier
-												items={
-													type === XpMultiplierType.Role
-														? guild.roles
-														: type === XpMultiplierType.Channel
-														? channels
-														: null
-												}
-												key={id}
-												multiplier={multiplier}
-												targets={targets}
-												type={type}
-											/>
-										))}
+									{sortedMultipliers.map(({ id, multiplier, targets, type }) => (
+										<Multiplier
+											items={
+												type === XpMultiplierType.Role
+													? guild.roles
+													: type === XpMultiplierType.Channel
+													? channels
+													: null
+											}
+											key={id}
+											multiplier={multiplier}
+											targets={targets}
+											type={type}
+										/>
+									))}
 								</div>
 							</div>
-						)}
+						) : null}
 					</div>
-				)}
+				) : null}
 			</main>
 		</div>
 	);
