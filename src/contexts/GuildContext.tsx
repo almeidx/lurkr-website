@@ -473,7 +473,7 @@ export interface ILevel {
 export interface IMultiplier {
 	id: string;
 	multiplier: number;
-	targets: Snowflake[];
+	targets: Channel[] | Role[];
 	type: "Channel" | "Global" | "Role";
 }
 

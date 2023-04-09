@@ -9,14 +9,7 @@ import Role from "@/leaderboard/Role";
 import UserRow from "@/leaderboard/UserRow";
 import Failure from "~/components/Failure";
 import Spinner from "~/components/Spinner";
-import {
-	XpMultiplierType,
-	type Channel,
-	type DiscordGuild,
-	type ILevel,
-	type IMultiplier,
-	type RoleReward,
-} from "~/contexts/GuildContext";
+import type { DiscordGuild, ILevel, IMultiplier, RoleReward } from "~/contexts/GuildContext";
 import { guildIconCdn } from "~/utils/cdn";
 import { FALLBACK_AVATAR, API_BASE_URL } from "~/utils/constants";
 
@@ -25,7 +18,7 @@ export const getStaticProps = (async (ctx) => {
 		return { notFound: true };
 	}
 
-	const response = await fetch(`${API_BASE_URL}/levels/${ctx.params.id}`).catch(() => null);
+	const response = await fetch(`${API_BASE_URL}/levels/${ctx.params.id}?page=1`).catch(() => null);
 
 	if (!response) {
 		return { props: { error: "Failed to retrieve leveling information. Try again later" } };
@@ -82,7 +75,7 @@ export default function Leaderboard(props: InferGetStaticPropsType<typeof getSta
 		return <Failure href="/levels" message={props.error!} />;
 	}
 
-	const { channels, guild, guildId, levels } = props;
+	const { guild, guildId, levels } = props;
 
 	return (
 		<div className="min-h-screen-no-footer bg-discord-dark flex flex-col items-start gap-y-10 sm:px-6">
@@ -169,19 +162,7 @@ export default function Leaderboard(props: InferGetStaticPropsType<typeof getSta
 
 									<div className="flex w-full max-w-lg flex-col rounded-lg">
 										{sortedMultipliers.map(({ id, multiplier, targets, type }) => (
-											<Multiplier
-												items={
-													type === XpMultiplierType.Role
-														? guild.roles
-														: type === XpMultiplierType.Channel
-														? channels
-														: null
-												}
-												key={id}
-												multiplier={multiplier}
-												targets={targets}
-												type={type}
-											/>
+											<Multiplier key={id} multiplier={multiplier} targets={targets} type={type} />
 										))}
 									</div>
 								</div>
@@ -195,8 +176,7 @@ export default function Leaderboard(props: InferGetStaticPropsType<typeof getSta
 }
 
 interface GetLevelsResult {
-	channels: Channel[];
-	guild: DiscordGuild;
+	guild: Omit<DiscordGuild, "roles">;
 	levels: ILevel[];
 	multipliers: IMultiplier[];
 	roleRewards: RoleReward[];
