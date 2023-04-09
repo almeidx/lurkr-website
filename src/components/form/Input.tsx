@@ -65,7 +65,8 @@ export default function Input(props: InputProps | InputWithSubmitProps): JSX.Ele
 						props.onSubmit();
 					}}
 					ref={props.submitRef}
-					type="button"
+					// eslint-disable-next-line react/button-has-type
+					type={props.buttonType ?? "button"}
 				>
 					<Icon className="fill-current text-3xl" />
 				</button>
@@ -88,6 +89,10 @@ interface InputProps {
 }
 
 type InputWithSubmitProps = InputProps & {
+	/**
+	 * @defaultValue "button"
+	 */
+	buttonType?: "button" | "submit";
 	onSubmit(): unknown;
 	submitIcon?: IconType;
 	submitRef: Ref<HTMLButtonElement>;

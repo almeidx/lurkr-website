@@ -85,8 +85,9 @@ export default function Levels({ guilds }: InferGetServerSidePropsType<typeof ge
 					{guilds ? "Or enter a server ID/vanity" : "Enter the ID/vanity of the server you want to view"}
 				</h1>
 
-				<div className="w-full sm:w-8/12 md:w-6/12 lg:w-4/12">
+				<form className="w-full sm:w-8/12 md:w-6/12 lg:w-4/12">
 					<Input
+						buttonType="submit"
 						className="my-5"
 						id="searchTerm"
 						initialValue=""
@@ -100,7 +101,7 @@ export default function Levels({ guilds }: InferGetServerSidePropsType<typeof ge
 						placeholder="Enter a server ID/vanity"
 						submitRef={submitRef}
 					/>
-				</div>
+				</form>
 			</div>
 		</div>
 	);
