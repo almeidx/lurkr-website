@@ -4,17 +4,14 @@ import type { ILevel } from "~/contexts/GuildContext";
 import { userAvatarCdn, userDefaultAvatarCdn } from "~/utils/cdn";
 import { type Snowflake, FALLBACK_AVATAR, getRequiredXp } from "~/utils/constants";
 
-export default function User({ avatar, index, level, messageCount, tag, userId, xp }: UserProps) {
+export default function UserRow({ avatar, index, level, messageCount, tag, userId, xp }: UserProps) {
 	const currentLevelRequiredXp = getRequiredXp(level);
 	const nextLevelRequiredXp = getRequiredXp(level + 1);
 	const levelXp = nextLevelRequiredXp - currentLevelRequiredXp;
 	const userXp = xp - currentLevelRequiredXp;
 	const percentage = userXp / levelXp;
 
-	const formatter = new Intl.NumberFormat(undefined, {
-		compactDisplay: "long",
-	});
-
+	const formatter = new Intl.NumberFormat(undefined, { notation: "compact" });
 	const circumference = 30 * 2 * Math.PI;
 
 	return (
@@ -78,7 +75,7 @@ export default function User({ avatar, index, level, messageCount, tag, userId, 
 							transform="rotate(-90 40 40)"
 						/>
 					</svg>
-					<span className="absolute text-xl">{formatter.format(level)}</span>
+					<span className="absolute text-xl">{level}</span>
 				</div>
 			</td>
 		</tr>

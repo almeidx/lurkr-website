@@ -6,7 +6,7 @@ import { useMemo, useState } from "react";
 import { TbArrowsDownUp } from "react-icons/tb";
 import Multiplier from "@/leaderboard/Multiplier";
 import Role from "@/leaderboard/Role";
-import User from "@/leaderboard/User";
+import UserRow from "@/leaderboard/UserRow";
 import Failure from "~/components/Failure";
 import Spinner from "~/components/Spinner";
 import {
@@ -128,7 +128,7 @@ export default function Leaderboard(props: InferGetStaticPropsType<typeof getSta
 							</thead>
 
 							{levels.map((user, idx) => (
-								<User index={idx} key={idx} {...user} />
+								<UserRow index={idx} key={idx} {...user} />
 							))}
 						</table>
 					) : (
