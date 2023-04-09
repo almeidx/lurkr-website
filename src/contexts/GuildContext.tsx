@@ -461,6 +461,7 @@ export interface Role {
 }
 
 export interface ILevel {
+	accentColour: `#${string}`;
 	avatar: string | null;
 	level: number;
 	messageCount: number;

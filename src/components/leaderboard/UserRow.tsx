@@ -4,7 +4,7 @@ import type { ILevel } from "~/contexts/GuildContext";
 import { userAvatarCdn, userDefaultAvatarCdn } from "~/utils/cdn";
 import { type Snowflake, FALLBACK_AVATAR, getRequiredXp } from "~/utils/constants";
 
-export default function UserRow({ avatar, index, level, messageCount, tag, userId, xp }: UserProps) {
+export default function UserRow({ accentColour, avatar, index, level, messageCount, tag, userId, xp }: UserProps) {
 	const currentLevelRequiredXp = getRequiredXp(level);
 	const nextLevelRequiredXp = getRequiredXp(level + 1);
 	const levelXp = nextLevelRequiredXp - currentLevelRequiredXp;
@@ -62,12 +62,11 @@ export default function UserRow({ avatar, index, level, messageCount, tag, userI
 							strokeWidth="5"
 						/>
 						<circle
-							className="text-brand"
 							cx="40"
 							cy="40"
 							fill="transparent"
 							r="30"
-							stroke="currentColor"
+							stroke={accentColour}
 							strokeDasharray={circumference}
 							strokeDashoffset={circumference - percentage * circumference}
 							strokeLinecap="round"
