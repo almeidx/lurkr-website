@@ -1,5 +1,5 @@
 # Packages
-node_modules
+node_modules/
 
 # Log files
 *.log
@@ -10,9 +10,10 @@ yarn-error.log*
 !.env.*.example
 
 # Miscellaneous
-.idea
-.next
-.vercel
+.idea/
+.next/
+.vercel/
+static/
 .eslintcache
 *:Zone.Identifier
 
