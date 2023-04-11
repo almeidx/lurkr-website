@@ -3,31 +3,19 @@ import Link from "next/link";
 const sections = [
 	{
 		links: [
-			{
-				href: "/support",
-				name: "Discord",
-			},
-			{
-				href: "/github",
-				name: "GitHub",
-			},
+			{ href: "/support", name: "Discord" },
+			{ href: "/github", name: "GitHub" },
 		],
 		title: "About Us",
 	},
 	{
 		links: [
-			{
-				href: "/privacy",
-				name: "Privacy Policy",
-			},
-			{
-				href: "/terms",
-				name: "Terms and Conditions",
-			},
+			{ href: "/privacy", name: "Privacy Policy" },
+			{ href: "/terms", name: "Terms and Conditions" },
 		],
 		title: "Legal",
 	},
-] satisfies Section[];
+] as const satisfies readonly Section[];
 
 export default function Footer() {
 	return (
@@ -55,7 +43,7 @@ export default function Footer() {
 }
 
 interface Section {
-	links: {
+	links: readonly {
 		href: string;
 		name: string;
 	}[];

@@ -18,7 +18,7 @@ const links = [
 	{ name: "Tutorials", url: "/tutorials" },
 	{ name: "Docs", url: "/docs" },
 	{ name: "Status", url: "/status" },
-] satisfies { name: string; requireAuth?: boolean; url: string }[];
+] as const satisfies readonly { name: string; requireAuth?: true; url: string }[];
 
 export default function Navbar() {
 	const router = useRouter();
@@ -53,18 +53,17 @@ export default function Navbar() {
 						} bg-discord-not-quite-black absolute left-0 z-50 mt-6 w-full md:relative md:mt-0 md:block md:bg-transparent`}
 					>
 						<ul className="flex flex-col gap-4 py-4 pr-4 md:flex-row md:items-center md:p-0">
-							{links.map(
-								({ name, requireAuth, url }, idx) =>
-									(!requireAuth || authenticated) && (
-										<li key={idx}>
-											<Link
-												className="block w-full px-4 font-normal leading-7 text-gray-300 hover:underline md:px-0 md:text-gray-400"
-												href={url}
-											>
-												{name}
-											</Link>
-										</li>
-									),
+							{links.map((link, idx) =>
+								!("requireAuth" in link) || authenticated ? (
+									<li key={`${idx}-${link.name}`}>
+										<Link
+											className="block w-full px-4 font-normal leading-7 text-gray-300 hover:underline md:px-0 md:text-gray-400"
+											href={link.url}
+										>
+											{link.name}
+										</Link>
+									</li>
+								) : null,
 							)}
 
 							{authenticated ? (

@@ -52,7 +52,7 @@ export default function Guilds(props: InferGetServerSidePropsType<typeof getServ
 
 			<main className="flex max-w-7xl flex-row flex-wrap items-start justify-center gap-6">
 				{props.guilds.map(({ icon, id, name }) => (
-					<Guild baseRedirectPath="/guilds/" icon={icon} id={id} key={id} name={name} />
+					<Guild baseRedirectPath="/guilds" icon={icon} id={id} key={id} name={name} />
 				))}
 			</main>
 		</div>

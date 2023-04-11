@@ -1,4 +1,4 @@
-import type { GetServerSideProps, InferGetServerSidePropsType } from "next";
+import type { GetServerSideProps, InferGetServerSidePropsType, PageConfig } from "next";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
@@ -9,7 +9,7 @@ import { isValidSnowflake } from "~/utils/common";
 import { API_BASE_URL } from "~/utils/constants";
 import { MAX_VANITY_LENGTH } from "~/utils/guild-config";
 
-export const config = {
+export const config: PageConfig = {
 	runtime: "experimental-edge",
 };
 
@@ -74,7 +74,7 @@ export default function Levels({ guilds }: InferGetServerSidePropsType<typeof ge
 					<h1 className="text-xl font-bold text-white sm:text-3xl">Pick a server to view the levels of</h1>
 					<main className="flex max-w-7xl flex-row flex-wrap items-start justify-center gap-6">
 						{guilds.map(({ icon, id, name }) => (
-							<Guild baseRedirectPath="/levels/" icon={icon} id={id} key={id} name={name} />
+							<Guild baseRedirectPath="/levels" icon={icon} id={id} key={id} name={name} />
 						))}
 					</main>
 				</>

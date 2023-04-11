@@ -15,7 +15,7 @@ import Showcase, { type ShowcaseProps } from "~/components/Showcase";
 const buttons = [
 	{ path: "/invite", text: "Invite the bot" },
 	{ path: "/guilds", text: "Go to Dashboard" },
-] satisfies ButtonData[];
+] as const satisfies readonly ButtonData[];
 
 const showcases = [
 	{
@@ -78,10 +78,9 @@ export default function Home() {
 					Check out this Demonstration video by No Text To Speech
 				</h2>
 
-				<Link
+				<a
 					className="relative flex h-56 w-full items-center justify-center md:h-80"
 					href="https://www.youtube.com/watch?v=uEHGNx3idFM"
-					prefetch={false}
 				>
 					<Image
 						alt="MEE6 bot icon pointing towards Lurkr bot icon with the text 'Import MEE6'"
@@ -125,7 +124,7 @@ export default function Home() {
 							width={72}
 						/>
 					</div>
-				</Link>
+				</a>
 			</div>
 
 			<main className="my-12 flex max-w-screen-2xl flex-col items-center justify-center gap-12">

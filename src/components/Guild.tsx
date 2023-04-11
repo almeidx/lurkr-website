@@ -7,7 +7,7 @@ export default function Guild({ baseRedirectPath, icon, id, name }: GuildProps) 
 	return (
 		<Link
 			className="bg-discord-slightly-darker relative flex h-44 w-40 flex-col flex-wrap gap-2 rounded-2xl px-6 py-4 text-center shadow-sm"
-			href={`${baseRedirectPath}${id}`}
+			href={`${baseRedirectPath}/${id}`}
 			key={id}
 			prefetch={false}
 		>
@@ -26,7 +26,7 @@ export default function Guild({ baseRedirectPath, icon, id, name }: GuildProps) 
 }
 
 interface GuildProps {
-	baseRedirectPath: string;
+	baseRedirectPath: "/guilds" | "/levels";
 	icon: string | null;
 	id: Snowflake;
 	name: string;
