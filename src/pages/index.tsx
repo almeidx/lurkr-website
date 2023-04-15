@@ -81,7 +81,7 @@ export default function Home() {
 					href="https://www.youtube.com/watch?v=wB8HRdhsrm0"
 				>
 					<Image
-						alt="MEE6 bot icon pointing towards Lurkr bot icon with the text 'Import MEE6'"
+						alt="Lurkr bot icon on top of MEE6 bot icon with the text 'FREE MEE6 PREMIUM?'"
 						height={317}
 						priority
 						src={promotionalVideoImg}
