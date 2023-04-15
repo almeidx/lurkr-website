@@ -74,17 +74,15 @@ export default function Home() {
 			</header>
 
 			<div className="mt-3 flex flex-col items-center justify-center gap-4">
-				<h2 className="text-lg font-bold text-white sm:text-xl">
-					Check out this Demonstration video by No Text To Speech
-				</h2>
+				<h2 className="text-lg font-bold text-white sm:text-xl">Check out this Demonstration video by CmdData</h2>
 
 				<a
-					className="relative flex h-56 w-full items-center justify-center md:h-80"
-					href="https://www.youtube.com/watch?v=uEHGNx3idFM"
+					className="relative flex aspect-video w-full items-center justify-center"
+					href="https://www.youtube.com/watch?v=wB8HRdhsrm0"
 				>
 					<Image
 						alt="MEE6 bot icon pointing towards Lurkr bot icon with the text 'Import MEE6'"
-						height={320}
+						height={317}
 						priority
 						src={promotionalVideoImg}
 						width={563}
@@ -92,7 +90,7 @@ export default function Home() {
 
 					<div className="absolute left-3 top-3 flex items-center gap-2">
 						<Image
-							alt="No Text To Speech YouTube channel icon"
+							alt="CmdData YouTube channel icon"
 							className="rounded-full"
 							height={40}
 							priority
@@ -101,7 +99,7 @@ export default function Home() {
 						/>
 
 						<span className="overflow-hidden text-ellipsis whitespace-nowrap text-lg text-white">
-							Free Mee6 Leveling Bot? | Lurkr
+							Skip MEE6 Leveling Premium!
 						</span>
 					</div>
 
