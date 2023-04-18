@@ -1,9 +1,10 @@
-/* eslint-disable tsdoc/syntax */
+import nextBundleAnalyzer from "@next/bundle-analyzer";
 
-/**
- * @type {import('next').NextConfig}
- */
-export default {
+const withBundleAnalyzer = nextBundleAnalyzer({
+	enabled: process.env.ANALYZE === "true",
+});
+
+export default withBundleAnalyzer({
 	images: {
 		remotePatterns: [
 			{
@@ -59,4 +60,4 @@ export default {
 			},
 		];
 	},
-};
+});
