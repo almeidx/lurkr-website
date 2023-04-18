@@ -1,7 +1,5 @@
 import Image from "next/image";
 import Link from "next/link";
-import { YouTubeLogoWithTextIcon } from "../components/icons/YouTubeLogoWithText";
-import { YouTubePlayIcon } from "../components/icons/YouTubePlay";
 import bannerImg from "~/assets/banner.png";
 import promotionalVideoAuthorImg from "~/assets/promotional-video-author.jpg";
 import promotionalVideoImg from "~/assets/promotional-video.png";
@@ -11,6 +9,8 @@ import flexibleLevelingRatesImg from "~/assets/showcases/flexible-leveling-rates
 import freeForeverLevelingImg from "~/assets/showcases/free-forever-leveling.png";
 import uniqueLevelingFeaturesImg from "~/assets/showcases/unique-leveling-features.png";
 import Showcase, { type ShowcaseProps } from "~/components/Showcase";
+import { YouTubeLogoWithTextIcon } from "~/components/icons/YouTubeLogoWithText";
+import { YouTubePlayIcon } from "~/components/icons/YouTubePlay";
 
 const buttons = [
 	{ path: "/invite", text: "Invite the bot" },
