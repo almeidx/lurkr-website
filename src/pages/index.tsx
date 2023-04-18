@@ -1,5 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
+import { YouTubeLogoWithTextIcon } from "../components/icons/YouTubeLogoWithText";
+import { YouTubePlayIcon } from "../components/icons/YouTubePlay";
 import bannerImg from "~/assets/banner.png";
 import promotionalVideoAuthorImg from "~/assets/promotional-video-author.jpg";
 import promotionalVideoImg from "~/assets/promotional-video.png";
@@ -8,8 +10,6 @@ import endlessLevelRewardsImg from "~/assets/showcases/endless-level-rewards.png
 import flexibleLevelingRatesImg from "~/assets/showcases/flexible-leveling-rates.png";
 import freeForeverLevelingImg from "~/assets/showcases/free-forever-leveling.png";
 import uniqueLevelingFeaturesImg from "~/assets/showcases/unique-leveling-features.png";
-import youtubeLogoWithTextSvg from "~/assets/youtube-logo-with-text.svg";
-import youtubePlaySvg from "~/assets/youtube-play.svg";
 import Showcase, { type ShowcaseProps } from "~/components/Showcase";
 
 const buttons = [
@@ -103,24 +103,14 @@ export default function Home() {
 						</span>
 					</div>
 
-					<Image
-						alt="YouTube play button"
+					<YouTubePlayIcon
 						className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
 						height={51}
-						priority
-						src={youtubePlaySvg}
 						width={72}
 					/>
 
 					<div className="absolute bottom-1 left-0 flex gap-2 bg-[#1a1a1d] p-4 text-sm font-semibold text-white">
-						Watch on{" "}
-						<Image
-							alt="YouTube logo"
-							className="fill-white text-white"
-							height={20}
-							src={youtubeLogoWithTextSvg}
-							width={72}
-						/>
+						Watch on <YouTubeLogoWithTextIcon height={20} width={72} />
 					</div>
 				</a>
 			</div>
