@@ -48,7 +48,7 @@ const showcases = [
 		src: uniqueLevelingFeaturesImg,
 		title: "Unique Leveling Features",
 	},
-] satisfies Omit<ShowcaseProps, "align">[];
+] satisfies Omit<ShowcaseProps, "align" | "index">[];
 
 export default function Home() {
 	return (
@@ -83,7 +83,7 @@ export default function Home() {
 					<Image
 						alt="Lurkr bot icon on top of MEE6 bot icon with the text 'FREE MEE6 PREMIUM?'"
 						height={317}
-						placeholder="blur"
+						priority
 						src={promotionalVideoImg}
 						width={563}
 					/>
@@ -93,7 +93,7 @@ export default function Home() {
 							alt="CmdData YouTube channel icon"
 							className="rounded-full"
 							height={40}
-							placeholder="blur"
+							priority
 							src={promotionalVideoAuthorImg}
 							width={40}
 						/>
@@ -130,6 +130,7 @@ export default function Home() {
 					<Showcase
 						align={idx % 2 === 0 ? "right" : "left"}
 						description={description}
+						index={idx}
 						key={idx}
 						src={src}
 						title={title}

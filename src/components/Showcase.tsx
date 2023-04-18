@@ -1,9 +1,12 @@
 import Image, { type StaticImageData } from "next/image";
 
-export default function Showcase({ align, description, src, title }: ShowcaseProps) {
+export default function Showcase({ align, description, index, src, title }: ShowcaseProps) {
+	// Only prioritize the first image
+	const imgProps = index > 0 ? { placeholder: "blur" as const } : { priority: true };
+
 	return (
 		<section className="flex flex-col items-center gap-6 lg:grid lg:grid-cols-3 lg:px-6 xl:px-48">
-			<Image alt={title} className="rounded-md" height={204} placeholder="blur" src={src} width={364} />
+			<Image alt={title} className="rounded-md" height={204} src={src} width={364} {...imgProps} />
 
 			<div
 				className={`${
@@ -20,6 +23,7 @@ export default function Showcase({ align, description, src, title }: ShowcasePro
 export interface ShowcaseProps {
 	align: "left" | "right";
 	description: string;
+	index: number;
 	src: StaticImageData;
 	title: string;
 }
