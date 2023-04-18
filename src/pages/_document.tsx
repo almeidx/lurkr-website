@@ -5,11 +5,6 @@ export default class MyDocument extends Document {
 		return (
 			<Html lang="en">
 				<Head>
-					<link
-						href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap"
-						rel="stylesheet"
-					/>
-
 					<meta content="Lurkr" name="title" />
 					<link href="/favicon.png" rel="shortcut icon" type="image/png" />
 

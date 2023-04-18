@@ -1,14 +1,14 @@
 import tailwindScrollbar from "tailwind-scrollbar";
 import type { Config } from "tailwindcss";
 import colors from "tailwindcss/colors";
+import { fontFamily } from "tailwindcss/defaultTheme";
 
 export default {
 	content: ["./src/**/*.{ts,tsx,css}"],
 
 	theme: {
 		fontFamily: {
-			display: ['"Noto Sans KR"', "sans-serif"],
-			sans: ['"Noto Sans KR"', "sans-serif"],
+			sans: ["var(--font-open-sans)", ...fontFamily.sans],
 		},
 
 		colors: {
