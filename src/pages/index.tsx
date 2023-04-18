@@ -83,7 +83,7 @@ export default function Home() {
 					<Image
 						alt="Lurkr bot icon on top of MEE6 bot icon with the text 'FREE MEE6 PREMIUM?'"
 						height={317}
-						priority
+						placeholder="blur"
 						src={promotionalVideoImg}
 						width={563}
 					/>
@@ -93,7 +93,7 @@ export default function Home() {
 							alt="CmdData YouTube channel icon"
 							className="rounded-full"
 							height={40}
-							priority
+							placeholder="blur"
 							src={promotionalVideoAuthorImg}
 							width={40}
 						/>
@@ -106,7 +106,7 @@ export default function Home() {
 					<Image
 						alt="YouTube play button"
 						className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
-						height={72}
+						height={51}
 						priority
 						src={youtubePlaySvg}
 						width={72}
@@ -117,7 +117,7 @@ export default function Home() {
 						<Image
 							alt="YouTube logo"
 							className="fill-white text-white"
-							height={16}
+							height={20}
 							src={youtubeLogoWithTextSvg}
 							width={72}
 						/>
