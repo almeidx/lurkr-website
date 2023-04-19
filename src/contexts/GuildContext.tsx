@@ -1,5 +1,3 @@
-/* eslint-disable promise/prefer-await-to-callbacks, promise/prefer-await-to-then */
-
 import { createContext, useCallback, useState, type ReactNode } from "react";
 import { API_BASE_URL, VANITY_REGEX, type Snowflake } from "~/utils/constants";
 import {

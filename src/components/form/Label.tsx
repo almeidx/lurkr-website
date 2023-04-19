@@ -9,13 +9,9 @@ export default function Label({ htmlFor, name, url, withMargin = true }: LabelPr
 			htmlFor={htmlFor}
 		>
 			{name}
-			<BsFillQuestionCircleFill
-				className="h-4 w-4 cursor-pointer fill-current text-gray-200 duration-100 hover:text-gray-400"
-				onClick={(event) => {
-					event.preventDefault();
-					window.open(url);
-				}}
-			/>
+			<a href={url} rel="noreferrer" target="_blank">
+				<BsFillQuestionCircleFill className="h-4 w-4 cursor-pointer fill-current text-gray-200 hover:text-gray-400" />
+			</a>
 		</label>
 	);
 }

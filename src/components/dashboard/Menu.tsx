@@ -33,80 +33,74 @@ export default function Menu({ closeMenu, guild, guildId: argGuildId, menuOpen, 
 
 	const saveButtonDisabled = !Object.keys(changes).length || Boolean(errors.length) || Boolean(isSaving.current);
 
-	// eslint-disable-next-line @typescript-eslint/no-misused-promises
-	const handleSaveButtonClick: MouseEventHandler<HTMLButtonElement> = useCallback(
-		async (event) => {
-			event.preventDefault();
+	const handleSaveButtonClick: MouseEventHandler<HTMLButtonElement> = useCallback(async () => {
+		if (isSaving.current || errors.length) {
+			return;
+		}
 
-			if (isSaving.current || errors.length) {
-				return;
+		if (saveButtonRef.current) {
+			saveButtonRef.current.style.background = "#158d3b";
+			setSaveButtonText("Saving...");
+		}
+
+		const clonedData = JSON.parse(JSON.stringify(changes)) as PatchGuildData;
+
+		if (!guildId || !Object.keys(clonedData).length) {
+			return;
+		}
+
+		if (clonedData.autoRoleTimeout === 0) {
+			clonedData.autoRoleTimeout = null;
+		} else if (clonedData.autoRoleTimeout) {
+			clonedData.autoRoleTimeout *= 60_000;
+		}
+
+		if (clonedData.mentionCooldown) {
+			clonedData.mentionCooldown *= 60_000;
+		}
+
+		let hasFailed = false;
+
+		try {
+			const response = await fetch(`${API_BASE_URL}/guilds/${guildId}`, {
+				body: JSON.stringify(clonedData),
+				credentials: "include",
+				headers: { "Content-Type": "application/json" },
+				method: "PATCH",
+			});
+
+			if (!response.ok) {
+				throw new Error(`${response.status}: ${response.statusText}`);
 			}
 
+			updateData(await response.json());
+		} catch (error) {
+			console.error(error);
+			hasFailed = true;
+		} finally {
 			if (saveButtonRef.current) {
-				saveButtonRef.current.style.background = "#158d3b";
-				setSaveButtonText("Saving...");
+				saveButtonRef.current.style.background = hasFailed ? "#ed4245" : "";
 			}
 
-			const clonedData = JSON.parse(JSON.stringify(changes)) as PatchGuildData;
-
-			if (!guildId || !Object.keys(clonedData).length) {
-				return;
+			setSaveButtonText(hasFailed ? "Failed to save" : "Saved!");
+			if (!hasFailed) {
+				clearChanges();
 			}
 
-			if (clonedData.autoRoleTimeout === 0) {
-				clonedData.autoRoleTimeout = null;
-			} else if (clonedData.autoRoleTimeout) {
-				clonedData.autoRoleTimeout *= 60_000;
+			if (timeout) {
+				clearTimeout(timeout);
 			}
 
-			if (clonedData.mentionCooldown) {
-				clonedData.mentionCooldown *= 60_000;
-			}
-
-			let hasFailed = false;
-
-			try {
-				const response = await fetch(`${API_BASE_URL}/guilds/${guildId}`, {
-					body: JSON.stringify(clonedData),
-					credentials: "include",
-					headers: { "Content-Type": "application/json" },
-					method: "PATCH",
-				});
-
-				if (!response.ok) {
-					throw new Error(`${response.status}: ${response.statusText}`);
-				}
-
-				updateData(await response.json());
-			} catch (error) {
-				console.error(error);
-				hasFailed = true;
-			} finally {
+			timeout = setTimeout(() => {
+				setSaveButtonText("Save");
 				if (saveButtonRef.current) {
-					saveButtonRef.current.style.background = hasFailed ? "#ed4245" : "";
+					saveButtonRef.current.style.background = "";
 				}
 
-				setSaveButtonText(hasFailed ? "Failed to save" : "Saved!");
-				if (!hasFailed) {
-					clearChanges();
-				}
-
-				if (timeout) {
-					clearTimeout(timeout);
-				}
-
-				timeout = setTimeout(() => {
-					setSaveButtonText("Save");
-					if (saveButtonRef.current) {
-						saveButtonRef.current.style.background = "";
-					}
-
-					isSaving.current = false;
-				}, 3_000);
-			}
-		},
-		[changes, clearChanges, errors, guildId, saveButtonRef, updateData],
-	);
+				isSaving.current = false;
+			}, 3_000);
+		}
+	}, [changes, clearChanges, errors, guildId, saveButtonRef, updateData]);
 
 	return (
 		<aside
@@ -130,21 +124,23 @@ export default function Menu({ closeMenu, guild, guildId: argGuildId, menuOpen, 
 					<div className="flex flex-col gap-2">
 						<span className="w-full break-words text-center text-white sm:text-base">{guild.name}</span>
 
-						<span
+						<a
 							className={`flex flex-row items-center justify-center gap-2 ${
 								premium ? "bg-[#ff424d] hover:bg-[#c0323a]" : "bg-[#c0323a] hover:bg-[#802127]"
-							} w-full cursor-pointer rounded-lg px-2 py-1 text-center text-white transition-colors duration-100`}
-							onClick={() => window.open("https://docs.lurkr.gg/information/patreon-perks")}
+							} w-full cursor-pointer rounded-lg px-2 py-1 text-center text-white transition-colors`}
+							href="https://docs.lurkr.gg/information/patreon-perks"
+							rel="noreferrer"
+							target="_blank"
 						>
 							<FaPatreon />
 							{premium ? "Premium" : "Get Premium"}
-						</span>
+						</a>
 					</div>
 				</header>
 
 				<section className="flex flex-col gap-y-3 px-6 sm:ml-auto sm:max-w-[14rem] sm:p-0 sm:pr-4">
 					<button
-						className={`flex w-full flex-row items-center gap-2 rounded-lg px-4 py-2 text-center text-white transition-colors duration-200 focus:outline-none${
+						className={`flex w-full flex-row items-center gap-2 rounded-lg px-4 py-2 text-center text-white transition-colors focus:outline-none${
 							saveButtonDisabled
 								? " bg-discord-lighter cursor-not-allowed opacity-30"
 								: " bg-discord-green cursor-pointer opacity-100 hover:bg-[#25c959]"
@@ -162,11 +158,9 @@ export default function Menu({ closeMenu, guild, guildId: argGuildId, menuOpen, 
 						<button
 							className={`${section === id ? "sm:bg-gray-500 " : ""}${
 								id === "dangerZone" ? "text-yellow-300" : "text-white"
-							} hover:bg-discord-lighter flex w-full cursor-pointer flex-row items-center gap-2 rounded-lg px-4 py-2 text-center duration-200 focus:outline-none`}
+							} hover:bg-discord-lighter flex w-full cursor-pointer flex-row items-center gap-2 rounded-lg px-4 py-2 text-center focus:outline-none`}
 							key={idx}
-							onClick={(event) => {
-								event.preventDefault();
-
+							onClick={() => {
 								updateSection(id);
 								void router.push(`/guilds/${guildId}?p=${id}`, `/guilds/${guildId}?p=${id}`, { shallow: true });
 								closeMenu();

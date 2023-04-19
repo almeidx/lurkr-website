@@ -32,7 +32,6 @@ export const getServerSideProps = (async (ctx) => {
 		headers: ctx.req.headers.cookie ? { cookie: ctx.req.headers.cookie } : {},
 	});
 
-	// eslint-disable-next-line unicorn/consistent-function-scoping
 	function makeErrorProps(error: string, withSignIn?: boolean) {
 		return {
 			guild: {} as DiscordGuild,

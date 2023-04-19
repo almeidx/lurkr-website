@@ -69,15 +69,13 @@ export default function Calculator() {
 					/>
 				</div>
 
-				{(requiredXp <= 0 && (
-					// eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+				{requiredXp <= 0 ? (
 					<Message message="The current level you inputted is bigger than or equal to the level you want to achieve." />
-				)) ||
-					(multiplier !== "" && !multiplierValue && (
-						<Message message="The multiplier value you inputted is invalid." />
-					))}
+				) : multiplier !== "" && !multiplierValue ? (
+					<Message message="The multiplier value you inputted is invalid." />
+				) : null}
 
-				{level && requiredXp > 0 && (!multiplier || multiplierValue) && (
+				{level && requiredXp > 0 && (!multiplier || multiplierValue) ? (
 					<div className="grid grid-rows-3 gap-3 sm:grid-cols-3 sm:grid-rows-none">
 						<div className="bg-discord-not-quite-black flex flex-col gap-2 rounded-md px-4 py-3">
 							<div className="flex flex-row items-center justify-between gap-2">
@@ -107,7 +105,7 @@ export default function Calculator() {
 							</p>
 						</div>
 					</div>
-				)}
+				) : null}
 			</main>
 		</div>
 	);

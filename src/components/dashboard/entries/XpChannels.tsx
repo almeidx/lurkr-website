@@ -17,17 +17,12 @@ export function XpChannels({ addChange, channels, settings }: XpChannelsProps) {
 
 	const xpChannelsLimit = settings.premium ? MAX_XP_CHANNELS_PREMIUM : MAX_XP_CHANNELS;
 
-	const handleXpChannelModeChange: MouseEventHandler<HTMLButtonElement> = useCallback(
-		(event) => {
-			event.preventDefault();
+	const handleXpChannelModeChange: MouseEventHandler<HTMLButtonElement> = useCallback(() => {
+		const newMode = xpChannelMode === XpChannelMode.Blacklist ? XpChannelMode.Whitelist : XpChannelMode.Blacklist;
+		setXpChannelMode(newMode);
 
-			const newMode = xpChannelMode === XpChannelMode.Blacklist ? XpChannelMode.Whitelist : XpChannelMode.Blacklist;
-			setXpChannelMode(newMode);
-
-			addChange("xpChannelMode", newMode);
-		},
-		[addChange, xpChannelMode],
-	);
+		addChange("xpChannelMode", newMode);
+	}, [addChange, xpChannelMode]);
 
 	return (
 		<Field>
@@ -38,7 +33,7 @@ export function XpChannels({ addChange, channels, settings }: XpChannelsProps) {
 			/>
 			<div className="mb-3 flex flex-row justify-start">
 				<button
-					className="bg-discord-not-quite-black active:bg-discord-dark w-fit rounded-md px-2 py-1.5 text-white shadow-sm transition-colors duration-150 focus:outline-none"
+					className="bg-discord-not-quite-black active:bg-discord-dark w-fit rounded-md px-2 py-1.5 text-white shadow-sm transition-colors focus:outline-none"
 					onClick={handleXpChannelModeChange}
 					type="button"
 				>

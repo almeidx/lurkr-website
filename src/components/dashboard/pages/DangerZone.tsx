@@ -1,5 +1,3 @@
-/* eslint-disable unicorn/consistent-function-scoping, promise/prefer-await-to-then */
-
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import Header from "@/dashboard/Header";

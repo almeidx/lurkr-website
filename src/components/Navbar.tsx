@@ -50,9 +50,9 @@ export default function Navbar() {
 					<nav
 						className={`${
 							dropdownOpen ? "block" : "hidden"
-						} bg-discord-not-quite-black absolute left-0 z-50 mt-6 w-full md:relative md:mt-0 md:block md:bg-transparent`}
+						} bg-discord-not-quite-black absolute left-0 z-50 mt-6 w-full flex-row items-center justify-between md:relative md:mt-0 md:flex md:bg-transparent`}
 					>
-						<ul className="flex flex-col gap-4 py-4 pr-4 md:flex-row md:items-center md:p-0">
+						<ul className="flex flex-col gap-4 py-4 md:flex-row md:items-center md:p-0">
 							{links.map((link, idx) =>
 								!("requireAuth" in link) || authenticated ? (
 									<li key={`${idx}-${link.name}`}>
@@ -65,52 +65,46 @@ export default function Navbar() {
 									</li>
 								) : null,
 							)}
+						</ul>
 
-							{authenticated ? (
-								<div className="mx-2 mt-6 flex flex-row gap-2 text-white md:mx-0 md:ml-auto md:mt-0">
-									<Link
-										className="hover:bg-discord-lighter flex cursor-pointer flex-row items-center justify-center gap-2 rounded-md bg-gray-700 px-2 py-1 duration-200 focus:outline-none md:bg-transparent"
-										href="/guilds"
-									>
-										<Image
-											alt="Your profile picture"
-											className="block rounded-full"
-											height={30}
-											src={avatar ? userAvatarCdn(id, avatar, 32) : userDefaultAvatarCdn(discriminator, 32)}
-											// Only optimize if the image is one of the default ones
-											unoptimized={Boolean(avatar)}
-											width={30}
-										/>
-										<p>
-											{username}#{discriminator}
-										</p>
-									</Link>
+						{authenticated ? (
+							<div className="mx-2 mb-3 flex w-11/12 gap-2 text-white md:m-0 md:ml-auto md:w-auto">
+								<Link
+									className="hover:bg-discord-lighter flex w-full cursor-pointer items-center justify-center gap-2 rounded-md bg-gray-700 px-2 py-1 transition-colors focus:outline-none md:w-auto md:bg-transparent"
+									href="/guilds"
+								>
+									<Image
+										alt="Your profile picture"
+										className="block rounded-full"
+										height={30}
+										src={avatar ? userAvatarCdn(id, avatar, 32) : userDefaultAvatarCdn(discriminator, 32)}
+										// Only optimize if the image is one of the default ones
+										unoptimized={Boolean(avatar)}
+										width={30}
+									/>
+									<p>
+										{username}#{discriminator}
+									</p>
+								</Link>
 
-									<button
-										className="flex h-auto w-10 cursor-pointer items-center justify-center rounded-md bg-gray-700 px-2 py-1 duration-200 content-none hover:bg-red-500 focus:outline-none md:bg-transparent"
-										onClick={(event) => {
-											event.preventDefault();
-											window.open(`${API_BASE_URL}/auth/logout`, "_self");
-										}}
-										type="button"
-									>
-										<GoSignOut className="h-5 w-5" />
-									</button>
-								</div>
-							) : (
 								<button
-									className="bg-blurple mx-2 mt-6 flex flex-row items-center justify-center gap-2 rounded-md px-2 py-1 text-white shadow-md transition-colors duration-100 hover:bg-[#414AB9] focus:outline-none md:mx-0 md:ml-auto md:mt-0"
-									onClick={(event) => {
-										event.preventDefault();
-										window.open(`${API_BASE_URL}/auth`, "_self");
-									}}
+									className="flex h-auto w-10 cursor-pointer items-center justify-center rounded-md bg-gray-700 px-2 py-1 transition-colors content-[''] hover:bg-red-500 focus:outline-none md:bg-transparent"
+									onClick={() => void window.open(`${API_BASE_URL}/auth/logout`, "_self")}
 									type="button"
 								>
-									Sign in
-									<GoSignIn />
+									<GoSignOut className="h-5 w-5" />
 								</button>
-							)}
-						</ul>
+							</div>
+						) : (
+							<button
+								className="bg-blurple mx-8 mb-3 mt-4 flex w-[85%] items-center justify-center gap-2 rounded-md px-4 py-1 text-white shadow-md transition-colors hover:bg-[#414AB9] focus:outline-none md:m-0 md:ml-auto md:w-auto"
+								onClick={() => void window.open(`${API_BASE_URL}/auth`, "_self")}
+								type="button"
+							>
+								Sign in
+								<GoSignIn />
+							</button>
+						)}
 					</nav>
 				</nav>
 			</header>

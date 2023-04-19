@@ -42,7 +42,6 @@ export function XpRoleRewards({ addChange, roles, settings }: XpRoleRewardsProps
 				newXpRoleSubmitRef.current.style.color = "#ed4245";
 			}
 
-			// eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
 			if (timeout) {
 				clearTimeout(timeout);
 			}

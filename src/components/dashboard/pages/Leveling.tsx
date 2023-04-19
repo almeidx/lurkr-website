@@ -30,14 +30,18 @@ export default function Leveling({ channels, settings, roles, openMenu }: Leveli
 			<Header
 				description="Allow users to gain xp and level up by sending messages."
 				extras={
-					<button
-						className="flex h-fit items-center justify-center rounded-lg bg-[#3ba55d] px-3 py-1 text-center text-white duration-200 hover:bg-green-700 disabled:cursor-not-allowed disabled:bg-gray-500 disabled:opacity-75 disabled:hover:bg-gray-500"
-						disabled={!(data?.levels ?? settings.levels)}
-						onClick={() => void window.open(`/levels/${settings.id}`, "_blank")}
-						type="button"
+					<a
+						className={`${
+							data?.levels && settings.levels
+								? "bg-[#3ba55d] text-white hover:bg-green-700"
+								: "pointer-events-none bg-gray-500/75 text-white/75"
+						} flex h-fit items-center justify-center rounded-lg px-3 py-1 text-center transition-colors`}
+						href={`/levels/${settings.id}`}
+						rel="noreferrer"
+						target="_blank"
 					>
 						Go to Leaderboard
-					</button>
+					</a>
 				}
 				id="levels"
 				initialValue={settings.levels}

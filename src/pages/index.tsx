@@ -63,7 +63,7 @@ export default function Home() {
 				<div className="flex flex-row items-center justify-center gap-4">
 					{buttons.map(({ path, text }, idx) => (
 						<Link
-							className="bg-blurple flex w-40 justify-center rounded-md px-3 py-2 text-white transition-colors duration-100 hover:bg-[#414AB9]"
+							className="bg-blurple flex w-40 justify-center rounded-md px-3 py-2 text-white transition-colors hover:bg-[#414AB9]"
 							href={path}
 							key={idx}
 						>
