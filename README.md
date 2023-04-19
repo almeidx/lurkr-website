@@ -1,4 +1,4 @@
-![Lurkr Banner](src/assets/banner.png)
+<img src="https://github.com/almeidx/lurkr-website/raw/main/src/assets/banner.png" alt="Lurkr bot banner" height="200" />
 
 # Table of Contents
 
