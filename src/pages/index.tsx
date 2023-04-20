@@ -4,10 +4,10 @@ import bannerImg from "~/assets/banner.png";
 import promotionalVideoAuthorImg from "~/assets/promotional-video-author.jpg";
 import promotionalVideoImg from "~/assets/promotional-video.png";
 import customizableRankCardsImg from "~/assets/showcases/customizable-rank-cards.png";
-import endlessLevelRewardsImg from "~/assets/showcases/endless-level-rewards.png";
-import flexibleLevelingRatesImg from "~/assets/showcases/flexible-leveling-rates.png";
-import freeForeverLevelingImg from "~/assets/showcases/free-forever-leveling.png";
-import uniqueLevelingFeaturesImg from "~/assets/showcases/unique-leveling-features.png";
+import endlessRoleRewardsImg from "~/assets/showcases/endless-role-rewards.png";
+import fairPricingForAllImg from "~/assets/showcases/fair-pricing-for-all.png";
+import inDepthLevelingMultipliersImg from "~/assets/showcases/in-depth-leveling-multipliers.png";
+import ultimateLevelingSystemImg from "~/assets/showcases/ultimate-leveling-system.png";
 import Showcase, { type ShowcaseProps } from "~/components/Showcase";
 import { YouTubeLogoWithTextIcon } from "~/components/icons/YouTubeLogoWithText";
 import { YouTubePlayIcon } from "~/components/icons/YouTubePlay";
@@ -20,33 +20,33 @@ const buttons = [
 const showcases = [
 	{
 		description:
-			"We have created Lurkr after being outraged at finding out how much money certain bot developers/companies charge for basic features like role rewards or adjustable leveling rate, adding or removing levels, etc. We vow NEVER to lock leveling features behind a monthly paywall, so you can rest easy knowing that years down the line, you won't be asked to pay for a feature you've been using forever.",
-		src: freeForeverLevelingImg,
-		title: "Free Forever Leveling",
+			"Our bot allows you to track your users' activity and reward them! With our advanced level tracking system, you can easily see how active your users are and reward them accordingly. Whether you want to encourage engagement or simply show appreciation, our bot makes it easy to reward your community. Plus, our user-friendly dashboard lets you easily configure and customize your leveling system to fit your needs. Invite Lurkr today and start leveling up your Discord server!",
+		src: ultimateLevelingSystemImg,
+		title: "Ultimate Leveling System",
 	},
 	{
 		description:
-			"With the same principle as leveling features, customizing rank cards is free and very in-depth! You can change your progress bar colour dynamically based on roles or profile colours or just a solid colour and your background to any image you want to give your rank card the personality it deserves!",
+			"Introducing all-new Discord rank card customization! With Lurkr, you have complete control over your rank card design. Using our easy-to-use slash commands, you can change your background and progress bar colour in just a few seconds. Choose from a wide variety of colours to make your rank card stand out and represent your style. Our bot allows you to fully customize your rank card, so it's never been easier to create a unique and personalized rank card that truly represents you. Invite Lurkr to your server and start customizing your rank card like a pro!",
 		src: customizableRankCardsImg,
 		title: "Customizable Rank Cards",
 	},
 	{
 		description:
-			"Reward your members for participating in chat! Everyone loves shiny new roles with flashy colours, and with Lurkr you can assign a near infinite amount of level rewards, from initiating roles at level 1 to grand master server champions all the way at level 100! ",
-		src: endlessLevelRewardsImg,
-		title: "Endless Level Rewards",
+			"With our advanced reward system, you can incentivize activity and engagement in your community by granting custom roles, permissions, and other perks to your users as they progress. Lurkr allows you to set up your own custom reward and permission systems in just a few clicks. And unlike other solutions, Lurkr does not have unreasonable restrictions on role rewards, or has them premium-locked completely! Invite Lurkr today and start rewarding your users like a pro!",
+		src: endlessRoleRewardsImg,
+		title: "Endless Role Rewards",
 	},
 	{
 		description:
-			"With our multiplier system you can dynamically and easily change the rate at which your members gain experience based on what channel they're in, what roles they have or don't have, or even change the rate of the whole server if our leveling is too fast for your liking!",
-		src: flexibleLevelingRatesImg,
-		title: "Flexible Leveling Rates",
+			"Lurkr allows you to create global, channel, and role multipliers to deeply customize and adjust your leveling system for specific situations. Our advanced multiplier system lets you reward users differently based on the channels they're active in, the roles they have, or the global multiplier you set. Plus, our user-friendly dashboard makes it easy to set up and configure your custom multiplier system.",
+		src: inDepthLevelingMultipliersImg,
+		title: "In-Depth Leveling Multipliers",
 	},
 	{
 		description:
-			"Our team of Developers are constantly focused on developing new and interesting features for leveling, such as daily top leveling role, automatic level resets, ignored leveling bot prefixes, leveling in threads and so many more!",
-		src: uniqueLevelingFeaturesImg,
-		title: "Unique Leveling Features",
+			"At Lurkr, we believe in a fair and equitable Discord leveling bot for all. That's why we never restrict single features behind paywalls, and instead focus on a fair premium model. With Lurkr, you can enjoy a robust set of features and customization options without ever feeling like you're missing out. Our premium model simply allows you to unlock additional configuration limits and support our development team. Plus, our documentation and Patreon page makes it easy to see which limits are free and which ones require premium access. Join our community today and experience a Discord leveling bot that puts fairness and accessibility first.",
+		src: fairPricingForAllImg,
+		title: "Fair Pricing for All",
 	},
 ] satisfies Omit<ShowcaseProps, "align" | "index">[];
 
