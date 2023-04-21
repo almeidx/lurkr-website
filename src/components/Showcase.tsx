@@ -6,7 +6,7 @@ export default function Showcase({ align, description, index, src, title }: Show
 
 	return (
 		<section className="flex flex-col items-center gap-6 lg:grid lg:grid-cols-3 lg:px-6 xl:px-48">
-			<Image alt={title} className="rounded-md" height={204} src={src} width={364} {...imgProps} />
+			<Image alt={title} className="rounded-md" height={193} src={src} width={386} {...imgProps} />
 
 			<div
 				className={`${
