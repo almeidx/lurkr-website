@@ -114,7 +114,6 @@ export interface GetBotStatisticsResponse {
 		memory: number;
 		ping: number;
 		shardId: number;
-		updatedAt: number;
 		uptime: number;
 	}[];
 	totalShards: number;

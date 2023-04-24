@@ -27,4 +27,4 @@ export default function Shard({ guilds, shardId, members, memory, ping, selected
 	);
 }
 
-type ShardProps = Omit<GetBotStatisticsResponse["shards"][number], "updatedAt"> & { selected: boolean };
+type ShardProps = GetBotStatisticsResponse["shards"][number] & { selected: boolean };
