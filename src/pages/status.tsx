@@ -7,8 +7,6 @@ import Input from "~/components/form/Input";
 import { isValidSnowflake } from "~/utils/common";
 import { type Snowflake, API_BASE_URL } from "~/utils/constants";
 
-const tableHeaders = ["ID", "Guilds", "Users", "Ping (ms)", "Memory (MB)", "Uptime", "Last Updated"];
-
 export const getStaticProps = (async () => {
 	const response = await fetch(`${API_BASE_URL}/stats`).catch(() => null);
 
@@ -32,7 +30,6 @@ export default function Status({ shards, totalShards, fatal }: InferGetStaticPro
 	const [selectedShardId, setSelectedShardId] = useState<number | null>(null);
 	const submitRef = useRef<HTMLButtonElement>(null);
 
-	const now = Date.now();
 	let timeout: NodeJS.Timeout | null = null;
 
 	const handleServerIdSubmit = () => {
@@ -68,15 +65,13 @@ export default function Status({ shards, totalShards, fatal }: InferGetStaticPro
 
 			<div className="w-full sm:w-8/12 md:w-6/12 lg:w-4/12">
 				<Input
+					buttonType="submit"
 					className="my-5"
 					id="searchTerm"
 					initialValue=""
 					maxLength={20}
 					onChange={(text) => {
-						if (selectedShardId !== null) {
-							setSelectedShardId(null);
-						}
-
+						if (selectedShardId !== null) setSelectedShardId(null);
 						setServerId(text);
 					}}
 					onSubmit={handleServerIdSubmit}
@@ -86,45 +81,23 @@ export default function Status({ shards, totalShards, fatal }: InferGetStaticPro
 			</div>
 
 			<main className="mt-4">
-				{!shards && totalShards === null && (
+				{!shards && totalShards === null ? (
 					<Message message={fatal ? "The bot is unreachable" : "The bot is unavailable"} type="error" />
-				)}
+				) : null}
 
-				{typeof totalShards === "number" && (
+				{totalShards === null ? null : (
 					<span className="text-lg text-white">
 						Shards: {shards?.length ?? 0}/{totalShards}
 					</span>
 				)}
 
-				{Boolean(shards) && (
-					<table className="bg-discord-not-quite-black gap-4 rounded-md text-white shadow-md">
-						<thead>
-							<tr>
-								{tableHeaders.map((name, idx) => (
-									<th className="px-5 py-3 text-lg" key={idx}>
-										{name}
-									</th>
-								))}
-							</tr>
-						</thead>
-						<tbody className="text-center text-gray-300">
-							{shards!.map(({ guilds, shardId, members, memory, ping, uptime, updatedAt }) => (
-								<Shard
-									guilds={guilds}
-									key={shardId}
-									members={members}
-									memory={memory}
-									now={now}
-									ping={ping}
-									selected={shardId === selectedShardId}
-									shardId={shardId}
-									updatedAt={updatedAt}
-									uptime={uptime}
-								/>
-							))}
-						</tbody>
-					</table>
-				)}
+				{shards?.length ? (
+					<div className="mt-6 grid grid-cols-5 gap-2 md:grid-cols-12">
+						{shards.map(({ shardId, ...shard }) => (
+							<Shard key={shardId} selected={shardId === selectedShardId} shardId={shardId} {...shard} />
+						))}
+					</div>
+				) : null}
 			</main>
 		</div>
 	);
@@ -141,7 +114,6 @@ export interface GetBotStatisticsResponse {
 		memory: number;
 		ping: number;
 		shardId: number;
-		updatedAt: number;
 		uptime: number;
 	}[];
 	totalShards: number;

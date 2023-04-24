@@ -1,36 +1,30 @@
 import ms from "@almeidx/ms";
 import type { GetBotStatisticsResponse } from "~/pages/status";
 
-export default function Shard({
-	guilds,
-	shardId,
-	members,
-	memory,
-	ping,
-	selected,
-	uptime,
-	updatedAt,
-	now,
-}: ShardProps) {
+export default function Shard({ guilds, shardId, members, memory, ping, selected, uptime }: ShardProps) {
 	return (
-		<tr
-			className={selected ? "animate-pulse" : ""}
-			style={{ backgroundColor: selected ? "rgba(16, 185, 129, 0.5)" : "inherit" }}
+		<button
+			className={`${
+				selected ? "bg-discord-green hover:bg-discord-green/75 animate-pulse" : "bg-blurple hover:bg-lighter-blurple"
+			} group relative aspect-square w-12 rounded-lg px-4 py-3 text-center text-sm font-medium text-white transition-colors`}
+			type="button"
 		>
-			<td className="py-3">{shardId.toLocaleString("en")}</td>
-			<td>{guilds.toLocaleString("en")}</td>
-			<td>{members.toLocaleString("en")}</td>
-			<td>{ping.toLocaleString("en")}</td>
-			<td>{memory.toLocaleString("en")}</td>
-			<td>{uptime ? ms(uptime) : -1}</td>
-			<td
-				// Using this here since it relies on browser timings (Date.now()) and usually differs from pre-rendered HTML
-				suppressHydrationWarning
+			<div
+				className="bg-discord-lighter invisible absolute -left-14 -top-32 z-50 w-40 rounded-lg px-3 py-2 text-white shadow-md group-hover:visible"
+				role="tooltip"
 			>
-				{updatedAt ? ms(now - updatedAt) : -1}
-			</td>
-		</tr>
+				<p>{guilds.toLocaleString()} guilds</p>
+				<p>Members: {members.toLocaleString()}</p>
+				<p>Memory: {memory} MB</p>
+				<p>Ping: {ping} ms</p>
+				<p>Uptime: {uptime ? ms(uptime) : -1}</p>
+
+				<div className="bg-discord-lighter absolute -bottom-1.5 left-1/2 h-3 w-3 -translate-x-1/2 rotate-45 shadow-md" />
+			</div>
+
+			{shardId}
+		</button>
 	);
 }
 
-type ShardProps = GetBotStatisticsResponse["shards"][number] & { now: number; selected: boolean };
+type ShardProps = GetBotStatisticsResponse["shards"][number] & { selected: boolean };
