@@ -44,11 +44,6 @@ export default withBundleAnalyzer({
 				source: "/docs",
 			},
 			{
-				destination: "https://www.youtube.com/playlist?list=PLeDA5I-uV0EcC1FDT6JufwxMjBun9iMx2",
-				permanent: true,
-				source: "/tutorials",
-			},
-			{
 				destination: "https://github.com/almeidx/lurkr-website",
 				permanent: true,
 				source: "/github",
