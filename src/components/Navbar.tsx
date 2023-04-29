@@ -15,7 +15,7 @@ const links = [
 	{ name: "Dashboard", requireAuth: true, url: "/guilds" },
 	{ name: "Levels", url: "/levels" },
 	{ name: "Calculator", url: "/levels/calculator" },
-	{ name: "Tutorials", url: "/tutorials" },
+	{ name: "Patreon", url: "/patreon" },
 	{ name: "Docs", url: "/docs" },
 	{ name: "Status", url: "/status" },
 ] as const satisfies readonly { name: string; requireAuth?: true; url: string }[];
