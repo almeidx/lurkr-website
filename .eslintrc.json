@@ -1,5 +1,4 @@
 {
-	"root": true,
 	"extends": [
 		"neon/common",
 		"neon/browser",
@@ -13,17 +12,18 @@
 	"parserOptions": {
 		"project": "./tsconfig.eslint.json"
 	},
+	"root": true,
 	"rules": {
 		"@typescript-eslint/consistent-type-definitions": [2, "interface"],
+		"@typescript-eslint/unbound-method": 0,
 		"default-case": 0,
 		"no-duplicate-imports": 2,
 		"no-warning-comments": 0,
 		"prefer-named-capture-group": 0,
-		"tailwindcss/no-custom-classname": 0,
-		"@typescript-eslint/unbound-method": 0,
-		"unicorn/consistent-function-scoping": 0,
+		"promise/prefer-await-to-callbacks": 0,
 		"promise/prefer-await-to-then": 0,
-		"promise/prefer-await-to-callbacks": 0
+		"tailwindcss/no-custom-classname": 0,
+		"unicorn/consistent-function-scoping": 0
 	},
 	"settings": {
 		"react": {
