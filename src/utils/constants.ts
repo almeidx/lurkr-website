@@ -13,6 +13,9 @@ export const enum Time {
 	Months = Years / 12,
 }
 
+export const DESCRIPTION =
+	"The Ultimate No-Paywall & Featureful Leveling Bot. Powerful Utility and Automation for your Best Discord Server!";
+
 export const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL as string;
 
 // https://discord.com/developers/docs/reference#snowflakes

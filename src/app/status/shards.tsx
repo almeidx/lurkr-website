@@ -8,7 +8,7 @@ import Input from "~/components/form/Input";
 import { isValidSnowflake } from "~/utils/common";
 import type { Snowflake } from "~/utils/constants";
 
-export function Shards({ shards, totalShards }: GetBotStatisticsResponse) {
+export function Shards({ shards, totalShards, fatal }: GetBotStatisticsResponse & { fatal: boolean }) {
 	const [serverId, setServerId] = useState<string>("");
 	const [selectedShardId, setSelectedShardId] = useState<number | null>(null);
 	const submitRef = useRef<HTMLButtonElement>(null);
@@ -38,32 +38,36 @@ export function Shards({ shards, totalShards }: GetBotStatisticsResponse) {
 	return (
 		<>
 			<div className="w-full sm:w-8/12 md:w-6/12 lg:w-4/12">
-				<Input
-					buttonType="submit"
-					className="my-5"
-					id="searchTerm"
-					initialValue=""
-					maxLength={20}
-					onChange={(text) => {
-						if (selectedShardId !== null) setSelectedShardId(null);
-						setServerId(text);
-					}}
-					onSubmit={handleServerIdSubmit}
-					placeholder="Enter a server ID"
-					submitRef={submitRef}
-				/>
+				{shards.length ? (
+					<Input
+						buttonType="submit"
+						className="my-5"
+						id="searchTerm"
+						initialValue=""
+						maxLength={20}
+						onChange={(text) => {
+							if (selectedShardId !== null) setSelectedShardId(null);
+							setServerId(text);
+						}}
+						onSubmit={handleServerIdSubmit}
+						placeholder="Enter a server ID"
+						submitRef={submitRef}
+					/>
+				) : null}
 			</div>
 
 			<main className="mt-4">
-				{!shards && totalShards === null ? <Message message="The bot is unavailable" type="error" /> : null}
+				{totalShards === -1 ? (
+					<Message message={fatal ? "The bot is unreachable" : "The bot is unavailable"} type="error" />
+				) : null}
 
-				{totalShards === null ? null : (
+				{fatal ? null : (
 					<span className="text-lg text-white">
 						Shards: {shards?.length ?? 0}/{totalShards}
 					</span>
 				)}
 
-				{shards?.length ? (
+				{shards.length ? (
 					<div className="mt-6 grid grid-cols-5 gap-2 md:grid-cols-12">
 						{shards.map(({ shardId, ...shard }) => (
 							<Shard key={shardId} selected={shardId === selectedShardId} shardId={shardId} {...shard} />

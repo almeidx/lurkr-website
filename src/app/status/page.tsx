@@ -3,7 +3,7 @@ import { API_BASE_URL } from "../../utils/constants";
 import { Shards } from "./shards";
 
 export default async function Status() {
-	const shards = await getShardData();
+	const shardData = await getShardData();
 
 	return (
 		<div className="min-h-screen-no-footer bg-discord-dark flex flex-col items-center">
@@ -12,7 +12,7 @@ export default async function Status() {
 				<p className="font-light text-gray-400">Check if the bot is online in your server!</p>
 			</header>
 
-			<Shards shards={shards.shards} totalShards={shards.totalShards} />
+			<Shards {...shardData} />
 		</div>
 	);
 }
@@ -22,13 +22,15 @@ export const metadata: Metadata = {
 };
 
 async function getShardData() {
-	const res = await fetch(`${API_BASE_URL}/stats`, { next: { revalidate: 10 } });
+	const res = await fetch(`${API_BASE_URL}/stats`, { next: { revalidate: 10 } }).catch(() => null);
 
-	if (!res.ok) {
-		throw new Error("The bot is unreachable");
+	if (!res?.ok) {
+		return { shards: [], totalShards: -1, fatal: true };
 	}
 
-	return res.json() as Promise<GetBotStatisticsResponse>;
+	const data = (await res.json()) as GetBotStatisticsResponse;
+
+	return { ...data, fatal: false };
 }
 
 export interface GetBotStatisticsResponse {
