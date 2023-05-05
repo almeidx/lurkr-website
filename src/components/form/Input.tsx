@@ -1,3 +1,5 @@
+"use client";
+
 import { useState, type Ref } from "react";
 import type { IconType } from "react-icons";
 import { IoMdSend } from "react-icons/io";

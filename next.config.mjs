@@ -1,6 +1,7 @@
 import nextBundleAnalyzer from "@next/bundle-analyzer";
 
 const withBundleAnalyzer = nextBundleAnalyzer({
+	// eslint-disable-next-line no-undef
 	enabled: process.env.ANALYZE === "true",
 });
 
@@ -17,7 +18,7 @@ export default withBundleAnalyzer({
 		ignoreDuringBuilds: true,
 	},
 	experimental: {
-		fallbackNodePolyfills: false,
+		// fallbackNodePolyfills: false,
 	},
 	reactStrictMode: true,
 	redirects() {

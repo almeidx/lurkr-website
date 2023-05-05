@@ -1,31 +1,14 @@
-import type { GetStaticProps, InferGetStaticPropsType } from "next";
-import Head from "next/head";
+"use client";
+
 import { useRef, useState } from "react";
+import type { GetBotStatisticsResponse } from "./page";
 import Message from "~/components/Message";
 import Shard from "~/components/Shard";
 import Input from "~/components/form/Input";
 import { isValidSnowflake } from "~/utils/common";
-import { type Snowflake, API_BASE_URL } from "~/utils/constants";
+import type { Snowflake } from "~/utils/constants";
 
-export const getStaticProps = (async () => {
-	const response = await fetch(`${API_BASE_URL}/stats`).catch(() => null);
-
-	if (!response?.ok) {
-		return {
-			props: { shards: null, totalShards: null, fatal: true },
-			revalidate: 10,
-		};
-	}
-
-	const data = (await response.json()) as GetBotStatisticsResponse;
-
-	return {
-		props: { ...data, fatal: false },
-		revalidate: 10,
-	};
-}) satisfies GetStaticProps;
-
-export default function Status({ shards, totalShards, fatal }: InferGetStaticPropsType<typeof getStaticProps>) {
+export function Shards({ shards, totalShards }: GetBotStatisticsResponse) {
 	const [serverId, setServerId] = useState<string>("");
 	const [selectedShardId, setSelectedShardId] = useState<number | null>(null);
 	const submitRef = useRef<HTMLButtonElement>(null);
@@ -53,16 +36,7 @@ export default function Status({ shards, totalShards, fatal }: InferGetStaticPro
 	};
 
 	return (
-		<div className="min-h-screen-no-footer bg-discord-dark flex flex-col items-center">
-			<Head>
-				<title>Bot Status | Lurkr</title>
-			</Head>
-
-			<header className="mx-3 my-4 flex flex-col items-center gap-4 text-center sm:mx-0 sm:mb-6">
-				<h1 className="text-2xl font-bold text-white sm:text-4xl">Bot Status</h1>
-				<p className="font-light text-gray-400">Check if the bot is online in your server!</p>
-			</header>
-
+		<>
 			<div className="w-full sm:w-8/12 md:w-6/12 lg:w-4/12">
 				<Input
 					buttonType="submit"
@@ -81,9 +55,7 @@ export default function Status({ shards, totalShards, fatal }: InferGetStaticPro
 			</div>
 
 			<main className="mt-4">
-				{!shards && totalShards === null ? (
-					<Message message={fatal ? "The bot is unreachable" : "The bot is unavailable"} type="error" />
-				) : null}
+				{!shards && totalShards === null ? <Message message="The bot is unavailable" type="error" /> : null}
 
 				{totalShards === null ? null : (
 					<span className="text-lg text-white">
@@ -99,22 +71,10 @@ export default function Status({ shards, totalShards, fatal }: InferGetStaticPro
 					</div>
 				) : null}
 			</main>
-		</div>
+		</>
 	);
 }
 
 function calculateShardId(guildId: Snowflake, shards: number): number {
 	return Number(BigInt(guildId) >> BigInt(22)) % shards;
-}
-
-export interface GetBotStatisticsResponse {
-	shards: {
-		guilds: number;
-		members: number;
-		memory: number;
-		ping: number;
-		shardId: number;
-		uptime: number;
-	}[];
-	totalShards: number;
 }

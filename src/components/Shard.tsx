@@ -1,5 +1,5 @@
 import ms from "@almeidx/ms";
-import type { GetBotStatisticsResponse } from "~/pages/status";
+import type { GetBotStatisticsResponse } from "~/app/status/page";
 
 export default function Shard({ guilds, shardId, members, memory, ping, selected, uptime }: ShardProps) {
 	return (

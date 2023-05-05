@@ -1,12 +1,8 @@
-import Head from "next/head";
+import type { Metadata } from "next";
 
 export default function Privacy() {
 	return (
 		<div className="bg-discord-dark flex w-full flex-col items-center">
-			<Head>
-				<title>Privacy Policy | Lurkr</title>
-			</Head>
-
 			<header className="flex flex-col items-center justify-center pt-3 sm:pt-1">
 				<h1 className="text-2xl font-bold text-white sm:text-4xl">Privacy Policy</h1>
 				<span className="mt-3 text-gray-400">Last updated and effective: June 20, 2021.</span>
@@ -138,3 +134,7 @@ export default function Privacy() {
 		</div>
 	);
 }
+
+export const metadata: Metadata = {
+	title: "Privacy Policy | Lurkr",
+};

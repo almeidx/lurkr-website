@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/router";
+import { usePathname } from "next/navigation";
 import { useCallback, useContext, useEffect, useRef, useState } from "react";
 import { GoSignIn, GoSignOut } from "react-icons/go";
 import { MdClose, MdMenu } from "react-icons/md";
@@ -23,12 +23,12 @@ const links = [
 ] as const satisfies readonly { name: string; requireAuth?: true; url: string }[];
 
 export default function Navbar() {
-	const router = useRouter();
+	const pathname = usePathname();
 	const { authenticated, avatar, discriminator, id, username } = useContext(UserContext);
 	const [dropdownOpen, setDropdownOpen] = useState(false);
 	const dropdownRef = useRef(null);
 
-	useEffect(() => setDropdownOpen(false), [router]);
+	useEffect(() => setDropdownOpen(false), [pathname]);
 
 	const handleDropdownClick = useCallback(() => setDropdownOpen(!dropdownOpen), [dropdownOpen]);
 	const handleClickOutside = useCallback(() => setDropdownOpen(false), []);

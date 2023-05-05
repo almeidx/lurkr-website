@@ -1,5 +1,7 @@
+"use client";
+
 import Cookie from "js-cookie";
-import { createContext, useEffect, useState, type ReactNode } from "react";
+import { createContext, useEffect, useState, type ReactNode, useMemo } from "react";
 import { type Snowflake, API_BASE_URL } from "~/utils/constants";
 
 interface UserContextData {
@@ -33,28 +35,30 @@ export default function UserProvider({ children }: UserContextProps) {
 	});
 
 	useEffect(() => {
-		if (!userData.authenticated) {
-			fetch(`${API_BASE_URL}/auth/success`, {
-				credentials: "include",
-				headers: {
-					"Access-Control-Allow-Credentials": "true",
-					"Access-Control-Allow-Origin": API_BASE_URL,
-					"Content-Type": "application/json",
-				},
+		if (userData.authenticated) return;
+
+		fetch(`${API_BASE_URL}/auth/success`, {
+			credentials: "include",
+			headers: {
+				"Access-Control-Allow-Credentials": "true",
+				"Access-Control-Allow-Origin": API_BASE_URL,
+				"Content-Type": "application/json",
+			},
+		})
+			.then(async (res) => {
+				if (!res.ok) return;
+
+				const data = (await res.json()) as AuthSuccessResponse;
+				setUserData({ ...data.user, authenticated: true });
+				Cookie.set("connect.sid", data.cookie);
 			})
-				.then(async (res) => {
-					if (res.ok) {
-						const data = (await res.json()) as AuthSuccessResponse;
-						setUserData({ ...data.user, authenticated: true });
-						Cookie.set("connect.sid", data.cookie);
-					}
-				})
-				.catch(() => {});
-		}
+			.catch(() => {});
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
-	return <UserContext.Provider value={userData}>{children}</UserContext.Provider>;
+	const value = useMemo(() => userData, [userData]);
+
+	return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
 }
 
 export interface UserGuild {
