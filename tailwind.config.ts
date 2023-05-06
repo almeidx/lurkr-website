@@ -3,6 +3,13 @@ import type { Config } from "tailwindcss";
 import colors from "tailwindcss/colors";
 import { fontFamily } from "tailwindcss/defaultTheme";
 
+// https://github.com/tailwindlabs/tailwindcss/issues/4690
+Reflect.deleteProperty(colors, "lightBlue");
+Reflect.deleteProperty(colors, "warmGray");
+Reflect.deleteProperty(colors, "trueGray");
+Reflect.deleteProperty(colors, "coolGray");
+Reflect.deleteProperty(colors, "blueGray");
+
 export default {
 	content: ["./src/**/*.{ts,tsx,css}"],
 

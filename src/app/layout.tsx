@@ -42,6 +42,5 @@ export const metadata: Metadata = {
 		title: "Lurkr",
 		type: "website",
 		description: DESCRIPTION,
-		images: "https://lurkr.gg/banner.png",
 	},
 };
