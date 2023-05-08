@@ -5,6 +5,8 @@ import Guild from "~/components/Guild";
 import type { UserGuild } from "~/contexts/UserContext";
 import { API_BASE_URL } from "~/utils/constants";
 
+export const runtime = "edge";
+
 export default async function LevelsPage() {
 	const guilds = await getGuilds();
 

@@ -4,10 +4,12 @@ import { LeaderboardSidebar } from "./sidebar";
 import UserRow from "~/components/leaderboard/UserRow";
 import type { DiscordGuild, ILevel, IMultiplier, RoleReward } from "~/contexts/GuildContext";
 import { guildIconCdn } from "~/utils/cdn";
-import { API_BASE_URL, FALLBACK_AVATAR, type Snowflake } from "~/utils/constants";
+import { API_BASE_URL, FALLBACK_AVATAR } from "~/utils/constants";
 
-export default async function LeaderboardPage({ params }: { params: { guildId: Snowflake } }) {
-	const { guild, levels, multipliers, roleRewards } = await getLeaderboard(params.guildId);
+export const runtime = "edge";
+
+export default async function LeaderboardPage({ params }: { params: { guildIdOrVanity: string } }) {
+	const { guild, levels, multipliers, roleRewards } = await getLeaderboard(params.guildIdOrVanity);
 
 	return (
 		<div className="min-h-screen-no-footer bg-discord-dark flex flex-col items-start gap-y-10 sm:px-6">
@@ -18,7 +20,7 @@ export default async function LeaderboardPage({ params }: { params: { guildId: S
 						className="rounded-md"
 						height={64}
 						priority
-						src={guild.icon ? guildIconCdn(params.guildId, guild.icon, 64) : FALLBACK_AVATAR}
+						src={guild.icon ? guildIconCdn(params.guildIdOrVanity, guild.icon, 64) : FALLBACK_AVATAR}
 						// Only optimize if the image is the fallback avatar
 						unoptimized={Boolean(guild.icon)}
 						width={64}
@@ -67,8 +69,8 @@ export default async function LeaderboardPage({ params }: { params: { guildId: S
 	);
 }
 
-export async function generateMetadata({ params }: { params: { guildId: Snowflake } }): Promise<Metadata> {
-	const leaderboard = await getLeaderboard(params.guildId);
+export async function generateMetadata({ params }: { params: { guildIdOrVanity: string } }): Promise<Metadata> {
+	const leaderboard = await getLeaderboard(params.guildIdOrVanity);
 	const isError = "error" in leaderboard;
 
 	return {
@@ -79,8 +81,8 @@ export async function generateMetadata({ params }: { params: { guildId: Snowflak
 	};
 }
 
-async function getLeaderboard(guildId: Snowflake) {
-	const response = await fetch(`${API_BASE_URL}/levels/${guildId}?page=1`, { next: { revalidate: 30 } });
+async function getLeaderboard(guildIdOrVanity: string) {
+	const response = await fetch(`${API_BASE_URL}/levels/${guildIdOrVanity}?page=1`, { next: { revalidate: 30 } });
 
 	if (!response.ok) {
 		throw new Error("Failed to retrieve leveling information. Try again later", {
