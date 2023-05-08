@@ -1,3 +1,5 @@
+"use client";
+
 import { MdClear } from "react-icons/md";
 import Selector from "@/form/Selector";
 import type { Role } from "~/contexts/GuildContext";

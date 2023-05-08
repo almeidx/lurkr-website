@@ -1,3 +1,5 @@
+"use client";
+
 import { useCallback, useMemo, useRef, useState } from "react";
 import { MdPlaylistAdd } from "react-icons/md";
 import XpRole, { type XpRoleOnChangeFn } from "@/dashboard/XpRole";

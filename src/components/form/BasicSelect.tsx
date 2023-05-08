@@ -1,3 +1,5 @@
+"use client";
+
 import { useCallback, useRef, useState, type MouseEventHandler } from "react";
 import { AiFillCaretDown } from "react-icons/ai";
 import useClickOutside from "~/hooks/useClickOutside";

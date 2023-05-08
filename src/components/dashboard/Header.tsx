@@ -1,3 +1,5 @@
+"use client";
+
 import { useState, type ReactNode } from "react";
 import { BiArrowBack } from "react-icons/bi";
 import Toggle from "@/form/Toggle";

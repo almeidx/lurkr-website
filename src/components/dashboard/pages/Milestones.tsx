@@ -1,3 +1,5 @@
+"use client";
+
 import { useContext, useEffect } from "react";
 import Header from "@/dashboard/Header";
 import { MilestonesChannel } from "@/entries/MilestonesChannel";

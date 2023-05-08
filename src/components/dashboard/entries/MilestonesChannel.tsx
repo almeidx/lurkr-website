@@ -1,3 +1,5 @@
+"use client";
+
 import { useMemo } from "react";
 import Field from "@/form/Field";
 import Label from "@/form/Label";

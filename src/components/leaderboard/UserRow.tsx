@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import type { ChangeEvent } from "react";
 import type { ILevel } from "~/contexts/GuildContext";

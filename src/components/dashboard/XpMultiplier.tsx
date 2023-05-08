@@ -1,3 +1,5 @@
+"use client";
+
 import { FaGlobe, FaUserFriends } from "react-icons/fa";
 import { IoMdChatbubbles } from "react-icons/io";
 import { MdClear } from "react-icons/md";

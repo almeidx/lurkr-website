@@ -1,3 +1,5 @@
+"use client";
+
 import { useState } from "react";
 
 export default function Textarea({ id, initialText, maxLength, placeholder, disabled, onChange }: TextareaProps) {

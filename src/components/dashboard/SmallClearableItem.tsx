@@ -1,3 +1,5 @@
+"use client";
+
 import { MdClear } from "react-icons/md";
 
 export default function SmallClearableItem({ index, item, onDelete }: SmallClearableItemProps) {

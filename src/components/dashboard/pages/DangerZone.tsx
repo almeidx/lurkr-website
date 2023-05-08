@@ -1,3 +1,5 @@
+"use client";
+
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import Header from "@/dashboard/Header";

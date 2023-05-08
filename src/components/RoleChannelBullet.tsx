@@ -1,3 +1,5 @@
+"use client";
+
 import type { MouseEventHandler } from "react";
 import { CiHashtag } from "react-icons/ci";
 import { HiSpeakerphone } from "react-icons/hi";

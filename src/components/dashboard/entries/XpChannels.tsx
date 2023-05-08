@@ -1,3 +1,5 @@
+"use client";
+
 import { useCallback, useState, type MouseEventHandler } from "react";
 import Field from "@/form/Field";
 import Label from "@/form/Label";

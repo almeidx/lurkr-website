@@ -1,3 +1,5 @@
+"use client";
+
 import { useCallback, useEffect, useRef, useState, type MouseEventHandler } from "react";
 import { AiOutlinePlusCircle } from "react-icons/ai";
 import { CiHashtag } from "react-icons/ci";

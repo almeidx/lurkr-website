@@ -1,3 +1,5 @@
+"use client";
+
 import cuid from "cuid";
 import { useCallback, useState } from "react";
 import { MdPlaylistAdd } from "react-icons/md";

@@ -1,3 +1,5 @@
+"use client";
+
 import { useState, useRef } from "react";
 import { MdPlaylistAdd } from "react-icons/md";
 import SmallClearableItem from "@/dashboard/SmallClearableItem";

@@ -1,3 +1,5 @@
+"use client";
+
 import { useMemo, useState } from "react";
 import BasicSelect from "@/form/BasicSelect";
 import Field from "@/form/Field";

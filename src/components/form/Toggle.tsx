@@ -1,3 +1,5 @@
+"use client";
+
 import { useCallback, useState } from "react";
 
 export default function Toggle({ id, initialValue, disabled, size, onChange }: ToggleProps) {
