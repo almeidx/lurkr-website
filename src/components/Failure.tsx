@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import { API_BASE_URL } from "~/utils/constants";
 
