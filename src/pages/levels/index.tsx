@@ -64,7 +64,7 @@ export default function Levels({ guilds }: InferGetServerSidePropsType<typeof ge
 	};
 
 	return (
-		<div className="min-h-screen-no-footer bg-discord-dark flex flex-col items-center justify-center gap-y-8 text-center">
+		<div className="flex min-h-screen-no-footer flex-col items-center justify-center gap-y-8 bg-discord-dark text-center">
 			<Head>
 				<title>Levels | Lurkr</title>
 			</Head>

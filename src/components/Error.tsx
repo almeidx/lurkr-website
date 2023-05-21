@@ -2,7 +2,7 @@ import Head from "next/head";
 
 export default function ErrorPage({ code, message, title }: ErrorPageProps) {
 	return (
-		<div className="min-h-screen-no-footer bg-discord-dark flex flex-col items-center justify-center text-center text-black">
+		<div className="flex min-h-screen-no-footer flex-col items-center justify-center bg-discord-dark text-center text-black">
 			<Head>
 				<title>{`${title} | Lurkr`}</title>
 			</Head>

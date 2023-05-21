@@ -65,7 +65,7 @@ export default function Leaderboard(props: InferGetStaticPropsType<typeof getSta
 
 	if (isFallback) {
 		return (
-			<div className="min-h-screen-no-footer bg-discord-dark flex items-center justify-center">
+			<div className="flex min-h-screen-no-footer items-center justify-center bg-discord-dark">
 				<Spinner className="h-auto w-60" />
 			</div>
 		);
@@ -78,7 +78,7 @@ export default function Leaderboard(props: InferGetStaticPropsType<typeof getSta
 	const { guild, guildId, levels } = props;
 
 	return (
-		<div className="min-h-screen-no-footer bg-discord-dark flex flex-col items-start gap-y-10 sm:px-6">
+		<div className="flex min-h-screen-no-footer flex-col items-start gap-y-10 bg-discord-dark sm:px-6">
 			<Head>
 				<title>{`${guild.name} Leaderboard | Lurkr`}</title>
 			</Head>
@@ -101,7 +101,7 @@ export default function Leaderboard(props: InferGetStaticPropsType<typeof getSta
 
 				<div className="flex w-full flex-col justify-center gap-y-6 sm:justify-between md:flex-row">
 					{levels.length ? (
-						<table className="bg-discord-not-quite-black h-fit w-full divide-y-2 divide-solid divide-gray-400 rounded-2xl text-left font-medium text-white">
+						<table className="h-fit w-full divide-y-2 divide-solid divide-gray-400 rounded-2xl bg-discord-not-quite-black text-left font-medium text-white">
 							<thead>
 								<tr className="h-12 text-xl">
 									<th align="center" className="px-3 py-2">
@@ -125,7 +125,7 @@ export default function Leaderboard(props: InferGetStaticPropsType<typeof getSta
 							))}
 						</table>
 					) : (
-						<p className="bg-discord-not-quite-black h-12 w-full rounded-2xl px-3 py-2 text-xl text-white">
+						<p className="h-12 w-full rounded-2xl bg-discord-not-quite-black px-3 py-2 text-xl text-white">
 							No leveling entries yet!
 						</p>
 					)}
@@ -133,11 +133,11 @@ export default function Leaderboard(props: InferGetStaticPropsType<typeof getSta
 					{sortedRoleRewards?.length || sortedMultipliers?.length ? (
 						<div className="mb-8 flex flex-col items-center gap-6 md:ml-6">
 							{sortedRoleRewards?.length ? (
-								<div className="bg-discord-not-quite-black flex h-fit w-full flex-col items-center divide-y-2 divide-solid divide-gray-400 rounded-2xl pb-4 md:w-72">
+								<div className="flex h-fit w-full flex-col items-center divide-y-2 divide-solid divide-gray-400 rounded-2xl bg-discord-not-quite-black pb-4 md:w-72">
 									<span className="mx-1 flex flex-row items-center gap-2 whitespace-nowrap py-3 text-center text-2xl font-medium text-white">
 										Role Rewards
 										<TbArrowsDownUp
-											className="bg-discord-slightly-darker cursor-pointer rounded-lg p-1"
+											className="cursor-pointer rounded-lg bg-discord-slightly-darker p-1"
 											onClick={() => setRoleRewardsSortDir((dir) => (dir === 1 ? -1 : 1))}
 										/>
 									</span>
@@ -151,11 +151,11 @@ export default function Leaderboard(props: InferGetStaticPropsType<typeof getSta
 							) : null}
 
 							{sortedMultipliers?.length ? (
-								<div className="bg-discord-not-quite-black flex h-fit w-full flex-col items-center divide-y-2 divide-solid divide-gray-400 rounded-2xl pb-4 md:w-72">
+								<div className="flex h-fit w-full flex-col items-center divide-y-2 divide-solid divide-gray-400 rounded-2xl bg-discord-not-quite-black pb-4 md:w-72">
 									<span className="mx-1 flex flex-row items-center gap-2 whitespace-nowrap py-3 text-center text-2xl font-medium text-white">
 										Multipliers
 										<TbArrowsDownUp
-											className="bg-discord-slightly-darker cursor-pointer rounded-lg p-1"
+											className="cursor-pointer rounded-lg bg-discord-slightly-darker p-1"
 											onClick={() => setMultiplierSortDir((dir) => (dir === 1 ? -1 : 1))}
 										/>
 									</span>

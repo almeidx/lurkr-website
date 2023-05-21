@@ -52,7 +52,7 @@ const showcases = [
 
 export default function Home() {
 	return (
-		<div className="bg-discord-dark flex flex-col items-center">
+		<div className="flex flex-col items-center bg-discord-dark">
 			<header className="flex flex-col items-center justify-center py-5">
 				<Image alt="Lurkr banner" className="animate-bounce-slow" height={150} priority src={bannerImg} width={300} />
 
@@ -63,7 +63,7 @@ export default function Home() {
 				<div className="flex flex-row items-center justify-center gap-4">
 					{buttons.map(({ path, text }, idx) => (
 						<Link
-							className="bg-blurple flex w-40 justify-center rounded-md px-3 py-2 text-white transition-colors hover:bg-[#414AB9]"
+							className="flex w-40 justify-center rounded-md bg-blurple px-3 py-2 text-white transition-colors hover:bg-[#414AB9]"
 							href={path}
 							key={idx}
 						>

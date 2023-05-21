@@ -121,8 +121,8 @@ export default function Guild(props: InferGetServerSidePropsType<typeof getServe
 	}
 
 	return (
-		<div className="bg-discord-dark w-full">
-			<div className="min-h-screen-no-footer mx-auto flex max-w-5xl flex-col divide-gray-600 sm:flex-row sm:divide-x-2 xl:max-w-screen-2xl">
+		<div className="w-full bg-discord-dark">
+			<div className="mx-auto flex min-h-screen-no-footer max-w-5xl flex-col divide-gray-600 sm:flex-row sm:divide-x-2 xl:max-w-screen-2xl">
 				<Head>
 					<title>{`${guild.name} Dashboard | Lurkr`}</title>
 				</Head>
@@ -139,7 +139,7 @@ export default function Guild(props: InferGetServerSidePropsType<typeof getServe
 
 					<Suspense
 						fallback={
-							<div className="min-h-screen-no-footer bg-discord-dark flex items-center justify-center">
+							<div className="flex min-h-screen-no-footer items-center justify-center bg-discord-dark">
 								<Spinner className="h-auto w-60" />
 							</div>
 						}

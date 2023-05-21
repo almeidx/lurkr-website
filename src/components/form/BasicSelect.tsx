@@ -44,7 +44,7 @@ export default function BasicSelect({
 	return (
 		<div className={`relative w-full text-white ${disabled ? "text-opacity-25" : "cursor-pointer"}`} ref={elementRef}>
 			<div
-				className="bg-discord-not-quite-black flex h-12 w-full flex-row flex-wrap gap-1.5 rounded-md px-5 py-3 shadow focus:outline-none"
+				className="flex h-12 w-full flex-row flex-wrap gap-1.5 rounded-md bg-discord-not-quite-black px-5 py-3 shadow focus:outline-none"
 				onClick={() => (disabled ? null : setDropdownOpen(!dropdownOpen))}
 			>
 				<span className="z-20 flex w-full items-center px-1.5 py-1 leading-3 ">{selected}</span>
@@ -62,7 +62,7 @@ export default function BasicSelect({
 				<div className="my-2 flex h-full w-full flex-col gap-1 overflow-y-scroll">
 					{items.map((name, idx) => (
 						<div
-							className="hover:bg-discord-lighter flex cursor-pointer items-center rounded-lg px-4 py-2 text-center"
+							className="flex cursor-pointer items-center rounded-lg px-4 py-2 text-center hover:bg-discord-lighter"
 							data-id={idx.toString()}
 							key={idx.toString()}
 							onClick={handleItemChange}

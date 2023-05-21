@@ -32,7 +32,7 @@ export default function Calculator() {
 	);
 
 	return (
-		<div className="min-h-screen-no-footer bg-discord-dark flex flex-col items-center">
+		<div className="flex min-h-screen-no-footer flex-col items-center bg-discord-dark">
 			<Head>
 				<title>Level Calculator | Lurkr</title>
 			</Head>
@@ -77,7 +77,7 @@ export default function Calculator() {
 
 				{level && requiredXp > 0 && (!multiplier || multiplierValue) ? (
 					<div className="grid grid-rows-3 gap-3 sm:grid-cols-3 sm:grid-rows-none">
-						<div className="bg-discord-not-quite-black flex flex-col gap-2 rounded-md px-4 py-3">
+						<div className="flex flex-col gap-2 rounded-md bg-discord-not-quite-black px-4 py-3">
 							<div className="flex flex-row items-center justify-between gap-2">
 								<span className="text-gray-200">Approximate Messages</span>
 								<Tooltip text="The amount of messages you need to write into a valid leveling enabled channel assuming all of your messages will be counted as XP gain, and assuming your XP gain is a perfect average between the lowest gain possible and the highest gain possible" />
@@ -87,7 +87,7 @@ export default function Calculator() {
 							</p>
 						</div>
 
-						<div className="bg-discord-not-quite-black flex flex-col gap-2 rounded-md px-4 py-3">
+						<div className="flex flex-col gap-2 rounded-md bg-discord-not-quite-black px-4 py-3">
 							<div className="flex flex-row items-center justify-between gap-2">
 								<span className="text-gray-200">Estimated Time</span>
 								<Tooltip text="The time it would take of constant chatting to reach this level, assuming you send a message every 1 minute and 20 seconds, and assuming all messages are counted as XP gain." />
@@ -95,7 +95,7 @@ export default function Calculator() {
 							<p className="text-center text-4xl font-bold text-gray-200">{ms(calculateTime())}</p>
 						</div>
 
-						<div className="bg-discord-not-quite-black flex flex-col gap-2 rounded-md px-4 py-3">
+						<div className="flex flex-col gap-2 rounded-md bg-discord-not-quite-black px-4 py-3">
 							<div className="flex flex-row items-center justify-between gap-2">
 								<span className="text-gray-200">XP Required</span>
 								<Tooltip text="The total amount of XP needed to get to this level. The XP to Level conversion is a fixed constant." />

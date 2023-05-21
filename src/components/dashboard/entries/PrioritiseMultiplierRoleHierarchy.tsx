@@ -11,7 +11,7 @@ interface PrioritiseMultiplierRoleHierarchyProps {
 export function PrioritiseMultiplierRoleHierarchy({ addChange, settings }: PrioritiseMultiplierRoleHierarchyProps) {
 	return (
 		<Field direction="row">
-			<div className="bg-discord-dark flex w-full flex-row items-center justify-between gap-x-3 rounded-lg p-2 pl-4">
+			<div className="flex w-full flex-row items-center justify-between gap-x-3 rounded-lg bg-discord-dark p-2 pl-4">
 				<Label
 					htmlFor="prioritiseMultiplierRoleHierarchy"
 					name="Leveling Role Hierarchy/Multiplier Value Priority"

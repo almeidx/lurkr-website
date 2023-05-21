@@ -106,10 +106,10 @@ export default function Menu({ closeMenu, guild, guildId: argGuildId, menuOpen, 
 		<aside
 			className={`${
 				menuOpen ? "" : "hidden"
-			} bg-discord-dark absolute left-0 top-0 mt-20 w-full min-w-[300px] sm:relative sm:mt-0 sm:block sm:w-96`}
+			} absolute left-0 top-0 mt-20 w-full min-w-[300px] bg-discord-dark sm:relative sm:mt-0 sm:block sm:w-96`}
 		>
 			<div className="sticky top-0 sm:py-6">
-				<header className="bg-discord-slightly-darker sm:bg-discord-dark mb-6 flex flex-col items-center gap-4 px-6 py-4 sm:flex-row">
+				<header className="mb-6 flex flex-col items-center gap-4 bg-discord-slightly-darker px-6 py-4 sm:flex-row sm:bg-discord-dark">
 					<Image
 						alt={`${guild.name} guild icon`}
 						className="rounded-full"
@@ -142,8 +142,8 @@ export default function Menu({ closeMenu, guild, guildId: argGuildId, menuOpen, 
 					<button
 						className={`flex w-full flex-row items-center gap-2 rounded-lg px-4 py-2 text-center text-white transition-colors focus:outline-none${
 							saveButtonDisabled
-								? " bg-discord-lighter cursor-not-allowed opacity-30"
-								: " bg-discord-green cursor-pointer opacity-100 hover:bg-[#25c959]"
+								? " cursor-not-allowed bg-discord-lighter opacity-30"
+								: " cursor-pointer bg-discord-green opacity-100 hover:bg-[#25c959]"
 						}`}
 						disabled={!Object.keys(changes).length || isSaving.current || Boolean(errors.length)}
 						onClick={handleSaveButtonClick}
@@ -158,7 +158,7 @@ export default function Menu({ closeMenu, guild, guildId: argGuildId, menuOpen, 
 						<button
 							className={`${section === id ? "sm:bg-gray-500 " : ""}${
 								id === "dangerZone" ? "text-yellow-300" : "text-white"
-							} hover:bg-discord-lighter flex w-full cursor-pointer flex-row items-center gap-2 rounded-lg px-4 py-2 text-center focus:outline-none`}
+							} flex w-full cursor-pointer flex-row items-center gap-2 rounded-lg px-4 py-2 text-center hover:bg-discord-lighter focus:outline-none`}
 							key={idx}
 							onClick={() => {
 								updateSection(id);

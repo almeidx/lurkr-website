@@ -2,7 +2,7 @@ import Head from "next/head";
 
 export default function Privacy() {
 	return (
-		<div className="bg-discord-dark flex w-full flex-col items-center">
+		<div className="flex w-full flex-col items-center bg-discord-dark">
 			<Head>
 				<title>Privacy Policy | Lurkr</title>
 			</Head>

@@ -34,7 +34,7 @@ export default function Navbar() {
 	useClickOutside(dropdownRef, handleClickOutside);
 
 	return (
-		<div className="bg-discord-dark w-full" ref={dropdownRef}>
+		<div className="w-full bg-discord-dark" ref={dropdownRef}>
 			<header className="mx-auto flex max-w-5xl p-6 md:items-center xl:max-w-screen-2xl">
 				<Image alt="Lurkr banner" className="mr-4" height={33} priority src={avatarImg} width={33} />
 
@@ -50,7 +50,7 @@ export default function Navbar() {
 					<nav
 						className={`${
 							dropdownOpen ? "block" : "hidden"
-						} bg-discord-not-quite-black absolute left-0 z-50 mt-6 w-full flex-row items-center justify-between md:relative md:mt-0 md:flex md:bg-transparent`}
+						} absolute left-0 z-50 mt-6 w-full flex-row items-center justify-between bg-discord-not-quite-black md:relative md:mt-0 md:flex md:bg-transparent`}
 					>
 						<ul className="flex flex-col gap-4 py-4 md:flex-row md:items-center md:p-0">
 							{links.map((link, idx) =>
@@ -70,7 +70,7 @@ export default function Navbar() {
 						{authenticated ? (
 							<div className="mx-2 mb-3 flex w-11/12 gap-2 text-white md:m-0 md:ml-auto md:w-auto">
 								<Link
-									className="hover:bg-discord-lighter flex w-full cursor-pointer items-center justify-center gap-2 rounded-md bg-gray-700 px-2 py-1 transition-colors focus:outline-none md:w-auto md:bg-transparent"
+									className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-md bg-gray-700 px-2 py-1 transition-colors hover:bg-discord-lighter focus:outline-none md:w-auto md:bg-transparent"
 									href="/guilds"
 								>
 									<Image
@@ -97,7 +97,7 @@ export default function Navbar() {
 							</div>
 						) : (
 							<button
-								className="bg-blurple mx-8 mb-3 mt-4 flex w-[85%] items-center justify-center gap-2 rounded-md px-4 py-1 text-white shadow-md transition-colors hover:bg-[#414AB9] focus:outline-none md:m-0 md:ml-auto md:w-auto"
+								className="mx-8 mb-3 mt-4 flex w-[85%] items-center justify-center gap-2 rounded-md bg-blurple px-4 py-1 text-white shadow-md transition-colors hover:bg-[#414AB9] focus:outline-none md:m-0 md:ml-auto md:w-auto"
 								onClick={() => void window.open(`${API_BASE_URL}/auth`, "_self")}
 								type="button"
 							>

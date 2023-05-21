@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export default function Terms() {
 	return (
-		<div className="bg-discord-dark flex w-full flex-col items-center">
+		<div className="flex w-full flex-col items-center bg-discord-dark">
 			<Head>
 				<title>Terms and Conditions | Lurkr</title>
 			</Head>

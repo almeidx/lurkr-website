@@ -5,7 +5,7 @@ export default function Textarea({ id, initialText, maxLength, placeholder, disa
 
 	return (
 		<textarea
-			className="bg-discord-not-quite-black w-full rounded-md px-2 py-1.5 text-white shadow focus:outline-none disabled:select-none"
+			className="w-full rounded-md bg-discord-not-quite-black px-2 py-1.5 text-white shadow focus:outline-none disabled:select-none"
 			disabled={disabled}
 			id={id}
 			onChange={({ target }) => {
