@@ -1,4 +1,4 @@
-import type { GetStaticProps, InferGetStaticPropsType } from "next";
+import type { GetStaticProps, InferGetStaticPropsType, PageConfig } from "next";
 import Head from "next/head";
 import { useRef, useState } from "react";
 import Message from "~/components/Message";
@@ -6,6 +6,8 @@ import Shard from "~/components/Shard";
 import Input from "~/components/form/Input";
 import { isValidSnowflake } from "~/utils/common";
 import { type Snowflake, API_BASE_URL } from "~/utils/constants";
+
+export const config: PageConfig = { runtime: "experimental-edge" };
 
 export const getStaticProps = (async () => {
 	const response = await fetch(`${API_BASE_URL}/stats`).catch(() => null);

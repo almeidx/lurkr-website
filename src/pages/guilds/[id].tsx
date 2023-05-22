@@ -1,4 +1,4 @@
-import type { GetServerSideProps, InferGetServerSidePropsType } from "next";
+import type { GetServerSideProps, InferGetServerSidePropsType, PageConfig } from "next";
 import dynamic from "next/dynamic";
 import Head from "next/head";
 import { useRouter } from "next/router";
@@ -21,6 +21,8 @@ const MentionCooldown = dynamic(async () => import("@/dashboard-pages/MentionCoo
 });
 const Miscellaneous = dynamic(async () => import("@/dashboard-pages/Miscellaneous"), { suspense: true });
 const DangerZone = dynamic(async () => import("@/dashboard-pages/DangerZone"), { suspense: true });
+
+export const config: PageConfig = { runtime: "experimental-edge" };
 
 export const getServerSideProps = (async (ctx) => {
 	if (typeof ctx.params?.id !== "string" || !isValidSnowflake(ctx.params.id)) {
