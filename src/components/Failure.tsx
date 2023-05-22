@@ -3,7 +3,7 @@ import { API_BASE_URL } from "~/utils/constants";
 
 export default function Failure({ href, message, withSignIn }: FailureProps) {
 	return (
-		<div className="flex min-h-screen-no-footer flex-col items-center justify-center gap-5 bg-discord-dark">
+		<div className="flex min-h-screen-no-nav flex-col items-center justify-center gap-5 bg-discord-dark">
 			<p className="text-center text-xl font-bold text-white sm:text-3xl">{message}</p>
 
 			{withSignIn ? (

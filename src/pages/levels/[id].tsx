@@ -67,7 +67,7 @@ export default function Leaderboard(props: InferGetStaticPropsType<typeof getSta
 
 	if (isFallback) {
 		return (
-			<div className="flex min-h-screen-no-footer items-center justify-center bg-discord-dark">
+			<div className="flex min-h-screen-no-nav items-center justify-center bg-discord-dark">
 				<Spinner className="h-auto w-60" />
 			</div>
 		);
@@ -80,7 +80,7 @@ export default function Leaderboard(props: InferGetStaticPropsType<typeof getSta
 	const { guild, guildId, levels } = props;
 
 	return (
-		<div className="flex min-h-screen-no-footer flex-col items-start gap-y-10 bg-discord-dark sm:px-6">
+		<div className="flex min-h-screen-no-nav flex-col items-start gap-y-10 bg-discord-dark sm:px-6">
 			<Head>
 				<title>{`${guild.name} Leaderboard | Lurkr`}</title>
 			</Head>

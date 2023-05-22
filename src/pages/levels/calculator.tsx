@@ -32,7 +32,7 @@ export default function Calculator() {
 	);
 
 	return (
-		<div className="flex min-h-screen-no-footer flex-col items-center bg-discord-dark">
+		<div className="flex min-h-screen-no-nav flex-col items-center bg-discord-dark">
 			<Head>
 				<title>Level Calculator | Lurkr</title>
 			</Head>

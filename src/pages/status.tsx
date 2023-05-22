@@ -55,7 +55,7 @@ export default function Status({ shards, totalShards, fatal }: InferGetStaticPro
 	};
 
 	return (
-		<div className="flex min-h-screen-no-footer flex-col items-center bg-discord-dark">
+		<div className="flex min-h-screen-no-nav flex-col items-center bg-discord-dark">
 			<Head>
 				<title>Bot Status | Lurkr</title>
 			</Head>

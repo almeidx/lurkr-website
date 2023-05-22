@@ -45,7 +45,7 @@ export default function Guilds(props: InferGetServerSidePropsType<typeof getServ
 	}
 
 	return (
-		<div className="flex min-h-screen-no-footer flex-col items-center justify-center gap-y-8 bg-discord-dark py-6 text-center sm:pt-0">
+		<div className="flex min-h-screen-no-nav flex-col items-center justify-center gap-y-8 bg-discord-dark py-6 text-center sm:pt-0">
 			<Head>
 				<title>Dashboard | Lurkr</title>
 			</Head>

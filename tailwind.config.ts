@@ -42,7 +42,7 @@ export default {
 			},
 
 			minHeight: {
-				"screen-no-footer": "calc(100vh - 5rem)",
+				"screen-no-nav": "calc(100vh - 5rem)",
 			},
 		},
 	},
