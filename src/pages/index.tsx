@@ -6,6 +6,7 @@ import promotionalVideoImg from "~/assets/promotional-video.png";
 import customizableRankCardsImg from "~/assets/showcases/customizable-rank-cards.png";
 import endlessRoleRewardsImg from "~/assets/showcases/endless-role-rewards.png";
 import fairPricingForAllImg from "~/assets/showcases/fair-pricing-for-all.png";
+import importExistingLevelsImg from "~/assets/showcases/import-existing-levels.png";
 import inDepthLevelingMultipliersImg from "~/assets/showcases/in-depth-leveling-multipliers.png";
 import ultimateLevelingSystemImg from "~/assets/showcases/ultimate-leveling-system.png";
 import Showcase, { type ShowcaseProps } from "~/components/Showcase";
@@ -23,6 +24,12 @@ const showcases = [
 			"Our bot allows you to track your users' activity and reward them! With our advanced level tracking system, you can easily see how active your users are and reward them accordingly. Whether you want to encourage engagement or simply show appreciation, our bot makes it easy to reward your community. Plus, our user-friendly dashboard lets you easily configure and customize your leveling system to fit your needs. Invite Lurkr today and start leveling up your Discord server!",
 		src: ultimateLevelingSystemImg,
 		title: "Ultimate Leveling System",
+	},
+	{
+		description:
+			"Bid farewell to restarting the grind and losing your hard-earned progress when switching bots. With Lurkr, seamlessly import your existing levels from other popular bots and continue your leveling journey without interruption. Keep your community engaged and motivated as you effortlessly integrate Lurkr into your Discord server. Upgrade to Lurkr today and enjoy a smooth, uninterrupted leveling adventure!",
+		src: importExistingLevelsImg,
+		title: "Import Existing Levels, No Restart Needed",
 	},
 	{
 		description:
@@ -117,14 +124,7 @@ export default function Home() {
 
 			<main className="my-12 flex max-w-screen-2xl flex-col items-center justify-center gap-12">
 				{showcases.map(({ description, src, title }, idx) => (
-					<Showcase
-						align={idx % 2 === 0 ? "right" : "left"}
-						description={description}
-						index={idx}
-						key={idx}
-						src={src}
-						title={title}
-					/>
+					<Showcase description={description} index={idx} key={idx} src={src} title={title} />
 				))}
 			</main>
 		</div>
