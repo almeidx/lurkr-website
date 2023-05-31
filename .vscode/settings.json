@@ -1,10 +1,4 @@
 {
-	"editor.rulers": [120],
-	"search.exclude": {
-		"**/node_modules": true,
-		".yarn/*": true
-	},
-	"typescript.enablePromptUseWorkspaceTsdk": true,
 	"cSpell.words": [
 		"autorole",
 		"Autoroles",
@@ -17,5 +11,10 @@
 		"nocompatible",
 		"tailwindcss"
 	],
+	"editor.rulers": [120],
+	"search.exclude": {
+		"node_modules/*": true
+	},
+	"typescript.enablePromptUseWorkspaceTsdk": true,
 	"typescript.preferences.importModuleSpecifierEnding": "index"
 }

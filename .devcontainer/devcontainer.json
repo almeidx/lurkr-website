@@ -8,5 +8,5 @@
 	},
 
 	"forwardPorts": [3000],
-	"onCreateCommand": "yarn install --immutable"
+	"onCreateCommand": "pnpm i --frozen-lockfile"
 }

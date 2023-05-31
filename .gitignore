@@ -1,23 +1,6 @@
-# Packages
-node_modules/
-
-# Log files
-*.log
-yarn-error.log*
-
-# Env
-*.env*
-!.env.*.example
-
-# Miscellaneous
-.idea/
 .next/
 .vercel/
+node_modules/
 static/
-.eslintcache
-*:Zone.Identifier
-
-# Yarn v3
-.yarn/*
-!.yarn/releases
-!.yarn/plugins
+*.env*
+!.env.*.example
