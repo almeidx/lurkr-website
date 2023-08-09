@@ -1,4 +1,3 @@
-import cuid from "cuid";
 import { useCallback, useState } from "react";
 import { MdPlaylistAdd } from "react-icons/md";
 import XpMultiplier, {
@@ -135,7 +134,10 @@ export function XpMultipliers({ addChange, channels, roles, settings }: XpMultip
 							/>
 							<button
 								className="flex h-12 w-12 shrink-0 items-center justify-center rounded-md bg-discord-not-quite-black text-white transition-colors hover:text-opacity-75"
-								onClick={() => {
+								onClick={async () => {
+									// cuid references the navigator global, which is not present on edge functions
+									const { default: cuid } = await import("cuid");
+
 									const finalMultipliers = [
 										...xpMultipliers,
 										{ id: cuid(), multiplier: "1", targets: [], type: newXpMultiplierType },
