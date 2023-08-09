@@ -105,9 +105,7 @@ export default function Home() {
 							width={40}
 						/>
 
-						<span className="overflow-hidden text-ellipsis whitespace-nowrap text-lg text-white">
-							Skip MEE6 Leveling Premium!
-						</span>
+						<span className="truncate text-lg text-white">Skip MEE6 Leveling Premium!</span>
 					</div>
 
 					<YouTubePlayIcon
