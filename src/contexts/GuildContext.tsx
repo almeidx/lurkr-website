@@ -32,12 +32,27 @@ import {
 	MIN_XP_MULTIPLIER_VALUE,
 } from "~/utils/guild-config";
 
+export enum XpAnnouncementChannelType {
+	Custom = "Custom",
+	Direct = "Direct",
+	None = "None",
+	SameChannel = "SameChannel",
+}
+
+export enum XpChannelMode {
+	Blacklist = "Blacklist",
+	Whitelist = "Whitelist",
+}
+
 const emojiListKeys = new Set<keyof PatchGuildData>(["emojiListChannel"]);
 
 const levelingKeys = new Set<keyof PatchGuildData>([
 	"noXpRoles",
 	"stackXpRoles",
 	"topXpRole",
+	"voteBoostedXp",
+	"xpAnnounceChannel",
+	"xpAnnounceChannelType",
 	"xpAnnounceLevels",
 	"xpAnnounceMinimumLevel",
 	"xpAnnounceMultipleOf",
@@ -48,7 +63,6 @@ const levelingKeys = new Set<keyof PatchGuildData>([
 	"xpInThreads",
 	"xpMessage",
 	"xpMultipliers",
-	"xpResponseType",
 	"xpRoleRewards",
 ]);
 
@@ -58,11 +72,6 @@ const milestonesKeys = new Set<keyof PatchGuildData>([
 	"milestonesMessage",
 	"milestonesRoles",
 ]);
-
-export enum XpChannelMode {
-	Blacklist,
-	Whitelist,
-}
 
 export const GuildContext = createContext({} as GuildContextData);
 
@@ -156,6 +165,14 @@ export default function GuildContextProvider({ children }: GuildContextProps) {
 					}, 1_000);
 				} else {
 					newErrors.push("The leveling leaderboard vanity can only contain alphanumeric characters.");
+				}
+			}
+
+			if ("xpAnnounceChannel" in changes || changes.xpAnnounceChannelType) {
+				if (changes.xpAnnounceChannel && changes.xpAnnounceChannelType !== XpAnnouncementChannelType.Custom) {
+					newErrors.push("The leveling announcement channel type is not set to custom.");
+				} else if (changes.xpAnnounceChannelType === XpAnnouncementChannelType.Custom && !changes.xpAnnounceChannel) {
+					newErrors.push("The leveling announcement channel type is set to custom but the channel is not set.");
 				}
 			}
 
@@ -373,9 +390,12 @@ interface GuildContextProps {
 }
 
 export interface GuildSettings {
+	accentColour: string | null;
+	accentType: GuildAccentType | null;
 	autoPublishChannels: string[];
 	autoResetLevels: AutoResetLevelsEnum;
 	autoRole: string[];
+	autoRoleFlags: AutoRoleFlag[];
 	autoRoleTimeout: number | null;
 	emojiList: boolean;
 	emojiListChannel: string | null;
@@ -388,15 +408,16 @@ export interface GuildSettings {
 	milestonesMessage: string | null;
 	milestonesRoles: string[];
 	noXpRoles: string[];
-	prefix: string;
 	premium: boolean;
 	prioritiseMultiplierRoleHierarchy: boolean;
 	stackXpRoles: boolean;
 	storeCounts: boolean;
 	storeMilestones: boolean;
-	topXp: string | null;
 	topXpRole: string | null;
 	vanity: string | null;
+	voteBoostedXp: boolean;
+	xpAnnounceChannel: string | null;
+	xpAnnounceChannelType: XpAnnouncementChannelType;
 	xpAnnounceLevels: number[];
 	xpAnnounceMinimumLevel: number;
 	xpAnnounceMultipleOf: number | null;
@@ -407,15 +428,14 @@ export interface GuildSettings {
 	xpInThreads: boolean;
 	xpMessage: string | null;
 	xpMultipliers: XpMultiplier[];
-	xpResponseType: string | null;
 	xpRoleRewards: XpRoleReward[];
 }
 
 export enum AutoResetLevelsEnum {
-	None,
-	Leave,
-	Ban,
-	Both,
+	Ban = "Ban",
+	BanAndLeave = "BanAndLeave",
+	Leave = "Leave",
+	None = "None",
 }
 
 export enum XpMultiplierType {
@@ -432,6 +452,7 @@ export interface XpMultiplier {
 }
 
 export interface XpRoleReward {
+	id: string;
 	level: number;
 	roleIds: string[];
 }
@@ -472,12 +493,19 @@ export interface IMultiplier {
 	id: string;
 	multiplier: number;
 	targets: Channel[] | Role[];
-	type: "Channel" | "Global" | "Role";
+	type: XpMultiplierType;
 }
 
 export interface RoleReward {
+	id: string;
 	level: number;
 	roles: Role[];
+}
+
+export interface AutoRoleFlag {
+	flagId: number;
+	id: string;
+	roleIds: string[];
 }
 
 export enum ChannelType {
@@ -485,4 +513,10 @@ export enum ChannelType {
 	GuildVoice = 2,
 	GuildAnnouncement = 5,
 	GuildForum = 15,
+}
+
+export enum GuildAccentType {
+	BannerAverage = "BannerAverage",
+	Custom = "Custom",
+	IconAverage = "IconAverage",
 }

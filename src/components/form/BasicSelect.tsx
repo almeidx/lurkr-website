@@ -80,6 +80,6 @@ interface BasicSelectProps {
 	closeOnSelect?: boolean;
 	disabled?: boolean;
 	initialItem: string;
-	items: string[];
+	items: readonly string[];
 	onSelect(item: string): unknown;
 }

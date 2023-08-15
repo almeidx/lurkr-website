@@ -145,8 +145,8 @@ export default function Leaderboard(props: InferGetStaticPropsType<typeof getSta
 									</span>
 
 									<div className="flex w-full max-w-lg flex-col rounded-lg">
-										{sortedRoleRewards.map(({ level, roles }) => (
-											<Role key={level} level={level} roles={roles} />
+										{sortedRoleRewards.map((roleReward) => (
+											<Role key={roleReward.id} {...roleReward} />
 										))}
 									</div>
 								</div>
@@ -163,8 +163,8 @@ export default function Leaderboard(props: InferGetStaticPropsType<typeof getSta
 									</span>
 
 									<div className="flex w-full max-w-lg flex-col rounded-lg">
-										{sortedMultipliers.map(({ id, multiplier, targets, type }) => (
-											<Multiplier key={id} multiplier={multiplier} targets={targets} type={type} />
+										{sortedMultipliers.map((multiplier) => (
+											<Multiplier key={multiplier.id} {...multiplier} />
 										))}
 									</div>
 								</div>
