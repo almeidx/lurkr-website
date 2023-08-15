@@ -482,10 +482,11 @@ export interface Role {
 export interface ILevel {
 	accentColour: `#${string}`;
 	avatar: string | null;
+	discriminator: string;
 	level: number;
 	messageCount: number;
-	tag: string | null;
 	userId: Snowflake;
+	username: string;
 	xp: number;
 }
 

@@ -2,9 +2,19 @@ import Image from "next/image";
 import type { ChangeEvent } from "react";
 import type { ILevel } from "~/contexts/GuildContext";
 import { userAvatarCdn, userDefaultAvatarCdn } from "~/utils/cdn";
-import { type Snowflake, FALLBACK_AVATAR, getRequiredXp } from "~/utils/constants";
+import { FALLBACK_AVATAR, getRequiredXp } from "~/utils/constants";
 
-export default function UserRow({ accentColour, avatar, index, level, messageCount, tag, userId, xp }: UserProps) {
+export default function UserRow({
+	accentColour,
+	avatar,
+	discriminator,
+	index,
+	level,
+	messageCount,
+	userId,
+	username,
+	xp,
+}: UserProps) {
 	const currentLevelRequiredXp = getRequiredXp(level);
 	const nextLevelRequiredXp = getRequiredXp(level + 1);
 	const levelXp = nextLevelRequiredXp - currentLevelRequiredXp;
@@ -28,19 +38,25 @@ export default function UserRow({ accentColour, avatar, index, level, messageCou
 			<td className="px-3 py-2">
 				<div className="flex items-center gap-4 sm:gap-8">
 					<Image
-						alt={`${tag} avatar`}
+						alt={`${username}'s avatar`}
 						className="rounded-full"
 						height={64}
 						onError={(event: ChangeEvent<HTMLImageElement>) => {
 							event.target.onerror = null;
 							event.target.src = FALLBACK_AVATAR.src;
 						}}
-						src={avatar || tag ? makeUserAvatarUrl(userId, avatar, tag) : FALLBACK_AVATAR}
+						src={
+							avatar
+								? userAvatarCdn(userId, avatar, 64, false)
+								: userDefaultAvatarCdn({ id: userId, discriminator }, 64)
+						}
 						unoptimized
 						width={64}
 					/>
 
-					<span className="overflow-hidden text-ellipsis">{tag ?? userId}</span>
+					<span className="overflow-hidden text-ellipsis">
+						{discriminator === "0" ? username : `${username}#${discriminator}`}
+					</span>
 				</div>
 			</td>
 			<td align="center" className="hidden px-3 py-2 lg:table-cell">
@@ -79,14 +95,6 @@ export default function UserRow({ accentColour, avatar, index, level, messageCou
 			</td>
 		</tr>
 	);
-}
-
-function makeUserAvatarUrl(id: Snowflake, hash: string | null, tag: string | null) {
-	return hash
-		? userAvatarCdn(id, hash, 64, false)
-		: tag
-		? userDefaultAvatarCdn(tag.split(/#(\d{4})$/)[1]!, 64)
-		: FALLBACK_AVATAR;
 }
 
 type UserProps = ILevel & { index: number };

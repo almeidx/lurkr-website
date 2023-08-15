@@ -77,14 +77,12 @@ export default function Navbar() {
 										alt="Your profile picture"
 										className="block rounded-full"
 										height={30}
-										src={avatar ? userAvatarCdn(id, avatar, 32) : userDefaultAvatarCdn(discriminator, 32)}
+										src={avatar ? userAvatarCdn(id, avatar, 32) : userDefaultAvatarCdn({ discriminator, id }, 32)}
 										// Only optimize if the image is one of the default ones
 										unoptimized={Boolean(avatar)}
 										width={30}
 									/>
-									<p>
-										{username}#{discriminator}
-									</p>
+									<p>{discriminator === "0" ? username : `${username}#${discriminator}`}</p>
 								</Link>
 
 								<button

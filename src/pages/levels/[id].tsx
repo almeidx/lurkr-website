@@ -1,4 +1,4 @@
-import type { GetStaticPaths, GetStaticProps, InferGetStaticPropsType, PageConfig } from "next";
+import type { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from "next";
 import Head from "next/head";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -13,7 +13,7 @@ import type { DiscordGuild, ILevel, IMultiplier, RoleReward } from "~/contexts/G
 import { guildIconCdn } from "~/utils/cdn";
 import { FALLBACK_AVATAR, API_BASE_URL } from "~/utils/constants";
 
-export const config: PageConfig = { runtime: "experimental-edge" };
+// export const config: PageConfig = { runtime: "experimental-edge" };
 
 export const getStaticProps = (async (ctx) => {
 	if (typeof ctx.params?.id !== "string") {
