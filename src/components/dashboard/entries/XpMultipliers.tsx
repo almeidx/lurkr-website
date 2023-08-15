@@ -134,7 +134,7 @@ export function XpMultipliers({ addChange, channels, roles, settings }: XpMultip
 							/>
 							<button
 								className="flex h-12 w-12 shrink-0 items-center justify-center rounded-md bg-discord-not-quite-black text-white transition-colors hover:text-opacity-75"
-								onClick={async () => {
+								onClick={() => {
 									const finalMultipliers = [
 										...xpMultipliers,
 										{ id: crypto.randomUUID(), multiplier: "1", targets: [], type: newXpMultiplierType },
