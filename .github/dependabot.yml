@@ -5,6 +5,19 @@ updates:
     directory: /
     schedule:
       interval: daily
+    groups:
+      non-major:
+        update-types:
+          - minor
+          - patch
+      nextjs:
+        patterns:
+          - next
+          - "@next/*"
+      react:
+        patterns:
+          - react
+          - react-dom
 
   - package-ecosystem: github-actions
     directory: /
