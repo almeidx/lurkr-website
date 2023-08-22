@@ -200,11 +200,11 @@ type Items = (Channel | Role)[];
 type OnSelectFn = (items: Snowflake[]) => unknown;
 
 interface SelectorProps {
-	disabled?: boolean;
-	id: string;
-	initialItems: Snowflake[];
-	items: Items;
-	limit: number;
-	onSelect: OnSelectFn;
-	type: "Channel" | "Role";
+	readonly disabled?: boolean;
+	readonly id: string;
+	readonly initialItems: Snowflake[];
+	readonly items: Items;
+	readonly limit: number;
+	readonly onSelect: OnSelectFn;
+	readonly type: "Channel" | "Role";
 }

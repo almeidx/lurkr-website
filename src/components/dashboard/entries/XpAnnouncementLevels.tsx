@@ -10,8 +10,8 @@ import { parseIntStrict } from "~/utils/common";
 import { MAX_XP_ANNOUNCE_LEVEL, MAX_XP_ANNOUNCE_LEVELS, MIN_XP_ANNOUNCE_LEVEL } from "~/utils/guild-config";
 
 interface XpAnnouncementLevelsProps {
-	addChange: AddChangeFn;
-	settings: GuildSettings;
+	readonly addChange: AddChangeFn;
+	readonly settings: GuildSettings;
 }
 
 export function XpAnnouncementLevels({ addChange, settings }: XpAnnouncementLevelsProps) {

@@ -14,9 +14,9 @@ import {
 } from "~/utils/guild-config";
 
 interface XpRoleRewardsProps {
-	addChange: AddChangeFn;
-	roles: Role[];
-	settings: GuildSettings;
+	readonly addChange: AddChangeFn;
+	readonly roles: Role[];
+	readonly settings: GuildSettings;
 }
 
 let timeout: NodeJS.Timeout | undefined;

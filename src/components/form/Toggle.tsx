@@ -21,9 +21,9 @@ export default function Toggle({ id, initialValue, disabled, size, onChange }: T
 }
 
 interface ToggleProps {
-	disabled?: boolean;
-	id: string;
-	initialValue: boolean;
+	readonly disabled?: boolean;
+	readonly id: string;
+	readonly initialValue: boolean;
 	onChange(value: boolean): unknown;
-	size: "large" | "small";
+	readonly size: "large" | "small";
 }

@@ -51,10 +51,10 @@ export default function RoleChannelBullet({
 }
 
 interface RoleChannelBulletProps {
-	channelType?: ChannelType;
-	hoverX?: boolean;
-	name: string;
-	onClick?: MouseEventHandler<HTMLDivElement>;
-	roleColour?: string;
-	type: "Channel" | "Role";
+	readonly channelType?: ChannelType;
+	readonly hoverX?: boolean;
+	readonly name: string;
+	readonly onClick?: MouseEventHandler<HTMLDivElement>;
+	readonly roleColour?: string;
+	readonly type: "Channel" | "Role";
 }

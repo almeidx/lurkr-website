@@ -15,7 +15,7 @@ export interface UserContextData {
 }
 
 interface UserContextProps {
-	children: ReactNode;
+	readonly children: ReactNode;
 }
 
 interface AuthSuccessResponse {

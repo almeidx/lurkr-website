@@ -7,8 +7,8 @@ import { formatNumberToNDecimalPlaces } from "~/utils/common";
 import { MAX_AUTO_ROLE_TIMEOUT, MIN_AUTO_ROLE_TIMEOUT } from "~/utils/guild-config";
 
 interface AutoRoleTimeoutProps {
-	addChange: AddChangeFn;
-	settings: GuildSettings;
+	readonly addChange: AddChangeFn;
+	readonly settings: GuildSettings;
 }
 
 export function AutoRoleTimeout({ addChange, settings }: AutoRoleTimeoutProps) {

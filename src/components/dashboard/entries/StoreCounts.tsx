@@ -4,8 +4,8 @@ import Toggle from "@/form/Toggle";
 import type { GuildSettings, AddChangeFn } from "~/contexts/GuildContext";
 
 interface StoreCountsProps {
-	addChange: AddChangeFn;
-	settings: GuildSettings;
+	readonly addChange: AddChangeFn;
+	readonly settings: GuildSettings;
 }
 
 export function StoreCounts({ addChange, settings }: StoreCountsProps) {

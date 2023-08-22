@@ -90,8 +90,8 @@ export default function Leveling({ channels, settings, roles, openMenu }: Leveli
 }
 
 interface LevelingProps {
-	channels: Channel[];
+	readonly channels: Channel[];
 	openMenu(): void;
-	roles: Role[];
-	settings: GuildSettings;
+	readonly roles: Role[];
+	readonly settings: GuildSettings;
 }

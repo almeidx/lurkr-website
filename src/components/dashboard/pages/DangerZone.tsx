@@ -74,5 +74,5 @@ export default function DangerZone({ settings, openMenu }: MentionCooldownProps)
 
 interface MentionCooldownProps {
 	openMenu(): void;
-	settings: GuildSettings;
+	readonly settings: GuildSettings;
 }

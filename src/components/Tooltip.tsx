@@ -16,5 +16,5 @@ export default function Tooltip({ text }: TooltipProps) {
 }
 
 interface TooltipProps {
-	text: string;
+	readonly text: string;
 }

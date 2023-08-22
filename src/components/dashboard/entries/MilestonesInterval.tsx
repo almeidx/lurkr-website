@@ -7,8 +7,8 @@ import { parseIntStrict } from "~/utils/common";
 import { MAX_MILESTONES_INTERVAL, MIN_MILESTONES_INTERVAL } from "~/utils/guild-config";
 
 interface MilestonesIntervalProps {
-	addChange: AddChangeFn;
-	settings: GuildSettings;
+	readonly addChange: AddChangeFn;
+	readonly settings: GuildSettings;
 }
 
 export function MilestonesInterval({ addChange, settings }: MilestonesIntervalProps) {

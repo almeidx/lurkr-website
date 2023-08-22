@@ -4,8 +4,8 @@ import Label from "@/form/Label";
 import { AutoResetLevelsEnum, type GuildSettings, type AddChangeFn } from "~/contexts/GuildContext";
 
 interface AutoResetLevelsProps {
-	addChange: AddChangeFn;
-	settings: GuildSettings;
+	readonly addChange: AddChangeFn;
+	readonly settings: GuildSettings;
 }
 
 export function AutoResetLevels({ addChange, settings }: AutoResetLevelsProps) {

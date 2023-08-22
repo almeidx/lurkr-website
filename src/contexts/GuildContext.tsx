@@ -386,7 +386,7 @@ interface GuildContextData {
 export type AddChangeFn = GuildContextData["addChange"];
 
 interface GuildContextProps {
-	children: ReactNode;
+	readonly children: ReactNode;
 }
 
 export interface GuildSettings {

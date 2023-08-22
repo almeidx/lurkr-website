@@ -12,9 +12,9 @@ import {
 } from "~/contexts/GuildContext";
 
 interface XpResponseTypeProps {
-	addChange: AddChangeFn;
-	channels: Channel[];
-	settings: GuildSettings;
+	readonly addChange: AddChangeFn;
+	readonly channels: Channel[];
+	readonly settings: GuildSettings;
 }
 
 const announceChannelTypes = [

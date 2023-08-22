@@ -28,7 +28,7 @@ export default function Miscellaneous({ channels, settings, openMenu }: Miscella
 }
 
 interface MiscellaneousProps {
-	channels: Channel[];
+	readonly channels: Channel[];
 	openMenu(): void;
-	settings: GuildSettings;
+	readonly settings: GuildSettings;
 }

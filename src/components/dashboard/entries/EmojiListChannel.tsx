@@ -5,9 +5,9 @@ import Selector from "@/form/Selector";
 import { type Channel, type AddChangeFn, type GuildSettings, ChannelType } from "~/contexts/GuildContext";
 
 interface EmojiListChannelProps {
-	addChange: AddChangeFn;
-	channels: Channel[];
-	settings: GuildSettings;
+	readonly addChange: AddChangeFn;
+	readonly channels: Channel[];
+	readonly settings: GuildSettings;
 }
 
 export function EmojiListChannel({ addChange, channels, settings }: EmojiListChannelProps) {

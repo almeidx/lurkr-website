@@ -17,5 +17,5 @@ export default function Spinner({ className }: SpinnerProps) {
 }
 
 interface SpinnerProps {
-	className?: string;
+	readonly className?: string;
 }

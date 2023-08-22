@@ -77,9 +77,9 @@ export default function BasicSelect({
 }
 
 interface BasicSelectProps {
-	closeOnSelect?: boolean;
-	disabled?: boolean;
-	initialItem: string;
-	items: readonly string[];
+	readonly closeOnSelect?: boolean;
+	readonly disabled?: boolean;
+	readonly initialItem: string;
+	readonly items: readonly string[];
 	onSelect(item: string): unknown;
 }

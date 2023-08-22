@@ -7,9 +7,9 @@ import type { Snowflake } from "~/utils/constants";
 import { MAX_MENTION_COOLDOWN_ROLES } from "~/utils/guild-config";
 
 interface MentionCooldownRolesProps {
-	addChange: AddChangeFn;
-	roles: Role[];
-	settings: GuildSettings;
+	readonly addChange: AddChangeFn;
+	readonly roles: Role[];
+	readonly settings: GuildSettings;
 }
 
 export function MentionCooldownRoles({ addChange, roles, settings }: MentionCooldownRolesProps) {

@@ -4,8 +4,8 @@ import Toggle from "@/form/Toggle";
 import type { AddChangeFn, GuildSettings } from "~/contexts/GuildContext";
 
 interface XpInThreadsProps {
-	addChange: AddChangeFn;
-	settings: GuildSettings;
+	readonly addChange: AddChangeFn;
+	readonly settings: GuildSettings;
 }
 
 export function XpInThreads({ addChange, settings }: XpInThreadsProps) {

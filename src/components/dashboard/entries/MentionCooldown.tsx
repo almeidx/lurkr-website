@@ -7,8 +7,8 @@ import { formatNumberToNDecimalPlaces } from "~/utils/common";
 import { MAX_MENTION_COOLDOWN, MIN_MENTION_COOLDOWN } from "~/utils/guild-config";
 
 interface MentionCooldownProps {
-	addChange: AddChangeFn;
-	settings: GuildSettings;
+	readonly addChange: AddChangeFn;
+	readonly settings: GuildSettings;
 }
 
 export function MentionCooldown({ addChange, settings }: MentionCooldownProps) {

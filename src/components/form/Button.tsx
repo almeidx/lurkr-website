@@ -1,11 +1,11 @@
 import { useState } from "react";
 
 interface ButtonProps {
-	children: React.ReactNode;
-	id: string;
+	readonly children: React.ReactNode;
+	readonly id: string;
 	onClick(): unknown;
-	red?: boolean;
-	withConfirmation?: boolean;
+	readonly red?: boolean;
+	readonly withConfirmation?: boolean;
 }
 
 export default function Button({ children, id, onClick, red, withConfirmation }: ButtonProps) {

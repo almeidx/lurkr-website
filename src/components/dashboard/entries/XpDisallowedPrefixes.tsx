@@ -13,8 +13,8 @@ import {
 } from "~/utils/guild-config";
 
 interface XpDisallowedPrefixesProps {
-	addChange: AddChangeFn;
-	settings: GuildSettings;
+	readonly addChange: AddChangeFn;
+	readonly settings: GuildSettings;
 }
 
 export function XpDisallowedPrefixes({ addChange, settings }: XpDisallowedPrefixesProps) {

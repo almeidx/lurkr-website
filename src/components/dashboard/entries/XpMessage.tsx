@@ -6,8 +6,8 @@ import type { AddChangeFn, GuildSettings } from "~/contexts/GuildContext";
 import { MAX_XP_MESSAGE_LENGTH } from "~/utils/guild-config";
 
 interface XpMessageProps {
-	addChange: AddChangeFn;
-	settings: GuildSettings;
+	readonly addChange: AddChangeFn;
+	readonly settings: GuildSettings;
 }
 
 export function XpMessage({ addChange, settings }: XpMessageProps) {

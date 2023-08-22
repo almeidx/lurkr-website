@@ -29,6 +29,6 @@ export default function Autorole({ settings, roles, openMenu }: AutoroleProps) {
 
 interface AutoroleProps {
 	openMenu(): void;
-	roles: Role[];
-	settings: GuildSettings;
+	readonly roles: Role[];
+	readonly settings: GuildSettings;
 }

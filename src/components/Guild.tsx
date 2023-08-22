@@ -26,8 +26,8 @@ export default function Guild({ baseRedirectPath, icon, id, name }: GuildProps) 
 }
 
 interface GuildProps {
-	baseRedirectPath: "/guilds" | "/levels";
-	icon: string | null;
-	id: Snowflake;
-	name: string;
+	readonly baseRedirectPath: "/guilds" | "/levels";
+	readonly icon: string | null;
+	readonly id: Snowflake;
+	readonly name: string;
 }

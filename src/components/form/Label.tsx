@@ -17,8 +17,8 @@ export default function Label({ htmlFor, name, url, withMargin = true }: LabelPr
 }
 
 interface LabelProps {
-	htmlFor: string;
-	name: string;
-	url: string;
-	withMargin?: boolean;
+	readonly htmlFor: string;
+	readonly name: string;
+	readonly url: string;
+	readonly withMargin?: boolean;
 }

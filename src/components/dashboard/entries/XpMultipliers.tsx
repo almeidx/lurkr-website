@@ -21,10 +21,10 @@ import type { Snowflake } from "~/utils/constants";
 import { MAX_XP_MULTIPLIERS, MAX_XP_MULTIPLIERS_PREMIUM } from "~/utils/guild-config";
 
 interface XpMultipliersProps {
-	addChange: AddChangeFn;
-	channels: Channel[];
-	roles: Role[];
-	settings: GuildSettings;
+	readonly addChange: AddChangeFn;
+	readonly channels: Channel[];
+	readonly roles: Role[];
+	readonly settings: GuildSettings;
 }
 
 export function XpMultipliers({ addChange, channels, roles, settings }: XpMultipliersProps) {

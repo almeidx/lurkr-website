@@ -97,4 +97,4 @@ export default function UserRow({
 	);
 }
 
-type UserProps = ILevel & { index: number };
+type UserProps = ILevel & { readonly index: number };
