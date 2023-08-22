@@ -3,8 +3,9 @@ import Link from "next/link";
 const sections = [
 	{
 		links: [
-			{ href: "/support", name: "Discord" },
-			{ href: "/github", name: "GitHub" },
+			{ href: "https://discord.gg/XUQAnkq2vy", name: "Discord" },
+			{ href: "https://top.gg/bot/506186003816513538/vote", name: "Top.gg" },
+			{ href: "https://github.com/almeidx/lurkr-website", name: "GitHub" },
 		],
 		title: "About Us",
 	},
@@ -25,11 +26,23 @@ export default function Footer() {
 					{sections.map(({ links, title }, idx) => (
 						<div className="flex flex-col gap-1 text-white" key={idx}>
 							<span className="mb-2 font-bold text-gray-400">{title}</span>
-							{links.map(({ href, name }, idx_) => (
-								<Link className="w-fit hover:underline" href={href} key={idx_}>
-									{name}
-								</Link>
-							))}
+							{links.map(({ href, name }, idx_) =>
+								href.startsWith("https://") ? (
+									<a
+										className="w-fit hover:underline"
+										href={href}
+										key={`${idx}-${idx_}`}
+										target="_blank"
+										rel="external noopener noreferrer"
+									>
+										{name}
+									</a>
+								) : (
+									<Link className="w-fit hover:underline" href={href} key={`${idx}-${idx_}`}>
+										{name}
+									</Link>
+								),
+							)}
 						</div>
 					))}
 				</div>

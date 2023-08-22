@@ -15,8 +15,8 @@ const links = [
 	{ name: "Dashboard", requireAuth: true, url: "/guilds" },
 	{ name: "Levels", url: "/levels" },
 	{ name: "Calculator", url: "/levels/calculator" },
-	{ name: "Patreon", url: "/patreon" },
-	{ name: "Docs", url: "/docs" },
+	{ name: "Patreon", url: "https://patreon.com/lurkrbot" },
+	{ name: "Docs", url: "https://docs.lurkr.gg" },
 	{ name: "Status", url: "/status" },
 ] as const satisfies readonly { name: string; requireAuth?: true; url: string }[];
 
@@ -56,12 +56,23 @@ export default function Navbar() {
 							{links.map((link, idx) =>
 								!("requireAuth" in link) || authenticated ? (
 									<li key={`${idx}-${link.name}`}>
-										<Link
-											className="block w-full px-4 font-normal leading-7 text-gray-300 hover:underline md:px-0 md:text-gray-400"
-											href={link.url}
-										>
-											{link.name}
-										</Link>
+										{link.url.startsWith("https://") ? (
+											<a
+												className="block w-full px-4 font-normal leading-7 text-gray-300 hover:underline md:px-0 md:text-gray-400"
+												href={link.url}
+												target="_blank"
+												rel="external noopener noreferrer"
+											>
+												{link.name}
+											</a>
+										) : (
+											<Link
+												className="block w-full px-4 font-normal leading-7 text-gray-300 hover:underline md:px-0 md:text-gray-400"
+												href={link.url}
+											>
+												{link.name}
+											</Link>
+										)}
 									</li>
 								) : null,
 							)}

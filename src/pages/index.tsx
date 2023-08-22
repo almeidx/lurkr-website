@@ -13,11 +13,6 @@ import Showcase, { type ShowcaseProps } from "~/components/Showcase";
 import { YouTubeLogoWithTextIcon } from "~/components/icons/YouTubeLogoWithText";
 import { YouTubePlayIcon } from "~/components/icons/YouTubePlay";
 
-const buttons = [
-	{ path: "/invite", text: "Invite the bot" },
-	{ path: "/guilds", text: "Go to Dashboard" },
-] as const satisfies readonly ButtonData[];
-
 const showcases = [
 	{
 		description:
@@ -68,15 +63,21 @@ export default function Home() {
 				</p>
 
 				<div className="flex flex-row items-center justify-center gap-4">
-					{buttons.map(({ path, text }, idx) => (
-						<Link
-							className="flex w-40 justify-center rounded-md bg-blurple px-3 py-2 text-white transition-colors hover:bg-[#414AB9]"
-							href={path}
-							key={idx}
-						>
-							{text}
-						</Link>
-					))}
+					<a
+						className="flex w-40 justify-center rounded-md bg-blurple px-3 py-2 text-white transition-colors hover:bg-[#414AB9]"
+						href="https://discord.com/oauth2/authorize?client_id=506186003816513538&scope=bot%20applications.commands&permissions=276220472384"
+						target="_blank"
+						rel="external noopener noreferrer"
+					>
+						Invite the bot
+					</a>
+
+					<Link
+						className="flex w-40 justify-center rounded-md bg-blurple px-3 py-2 text-white transition-colors hover:bg-[#414AB9]"
+						href="/guilds"
+					>
+						Go to Dashboard
+					</Link>
 				</div>
 			</header>
 
@@ -127,9 +128,4 @@ export default function Home() {
 			</main>
 		</div>
 	);
-}
-
-interface ButtonData {
-	path: string;
-	text: string;
 }

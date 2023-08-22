@@ -9,7 +9,7 @@ export default function Label({ htmlFor, name, url, withMargin = true }: LabelPr
 			htmlFor={htmlFor}
 		>
 			{name}
-			<a href={url} rel="noreferrer" target="_blank">
+			<a href={url} target="_blank" rel="external noopener noreferrer">
 				<BsFillQuestionCircleFill className="h-4 w-4 cursor-pointer fill-current text-gray-200 hover:text-gray-400" />
 			</a>
 		</label>
