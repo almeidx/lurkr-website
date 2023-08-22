@@ -7,9 +7,9 @@ import { XpChannelMode, type AddChangeFn, type Channel, type GuildSettings } fro
 import { MAX_XP_CHANNELS, MAX_XP_CHANNELS_PREMIUM } from "~/utils/guild-config";
 
 interface XpChannelsProps {
-	addChange: AddChangeFn;
-	channels: Channel[];
-	settings: GuildSettings;
+	readonly addChange: AddChangeFn;
+	readonly channels: Channel[];
+	readonly settings: GuildSettings;
 }
 
 export function XpChannels({ addChange, channels, settings }: XpChannelsProps) {

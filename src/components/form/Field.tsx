@@ -9,6 +9,6 @@ export default function Field({ children, direction, ...props }: FieldProps): JS
 }
 
 interface FieldProps {
-	children: ReactNode;
-	direction?: string;
+	readonly children: ReactNode;
+	readonly direction?: string;
 }

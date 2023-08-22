@@ -1,5 +1,6 @@
 import { useContext, useEffect } from "react";
 import Header from "@/dashboard/Header";
+import { XpAnnounceChannel } from "@/dashboard/entries/XpAnnounceChannel";
 import { AutoResetLevels } from "@/entries/AutoResetLevels";
 import { NoXpRoles } from "@/entries/NoXpRoles";
 import { PrioritiseMultiplierRoleHierarchy } from "@/entries/PrioritiseMultiplierRoleHierarchy";
@@ -15,7 +16,6 @@ import { XpDisallowedPrefixes } from "@/entries/XpDisallowedPrefixes";
 import { XpInThreads } from "@/entries/XpInThreads";
 import { XpMessage } from "@/entries/XpMessage";
 import { XpMultipliers } from "@/entries/XpMultipliers";
-import { XpResponseType } from "@/entries/XpResponseType";
 import { XpRoleRewards } from "@/entries/XpRoleRewards";
 import Fieldset from "@/form/Fieldset";
 import { GuildContext, type Channel, type GuildSettings, type Role } from "~/contexts/GuildContext";
@@ -51,7 +51,7 @@ export default function Leveling({ channels, settings, roles, openMenu }: Leveli
 			/>
 
 			<Fieldset>
-				<XpResponseType addChange={addChange} channels={channels} settings={settings} />
+				<XpAnnounceChannel addChange={addChange} channels={channels} settings={settings} />
 
 				<XpMessage addChange={addChange} settings={settings} />
 
@@ -90,8 +90,8 @@ export default function Leveling({ channels, settings, roles, openMenu }: Leveli
 }
 
 interface LevelingProps {
-	channels: Channel[];
+	readonly channels: Channel[];
 	openMenu(): void;
-	roles: Role[];
-	settings: GuildSettings;
+	readonly roles: Role[];
+	readonly settings: GuildSettings;
 }

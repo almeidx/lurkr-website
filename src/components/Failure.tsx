@@ -36,7 +36,7 @@ export default function Failure({ href, message, withSignIn }: FailureProps) {
 }
 
 interface FailureProps {
-	href: string;
-	message: string;
-	withSignIn?: boolean;
+	readonly href: string;
+	readonly message: string;
+	readonly withSignIn?: boolean;
 }

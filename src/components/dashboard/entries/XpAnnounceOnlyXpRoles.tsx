@@ -4,8 +4,8 @@ import Toggle from "@/form/Toggle";
 import type { AddChangeFn, GuildSettings } from "~/contexts/GuildContext";
 
 interface XpAnnounceOnlyXpRolesProps {
-	addChange: AddChangeFn;
-	settings: GuildSettings;
+	readonly addChange: AddChangeFn;
+	readonly settings: GuildSettings;
 }
 
 export function XpAnnounceOnlyXpRoles({ addChange, settings }: XpAnnounceOnlyXpRolesProps) {

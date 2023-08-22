@@ -28,7 +28,7 @@ export default function EmojiList({ channels, settings, openMenu }: EmojiListPro
 }
 
 interface EmojiListProps {
-	channels: Channel[];
+	readonly channels: Channel[];
 	openMenu(): void;
-	settings: GuildSettings;
+	readonly settings: GuildSettings;
 }

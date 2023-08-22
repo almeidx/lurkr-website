@@ -7,8 +7,8 @@ import { parseIntStrict } from "~/utils/common";
 import { MAX_XP_ANNOUNCE_MINIMUM_LEVEL, MIN_XP_ANNOUNCE_MINIMUM_LEVEL } from "~/utils/guild-config";
 
 interface XpAnnounceMinimumLevelProps {
-	addChange: AddChangeFn;
-	settings: GuildSettings;
+	readonly addChange: AddChangeFn;
+	readonly settings: GuildSettings;
 }
 
 export function XpAnnounceMiniumLevel({ addChange, settings }: XpAnnounceMinimumLevelProps) {

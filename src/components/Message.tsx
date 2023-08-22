@@ -14,6 +14,6 @@ export default function Message({ message, type = "error" }: MessageProps) {
 }
 
 interface MessageProps {
-	message: string;
-	type?: "error" | "warning";
+	readonly message: string;
+	readonly type?: "error" | "warning";
 }

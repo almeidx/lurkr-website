@@ -21,10 +21,10 @@ import type { Snowflake } from "~/utils/constants";
 import { MAX_XP_MULTIPLIERS, MAX_XP_MULTIPLIERS_PREMIUM } from "~/utils/guild-config";
 
 interface XpMultipliersProps {
-	addChange: AddChangeFn;
-	channels: Channel[];
-	roles: Role[];
-	settings: GuildSettings;
+	readonly addChange: AddChangeFn;
+	readonly channels: Channel[];
+	readonly roles: Role[];
+	readonly settings: GuildSettings;
 }
 
 export function XpMultipliers({ addChange, channels, roles, settings }: XpMultipliersProps) {
@@ -134,13 +134,10 @@ export function XpMultipliers({ addChange, channels, roles, settings }: XpMultip
 							/>
 							<button
 								className="flex h-12 w-12 shrink-0 items-center justify-center rounded-md bg-discord-not-quite-black text-white transition-colors hover:text-opacity-75"
-								onClick={async () => {
-									// cuid references the navigator global, which is not present on edge functions
-									const { default: cuid } = await import("cuid");
-
+								onClick={() => {
 									const finalMultipliers = [
 										...xpMultipliers,
-										{ id: cuid(), multiplier: "1", targets: [], type: newXpMultiplierType },
+										{ id: crypto.randomUUID(), multiplier: "1", targets: [], type: newXpMultiplierType },
 									];
 									setXpMultipliers(finalMultipliers);
 									addChange("xpMultipliers", resolveMultiplierValues(finalMultipliers));

@@ -9,5 +9,5 @@ export default function Fieldset({ children, ...props }: FieldsetProps): JSX.Ele
 }
 
 interface FieldsetProps {
-	children: ReactNode;
+	readonly children: ReactNode;
 }

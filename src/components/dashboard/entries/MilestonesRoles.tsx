@@ -7,9 +7,9 @@ import type { Snowflake } from "~/utils/constants";
 import { MAX_MILESTONES_ROLES, MAX_MILESTONES_ROLES_PREMIUM } from "~/utils/guild-config";
 
 interface MilestonesRolesProps {
-	addChange: AddChangeFn;
-	roles: Role[];
-	settings: GuildSettings;
+	readonly addChange: AddChangeFn;
+	readonly roles: Role[];
+	readonly settings: GuildSettings;
 }
 
 export function MilestonesRoles({ addChange, roles, settings }: MilestonesRolesProps) {

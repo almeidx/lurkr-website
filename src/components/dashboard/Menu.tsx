@@ -183,14 +183,14 @@ export function isValidSection(str: string): str is Section {
 
 interface MenuProps {
 	closeMenu(): void;
-	guild: {
+	readonly guild: {
 		icon: string | null;
 		id: Snowflake;
 		name: string;
 	};
-	guildId: Snowflake;
-	menuOpen: boolean;
-	premium: boolean;
+	readonly guildId: Snowflake;
+	readonly menuOpen: boolean;
+	readonly premium: boolean;
 }
 
 interface MenuItem {

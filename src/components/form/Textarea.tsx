@@ -25,10 +25,10 @@ export default function Textarea({ id, initialText, maxLength, placeholder, disa
 }
 
 interface TextareaProps {
-	disabled?: boolean;
-	id: string;
-	initialText: string;
-	maxLength: number;
+	readonly disabled?: boolean;
+	readonly id: string;
+	readonly initialText: string;
+	readonly maxLength: number;
 	onChange(text: string): unknown;
-	placeholder: string;
+	readonly placeholder: string;
 }

@@ -6,8 +6,8 @@ import type { GuildSettings, AddChangeFn } from "~/contexts/GuildContext";
 import { MAX_MILESTONES_MESSAGE_LENGTH, MIN_MILESTONES_MESSAGE_LENGTH } from "~/utils/guild-config";
 
 interface MilestonesMessageProps {
-	addChange: AddChangeFn;
-	settings: GuildSettings;
+	readonly addChange: AddChangeFn;
+	readonly settings: GuildSettings;
 }
 
 export function MilestonesMessage({ addChange, settings }: MilestonesMessageProps) {

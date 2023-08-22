@@ -11,7 +11,7 @@ import Failure from "~/components/Failure";
 import Spinner from "~/components/Spinner";
 import type { DiscordGuild, ILevel, IMultiplier, RoleReward } from "~/contexts/GuildContext";
 import { guildIconCdn } from "~/utils/cdn";
-import { FALLBACK_AVATAR, API_BASE_URL } from "~/utils/constants";
+import { API_BASE_URL, FALLBACK_AVATAR } from "~/utils/constants";
 
 export const config: PageConfig = { runtime: "experimental-edge" };
 
@@ -145,8 +145,8 @@ export default function Leaderboard(props: InferGetStaticPropsType<typeof getSta
 									</span>
 
 									<div className="flex w-full max-w-lg flex-col rounded-lg">
-										{sortedRoleRewards.map(({ level, roles }) => (
-											<Role key={level} level={level} roles={roles} />
+										{sortedRoleRewards.map((roleReward) => (
+											<Role key={roleReward.id} {...roleReward} />
 										))}
 									</div>
 								</div>
@@ -163,8 +163,8 @@ export default function Leaderboard(props: InferGetStaticPropsType<typeof getSta
 									</span>
 
 									<div className="flex w-full max-w-lg flex-col rounded-lg">
-										{sortedMultipliers.map(({ id, multiplier, targets, type }) => (
-											<Multiplier key={id} multiplier={multiplier} targets={targets} type={type} />
+										{sortedMultipliers.map((multiplier) => (
+											<Multiplier key={multiplier.id} {...multiplier} />
 										))}
 									</div>
 								</div>

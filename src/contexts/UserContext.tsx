@@ -2,17 +2,20 @@ import Cookie from "js-cookie";
 import { createContext, useEffect, useState, type ReactNode } from "react";
 import { type Snowflake, API_BASE_URL } from "~/utils/constants";
 
-interface UserContextData {
+export interface UserContextData {
 	accessToken: string;
 	authenticated: boolean;
 	avatar: string;
 	discriminator: string;
+	globalName: string | null;
 	id: Snowflake;
+	locale: string;
+	refreshToken: string;
 	username: string;
 }
 
 interface UserContextProps {
-	children: ReactNode;
+	readonly children: ReactNode;
 }
 
 interface AuthSuccessResponse {
@@ -30,6 +33,9 @@ export default function UserProvider({ children }: UserContextProps) {
 		discriminator: "",
 		id: "" as Snowflake,
 		username: "",
+		globalName: null,
+		locale: "",
+		refreshToken: "",
 	});
 
 	useEffect(() => {

@@ -7,9 +7,9 @@ import type { Snowflake } from "~/utils/constants";
 import { MAX_AUTO_ROLES, MAX_AUTO_ROLES_PREMIUM } from "~/utils/guild-config";
 
 interface AutoRoleProps {
-	addChange: AddChangeFn;
-	roles: Role[];
-	settings: GuildSettings;
+	readonly addChange: AddChangeFn;
+	readonly roles: Role[];
+	readonly settings: GuildSettings;
 }
 
 export function AutoRole({ addChange, roles, settings }: AutoRoleProps) {

@@ -1,3 +1,6 @@
+/* eslint-disable jsdoc/check-param-names */
+
+import type { UserContextData } from "../contexts/UserContext";
 import type { Snowflake } from "~/utils/constants";
 
 type ImageSizes = 1_024 | 2_048 | 4_096 | 16 | 32 | 64 | 128 | 256 | 512;
@@ -33,9 +36,14 @@ export function userAvatarCdn(id: Snowflake, hash: string, size: ImageSizes, all
 /**
  * Resolves a Discord user default avatar CDN URL.
  *
- * @param discriminator - The user discriminator.
+ * @param userData - The data for the user.
  * @param size - The size for the avatar.
  */
-export function userDefaultAvatarCdn(discriminator: string, size: ImageSizes) {
-	return `https://cdn.discordapp.com/avatars/${Number.parseInt(discriminator, 10) % 4}.webp?size=${size}`;
+export function userDefaultAvatarCdn(
+	{ discriminator, id }: Pick<UserContextData, "discriminator" | "id">,
+	size: ImageSizes,
+) {
+	const index = discriminator === "0" ? Number(BigInt(id) >> BigInt(22)) % 6 : Number(discriminator) % 5;
+
+	return `https://cdn.discordapp.com/avatars/${index}.webp?size=${size}`;
 }

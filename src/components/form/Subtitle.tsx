@@ -3,5 +3,5 @@ export default function Subtitle({ text }: SubtitleProps) {
 }
 
 interface SubtitleProps {
-	text: string;
+	readonly text: string;
 }

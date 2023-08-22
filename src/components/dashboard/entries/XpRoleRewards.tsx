@@ -14,9 +14,9 @@ import {
 } from "~/utils/guild-config";
 
 interface XpRoleRewardsProps {
-	addChange: AddChangeFn;
-	roles: Role[];
-	settings: GuildSettings;
+	readonly addChange: AddChangeFn;
+	readonly roles: Role[];
+	readonly settings: GuildSettings;
 }
 
 let timeout: NodeJS.Timeout | undefined;
@@ -52,7 +52,7 @@ export function XpRoleRewards({ addChange, roles, settings }: XpRoleRewardsProps
 				}
 			}, 1_000);
 		} else {
-			clone.push({ level, roleIds: [] });
+			clone.push({ id: crypto.randomUUID(), level, roleIds: [] });
 
 			setXpRoleRewards(clone);
 			addChange("xpRoleRewards", clone);
@@ -67,10 +67,7 @@ export function XpRoleRewards({ addChange, roles, settings }: XpRoleRewardsProps
 
 			if (roleIds.length) {
 				if (index === -1) {
-					clone.push({
-						level,
-						roleIds,
-					});
+					clone.push({ id: crypto.randomUUID(), level, roleIds });
 				} else {
 					clone[index]!.roleIds = roleIds;
 				}

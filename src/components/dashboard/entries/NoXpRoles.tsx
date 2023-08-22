@@ -7,9 +7,9 @@ import type { Snowflake } from "~/utils/constants";
 import { MAX_NO_XP_ROLES, MAX_NO_XP_ROLES_PREMIUM } from "~/utils/guild-config";
 
 interface NoXpRoleProps {
-	addChange: AddChangeFn;
-	roles: Role[];
-	settings: GuildSettings;
+	readonly addChange: AddChangeFn;
+	readonly roles: Role[];
+	readonly settings: GuildSettings;
 }
 
 export function NoXpRoles({ addChange, roles, settings }: NoXpRoleProps) {

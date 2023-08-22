@@ -6,8 +6,8 @@ import type { AddChangeFn, GuildSettings } from "~/contexts/GuildContext";
 import { MAX_VANITY_LENGTH, MIN_VANITY_LENGTH } from "~/utils/guild-config";
 
 interface VanityProps {
-	addChange: AddChangeFn;
-	settings: GuildSettings;
+	readonly addChange: AddChangeFn;
+	readonly settings: GuildSettings;
 }
 
 export function Vanity({ addChange, settings }: VanityProps) {

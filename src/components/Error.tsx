@@ -21,7 +21,7 @@ export default function ErrorPage({ code, message, title }: ErrorPageProps) {
 }
 
 interface ErrorPageProps {
-	code: number;
-	message: string;
-	title: string;
+	readonly code: number;
+	readonly message: string;
+	readonly title: string;
 }

@@ -5,9 +5,9 @@ import Selector from "@/form/Selector";
 import { type Channel, type GuildSettings, type AddChangeFn, ChannelType } from "~/contexts/GuildContext";
 
 interface MilestonesChannelProps {
-	addChange: AddChangeFn;
-	channels: Channel[];
-	settings: GuildSettings;
+	readonly addChange: AddChangeFn;
+	readonly channels: Channel[];
+	readonly settings: GuildSettings;
 }
 
 export function MilestonesChannel({ addChange, channels, settings }: MilestonesChannelProps) {

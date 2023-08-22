@@ -29,6 +29,6 @@ export default function MentionCooldownPage({ settings, roles, openMenu }: Menti
 
 interface MentionCooldownProps {
 	openMenu(): void;
-	roles: Role[];
-	settings: GuildSettings;
+	readonly roles: Role[];
+	readonly settings: GuildSettings;
 }

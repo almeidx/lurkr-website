@@ -4,9 +4,9 @@ import Selector from "@/form/Selector";
 import type { AddChangeFn, GuildSettings, Role } from "~/contexts/GuildContext";
 
 interface TopXpRoleProps {
-	addChange: AddChangeFn;
-	roles: Role[];
-	settings: GuildSettings;
+	readonly addChange: AddChangeFn;
+	readonly roles: Role[];
+	readonly settings: GuildSettings;
 }
 
 export function TopXpRole({ addChange, roles, settings }: TopXpRoleProps) {

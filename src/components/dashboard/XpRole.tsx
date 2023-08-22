@@ -39,10 +39,10 @@ export default function XpRole({ level, initialRoles, onChange, premium, roles, 
 export type XpRoleOnChangeFn = (roleIds: Snowflake[], level: number) => unknown;
 
 interface XpRoleProps {
-	disabled?: boolean;
-	initialRoles: Snowflake[];
-	level: number;
-	onChange: XpRoleOnChangeFn;
-	premium: boolean;
-	roles: Role[];
+	readonly disabled?: boolean;
+	readonly initialRoles: Snowflake[];
+	readonly level: number;
+	readonly onChange: XpRoleOnChangeFn;
+	readonly premium: boolean;
+	readonly roles: Role[];
 }

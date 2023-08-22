@@ -24,8 +24,8 @@ export default function Showcase({ description, index, src, title }: ShowcasePro
 }
 
 export interface ShowcaseProps {
-	description: string;
-	index: number;
-	src: StaticImageData;
-	title: string;
+	readonly description: string;
+	readonly index: number;
+	readonly src: StaticImageData;
+	readonly title: string;
 }

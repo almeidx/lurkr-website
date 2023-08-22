@@ -74,14 +74,14 @@ export type XpMultiplierOnItemChangeFn = (itemIds: Snowflake[], id: string) => u
 export type XpMultiplierOnMultiplierChangeFn = (multiplier: string, id: string) => unknown;
 
 interface XpMultiplierProps {
-	channels: Channel[];
-	id: string;
-	multiplier: string;
-	onDelete: XpMultiplierOnDeleteFn;
-	onItemChange: XpMultiplierOnItemChangeFn;
-	onMultiplierChange: XpMultiplierOnMultiplierChangeFn;
-	premium: boolean;
-	roles: Role[];
-	targets: Snowflake[] | null;
-	type: XpMultiplierType;
+	readonly channels: Channel[];
+	readonly id: string;
+	readonly multiplier: string;
+	readonly onDelete: XpMultiplierOnDeleteFn;
+	readonly onItemChange: XpMultiplierOnItemChangeFn;
+	readonly onMultiplierChange: XpMultiplierOnMultiplierChangeFn;
+	readonly premium: boolean;
+	readonly roles: Role[];
+	readonly targets: Snowflake[] | null;
+	readonly type: XpMultiplierType;
 }
