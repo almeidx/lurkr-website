@@ -248,6 +248,11 @@ export default function GuildContextProvider({ children }: GuildContextProps) {
 				) {
 					newErrors.push("One of the XP Multipliers has an invalid multiplier value.");
 				}
+
+				const keys = changes.xpMultipliers.map(({ multiplier, type }) => `${multiplier}-${type}`);
+				if (new Set(keys).size !== keys.length) {
+					newErrors.push("There are XP Multipliers with the same multiplier and type. Please merge them.");
+				}
 			}
 
 			if (changes.xpRoleRewards?.some((roleReward) => !roleReward.roleIds.length)) {
