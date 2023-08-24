@@ -57,11 +57,11 @@ devDependencies:
     specifier: ^3.0.3
     version: 3.0.3
   '@types/node':
-    specifier: ^20.5.2
-    version: 20.5.2
+    specifier: ^20.5.4
+    version: 20.5.4
   '@types/react':
-    specifier: ^18.2.20
-    version: 18.2.20
+    specifier: ^18.2.21
+    version: 18.2.21
   autoprefixer:
     specifier: ^10.4.15
     version: 10.4.15(postcss@8.4.28)
@@ -72,8 +72,8 @@ devDependencies:
     specifier: ^8.47.0
     version: 8.47.0
   eslint-config-neon:
-    specifier: ^0.1.54
-    version: 0.1.54(eslint@8.47.0)(typescript@5.1.6)
+    specifier: ^0.1.56
+    version: 0.1.56(eslint@8.47.0)(typescript@5.1.6)
   eslint-plugin-tailwindcss:
     specifier: ^3.13.0
     version: 3.13.0(tailwindcss@3.3.3)
@@ -393,8 +393,8 @@ packages:
     resolution: {integrity: sha512-Hr5Jfhc9eYOQNPYO5WLDq/n4jqijdHNlDXjuAQkkt+mWdQR+XJToOHrsD4cPaMXpn6KO7y2+wM8AZEs8VpBLVA==}
     dev: true
 
-  /@types/node@20.5.2:
-    resolution: {integrity: sha512-5j/lXt7unfPOUlrKC34HIaedONleyLtwkKggiD/0uuMfT8gg2EOpg0dz4lCD15Ga7muC+1WzJZAjIB9simWd6Q==}
+  /@types/node@20.5.4:
+    resolution: {integrity: sha512-Y9vbIAoM31djQZrPYjpTLo0XlaSwOIsrlfE3LpulZeRblttsLQRFRlBAppW0LOxyT3ALj2M5vU1ucQQayQH3jA==}
     dev: true
 
   /@types/normalize-package-data@2.4.1:
@@ -405,8 +405,8 @@ packages:
     resolution: {integrity: sha512-JCB8C6SnDoQf0cNycqd/35A7MjcnK+ZTqE7judS6o7utxUCg6imJg3QK2qzHKszlTjcj2cn+NwMB2i96ubpj7w==}
     dev: true
 
-  /@types/react@18.2.20:
-    resolution: {integrity: sha512-WKNtmsLWJM/3D5mG4U84cysVY31ivmyw85dE84fOCk5Hx78wezB/XEjVPWl2JTZ5FkEeaTJf+VgUAUn3PE7Isw==}
+  /@types/react@18.2.21:
+    resolution: {integrity: sha512-neFKG/sBAwGxHgXiIxnbm3/AAVQ/cMRS93hvBpg8xYRbeQSPVABp9U2bRnPf0iI4+Ucdv3plSxKK+3CW2ENJxA==}
     dependencies:
       '@types/prop-types': 15.7.5
       '@types/scheduler': 0.16.3
@@ -1284,8 +1284,8 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
-  /eslint-config-neon@0.1.54(eslint@8.47.0)(typescript@5.1.6):
-    resolution: {integrity: sha512-X/0BC85UpwpUR5rktziXEEmN4wmusBL4pagd+Al6+7/lNBOBk6Q4wTNfTbW63IAOmy1gOB5NNc/sFSRKLpHhPA==}
+  /eslint-config-neon@0.1.56(eslint@8.47.0)(typescript@5.1.6):
+    resolution: {integrity: sha512-5aHP/jRnhbIwesl7y0JoRyoIDh/dad+hK8ZHT9wtYW8oEKZN7s3F+cCApxPO6oc6HWv85g22bnuDVKmN4r5xYA==}
     engines: {node: '>=16.0.0'}
     dependencies:
       '@angular-eslint/eslint-plugin': /@almeidx/empty@1.0.1
