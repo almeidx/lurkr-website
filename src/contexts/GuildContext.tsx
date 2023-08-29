@@ -251,7 +251,7 @@ export default function GuildContextProvider({ children }: GuildContextProps) {
 
 				const keys = changes.xpMultipliers.map(({ multiplier, type }) => `${multiplier}-${type}`);
 				if (new Set(keys).size !== keys.length) {
-					newErrors.push("There are XP Multipliers with the same multiplier and type. Please merge them.");
+					newErrors.push("There are multiple XP Multipliers with the same multiplier and type. Please merge them.");
 				}
 			}
 
@@ -262,6 +262,11 @@ export default function GuildContextProvider({ children }: GuildContextProps) {
 			if (changes.xpRoleRewards) {
 				const xpRoleRewardsLimit = premium ? MAX_XP_ROLE_REWARDS_PREMIUM : MAX_XP_ROLE_REWARDS;
 				validateArray(changes.xpRoleRewards, xpRoleRewardsLimit, "xp role rewards");
+
+				const keys = changes.xpRoleRewards.map(({ level }) => level);
+				if (new Set(keys).size !== keys.length) {
+					newErrors.push("There are multiple XP Role Rewards with the same level. Please merge them.");
+				}
 			}
 
 			if (data) {
