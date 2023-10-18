@@ -28,7 +28,7 @@ interface XpMultipliersProps {
 }
 
 export function XpMultipliers({ addChange, channels, roles, settings }: XpMultipliersProps) {
-	const [xpMultipliers, setXpMultipliers] = useState<MultiplierWithStringValue[]>(
+	const [xpMultipliers, setXpMultipliers] = useState<MultiplierWithStringValue[]>(() =>
 		settings.xpMultipliers.map((multiplier) => ({
 			...multiplier,
 			multiplier: multiplier.multiplier.toString(),
@@ -38,7 +38,7 @@ export function XpMultipliers({ addChange, channels, roles, settings }: XpMultip
 
 	const handleXpMultiplierDelete: XpMultiplierOnDeleteFn = useCallback(
 		(id) => {
-			const clone = [...xpMultipliers];
+			const clone = JSON.parse(JSON.stringify(xpMultipliers)) as MultiplierWithStringValue[];
 			const index = clone.findIndex((multiplier) => multiplier.id === id);
 
 			if (index < 0) {
@@ -58,7 +58,7 @@ export function XpMultipliers({ addChange, channels, roles, settings }: XpMultip
 
 	const handleXpMultiplierItemsChange: XpMultiplierOnItemChangeFn = useCallback(
 		(itemIds, id) => {
-			const clone = [...xpMultipliers];
+			const clone = JSON.parse(JSON.stringify(xpMultipliers)) as MultiplierWithStringValue[];
 			const index = clone.findIndex((multiplier) => multiplier.id === id);
 
 			if (index < 0) {
@@ -68,16 +68,7 @@ export function XpMultipliers({ addChange, channels, roles, settings }: XpMultip
 				return;
 			}
 
-			const multiplier = clone[index]!;
-			if (!multiplier.targets) {
-				console.log(
-					"[Leveling] The multiplier found did not have targets when the user tried changing the items of a multiplier",
-				);
-				return;
-			}
-
-			multiplier.targets = itemIds;
-			clone[index] = multiplier;
+			clone[index]!.targets = itemIds;
 
 			setXpMultipliers(clone);
 			addChange("xpMultipliers", resolveMultiplierValues(clone));
@@ -87,7 +78,7 @@ export function XpMultipliers({ addChange, channels, roles, settings }: XpMultip
 
 	const handleXpMultiplierValueChange: XpMultiplierOnMultiplierChangeFn = useCallback(
 		(multiplier, id) => {
-			const clone = [...xpMultipliers];
+			const clone = JSON.parse(JSON.stringify(xpMultipliers)) as MultiplierWithStringValue[];
 			const index = clone.findIndex((multiplier) => multiplier.id === id);
 
 			if (index < 0) {
@@ -97,10 +88,7 @@ export function XpMultipliers({ addChange, channels, roles, settings }: XpMultip
 				return;
 			}
 
-			const xpMultiplier = clone[index]!;
-			xpMultiplier.multiplier = multiplier;
-
-			clone[index] = xpMultiplier;
+			clone[index]!.multiplier = multiplier;
 
 			setXpMultipliers(clone);
 			addChange("xpMultipliers", resolveMultiplierValues(clone));
