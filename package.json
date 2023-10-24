@@ -6,19 +6,13 @@
 		"build": "next build",
 		"build:analyze": "cross-env ANALYZE=true next build",
 		"dev": "next dev",
-		"fmt": "pnpm format",
+		"fmt": "pnpm run format",
 		"format": "prettier --write . && eslint src --ext ts,tsx --fix",
-		"postinstall": "husky install .github/husky",
 		"lint": "prettier --check . && eslint src --ext ts,tsx",
 		"start": "next start"
 	},
-	"lint-staged": {
-		"*.tsx": "eslint --fix",
-		"*.{ts,tsx,js,mjs,cjs,json,yml}": "prettier --write"
-	},
 	"prettier": {
 		"printWidth": 120,
-		"trailingComma": "all",
 		"useTabs": true
 	},
 	"eslintConfig": {
@@ -41,14 +35,26 @@
 		],
 		"rules": {
 			"default-case": 0,
-			"no-duplicate-imports": 2,
 			"no-warning-comments": 0,
 			"prefer-named-capture-group": 0,
 			"@typescript-eslint/consistent-type-definitions": [
 				2,
 				"interface"
 			],
+			"@typescript-eslint/consistent-type-imports": [
+				2,
+				{
+					"fixStyle": "inline-type-imports"
+				}
+			],
+			"@typescript-eslint/no-import-type-side-effects": 2,
 			"@typescript-eslint/unbound-method": 0,
+			"import/no-duplicates": [
+				2,
+				{
+					"prefer-inline": true
+				}
+			],
 			"promise/prefer-await-to-callbacks": 0,
 			"promise/prefer-await-to-then": 0,
 			"tailwindcss/no-custom-classname": 0,
@@ -59,8 +65,7 @@
 			".vercel/*",
 			"node_modules/*",
 			"next-env.d.ts"
-		],
-		"root": true
+		]
 	},
 	"resolutions": {
 		"@angular-eslint/eslint-plugin": "npm:@almeidx/empty",
@@ -70,7 +75,7 @@
 		"eslint-mdx": "npm:@almeidx/empty",
 		"eslint-plugin-astro": "npm:@almeidx/empty",
 		"eslint-plugin-cypress": "npm:@almeidx/empty",
-		"eslint-plugin-jsx-a11y": "npm:@almeidx/empty",
+		"eslint-plugin-jest": "npm:@almeidx/empty",
 		"eslint-plugin-mdx": "npm:@almeidx/empty",
 		"eslint-plugin-rxjs": "npm:@almeidx/empty",
 		"eslint-plugin-rxjs-angular": "npm:@almeidx/empty",
@@ -81,33 +86,31 @@
 	"dependencies": {
 		"@almeidx/ms": "^1.2.1",
 		"js-cookie": "^3.0.5",
-		"next": "^13.4.19",
+		"next": "^13.5.6",
 		"next-progress": "^2.3.1",
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",
-		"react-icons": "^4.10.1",
-		"sharp": "^0.32.5",
+		"react-icons": "^4.11.0",
+		"sharp": "^0.32.6",
 		"tslib": "^2.6.2"
 	},
 	"devDependencies": {
-		"@next/bundle-analyzer": "^13.4.19",
-		"@types/js-cookie": "^3.0.3",
-		"@types/node": "^20.5.2",
-		"@types/react": "^18.2.20",
-		"autoprefixer": "^10.4.15",
+		"@next/bundle-analyzer": "^13.5.6",
+		"@types/js-cookie": "^3.0.5",
+		"@types/node": "^20.8.8",
+		"@types/react": "^18.2.31",
+		"autoprefixer": "^10.4.16",
 		"cross-env": "^7.0.3",
-		"eslint": "^8.47.0",
-		"eslint-config-neon": "^0.1.54",
+		"eslint": "^8.52.0",
+		"eslint-config-neon": "^0.1.57",
 		"eslint-plugin-tailwindcss": "^3.13.0",
-		"husky": "^8.0.3",
-		"lint-staged": "^14.0.1",
-		"postcss": "^8.4.28",
-		"prettier": "^3.0.2",
+		"postcss": "^8.4.31",
+		"prettier": "^3.0.3",
 		"tailwind-scrollbar": "^3.0.5",
 		"tailwindcss": "^3.3.3",
-		"typescript": "~5.1.6"
+		"typescript": "~5.2.2"
 	},
-	"packageManager": "pnpm@8.6.0",
+	"packageManager": "pnpm@8.9.2+sha256.8d62573d93061f2722b7b48c9739e96cd4603c3ab153bc81c619dcb9861a214e",
 	"engines": {
 		"node": "18"
 	}

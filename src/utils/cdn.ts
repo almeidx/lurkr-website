@@ -1,6 +1,6 @@
 /* eslint-disable jsdoc/check-param-names */
 
-import type { UserContextData } from "../contexts/UserContext";
+import type { UserContextData } from "~/contexts/UserContext";
 import type { Snowflake } from "~/utils/constants";
 
 type ImageSizes = 1_024 | 2_048 | 4_096 | 16 | 32 | 64 | 128 | 256 | 512;

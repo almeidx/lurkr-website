@@ -17,9 +17,6 @@ export default withBundleAnalyzer({
 	eslint: {
 		ignoreDuringBuilds: true,
 	},
-	experimental: {
-		fallbackNodePolyfills: false,
-	},
 	reactStrictMode: true,
 	redirects() {
 		return [

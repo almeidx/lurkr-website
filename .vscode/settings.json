@@ -12,9 +12,12 @@
 		"tailwindcss"
 	],
 	"editor.rulers": [120],
-	"search.exclude": {
-		"node_modules/*": true
+	"files.readonlyInclude": {
+		".next/*": true,
+		"next-env.d.ts": true,
+		"node_modules/**": true,
+		"pnpm-lock.yaml": true
 	},
 	"typescript.enablePromptUseWorkspaceTsdk": true,
-	"typescript.preferences.importModuleSpecifierEnding": "index"
+	"typescript.preferences.importModuleSpecifier": "non-relative"
 }

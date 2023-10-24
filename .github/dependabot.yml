@@ -14,10 +14,14 @@ updates:
         patterns:
           - next
           - "@next/*"
+        update-types:
+          - major
       react:
         patterns:
           - react
           - react-dom
+        update-types:
+          - major
 
   - package-ecosystem: github-actions
     directory: /
