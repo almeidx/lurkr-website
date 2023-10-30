@@ -11,13 +11,11 @@
 		"nocompatible",
 		"tailwindcss"
 	],
-	"editor.rulers": [120],
 	"files.readonlyInclude": {
 		".next/*": true,
 		"next-env.d.ts": true,
 		"node_modules/**": true,
 		"pnpm-lock.yaml": true
 	},
-	"typescript.enablePromptUseWorkspaceTsdk": true,
 	"typescript.preferences.importModuleSpecifier": "non-relative"
 }

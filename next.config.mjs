@@ -1,11 +1,10 @@
 import nextBundleAnalyzer from "@next/bundle-analyzer";
 
-const withBundleAnalyzer = nextBundleAnalyzer({
-	// eslint-disable-next-line no-undef
-	enabled: process.env.ANALYZE === "true",
-});
+// eslint-disable-next-line no-undef
+const bundleAnalyzerEnabled = process.env.ANALYZE === "true";
 
-export default withBundleAnalyzer({
+/** @type {import("next").NextConfig} */
+const nextConfig = {
 	images: {
 		remotePatterns: [
 			{
@@ -53,4 +52,6 @@ export default withBundleAnalyzer({
 			},
 		];
 	},
-});
+};
+
+export default bundleAnalyzerEnabled ? nextBundleAnalyzer(nextConfig) : nextConfig;
