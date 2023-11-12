@@ -1,0 +1,29 @@
+version: 2
+
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: daily
+    groups:
+      non-major:
+        update-types:
+          - minor
+          - patch
+      nextjs:
+        patterns:
+          - next
+          - "@next/*"
+        update-types:
+          - major
+      react:
+        patterns:
+          - react
+          - react-dom
+        update-types:
+          - major
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: daily

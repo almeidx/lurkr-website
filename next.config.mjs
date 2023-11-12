@@ -1,6 +1,5 @@
 import nextBundleAnalyzer from "@next/bundle-analyzer";
 
-// eslint-disable-next-line no-undef
 const bundleAnalyzerEnabled = process.env.ANALYZE === "true";
 
 /** @type {import("next").NextConfig} */
@@ -13,8 +12,10 @@ const nextConfig = {
 			},
 		],
 	},
-	eslint: {
-		ignoreDuringBuilds: true,
+	logging: {
+		fetches: {
+			fullUrl: true,
+		},
 	},
 	reactStrictMode: true,
 	redirects() {

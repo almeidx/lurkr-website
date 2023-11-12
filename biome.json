@@ -1,0 +1,46 @@
+{
+	"$schema": "https://biomejs.dev/schemas/1.5.2/schema.json",
+	"files": {
+		"ignore": [".next", "node_modules"]
+	},
+	"formatter": {
+		"lineWidth": 120
+	},
+	"linter": {
+		"enabled": true,
+		"rules": {
+			"a11y": {
+				"noSvgWithoutTitle": "off"
+			},
+			"correctness": {
+				"useHookAtTopLevel": "error"
+			},
+			"nursery": {
+				"noUnusedImports": "warn",
+				"noUnusedPrivateClassMembers": "error",
+				"noUselessLoneBlockStatements": "error",
+				"useAwait": "error",
+				"useGroupedTypeImport": "error"
+			},
+			"recommended": true,
+			"style": {
+				"noCommaOperator": "off",
+				"noNamespace": "error",
+				"noNegationElse": "error",
+				"noNonNullAssertion": "off",
+				"useCollapsedElseIf": "error",
+				"useShorthandArrayType": "error",
+				"useShorthandAssign": "error"
+			},
+			"suspicious": {
+				"noApproximativeNumericConstant": "error",
+				"noConstEnum": "off",
+				"noExplicitAny": "off",
+				"noMisrefactoredShorthandAssign": "error"
+			}
+		}
+	},
+	"organizeImports": {
+		"enabled": true
+	}
+}
