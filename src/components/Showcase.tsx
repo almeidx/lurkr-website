@@ -1,31 +1,32 @@
+import clsx from "clsx";
 import Image, { type StaticImageData } from "next/image";
-import type { ComponentProps } from "react";
+import type { PropsWithChildren } from "react";
 
-export default function Showcase({ description, index, src, title }: ShowcaseProps) {
-	// Only prioritize the first image
-	const imgProps = (index > 0 ? { placeholder: "blur" as const } : { priority: true }) satisfies Partial<
-		ComponentProps<typeof Image>
-	>;
-
+export function Showcase({
+	children,
+	title,
+	imgSrc,
+	description,
+	index,
+}: PropsWithChildren<{ title: string; imgSrc: StaticImageData; description: string; index: number }>) {
 	return (
-		<section className="flex flex-col items-center gap-6 lg:grid lg:grid-cols-3 lg:px-6 xl:px-48">
-			<Image alt={title} className="rounded-md" height={193} src={src} width={386} {...imgProps} />
+		<div className={clsx("flex flex-col gap-2 xl:gap-8", index % 2 === 0 ? "xl:flex-row" : "xl:flex-row-reverse")}>
+			<Image className="aspect-[2/1]" alt={title} src={imgSrc} height={300} width={600} />
 
-			<div
-				className={`${
-					index % 2 === 1 ? "row-start-1 " : ""
-				}col-span-2 mx-3 flex h-full flex-col justify-center px-2 text-center sm:px-16 lg:px-0 lg:text-left`}
-			>
-				<h2 className="text-lg font-bold text-white sm:text-xl">{title}</h2>
-				<p className="mt-3 font-light text-gray-400">{description}</p>
+			<div className="flex flex-col gap-2 xl:grid xl:grid-rows-3">
+				<div className="hidden xl:block" />
+
+				<div className="text-center gap-4 row-span-2 flex flex-col xl:grid xl:grid-cols-4">
+					<div className="hidden xl:flex xl:justify-end">
+						<div className="size-fit p-3 rounded-xl bg-darker">{children}</div>
+					</div>
+
+					<div className="col-span-3 flex flex-col xl:gap-4">
+						<p className="xl:place-self-start text-xl xl:text-3xl font-bold text-shadow-regular mt-3">{title}</p>
+						<p className="xl:text-left text-white/75 xl:text-xl tracking-tighter max-w-md">{description}</p>
+					</div>
+				</div>
 			</div>
-		</section>
+		</div>
 	);
-}
-
-export interface ShowcaseProps {
-	readonly description: string;
-	readonly index: number;
-	readonly src: StaticImageData;
-	readonly title: string;
 }

@@ -1,43 +1,37 @@
 {
 	"compilerOptions": {
+		"allowImportingTsExtensions": true,
 		"allowJs": true,
+		"allowUnreachableCode": false,
+		"allowUnusedLabels": false,
 		"esModuleInterop": true,
 		"forceConsistentCasingInFileNames": true,
-		"importHelpers": true,
 		"incremental": true,
+		"isolatedModules": true,
 		"jsx": "preserve",
-		"lib": ["DOM", "DOM.Iterable", "ESNext"],
-		"module": "ESNext",
-		"moduleResolution": "Node",
-		"newLine": "lf",
+		"lib": ["dom", "dom.iterable", "esnext"],
+		"module": "esnext",
+		"moduleResolution": "node",
 		"noEmit": true,
-		"noEmitHelpers": true,
 		"noFallthroughCasesInSwitch": true,
 		"noImplicitOverride": true,
+		"noImplicitReturns": true,
+		"noUncheckedIndexedAccess": true,
 		"noUnusedLocals": true,
-		"preserveConstEnums": true,
-		"removeComments": true,
-		"resolveJsonModule": true,
-		"skipLibCheck": true,
-		"sourceMap": true,
-		"strict": true,
-		"target": "ES5",
-		"verbatimModuleSyntax": false,
 		"paths": {
-			"@/dashboard/*": ["./src/components/dashboard/*"],
-			"@/entries/*": ["./src/components/dashboard/entries/*"],
-			"@/dashboard-pages/*": ["./src/components/dashboard/pages/*"],
-			"@/form/*": ["./src/components/form/*"],
-			"@/leaderboard/*": ["./src/components/leaderboard/*"],
-			"~/*": ["./src/*"]
+			"@/*": ["./src/*"]
 		},
 		"plugins": [
 			{
 				"name": "next"
 			}
 		],
-		"isolatedModules": true
+		"resolveJsonModule": true,
+		"skipLibCheck": true,
+		"strict": true,
+		"target": "es5",
+		"useUnknownInCatchVariables": true
 	},
 	"exclude": ["node_modules"],
-	"include": ["**/*.ts", "**/*.tsx", "next-env.d.ts"]
+	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "shared-links.mjs"]
 }

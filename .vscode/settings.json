@@ -1,21 +1,34 @@
 {
 	"cSpell.words": [
+		"amari",
+		"ariakit",
 		"autorole",
 		"Autoroles",
+		"Chatbubble",
 		"Chatbubbles",
 		"classname",
 		"clonedeep",
+		"clsx",
 		"discordapp",
 		"Featureful",
 		"nextjs",
 		"nocompatible",
-		"tailwindcss"
+		"nprogress",
+		"tailwindcss",
+		"TOPGG",
+		"usehooks",
+		"valibot"
 	],
+	"editor.defaultFormatter": "biomejs.biome",
+	"eslint.enable": false,
 	"files.readonlyInclude": {
 		".next/*": true,
 		"next-env.d.ts": true,
 		"node_modules/**": true,
 		"pnpm-lock.yaml": true
 	},
-	"typescript.preferences.importModuleSpecifier": "non-relative"
+	"prettier.enable": false,
+	"tailwindCSS.experimental.classRegex": [["clsx\\(([^)]*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)"]],
+	"typescript.preferences.importModuleSpecifier": "non-relative",
+	"typescript.tsdk": "node_modules/typescript/lib"
 }

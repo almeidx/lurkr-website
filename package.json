@@ -5,113 +5,47 @@
 	"scripts": {
 		"build": "next build",
 		"build:analyze": "cross-env ANALYZE=true next build",
-		"dev": "next dev",
+		"dev": "next dev --turbo",
 		"fmt": "pnpm run format",
-		"format": "prettier --write . && eslint src --ext ts,tsx --fix",
-		"lint": "prettier --check . && eslint src --ext ts,tsx",
+		"format": "biome check --apply-unsafe .",
+		"lint": "biome check .",
+		"prepare": "husky .github/husky",
 		"start": "next start"
 	},
-	"prettier": {
-		"printWidth": 120,
-		"useTabs": true
-	},
-	"eslintConfig": {
-		"parserOptions": {
-			"project": "./tsconfig.eslint.json"
-		},
-		"settings": {
-			"react": {
-				"version": "detect"
-			}
-		},
-		"extends": [
-			"neon/common",
-			"neon/browser",
-			"neon/typescript",
-			"neon/react",
-			"neon/next",
-			"neon/prettier",
-			"plugin:tailwindcss/recommended"
-		],
-		"rules": {
-			"default-case": 0,
-			"no-warning-comments": 0,
-			"prefer-named-capture-group": 0,
-			"@typescript-eslint/consistent-type-definitions": [
-				2,
-				"interface"
-			],
-			"@typescript-eslint/consistent-type-imports": [
-				2,
-				{
-					"fixStyle": "inline-type-imports"
-				}
-			],
-			"@typescript-eslint/no-import-type-side-effects": 2,
-			"@typescript-eslint/unbound-method": 0,
-			"import/no-duplicates": [
-				2,
-				{
-					"prefer-inline": true
-				}
-			],
-			"promise/prefer-await-to-callbacks": 0,
-			"promise/prefer-await-to-then": 0,
-			"tailwindcss/no-custom-classname": 0,
-			"unicorn/consistent-function-scoping": 0
-		},
-		"ignorePatterns": [
-			".next/*",
-			".vercel/*",
-			"node_modules/*",
-			"next-env.d.ts"
-		]
-	},
-	"resolutions": {
-		"@angular-eslint/eslint-plugin": "npm:@almeidx/empty",
-		"@angular-eslint/eslint-plugin-template": "npm:@almeidx/empty",
-		"@angular-eslint/template-parser": "npm:@almeidx/empty",
-		"astro-eslint-parser": "npm:@almeidx/empty",
-		"eslint-mdx": "npm:@almeidx/empty",
-		"eslint-plugin-astro": "npm:@almeidx/empty",
-		"eslint-plugin-cypress": "npm:@almeidx/empty",
-		"eslint-plugin-jest": "npm:@almeidx/empty",
-		"eslint-plugin-mdx": "npm:@almeidx/empty",
-		"eslint-plugin-rxjs": "npm:@almeidx/empty",
-		"eslint-plugin-rxjs-angular": "npm:@almeidx/empty",
-		"eslint-plugin-svelte3": "npm:@almeidx/empty",
-		"eslint-plugin-vue": "npm:@almeidx/empty",
-		"vue-eslint-parser": "npm:@almeidx/empty"
-	},
 	"dependencies": {
-		"@almeidx/ms": "^1.2.1",
-		"@next/third-parties": "^14.1.0",
-		"js-cookie": "^3.0.5",
-		"next": "^14.1.0",
-		"next-progress": "^2.3.1",
+		"@ariakit/react": "^0.4.5",
+		"@next/third-parties": "^14.2.1",
+		"@react-icons/all-files": "https://github.com/react-icons/react-icons/releases/download/v5.1.0/react-icons-all-files-5.1.0.tgz",
+		"clsx": "^2.1.0",
+		"jwt-decode": "^4.0.0",
+		"match-sorter": "^6.3.4",
+		"next": "^14.2.1",
+		"next-nprogress-bar": "^2.3.11",
 		"react": "^18.2.0",
+		"react-colorful": "^5.6.1",
 		"react-dom": "^18.2.0",
-		"react-icons": "^5.0.1",
-		"sharp": "^0.33.2",
-		"tslib": "^2.6.2"
+		"react-select": "^5.8.0",
+		"sharp": "^0.33.3",
+		"textarea-caret": "^3.1.0",
+		"usehooks-ts": "^3.1.0",
+		"valibot": "^0.30.0"
 	},
 	"devDependencies": {
-		"@next/bundle-analyzer": "^14.1.0",
-		"@types/js-cookie": "^3.0.6",
-		"@types/node": "^20.11.20",
-		"@types/react": "^18.2.58",
-		"autoprefixer": "^10.4.17",
+		"@biomejs/biome": "^1.6.4",
+		"@next/bundle-analyzer": "^14.2.1",
+		"@types/node": "^20.12.7",
+		"@types/react": "^18.2.78",
+		"@types/react-dom": "^18.2.25",
+		"@types/textarea-caret": "^3.0.3",
+		"autoprefixer": "^10.4.19",
 		"cross-env": "^7.0.3",
-		"eslint": "^8.57.0",
-		"eslint-config-neon": "^0.1.59",
-		"eslint-plugin-tailwindcss": "^3.14.3",
-		"postcss": "^8.4.35",
-		"prettier": "^3.2.5",
+		"husky": "^9.0.11",
+		"postcss": "^8.4.38",
 		"tailwind-scrollbar": "^3.1.0",
-		"tailwindcss": "^3.4.1",
-		"typescript": "~5.3.3"
+		"tailwindcss": "^3.4.3",
+		"typescript": "~5.4.5"
 	},
-	"packageManager": "pnpm@8.15.4+sha256.cea6d0bdf2de3a0549582da3983c70c92ffc577ff4410cbf190817ddc35137c2",
+	"packageManager": "pnpm@8.15.7+sha256.50783dd0fa303852de2dd1557cd4b9f07cb5b018154a6e76d0f40635d6cee019",
 	"engines": {
 		"node": "20"
 	}
