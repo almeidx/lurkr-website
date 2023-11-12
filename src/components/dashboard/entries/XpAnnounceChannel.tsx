@@ -6,13 +6,13 @@ import Selector from "@/form/Selector";
 import {
 	ChannelType,
 	XpAnnouncementChannelType,
-	type AddChangeFn,
 	type Channel,
+	type GuildContextData,
 	type GuildSettings,
 } from "~/contexts/GuildContext";
 
 interface XpResponseTypeProps {
-	readonly addChange: AddChangeFn;
+	readonly addMultipleChanges: GuildContextData["addMultipleChanges"];
 	readonly channels: Channel[];
 	readonly settings: GuildSettings;
 }
@@ -24,7 +24,7 @@ const announceChannelTypes = [
 	"None",
 ] as const satisfies readonly ReturnType<typeof mapTypeToName>[];
 
-export function XpAnnounceChannel({ addChange, channels, settings }: XpResponseTypeProps) {
+export function XpAnnounceChannel({ addMultipleChanges, channels, settings }: XpResponseTypeProps) {
 	const [xpAnnounceChannelType, setXpAnnounceChannelType] = useState(settings.xpAnnounceChannelType);
 
 	const allowedChannels = useMemo(
@@ -49,10 +49,14 @@ export function XpAnnounceChannel({ addChange, channels, settings }: XpResponseT
 							const type = mapNameToType(item as (typeof announceChannelTypes)[number]);
 
 							setXpAnnounceChannelType(type);
-							addChange("xpAnnounceChannelType", type);
 
-							if (type !== XpAnnouncementChannelType.Custom) {
-								addChange("xpAnnounceChannel", null);
+							if (type === XpAnnouncementChannelType.Custom) {
+								addMultipleChanges([["xpAnnounceChannelType", type]]);
+							} else {
+								addMultipleChanges([
+									["xpAnnounceChannelType", type],
+									["xpAnnounceChannel", null],
+								]);
 							}
 						}}
 					/>
@@ -64,7 +68,12 @@ export function XpAnnounceChannel({ addChange, channels, settings }: XpResponseT
 							initialItems={settings.xpAnnounceChannel ? [settings.xpAnnounceChannel] : []}
 							items={allowedChannels}
 							limit={1}
-							onSelect={(channelIds) => addChange("xpAnnounceChannel", channelIds[0] ?? null)}
+							onSelect={(channelIds) => {
+								addMultipleChanges([
+									["xpAnnounceChannel", channelIds[0] ?? null],
+									["xpAnnounceChannelType", XpAnnouncementChannelType.Custom],
+								]);
+							}}
 							type="Channel"
 						/>
 					) : null}

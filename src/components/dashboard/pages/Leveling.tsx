@@ -21,7 +21,7 @@ import Fieldset from "@/form/Fieldset";
 import { GuildContext, type Channel, type GuildSettings, type Role } from "~/contexts/GuildContext";
 
 export default function Leveling({ channels, settings, roles, openMenu }: LevelingProps) {
-	const { addChange, data } = useContext(GuildContext);
+	const { addChange, addMultipleChanges, data } = useContext(GuildContext);
 
 	useEffect(() => window.scroll({ behavior: "auto", left: 0, top: 0 }), [openMenu]);
 
@@ -51,7 +51,7 @@ export default function Leveling({ channels, settings, roles, openMenu }: Leveli
 			/>
 
 			<Fieldset>
-				<XpAnnounceChannel addChange={addChange} channels={channels} settings={settings} />
+				<XpAnnounceChannel addMultipleChanges={addMultipleChanges} channels={channels} settings={settings} />
 
 				<XpMessage addChange={addChange} settings={settings} />
 

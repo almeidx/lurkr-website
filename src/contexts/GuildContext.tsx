@@ -330,6 +330,25 @@ export default function GuildContextProvider({ children }: GuildContextProps) {
 		[changes, data, updateErrorsAndWarnings],
 	);
 
+	const addMultipleChanges = useCallback(
+		(
+			entries: [
+				keyof GuildSettings & keyof PatchGuildData,
+				PatchGuildData[keyof GuildSettings & keyof PatchGuildData],
+			][],
+		) => {
+			const clone = JSON.parse(JSON.stringify(changes)) as Partial<PatchGuildData>;
+
+			for (const [key, value] of entries) {
+				clone[key] = value as any;
+			}
+
+			setChanges(clone);
+			updateErrorsAndWarnings(clone, data);
+		},
+		[changes, data, updateErrorsAndWarnings],
+	);
+
 	const clearChanges = useCallback(() => setChanges({}), []);
 
 	const updateGuildId = useCallback(
@@ -349,6 +368,7 @@ export default function GuildContextProvider({ children }: GuildContextProps) {
 			// eslint-disable-next-line react/jsx-no-constructed-context-values
 			value={{
 				addChange,
+				addMultipleChanges,
 				changes,
 				clearChanges,
 				data,
@@ -379,8 +399,11 @@ interface VanityCheckResponse {
 	available: boolean;
 }
 
-interface GuildContextData {
+export interface GuildContextData {
 	addChange<T extends keyof GuildSettings & keyof PatchGuildData>(key: T, value: PatchGuildData[T]): void;
+	addMultipleChanges(
+		entries: [keyof GuildSettings & keyof PatchGuildData, PatchGuildData[keyof GuildSettings & keyof PatchGuildData]][],
+	): void;
 	changes: Partial<PatchGuildData>;
 	clearChanges(): void;
 	data: PatchGuildData | null;
