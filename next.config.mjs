@@ -1,10 +1,17 @@
 import nextBundleAnalyzer from "@next/bundle-analyzer";
+// import nextra from "nextra";
+import { BOT_INVITE, GITHUB_REPOSITORY_URL, PATREON_URL, SUPPORT_SERVER_INVITE, TOPGG_URL } from "./shared-links.mjs";
 
-// eslint-disable-next-line no-undef
 const bundleAnalyzerEnabled = process.env.ANALYZE === "true";
+
+// const withNextra = nextra({
+// 	theme: "nextra-theme-docs",
+// 	themeConfig: "./theme.config.jsx",
+// });
 
 /** @type {import("next").NextConfig} */
 const nextConfig = {
+	reactStrictMode: true,
 	images: {
 		remotePatterns: [
 			{
@@ -13,35 +20,39 @@ const nextConfig = {
 			},
 		],
 	},
-	eslint: {
-		ignoreDuringBuilds: true,
+	experimental: {
+		reactCompiler: true,
+		ppr: true,
 	},
-	reactStrictMode: true,
+	logging: {
+		fetches: {
+			fullUrl: true,
+		},
+	},
 	redirects() {
 		return [
 			{
-				destination:
-					"https://discord.com/oauth2/authorize?client_id=506186003816513538&scope=bot%20applications.commands&permissions=276220472384",
+				destination: BOT_INVITE,
 				permanent: false,
 				source: "/invite",
 			},
 			{
-				destination: "https://top.gg/bot/506186003816513538/vote",
-				permanent: false,
-				source: "/vote",
-			},
-			{
-				destination: "https://patreon.com/lurkrbot",
+				destination: PATREON_URL,
 				permanent: false,
 				source: "/patreon",
 			},
 			{
-				destination: "https://github.com/almeidx/lurkr-website",
+				destination: `${TOPGG_URL}?source=redirect`,
+				permanent: true,
+				source: "/vote",
+			},
+			{
+				destination: GITHUB_REPOSITORY_URL,
 				permanent: true,
 				source: "/github",
 			},
 			{
-				destination: "https://discord.gg/XUQAnkq2vy",
+				destination: SUPPORT_SERVER_INVITE,
 				permanent: true,
 				source: "/support",
 			},
@@ -49,4 +60,5 @@ const nextConfig = {
 	},
 };
 
+// export default withNextra(bundleAnalyzerEnabled ? nextBundleAnalyzer(nextConfig) : nextConfig);
 export default bundleAnalyzerEnabled ? nextBundleAnalyzer(nextConfig) : nextConfig;
