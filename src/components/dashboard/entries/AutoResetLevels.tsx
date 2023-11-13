@@ -33,10 +33,10 @@ function resolveAutoResetLevelsNameByType(type: AutoResetLevelsEnum) {
 	return type === AutoResetLevelsEnum.Ban
 		? "Ban"
 		: type === AutoResetLevelsEnum.Leave
-		? "Leave"
-		: type === AutoResetLevelsEnum.BanAndLeave
-		? "Ban & Leave"
-		: "None";
+		  ? "Leave"
+		  : type === AutoResetLevelsEnum.BanAndLeave
+		    ? "Ban & Leave"
+		    : "None";
 }
 
 function resolveAutoResetLevelsTypeByName(name: string) {
@@ -44,8 +44,8 @@ function resolveAutoResetLevelsTypeByName(name: string) {
 	return name === "Ban & Leave"
 		? AutoResetLevelsEnum.BanAndLeave
 		: name === "Ban"
-		? AutoResetLevelsEnum.Ban
-		: name === "Leave"
-		? AutoResetLevelsEnum.Leave
-		: AutoResetLevelsEnum.None;
+		  ? AutoResetLevelsEnum.Ban
+		  : name === "Leave"
+		    ? AutoResetLevelsEnum.Leave
+		    : AutoResetLevelsEnum.None;
 }
