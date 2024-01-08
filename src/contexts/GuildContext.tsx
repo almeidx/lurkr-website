@@ -152,7 +152,9 @@ export default function GuildContextProvider({ children }: GuildContextProps) {
 					}
 
 					vanityAvailabilityTimeout = setTimeout(() => {
-						fetch(`${API_BASE_URL}/vanity/check?${new URLSearchParams({ vanity: changes.vanity! })}`)
+						fetch(`${API_BASE_URL}/vanity/check?${new URLSearchParams({ vanity: changes.vanity! })}`, {
+							credentials: "include",
+						})
 							.then(async (res) => {
 								if (!res.ok) return;
 
