@@ -1519,7 +1519,7 @@ packages:
       eslint-plugin-typescript-sort-keys: 3.1.0(@typescript-eslint/parser@6.9.0)(eslint@8.56.0)(typescript@5.3.3)
       eslint-plugin-unicorn: 48.0.1(eslint@8.56.0)
       eslint-plugin-vue: /@almeidx/empty@1.0.1
-      globals: 13.23.0
+      globals: 13.24.0
       vue-eslint-parser: /@almeidx/empty@1.0.1
     transitivePeerDependencies:
       - eslint
@@ -2104,13 +2104,6 @@ packages:
       minimatch: 3.1.2
       once: 1.4.0
       path-is-absolute: 1.0.1
-    dev: true
-
-  /globals@13.23.0:
-    resolution: {integrity: sha512-XAmF0RjlrjY23MA51q3HltdlGxUpXPvg0GioKiD9X6HD28iMjo2dKC8Vqwm7lne4GNr78+RHTfliktR6ZH09wA==}
-    engines: {node: '>=8'}
-    dependencies:
-      type-fest: 0.20.2
     dev: true
 
   /globals@13.24.0:
