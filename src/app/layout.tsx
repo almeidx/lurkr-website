@@ -4,8 +4,13 @@ import { openSans } from "@/app/fonts.ts";
 import { Footer } from "@/components/Footer.tsx";
 import { Navbar } from "@/components/Navbar.tsx";
 import { BRAND_COLOR, DESCRIPTION } from "@/utils/constants.ts";
+import { GoogleTagManager } from "@next/third-parties/google";
 import type { Metadata, Viewport } from "next";
 import type { PropsWithChildren } from "react";
+
+if (process.env.NODE_ENV === "production") {
+	console.assert(process.env.NEXT_PUBLIC_GTM_ID, "NEXT_PUBLIC_GTM_ID environment variable is missing");
+}
 
 export default function RootLayout({ children }: PropsWithChildren) {
 	return (
@@ -52,6 +57,10 @@ export default function RootLayout({ children }: PropsWithChildren) {
 					</linearGradient>
 				</svg>
 			</body>
+
+			{process.env.NODE_ENV === "production" && process.env.NEXT_PUBLIC_GTM_ID && (
+				<GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GTM_ID} />
+			)}
 		</html>
 	);
 }
