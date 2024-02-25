@@ -59,7 +59,7 @@ export default function BasicSelect({
 					dropdownOpen ? "" : "hidden"
 				} absolute z-20 mt-2 flex max-h-64 w-full flex-col items-center rounded-md bg-[#36393f]`}
 			>
-				<div className="my-2 flex h-full w-full flex-col gap-1 overflow-y-scroll">
+				<div className="my-2 flex size-full flex-col gap-1 overflow-y-scroll">
 					{items.map((name, idx) => (
 						<div
 							className="flex cursor-pointer items-center rounded-lg px-4 py-2 text-center hover:bg-discord-lighter"

@@ -67,7 +67,7 @@ export default function UserRow({
 			</td>
 			<td align="center" className="mx-auto px-3 py-2">
 				<div className="inline-flex items-center justify-center overflow-hidden rounded-full">
-					<svg className="h-20 w-20">
+					<svg className="size-20">
 						<circle
 							className="text-white"
 							cx="40"

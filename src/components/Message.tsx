@@ -7,7 +7,7 @@ export default function Message({ message, type = "error" }: MessageProps) {
 				type === "error" ? "bg-red-500" : "bg-[#f77d05]"
 			} text-white`}
 		>
-			<RiErrorWarningFill className="h-6 w-6 shrink-0 fill-current" />
+			<RiErrorWarningFill className="size-6 shrink-0 fill-current" />
 			<span>{message}</span>
 		</div>
 	);

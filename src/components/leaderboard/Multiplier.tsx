@@ -20,10 +20,10 @@ export default function Multiplier({ multiplier, targets, type }: MultiplierProp
 					{type === XpMultiplierType.Channel
 						? (targets as Channel[]).map((channel) => (
 								<RoleChannelBullet channelType={channel.type} key={channel.id} name={channel.name} type={type} />
-						  ))
+							))
 						: (targets as Role[]).map((role) => (
 								<RoleChannelBullet key={role.id} name={role.name} roleColour={resolveColour(role.color)} type={type} />
-						  ))}
+							))}
 				</div>
 			)}
 		</div>

@@ -125,7 +125,7 @@ export default function Selector({ id, limit, items, initialItems, onSelect, typ
 					<AiOutlinePlusCircle
 						className={`${
 							disabled ? "text-opacity-25" : "cursor-pointer hover:text-opacity-75"
-						} h-6 w-6 fill-current text-white`}
+						} size-6 fill-current text-white`}
 						onClick={() => (disabled ? null : setDropdownOpen(!dropdownOpen))}
 					/>
 				)}
@@ -155,7 +155,7 @@ export default function Selector({ id, limit, items, initialItems, onSelect, typ
 						>
 							{type === "Role" && "color" in item && (
 								<div
-									className="mr-2 h-4 w-4 select-none rounded-full"
+									className="mr-2 size-4 select-none rounded-full"
 									data-id={item.id}
 									style={{ backgroundColor: resolveColour(item.color) }}
 								/>

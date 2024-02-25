@@ -121,7 +121,7 @@ export function XpMultipliers({ addChange, channels, roles, settings }: XpMultip
 								onSelect={(type) => setNewXpMultiplierType(type as XpMultiplierType)}
 							/>
 							<button
-								className="flex h-12 w-12 shrink-0 items-center justify-center rounded-md bg-discord-not-quite-black text-white transition-colors hover:text-opacity-75"
+								className="flex size-12 shrink-0 items-center justify-center rounded-md bg-discord-not-quite-black text-white transition-colors hover:text-opacity-75"
 								onClick={() => {
 									const finalMultipliers = [
 										...xpMultipliers,

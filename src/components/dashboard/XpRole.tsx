@@ -15,10 +15,7 @@ export default function XpRole({ level, initialRoles, onChange, premium, roles, 
 					Level {level}
 				</label>
 
-				<MdClear
-					className="ml-auto mt-0 h-8 w-8 cursor-pointer py-1 text-red-500"
-					onClick={() => onChange([], level)}
-				/>
+				<MdClear className="ml-auto mt-0 size-8 cursor-pointer py-1 text-red-500" onClick={() => onChange([], level)} />
 			</div>
 
 			<div className="w-full">

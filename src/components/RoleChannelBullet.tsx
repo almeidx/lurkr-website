@@ -28,7 +28,7 @@ export default function RoleChannelBullet({
 					{hoverX && (
 						<div className="absolute ml-[4.5px] hidden text-xs leading-3 text-black group-hover:block">&times;</div>
 					)}
-					<div className="ml-[5px] mr-1 h-3 w-3 rounded-full" style={{ backgroundColor: roleColour }} />
+					<div className="ml-[5px] mr-1 size-3 rounded-full" style={{ backgroundColor: roleColour }} />
 				</>
 			)}
 

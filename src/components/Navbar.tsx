@@ -41,9 +41,9 @@ export default function Navbar() {
 				<nav className="z-20 ml-auto md:w-full">
 					<span onClick={handleDropdownClick}>
 						{dropdownOpen ? (
-							<MdClose className="my-1 h-6 w-6 cursor-pointer text-2xl text-white md:hidden" />
+							<MdClose className="my-1 size-6 cursor-pointer text-2xl text-white md:hidden" />
 						) : (
-							<MdMenu className="my-1 h-6 w-6 cursor-pointer text-2xl text-white md:hidden" />
+							<MdMenu className="my-1 size-6 cursor-pointer text-2xl text-white md:hidden" />
 						)}
 					</span>
 
@@ -101,7 +101,7 @@ export default function Navbar() {
 									onClick={() => void window.open(`${API_BASE_URL}/auth/logout`, "_self")}
 									type="button"
 								>
-									<GoSignOut className="h-5 w-5" />
+									<GoSignOut className="size-5" />
 								</button>
 							</div>
 						) : (

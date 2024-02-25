@@ -19,7 +19,7 @@ export default function Shard({ guilds, shardId, members, memory, ping, selected
 				<p>Ping: {ping} ms</p>
 				<p>Uptime: {uptime ? ms(uptime) : -1}</p>
 
-				<div className="absolute -bottom-1.5 left-1/2 h-3 w-3 -translate-x-1/2 rotate-45 bg-discord-lighter shadow-md" />
+				<div className="absolute -bottom-1.5 left-1/2 size-3 -translate-x-1/2 rotate-45 bg-discord-lighter shadow-md" />
 			</div>
 
 			{shardId}
