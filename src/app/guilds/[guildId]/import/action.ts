@@ -1,6 +1,5 @@
 "use server";
 
-// biome-ignore lint/nursery/useAwait: Server Actions must be async functions
 export async function importBotData(_guildId: string, data: FormData) {
 	const entries = Array.from(data.entries());
 

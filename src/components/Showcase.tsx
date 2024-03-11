@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import Image, { StaticImageData } from "next/image";
+import Image, { type StaticImageData } from "next/image";
 import type { PropsWithChildren } from "react";
 
 export function Showcase({

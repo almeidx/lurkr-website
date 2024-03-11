@@ -1,4 +1,4 @@
-import { GuildInfo } from "@/app/guilds/page.tsx";
+import type { GuildInfo } from "@/app/guilds/page.tsx";
 import { API_URL, TOKEN_COOKIE } from "@/utils/constants.ts";
 import type { Snowflake } from "@/utils/discord-cdn.ts";
 import { cookies } from "next/headers";

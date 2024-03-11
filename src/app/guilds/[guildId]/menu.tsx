@@ -1,9 +1,9 @@
 "use client";
 
-import { GuildInfo } from "@/app/guilds/page.tsx";
+import type { GuildInfo } from "@/app/guilds/page.tsx";
 import fallbackAvatarImg from "@/assets/fallback-avatar.png";
 import { ImageWithFallback } from "@/components/ImageWithFallback.tsx";
-import { Guild, GuildSettings } from "@/lib/guild.ts";
+import type { Guild, GuildSettings } from "@/lib/guild.ts";
 import { guildIcon } from "@/utils/discord-cdn.ts";
 import { Select, SelectArrow, SelectItem, SelectPopover, useSelectStore } from "@ariakit/react/select";
 import { BsSignpostFill } from "@react-icons/all-files/bs/BsSignpostFill";
@@ -23,7 +23,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { type PropsWithChildren, useEffect, useState } from "react";
-import { GuildMetadataResult } from "./layout.tsx";
+import type { GuildMetadataResult } from "./layout.tsx";
 
 export function Menu({ guild, guilds }: MenuProps) {
 	const [open, setOpen] = useState(false);
