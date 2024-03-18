@@ -2,7 +2,7 @@ import "@/app/globals.css";
 
 import { openSans } from "@/app/fonts.ts";
 import { Footer } from "@/components/Footer.tsx";
-import { Navbar } from "@/components/Navbar.tsx";
+import { NavbarContainer } from "@/components/NavbarContainer.tsx";
 import { BRAND_COLOR, DESCRIPTION } from "@/utils/constants.ts";
 import { GoogleTagManager } from "@next/third-parties/google";
 import type { Metadata, Viewport } from "next";
@@ -21,7 +21,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
 				<div className="flex flex-col">
 					<div className="flex min-h-screen flex-col">
 						<div className="flex-1">
-							<Navbar />
+							<NavbarContainer />
 							{children}
 						</div>
 
