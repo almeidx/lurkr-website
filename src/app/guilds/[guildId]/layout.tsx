@@ -14,12 +14,14 @@ export default async function DashboardLayout({
 	const { guild, guilds } = await getData(guildId, token);
 
 	return (
-		<div className="relative flex">
-			<div className="flex flex-col md:mr-8 md:border-r md:border-white/25 py-4">
-				<Menu guild={guild} guilds={guilds} />
-			</div>
+		<div className="flex justify-center">
+			<div className="relative flex container mt-5">
+				<div className="hidden md:flex flex-col md:mr-8 md:border-r md:border-white/25 py-4">
+					<Menu guild={guild} guilds={guilds} />
+				</div>
 
-			{children}
+				{children}
+			</div>
 		</div>
 	);
 }

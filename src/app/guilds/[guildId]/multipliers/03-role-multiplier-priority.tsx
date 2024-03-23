@@ -1,7 +1,7 @@
 "use client";
 
 import { DocsBubble } from "@/components/dashboard/DocsBubble.tsx";
-import { Select, SelectItem, SelectLabel, SelectPopover, useSelectStore } from "@ariakit/react/select";
+import { Select, SelectArrow, SelectItem, SelectLabel, SelectPopover, useSelectStore } from "@ariakit/react/select";
 
 export const enum RoleMultiplierPriorityEnum {
 	Hierarchy = "Hierarchy",
@@ -10,6 +10,7 @@ export const enum RoleMultiplierPriorityEnum {
 
 export function RoleMultiplierPriority({ defaultValue }: { readonly defaultValue: boolean }) {
 	const select = useSelectStore({ defaultValue: convertDefaultValueToEnum(defaultValue) });
+	const selectedValue = select.useState("value");
 
 	return (
 		<div className="mt-3 flex h-6 items-center gap-2 rounded-lg">
@@ -20,20 +21,30 @@ export function RoleMultiplierPriority({ defaultValue }: { readonly defaultValue
 
 			<Select
 				store={select}
-				className="flex h-10 w-36 items-center justify-between rounded-lg bg-light-gray px-3 py-2 shadow-dim-inner"
-			/>
+				className="flex h-12 w-40 items-center justify-between rounded-lg bg-light-gray px-3 py-2 shadow-dim-inner"
+			>
+				{selectedValue === RoleMultiplierPriorityEnum.Hierarchy ? "Role Hierarchy" : "Multiplier Value"}
+
+				<SelectArrow />
+			</Select>
 
 			<SelectPopover
 				store={select}
 				gutter={8}
 				sameWidth
-				className="z-[10000] flex w-36 flex-col gap-2 rounded-lg bg-light-gray px-3 py-2 shadow-dim-inner"
+				className="z-[10000] flex w-40 flex-col rounded-lg bg-light-gray shadow-dim-inner"
 			>
-				<SelectItem className="cursor-pointer" value={RoleMultiplierPriorityEnum.Hierarchy}>
+				<SelectItem
+					className="cursor-default hover:bg-dark-gray/50 px-3 py-2 rounded-lg"
+					value={RoleMultiplierPriorityEnum.Hierarchy}
+				>
 					Role Hierarchy
 				</SelectItem>
 
-				<SelectItem className="cursor-pointer" value={RoleMultiplierPriorityEnum.Multiplier}>
+				<SelectItem
+					className="cursor-default hover:bg-dark-gray/50 px-3 py-2 rounded-lg"
+					value={RoleMultiplierPriorityEnum.Multiplier}
+				>
 					Multiplier Value
 				</SelectItem>
 			</SelectPopover>

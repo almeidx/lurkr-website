@@ -28,7 +28,14 @@ export default async function Homepage() {
 					<p className="text-3xl xl:text-4xl font-bold text-shadow-regular xl:whitespace-nowrap">
 						Level Up your Server.
 					</p>
-					<Image alt="Lurkr logo" className="hidden xl:block aspect-square h-72" height={300} priority src={logoImg} />
+					<Image
+						alt="Lurkr logo"
+						className="hidden xl:block aspect-square size-72"
+						height={288}
+						width={288}
+						priority
+						src={logoImg}
+					/>
 					<p className="text-3xl xl:text-4xl font-bold text-shadow-regular xl:whitespace-nowrap">Finally, for Free.</p>
 				</div>
 

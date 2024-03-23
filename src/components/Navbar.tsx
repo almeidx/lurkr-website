@@ -5,6 +5,7 @@ import { ExternalLink } from "@/components/ExternalLink.tsx";
 import { ProfileButton } from "@/components/Profile.tsx";
 import { SignInButton } from "@/components/SignIn.tsx";
 import type { getUserSafe } from "@/lib/auth.ts";
+import { MdArrowBackIos } from "@react-icons/all-files/md/MdArrowBackIos";
 import { MdMenu } from "@react-icons/all-files/md/MdMenu";
 import { MdMenuOpen } from "@react-icons/all-files/md/MdMenuOpen";
 import clsx from "clsx";
@@ -12,10 +13,15 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import { useMediaQuery } from "usehooks-ts";
 
 export function Navbar({ user }: { readonly user: ReturnType<typeof getUserSafe> }) {
 	const [menuOpen, setMenuOpen] = useState(false);
 	const pathname = usePathname();
+	const isMedium = useMediaQuery("(max-width: 768px)");
+
+	const isDashboard = pathname.startsWith("/guilds") && pathname.length > "/guilds/".length;
+	const guildId = isDashboard ? pathname.match(/^\/guilds\/(\d+)/)?.[1] : null;
 
 	// biome-ignore lint/correctness/useExhaustiveDependencies: Intentional
 	useEffect(() => {
@@ -53,29 +59,64 @@ export function Navbar({ user }: { readonly user: ReturnType<typeof getUserSafe>
 				</button>
 
 				<ul className="flex flex-col items-center md:items-baseline text-xl md:text-base md:flex-row gap-5">
-					<li className="text-white hover:text-white/75">
-						<Link href="/guilds">Dashboard</Link>
-					</li>
-
-					<li className="text-white hover:text-white/75">
-						<Link href="/levels">Levels</Link>
-					</li>
-
-					<li className="text-white hover:text-white/75">
-						<Link href="/levels/calculator">Calculator</Link>
-					</li>
-
-					<li className="text-white hover:text-white/75">
-						<Link href="/status">Status</Link>
-					</li>
-
-					<li className="text-white hover:text-white/75">
-						<ExternalLink href="https://patreon.com/lurkrbot">Patreon</ExternalLink>
-					</li>
-
-					<li className="text-white hover:text-white/75">
-						<ExternalLink href="https://docs.lurkr.gg">Docs</ExternalLink>
-					</li>
+					{isMedium && isDashboard && guildId ? (
+						<>
+							<li className="text-white hover:text-white/75">
+								<Link href="/guilds" className="flex items-center">
+									<MdArrowBackIos />
+									Back
+								</Link>
+							</li>
+							<li className="text-white hover:text-white/75">
+								<Link href={`/guilds/${guildId}`}>Overview</Link>
+							</li>
+							<li className="text-white hover:text-white/75">
+								<Link href={`/guilds/${guildId}/import`}>Import Bots</Link>
+							</li>
+							<li className="text-white hover:text-white/75">
+								<Link href={`/guilds/${guildId}/leveling`}>Leveling</Link>
+							</li>
+							<li className="text-white hover:text-white/75">
+								<Link href={`/guilds/${guildId}/multipliers`}>Multipliers</Link>
+							</li>
+							<li className="text-white hover:text-white/75">
+								<Link href={`/guilds/${guildId}/roles`}>Role Management</Link>
+							</li>
+							<li className="text-white hover:text-white/75">
+								<Link href={`/guilds/${guildId}/milestones`}>Milestones</Link>
+							</li>
+							<li className="text-white hover:text-white/75">
+								<Link href={`/guilds/${guildId}/emojis`}>Emoji List</Link>
+							</li>
+							<li className="text-white hover:text-white/75">
+								<Link href={`/guilds/${guildId}/miscellaneous`}>Miscellaneous</Link>
+							</li>
+							<li className="text-white hover:text-white/75">
+								<Link href={`/guilds/${guildId}/danger`}>Danger Zone</Link>
+							</li>
+						</>
+					) : (
+						<>
+							<li className="text-white hover:text-white/75">
+								<Link href="/guilds">Dashboard</Link>
+							</li>
+							<li className="text-white hover:text-white/75">
+								<Link href="/levels">Levels</Link>
+							</li>
+							<li className="text-white hover:text-white/75">
+								<Link href="/levels/calculator">Calculator</Link>
+							</li>
+							<li className="text-white hover:text-white/75">
+								<Link href="/status">Status</Link>
+							</li>
+							<li className="text-white hover:text-white/75">
+								<ExternalLink href="https://patreon.com/lurkrbot">Patreon</ExternalLink>
+							</li>
+							<li className="text-white hover:text-white/75">
+								<ExternalLink href="https://docs.lurkr.gg">Docs</ExternalLink>
+							</li>
+						</>
+					)}
 				</ul>
 			</nav>
 

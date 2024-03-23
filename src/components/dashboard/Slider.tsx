@@ -51,7 +51,15 @@ export function Slider({ defaultValue, id, max, min, step, steps }: SliderProps)
 				<div className="flex justify-between px-2.5 py-0">{stepSpans}</div>
 			</div>
 
-			<div className="w-12 text-center text-2xl">{value}</div>
+			<input
+				className="text-center text-2xl bg-light-gray rounded-lg shadow-dim-inner text-white/75"
+				value={value}
+				type="number"
+				min={min}
+				max={max}
+				step={step}
+				onChange={handleChange}
+			/>
 		</div>
 	);
 }

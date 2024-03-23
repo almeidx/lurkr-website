@@ -19,7 +19,7 @@ export default async function Dashboard({ params }: { readonly params: { guildId
 	const statuses = resolveOverviewStatuses(overview);
 
 	return (
-		<div className="mb-4 mt-12 flex flex-col px-4 md:mt-0 py-4">
+		<div className="mb-4 flex flex-col p-4">
 			<div className="flex h-fit gap-5">
 				<ImageWithFallback
 					alt="Your profile picture"

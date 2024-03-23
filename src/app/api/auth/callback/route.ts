@@ -30,7 +30,7 @@ export async function GET(request: NextRequest) {
 
 	return NextResponse.redirect(redirectUrl, {
 		headers: {
-			"Set-Cookie": `${TOKEN_COOKIE}=${token}; Path=/; Max-Age=${maxAge}; HttpOnly;`,
+			"Set-Cookie": `${TOKEN_COOKIE}=${token}; Path=/; Max-Age=${maxAge}; HttpOnly; Secure; SameSite=Lax`,
 		},
 	});
 }
