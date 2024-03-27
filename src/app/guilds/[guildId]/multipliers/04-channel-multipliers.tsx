@@ -30,15 +30,9 @@ export function ChannelMultipliers({ channels, multipliers, premium }: ChannelMu
 		}
 
 		setChannelMultipliers((prev) =>
-			[
-				...prev,
-				{
-					id: crypto.randomUUID(),
-					multiplier,
-					targets: channelIds,
-					type: XpMultiplierType.Channel,
-				},
-			].sort((a, b) => a.multiplier - b.multiplier),
+			[...prev, { id: crypto.randomUUID(), multiplier, targets: channelIds, type: XpMultiplierType.Channel }].sort(
+				(a, b) => a.multiplier - b.multiplier,
+			),
 		);
 
 		setNewChannels([]);
@@ -63,6 +57,7 @@ export function ChannelMultipliers({ channels, multipliers, premium }: ChannelMu
 					defaultValues={[]}
 					inputId="channel-selector"
 					max={getMaximumLimit("xpMultiplierTargets", premium)}
+					menuPlacement="top" // Placing the menu on top always to avoid overflow
 					settingId="newChannels"
 					onChange={(newChannels) => setNewChannels(newChannels)}
 				/>
@@ -90,24 +85,24 @@ export function ChannelMultipliers({ channels, multipliers, premium }: ChannelMu
 				</button>
 			</div>
 
-			<label className="flex items-end gap-2 text-lg tracking-tight text-white/75 md:text-xl">
-				Manage your channel multipliers…
-				<p className="mb-1 text-xs font-light text-white/50">(Max. 30 channels total - Max. 100 for Premium)</p>
-			</label>
-
 			{channelMultipliers.length ? (
-				channelMultipliers.map((multiplier) => (
-					<ChannelMultiplier
-						key={multiplier.id}
-						{...multiplier}
-						channels={channels}
-						premium={premium}
-						onDelete={handleDeleteMultiplier}
-					/>
-				))
-			) : (
-				<p className="tracking-tight text-white/75">No channel multipliers yet!</p>
-			)}
+				<>
+					<label className="flex items-end gap-2 text-lg tracking-tight text-white/75 md:text-xl">
+						Manage your channel multipliers…
+						<p className="mb-1 text-xs font-light text-white/50">(Max. 30 channels total - Max. 100 for Premium)</p>
+					</label>
+
+					{channelMultipliers.map((multiplier) => (
+						<ChannelMultiplier
+							key={multiplier.id}
+							{...multiplier}
+							channels={channels}
+							premium={premium}
+							onDelete={handleDeleteMultiplier}
+						/>
+					))}
+				</>
+			) : null}
 		</>
 	);
 }

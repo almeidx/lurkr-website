@@ -1,14 +1,21 @@
-import { Toggle } from "@/components/Toggle.tsx";
-import { Text } from "@/components/dashboard/Text.tsx";
+"use client";
+
+import { Radio, RadioGroup, useRadioStore } from "@/components/dashboard/Radio.tsx";
 
 export function StackRoleRewards({ defaultValue }: { readonly defaultValue: boolean }) {
-	return (
-		<div className="flex h-6 gap-4 rounded-lg">
-			<Text htmlFor="xpInThreads" docsPath="/guides/setting-up-server-leveling#toggling-role-stacking">
-				Toggle role rewards stacking?{" "}
-			</Text>
+	const radio = useRadioStore({ defaultValue: defaultValue.toString() });
 
-			<Toggle initialValue={defaultValue} id="stackXpRoles" />
-		</div>
+	return (
+		<RadioGroup className="flex w-fit flex-col gap-4" store={radio}>
+			<label className="flex text-lg tracking-tight text-white/75 md:text-xl">
+				<Radio value="true" id="stackXpRoles" name="stackXpRoles" rightMargin />
+				Keep previous rewards
+			</label>
+
+			<label className="flex text-lg tracking-tight text-white/75 md:text-xl">
+				<Radio value="false" id="stackXpRoles" name="stackXpRoles" rightMargin />
+				Remove previous rewards
+			</label>
+		</RadioGroup>
 	);
 }

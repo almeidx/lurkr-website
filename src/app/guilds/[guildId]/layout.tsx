@@ -3,7 +3,7 @@ import { API_URL, TOKEN_COOKIE } from "@/utils/constants.ts";
 import type { Snowflake } from "@/utils/discord-cdn.ts";
 import { cookies } from "next/headers";
 import type { PropsWithChildren } from "react";
-import { Menu } from "./menu.tsx";
+import { DashboardMenu } from "./dashboard-menu.tsx";
 
 export default async function DashboardLayout({
 	children,
@@ -17,7 +17,7 @@ export default async function DashboardLayout({
 		<div className="flex justify-center">
 			<div className="relative flex container mt-5">
 				<div className="hidden md:flex flex-col md:mr-8 md:border-r md:border-white/25 py-4">
-					<Menu guild={guild} guilds={guilds} />
+					<DashboardMenu guild={guild} guilds={guilds} />
 				</div>
 
 				{children}
@@ -41,7 +41,7 @@ async function getData(guildId: Snowflake, token: string) {
 				Authorization: `Bearer ${token}`,
 			},
 			next: {
-				revalidate: 60,
+				revalidate: 60, // 1 minute
 			},
 		}),
 	]);

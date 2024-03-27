@@ -35,14 +35,14 @@ export default async function Roles({ params: { guildId } }: { readonly params: 
 				</Text>
 
 				<OnJoinRolesDelay defaultValue={settings.autoRoleTimeout} premium={settings.premium} />
+			</Section>
 
-				<Separator />
-
+			<Section name="On Join Roles for Badges">
 				<OnJoinRolesForBadges defaultValues={settings.autoRoleFlags} premium={settings.premium} roles={guild.roles} />
 			</Section>
 
 			<Section name="Role Mention Cooldown" docsPath="/guides/automatic-role-mention-cooldown">
-				<Text>Set which role(s) should get a cooldown when pinged…</Text>
+				<Text>Set which role(s) should get a cooldown when mentioned…</Text>
 
 				<MentionCooldownRoles
 					defaultValues={settings.mentionCooldownRoles}
@@ -53,7 +53,7 @@ export default async function Roles({ params: { guildId } }: { readonly params: 
 				<Separator />
 
 				<Text docsPath="/guides/automatic-role-mention-cooldown#setting-up-the-cooldown-time">
-					Set the time between pings for the role(s)…
+					Set how long the roles will be unmentionable for…
 				</Text>
 
 				<MentionCooldown defaultValue={settings.mentionCooldown} premium={settings.premium} />

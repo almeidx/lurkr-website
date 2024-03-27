@@ -5,6 +5,7 @@ import multipliersImg from "@/assets/showcases/multipliers.png";
 import premiumImg from "@/assets/showcases/premium.png";
 import rankCardsImg from "@/assets/showcases/rank-cards.png";
 import roleRewardsImg from "@/assets/showcases/role-rewards.png";
+import { ExternalLink } from "@/components/ExternalLink.tsx";
 import { Showcase } from "@/components/Showcase";
 import { API_URL, BOT_INVITE } from "@/utils/constants.ts";
 import { formatNumber } from "@/utils/format-number.ts";
@@ -154,14 +155,12 @@ export default async function Homepage() {
 
 function StartLevelingButton() {
 	return (
-		<a
+		<ExternalLink
 			className="relative bg-gradient-radial w-72 z-[1] text-black text-center px-3 py-2 text-3xl font-bold rounded-lg before:absolute before:content-[''] before:inset-0 before:bg-gradient-radial-2 before:z-[-1] before:transition-opacity before:duration-300 before:opacity-0 before:rounded-lg hover:before:opacity-100"
 			href={BOT_INVITE}
-			rel="external noopener noreferrer"
-			target="_blank"
 		>
 			Start Leveling
-		</a>
+		</ExternalLink>
 	);
 }
 

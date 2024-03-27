@@ -27,14 +27,7 @@ export function OnJoinRolesForBadges({ defaultValues, premium, roles }: OnJoinRo
 		}
 
 		setAutoRoleFlags((prev) =>
-			[
-				...prev,
-				{
-					id: crypto.randomUUID(),
-					flagId,
-					roleIds,
-				},
-			].sort((a, b) => a.flagId - b.flagId),
+			[...prev, { id: crypto.randomUUID(), flagId, roleIds }].sort((a, b) => a.flagId - b.flagId),
 		);
 
 		setNewRoles([]);
@@ -75,9 +68,9 @@ export function OnJoinRolesForBadges({ defaultValues, premium, roles }: OnJoinRo
 
 				<Select
 					store={select}
-					className="flex h-10 w-80 items-center justify-between rounded-lg bg-light-gray px-3 py-2 shadow-dim-inner"
+					className="flex h-10 w-64 items-center justify-between rounded-lg bg-light-gray px-3 py-2 shadow-dim-inner"
 				>
-					<div className="flex items-center gap-2">
+					<div className="flex items-center gap-2 truncate">
 						<Image src={selectedBadgeInfo.icon} alt={`${selectedBadgeInfo.name} badge`} width={22} height={22} />
 						{selectedBadgeInfo.name}
 					</div>
@@ -113,24 +106,24 @@ export function OnJoinRolesForBadges({ defaultValues, premium, roles }: OnJoinRo
 				</button>
 			</div>
 
-			<label className="flex items-end gap-2 text-lg tracking-tight text-white/75 md:text-xl">
-				Manage your Badge-specific roles…
-				<p className="mb-1 text-xs font-light text-white/50">(Max. 30 roles total - Max. 100 for Premium)</p>
-			</label>
-
 			{autoRoleFlags.length ? (
-				autoRoleFlags.map((autoRoleFlag) => (
-					<OnJoinRoleBadge
-						key={autoRoleFlag.id}
-						{...autoRoleFlag}
-						roles={roles}
-						onDelete={handleDelete}
-						premium={premium}
-					/>
-				))
-			) : (
-				<p className="tracking-tight text-white/75">No on join roles for badges yet!</p>
-			)}
+				<>
+					<label className="flex items-end gap-2 text-lg tracking-tight text-white/75 md:text-xl">
+						Manage your Badge-specific roles…
+						<p className="mb-1 text-xs font-light text-white/50">(Max. 30 roles total - Max. 100 for Premium)</p>
+					</label>
+
+					{autoRoleFlags.map((autoRoleFlag) => (
+						<OnJoinRoleBadge
+							key={autoRoleFlag.id}
+							{...autoRoleFlag}
+							roles={roles}
+							onDelete={handleDelete}
+							premium={premium}
+						/>
+					))}
+				</>
+			) : null}
 		</>
 	);
 }

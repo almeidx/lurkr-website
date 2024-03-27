@@ -27,6 +27,8 @@ export const toggle = transform(optional(literal("on")), (value) => value === "o
 
 export const interval = coerce(number(), Number);
 
+export const booleanFlag = transform(union([literal("true"), literal("false")]), (value) => value === "true");
+
 export function createMinuteIntervalValidator(min: number, max: number, name: string, extras: Pipe<number> = []) {
 	return coerce(
 		number(`${name} must be a number`, [

@@ -1,10 +1,8 @@
 "use client";
 
-import type { Channel } from "@/lib/guild.ts";
+import { type Channel, ChannelType } from "@/lib/guild.ts";
 import { type PropsWithChildren, useMemo, useState } from "react";
 import Select from "react-select";
-
-// TODO: Add max prop
 
 export function ChannelSelector({
 	channels,
@@ -13,6 +11,7 @@ export function ChannelSelector({
 	disabled,
 	inputId,
 	max,
+	menuPlacement = "auto",
 	onChange,
 	settingId,
 }: ChannelSelectorProps) {
@@ -24,7 +23,7 @@ export function ChannelSelector({
 
 			if (acc.has(parent)) {
 				acc.get(parent)!.push(channel);
-			} else {
+			} else if (channel.type !== ChannelType.GuildCategory) {
 				acc.set(parent, [channel]);
 			}
 
@@ -67,6 +66,7 @@ export function ChannelSelector({
 						onChange?.(newValues);
 					}}
 					closeMenuOnSelect={false}
+					menuPlacement={menuPlacement}
 					styles={{
 						// @ts-expect-error: Bad types
 						container: (baseStyles) => ({
@@ -93,12 +93,16 @@ export function ChannelSelector({
 							color: "#e2e2e2",
 							maxWidth: "48rem",
 							minWidth: "16rem",
+							zIndex: "999999",
 						}),
 						// @ts-expect-error: Bad types
-						option: (baseStyles, state) => ({
+						option: (baseStyles) => ({
 							...baseStyles,
-							backgroundColor: state.isFocused ? "#474747" : "#2d2d2d",
 							color: "#e2e2e2",
+							backgroundColor: "#2d2d2d",
+							":hover": {
+								backgroundColor: "#474747",
+							},
 						}),
 						// @ts-expect-error: Bad types
 						multiValue: (baseStyles) => ({
@@ -153,6 +157,7 @@ interface ChannelSelectorProps extends PropsWithChildren {
 	 */
 	readonly inputId: string;
 	readonly max: number;
+	readonly menuPlacement?: "auto" | "top" | "bottom";
 	onChange?(newValues: readonly Channel[]): void;
 	/**
 	 * Id for the input containing the channel ids (hidden)

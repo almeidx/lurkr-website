@@ -6,7 +6,10 @@ import { useMemo } from "react";
 
 export function AutomaticallyPublishChannels({ channels, defaultValues, premium }: AutomaticallyPublishChannelsProps) {
 	const announcementChannels = useMemo(
-		() => channels.filter((channel) => channel.type === ChannelType.GuildAnnouncement),
+		() =>
+			channels.filter(
+				(channel) => channel.type === ChannelType.GuildAnnouncement || channel.type === ChannelType.GuildCategory,
+			),
 		[channels],
 	);
 
@@ -24,6 +27,7 @@ export function AutomaticallyPublishChannels({ channels, defaultValues, premium 
 			defaultValues={defaultValue}
 			inputId="automatically-publish-announcement-channels"
 			max={getMaximumLimit("autoPublishChannels", premium)}
+			menuPlacement="top"
 			settingId="autoPublishChannels"
 		>
 			<div className="flex items-end gap-2">

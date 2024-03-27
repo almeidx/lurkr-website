@@ -85,24 +85,24 @@ export function RoleMultipliers({ multipliers, premium, roles }: RoleMultipliers
 				</button>
 			</div>
 
-			<label className="flex items-end gap-2 text-lg tracking-tight text-white/75 md:text-xl">
-				Manage your role multipliers…
-				<p className="mb-1 text-xs font-light text-white/50">(Max. 30 roles total - Max. 100 for Premium)</p>
-			</label>
-
 			{roleMultipliers.length ? (
-				roleMultipliers.map((multiplier) => (
-					<RoleMultiplier
-						key={multiplier.id}
-						{...multiplier}
-						roles={roles}
-						onDelete={handleDeleteMultiplier}
-						premium={premium}
-					/>
-				))
-			) : (
-				<p className="tracking-tight text-white/75">No role multipliers yet!</p>
-			)}
+				<>
+					<label className="flex items-end gap-2 text-lg tracking-tight text-white/75 md:text-xl">
+						Manage your role multipliers…
+						<p className="mb-1 text-xs font-light text-white/50">(Max. 30 roles total - Max. 100 for Premium)</p>
+					</label>
+
+					{roleMultipliers.map((multiplier) => (
+						<RoleMultiplier
+							key={multiplier.id}
+							{...multiplier}
+							roles={roles}
+							onDelete={handleDeleteMultiplier}
+							premium={premium}
+						/>
+					))}
+				</>
+			) : null}
 		</>
 	);
 }

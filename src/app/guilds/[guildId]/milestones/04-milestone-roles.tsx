@@ -24,6 +24,7 @@ export function MilestoneRoles({ defaultValues, premium, roles }: MilestoneRoles
 			defaultValues={defaultValue}
 			inputId="on-join-roles"
 			max={getMaximumLimit("milestonesRoles", premium)}
+			menuPlacement="top"
 			roles={roles}
 			settingId="milestonesRoles"
 		>

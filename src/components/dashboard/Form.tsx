@@ -3,10 +3,21 @@ import { SaveButton } from "@/components/dashboard/SaveButton.tsx";
 import type { GuildSettings } from "@/lib/guild.ts";
 import type { PropsWithChildren } from "react";
 
-export function Form({ title, action, children, settingId, defaultValue, withSaveButton = true }: FormProps) {
+export function Form({
+	title,
+	action,
+	children,
+	description,
+	settingId,
+	defaultValue,
+	withSaveButton = true,
+}: FormProps) {
 	return (
-		<div className="flex w-full flex-col gap-5 px-4 py-4">
-			<h2 className="pl-10 text-2xl font-semibold md:pl-0">{title}</h2>
+		<div className="flex w-full flex-col gap-5 px-4 py-4 max-h-[calc(100vh-55px)] overflow-y-auto">
+			<div className="space-y-2">
+				<h2 className="text-2xl font-semibold">{title}</h2>
+				{description && <p className="text-white/75">{description}</p>}
+			</div>
 
 			<form action={action} className="mb-12 flex flex-col gap-4">
 				{settingId ? (
@@ -32,6 +43,7 @@ export function Form({ title, action, children, settingId, defaultValue, withSav
 type FormProps = PropsWithChildren<{
 	action(data: FormData): void;
 	readonly defaultValue?: boolean;
+	readonly description?: string;
 	readonly settingId?: keyof GuildSettings;
 	readonly title: string;
 	readonly withSaveButton?: boolean;

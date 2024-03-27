@@ -11,8 +11,12 @@ import {
 import { type GuildSettings, XpMultiplierType } from "@/lib/guild.ts";
 import { formDataToObject } from "@/utils/form-data-to-object.ts";
 import { lazy } from "@/utils/lazy.ts";
-import { UUID_REGEX, createSnowflakesValidator } from "@/utils/schemas.ts";
-import { coerce, maxValue, minValue, number, parse, regex, string, transform } from "valibot";
+import { UUID_REGEX, booleanFlag, createSnowflakesValidator } from "@/utils/schemas.ts";
+import { coerce, maxValue, minValue, number, object, parse, regex, string, transform } from "valibot";
+
+const schema = object({
+	prioritiseMultiplierRoleHierarchy: booleanFlag,
+});
 
 const xpMultiplierType = Object.values(XpMultiplierType);
 
@@ -57,9 +61,12 @@ const xpMultipliersKeySchema = transform(
 export async function update(guildId: string, premium: boolean, data: FormData) {
 	const rawData = formDataToObject(data);
 
+	const parsed = parse(schema, rawData);
+
 	const multiplierTargetsSchema = premium ? premiumMultiplierTargetsSchema() : regularMultiplierTargetsSchema();
 
 	const settings = {
+		...parsed,
 		xpMultipliers: Object.entries(rawData)
 			.filter(([key]) => key.startsWith("xpMultipliers-"))
 			.map(([key, value]) => {

@@ -20,7 +20,7 @@ import {
 import { GuildAccentType, type GuildSettings, XpAnnouncementChannelType, XpChannelMode } from "@/lib/guild.ts";
 import { formDataToObject } from "@/utils/form-data-to-object.ts";
 import { lazy } from "@/utils/lazy.ts";
-import { UUID_REGEX, createSnowflakesValidator, snowflake, toggle } from "@/utils/schemas.ts";
+import { UUID_REGEX, booleanFlag, createSnowflakesValidator, snowflake, toggle } from "@/utils/schemas.ts";
 import {
 	array,
 	coerce,
@@ -56,8 +56,10 @@ export async function update(guildId: string, premium: boolean, data: FormData) 
 
 	const xpRoleRewardRolesSchema = premium ? premiumXpRoleRewardRolesSchema() : regularXpRoleRewardRolesSchema();
 
+	const parsed = parse(schema, rawData);
+
 	const settings = {
-		...parse(schema, rawData),
+		...parsed,
 		xpRoleRewards: Object.entries(rawData)
 			.filter(([key]) => key.startsWith("xpRoleRewards-"))
 			.map(([key, value]) => ({
@@ -92,7 +94,7 @@ function createSchema(premium: boolean) {
 				premium ? MAX_NO_ROLE_REWARD_ROLES_PREMIUM : MAX_NO_ROLE_REWARD_ROLES,
 			),
 			noXpRoles: createSnowflakesValidator(premium ? MAX_NO_XP_ROLES_PREMIUM : MAX_NO_XP_ROLES),
-			stackXpRoles: toggle,
+			stackXpRoles: booleanFlag,
 			topXpRole: snowflake,
 			xpAnnounceChannel: snowflake,
 			xpAnnounceChannelType: enum_(XpAnnouncementChannelType),

@@ -5,7 +5,7 @@ export function Text({ children, docsPath, htmlFor }: TextProps) {
 	const Element = htmlFor ? "label" : "span";
 
 	return (
-		<Element className="flex items-center gap-2 text-xl tracking-tight text-white/75" htmlFor={htmlFor}>
+		<Element className="flex items-center gap-2 text-lg md:text-xl tracking-tight text-white/75" htmlFor={htmlFor}>
 			{children}
 			{docsPath && <DocsBubble path={docsPath} />}
 		</Element>

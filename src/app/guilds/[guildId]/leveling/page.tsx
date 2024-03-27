@@ -29,7 +29,13 @@ export default async function Leveling({ params: { guildId } }: { readonly param
 	const action = update.bind(null, guildId, settings.premium);
 
 	return (
-		<Form action={action} title="Leveling" defaultValue={settings.levels} settingId="levels">
+		<Form
+			action={action}
+			title="Leveling"
+			description="Reward your member's activity with levels, role rewards and more!"
+			defaultValue={settings.levels}
+			settingId="levels"
+		>
 			<Section name="Leveling Channels" docsPath="/guides/setting-up-server-leveling#adding-leveling-channels">
 				<LevelingChannelMode defaultValue={settings.xpChannelMode} />
 
@@ -60,6 +66,8 @@ export default async function Leveling({ params: { guildId } }: { readonly param
 				name="All-time Leaderboard Champion"
 				docsPath="/guides/setting-up-server-leveling#adding-the-daily-top-leveling-role"
 			>
+				<Text>Award the member with the highest level in your server (updated daily)…</Text>
+
 				<TopLevelingRole defaultValue={settings.topXpRole} roles={guild.roles} />
 			</Section>
 
@@ -88,6 +96,8 @@ export default async function Leveling({ params: { guildId } }: { readonly param
 				/>
 
 				<Separator />
+
+				<Text>What to do with previous rewards…</Text>
 
 				<StackRoleRewards defaultValue={settings.stackXpRoles} />
 

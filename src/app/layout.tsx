@@ -1,6 +1,7 @@
 import "@/app/globals.css";
 
 import { openSans } from "@/app/fonts.ts";
+import { Providers } from "@/app/providers.tsx";
 import { Footer } from "@/components/Footer.tsx";
 import { NavbarContainer } from "@/components/NavbarContainer.tsx";
 import { BRAND_COLOR, DESCRIPTION } from "@/utils/constants.ts";
@@ -18,16 +19,18 @@ export default function RootLayout({ children }: PropsWithChildren) {
 			<body
 				className={`${openSans.variable} scroll-smooth bg-background font-sans text-white antialiased selection:bg-primary selection:text-white`}
 			>
-				<div className="flex flex-col">
-					<div className="flex min-h-screen flex-col">
-						<div className="flex-1">
-							<NavbarContainer />
-							{children}
-						</div>
+				<Providers>
+					<div className="flex flex-col">
+						<div className="flex min-h-screen flex-col">
+							<div className="flex-1">
+								<NavbarContainer />
+								{children}
+							</div>
 
-						<Footer />
+							<Footer />
+						</div>
 					</div>
-				</div>
+				</Providers>
 
 				<svg style={{ width: 0, height: 0, position: "absolute" }} aria-hidden="true" focusable="false">
 					<linearGradient

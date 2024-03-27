@@ -5,9 +5,16 @@ import { decimalRoleColorToHex } from "@/utils/decimal-to-hex-color.ts";
 import { type PropsWithChildren, useMemo, useState } from "react";
 import Select, { type GroupBase, type OptionProps, components } from "react-select";
 
-// TODO: Add max prop
-
-export function RoleSelector({ children, defaultValues, inputId, max, onChange, roles, settingId }: RoleSelectorProps) {
+export function RoleSelector({
+	children,
+	defaultValues,
+	inputId,
+	max,
+	menuPlacement = "auto",
+	onChange,
+	roles,
+	settingId,
+}: RoleSelectorProps) {
 	const [values, setValues] = useState(defaultValues as Readonly<typeof defaultValues>);
 
 	const roleOptions = useMemo(
@@ -48,6 +55,7 @@ export function RoleSelector({ children, defaultValues, inputId, max, onChange, 
 						onChange?.(newValues);
 					}}
 					closeMenuOnSelect={false}
+					menuPlacement={menuPlacement}
 					components={{ Option }}
 					styles={{
 						// @ts-expect-error: Bad types
@@ -153,6 +161,7 @@ interface RoleSelectorProps extends PropsWithChildren {
 	 */
 	readonly inputId: string;
 	readonly max: number;
+	readonly menuPlacement?: "auto" | "top" | "bottom";
 	onChange?(newValues: readonly RoleWithResolvedColor[]): void;
 	readonly roles: Role[];
 	/**

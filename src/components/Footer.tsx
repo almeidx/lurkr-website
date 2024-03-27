@@ -1,4 +1,5 @@
 import { BackToTheTop } from "@/components/BackToTheTop.tsx";
+import { ExternalLink } from "@/components/ExternalLink.tsx";
 import Link from "next/link";
 
 export function Footer() {
@@ -16,14 +17,10 @@ export function Footer() {
 						<p className="font-bold">About Us</p>
 						<ul className="text-sm text-white/75">
 							<li>
-								<a href="https://discord.gg/XUQAnkq2vy" rel="external noopener noreferrer" target="_blank">
-									Discord
-								</a>
+								<ExternalLink href="https://discord.gg/XUQAnkq2vy">Discord</ExternalLink>
 							</li>
 							<li>
-								<a href="https://github.com/almeidx/lurkr-website" rel="external noopener noreferrer" target="_blank">
-									GitHub
-								</a>
+								<ExternalLink href="https://github.com/almeidx/lurkr-website">GitHub</ExternalLink>
 							</li>
 						</ul>
 					</div>

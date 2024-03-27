@@ -2,10 +2,11 @@
 
 import type { GuildInfo } from "@/app/guilds/page.tsx";
 import fallbackAvatarImg from "@/assets/fallback-avatar.png";
+import { ExternalLink } from "@/components/ExternalLink.tsx";
 import { ImageWithFallback } from "@/components/ImageWithFallback.tsx";
 import type { Guild, GuildSettings } from "@/lib/guild.ts";
 import { guildIcon } from "@/utils/discord-cdn.ts";
-import { Select, SelectArrow, SelectItem, SelectPopover, useSelectStore } from "@ariakit/react/select";
+import { Menu, MenuButton, MenuButtonArrow, MenuItem, useMenuStore } from "@ariakit/react";
 import { BsSignpostFill } from "@react-icons/all-files/bs/BsSignpostFill";
 import { FaPatreon } from "@react-icons/all-files/fa/FaPatreon";
 import { FaShapes } from "@react-icons/all-files/fa/FaShapes";
@@ -18,135 +19,117 @@ import { MdSettings } from "@react-icons/all-files/md/MdSettings";
 import { TbRobot } from "@react-icons/all-files/tb/TbRobot";
 import clsx from "clsx";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
-import { type PropsWithChildren, useEffect } from "react";
+import { usePathname } from "next/navigation";
+import type { PropsWithChildren } from "react";
 import type { GuildMetadataResult } from "./layout.tsx";
 
-export function Menu({ guild, guilds }: MenuProps) {
+export function DashboardMenu({ guild, guilds }: DashboardMenuProps) {
+	const menu = useMenuStore();
 	const pathname = usePathname();
-	const select = useSelectStore({
-		defaultValue: guild.id,
-	});
-	const selectedGuildValue = select.useState("value");
-	const router = useRouter();
-
-	const selectedGuild = guilds.find((guild) => guild.id === selectedGuildValue) ?? guild;
 
 	const currentDashSection = (pathname.split("/")[3] ?? "overview") as Section;
 
-	// biome-ignore lint/correctness/useExhaustiveDependencies: This is intended.
-	useEffect(() => {
-		if (selectedGuildValue === guild.id) return;
-		router.push(`/guilds/${selectedGuildValue}`);
-	}, [selectedGuildValue]);
-
 	return (
 		<div className="flex flex-col items-center gap-6 pl-12 pr-8 md:static bg-transparent py-0">
-			<Select
-				store={select}
+			<MenuButton
+				store={menu}
 				className="bg-dark-gray px-3 py-2 rounded-lg flex justify-between items-center w-full shadow-inner max-w-[16.5rem]"
 			>
 				<div className="flex gap-2 items-center rounded-lg">
 					<ImageWithFallback
-						alt={`${selectedGuild.name}'s icon`}
-						src={guildIcon(selectedGuild.id, selectedGuild.icon)}
-						width={32}
-						height={32}
-						className="rounded-lg"
+						alt={`${guild.name}'s icon`}
+						src={guildIcon(guild.id, guild.icon)}
+						width={28}
+						height={28}
+						className="rounded-lg size-7"
 						fallback={fallbackAvatarImg}
 					/>
 
-					<p className="line-clamp-1">{selectedGuild.name}</p>
+					<p className="line-clamp-1">{guild.name}</p>
 				</div>
 
-				<SelectArrow />
-			</Select>
+				<MenuButtonArrow />
+			</MenuButton>
 
-			<SelectPopover
-				store={select}
+			<Menu
+				store={menu}
 				gutter={8}
 				sameWidth
-				className="max-h-96 z-50 rounded-lg bg-dark-gray flex flex-col gap-4 overflow-y-scroll px-2 py-1.5 max-w-[16.5rem]"
+				className="max-h-96 z-50 rounded-lg bg-dark-gray flex flex-col overflow-y-auto"
 			>
 				{guilds.map((guild) => (
-					<SelectItem
-						key={guild.id}
-						store={select}
-						value={guild.id}
-						className="px-1 py-0.5 flex gap-2 items-center rounded-lg hover:bg-white/10 cursor-pointer"
-					>
-						<ImageWithFallback
-							alt={`${guild.name}'s icon`}
-							src={guildIcon(guild.id, guild.icon)}
-							width={32}
-							height={32}
-							className="rounded-lg"
-							fallback={fallbackAvatarImg}
-							unoptimized={Boolean(guild.icon)}
-						/>
+					<MenuItem key={guild.id} store={menu}>
+						<Link
+							className="flex gap-2 items-center py-2 px-1.5 cursor-pointer hover:bg-white/10"
+							href={`/guilds/${guild.id}`}
+							prefetch={guilds.length < 3}
+						>
+							<ImageWithFallback
+								alt={`${guild.name}'s icon`}
+								src={guildIcon(guild.id, guild.icon)}
+								width={32}
+								height={32}
+								className="rounded-lg"
+								fallback={fallbackAvatarImg}
+								unoptimized={Boolean(guild.icon)}
+							/>
 
-						<p className="line-clamp-1">{guild.name}</p>
-					</SelectItem>
+							<p className="line-clamp-1">{guild.name}</p>
+						</Link>
+					</MenuItem>
 				))}
-			</SelectPopover>
+			</Menu>
 
 			<div>
-				<a
+				<ExternalLink
 					className="relative flex w-fit rounded-lg px-3 py-2 before:absolute before:inset-1 before:rounded-lg before:bg-patreon before:blur-lg after:absolute after:inset-0 after:z-10 after:rounded-lg after:bg-patreon"
 					href="https://patreon.com/lurkrbot"
-					rel="external noopener noreferrer"
-					target="_blank"
 				>
 					<span className="z-20 flex items-center justify-center gap-3 text-xl font-extrabold text-black">
 						<FaPatreon size={24} />
 						{guild.premium ? "Perks Active" : "Get Premium"}
 					</span>
-				</a>
+				</ExternalLink>
 
 				<aside className="mt-6 mb-2">
 					<ul className="flex flex-col whitespace-nowrap gap-1">
-						<MenuItem guildId={guild.id} name="Overview" path="" isActive={currentDashSection === "overview"}>
+						<Item guildId={guild.id} name="Overview" path="" isActive={currentDashSection === "overview"}>
 							<MdSettings color="#e2e2e2" size={19} />
-						</MenuItem>
-						<MenuItem guildId={guild.id} name="Import Bots" path="import" isActive={currentDashSection === "import"}>
+						</Item>
+						<Item guildId={guild.id} name="Import Bots" path="import" isActive={currentDashSection === "import"}>
 							<TbRobot color="#e2e2e2" size={19} />
-						</MenuItem>
-						<MenuItem guildId={guild.id} name="Leveling" path="leveling" isActive={currentDashSection === "leveling"}>
+						</Item>
+						<Item guildId={guild.id} name="Leveling" path="leveling" isActive={currentDashSection === "leveling"}>
 							<FiTrendingUp color="#ff7077" size={19} />
-						</MenuItem>
-						<MenuItem
+						</Item>
+						<Item
 							guildId={guild.id}
 							name="Multipliers"
 							path="multipliers"
 							isActive={currentDashSection === "multipliers"}
 						>
 							<IoRocketSharp color="#82cbff" size={19} />
-						</MenuItem>
-						<MenuItem guildId={guild.id} name="Role Management" path="roles" isActive={currentDashSection === "roles"}>
+						</Item>
+						<Item guildId={guild.id} name="Role Management" path="roles" isActive={currentDashSection === "roles"}>
 							<MdFormatListBulletedAdd color="#d2ffae" size={19} />
-						</MenuItem>
-						<MenuItem
-							guildId={guild.id}
-							name="Milestones"
-							path="milestones"
-							isActive={currentDashSection === "milestones"}
-						>
+						</Item>
+						<Item guildId={guild.id} name="Milestones" path="milestones" isActive={currentDashSection === "milestones"}>
 							<BsSignpostFill color="#804994" size={19} />
-						</MenuItem>
-						<MenuItem guildId={guild.id} name="Emoji List" path="emojis" isActive={currentDashSection === "emojis"}>
+						</Item>
+						<Item guildId={guild.id} name="Emoji List" path="emojis" isActive={currentDashSection === "emojis"}>
 							<MdEmojiEmotions color="#ffe87c" size={19} />
-						</MenuItem>
-						<MenuItem
+						</Item>
+						<Item
 							guildId={guild.id}
 							name="Miscellaneous"
 							path="miscellaneous"
 							isActive={currentDashSection === "miscellaneous"}
 						>
 							<FaShapes color="#73ffc4" size={19} />
-						</MenuItem>
-						<MenuItem guildId={guild.id} name="Danger Zone" path="danger" isActive={currentDashSection === "danger"}>
+						</Item>
+						<Item guildId={guild.id} name="Danger Zone" path="danger" isActive={currentDashSection === "danger"}>
 							<IoWarning color="#ff9254" size={19} />
-						</MenuItem>
+						</Item>
 					</ul>
 				</aside>
 			</div>
@@ -154,7 +137,7 @@ export function Menu({ guild, guilds }: MenuProps) {
 	);
 }
 
-function MenuItem({ guildId, name, path, isActive, children }: MenuItemProps) {
+function Item({ guildId, name, path, isActive, children }: ItemProps) {
 	return (
 		<li>
 			<Link
@@ -178,7 +161,7 @@ export interface MenuGuildData {
 	settings: GuildSettings;
 }
 
-type MenuItemProps = PropsWithChildren<{
+type ItemProps = PropsWithChildren<{
 	readonly guildId: string;
 	readonly name: string;
 	readonly path: Exclude<Section, "overview"> | "";
@@ -196,7 +179,7 @@ type Section =
 	| "roles"
 	| "overview";
 
-interface MenuProps {
+interface DashboardMenuProps {
 	readonly guild: GuildMetadataResult;
 	readonly guilds: GuildInfo[];
 }

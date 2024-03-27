@@ -1,57 +1,31 @@
 "use client";
 
-import { DocsBubble } from "@/components/dashboard/DocsBubble.tsx";
-import { Select, SelectArrow, SelectItem, SelectLabel, SelectPopover, useSelectStore } from "@ariakit/react/select";
-
-export const enum RoleMultiplierPriorityEnum {
-	Hierarchy = "Hierarchy",
-	Multiplier = "Multiplier",
-}
+import { Radio, RadioGroup, useRadioStore } from "@/components/dashboard/Radio.tsx";
 
 export function RoleMultiplierPriority({ defaultValue }: { readonly defaultValue: boolean }) {
-	const select = useSelectStore({ defaultValue: convertDefaultValueToEnum(defaultValue) });
-	const selectedValue = select.useState("value");
+	const radio = useRadioStore({ defaultValue: defaultValue.toString() });
 
 	return (
-		<div className="mt-3 flex h-6 items-center gap-2 rounded-lg">
-			<SelectLabel className="flex items-center text-lg tracking-tight text-white/75 md:text-xl" store={select}>
-				Prioritize Role Multipliers over{" "}
-				<DocsBubble path="/guides/setting-up-leveling-multipliers#changing-role-multiplier-hierarchy" />
-			</SelectLabel>
+		<RadioGroup className="flex w-fit flex-col gap-4" store={radio}>
+			<label className="flex text-lg tracking-tight text-white/75 md:text-xl">
+				<Radio
+					value="false"
+					id="prioritiseMultiplierRoleHierarchy"
+					name="prioritiseMultiplierRoleHierarchy"
+					rightMargin
+				/>
+				Highest multiplier value
+			</label>
 
-			<Select
-				store={select}
-				className="flex h-12 w-40 items-center justify-between rounded-lg bg-light-gray px-3 py-2 shadow-dim-inner"
-			>
-				{selectedValue === RoleMultiplierPriorityEnum.Hierarchy ? "Role Hierarchy" : "Multiplier Value"}
-
-				<SelectArrow />
-			</Select>
-
-			<SelectPopover
-				store={select}
-				gutter={8}
-				sameWidth
-				className="z-[10000] flex w-40 flex-col rounded-lg bg-light-gray shadow-dim-inner"
-			>
-				<SelectItem
-					className="cursor-default hover:bg-dark-gray/50 px-3 py-2 rounded-lg"
-					value={RoleMultiplierPriorityEnum.Hierarchy}
-				>
-					Role Hierarchy
-				</SelectItem>
-
-				<SelectItem
-					className="cursor-default hover:bg-dark-gray/50 px-3 py-2 rounded-lg"
-					value={RoleMultiplierPriorityEnum.Multiplier}
-				>
-					Multiplier Value
-				</SelectItem>
-			</SelectPopover>
-		</div>
+			<label className="flex text-lg tracking-tight text-white/75 md:text-xl">
+				<Radio
+					value="true"
+					id="prioritiseMultiplierRoleHierarchy"
+					name="prioritiseMultiplierRoleHierarchy"
+					rightMargin
+				/>
+				Highest role in the hierarchy
+			</label>
+		</RadioGroup>
 	);
-}
-
-function convertDefaultValueToEnum(defaultValue: boolean) {
-	return defaultValue ? RoleMultiplierPriorityEnum.Hierarchy : RoleMultiplierPriorityEnum.Multiplier;
 }
