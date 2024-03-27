@@ -1,0 +1,61 @@
+import { API_URL, TOKEN_COOKIE } from "@/utils/constants.ts";
+import type { Snowflake } from "@/utils/discord-cdn.ts";
+import type { Metadata } from "next";
+import { cookies } from "next/headers";
+import { LeaderboardGuildInput, LeaderboardGuildList } from "./guild-list.tsx";
+
+export default async function Levels() {
+	const token = cookies().get(TOKEN_COOKIE)?.value;
+	const data = token ? await getGuilds(token) : null;
+
+	return (
+		<div className="flex flex-col items-center gap-2 py-4">
+			<header className="mt-3 flex gap-8">
+				<div className="flex flex-col items-center">
+					<h1 className="mb-4 text-2xl font-semibold text-white">Leveling Leaderboard</h1>
+
+					<p className="max-w-lg px-2 text-center text-xl tracking-tight text-white/75">
+						View the leveling leaderboard of any Lurkr-enabled server including insights and information how best to
+						level up!
+					</p>
+				</div>
+			</header>
+
+			{data ? <LeaderboardGuildList guilds={data?.guilds} /> : <LeaderboardGuildInput />}
+		</div>
+	);
+}
+
+export const metadata: Metadata = {
+	title: "Leveling • Lurkr",
+	description: "View the leveling leaderboard of any Lurkr-enabled server!",
+};
+
+async function getGuilds(token: string) {
+	const response = await fetch(`${API_URL}/levels/@me`, {
+		headers: {
+			Authorization: `Bearer ${token}`,
+		},
+		next: {
+			revalidate: 60,
+		},
+	});
+
+	if (response.status === 401) {
+		throw new Error("Unauthorized");
+	}
+
+	if (!response.ok) {
+		throw new Error("Failed to fetch guilds");
+	}
+
+	// TODO: Error handling
+
+	return response.json() as Promise<{ guilds: GuildInfo[] }>;
+}
+
+export interface GuildInfo {
+	icon: string | null;
+	id: Snowflake;
+	name: string;
+}

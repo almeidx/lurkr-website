@@ -1,64 +1,47 @@
+import { BackToTheTop } from "@/components/BackToTheTop.tsx";
+import { ExternalLink } from "@/components/ExternalLink.tsx";
 import Link from "next/link";
 
-const sections = [
-	{
-		links: [
-			{ href: "https://discord.gg/XUQAnkq2vy", name: "Discord" },
-			{ href: "https://top.gg/bot/506186003816513538/vote", name: "Top.gg" },
-			{ href: "https://github.com/almeidx/lurkr-website", name: "GitHub" },
-		],
-		title: "About Us",
-	},
-	{
-		links: [
-			{ href: "/privacy", name: "Privacy Policy" },
-			{ href: "/terms", name: "Terms and Conditions" },
-		],
-		title: "Legal",
-	},
-] as const satisfies readonly Section[];
-
-export default function Footer() {
+export function Footer() {
 	return (
-		<footer className="bg-discord-slightly-darker pb-8 shadow-sm sm:px-56">
-			<div className="flex flex-col gap-12">
-				<div className="ml-10 grid grid-rows-2 gap-6 pt-8 sm:ml-0 sm:grid-cols-2 sm:grid-rows-none sm:gap-0">
-					{sections.map(({ links, title }, idx) => (
-						<div className="flex flex-col gap-1 text-white" key={idx}>
-							<span className="mb-2 font-bold text-gray-400">{title}</span>
-							{links.map(({ href, name }, idx_) =>
-								href.startsWith("https://") ? (
-									<a
-										className="w-fit hover:underline"
-										href={href}
-										key={`${idx}-${idx_}`}
-										target="_blank"
-										rel="external noopener noreferrer"
-									>
-										{name}
-									</a>
-								) : (
-									<Link className="w-fit hover:underline" href={href} key={`${idx}-${idx_}`}>
-										{name}
-									</Link>
-								),
-							)}
-						</div>
-					))}
+		<div className="mx-4 flex justify-center border-t border-white/25 bg-transparent py-8">
+			<footer className="flex w-full max-w-7xl flex-col items-center justify-between gap-6 md:flex-row md:gap-0">
+				<div>
+					<p className="whitespace-nowrap text-end text-sm text-white/75">
+						Copyright ©️ {new Date().getFullYear()} Lurkr Team. All rights reserved.
+					</p>
 				</div>
 
-				<span className="flex items-center justify-center text-sm font-light text-gray-300 sm:items-start sm:justify-start sm:text-base">
-					Copyright © {new Date().getFullYear()} Lurkr Team. All rights reserved.
-				</span>
-			</div>
-		</footer>
-	);
-}
+				<div className="flex items-center justify-center gap-10 whitespace-nowrap">
+					<div>
+						<p className="font-bold">About Us</p>
+						<ul className="text-sm text-white/75">
+							<li>
+								<ExternalLink href="https://discord.gg/XUQAnkq2vy">Discord</ExternalLink>
+							</li>
+							<li>
+								<ExternalLink href="https://github.com/almeidx/lurkr-website">GitHub</ExternalLink>
+							</li>
+						</ul>
+					</div>
 
-interface Section {
-	links: readonly {
-		href: string;
-		name: string;
-	}[];
-	title: string;
+					<div>
+						<p className="font-bold">Legal</p>
+						<ul className="text-sm text-white/75">
+							<li>
+								<Link href="/privacy">Privacy Policy</Link>
+							</li>
+							<li>
+								<Link href="/terms">Terms & Conditions</Link>
+							</li>
+						</ul>
+					</div>
+				</div>
+
+				<div>
+					<BackToTheTop />
+				</div>
+			</footer>
+		</div>
+	);
 }
