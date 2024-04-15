@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import bannerImg from "~/assets/banner.png";
+import lurkrBetaLogoPng from "~/assets/lurkr-beta-logo.png";
 import promotionalVideoAuthorImg from "~/assets/promotional-video-author.jpg";
 import promotionalVideoImg from "~/assets/promotional-video.png";
 import customizableRankCardsImg from "~/assets/showcases/customizable-rank-cards.png";
@@ -55,6 +56,15 @@ const showcases = [
 export default function Home() {
 	return (
 		<div className="flex flex-col items-center bg-discord-dark">
+			<a
+				className="mx-2 mt-1 flex items-center gap-2 text-balance rounded-lg bg-[#57dbbc] px-5 py-1.5 text-xl text-[#171717] hover:bg-[#46af96]"
+				href="https://beta.lurkr.gg"
+				rel="external noopener noreferrer"
+			>
+				<Image alt="Lurkr logo with Cyan colouring" src={lurkrBetaLogoPng} width={32} height={32} className="size-8" />
+				Try out our new re-designed Website & Dashboard in Beta!
+			</a>
+
 			<header className="flex flex-col items-center justify-center py-5">
 				<Image alt="Lurkr banner" className="animate-bounce-slow" height={150} priority src={bannerImg} width={300} />
 
