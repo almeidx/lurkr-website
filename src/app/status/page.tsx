@@ -32,7 +32,7 @@ export default async function Status() {
 }
 
 export const metadata: Metadata = {
-	title: "Status • Lurkr",
+	title: "Status",
 	description: "Check if the bot is online in your server or is currently having issues!",
 };
 

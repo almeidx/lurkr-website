@@ -20,6 +20,6 @@ export default function CalculatorPage() {
 }
 
 export const metadata: Metadata = {
-	title: "Leveling Calculator • Lurkr",
+	title: "Leveling Calculator",
 	description: "Calculate how much you need to chat instead of lurking in order to reach the level you want!",
 };

@@ -2,14 +2,13 @@ import fallbackAvatarImg from "@/assets/fallback-avatar.png";
 import { ImageWithFallback } from "@/components/ImageWithFallback.tsx";
 import { QuestionMark } from "@/components/QuestionMark.tsx";
 import { getUser } from "@/lib/auth.ts";
-import { TOKEN_COOKIE } from "@/utils/constants.ts";
+import { DOCS_URL, TOKEN_COOKIE } from "@/utils/constants.ts";
 import { type Snowflake, userAvatar } from "@/utils/discord-cdn.ts";
 import { getTimePeriod } from "@/utils/get-time-period.ts";
 import { greeting } from "@/utils/greeting.ts";
 import { makeApiRequest } from "@/utils/make-api-request.ts";
 import type { Metadata } from "next";
 import { cookies } from "next/headers";
-import { DOCS_URL } from "../../../../shared-links.mjs";
 import { ItemStatus } from "./item-status.tsx";
 import { resolveOverviewStatuses } from "./resolve-overview-statuses.ts";
 
@@ -61,7 +60,7 @@ export default async function Dashboard({ params }: { readonly params: { guildId
 }
 
 export const metadata: Metadata = {
-	title: "Dashboard • Lurkr",
+	title: "Dashboard",
 	description: "Configure your server with Lurkr!",
 };
 

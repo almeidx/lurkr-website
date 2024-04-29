@@ -28,7 +28,7 @@ export default async function Levels() {
 }
 
 export const metadata: Metadata = {
-	title: "Leveling • Lurkr",
+	title: "Leveling",
 	description: "View the leveling leaderboard of any Lurkr-enabled server!",
 };
 

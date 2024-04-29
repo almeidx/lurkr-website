@@ -129,14 +129,14 @@ export async function generateMetadata({ params: { entry } }: LeaderboardProps):
 
 	if (!response.ok) {
 		return {
-			title: "Leaderboard • Lurkr",
+			title: "Leaderboard",
 			description: "View the leveling leaderboard of a Discord server, including rewards and multipliers!",
 		};
 	}
 
 	const guild = (await response.json()) as LevelsGuildMetadataResponse;
 
-	const titleSuffix = " • Leaderboard • Lurkr";
+	const titleSuffix = " • Leaderboard";
 
 	return {
 		title: `${ellipsis(guild.name, MAX_WINDOW_TITLE_LENGTH - titleSuffix.length)}${titleSuffix}`,

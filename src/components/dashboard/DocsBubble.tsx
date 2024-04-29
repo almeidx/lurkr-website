@@ -1,9 +1,9 @@
 "use client";
 
 import { ExternalLink } from "@/components/ExternalLink.tsx";
+import { DOCS_URL } from "@/utils/constants.ts";
 import { Tooltip, TooltipAnchor, useTooltipStore } from "@ariakit/react/tooltip";
 import { RiQuestionFill } from "@react-icons/all-files/ri/RiQuestionFill";
-import { DOCS_URL } from "../../../shared-links.mjs";
 
 export function DocsBubble({ tooltip, path }: DocsBubblePropos) {
 	const tooltipStore = useTooltipStore({

@@ -78,7 +78,10 @@ export default function RootLayout({ children }: PropsWithChildren) {
 }
 
 export const metadata: Metadata = {
-	title: "Lurkr",
+	title: {
+		default: "Lurkr",
+		template: "%s • Lurkr",
+	},
 	description: DESCRIPTION,
 
 	keywords: ["Lurkr", "Lurkr Bot", "Lurkr Invite", "Lurkr Discord", "Emoji Manager", "Emoji Manager Discord", "Lurker"],

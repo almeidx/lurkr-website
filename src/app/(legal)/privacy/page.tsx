@@ -122,5 +122,5 @@ export default function PrivacyPolicy() {
 }
 
 export const metadata: Metadata = {
-	title: "Privacy Policy • Lurkr",
+	title: "Privacy Policy",
 };

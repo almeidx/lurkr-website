@@ -76,7 +76,10 @@ export default async function Roles({ params: { guildId } }: { readonly params: 
 
 				<Separator />
 
-				<Text docsPath="/guides/automatic-role-mention-cooldown#setting-up-the-cooldown-time">
+				<Text
+					docsPath="/guides/automatic-role-mention-cooldown#setting-up-the-cooldown-time"
+					tooltip="Choose the time it takes to mention the role(s) again after they were first mentioned."
+				>
 					Set how long the roles will be unmentionable for…
 				</Text>
 

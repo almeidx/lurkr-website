@@ -47,7 +47,7 @@ export default async function GuildList() {
 }
 
 export const metadata: Metadata = {
-	title: "Dashboards • Lurkr",
+	title: "Dashboards",
 	description: "Configure your server with Lurkr!",
 };
 

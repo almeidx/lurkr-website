@@ -5,6 +5,7 @@ import { ExternalLink } from "@/components/ExternalLink.tsx";
 import { ProfileButton } from "@/components/Profile.tsx";
 import { SignInButton } from "@/components/SignIn.tsx";
 import type { getUserSafe } from "@/lib/auth.ts";
+import { DOCS_URL } from "@/utils/constants.ts";
 import { MdArrowBackIos } from "@react-icons/all-files/md/MdArrowBackIos";
 import { MdMenu } from "@react-icons/all-files/md/MdMenu";
 import { MdMenuOpen } from "@react-icons/all-files/md/MdMenuOpen";
@@ -14,7 +15,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useMediaQuery } from "usehooks-ts";
-import { DOCS_URL } from "../../shared-links.mjs";
 
 export function Navbar({ user }: { readonly user: ReturnType<typeof getUserSafe> }) {
 	const [menuOpen, setMenuOpen] = useState(false);

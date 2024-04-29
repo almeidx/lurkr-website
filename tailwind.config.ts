@@ -5,7 +5,7 @@ import { fontFamily } from "tailwindcss/defaultTheme";
 import plugin from "tailwindcss/plugin";
 
 export default {
-	content: ["./src/app/**/*.{ts,tsx,css,svg}", "./src/components/**/*.{ts,tsx,css,svg}"],
+	content: ["./src/**/*.{ts,tsx,css,svg,md,mdx}", "./docs/**/*.{md,mdx}"],
 	theme: {
 		extend: {
 			fontFamily: {

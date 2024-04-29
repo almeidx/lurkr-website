@@ -1,12 +1,5 @@
 import nextBundleAnalyzer from "@next/bundle-analyzer";
-import {
-	BOT_INVITE,
-	DOCS_URL,
-	GITHUB_REPOSITORY_URL,
-	PATREON_URL,
-	SUPPORT_SERVER_INVITE,
-	TOPGG_URL,
-} from "./shared-links.mjs";
+import { BOT_INVITE, GITHUB_REPOSITORY_URL, PATREON_URL, SUPPORT_SERVER_INVITE, TOPGG_URL } from "./shared-links.mjs";
 
 const bundleAnalyzerEnabled = process.env.ANALYZE === "true";
 
@@ -42,11 +35,6 @@ const nextConfig = {
 				destination: PATREON_URL,
 				permanent: true,
 				source: "/patreon",
-			},
-			{
-				destination: DOCS_URL,
-				permanent: true,
-				source: "/docs",
 			},
 			{
 				destination: GITHUB_REPOSITORY_URL,

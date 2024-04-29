@@ -144,5 +144,5 @@ export default function TermsAndConditions() {
 }
 
 export const metadata: Metadata = {
-	title: "Terms and Conditions • Lurkr",
+	title: "Terms and Conditions",
 };

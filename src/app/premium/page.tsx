@@ -110,7 +110,7 @@ export default async function Premium() {
 }
 
 export const metadata: Metadata = {
-	title: "Premium Plans • Lurkr",
+	title: "Premium Plans",
 	description:
 		"Get the most out of Lurkr with our premium plans. Compare the different plans and choose the one that fits your needs.",
 };
