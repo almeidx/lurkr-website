@@ -68,6 +68,7 @@ async function getOverviewStatus(guildId: Snowflake, token: string) {
 	const response = await makeApiRequest(`/guilds/${guildId}/overview`, token, {
 		next: {
 			tags: [`settings:${guildId}`],
+			revalidate: 30,
 		},
 	});
 

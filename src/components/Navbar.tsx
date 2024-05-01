@@ -110,7 +110,9 @@ export function Navbar({ user }: { readonly user: ReturnType<typeof getUserSafe>
 								<Link href="/levels/calculator">Calculator</Link>
 							</li>
 							<li className="text-white hover:text-white/75">
-								<Link href="/status">Status</Link>
+								<Link href="/status" prefetch={false}>
+									Status
+								</Link>
 							</li>
 							<li className="text-white hover:text-white/75">
 								<Link href="/premium">Premium</Link>

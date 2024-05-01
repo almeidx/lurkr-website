@@ -146,7 +146,10 @@ export async function generateMetadata({ params: { entry } }: LeaderboardProps):
 
 async function getData(entry: string, token: string | undefined, page: number) {
 	const response = await makeApiRequest(`/levels/${entry}?page=${page}`, token, {
-		next: { revalidate: 60, tags: [`levels:${entry}`] },
+		next: {
+			tags: [`levels:${entry}`],
+			revalidate: 60,
+		},
 	});
 
 	if (response.status === 401) {

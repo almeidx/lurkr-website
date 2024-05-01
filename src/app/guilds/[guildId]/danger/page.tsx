@@ -1,17 +1,16 @@
+import { getGuildSettings } from "@/app/guilds/[guildId]/get-guild-data.ts";
 import { Separator } from "@/components/Separator.tsx";
 import { Section } from "@/components/dashboard/Section.tsx";
 import { Text } from "@/components/dashboard/Text.tsx";
-import type { Guild, GuildSettings } from "@/lib/guild.ts";
 import { TOKEN_COOKIE } from "@/utils/constants.ts";
 import type { Snowflake } from "@/utils/discord-cdn.ts";
-import { makeApiRequest } from "@/utils/make-api-request.ts";
 import { cookies } from "next/headers";
 import { DownloadLevelingData } from "./01-download-leveling-data.tsx";
 import { ResetGuildData } from "./02-reset-guild-data.tsx";
 
 export default async function DangerZone({ params: { guildId } }: { readonly params: { guildId: Snowflake } }) {
 	const token = cookies().get(TOKEN_COOKIE)!.value;
-	const { settings } = await getData(guildId, token);
+	const { settings } = await getGuildSettings(guildId, token, "danger");
 
 	return (
 		<div className="flex w-full flex-col gap-5 px-4 py-4">
@@ -51,23 +50,4 @@ export default async function DangerZone({ params: { guildId } }: { readonly par
 			</div>
 		</div>
 	);
-}
-
-async function getData(guildId: Snowflake, token: string) {
-	const response = await makeApiRequest(`/guilds/${guildId}`, token, {
-		next: {
-			tags: [`settings:${guildId}`],
-		},
-	});
-
-	if (!response.ok) {
-		throw new Error("Failed to get guild information");
-	}
-
-	return response.json() as Promise<GetGuildResponse>;
-}
-
-interface GetGuildResponse {
-	guild: Guild;
-	settings: GuildSettings;
 }

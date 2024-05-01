@@ -1,12 +1,11 @@
+import { getGuildSettings } from "@/app/guilds/[guildId]/get-guild-data.ts";
 import { NoTopLevelingRoles } from "@/app/guilds/[guildId]/leveling/07-no-top-leveling-roles.tsx";
 import { Separator } from "@/components/Separator.tsx";
 import { Form } from "@/components/dashboard/Form.tsx";
 import { Section } from "@/components/dashboard/Section.tsx";
 import { Text } from "@/components/dashboard/Text.tsx";
-import type { Guild, GuildSettings } from "@/lib/guild.ts";
 import { TOKEN_COOKIE } from "@/utils/constants.ts";
 import type { Snowflake } from "@/utils/discord-cdn.ts";
-import { makeApiRequest } from "@/utils/make-api-request.ts";
 import { cookies } from "next/headers";
 import { LevelingChannelMode } from "./01-leveling-channel-mode.tsx";
 import { LevelingChannels } from "./02-leveling-channels.tsx";
@@ -26,7 +25,7 @@ import { update } from "./update.ts";
 
 export default async function Leveling({ params: { guildId } }: { readonly params: { guildId: Snowflake } }) {
 	const token = cookies().get(TOKEN_COOKIE)!.value;
-	const { guild, settings } = await getData(guildId, token);
+	const { guild, settings } = await getGuildSettings(guildId, token, "leveling");
 
 	const action = update.bind(null, guildId, settings.premium);
 
@@ -154,23 +153,4 @@ export default async function Leveling({ params: { guildId } }: { readonly param
 			</Section>
 		</Form>
 	);
-}
-
-async function getData(guildId: Snowflake, token: string) {
-	const response = await makeApiRequest(`/guilds/${guildId}`, token, {
-		next: {
-			tags: [`settings:${guildId}`, `settings:${guildId}:leveling`],
-		},
-	});
-
-	if (!response.ok) {
-		throw new Error("Failed to get guild information");
-	}
-
-	return response.json() as Promise<GetGuildResponse>;
-}
-
-interface GetGuildResponse {
-	guild: Guild;
-	settings: GuildSettings;
 }

@@ -59,6 +59,7 @@ async function getData(guildId: Snowflake, token: string) {
 	const response = await makeApiRequest(`/guilds/${guildId}/import-status`, token, {
 		next: {
 			tags: [`import-status:${guildId}`],
+			revalidate: 15,
 		},
 	});
 
