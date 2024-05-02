@@ -5,8 +5,10 @@ import { RoleSelector } from "@/components/dashboard/RoleSelector.tsx";
 import {
 	MAX_XP_ROLE_REWARDS,
 	MAX_XP_ROLE_REWARDS_PREMIUM,
+	MAX_XP_ROLE_REWARD_LEVEL,
 	MAX_XP_ROLE_REWARD_ROLES,
 	MAX_XP_ROLE_REWARD_ROLES_PREMIUM,
+	MIN_XP_ROLE_REWARD_LEVEL,
 } from "@/lib/guild-config.ts";
 import type { Role, XpRoleReward } from "@/lib/guild.ts";
 import { decimalRoleColorToHex } from "@/utils/decimal-to-hex-color.ts";
@@ -21,12 +23,20 @@ export function LevelingRoleRewards({ defaultRoleRewards, premium, roles }: Leve
 	const [newLevel, setNewLevel] = useState("");
 
 	const maxRoleRewards = getMaximumLimit("xpRoleRewards", premium);
+	const maxRoleRewardRoles = getMaximumLimit("xpRoleRewardRoles", premium);
 
 	function handleCreateRoleReward() {
 		const level = Number.parseInt(newLevel, 10);
 		const roleIds = newRoles.map(({ id }) => id);
 
-		if (Number.isNaN(level) || level < 1 || level > 100 || roleIds.length === 0 || roleIds.length > 25) {
+		if (
+			Number.isNaN(level) ||
+			level < MIN_XP_ROLE_REWARD_LEVEL ||
+			level > MAX_XP_ROLE_REWARD_LEVEL ||
+			roleIds.length === 0 ||
+			roleIds.length > maxRoleRewardRoles ||
+			roleRewards.length > maxRoleRewards
+		) {
 			return;
 		}
 
@@ -84,7 +94,7 @@ export function LevelingRoleRewards({ defaultRoleRewards, premium, roles }: Leve
 
 			{roleRewards.length ? (
 				<>
-					<Label sub={`Max. ${MAX_XP_ROLE_REWARDS} roles total - Max. ${MAX_XP_ROLE_REWARDS_PREMIUM} for Premium`}>
+					<Label sub={`Max. ${MAX_XP_ROLE_REWARDS} rewards total - Max. ${MAX_XP_ROLE_REWARDS_PREMIUM} for Premium`}>
 						Manage your role rewards…
 					</Label>
 

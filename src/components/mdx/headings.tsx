@@ -1,10 +1,11 @@
-import assert from "node:assert";
 import slugify from "@sindresorhus/slugify";
 import clsx from "clsx";
 import type { PropsWithChildren } from "react";
 
 export function createHeading(level: number) {
-	assert(level !== 1, "h1 is reserved for the page title");
+	if (level === 1) {
+		throw new Error("h1 is reserved for the page title");
+	}
 
 	const Heading = ({ children }: PropsWithChildren) => {
 		const slug = slugify(children!.toString());

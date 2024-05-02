@@ -59,7 +59,7 @@ export const DEFAULT_XP_MESSAGE = "<:icon_levelup:1086286977118261318> {user} ha
 export const MIN_XP_MESSAGE_LENGTH = 10;
 export const MAX_XP_MESSAGE_LENGTH = 1_800;
 
-export const MIN_XP_MULTIPLIER_VALUE = 0;
+export const MIN_XP_MULTIPLIER_VALUE = 0.01;
 export const MAX_XP_MULTIPLIER_VALUE = 5;
 export const MAX_XP_MULTIPLIERS = 5;
 export const MAX_XP_MULTIPLIERS_PREMIUM = 25;

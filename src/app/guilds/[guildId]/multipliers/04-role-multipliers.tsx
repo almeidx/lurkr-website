@@ -1,5 +1,6 @@
 "use client";
 
+import { CreateMultiplierButton } from "@/app/guilds/[guildId]/multipliers/create-multiplier-button.tsx";
 import { Label } from "@/components/dashboard/Label.tsx";
 import { RoleSelector } from "@/components/dashboard/RoleSelector.tsx";
 import { Text } from "@/components/dashboard/Text.tsx";
@@ -7,21 +8,27 @@ import {
 	MAX_XP_MULTIPLIER_TARGETS,
 	MAX_XP_MULTIPLIER_TARGETS_PREMIUM,
 	MAX_XP_MULTIPLIER_VALUE,
+	MIN_XP_MULTIPLIER_VALUE,
 } from "@/lib/guild-config.ts";
 import { type Role, type XpMultiplier, XpMultiplierType } from "@/lib/guild.ts";
 import { decimalRoleColorToHex } from "@/utils/decimal-to-hex-color.ts";
 import { getMaximumLimit } from "@/utils/get-maximum-limit.ts";
 import { BiSolidTrash } from "@react-icons/all-files/bi/BiSolidTrash";
 import { MdPersonAddAlt1 } from "@react-icons/all-files/md/MdPersonAddAlt1";
-import { useMemo, useState } from "react";
+import { type Dispatch, type SetStateAction, useMemo, useState } from "react";
 
-export function RoleMultipliers({ multipliers, premium, roles }: RoleMultipliersProps) {
+export function RoleMultipliers({
+	multipliers,
+	premium,
+	roles,
+	multiplierCount,
+	setMultiplierCount,
+}: RoleMultipliersProps) {
 	const [roleMultipliers, setRoleMultipliers] = useState<XpMultiplier[]>(() =>
 		multipliers.filter((multiplier) => multiplier.type === XpMultiplierType.Role),
 	);
 	const [newRoles, setNewRoles] = useState<readonly Role[]>([]);
 	const [newMultiplier, setNewMultiplier] = useState<string>("");
-	const [totalMultiplierCount, setTotalMultiplierCount] = useState<number>(() => multipliers.length);
 
 	const maxMultipliers = getMaximumLimit("xpMultipliers", premium);
 
@@ -33,10 +40,11 @@ export function RoleMultipliers({ multipliers, premium, roles }: RoleMultipliers
 
 		if (
 			Number.isNaN(multiplier) ||
-			multiplier < 0.01 ||
+			multiplier < MIN_XP_MULTIPLIER_VALUE ||
 			multiplier > MAX_XP_MULTIPLIER_VALUE ||
 			roleIds.length === 0 ||
-			roleIds.length > maxTargets
+			roleIds.length > maxTargets ||
+			multiplierCount >= maxMultipliers
 		) {
 			return;
 		}
@@ -49,12 +57,12 @@ export function RoleMultipliers({ multipliers, premium, roles }: RoleMultipliers
 
 		setNewRoles([]);
 		setNewMultiplier("");
-		setTotalMultiplierCount((prev) => prev + 1);
+		setMultiplierCount((prev) => prev + 1);
 	}
 
 	function handleDeleteMultiplier(id: string) {
 		setRoleMultipliers((prev) => prev.filter((multiplier) => multiplier.id !== id));
-		setTotalMultiplierCount((prev) => prev - 1);
+		setMultiplierCount((prev) => prev - 1);
 	}
 
 	return (
@@ -85,14 +93,15 @@ export function RoleMultipliers({ multipliers, premium, roles }: RoleMultipliers
 					onChange={(event) => setNewMultiplier(event.target.value)}
 				/>
 
-				<button
-					className="rounded-lg bg-green p-1 transition-colors [&:not(:disabled)]:hover:bg-green/75 disabled:cursor-not-allowed"
-					onClick={handleCreateMultiplier}
-					disabled={totalMultiplierCount >= maxMultipliers || !newRoles.length || !newMultiplier}
-					type="button"
+				<CreateMultiplierButton
+					handleCreateMultiplier={handleCreateMultiplier}
+					maxMultipliers={maxMultipliers}
+					multiplierCount={multiplierCount}
+					newMultiplier={newMultiplier}
+					newTargets={newRoles}
 				>
 					<MdPersonAddAlt1 color="white" size={24} />
-				</button>
+				</CreateMultiplierButton>
 			</div>
 
 			{roleMultipliers.length ? (
@@ -165,4 +174,6 @@ interface RoleMultipliersProps {
 	readonly multipliers: XpMultiplier[];
 	readonly premium: boolean;
 	readonly roles: Role[];
+	readonly multiplierCount: number;
+	readonly setMultiplierCount: Dispatch<SetStateAction<number>>;
 }

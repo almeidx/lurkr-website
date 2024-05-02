@@ -1,5 +1,6 @@
 "use client";
 
+import { CreateMultiplierButton } from "@/app/guilds/[guildId]/multipliers/create-multiplier-button.tsx";
 import { ChannelSelector } from "@/components/dashboard/ChannelSelector.tsx";
 import { Label } from "@/components/dashboard/Label.tsx";
 import { Text } from "@/components/dashboard/Text.tsx";
@@ -7,20 +8,26 @@ import {
 	MAX_XP_MULTIPLIER_TARGETS,
 	MAX_XP_MULTIPLIER_TARGETS_PREMIUM,
 	MAX_XP_MULTIPLIER_VALUE,
+	MIN_XP_MULTIPLIER_VALUE,
 } from "@/lib/guild-config.ts";
 import { type Channel, type XpMultiplier, XpMultiplierType } from "@/lib/guild.ts";
 import { getMaximumLimit } from "@/utils/get-maximum-limit.ts";
 import { BiSolidTrash } from "@react-icons/all-files/bi/BiSolidTrash";
 import { MdAddComment } from "@react-icons/all-files/md/MdAddComment";
-import { useMemo, useState } from "react";
+import { type Dispatch, type SetStateAction, useMemo, useState } from "react";
 
-export function ChannelMultipliers({ channels, multipliers, premium }: ChannelMultipliersProps) {
+export function ChannelMultipliers({
+	channels,
+	multipliers,
+	premium,
+	multiplierCount,
+	setMultiplierCount,
+}: ChannelMultipliersProps) {
 	const [channelMultipliers, setChannelMultipliers] = useState<XpMultiplier[]>(() =>
 		multipliers.filter((multiplier) => multiplier.type === XpMultiplierType.Channel),
 	);
 	const [newChannels, setNewChannels] = useState<readonly Channel[]>([]);
 	const [newMultiplier, setNewMultiplier] = useState<string>("");
-	const [totalMultiplierCount, setTotalMultiplierCount] = useState<number>(() => multipliers.length);
 
 	const maxMultipliers = getMaximumLimit("xpMultipliers", premium);
 
@@ -32,10 +39,11 @@ export function ChannelMultipliers({ channels, multipliers, premium }: ChannelMu
 
 		if (
 			Number.isNaN(multiplier) ||
-			multiplier < 0.01 ||
+			multiplier < MIN_XP_MULTIPLIER_VALUE ||
 			multiplier > MAX_XP_MULTIPLIER_VALUE ||
 			channelIds.length === 0 ||
-			channelIds.length > maxTargets
+			channelIds.length > maxTargets ||
+			multiplierCount >= maxMultipliers
 		) {
 			return;
 		}
@@ -48,12 +56,12 @@ export function ChannelMultipliers({ channels, multipliers, premium }: ChannelMu
 
 		setNewChannels([]);
 		setNewMultiplier("");
-		setTotalMultiplierCount((prev) => prev + 1);
+		setMultiplierCount((prev) => prev + 1);
 	}
 
 	function handleDeleteMultiplier(id: string) {
 		setChannelMultipliers((prev) => prev.filter((multiplier) => multiplier.id !== id));
-		setTotalMultiplierCount((prev) => prev - 1);
+		setMultiplierCount((prev) => prev - 1);
 	}
 
 	return (
@@ -85,14 +93,15 @@ export function ChannelMultipliers({ channels, multipliers, premium }: ChannelMu
 					onChange={(event) => setNewMultiplier(event.target.value)}
 				/>
 
-				<button
-					className="rounded-lg bg-green p-1 transition-colors [&:not(:disabled)]:hover:bg-green/75 disabled:cursor-not-allowed"
-					onClick={handleCreateMultiplier}
-					disabled={totalMultiplierCount >= maxMultipliers || !newChannels.length || !newMultiplier}
-					type="button"
+				<CreateMultiplierButton
+					handleCreateMultiplier={handleCreateMultiplier}
+					maxMultipliers={maxMultipliers}
+					multiplierCount={multiplierCount}
+					newMultiplier={newMultiplier}
+					newTargets={newChannels}
 				>
 					<MdAddComment color="white" size={24} />
-				</button>
+				</CreateMultiplierButton>
 			</div>
 
 			{channelMultipliers.length ? (
@@ -159,4 +168,6 @@ interface ChannelMultipliersProps {
 	readonly channels: Channel[];
 	readonly multipliers: XpMultiplier[];
 	readonly premium: boolean;
+	readonly multiplierCount: number;
+	readonly setMultiplierCount: Dispatch<SetStateAction<number>>;
 }

@@ -30,7 +30,8 @@ export function OnJoinRolesForBadges({ defaultValues, premium, roles }: OnJoinRo
 			Number.isNaN(flagId) ||
 			!(flagId in BadgeInfo) ||
 			roleIds.length === 0 ||
-			roleIds.length > MAX_AUTO_ROLE_FLAGS_ROLES
+			roleIds.length >= MAX_AUTO_ROLE_FLAGS_ROLES ||
+			autoRoleFlags.length >= maxAutoRoleFlags
 		) {
 			return;
 		}
