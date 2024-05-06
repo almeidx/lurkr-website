@@ -1,7 +1,13 @@
 import nextBundleAnalyzer from "@next/bundle-analyzer";
+import nextra from "nextra";
 import { BOT_INVITE, GITHUB_REPOSITORY_URL, PATREON_URL, SUPPORT_SERVER_INVITE, TOPGG_URL } from "./shared-links.mjs";
 
 const bundleAnalyzerEnabled = process.env.ANALYZE === "true";
+
+const withNextra = nextra({
+	theme: "nextra-theme-docs",
+	themeConfig: "./theme.config.jsx",
+});
 
 /** @type {import("next").NextConfig} */
 const nextConfig = {
@@ -50,4 +56,4 @@ const nextConfig = {
 	},
 };
 
-export default bundleAnalyzerEnabled ? nextBundleAnalyzer(nextConfig) : nextConfig;
+export default withNextra(bundleAnalyzerEnabled ? nextBundleAnalyzer(nextConfig) : nextConfig);

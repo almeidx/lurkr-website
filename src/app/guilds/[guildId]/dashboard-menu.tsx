@@ -24,7 +24,7 @@ import type { GuildMetadataResult } from "./layout.tsx";
 
 export function DashboardMenu({ guild, guilds }: DashboardMenuProps) {
 	const menu = useMenuStore();
-	const pathname = usePathname();
+	const pathname = usePathname()!;
 
 	const currentDashSection = (pathname.split("/")[3] ?? "overview") as Section;
 

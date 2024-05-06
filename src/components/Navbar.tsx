@@ -18,7 +18,7 @@ import { useMediaQuery } from "usehooks-ts";
 
 export function Navbar({ user }: { readonly user: ReturnType<typeof getUserSafe> }) {
 	const [menuOpen, setMenuOpen] = useState(false);
-	const pathname = usePathname();
+	const pathname = usePathname()!;
 	// TODO: Use css only for this instead of js
 	const isMedium = useMediaQuery("(max-width: 768px)");
 
