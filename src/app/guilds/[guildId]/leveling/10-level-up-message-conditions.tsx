@@ -49,7 +49,13 @@ export function LevelUpMessageConditions({ settings }: { readonly settings: Guil
 				/>
 			</div>
 
-			<Input id="xpAnnounceMinimumLevel" placeholder="Write the minimum level you want…" />
+			<Input
+				id="xpAnnounceMinimumLevel"
+				placeholder="Write the minimum level you want…"
+				type="number"
+				min={MIN_XP_ANNOUNCE_MINIMUM_LEVEL}
+				max={MAX_XP_ANNOUNCE_MINIMUM_LEVEL}
+			/>
 
 			<div className="mt-2 flex items-center">
 				<Label sub={`Between level ${MIN_XP_ANNOUNCE_MULTIPLE_OF}-${MAX_XP_ANNOUNCE_MULTIPLE_OF}`}>
@@ -63,7 +69,13 @@ export function LevelUpMessageConditions({ settings }: { readonly settings: Guil
 				/>
 			</div>
 
-			<Input id="xpAnnounceMultipleOf" placeholder="Write the factor for levels you want…" />
+			<Input
+				id="xpAnnounceMultipleOf"
+				placeholder="Write the factor for levels you want…"
+				type="number"
+				min={MIN_XP_ANNOUNCE_MULTIPLE_OF}
+				max={MAX_XP_ANNOUNCE_MULTIPLE_OF}
+			/>
 		</>
 	);
 }

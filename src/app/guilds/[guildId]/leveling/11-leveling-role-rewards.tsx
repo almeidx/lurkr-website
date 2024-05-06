@@ -1,5 +1,6 @@
 "use client";
 
+import { Input } from "@/components/dashboard/Input.tsx";
 import { Label } from "@/components/dashboard/Label.tsx";
 import { RoleSelector } from "@/components/dashboard/RoleSelector.tsx";
 import {
@@ -73,12 +74,13 @@ export function LevelingRoleRewards({ defaultRoleRewards, premium, roles }: Leve
 
 				<p className="text-lg tracking-tight text-white/75 md:text-xl">and the level to reward it at: </p>
 
-				<input
+				<Input
 					id="newLevel"
 					placeholder="Enter a level…"
-					className="max-w-3xl rounded-lg bg-light-gray p-2 px-3 shadow-dim-inner"
 					type="number"
 					value={newLevel}
+					min={1}
+					max={MAX_XP_ROLE_REWARD_LEVEL}
 					onChange={(event) => setNewLevel(event.target.value)}
 				/>
 

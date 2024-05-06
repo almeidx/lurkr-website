@@ -2,6 +2,7 @@
 
 import { InfoSection } from "@/app/levels/calculator/info-section.tsx";
 import { Input } from "@/components/dashboard/Input.tsx";
+import { MAX_XP_MULTIPLIER_VALUE, MIN_XP_MULTIPLIER_VALUE } from "@/lib/guild-config.ts";
 import { formatNumber } from "@/utils/format-number.ts";
 import { prettySeconds } from "@/utils/pretty-seconds.ts";
 import { useState } from "react";
@@ -10,7 +11,6 @@ import { APPROXIMATE_MESSAGES_TOOLTIP, ESTIMATED_TIME_TOOLTIP, EXPERIENCE_REQUIR
 const avgXpPerMessage = (15 + 40) / 2;
 const timePerMessage = 60;
 const MAX_LEVEL = 6_554;
-const MAX_MULTIPLIER = 5;
 
 export function Calculator() {
 	const [desiredLevel, setDesiredLevel] = useState("");
@@ -25,29 +25,33 @@ export function Calculator() {
 				<Input
 					className="h-10 w-64"
 					id="desiredLevel"
-					maxLength={4}
-					onChange={(event) => setDesiredLevel(event.target.value)}
 					placeholder="Enter the desired level…"
+					min={1}
+					max={MAX_LEVEL}
 					type="number"
 					value={desiredLevel}
+					onChange={(event) => setDesiredLevel(event.target.value)}
 				/>
 				<Input
 					className="h-10 w-64"
 					id="currentLevel"
-					maxLength={4}
-					onChange={(event) => setCurrentLevel(event.target.value)}
 					placeholder="Enter the current level…"
+					min={1}
+					max={MAX_LEVEL}
 					type="number"
 					value={currentLevel}
+					onChange={(event) => setCurrentLevel(event.target.value)}
 				/>
 				<Input
 					className="h-10 w-64"
 					id="multiplier"
-					maxLength={4}
-					onChange={(event) => setMultiplier(event.target.value)}
 					placeholder="Enter a leveling multiplier…"
+					min={MIN_XP_MULTIPLIER_VALUE}
+					step={MIN_XP_MULTIPLIER_VALUE}
+					max={MAX_XP_MULTIPLIER_VALUE}
 					type="number"
 					value={multiplier}
+					onChange={(event) => setMultiplier(event.target.value)}
 				/>
 			</div>
 
@@ -77,8 +81,8 @@ function calculate(desiredLevel: string, currentLevel: string, multiplier: strin
 		desiredLevel_ <= 0 ||
 		currentLevel_ > MAX_LEVEL ||
 		currentLevel_ < 0 ||
-		multiplier_ <= 0 ||
-		multiplier_ > MAX_MULTIPLIER ||
+		multiplier_ <= MIN_XP_MULTIPLIER_VALUE ||
+		multiplier_ > MAX_XP_MULTIPLIER_VALUE ||
 		desiredLevel_ <= currentLevel_
 	) {
 		return { approxMessages: "0", estimatedTime: "0", expRequired: "0" };

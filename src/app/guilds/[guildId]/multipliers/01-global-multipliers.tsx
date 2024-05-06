@@ -2,6 +2,7 @@
 
 import { Slider } from "@/components/dashboard/Slider.tsx";
 import { Text } from "@/components/dashboard/Text.tsx";
+import { MAX_XP_MULTIPLIER_VALUE, MIN_XP_MULTIPLIER_VALUE } from "@/lib/guild-config.ts";
 import { type XpMultiplier, XpMultiplierType } from "@/lib/guild.ts";
 import { useMemo } from "react";
 
@@ -25,9 +26,9 @@ export function GlobalMultipliers({ multipliers }: { readonly multipliers: XpMul
 
 			<Slider
 				id={`xpMultipliers-${XpMultiplierType.Global}-${id}`}
-				min={0.01}
-				max={5}
-				step={0.01}
+				min={MIN_XP_MULTIPLIER_VALUE}
+				max={MAX_XP_MULTIPLIER_VALUE}
+				step={MIN_XP_MULTIPLIER_VALUE}
 				defaultValue={defaultValue?.multiplier ?? 1}
 				steps={[0, 1, 2, 3, 4, 5]}
 			/>

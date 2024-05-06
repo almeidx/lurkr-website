@@ -1,6 +1,7 @@
 "use client";
 
 import { CreateMultiplierButton } from "@/app/guilds/[guildId]/multipliers/create-multiplier-button.tsx";
+import { Input } from "@/components/dashboard/Input.tsx";
 import { Label } from "@/components/dashboard/Label.tsx";
 import { RoleSelector } from "@/components/dashboard/RoleSelector.tsx";
 import { Text } from "@/components/dashboard/Text.tsx";
@@ -81,15 +82,14 @@ export function RoleMultipliers({
 
 				<Text>and the multiplier to apply to them:</Text>
 
-				<input
+				<Input
 					id="newLevel"
 					placeholder="Enter a multiplier…"
-					className="min-w-[12rem] max-w-3xl rounded-lg bg-light-gray p-2 px-3 shadow-dim-inner"
 					type="number"
 					value={newMultiplier}
-					min={0.01}
-					max={5}
-					step={0.01}
+					min={MIN_XP_MULTIPLIER_VALUE}
+					max={MAX_XP_MULTIPLIER_VALUE}
+					step={MIN_XP_MULTIPLIER_VALUE}
 					onChange={(event) => setNewMultiplier(event.target.value)}
 				/>
 

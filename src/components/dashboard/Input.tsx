@@ -7,7 +7,7 @@ export function Input({ className, id, placeholder, ...props }: InputProps) {
 			{...props}
 			id={id}
 			name={id}
-			className={clsx("max-w-3xl rounded-lg bg-light-gray p-2 px-3 shadow-dim-inner", className)}
+			className={clsx("min-w-[12rem] max-w-3xl rounded-lg bg-light-gray p-2 px-3 shadow-dim-inner", className)}
 			placeholder={placeholder}
 		/>
 	);
