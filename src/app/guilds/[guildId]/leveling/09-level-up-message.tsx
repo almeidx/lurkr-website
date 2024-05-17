@@ -5,7 +5,7 @@ import { type PlaceholderValue, Textarea } from "@/components/dashboard/Textarea
 import { DEFAULT_XP_MESSAGE, MAX_XP_MESSAGE_LENGTH } from "@/lib/guild-config.ts";
 import type { Emoji, Role } from "@/lib/guild.ts";
 import { getMaximumLimit } from "@/utils/get-maximum-limit.ts";
-import { RiRestartLine } from "@react-icons/all-files/ri/RiRestartLine";
+import { RestartAlt } from "@mui/icons-material";
 import { useState } from "react";
 
 const placeholders = [
@@ -39,7 +39,7 @@ export function LevelUpMessage({ defaultValue, emojis, premium, roles }: LevelUp
 					type="button"
 				>
 					Reset
-					<RiRestartLine color="#fff" className="drop-shadow-regular" />
+					<RestartAlt className="text-[#fff] drop-shadow-regular" />
 				</button>
 			</div>
 

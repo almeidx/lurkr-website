@@ -3,7 +3,7 @@
 import { ExternalLink } from "@/components/ExternalLink.tsx";
 import { DOCS_URL } from "@/utils/constants.ts";
 import { Tooltip, TooltipAnchor, useTooltipStore } from "@ariakit/react/tooltip";
-import { RiQuestionFill } from "@react-icons/all-files/ri/RiQuestionFill";
+import { Help } from "@mui/icons-material";
 
 export function DocsBubble({ tooltip, path }: DocsBubblePropos) {
 	const tooltipStore = useTooltipStore({
@@ -17,7 +17,7 @@ export function DocsBubble({ tooltip, path }: DocsBubblePropos) {
 	const link = (
 		<ExternalLink href={`${DOCS_URL}${path}`}>
 			<span className="sr-only">Open documentation in a new tab</span>
-			<RiQuestionFill className="ml-2 fill-icon-gradient-tertiary" size={20} />
+			<Help className="ml-2 fill-icon-gradient-tertiary size-5" />
 		</ExternalLink>
 	);
 

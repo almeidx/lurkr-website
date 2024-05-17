@@ -49,7 +49,6 @@ export function CreatableList({ children, defaultValues, inputId, placeholder, s
 					placeholder={placeholder}
 					value={values}
 					styles={{
-						// @ts-expect-error: Bad types
 						control: (baseStyles) => ({
 							...baseStyles,
 							backgroundColor: "#474747",
@@ -60,37 +59,31 @@ export function CreatableList({ children, defaultValues, inputId, placeholder, s
 							maxWidth: "48rem",
 							padding: "0.2rem",
 						}),
-						// @ts-expect-error: Bad types
 						menu: (baseStyles) => ({
 							...baseStyles,
 							backgroundColor: "#2d2d2d",
 							borderRadius: "0.375rem",
 							color: "#e2e2e2",
 						}),
-						// @ts-expect-error: Bad types
 						option: (baseStyles, state) => ({
 							...baseStyles,
 							backgroundColor: state.isFocused ? "#474747" : "#2d2d2d",
 							color: "#e2e2e2",
 						}),
-						// @ts-expect-error: Bad types
 						multiValue: (baseStyles) => ({
 							...baseStyles,
 							backgroundColor: "transparent",
 							border: "1px solid #e2e2e2bf",
 							borderRadius: "20px",
 						}),
-						// @ts-expect-error: Bad types
 						multiValueLabel: (baseStyles) => ({
 							...baseStyles,
 							color: "#e2e2e2",
 						}),
-						// @ts-expect-error: Bad types
 						input: (baseStyles) => ({
 							...baseStyles,
 							color: "#e2e2e2",
 						}),
-						// @ts-expect-error: Bad types
 						multiValueRemove: (baseStyles) => ({
 							...baseStyles,
 							color: "#e2e2e2",
@@ -101,7 +94,6 @@ export function CreatableList({ children, defaultValues, inputId, placeholder, s
 								color: "#2d2d2d",
 							},
 						}),
-						// @ts-expect-error: Bad types
 						placeholder: (baseStyles) => ({
 							...baseStyles,
 							color: "#e2e2e280",

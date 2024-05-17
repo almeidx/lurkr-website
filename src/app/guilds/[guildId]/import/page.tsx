@@ -5,7 +5,7 @@ import { Text } from "@/components/dashboard/Text.tsx";
 import { TOKEN_COOKIE } from "@/utils/constants.ts";
 import type { Snowflake } from "@/utils/discord-cdn.ts";
 import { makeApiRequest } from "@/utils/make-api-request.ts";
-import { BiImport } from "@react-icons/all-files/bi/BiImport";
+import { SystemUpdate } from "@mui/icons-material";
 import { cookies } from "next/headers";
 import { BotSelector } from "./01-bot-selector.tsx";
 import { IncludeRoleRewards } from "./02-include-role-rewards.tsx";
@@ -48,7 +48,7 @@ export default async function Miscellaneous({ params: { guildId } }: { readonly 
 					type="submit"
 				>
 					Import
-					<BiImport className="drop-shadow-regular" size={22} />
+					<SystemUpdate className="drop-shadow-regular size-5" />
 				</button>
 			</Section>
 		</Form>

@@ -1,7 +1,5 @@
 import { ExternalLink } from "@/components/ExternalLink.tsx";
-import { BiCheck } from "@react-icons/all-files/bi/BiCheck";
-import { BsSlashLg } from "@react-icons/all-files/bs/BsSlashLg";
-import { ImCross } from "@react-icons/all-files/im/ImCross";
+import { Check, Close, ShowChart } from "@mui/icons-material";
 import clsx from "clsx";
 import type { StaticImageData } from "next/image";
 import Image from "next/image";
@@ -57,7 +55,7 @@ export function PremiumPlan({
 					{perks.map((perk) => (
 						<li key={perk} className="flex gap-2 items-center">
 							<div className="bg-darker rounded-lg size-9 flex items-center justify-center">
-								<BiCheck color="#93e19c" size={35} />
+								<Check className="text-[#93e19c] size-8" />
 							</div>
 
 							{perk}
@@ -70,7 +68,7 @@ export function PremiumPlan({
 						{regular.map((perk) => (
 							<li key={perk} className="flex gap-2 items-center">
 								<div className="bg-darker rounded-lg size-9 flex items-center justify-center">
-									<BsSlashLg color="#f6e594" size={19} strokeWidth={2} />
+									<ShowChart className="text-[#f6e594] size-8" />
 								</div>
 
 								{perk}
@@ -81,7 +79,7 @@ export function PremiumPlan({
 
 				<div className="flex gap-2 items-center">
 					<div className="bg-darker rounded-lg size-9 flex items-center justify-center">
-						<ImCross color="#b1b1b2" size={19} />
+						<Close className="text-[#b1b1b2] size-8" />
 					</div>
 
 					<p>{funny}</p>

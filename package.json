@@ -14,21 +14,22 @@
 	},
 	"dependencies": {
 		"@ariakit/react": "^0.4.6",
+		"@emotion/styled": "^11.11.5",
+		"@mui/icons-material": "^5.15.18",
 		"@next/third-parties": "^14.2.3",
-		"@react-icons/all-files": "https://github.com/react-icons/react-icons/releases/download/v5.1.0/react-icons-all-files-5.1.0.tgz",
 		"@sindresorhus/slugify": "^2.2.1",
 		"clsx": "^2.1.1",
 		"jwt-decode": "^4.0.0",
 		"match-sorter": "^6.3.4",
 		"next": "^14.2.3",
-		"next-nprogress-bar": "^2.3.11",
+		"next-nprogress-bar": "^2.3.12",
 		"nextra": "^2.13.4",
 		"nextra-theme-docs": "^2.13.4",
 		"react": "^18.3.1",
 		"react-colorful": "^5.6.1",
 		"react-dom": "^18.3.1",
 		"react-select": "^5.8.0",
-		"sharp": "^0.33.3",
+		"sharp": "^0.33.4",
 		"textarea-caret": "^3.1.0",
 		"usehooks-ts": "^3.1.0",
 		"valibot": "^0.30.0"
@@ -36,8 +37,8 @@
 	"devDependencies": {
 		"@biomejs/biome": "^1.7.3",
 		"@next/bundle-analyzer": "^14.2.3",
-		"@types/node": "^20.12.10",
-		"@types/react": "^18.3.1",
+		"@types/node": "^20.12.12",
+		"@types/react": "^18.3.2",
 		"@types/react-dom": "^18.3.0",
 		"@types/textarea-caret": "^3.0.3",
 		"autoprefixer": "^10.4.19",
@@ -48,7 +49,7 @@
 		"tailwindcss": "^3.4.3",
 		"typescript": "5.5.0-beta"
 	},
-	"packageManager": "pnpm@8.15.8+sha256.691fe176eea9a8a80df20e4976f3dfb44a04841ceb885638fe2a26174f81e65e",
+	"packageManager": "pnpm@9.1.1+sha256.9551e803dcb7a1839fdf5416153a844060c7bce013218ce823410532504ac10b",
 	"engines": {
 		"node": "20"
 	},

@@ -1,6 +1,5 @@
 import type { ConfigLimitComparison, LevelingFeature } from "@/app/premium/features.ts";
-import { BiCheck } from "@react-icons/all-files/bi/BiCheck";
-import { ImCross } from "@react-icons/all-files/im/ImCross";
+import { Check, Close } from "@mui/icons-material";
 
 export function ComparisonTable({ section, features }: ComparisonTableProps) {
 	const isConfigLimit = "suffix" in features[0]!;
@@ -47,9 +46,9 @@ export function ComparisonTable({ section, features }: ComparisonTableProps) {
 								{isConfigLimit ? (
 									`${feature.free} ${(feature as ConfigLimitComparison).suffix}`
 								) : feature.free ? (
-									<BiCheck color="#93e19c" size={35} />
+									<Check className="text-[#93e19c] size-8" />
 								) : (
-									<ImCross color="#df4444" size={19} />
+									<Close className="text-[#df4444] size-8" />
 								)}
 							</div>
 						</td>
@@ -58,9 +57,9 @@ export function ComparisonTable({ section, features }: ComparisonTableProps) {
 								{isConfigLimit ? (
 									`${feature.max ?? feature.free} ${(feature as ConfigLimitComparison).suffix}`
 								) : feature.max ? (
-									<BiCheck color="#93e19c" size={35} />
+									<Check className="text-[#93e19c] size-8" />
 								) : (
-									<ImCross color="#df4444" size={19} />
+									<Close className="text-[#df4444] size-8" />
 								)}
 							</div>
 						</td>
@@ -69,9 +68,9 @@ export function ComparisonTable({ section, features }: ComparisonTableProps) {
 								{isConfigLimit ? (
 									`${feature.ultimate} ${(feature as ConfigLimitComparison).suffix}`
 								) : feature.ultimate ? (
-									<BiCheck color="#93e19c" size={35} />
+									<Check className="text-[#93e19c] size-8" />
 								) : (
-									<ImCross color="#df4444" size={19} />
+									<Close className="text-[#df4444] size-8" />
 								)}
 							</div>
 						</td>

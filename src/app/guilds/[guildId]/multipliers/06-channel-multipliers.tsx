@@ -13,8 +13,7 @@ import {
 } from "@/lib/guild-config.ts";
 import { type Channel, type XpMultiplier, XpMultiplierType } from "@/lib/guild.ts";
 import { getMaximumLimit } from "@/utils/get-maximum-limit.ts";
-import { BiSolidTrash } from "@react-icons/all-files/bi/BiSolidTrash";
-import { MdAddComment } from "@react-icons/all-files/md/MdAddComment";
+import { AddComment, Delete } from "@mui/icons-material";
 import { type Dispatch, type SetStateAction, useMemo, useState } from "react";
 
 export function ChannelMultipliers({
@@ -100,7 +99,7 @@ export function ChannelMultipliers({
 					newMultiplier={newMultiplier}
 					newTargets={newChannels}
 				>
-					<MdAddComment color="white" size={24} />
+					<AddComment className="text-white size-6" />
 				</CreateMultiplierButton>
 			</div>
 
@@ -141,7 +140,7 @@ function ChannelMultiplier({ id, multiplier, premium, onDelete, channels, target
 				type="button"
 			>
 				<div className="absolute hidden size-10 items-center justify-center rounded-lg border border-red bg-[#1e1f22] group-hover:flex">
-					<BiSolidTrash color="#ed4245" size={19} />
+					<Delete className="text-[#ed4245] size-5" />
 				</div>
 
 				{multiplier}

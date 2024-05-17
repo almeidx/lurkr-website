@@ -5,11 +5,7 @@ import { Radio, RadioGroup, useRadioStore } from "@/components/dashboard/Radio.t
 import { GuildAccentType } from "@/lib/guild.ts";
 import { BRAND_COLOR } from "@/utils/constants.ts";
 import { Popover, PopoverDisclosure, usePopoverStore } from "@ariakit/react/popover";
-import { IoBan } from "@react-icons/all-files/io5/IoBan";
-import { MdFlag } from "@react-icons/all-files/md/MdFlag";
-import { MdPalette } from "@react-icons/all-files/md/MdPalette";
-import { RiServerLine } from "@react-icons/all-files/ri/RiServerLine";
-import { TbColorPicker } from "@react-icons/all-files/tb/TbColorPicker";
+import { Colorize, DoNotDisturb, Flag, Palette, Storage } from "@mui/icons-material";
 import { useEffect, useState } from "react";
 import { HexColorInput } from "react-colorful";
 
@@ -30,7 +26,7 @@ export function DefaultRankCardColor({ defaultAccentColour, defaultAccentType }:
 		<RadioGroup className="flex w-fit flex-col gap-4" store={radio}>
 			<label className="flex items-center justify-between">
 				<div className="flex items-center text-lg tracking-tight text-white/75 md:text-xl">
-					<IoBan className="mr-2 fill-icon-gradient-tertiary" />
+					<DoNotDisturb className="mr-2 fill-icon-gradient-tertiary" />
 					None
 				</div>
 				<Radio value="" id="accentType" name="accentType" />
@@ -38,7 +34,7 @@ export function DefaultRankCardColor({ defaultAccentColour, defaultAccentType }:
 
 			<label className="flex items-center justify-between">
 				<div className="flex items-center text-lg tracking-tight text-white/75 md:text-xl">
-					<RiServerLine className="mr-2 fill-icon-gradient-tertiary" />
+					<Storage className="mr-2 fill-icon-gradient-tertiary" />
 					Average Server-icon Colour
 				</div>
 				<Radio value={GuildAccentType.IconAverage} id="accentType" name="accentType" />
@@ -46,7 +42,7 @@ export function DefaultRankCardColor({ defaultAccentColour, defaultAccentType }:
 
 			<label className="flex items-center justify-between">
 				<div className="flex items-center text-lg tracking-tight text-white/75 md:text-xl">
-					<MdFlag className="mr-2 fill-icon-gradient-tertiary" />
+					<Flag className="mr-2 fill-icon-gradient-tertiary" />
 					Average Server-banner Colour
 				</div>
 				<Radio value={GuildAccentType.BannerAverage} id="accentType" name="accentType" />
@@ -55,7 +51,7 @@ export function DefaultRankCardColor({ defaultAccentColour, defaultAccentType }:
 			<div className="flex flex-col gap-2">
 				<label className="flex items-center justify-between">
 					<div className="flex items-center text-lg tracking-tight text-white/75 md:text-xl">
-						<MdPalette className="mr-2 fill-icon-gradient-tertiary" />
+						<Palette className="mr-2 fill-icon-gradient-tertiary" />
 						Custom Colour
 					</div>
 					<Radio value={GuildAccentType.Custom} id="accentType" name="accentType" />
@@ -67,7 +63,7 @@ export function DefaultRankCardColor({ defaultAccentColour, defaultAccentType }:
 						store={popover}
 						disabled={value !== GuildAccentType.Custom}
 					>
-						<TbColorPicker />
+						<Colorize />
 					</PopoverDisclosure>
 
 					<HexColorInput

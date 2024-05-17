@@ -1,5 +1,5 @@
 import { makeApiRequest } from "@/utils/make-api-request.ts";
-import { IoWarning } from "@react-icons/all-files/io5/IoWarning";
+import { ReportProblem } from "@mui/icons-material";
 import type { Metadata } from "next";
 import type { Shard } from "./shard.tsx";
 import { ShardsContainer } from "./shards-container.tsx";
@@ -22,7 +22,7 @@ export default async function Status() {
 					<ShardsContainer shards={data.shards} totalShards={data.totalShards} />
 				) : (
 					<p className="flex items-center gap-2 text-xl font-bold">
-						<IoWarning className="text-yellow" />
+						<ReportProblem className="text-yellow" />
 						The bot is unreachable
 					</p>
 				)}

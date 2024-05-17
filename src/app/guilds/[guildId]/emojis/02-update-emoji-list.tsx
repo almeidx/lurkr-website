@@ -1,7 +1,7 @@
 "use client";
 
 import { Tooltip, TooltipAnchor, useTooltipStore } from "@ariakit/react/tooltip";
-import { MdOutlineUpdate } from "@react-icons/all-files/md/MdOutlineUpdate";
+import { UpdateOutlined } from "@mui/icons-material";
 
 export function UpdateEmojiList() {
 	const tooltip = useTooltipStore({ showTimeout: 150 });
@@ -14,7 +14,7 @@ export function UpdateEmojiList() {
 					type="button"
 					disabled
 				>
-					Update <MdOutlineUpdate className="drop-shadow-regular" size={22} />
+					Update <UpdateOutlined className="drop-shadow-regular size-5" />
 				</button>
 			</TooltipAnchor>
 

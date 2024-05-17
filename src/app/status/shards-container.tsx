@@ -3,7 +3,7 @@
 import { Input } from "@/components/dashboard/Input.tsx";
 import { getShardIdForGuildId } from "@/utils/get-shard-id-for-guild-id.ts";
 import { isSnowflake } from "@/utils/is-snowflake.ts";
-import { IoWarning } from "@react-icons/all-files/io5/IoWarning";
+import { ReportProblem } from "@mui/icons-material";
 import { useMemo, useState } from "react";
 import { type Shard, ShardDisplay } from "./shard.tsx";
 
@@ -33,7 +33,7 @@ export function ShardsContainer({ shards, totalShards }: ShardsContainerProps) {
 					))
 				) : (
 					<p className="flex items-center gap-2 text-xl font-bold">
-						<IoWarning className="text-yellow" />
+						<ReportProblem className="text-yellow" />
 						The bot is unreachable
 					</p>
 				)}

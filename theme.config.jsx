@@ -3,9 +3,9 @@ import "@/app/globals.css";
 import faviconImg from "@/app/icon.png";
 import logoSmallImg from "@/assets/logo-small.png";
 import { Footer } from "@/components/Footer.tsx";
+import { Discord } from "@/components/icons/Discord.tsx";
+import { GitHub } from "@/components/icons/GitHub.tsx";
 import { BASE_URL } from "@/utils/constants.ts";
-import { FaDiscord } from "@react-icons/all-files/fa/FaDiscord";
-import { FaGithub } from "@react-icons/all-files/fa/FaGithub";
 import { usePathname } from "next/navigation";
 import { Link, useConfig } from "nextra-theme-docs";
 import { SUPPORT_SERVER_INVITE } from "./shared-links.mjs";
@@ -44,7 +44,7 @@ export default {
 	},
 	project: {
 		link: "https://github.com/almeidx/lurkr-website",
-		icon: <FaGithub size={28} />,
+		icon: <GitHub className="size-7" />,
 	},
 	docsRepositoryBase: "https://github.com/almeidx/lurkr-website/edit/beta/src/pages/docs",
 	footer: {
@@ -54,7 +54,7 @@ export default {
 	primarySaturation: 100,
 	chat: {
 		link: SUPPORT_SERVER_INVITE,
-		icon: <FaDiscord size={28} />,
+		icon: <Discord className="size-7" />,
 	},
 	darkMode: false,
 	nextThemes: {

@@ -4,10 +4,7 @@ import { ChannelSelector } from "@/components/dashboard/ChannelSelector.tsx";
 import { Radio, RadioGroup, useRadioStore } from "@/components/dashboard/Radio.tsx";
 import { type Channel, XpAnnouncementChannelType } from "@/lib/guild.ts";
 import type { Snowflake } from "@/utils/discord-cdn.ts";
-import { MdChat } from "@react-icons/all-files/md/MdChat";
-import { MdChatBubble } from "@react-icons/all-files/md/MdChatBubble";
-import { MdDoNotDisturb } from "@react-icons/all-files/md/MdDoNotDisturb";
-import { MdTopic } from "@react-icons/all-files/md/MdTopic";
+import { Chat, ChatBubble, DoNotDisturb, Topic } from "@mui/icons-material";
 import { useMemo } from "react";
 
 export function LevelUpMessageChannel({ channels, defaultValue, defaultCustomChannel }: LevelUpMessageProps) {
@@ -27,7 +24,7 @@ export function LevelUpMessageChannel({ channels, defaultValue, defaultCustomCha
 		<RadioGroup className="flex w-fit flex-col gap-4" store={radio}>
 			<label className="flex items-center justify-between">
 				<div className="flex items-center text-lg tracking-tight text-white/75 md:text-xl">
-					<MdChat className="mr-2 fill-icon-gradient-tertiary" color="#fff" />
+					<Chat className="mr-2 fill-icon-gradient-tertiary text-[#fff]" />
 					Direct messages
 				</div>
 				<Radio value={XpAnnouncementChannelType.Direct} id="xpAnnounceChannelType" name="xpAnnounceChannelType" />
@@ -35,7 +32,7 @@ export function LevelUpMessageChannel({ channels, defaultValue, defaultCustomCha
 
 			<label className="flex items-center justify-between">
 				<div className="flex items-center text-lg tracking-tight text-white/75 md:text-xl">
-					<MdTopic className="mr-2 fill-icon-gradient-tertiary" color="#fff" />
+					<Topic className="mr-2 fill-icon-gradient-tertiary text-[#fff]" />
 					The same channel
 				</div>
 				<Radio value={XpAnnouncementChannelType.SameChannel} id="xpAnnounceChannelType" name="xpAnnounceChannelType" />
@@ -43,7 +40,7 @@ export function LevelUpMessageChannel({ channels, defaultValue, defaultCustomCha
 
 			<label className="flex items-center justify-between">
 				<div className="flex items-center text-lg tracking-tight text-white/75 md:text-xl">
-					<MdDoNotDisturb className="mr-2 fill-icon-gradient-tertiary" color="#fff" />
+					<DoNotDisturb className="mr-2 fill-icon-gradient-tertiary text-[#fff]" />
 					None
 				</div>
 				<Radio value={XpAnnouncementChannelType.None} id="xpAnnounceChannelType" name="xpAnnounceChannelType" />
@@ -60,7 +57,7 @@ export function LevelUpMessageChannel({ channels, defaultValue, defaultCustomCha
 			>
 				<label className="flex items-center justify-between">
 					<div className="flex items-center text-lg tracking-tight text-white/75 md:text-xl">
-						<MdChatBubble className="mr-2 fill-icon-gradient-tertiary" color="#fff" />
+						<ChatBubble className="mr-2 fill-icon-gradient-tertiary text-[#fff]" />
 						Custom Channel
 					</div>
 					<Radio value={XpAnnouncementChannelType.Custom} id="xpAnnounceChannelType" name="xpAnnounceChannelType" />

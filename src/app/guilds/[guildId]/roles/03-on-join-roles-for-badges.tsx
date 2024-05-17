@@ -9,8 +9,7 @@ import { decimalRoleColorToHex } from "@/utils/decimal-to-hex-color.ts";
 import { getMaximumLimit } from "@/utils/get-maximum-limit.ts";
 import { BadgeInfo, UserFlags } from "@/utils/user-flags.ts";
 import { Select, SelectArrow, SelectItem, SelectLabel, SelectPopover, useSelectStore } from "@ariakit/react/select";
-import { BiSolidTrash } from "@react-icons/all-files/bi/BiSolidTrash";
-import { MdPersonAddAlt1 } from "@react-icons/all-files/md/MdPersonAddAlt1";
+import { Delete, PersonAddAlt1 } from "@mui/icons-material";
 import Image from "next/image";
 import { useMemo, useState } from "react";
 
@@ -106,7 +105,7 @@ export function OnJoinRolesForBadges({ defaultValues, premium, roles }: OnJoinRo
 					disabled={autoRoleFlags.length >= maxAutoRoleFlags || !newRoles.length || !flag}
 					type="button"
 				>
-					<MdPersonAddAlt1 color="white" size={24} />
+					<PersonAddAlt1 className="text-white size-6" />
 				</button>
 			</div>
 
@@ -151,7 +150,7 @@ function OnJoinRoleBadge({ flagId, id, premium, onDelete, roleIds, roles }: OnJo
 				type="button"
 			>
 				<div className="absolute hidden size-10 items-center justify-center rounded-lg border border-white bg-[#1e1f22] group-hover:flex">
-					<BiSolidTrash color="#ed4245" size={19} />
+					<Delete className="text-[#ed4245] size-5" />
 				</div>
 
 				<Image src={badgeInfo.icon} alt={`${badgeInfo.name} badge`} width={22} height={22} />

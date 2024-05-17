@@ -1,6 +1,6 @@
 "use client";
 
-import { MdArrowUpward } from "@react-icons/all-files/md/MdArrowUpward";
+import { ArrowUpward } from "@mui/icons-material";
 
 export function BackToTheTop() {
 	return (
@@ -10,7 +10,7 @@ export function BackToTheTop() {
 			type="button"
 		>
 			<p>Lost? Back to the top</p>
-			<MdArrowUpward className="fill-icon-gradient-primary" size={32} />
+			<ArrowUpward className="fill-icon-gradient-primary size-8" />
 		</button>
 	);
 }

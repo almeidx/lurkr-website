@@ -1,6 +1,4 @@
-import { BiCheck } from "@react-icons/all-files/bi/BiCheck";
-import { BsSlashLg } from "@react-icons/all-files/bs/BsSlashLg";
-import { RiErrorWarningFill } from "@react-icons/all-files/ri/RiErrorWarningFill";
+import { Check, Close, ShowChart } from "@mui/icons-material";
 import clsx from "clsx";
 import type { PropsWithChildren } from "react";
 import { ItemStatusPopover } from "./item-status-popover.tsx";
@@ -19,24 +17,18 @@ export function ItemStatus({ description, name, type }: ItemStatusProps) {
 			>
 				<PopoverWrapper description={description}>
 					{type === "success" ? (
-						<BiCheck className="absolute inset-0" color="#93e19c" size={35} />
+						<Check className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 text-[#93e19c] size-7" />
 					) : type === "warning" ? (
-						<BsSlashLg
+						<ShowChart
 							key={`warning-${name}`}
-							className="absolute inset-2 z-10"
-							color="#f6e594"
-							size={19}
-							strokeWidth={2}
+							className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 text-[#f6e594] size-7"
 						/>
 					) : type === "error" ? (
-						<RiErrorWarningFill className="absolute inset-2 z-10" color="#df4444" size={19} />
+						<Close className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 text-red size-7" />
 					) : (
-						<BsSlashLg
+						<ShowChart
 							key={`disabled-${name}`}
-							className="absolute inset-2 z-10"
-							color="#474747"
-							size={19}
-							strokeWidth={2}
+							className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 text-[#474747] size-7"
 						/>
 					)}
 				</PopoverWrapper>

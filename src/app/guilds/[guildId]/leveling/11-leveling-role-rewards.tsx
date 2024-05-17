@@ -14,8 +14,7 @@ import {
 import type { Role, XpRoleReward } from "@/lib/guild.ts";
 import { decimalRoleColorToHex } from "@/utils/decimal-to-hex-color.ts";
 import { getMaximumLimit } from "@/utils/get-maximum-limit.ts";
-import { BiSolidTrash } from "@react-icons/all-files/bi/BiSolidTrash";
-import { MdPersonAddAlt1 } from "@react-icons/all-files/md/MdPersonAddAlt1";
+import { AddComment, Delete } from "@mui/icons-material";
 import { useMemo, useState } from "react";
 
 export function LevelingRoleRewards({ defaultRoleRewards, premium, roles }: LevelingRoleRewardsProps) {
@@ -90,7 +89,7 @@ export function LevelingRoleRewards({ defaultRoleRewards, premium, roles }: Leve
 					disabled={roleRewards.length >= maxRoleRewards || !newRoles.length || !newLevel}
 					type="button"
 				>
-					<MdPersonAddAlt1 color="white" size={24} />
+					<AddComment className="text-white size-6" />
 				</button>
 			</div>
 
@@ -135,7 +134,7 @@ function RoleRewardDisplay({ id, level, premium, roleIds, onDelete, roles }: Rol
 				type="button"
 			>
 				<div className="absolute hidden size-9 items-center justify-center rounded-lg border border-white bg-[#1e1f22] group-hover:flex">
-					<BiSolidTrash color="#ed4245" size={19} />
+					<Delete className="text-[#ed4245] size-5" />
 				</div>
 
 				{level}

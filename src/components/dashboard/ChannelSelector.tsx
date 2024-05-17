@@ -68,12 +68,10 @@ export function ChannelSelector({
 					closeMenuOnSelect={false}
 					menuPlacement={menuPlacement}
 					styles={{
-						// @ts-expect-error: Bad types
 						container: (baseStyles) => ({
 							...baseStyles,
 							opacity: disabled ? 0.5 : 1,
 						}),
-						// @ts-expect-error: Bad types
 						control: (baseStyles) => ({
 							...baseStyles,
 							backgroundColor: "#474747",
@@ -85,7 +83,6 @@ export function ChannelSelector({
 							minWidth: "16rem",
 							padding: "0.2rem",
 						}),
-						// @ts-expect-error: Bad types
 						menu: (baseStyles) => ({
 							...baseStyles,
 							backgroundColor: "#2d2d2d",
@@ -95,7 +92,6 @@ export function ChannelSelector({
 							minWidth: "16rem",
 							zIndex: "999999",
 						}),
-						// @ts-expect-error: Bad types
 						option: (baseStyles) => ({
 							...baseStyles,
 							color: "#e2e2e2",
@@ -104,14 +100,12 @@ export function ChannelSelector({
 								backgroundColor: "#474747",
 							},
 						}),
-						// @ts-expect-error: Bad types
 						multiValue: (baseStyles) => ({
 							...baseStyles,
 							backgroundColor: "transparent",
 							border: "1px solid #e2e2e2bf",
 							borderRadius: "20px",
 						}),
-						// @ts-expect-error: Bad types
 						multiValueLabel: (baseStyles) => ({
 							...baseStyles,
 							color: "#e2e2e2",
@@ -120,12 +114,10 @@ export function ChannelSelector({
 								margin: "0 0.2rem",
 							},
 						}),
-						// @ts-expect-error: Bad types
 						input: (baseStyles) => ({
 							...baseStyles,
 							color: "#e2e2e2",
 						}),
-						// @ts-expect-error: Bad types
 						multiValueRemove: (baseStyles) => ({
 							...baseStyles,
 							color: "#e2e2e2",
@@ -136,7 +128,6 @@ export function ChannelSelector({
 								color: "#2d2d2d",
 							},
 						}),
-						// @ts-expect-error: Bad types
 						placeholder: (baseStyles) => ({
 							...baseStyles,
 							color: "#e2e2e280",

@@ -1,7 +1,7 @@
 "use client";
 
 import { Tooltip, TooltipAnchor, useTooltipStore } from "@ariakit/react/tooltip";
-import { RiQuestionFill } from "@react-icons/all-files/ri/RiQuestionFill";
+import { Help } from "@mui/icons-material";
 import type { PropsWithChildren } from "react";
 
 export function InfoSection({ children, title, tooltip }: InfoSectionProps) {
@@ -13,7 +13,7 @@ export function InfoSection({ children, title, tooltip }: InfoSectionProps) {
 			<p className="text-4xl font-bold">{children}</p>
 
 			<TooltipAnchor className="absolute right-2 top-2 size-[14px] rounded-full" store={tooltipStore}>
-				<RiQuestionFill className="fill-icon-gradient-tertiary" size={14} />
+				<Help className="fill-icon-gradient-tertiary size-[14px]" />
 			</TooltipAnchor>
 
 			<Tooltip

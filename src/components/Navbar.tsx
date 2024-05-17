@@ -6,9 +6,7 @@ import { ProfileButton } from "@/components/Profile.tsx";
 import { SignInButton } from "@/components/SignIn.tsx";
 import type { getUserSafe } from "@/lib/auth.ts";
 import { DOCS_URL } from "@/utils/constants.ts";
-import { MdArrowBackIos } from "@react-icons/all-files/md/MdArrowBackIos";
-import { MdMenu } from "@react-icons/all-files/md/MdMenu";
-import { MdMenuOpen } from "@react-icons/all-files/md/MdMenuOpen";
+import { ArrowBackIos, Menu, MenuOpen } from "@mui/icons-material";
 import clsx from "clsx";
 import Image from "next/image";
 import Link from "next/link";
@@ -57,7 +55,7 @@ export function Navbar({ user }: { readonly user: ReturnType<typeof getUserSafe>
 					onClick={handleMenuClose}
 					type="button"
 				>
-					<MdMenuOpen size={24} />
+					<MenuOpen className="size-6" />
 				</button>
 
 				<ul className="flex flex-col items-center md:items-baseline text-xl md:text-base md:flex-row gap-5">
@@ -65,7 +63,7 @@ export function Navbar({ user }: { readonly user: ReturnType<typeof getUserSafe>
 						<>
 							<li className="text-white hover:text-white/75">
 								<Link href="/guilds" className="flex items-center">
-									<MdArrowBackIos />
+									<ArrowBackIos />
 									Back
 								</Link>
 							</li>
@@ -135,7 +133,7 @@ export function Navbar({ user }: { readonly user: ReturnType<typeof getUserSafe>
 			</div>
 
 			<button className="md:hidden" onClick={handleMenuClick} type="button">
-				<MdMenu size={24} />
+				<Menu className="size-6" />
 			</button>
 		</header>
 	);

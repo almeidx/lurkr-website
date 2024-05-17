@@ -5,7 +5,7 @@ import fallbackAvatarImg from "@/assets/fallback-avatar.png";
 import { ImageWithFallback } from "@/components/ImageWithFallback.tsx";
 import { guildIcon } from "@/utils/discord-cdn.ts";
 import { isSnowflake } from "@/utils/is-snowflake.ts";
-import { AiOutlineSend } from "@react-icons/all-files/ai/AiOutlineSend";
+import { Send } from "@mui/icons-material";
 import clsx from "clsx";
 import { matchSorter } from "match-sorter";
 import Link from "next/link";
@@ -47,7 +47,7 @@ export function DashboardGuildList({ guilds }: { readonly guilds: GuildInfo[] })
 					<span className="sr-only">
 						{targetGuildHref?.startsWith("https:") ? "Add Lurkr to the searched guild" : "Go to the searched guild"}
 					</span>
-					<AiOutlineSend size={28} color="#e2e2e2" />
+					<Send className="size-7" />
 				</Link>
 			</div>
 

@@ -58,7 +58,6 @@ export function RoleSelector({
 					menuPlacement={menuPlacement}
 					components={{ Option }}
 					styles={{
-						// @ts-expect-error: Bad types
 						control: (baseStyles) => ({
 							...baseStyles,
 							backgroundColor: "#474747",
@@ -70,7 +69,6 @@ export function RoleSelector({
 							minWidth: "16rem",
 							padding: "0.2rem",
 						}),
-						// @ts-expect-error: Bad types
 						menu: (baseStyles) => ({
 							...baseStyles,
 							backgroundColor: "#2d2d2d",
@@ -79,20 +77,17 @@ export function RoleSelector({
 							maxWidth: "48rem",
 							minWidth: "16rem",
 						}),
-						// @ts-expect-error: Bad types
 						option: (baseStyles, state) => ({
 							...baseStyles,
 							backgroundColor: state.isFocused ? "#474747" : "#2d2d2d",
 							color: "#e2e2e2",
 						}),
-						// @ts-expect-error: Bad types
 						multiValue: (baseStyles, state) => ({
 							...baseStyles,
 							backgroundColor: "transparent",
 							border: `1px solid ${state!.data!.resolvedColor}`,
 							borderRadius: "20px",
 						}),
-						// @ts-expect-error: Bad types
 						multiValueLabel: (baseStyles, state) => ({
 							...baseStyles,
 							color: "#e2e2e2",
@@ -111,12 +106,10 @@ export function RoleSelector({
 								borderRadius: "50%",
 							},
 						}),
-						// @ts-expect-error: Bad types
 						input: (baseStyles) => ({
 							...baseStyles,
 							color: "#e2e2e2",
 						}),
-						// @ts-expect-error: Bad types
 						multiValueRemove: (baseStyles, state) => ({
 							...baseStyles,
 							color: "#e2e2e2",
@@ -127,7 +120,6 @@ export function RoleSelector({
 								color: "#2d2d2d",
 							},
 						}),
-						// @ts-expect-error: Bad types
 						placeholder: (baseStyles) => ({
 							...baseStyles,
 							color: "#e2e2e280",

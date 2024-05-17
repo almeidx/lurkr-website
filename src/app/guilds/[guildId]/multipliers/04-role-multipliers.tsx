@@ -14,8 +14,7 @@ import {
 import { type Role, type XpMultiplier, XpMultiplierType } from "@/lib/guild.ts";
 import { decimalRoleColorToHex } from "@/utils/decimal-to-hex-color.ts";
 import { getMaximumLimit } from "@/utils/get-maximum-limit.ts";
-import { BiSolidTrash } from "@react-icons/all-files/bi/BiSolidTrash";
-import { MdPersonAddAlt1 } from "@react-icons/all-files/md/MdPersonAddAlt1";
+import { AddComment, Delete } from "@mui/icons-material";
 import { type Dispatch, type SetStateAction, useMemo, useState } from "react";
 
 export function RoleMultipliers({
@@ -100,7 +99,7 @@ export function RoleMultipliers({
 					newMultiplier={newMultiplier}
 					newTargets={newRoles}
 				>
-					<MdPersonAddAlt1 color="white" size={24} />
+					<AddComment className="text-white size-6" />
 				</CreateMultiplierButton>
 			</div>
 
@@ -147,7 +146,7 @@ function RoleMultiplier({ id, multiplier, premium, onDelete, roles, targets }: R
 				type="button"
 			>
 				<div className="absolute hidden size-10 items-center justify-center rounded-lg border border-red bg-[#1e1f22] group-hover:flex">
-					<BiSolidTrash color="#ed4245" size={19} />
+					<Delete className="text-[#ed4245] size-5" />
 				</div>
 
 				{multiplier}

@@ -1,5 +1,5 @@
 import type { Snowflake } from "@/utils/discord-cdn.ts";
-import { MdFileDownload } from "@react-icons/all-files/md/MdFileDownload";
+import { FileDownload } from "@mui/icons-material";
 import clsx from "clsx";
 
 export function DownloadLevelingData({ guildId, levelingSystemEnabled }: DownloadLevelingDataProps) {
@@ -14,7 +14,7 @@ export function DownloadLevelingData({ guildId, levelingSystemEnabled }: Downloa
 			data-disable-nprogress={true}
 		>
 			Download
-			<MdFileDownload className="drop-shadow-regular" />
+			<FileDownload className="drop-shadow-regular" />
 		</a>
 	);
 }

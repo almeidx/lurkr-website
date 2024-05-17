@@ -6,7 +6,7 @@ import { ImageWithFallback } from "@/components/ImageWithFallback.tsx";
 import { SignInButton } from "@/components/SignIn.tsx";
 import { guildIcon } from "@/utils/discord-cdn.ts";
 import { isSnowflake } from "@/utils/is-snowflake.ts";
-import { AiOutlineSend } from "@react-icons/all-files/ai/AiOutlineSend";
+import { Send } from "@mui/icons-material";
 import clsx from "clsx";
 import { matchSorter } from "match-sorter";
 import Link from "next/link";
@@ -45,7 +45,7 @@ export function LeaderboardGuildList({ guilds }: { readonly guilds: GuildInfo[] 
 					)}
 				>
 					<span className="sr-only">{targetGuildHref?.startsWith("https:") ? "Go to the searched server" : null}</span>
-					<AiOutlineSend size={28} color="#e2e2e2" />
+					<Send className="size-7" />
 				</Link>
 			</div>
 
@@ -107,7 +107,7 @@ export function LeaderboardGuildInput() {
 					)}
 				>
 					<span className="sr-only">Go to the searched server</span>
-					<AiOutlineSend size={28} color="#e2e2e2" />
+					<Send className="size-7" />
 				</Link>
 			</div>
 

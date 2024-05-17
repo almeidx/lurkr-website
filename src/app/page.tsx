@@ -9,13 +9,7 @@ import { ExternalLink } from "@/components/ExternalLink.tsx";
 import { Showcase } from "@/components/Showcase";
 import { formatNumber } from "@/utils/format-number.ts";
 import { makeApiRequest } from "@/utils/make-api-request.ts";
-import { BsAwardFill } from "@react-icons/all-files/bs/BsAwardFill";
-import { FiTrendingUp } from "@react-icons/all-files/fi/FiTrendingUp";
-import { HiOutlineExternalLink } from "@react-icons/all-files/hi/HiOutlineExternalLink";
-import { IoMdBrush } from "@react-icons/all-files/io/IoMdBrush";
-import { MdAttachMoney } from "@react-icons/all-files/md/MdAttachMoney";
-import { MdCloudDownload } from "@react-icons/all-files/md/MdCloudDownload";
-import { MdSpeed } from "@react-icons/all-files/md/MdSpeed";
+import { AttachMoney, Brush, CloudDownload, Launch, MilitaryTech, Speed, TrendingUp } from "@mui/icons-material";
 import Image from "next/image";
 import Link from "next/link";
 import { BOT_INVITE } from "../../shared-links.mjs";
@@ -49,7 +43,7 @@ export default async function Homepage() {
 						href="/guilds"
 					>
 						Dashboard
-						<HiOutlineExternalLink />
+						<Launch />
 					</Link>
 				</div>
 			</div>
@@ -88,7 +82,7 @@ export default async function Homepage() {
 					imgSrc={importImg}
 					title="Import & Never Lose Progress"
 				>
-					<MdCloudDownload color="#60D1F6" size={38} />
+					<CloudDownload className="text-[#60D1F6] size-9" />
 				</Showcase>
 
 				<ShowcaseSeparator />
@@ -99,7 +93,7 @@ export default async function Homepage() {
 					imgSrc={levelingImg}
 					title="Ultimate Leveling System"
 				>
-					<FiTrendingUp color="#ff7077" size={38} />
+					<TrendingUp className="text-[#ff7077] size-9" />
 				</Showcase>
 
 				<ShowcaseSeparator />
@@ -110,7 +104,7 @@ export default async function Homepage() {
 					imgSrc={rankCardsImg}
 					title="Customizable Rank Cards"
 				>
-					<IoMdBrush color="#d2ffae" size={38} />
+					<Brush className="text-[#d2ffae] size-9" />
 				</Showcase>
 
 				<ShowcaseSeparator />
@@ -121,7 +115,7 @@ export default async function Homepage() {
 					imgSrc={roleRewardsImg}
 					title="Endless Role Rewards"
 				>
-					<BsAwardFill color="#ffe87c" size={38} />
+					<MilitaryTech className="text-[#ffe87c] size-9" />
 				</Showcase>
 
 				<ShowcaseSeparator />
@@ -132,7 +126,7 @@ export default async function Homepage() {
 					imgSrc={multipliersImg}
 					title="In-Depth Leveling Multipliers"
 				>
-					<MdSpeed color="#a475b5" size={38} />
+					<Speed className="text-[#a475b5] size-9" />
 				</Showcase>
 
 				<ShowcaseSeparator />
@@ -143,7 +137,7 @@ export default async function Homepage() {
 					imgSrc={premiumImg}
 					title="Fair Pricing for All"
 				>
-					<MdAttachMoney color="#b6fe94" size={38} />
+					<AttachMoney className="text-[#b6fe94] size-9" />
 				</Showcase>
 
 				<ShowcaseSeparator />
