@@ -1,4 +1,4 @@
-import type { GetServerSideProps, InferGetServerSidePropsType, PageConfig } from "next";
+import type { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
@@ -8,8 +8,6 @@ import type { UserGuild } from "~/contexts/UserContext";
 import { isValidSnowflake } from "~/utils/common";
 import { API_BASE_URL } from "~/utils/constants";
 import { MAX_VANITY_LENGTH } from "~/utils/guild-config";
-
-export const config: PageConfig = { runtime: "experimental-edge" };
 
 export const getServerSideProps = (async (ctx) => {
 	const response = await fetch(API_BASE_URL + "/guilds/@me", {

@@ -1,12 +1,10 @@
-import type { GetServerSideProps, InferGetServerSidePropsType, PageConfig } from "next";
+import type { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import Head from "next/head";
 import { useContext } from "react";
 import Failure from "~/components/Failure";
 import Guild from "~/components/Guild";
 import { UserContext, type UserGuild } from "~/contexts/UserContext";
 import { API_BASE_URL } from "~/utils/constants";
-
-export const config: PageConfig = { runtime: "experimental-edge" };
 
 export const getServerSideProps = (async (ctx) => {
 	const response = await fetch(`${API_BASE_URL}/guilds/@me?withPermissions=true`, {
