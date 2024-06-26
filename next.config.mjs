@@ -22,23 +22,18 @@ const nextConfig = {
 			{
 				destination:
 					"https://discord.com/oauth2/authorize?client_id=506186003816513538&scope=bot%20applications.commands&permissions=276220472384",
-				permanent: true,
+				permanent: false,
 				source: "/invite",
 			},
 			{
 				destination: "https://top.gg/bot/506186003816513538/vote",
-				permanent: true,
+				permanent: false,
 				source: "/vote",
 			},
 			{
 				destination: "https://patreon.com/lurkrbot",
-				permanent: true,
+				permanent: false,
 				source: "/patreon",
-			},
-			{
-				destination: "https://docs.lurkr.gg/",
-				permanent: true,
-				source: "/docs",
 			},
 			{
 				destination: "https://github.com/almeidx/lurkr-website",
