@@ -54,6 +54,7 @@ export function LevelUpMessageChannel({ channels, defaultValue, defaultCustomCha
 				disabled={value !== XpAnnouncementChannelType.Custom}
 				inputId="custom-leveling-channel"
 				max={1}
+				required={value === XpAnnouncementChannelType.Custom}
 				settingId="xpAnnounceChannel"
 			>
 				<label className="flex items-center justify-between">

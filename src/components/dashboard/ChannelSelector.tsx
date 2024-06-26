@@ -15,6 +15,7 @@ export function ChannelSelector({
 	menuPlacement = "auto",
 	onChange,
 	settingId,
+	required,
 }: ChannelSelectorProps) {
 	const [values, setValues] = useState(defaultValues as Readonly<typeof defaultValues>);
 
@@ -77,6 +78,7 @@ export function ChannelSelector({
 						setValues(newValues);
 						onChange?.(newValues);
 					}}
+					required={required}
 					closeMenuOnSelect={false}
 					menuPlacement={menuPlacement}
 					styles={{
@@ -166,4 +168,5 @@ interface ChannelSelectorProps extends PropsWithChildren {
 	 * Id for the input containing the channel ids (hidden)
 	 */
 	readonly settingId: string;
+	readonly required?: boolean;
 }

@@ -45,20 +45,26 @@ export const booleanFlag = pipe(
 );
 
 export function createMinuteIntervalValidator(min: number, max: number, name: string) {
-	return pipe(
-		union([number(), string()]),
-		transform((value) => {
-			if (typeof value === "number") return value;
+	return union([
+		pipe(
+			literal("0"),
+			transform(() => null),
+		),
+		pipe(
+			union([number(), string()]),
+			transform((value) => {
+				if (typeof value === "number") return value;
 
-			const val = Number.parseInt(value, 10);
-			if (Number.isNaN(val)) throw new Error("Invalid number");
+				const val = Number.parseInt(value, 10);
+				if (Number.isNaN(val)) throw new Error("Invalid number");
 
-			return val * Time.Minutes;
-		}),
-		number(`${name} must be a number`),
-		minValue(min * Time.Minutes, `${name} must be >= ${min}`),
-		maxValue(max * Time.Minutes, `${name} must be <= ${max}`),
-	);
+				return val * Time.Minutes;
+			}),
+			number(`${name} must be a number`),
+			minValue(min * Time.Minutes, `${name} must be >= ${min}`),
+			maxValue(max * Time.Minutes, `${name} must be <= ${max}`),
+		),
+	]);
 }
 
 export function createSnowflakesValidator(max: number) {

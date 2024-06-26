@@ -16,7 +16,7 @@ import { formDataToObject } from "@/utils/form-data-to-object.ts";
 import { lazy } from "@/utils/lazy.ts";
 import { UUID_REGEX, createMinuteIntervalValidator, createSnowflakesValidator } from "@/utils/schemas.ts";
 import { UserFlags } from "@/utils/user-flags.ts";
-import { literal, object, parse, pipe, regex, string, transform, union } from "valibot";
+import { object, parse, pipe, regex, string, transform } from "valibot";
 
 const regularSchema = createSchema(false);
 const premiumSchema = createSchema(true);
@@ -56,13 +56,7 @@ function createSchema(premium: boolean) {
 	return lazy(() =>
 		object({
 			autoRole: createSnowflakesValidator(premium ? MAX_AUTO_ROLES_PREMIUM : MAX_AUTO_ROLES),
-			autoRoleTimeout: union([
-				pipe(
-					literal("0"),
-					transform(() => null),
-				),
-				createMinuteIntervalValidator(MIN_AUTO_ROLE_TIMEOUT, MAX_AUTO_ROLE_TIMEOUT, "Auto role timeout"),
-			]),
+			autoRoleTimeout: createMinuteIntervalValidator(MIN_AUTO_ROLE_TIMEOUT, MAX_AUTO_ROLE_TIMEOUT, "Auto role timeout"),
 			mentionCooldown: createMinuteIntervalValidator(MIN_MENTION_COOLDOWN, MAX_MENTION_COOLDOWN, "Mention cooldown"),
 			mentionCooldownRoles: createSnowflakesValidator(MAX_MENTION_COOLDOWN_ROLES),
 		}),
