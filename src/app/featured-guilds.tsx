@@ -19,6 +19,7 @@ export function FeaturedGuilds({ guilds }: FeaturedGuildsProps) {
 				spaceBetween={20}
 				slidesPerView={4}
 				breakpoints={{
+					0: { slidesPerView: 1 },
 					640: { slidesPerView: 1 },
 					768: { slidesPerView: 2 },
 					1024: { slidesPerView: 3 },
