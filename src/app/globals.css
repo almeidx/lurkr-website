@@ -1,0 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+	@apply scrollbar-thin scrollbar-track-[rgba(10,10,10,25%)] scrollbar-thumb-light-gray scrollbar-thumb-rounded-xl;
+}
+
+body {
+	text-rendering: optimizeLegibility;
+}
+
+img {
+	@apply select-none;
+}
+
+*::placeholder {
+	@apply !text-white/50;
+}
+
+.no-drag {
+	-webkit-user-drag: none;
+	-khtml-user-drag: none;
+	-moz-user-drag: none;
+	-o-user-drag: none;
+	user-drag: none;
+}
+
+.slick-slide {
+	@apply mx-4;
+}

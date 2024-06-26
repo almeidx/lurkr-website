@@ -1,0 +1,4 @@
+exports.plugins = {
+	tailwindcss: {},
+	autoprefixer: {},
+};

@@ -1,0 +1,48 @@
+{
+	"$schema": "https://biomejs.dev/schemas/1.8.2/schema.json",
+	"files": {
+		"ignoreUnknown": true
+	},
+	"formatter": {
+		"lineWidth": 120
+	},
+	"linter": {
+		"enabled": true,
+		"rules": {
+			"a11y": {
+				"noSvgWithoutTitle": "off"
+			},
+			"correctness": {
+				"useHookAtTopLevel": "error"
+			},
+			"recommended": true,
+			"style": {
+				"noCommaOperator": "off",
+				"noNamespace": "error",
+				"noNegationElse": "error",
+				"noNonNullAssertion": "off",
+				"useCollapsedElseIf": "error",
+				"useShorthandArrayType": "error",
+				"useShorthandAssign": "error"
+			},
+			"suspicious": {
+				"noApproximativeNumericConstant": "error",
+				"noConstEnum": "off",
+				"noExplicitAny": "off",
+				"noMisrefactoredShorthandAssign": "error"
+			},
+			"nursery": {
+				"useSortedClasses": "warn"
+			}
+		}
+	},
+	"organizeImports": {
+		"enabled": true
+	},
+	"vcs": {
+		"clientKind": "git",
+		"defaultBranch": "main",
+		"enabled": true,
+		"useIgnoreFile": true
+	}
+}

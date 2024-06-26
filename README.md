@@ -26,7 +26,8 @@ This setup assumes you have [Git], and [Node.js] setup on your machine. This rep
 
 - `git clone git@github.com:almeidx/lurkr-website.git`
 - `cd lurkr-website`
-- `pnpm i`
+- `corepack install`
+- `pnpm install`
 
 Note: If you don't have corepack enabled, you can do it with `corepack enable`.
 
