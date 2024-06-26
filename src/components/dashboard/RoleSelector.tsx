@@ -100,6 +100,7 @@ export function RoleSelector({
 								height: "14px",
 								backgroundColor: state!.data!.resolvedColor,
 								borderRadius: "50%",
+								flexShrink: "0",
 							},
 						}),
 						input: (baseStyles) => ({
