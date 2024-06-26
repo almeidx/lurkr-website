@@ -1,13 +1,21 @@
 "use client";
 
+import clsx from "clsx";
 import { type ChangeEvent, useEffect, useRef, useState } from "react";
 
-export function Slider({ defaultValue, id, max, min, step, steps }: SliderProps) {
+export function Slider({ defaultValue, id, max, min, step, steps, mobileStepsToHide }: SliderProps) {
 	const [value, setValue] = useState(defaultValue);
 	const ref = useRef<HTMLInputElement>(null);
 
-	const stepSpans = steps.map((step) => (
-		<span key={`${id}-${step}`} className="flex h-2.5 w-px justify-center bg-white leading-10">
+	const stepSpans = steps.map((step, idx) => (
+		<span
+			key={`${id}-${step}`}
+			className={clsx(
+				"h-2.5 w-px justify-center bg-white leading-10",
+				// The back and forward with the hidden class is due to the aside menu appearing on the md: breakpoint
+				mobileStepsToHide?.includes(idx) ? "hidden lg:flex xs:flex md:hidden" : "flex",
+			)}
+		>
 			{step}
 		</span>
 	));
@@ -67,4 +75,5 @@ interface SliderProps {
 	readonly min: number;
 	readonly step: number;
 	readonly steps: number[] | string[];
+	readonly mobileStepsToHide?: number[];
 }

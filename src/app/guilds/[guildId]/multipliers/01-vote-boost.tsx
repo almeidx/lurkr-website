@@ -11,14 +11,13 @@ export function VoteBoost({ defaultValue }: { readonly defaultValue: boolean }) 
 				htmlFor="voteBoostedXp"
 				tooltip="" // TODO: docsPath and tooltip
 			>
-				Allow users that vote for Lurkr on{" "}
-				<ExternalLink
-					href={`${TOPGG_URL}?source=dash-multipliers`}
-					className="mx-[-3px] transition-colors hover:text-blurple"
-				>
-					top.gg
-				</ExternalLink>{" "}
-				to gain 20% more experience?{" "}
+				<span className="whitespace-normal">
+					Allow users that vote for Lurkr on{" "}
+					<ExternalLink href={`${TOPGG_URL}?source=dash-multipliers`} className="transition-colors hover:text-blurple">
+						top.gg
+					</ExternalLink>{" "}
+					to gain 20% more experience?{" "}
+				</span>
 			</Text>
 
 			<Toggle initialValue={defaultValue} id="voteBoostedXp" />

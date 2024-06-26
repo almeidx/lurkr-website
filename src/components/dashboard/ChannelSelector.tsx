@@ -19,22 +19,33 @@ export function ChannelSelector({
 	const [values, setValues] = useState(defaultValues as Readonly<typeof defaultValues>);
 
 	const channelOptions = useMemo(() => {
+		const nonCategorizedName = "Non categorized";
+
 		const categorized = channels.reduce((acc, channel) => {
 			const parent = mapChannelIdsToChannels(channel.parentId, channels)[0] ?? null;
 
-			if (acc.has(parent)) {
-				acc.get(parent)!.push(channel);
-			} else if (channel.type !== ChannelType.GuildCategory) {
-				acc.set(parent, [channel]);
+			if (channel.type !== ChannelType.GuildCategory) {
+				if (acc.has(parent)) {
+					acc.get(parent)!.push(channel);
+				} else {
+					acc.set(parent, [channel]);
+				}
 			}
 
 			return acc;
 		}, new Map<Channel | null, Channel[]>());
 
-		return Array.from(categorized.entries()).map(([parent, items]) => ({
-			label: parent?.name ?? "Non categorized",
-			options: items,
-		}));
+		return Array.from(categorized.entries())
+			.map(([parent, items]) => ({
+				label: parent?.name ?? nonCategorizedName,
+				options: items,
+			}))
+			.sort((a, b) => {
+				if (a.label === nonCategorizedName) return -1;
+				if (b.label === nonCategorizedName) return 1;
+
+				return a.label.localeCompare(b.label);
+			});
 	}, [channels]);
 
 	return (

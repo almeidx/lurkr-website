@@ -12,6 +12,7 @@ export function OnJoinRolesDelay({ defaultValue, premium }: OnJoinRolesDelayProp
 			step={0.5}
 			defaultValue={defaultValueInMinutes}
 			steps={["0m", "5m", "10m", "15m", "20m", "25m", "30m"]}
+			mobileStepsToHide={[1, 2, 4, 5]}
 		/>
 	);
 }
