@@ -3,13 +3,13 @@
 import fallbackAvatarImg from "@/assets/fallback-avatar.png";
 import { ImageWithFallback } from "@/components/ImageWithFallback.tsx";
 import type { User } from "@/lib/auth.ts";
+import { SUPPORT_SERVER_INVITE } from "@/shared-links.mjs";
 import { userAvatar } from "@/utils/discord-cdn.ts";
 import { Menu, MenuButton, MenuButtonArrow, MenuItem, MenuSeparator, useMenuStore } from "@ariakit/react/menu";
 import clsx from "clsx";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";
-import { SUPPORT_SERVER_INVITE } from "../../shared-links.mjs";
 
 export function ProfileButton({ avatar, globalName, id, username }: User) {
 	const store = useMenuStore();

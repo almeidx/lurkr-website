@@ -19,6 +19,7 @@
 		"noUncheckedIndexedAccess": true,
 		"noUnusedLocals": true,
 		"paths": {
+			"@/shared-links.mjs": ["./shared-links.mjs"],
 			"@/*": ["./src/*"]
 		},
 		"plugins": [

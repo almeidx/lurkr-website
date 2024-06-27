@@ -8,12 +8,12 @@ import rankCardsImg from "@/assets/showcases/rank-cards.png";
 import roleRewardsImg from "@/assets/showcases/role-rewards.png";
 import { ExternalLink } from "@/components/ExternalLink.tsx";
 import { Showcase } from "@/components/Showcase";
+import { BOT_INVITE } from "@/shared-links.mjs";
 import { formatNumber } from "@/utils/format-number.ts";
 import { makeApiRequest } from "@/utils/make-api-request.ts";
 import { AttachMoney, Brush, CloudDownload, Launch, MilitaryTech, Speed, TrendingUp } from "@mui/icons-material";
 import Image from "next/image";
 import Link from "next/link";
-import { BOT_INVITE } from "../../shared-links.mjs";
 
 export default async function Homepage() {
 	const {

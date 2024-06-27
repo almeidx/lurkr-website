@@ -2,12 +2,13 @@
 
 import amariIcon from "@/assets/bots/amari.png";
 import mee6Icon from "@/assets/bots/mee6.svg";
+import { LevelingImportBot } from "@/lib/guild.ts";
 import { Select, SelectArrow, SelectItem, SelectLabel, SelectPopover, useSelectStore } from "@ariakit/react/select";
 import Image from "next/image";
 
 const bots = [
-	{ name: "MEE6", icon: mee6Icon },
-	{ name: "Amari", icon: amariIcon },
+	{ name: LevelingImportBot.Mee6, icon: mee6Icon },
+	{ name: LevelingImportBot.Amari, icon: amariIcon },
 ] as const;
 
 export function BotSelector() {

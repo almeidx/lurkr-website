@@ -104,7 +104,7 @@ export function DashboardMenu({ guild, guilds }: DashboardMenuProps) {
 						</Item>
 						{/* TODO: Re-add this once implemented */}
 						{/* <Item guildId={guild.id} name="Import Bots" path="import" isActive={currentDashSection === "import"}>
-							<TbRobot className="size-5" />
+							<SmartToy className="size-5" />
 						</Item> */}
 						<Item guildId={guild.id} name="Leveling" path="leveling" isActive={currentDashSection === "leveling"}>
 							<TrendingUp className="size-5 text-[#ff7077]" />

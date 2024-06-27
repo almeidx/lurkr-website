@@ -1,6 +1,22 @@
 import type { Snowflake } from "@/utils/discord-cdn.ts";
 import type { UserFlags } from "@/utils/user-flags.ts";
 
+export const enum LevelingImportBot {
+	Mee6 = "Mee6",
+	Amari = "Amari",
+}
+
+export const enum LevelingImportError {
+	LeaderboardNotFound = "LeaderboardNotFound",
+	PrivateLeaderboard = "PrivateLeaderboard",
+	RateLimited = "RateLimited",
+	NonJSONResponse = "NonJSONResponse",
+	SchemaMismatch = "SchemaMismatch",
+	Exception = "Exception",
+	LeaderboardEmpty = "LeaderboardEmpty",
+	CancelledByJob = "CancelledByJob",
+}
+
 export interface Guild {
 	channels: Channel[];
 	emojis: Emoji[];
