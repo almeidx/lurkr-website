@@ -32,16 +32,33 @@ export function ImportForm({ guildId, data }: { guildId: Snowflake; data: GetImp
 			setImportStatusState(data);
 		}
 
-		if (intervalRef.current) {
-			clearInterval(intervalRef.current);
+		function startInterval() {
+			stopInterval();
+
+			intervalRef.current = setInterval(updateData, 5 * Time.Seconds);
 		}
 
-		intervalRef.current = setInterval(updateData, 5 * Time.Seconds);
-
-		return () => {
+		function stopInterval() {
 			if (intervalRef.current) {
 				clearInterval(intervalRef.current);
 			}
+		}
+
+		function handleVisibilityChange() {
+			if (document.hidden) {
+				stopInterval();
+			} else {
+				startInterval();
+			}
+		}
+
+		document.addEventListener("visibilitychange", handleVisibilityChange);
+
+		startInterval();
+
+		return () => {
+			stopInterval();
+			document.removeEventListener("visibilitychange", handleVisibilityChange);
 		};
 	}, []);
 
