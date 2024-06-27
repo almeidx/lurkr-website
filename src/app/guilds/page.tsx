@@ -65,12 +65,15 @@ async function getGuilds(token: string) {
 		}),
 	]);
 
-	if (getGuildsResponse.status === 401) {
+	if (getGuildsResponse.status === 401 || !getCurrentUserResponse.ok) {
 		throw new Error("Unauthorized");
 	}
 
 	if (!getGuildsResponse.ok) {
-		throw new Error("Failed to fetch guilds");
+		return {
+			guilds: [],
+			user: (await getCurrentUserResponse.json()) as User,
+		};
 	}
 
 	// TODO: Error handling

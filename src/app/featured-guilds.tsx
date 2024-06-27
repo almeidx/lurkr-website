@@ -31,9 +31,9 @@ export function FeaturedGuilds({ guilds }: FeaturedGuildsProps) {
 				freeMode={{ enabled: true }}
 				modules={[Autoplay, FreeMode]}
 			>
-				{guilds.map((guild) => (
+				{guilds.map((guild, idx) => (
 					<SwiperSlide className="mr-5 max-w-96" key={guild.id}>
-						<FeaturedGuild key={guild.id} {...guild} />
+						<FeaturedGuild key={guild.id} index={idx} {...guild} />
 					</SwiperSlide>
 				))}
 			</Swiper>
@@ -44,7 +44,7 @@ export function FeaturedGuilds({ guilds }: FeaturedGuildsProps) {
 	);
 }
 
-function FeaturedGuild({ id, icon, name, memberCount, partner, verified }: FeaturedGuild) {
+function FeaturedGuild({ id, icon, name, memberCount, partner, verified, index }: FeaturedGuild & { index: number }) {
 	const iconSrc = verified ? verifiedSvg : partner ? partnerSvg : discoverableSvg;
 	const alt = verified ? "Verified guild badge" : partner ? "Partner guild badge" : "Discoverable guild badge";
 
@@ -55,7 +55,7 @@ function FeaturedGuild({ id, icon, name, memberCount, partner, verified }: Featu
 				className="no-drag size-14 rounded-full md:size-16"
 				height={64}
 				src={guildIcon(id, icon, { format: "webp", size: 64 })}
-				priority
+				priority={index < 4}
 				width={64}
 			/>
 
