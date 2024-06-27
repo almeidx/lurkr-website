@@ -88,7 +88,7 @@ export default async function Leaderboard({ params: { entry }, searchParams }: L
 					<PageSelector amount={levels.length} entry={entry} page={page} />
 				</div>
 
-				<div className="flex w-full flex-col gap-5 px-4 md:w-96 sm:w-80 md:px-0">
+				<div className="flex w-full flex-col gap-5 px-4 sm:w-80 md:w-96 md:px-0">
 					<SidebarSection title="Role Rewards">
 						{roleRewards.length ? (
 							<div className="flex flex-col gap-4">

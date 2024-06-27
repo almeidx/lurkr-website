@@ -67,7 +67,7 @@ export function DefaultRankCardColor({ defaultAccentColour, defaultAccentType }:
 					</PopoverDisclosure>
 
 					<HexColorInput
-						className="w-52 rounded-lg bg-light-gray px-3 py-2 shadow-dim-inner md:w-64 disabled:opacity-50"
+						className="w-52 rounded-lg bg-light-gray px-3 py-2 shadow-dim-inner disabled:opacity-50 md:w-64"
 						color={color}
 						prefixed
 						onChange={setColor}

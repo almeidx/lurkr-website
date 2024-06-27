@@ -13,7 +13,7 @@ export function Slider({ defaultValue, id, max, min, step, steps, mobileStepsToH
 			className={clsx(
 				"h-2.5 w-px justify-center bg-white leading-10",
 				// The back and forward with the hidden class is due to the aside menu appearing on the md: breakpoint
-				mobileStepsToHide?.includes(idx) ? "hidden lg:flex xs:flex md:hidden" : "flex",
+				mobileStepsToHide?.includes(idx) ? "xs:flex hidden md:hidden lg:flex" : "flex",
 			)}
 		>
 			{step}
@@ -40,7 +40,7 @@ export function Slider({ defaultValue, id, max, min, step, steps, mobileStepsToH
 		<div className="mb-3 flex max-w-lg items-center gap-4 px-2.5">
 			<div className="flex-1">
 				<input
-					className="h-1.5 w-full cursor-pointer appearance-none rounded-2xl outline-none slider-thumb:size-4 slider-thumb:appearance-none slider-thumb:rounded-full slider-thumb:border-none slider-thumb:bg-primary"
+					className="slider-thumb:size-4 h-1.5 w-full cursor-pointer appearance-none slider-thumb:appearance-none rounded-2xl slider-thumb:rounded-full slider-thumb:border-none slider-thumb:bg-primary outline-none"
 					ref={ref}
 					type="range"
 					min={min}

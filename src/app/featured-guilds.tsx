@@ -61,7 +61,7 @@ function FeaturedGuild({ id, icon, name, memberCount, partner, verified }: Featu
 
 			<div className="flex flex-col">
 				<p
-					className="flex max-w-[70%] items-center gap-2 overflow-hidden text-ellipsis whitespace-nowrap font-bold text-lg md:max-w-64 sm:max-w-[16rem] lg:text-2xl sm:text-xl"
+					className="flex max-w-[70%] items-center gap-2 overflow-hidden text-ellipsis whitespace-nowrap font-bold text-lg sm:max-w-[16rem] sm:text-xl md:max-w-64 lg:text-2xl"
 					title={name}
 				>
 					<Image src={iconSrc} alt={alt} width={20} height={20} className="no-drag size-5 rounded-full" />

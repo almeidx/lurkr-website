@@ -11,7 +11,7 @@ export function ItemStatus({ description, name, type }: ItemStatusProps) {
 					"bg-darker": type === "success",
 					"before:bg-[#ffe87c]": type === "warning",
 					"before:bg-red": type === "error",
-					"after:absolute before:absolute after:inset-0 before:inset-2 after:rounded-xl before:rounded-xl after:bg-darker before:blur-lg":
+					"before:absolute before:inset-2 before:rounded-xl before:blur-lg after:absolute after:inset-0 after:rounded-xl after:bg-darker":
 						type !== "success",
 				})}
 			>

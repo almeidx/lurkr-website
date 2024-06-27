@@ -13,7 +13,7 @@ export function Footer() {
 					</p>
 				</div>
 
-				<div className="flex flex-col justify-center gap-10 whitespace-nowrap xs:flex-row">
+				<div className="flex xs:flex-row flex-col justify-center gap-10 whitespace-nowrap">
 					<div>
 						<p className="mb-2 font-bold">About Us</p>
 

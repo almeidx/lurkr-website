@@ -50,7 +50,7 @@ export function PremiumPlan({
 
 			<p className="mt-2 text-center text-white/75">{price === 0 ? "Billed never!" : "Billed recurringly"}</p>
 
-			<div className="mt-4 space-y-3 whitespace-normal text-sm text-white/75 tracking-tighter xl:whitespace-nowrap md:text-base">
+			<div className="mt-4 space-y-3 whitespace-normal text-sm text-white/75 tracking-tighter md:text-base xl:whitespace-nowrap">
 				<ul className="space-y-3">
 					{perks.map((perk) => (
 						<li key={perk} className="flex items-center gap-2">
@@ -88,7 +88,7 @@ export function PremiumPlan({
 
 			<DynamicLink
 				className={clsx(
-					"relative z-[1] mt-4 w-fit self-center rounded-lg px-6 py-2 text-center font-bold text-black text-xl before:absolute before:inset-0 before:z-[-1] before:rounded-lg before:bg-gradient-radial-hover before:opacity-0 hover:before:opacity-100 before:transition-opacity before:duration-300",
+					"relative z-[1] mt-4 w-fit self-center rounded-lg px-6 py-2 text-center font-bold text-black text-xl before:absolute before:inset-0 before:z-[-1] before:rounded-lg before:bg-gradient-radial-hover before:opacity-0 before:transition-opacity before:duration-300 hover:before:opacity-100",
 					tier === 1 ? "bg-gradient-lurkr-max" : tier === 2 ? "bg-gradient-lurkr-ultimate" : "bg-gradient-radial",
 					isCurrent ? "pointer-events-none opacity-50" : "cursor-pointer",
 				)}

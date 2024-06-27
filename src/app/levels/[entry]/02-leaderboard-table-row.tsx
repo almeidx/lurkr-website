@@ -54,7 +54,7 @@ export function LeaderboardTableRow({ guildId, row, isManager }: LeaderboardTabl
 					<p className="max-w-40 sm:max-w-96">{row.user.username}</p>
 				</div>
 
-				<div className="hidden min-w-14 max-w-[15%] text-center xs:block">{formatNumber(row.messageCount)}</div>
+				<div className="xs:block hidden min-w-14 max-w-[15%] text-center">{formatNumber(row.messageCount)}</div>
 
 				<div className="hidden min-w-14 max-w-[15%] text-center sm:block">{formatNumber(row.xp)}</div>
 

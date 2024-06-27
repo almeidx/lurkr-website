@@ -47,7 +47,7 @@ export default async function Homepage() {
 					<StartLevelingButton />
 
 					<Link
-						className="hidden w-72 items-center justify-center gap-5 rounded-lg border border-white px-3 py-2 font-bold text-3xl transition-colors xl:flex hover:bg-white hover:text-black"
+						className="hidden w-72 items-center justify-center gap-5 rounded-lg border border-white px-3 py-2 font-bold text-3xl transition-colors hover:bg-white hover:text-black xl:flex"
 						href="/guilds"
 					>
 						Dashboard
@@ -57,7 +57,7 @@ export default async function Homepage() {
 			</div>
 
 			<div className="flex w-full items-center justify-center border-white/50 border-t border-b">
-				<div className="grid w-full max-w-xl grid-cols-4 place-items-center px-4 py-2 xl:max-w-7xl md:px-8 xl:py-6">
+				<div className="grid w-full max-w-xl grid-cols-4 place-items-center px-4 py-2 md:px-8 xl:max-w-7xl xl:py-6">
 					<div className="flex flex-col xl:flex-row xl:gap-5">
 						<span className="font-extrabold text-2xl text-shadow-regular xl:text-6xl">
 							{formatNumber(guildCount, false)}
