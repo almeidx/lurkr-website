@@ -15,6 +15,7 @@ import Link from "next/link";
 import { RedirectType, redirect } from "next/navigation";
 import { type RoleReward, RoleRewardDisplay } from "./03-role-reward.tsx";
 import { type Multiplier, MultiplierDisplay } from "./04-multiplier.tsx";
+import { UnknownGuildOrDisabledLevels } from "./unknown-guild.tsx";
 
 if (!process.env.LEVELS_METADATA_KEY) {
 	throw new Error("Missing LEVELS_METADATA_KEY environment variable");
@@ -30,7 +31,13 @@ export default async function Leaderboard({ params: { entry }, searchParams }: L
 	}
 
 	const token = cookies().get(TOKEN_COOKIE)?.value;
-	const { guild, isManager, vanity, levels, multipliers, roleRewards } = await getData(entry, token, page);
+	const data = await getData(entry, token, page);
+
+	if (!data) {
+		return <UnknownGuildOrDisabledLevels />;
+	}
+
+	const { guild, isManager, vanity, levels, multipliers, roleRewards } = data;
 
 	if (isSnowflake(entry) && vanity) {
 		redirect(`/levels/${vanity}?page=${page}`, RedirectType.replace);
@@ -153,12 +160,8 @@ async function getData(entry: string, token: string | undefined, page: number) {
 		},
 	});
 
-	if (response.status === 401) {
-		throw new Error("Unauthorized");
-	}
-
 	if (!response.ok) {
-		throw new Error("Failed to fetch leaderboard data");
+		return null;
 	}
 
 	return response.json() as Promise<GetLevelsResponse>;

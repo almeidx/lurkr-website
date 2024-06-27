@@ -6,13 +6,21 @@ import { Form } from "@/components/dashboard/Form.tsx";
 import { Section } from "@/components/dashboard/Section.tsx";
 import { TOKEN_COOKIE } from "@/utils/constants.ts";
 import type { Snowflake } from "@/utils/discord-cdn.ts";
+import type { Metadata } from "next";
 import { cookies } from "next/headers";
+import { UnknownGuildOrMissingAccess } from "../unknown-guild.tsx";
 import { GlobalMultipliers } from "./01-global-multipliers.tsx";
 import { update } from "./update.ts";
 
 export default async function Multipliers({ params: { guildId } }: { readonly params: { guildId: Snowflake } }) {
 	const token = cookies().get(TOKEN_COOKIE)!.value;
-	const { guild, settings } = await getGuildSettings(guildId, token, "multipliers");
+	const guildData = await getGuildSettings(guildId, token, "multipliers");
+
+	if (!guildData) {
+		return <UnknownGuildOrMissingAccess />;
+	}
+
+	const { guild, settings } = guildData;
 
 	const action = update.bind(null, guildId, guild.premium);
 
@@ -30,3 +38,8 @@ export default async function Multipliers({ params: { guildId } }: { readonly pa
 		</Form>
 	);
 }
+
+export const metadata: Metadata = {
+	title: "Multipliers Dashboard",
+	description: "Configure how much experience each member gains in your server!",
+};

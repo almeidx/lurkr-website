@@ -8,7 +8,9 @@ import { Text } from "@/components/dashboard/Text.tsx";
 import { MAX_VANITY_LENGTH, MIN_VANITY_LENGTH } from "@/lib/guild-config.ts";
 import { TOKEN_COOKIE } from "@/utils/constants.ts";
 import type { Snowflake } from "@/utils/discord-cdn.ts";
+import type { Metadata } from "next";
 import { cookies } from "next/headers";
+import { UnknownGuildOrMissingAccess } from "../unknown-guild.tsx";
 import { LevelingChannelMode } from "./01-leveling-channel-mode.tsx";
 import { LevelingChannels } from "./02-leveling-channels.tsx";
 import { LevelingInThreads } from "./03-leveling-in-threads.tsx";
@@ -29,7 +31,13 @@ import { update } from "./update.ts";
 
 export default async function Leveling({ params: { guildId } }: { readonly params: { guildId: Snowflake } }) {
 	const token = cookies().get(TOKEN_COOKIE)!.value;
-	const { guild, settings } = await getGuildSettings(guildId, token, "leveling");
+	const guildData = await getGuildSettings(guildId, token, "leveling");
+
+	if (!guildData) {
+		return <UnknownGuildOrMissingAccess />;
+	}
+
+	const { guild, settings } = guildData;
 
 	const action = update.bind(null, guildId, guild.premium);
 
@@ -169,3 +177,8 @@ export default async function Leveling({ params: { guildId } }: { readonly param
 		</Form>
 	);
 }
+
+export const metadata: Metadata = {
+	title: "Leveling Dashboard",
+	description: "Configure your server's leveling system with Lurkr!",
+};

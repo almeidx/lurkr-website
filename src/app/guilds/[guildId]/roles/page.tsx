@@ -5,7 +5,9 @@ import { Section } from "@/components/dashboard/Section.tsx";
 import { Text } from "@/components/dashboard/Text.tsx";
 import { TOKEN_COOKIE } from "@/utils/constants.ts";
 import type { Snowflake } from "@/utils/discord-cdn.ts";
+import type { Metadata } from "next";
 import { cookies } from "next/headers";
+import { UnknownGuildOrMissingAccess } from "../unknown-guild.tsx";
 import { OnJoinRoles } from "./01-on-join-roles.tsx";
 import { OnJoinRolesDelay } from "./02-on-join-roles-delay.tsx";
 import { OnJoinRolesForBadges } from "./03-on-join-roles-for-badges.tsx";
@@ -15,7 +17,13 @@ import { update } from "./update.ts";
 
 export default async function Roles({ params: { guildId } }: { readonly params: { guildId: Snowflake } }) {
 	const token = cookies().get(TOKEN_COOKIE)!.value;
-	const { guild, settings } = await getGuildSettings(guildId, token, "roles");
+	const guildData = await getGuildSettings(guildId, token, "roles");
+
+	if (!guildData) {
+		return <UnknownGuildOrMissingAccess />;
+	}
+
+	const { guild, settings } = guildData;
 
 	const action = update.bind(null, guildId, guild.premium);
 
@@ -87,3 +95,8 @@ export default async function Roles({ params: { guildId } }: { readonly params: 
 		</Form>
 	);
 }
+
+export const metadata: Metadata = {
+	title: "Roles Dashboard",
+	description: "Automatically assign roles to users and avoid role mentions spam!",
+};

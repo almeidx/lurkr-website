@@ -28,7 +28,7 @@ export default async function Levels() {
 }
 
 export const metadata: Metadata = {
-	title: "Leveling",
+	title: "Leaderboards",
 	description: "View the leveling leaderboard of any Lurkr-enabled server!",
 };
 
@@ -39,15 +39,9 @@ async function getGuilds(token: string) {
 		},
 	});
 
-	if (response.status === 401) {
-		throw new Error("Unauthorized");
-	}
-
 	if (!response.ok) {
-		throw new Error("Failed to fetch guilds");
+		return [];
 	}
-
-	// TODO: Error handling
 
 	return response.json() as Promise<GuildInfo[]>;
 }

@@ -5,14 +5,22 @@ import { Section } from "@/components/dashboard/Section.tsx";
 import { Text } from "@/components/dashboard/Text.tsx";
 import { TOKEN_COOKIE } from "@/utils/constants.ts";
 import type { Snowflake } from "@/utils/discord-cdn.ts";
+import type { Metadata } from "next";
 import { cookies } from "next/headers";
+import { UnknownGuildOrMissingAccess } from "../unknown-guild.tsx";
 import { StoreMemberCountData } from "./01-store-member-count-data.tsx";
 import { AutomaticallyPublishChannels } from "./02-automatically-publish-channels.tsx";
 import { update } from "./update.ts";
 
 export default async function Miscellaneous({ params: { guildId } }: { readonly params: { guildId: Snowflake } }) {
 	const token = cookies().get(TOKEN_COOKIE)!.value;
-	const { guild, settings } = await getGuildSettings(guildId, token, "miscellaneous");
+	const guildData = await getGuildSettings(guildId, token, "miscellaneous");
+
+	if (!guildData) {
+		return <UnknownGuildOrMissingAccess />;
+	}
+
+	const { guild, settings } = guildData;
 
 	const action = update.bind(null, guildId, guild.premium);
 
@@ -43,3 +51,8 @@ export default async function Miscellaneous({ params: { guildId } }: { readonly 
 		</Form>
 	);
 }
+
+export const metadata: Metadata = {
+	title: "Miscellaneous Dashboard",
+	description: "Configure miscellaneous Lurkr settings",
+};

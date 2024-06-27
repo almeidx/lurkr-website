@@ -5,7 +5,9 @@ import { Section } from "@/components/dashboard/Section.tsx";
 import { Text } from "@/components/dashboard/Text.tsx";
 import { TOKEN_COOKIE } from "@/utils/constants.ts";
 import type { Snowflake } from "@/utils/discord-cdn.ts";
+import type { Metadata } from "next";
 import { cookies } from "next/headers";
+import { UnknownGuildOrMissingAccess } from "../unknown-guild.tsx";
 import { MilestonesChannel } from "./01-milestones-channel.tsx";
 import { MilestoneInterval } from "./02-milestone-interval.tsx";
 import { MilestoneMessage } from "./03-milestone-message.tsx";
@@ -14,7 +16,13 @@ import { update } from "./update.ts";
 
 export default async function Milestones({ params: { guildId } }: { readonly params: { guildId: Snowflake } }) {
 	const token = cookies().get(TOKEN_COOKIE)!.value;
-	const { guild, settings } = await getGuildSettings(guildId, token, "milestones");
+	const guildData = await getGuildSettings(guildId, token, "milestones");
+
+	if (!guildData) {
+		return <UnknownGuildOrMissingAccess />;
+	}
+
+	const { guild, settings } = guildData;
 
 	const action = update.bind(null, guildId, guild.premium);
 
@@ -67,3 +75,8 @@ export default async function Milestones({ params: { guildId } }: { readonly par
 		</Form>
 	);
 }
+
+export const metadata: Metadata = {
+	title: "Milestones Dashboard",
+	description: "Configure Lurkr to automatically celebrate a milestone with you!",
+};

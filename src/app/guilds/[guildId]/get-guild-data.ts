@@ -11,7 +11,7 @@ export async function getGuildSettings(guildId: Snowflake, token: string, pageTa
 	});
 
 	if (!response.ok) {
-		throw new Error("Failed to get guild information");
+		return null;
 	}
 
 	return response.json() as Promise<GetGuildResponse>;

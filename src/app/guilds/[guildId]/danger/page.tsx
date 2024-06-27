@@ -4,13 +4,21 @@ import { Section } from "@/components/dashboard/Section.tsx";
 import { Text } from "@/components/dashboard/Text.tsx";
 import { TOKEN_COOKIE } from "@/utils/constants.ts";
 import type { Snowflake } from "@/utils/discord-cdn.ts";
+import type { Metadata } from "next";
 import { cookies } from "next/headers";
+import { UnknownGuildOrMissingAccess } from "../unknown-guild.tsx";
 import { DownloadLevelingData } from "./01-download-leveling-data.tsx";
 import { ResetGuildData } from "./02-reset-guild-data.tsx";
 
 export default async function DangerZone({ params: { guildId } }: { readonly params: { guildId: Snowflake } }) {
 	const token = cookies().get(TOKEN_COOKIE)!.value;
-	const { settings } = await getGuildSettings(guildId, token, "danger");
+	const guildData = await getGuildSettings(guildId, token, "danger");
+
+	if (!guildData) {
+		return <UnknownGuildOrMissingAccess />;
+	}
+
+	const { settings } = guildData;
 
 	return (
 		<div className="flex w-full flex-col gap-5 px-4 py-4">
@@ -51,3 +59,8 @@ export default async function DangerZone({ params: { guildId } }: { readonly par
 		</div>
 	);
 }
+
+export const metadata: Metadata = {
+	title: "Danger Dashboard",
+	description: "Dangerous actions regarding your server configuration",
+};

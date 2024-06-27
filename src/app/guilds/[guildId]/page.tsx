@@ -59,7 +59,7 @@ export default async function Dashboard({ params }: { readonly params: { guildId
 }
 
 export const metadata: Metadata = {
-	title: "Dashboard",
+	title: "Dashboard Overview",
 	description: "Configure your server with Lurkr!",
 };
 

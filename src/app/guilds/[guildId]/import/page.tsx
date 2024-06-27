@@ -1,6 +1,7 @@
 import { TOKEN_COOKIE } from "@/utils/constants.ts";
 import type { Snowflake } from "@/utils/discord-cdn.ts";
 import { makeApiRequest } from "@/utils/make-api-request.ts";
+import type { Metadata } from "next";
 import { cookies } from "next/headers";
 import { type GetImportStatusResponse, ImportForm } from "./01-leveling-import.tsx";
 
@@ -10,6 +11,11 @@ export default async function Miscellaneous({ params: { guildId } }: { readonly 
 
 	return <ImportForm guildId={guildId} data={data} />;
 }
+
+export const metadata: Metadata = {
+	title: "Import Leveling Dashboard",
+	description: "Import your leveling data from another bot into Lurkr!",
+};
 
 async function getData(guildId: Snowflake, token: string) {
 	const response = await makeApiRequest(`/levels/${guildId}/import`, token, {

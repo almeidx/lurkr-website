@@ -120,7 +120,7 @@ function RoleRewardDisplay({ id, level, premium, roleIds, onDelete, roles }: Rol
 	return (
 		<div className="flex items-center gap-4">
 			<button
-				className="group relative flex size-9 items-center justify-center rounded-lg border border-white bg-[#1e1f22] text-[#fff] text-lg md:text-xl"
+				className="group relative flex size-9 items-center justify-center rounded-lg border border-white bg-[#1e1f22] text-[#fff]"
 				onClick={() => onDelete(id)}
 				type="button"
 			>
