@@ -69,18 +69,18 @@ async function getGuilds(token: string) {
 		throw new Error("Unauthorized");
 	}
 
+	const user = (await getCurrentUserResponse.json()) as User;
+
 	if (!getGuildsResponse.ok) {
 		return {
 			guilds: [],
-			user: (await getCurrentUserResponse.json()) as User,
+			user,
 		};
 	}
 
-	// TODO: Error handling
-
 	return {
 		guilds: (await getGuildsResponse.json()) as GuildInfo[],
-		user: (await getCurrentUserResponse.json()) as User,
+		user,
 	};
 }
 
