@@ -7,9 +7,9 @@ export function VoteBoost({ defaultValue }: { readonly defaultValue: boolean }) 
 	return (
 		<div className="flex h-6 gap-4 rounded-lg">
 			<Text
-				docsPath="/guides/leveling-automation"
+				docsPath="/guides/setting-up-leveling-multipliers#toggling-vote-boosting-leveling"
 				htmlFor="voteBoostedXp"
-				tooltip="" // TODO: docsPath and tooltip
+				tooltip="Users that vote for Lurkr on top.gg will gain 20% more experience."
 			>
 				<span className="whitespace-normal">
 					Allow users that vote for Lurkr on{" "}

@@ -1,14 +1,22 @@
 "use client";
 
 import { Dialog, DialogDescription, DialogDismiss, DialogHeading, useDialogStore } from "@ariakit/react/dialog";
-import type { PropsWithChildren } from "react";
+import type { PropsWithChildren, ReactNode } from "react";
 
-export function Confirmation({ className, children, buttonText, onConfirm }: ConfirmationProps) {
+export function Confirmation({
+	className,
+	children,
+	buttonText,
+	onConfirm,
+	btnRef,
+	disabled = false,
+	useSubmitButton = false,
+}: ConfirmationProps) {
 	const dialog = useDialogStore();
 
 	return (
 		<>
-			<button className={className} onClick={dialog.toggle} type="button">
+			<button className={className} disabled={disabled} onClick={dialog.toggle} type="button" ref={btnRef}>
 				{buttonText}
 			</button>
 
@@ -18,6 +26,7 @@ export function Confirmation({ className, children, buttonText, onConfirm }: Con
 					<div className="z-[100001] bg-black/10 opacity-0 backdrop-blur-0 transition-[opacity,backdrop-filter] duration-150 ease-in-out data-[enter]:opacity-100 data-[enter]:backdrop-blur-sm" />
 				}
 				className="-translate-x-1/2 fixed top-20 left-1/2 z-[100002] scale-95 rounded-lg border border-white/25 bg-dark-gray px-4 py-3 opacity-0 transition-[opacity,transform] duration-150 ease-in-out data-[enter]:scale-100 data-[enter]:opacity-100"
+				portal={!useSubmitButton}
 			>
 				<DialogHeading className="mb-4 font-bold text-xl">{buttonText}</DialogHeading>
 
@@ -26,8 +35,16 @@ export function Confirmation({ className, children, buttonText, onConfirm }: Con
 				<div className="space-x-4">
 					<button
 						className="rounded-lg bg-green px-2 py-1 transition-colors hover:bg-green/75"
-						onClick={onConfirm}
-						type="button"
+						type={useSubmitButton ? "submit" : "button"}
+						{...(onConfirm
+							? {
+									onClick: () => {
+										dialog.setState("open", false);
+
+										onConfirm();
+									},
+								}
+							: {})}
 					>
 						Confirm
 					</button>
@@ -42,7 +59,12 @@ export function Confirmation({ className, children, buttonText, onConfirm }: Con
 }
 
 interface ConfirmationProps extends PropsWithChildren {
-	readonly buttonText: string;
+	readonly buttonText: ReactNode;
 	readonly className: string;
-	onConfirm(): void;
+	onConfirm?(): void;
+	btnRef?: React.RefObject<HTMLButtonElement>;
+	/** @defaultValue `false` */
+	disabled?: boolean;
+	/** @defaultValue `false` */
+	useSubmitButton?: boolean;
 }

@@ -17,7 +17,7 @@ import { ImportStatus, ImportStatusTitle, StartImportError } from "./import-stat
 export function ImportForm({ guildId, data }: { guildId: Snowflake; data: GetImportStatusResponse | null }) {
 	const [importStatusState, setImportStatusState] = useState<GetImportStatusResponse | null>(null);
 	const [formState, formAction] = useActionState(importBotData.bind(null, guildId), null);
-	const timeoutRef = useRef<NodeJS.Timeout>();
+	const intervalRef = useRef<NodeJS.Timeout>();
 
 	const importStatus = importStatusState ?? data;
 
@@ -30,24 +30,20 @@ export function ImportForm({ guildId, data }: { guildId: Snowflake; data: GetImp
 		async function updateData() {
 			const data = await getOngoingImportStatus(guildId);
 			setImportStatusState(data);
-
-			if (data?.completedAt === null && !data?.error) {
-				timeoutRef.current = setTimeout(updateData, 5 * Time.Seconds);
-			}
 		}
 
-		if (timeoutRef.current) {
-			clearTimeout(timeoutRef.current);
+		if (intervalRef.current) {
+			clearInterval(intervalRef.current);
 		}
 
-		timeoutRef.current = setTimeout(updateData, 2 * Time.Seconds);
+		intervalRef.current = setInterval(updateData, 5 * Time.Seconds);
 
 		return () => {
-			if (timeoutRef.current) {
-				clearTimeout(timeoutRef.current);
+			if (intervalRef.current) {
+				clearInterval(intervalRef.current);
 			}
 		};
-	}, [formState]);
+	}, []);
 
 	return (
 		<Form title="Import Bots" action={formAction} withSaveButton={false}>
