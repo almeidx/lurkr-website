@@ -1,22 +1,27 @@
 "use client";
 
 import { Dialog, DialogDescription, DialogDismiss, DialogHeading, useDialogStore } from "@ariakit/react/dialog";
-import type { PropsWithChildren, ReactNode } from "react";
+import type { MouseEvent, PropsWithChildren, ReactNode } from "react";
 
 export function Confirmation({
 	className,
 	children,
 	buttonText,
 	onConfirm,
-	btnRef,
 	disabled = false,
 	useSubmitButton = false,
 }: ConfirmationProps) {
 	const dialog = useDialogStore();
 
+	function handleConfirm(_event: MouseEvent<HTMLButtonElement>) {
+		dialog.setState("open", false);
+
+		onConfirm?.();
+	}
+
 	return (
 		<>
-			<button className={className} disabled={disabled} onClick={dialog.toggle} type="button" ref={btnRef}>
+			<button className={className} disabled={disabled} onClick={dialog.toggle} type="button">
 				{buttonText}
 			</button>
 
@@ -36,15 +41,7 @@ export function Confirmation({
 					<button
 						className="rounded-lg bg-green px-2 py-1 transition-colors hover:bg-green/75"
 						type={useSubmitButton ? "submit" : "button"}
-						{...(onConfirm
-							? {
-									onClick: () => {
-										dialog.setState("open", false);
-
-										onConfirm();
-									},
-								}
-							: {})}
+						onClick={handleConfirm}
 					>
 						Confirm
 					</button>
@@ -62,7 +59,6 @@ interface ConfirmationProps extends PropsWithChildren {
 	readonly buttonText: ReactNode;
 	readonly className: string;
 	onConfirm?(): void;
-	btnRef?: React.RefObject<HTMLButtonElement>;
 	/** @defaultValue `false` */
 	disabled?: boolean;
 	/** @defaultValue `false` */

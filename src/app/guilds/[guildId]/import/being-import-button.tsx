@@ -3,10 +3,8 @@
 import { Confirmation } from "@/components/Confirmation.tsx";
 import { Tooltip, TooltipAnchor, useTooltipStore } from "@ariakit/react/tooltip";
 import { SystemUpdate } from "@mui/icons-material";
-import { useRef } from "react";
 
 export function BeginImportButton({ isRateLimited, importOngoing }: BeginImportButtonProps) {
-	const btnRef = useRef<HTMLButtonElement>(null);
 	const tooltip = useTooltipStore({ showTimeout: 50 });
 
 	const disabled = isRateLimited || importOngoing;
@@ -21,7 +19,6 @@ export function BeginImportButton({ isRateLimited, importOngoing }: BeginImportB
 					<SystemUpdate className="size-5 drop-shadow-regular" />
 				</>
 			}
-			onConfirm={() => {}}
 			useSubmitButton
 		>
 			Are you sure you want to import leveling data into this server?
@@ -32,14 +29,9 @@ export function BeginImportButton({ isRateLimited, importOngoing }: BeginImportB
 		</Confirmation>
 	);
 
-	// Using a hidden button to submit the form since the Confirmation dialog puts the button outside the form
-	const submitBtn = <button aria-hidden className="hidden" type="submit" ref={btnRef} />;
-
 	if (disabled) {
 		return (
 			<>
-				{submitBtn}
-
 				<TooltipAnchor className="w-fit" store={tooltip}>
 					{btn}
 				</TooltipAnchor>
@@ -54,12 +46,7 @@ export function BeginImportButton({ isRateLimited, importOngoing }: BeginImportB
 		);
 	}
 
-	return (
-		<>
-			{submitBtn}
-			{btn}
-		</>
-	);
+	return btn;
 }
 
 interface BeginImportButtonProps {
