@@ -2,7 +2,7 @@ import { TOKEN_COOKIE } from "@/utils/constants.ts";
 import type { Snowflake } from "@/utils/discord-cdn.ts";
 import { makeApiRequest } from "@/utils/make-api-request.ts";
 import { cookies } from "next/headers";
-import { type GetImportStatusResponse, ImportForm } from "./form.tsx";
+import { type GetImportStatusResponse, ImportForm } from "./01-leveling-import.tsx";
 
 export default async function Miscellaneous({ params: { guildId } }: { readonly params: { guildId: Snowflake } }) {
 	const token = cookies().get(TOKEN_COOKIE)!.value;

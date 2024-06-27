@@ -68,10 +68,9 @@ export function Navbar({ children }: PropsWithChildren) {
 							<li className="text-white hover:text-white/75">
 								<Link href={`/guilds/${guildId}`}>Overview</Link>
 							</li>
-							{/* TODO: Re-add this once implemented */}
-							{/* <li className="text-white hover:text-white/75">
+							<li className="text-white hover:text-white/75">
 								<Link href={`/guilds/${guildId}/import`}>Import Bots</Link>
-							</li> */}
+							</li>
 							<li className="text-white hover:text-white/75">
 								<Link href={`/guilds/${guildId}/leveling`}>Leveling</Link>
 							</li>

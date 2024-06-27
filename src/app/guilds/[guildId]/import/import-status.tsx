@@ -2,8 +2,8 @@ import { LoadingSpinner } from "@/components/LoadingSpinner.tsx";
 import { LevelingImportError } from "@/lib/guild.ts";
 import { dateToRelativeTimeAgo } from "@/utils/date-to-relative-time-ago.ts";
 import { Done, Error as ErrorIcon } from "@mui/icons-material";
+import type { GetImportStatusResponse } from "./01-leveling-import.tsx";
 import type { StartLevelingImportResult } from "./actions.ts";
-import type { GetImportStatusResponse } from "./form.tsx";
 
 export function ImportStatusTitle({ createdAt, completedAt }: { createdAt: Date; completedAt: Date | null }) {
 	const createdAt_ = new Date(createdAt);

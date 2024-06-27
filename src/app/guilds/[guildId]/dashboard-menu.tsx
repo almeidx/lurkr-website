@@ -14,6 +14,7 @@ import {
 	RocketLaunch,
 	Settings,
 	Signpost,
+	SmartToy,
 	TrendingUp,
 	Warning,
 } from "@mui/icons-material";
@@ -102,10 +103,9 @@ export function DashboardMenu({ guild, guilds }: DashboardMenuProps) {
 						<Item guildId={guild.id} name="Overview" path="" isActive={currentDashSection === "overview"}>
 							<Settings className="size-5" />
 						</Item>
-						{/* TODO: Re-add this once implemented */}
-						{/* <Item guildId={guild.id} name="Import Bots" path="import" isActive={currentDashSection === "import"}>
+						<Item guildId={guild.id} name="Import Bots" path="import" isActive={currentDashSection === "import"}>
 							<SmartToy className="size-5" />
-						</Item> */}
+						</Item>
 						<Item guildId={guild.id} name="Leveling" path="leveling" isActive={currentDashSection === "leveling"}>
 							<TrendingUp className="size-5 text-[#ff7077]" />
 						</Item>

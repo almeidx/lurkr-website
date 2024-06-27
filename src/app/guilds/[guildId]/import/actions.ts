@@ -6,7 +6,7 @@ import { makeApiRequest } from "@/utils/make-api-request.ts";
 import { toggle } from "@/utils/schemas.ts";
 import { cookies } from "next/headers";
 import { literal, object, parse, pipe, string, transform, union } from "valibot";
-import type { GetImportStatusResponse } from "./form.tsx";
+import type { GetImportStatusResponse } from "./01-leveling-import.tsx";
 import { StartImportError } from "./import-status.tsx";
 
 const importBotDataSchema = object({

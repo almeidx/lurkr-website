@@ -7,9 +7,9 @@ import type { LevelingImportBot, LevelingImportError } from "@/lib/guild.ts";
 import type { Snowflake } from "@/utils/discord-cdn.ts";
 import { Time } from "@/utils/time.ts";
 import { useActionState, useEffect, useRef, useState } from "react";
-import { BotSelector } from "./01-bot-selector.tsx";
-import { IncludeRoleRewards } from "./02-include-role-rewards.tsx";
-import { ImportUntil } from "./03-import-until.tsx";
+import { BotSelector } from "./02-bot-selector.tsx";
+import { IncludeRoleRewards } from "./03-include-role-rewards.tsx";
+import { ImportUntil } from "./04-import-until.tsx";
 import { getOngoingImportStatus, importBotData } from "./actions.ts";
 import { BeginImportButton } from "./being-import-button.tsx";
 import { ImportStatus, ImportStatusTitle, StartImportError } from "./import-status.tsx";
@@ -24,8 +24,6 @@ export function ImportForm({ guildId, data }: { guildId: Snowflake; data: GetImp
 	const lastImportIsWithinHour = !!data && dateIsYoungerThanHours(new Date(data.createdAt), 1);
 	const importOngoing = importStatusState?.completedAt === null;
 	const isRateLimited = !!formState && "error" in formState && formState?.error === StartImportError.RateLimited;
-
-	const isPrevious = !importStatusState;
 
 	// biome-ignore lint/correctness/useExhaustiveDependencies: Intended
 	useEffect(() => {
@@ -74,9 +72,7 @@ export function ImportForm({ guildId, data }: { guildId: Snowflake; data: GetImp
 			{formState && "error" in formState ? null : formState !== null || importStatus ? (
 				<Section>
 					<div className="flex flex-wrap items-center gap-4">
-						<h3 className="flex items-center font-semibold text-xl md:text-[1.4rem]">
-							{isPrevious ? "Previous Import Status" : "Import Status"}
-						</h3>
+						<h3 className="flex items-center font-semibold text-xl md:text-[1.4rem]">Import Status</h3>
 
 						{importStatus && (
 							<ImportStatusTitle
