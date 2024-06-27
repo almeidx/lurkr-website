@@ -6,30 +6,29 @@ import { Section } from "@/components/dashboard/Section.tsx";
 import type { LevelingImportBot, LevelingImportError } from "@/lib/guild.ts";
 import type { Snowflake } from "@/utils/discord-cdn.ts";
 import { Time } from "@/utils/time.ts";
-import { SystemUpdate } from "@mui/icons-material";
 import { useActionState, useEffect, useRef, useState } from "react";
 import { BotSelector } from "./01-bot-selector.tsx";
 import { IncludeRoleRewards } from "./02-include-role-rewards.tsx";
 import { ImportUntil } from "./03-import-until.tsx";
 import { getOngoingImportStatus, importBotData } from "./actions.ts";
-import { ImportStatus, ImportStatusTitle } from "./import-status.tsx";
+import { BeginImportButton } from "./being-import-button.tsx";
+import { ImportStatus, ImportStatusTitle, StartImportError } from "./import-status.tsx";
 
 export function ImportForm({ guildId, data }: { guildId: Snowflake; data: GetImportStatusResponse | null }) {
 	const [importStatusState, setImportStatusState] = useState<GetImportStatusResponse | null>(null);
 	const [formState, formAction] = useActionState(importBotData.bind(null, guildId), null);
 	const timeoutRef = useRef<NodeJS.Timeout>();
 
-	const isOngoing = !!formState || (data?.completedAt === null && !data?.error);
-	const isPrevious = !importStatusState;
-
 	const importStatus = importStatusState ?? data;
+
+	const lastImportIsWithinHour = !!data && dateIsYoungerThanHours(new Date(data.createdAt), 1);
+	const importOngoing = importStatusState?.completedAt === null;
+	const isRateLimited = !!formState && "error" in formState && formState?.error === StartImportError.RateLimited;
+
+	const isPrevious = !importStatusState;
 
 	// biome-ignore lint/correctness/useExhaustiveDependencies: Intended
 	useEffect(() => {
-		if (!formState) {
-			return;
-		}
-
 		async function updateData() {
 			const data = await getOngoingImportStatus(guildId);
 			setImportStatusState(data);
@@ -69,17 +68,10 @@ export function ImportForm({ guildId, data }: { guildId: Snowflake; data: GetImp
 					<ImportUntil />
 				</div>
 
-				<button
-					className="flex w-fit items-center justify-between gap-3 rounded-lg bg-green px-2 py-1 font-semibold text-lg text-shadow-regular transition-colors disabled:cursor-not-allowed disabled:bg-green/50 hover:bg-green/90 md:text-xl"
-					disabled={isOngoing}
-					type="submit"
-				>
-					Import
-					<SystemUpdate className="size-5 drop-shadow-regular" />
-				</button>
+				<BeginImportButton importOngoing={importOngoing} isRateLimited={isRateLimited || lastImportIsWithinHour} />
 			</Section>
 
-			{formState !== null || importStatus ? (
+			{formState && "error" in formState ? null : formState !== null || importStatus ? (
 				<Section>
 					<div className="flex flex-wrap items-center gap-4">
 						<h3 className="flex items-center font-semibold text-xl md:text-[1.4rem]">
@@ -99,6 +91,10 @@ export function ImportForm({ guildId, data }: { guildId: Snowflake; data: GetImp
 			) : null}
 		</Form>
 	);
+}
+
+function dateIsYoungerThanHours(date: Date, hours: number) {
+	return Date.now() - date.getTime() < hours * Time.Hours;
 }
 
 export interface GetImportStatusResponse {

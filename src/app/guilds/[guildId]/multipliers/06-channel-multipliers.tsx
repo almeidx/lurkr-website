@@ -1,4 +1,6 @@
-"use client";
+import "client-only";
+// The reason for using "client-only" instead of "use client" is because of the function parameter in the component,
+// which triggers a warning since functions are not serializable.
 
 import { CreateMultiplierButton } from "@/app/guilds/[guildId]/multipliers/create-multiplier-button.tsx";
 import { ChannelSelector } from "@/components/dashboard/ChannelSelector.tsx";

@@ -135,6 +135,11 @@ function getImportStatusErrorText(error: LevelingImportError): string {
 	}
 }
 
+export enum StartImportError {
+	RateLimited = 0,
+	Unknown = 1,
+}
+
 interface ImportStatusProps {
 	readonly formState: false | StartLevelingImportResult | null;
 	readonly importStatus: GetImportStatusResponse | null;

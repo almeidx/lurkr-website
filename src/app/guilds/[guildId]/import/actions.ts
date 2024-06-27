@@ -7,6 +7,7 @@ import { toggle } from "@/utils/schemas.ts";
 import { cookies } from "next/headers";
 import { literal, object, parse, pipe, string, transform, union } from "valibot";
 import type { GetImportStatusResponse } from "./form.tsx";
+import { StartImportError } from "./import-status.tsx";
 
 const importBotDataSchema = object({
 	bot: union([literal("Mee6"), literal("Amari")]),
@@ -36,9 +37,12 @@ export async function importBotData(guildId: string, _currentState: any, data: F
 	});
 
 	if (!response.ok) {
-		console.error("Failed to start leveling import", response.status, await response.text());
+		if (response.status === 429) {
+			return { error: StartImportError.RateLimited };
+		}
 
-		return false;
+		console.error("Failed to start leveling import", response.status, await response.text());
+		return { error: StartImportError.Unknown };
 	}
 
 	return response.json() as Promise<StartLevelingImportResult>;
