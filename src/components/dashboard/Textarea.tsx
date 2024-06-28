@@ -25,6 +25,7 @@ export function Textarea({
 	id,
 	emojis,
 	max,
+	min,
 	placeholder,
 	placeholders,
 	roles,
@@ -116,6 +117,7 @@ export function Textarea({
 						id={id}
 						name={id}
 						maxLength={max}
+						minLength={min}
 						ref={ref}
 						rows={4}
 						className="max-h-64 min-h-[3rem] w-full max-w-3xl resize-y rounded-lg bg-light-gray px-3 py-2 leading-relaxed shadow-dim-inner"
@@ -174,6 +176,7 @@ interface TextareaWithAutocompleteProps {
 	readonly emojis: Emoji[];
 	readonly id: string;
 	readonly max: number;
+	readonly min: number;
 	readonly placeholder: string;
 	readonly placeholders: PlaceholderValue[];
 	readonly roles: Role[];

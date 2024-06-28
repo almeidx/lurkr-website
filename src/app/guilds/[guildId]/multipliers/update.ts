@@ -7,12 +7,13 @@ import {
 	MAX_XP_MULTIPLIER_TARGETS,
 	MAX_XP_MULTIPLIER_TARGETS_PREMIUM,
 	MAX_XP_MULTIPLIER_VALUE,
+	MIN_XP_MULTIPLIER_VALUE,
 } from "@/lib/guild-config.ts";
 import { type GuildSettings, XpMultiplierType } from "@/lib/guild.ts";
 import { formDataToObject } from "@/utils/form-data-to-object.ts";
 import { lazy } from "@/utils/lazy.ts";
-import { UUID_REGEX, booleanFlag, createSnowflakesValidator, toggle } from "@/utils/schemas.ts";
-import { maxValue, minValue, number, object, parse, pipe, regex, string, transform, union } from "valibot";
+import { UUID_REGEX, booleanFlag, coerceToFloat, createSnowflakesValidator, toggle } from "@/utils/schemas.ts";
+import { maxValue, minValue, object, parse, pipe, regex, string, transform } from "valibot";
 
 const schema = object({
 	prioritiseMultiplierRoleHierarchy: booleanFlag,
@@ -21,13 +22,7 @@ const schema = object({
 
 const xpMultiplierType = Object.values(XpMultiplierType);
 
-const multiplierValueSchema = pipe(
-	union([number(), string()]),
-	transform((value) => (typeof value === "number" ? value : Number.parseFloat(value))),
-	number("Multiplier value must be a number"),
-	minValue(0.01, "Multiplier value must be >= 0.01"),
-	maxValue(MAX_XP_MULTIPLIER_VALUE, "Multiplier value must be <= 5"),
-);
+const multiplierValueSchema = pipe(coerceToFloat, minValue(MIN_XP_MULTIPLIER_VALUE), maxValue(MAX_XP_MULTIPLIER_VALUE));
 
 const regularMultiplierTargetsSchema = lazy(() => createSnowflakesValidator(MAX_XP_MULTIPLIER_TARGETS));
 const premiumMultiplierTargetsSchema = lazy(() => createSnowflakesValidator(MAX_XP_MULTIPLIER_TARGETS_PREMIUM));

@@ -2,9 +2,12 @@
 
 import { Label } from "@/components/dashboard/Label.tsx";
 import { type PlaceholderValue, Textarea } from "@/components/dashboard/Textarea.tsx";
-import { DEFAULT_MILESTONES_MESSAGE, MAX_MILESTONES_MESSAGE_LENGTH } from "@/lib/guild-config.ts";
+import {
+	DEFAULT_MILESTONES_MESSAGE,
+	MAX_MILESTONES_MESSAGE_LENGTH,
+	MIN_MILESTONES_MESSAGE_LENGTH,
+} from "@/lib/guild-config.ts";
 import type { Emoji, Role } from "@/lib/guild.ts";
-import { getMaximumLimit } from "@/utils/get-maximum-limit.ts";
 import { RestartAlt } from "@mui/icons-material";
 import { useState } from "react";
 
@@ -46,7 +49,8 @@ export function MilestoneMessage({ defaultValue, emojis, premium, roles }: Miles
 			<Textarea
 				id="milestonesMessage"
 				emojis={emojis}
-				max={getMaximumLimit("milestonesMessage", premium)}
+				min={MIN_MILESTONES_MESSAGE_LENGTH}
+				max={MAX_MILESTONES_MESSAGE_LENGTH}
 				roles={roles}
 				placeholder="e.g. {user} is the {milestone}th member!"
 				placeholders={placeholders}

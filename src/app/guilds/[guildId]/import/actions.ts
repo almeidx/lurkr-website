@@ -1,20 +1,18 @@
 "use server";
 
+import { LevelingImportBot } from "@/lib/guild.ts";
 import { TOKEN_COOKIE } from "@/utils/constants.ts";
 import { formDataToObject } from "@/utils/form-data-to-object.ts";
 import { makeApiRequest } from "@/utils/make-api-request.ts";
-import { toggle } from "@/utils/schemas.ts";
+import { coerceToInt, toggle } from "@/utils/schemas.ts";
 import { cookies } from "next/headers";
-import { literal, object, parse, pipe, string, transform, union } from "valibot";
+import { enum_, maxValue, minValue, object, parse, pipe } from "valibot";
 import type { GetImportStatusResponse } from "./01-leveling-import.tsx";
 import { StartImportError } from "./import-status.tsx";
 
 const importBotDataSchema = object({
-	bot: union([literal("Mee6"), literal("Amari")]),
-	until: pipe(
-		string(),
-		transform((value) => Number(value)),
-	),
+	bot: enum_(LevelingImportBot),
+	until: pipe(coerceToInt, minValue(3), maxValue(20)),
 	withRoleRewards: toggle,
 });
 

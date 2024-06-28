@@ -29,10 +29,23 @@ export const vanitySchema = pipe(
 	regex(new RegExp(VANITY_REGEX_SOURCE)),
 );
 
-export const snowflake = pipe(
-	union([literal(""), pipe(string(), SNOWFLAKE_REGEX_SCHEMA)]),
-	transform((value) => value || null),
+export const emptyStringToNull = pipe(
+	literal(""),
+	transform(() => null),
 );
+
+export const coerceToInt = pipe(
+	union([number(), string()]),
+	transform((value) => (typeof value === "number" ? value : Number.parseInt(value, 10))),
+	number(),
+);
+export const coerceToFloat = pipe(
+	union([number(), string()]),
+	transform((value) => (typeof value === "number" ? value : Number.parseFloat(value))),
+	number(),
+);
+
+export const snowflake = union([emptyStringToNull, pipe(string(), SNOWFLAKE_REGEX_SCHEMA)]);
 
 export const toggle = pipe(
 	optional(literal("on")),
@@ -51,18 +64,10 @@ export function createMinuteIntervalValidator(min: number, max: number, name: st
 			transform(() => null),
 		),
 		pipe(
-			union([number(), string()]),
-			transform((value) => {
-				if (typeof value === "number") return value;
-
-				const val = Number.parseInt(value, 10);
-				if (Number.isNaN(val)) throw new Error("Invalid number");
-
-				return val * Time.Minutes;
-			}),
-			number(`${name} must be a number`),
-			minValue(min * Time.Minutes, `${name} must be >= ${min}`),
-			maxValue(max * Time.Minutes, `${name} must be <= ${max}`),
+			coerceToInt,
+			transform((value) => value * Time.Minutes),
+			minValue(min * Time.Minutes),
+			maxValue(max * Time.Minutes),
 		),
 	]);
 }
@@ -72,10 +77,8 @@ export function createSnowflakesValidator(max: number) {
 
 	return pipe(
 		string(),
-		transform((value) => {
-			// `"".split(",")` => `[""]`, hence the check
-			return value ? value.split(",") : [];
-		}),
+		// `"".split(",")` => `[""]`, hence the check
+		transform((value) => (value ? value.split(",") : [])),
 		array(pipe(string(), SNOWFLAKE_REGEX_SCHEMA)),
 		maxLength(max),
 	);

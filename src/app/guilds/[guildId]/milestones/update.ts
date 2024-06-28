@@ -8,24 +8,13 @@ import {
 	MAX_MILESTONES_ROLES_PREMIUM,
 	MILESTONES_INTERVAL_MULTIPLE_OF,
 	MIN_MILESTONES_INTERVAL,
+	MIN_MILESTONES_MESSAGE_LENGTH,
 } from "@/lib/guild-config.ts";
 import type { GuildSettings } from "@/lib/guild.ts";
 import { formDataToObject } from "@/utils/form-data-to-object.ts";
 import { lazy } from "@/utils/lazy.ts";
-import { createSnowflakesValidator, snowflake, toggle } from "@/utils/schemas.ts";
-import {
-	maxLength,
-	maxValue,
-	minValue,
-	multipleOf,
-	number,
-	object,
-	parse,
-	pipe,
-	string,
-	transform,
-	union,
-} from "valibot";
+import { coerceToInt, createSnowflakesValidator, emptyStringToNull, snowflake, toggle } from "@/utils/schemas.ts";
+import { maxLength, maxValue, minLength, minValue, multipleOf, object, parse, pipe, string, union } from "valibot";
 
 const regularSchema = createSchema(false);
 const premiumSchema = createSchema(true);
@@ -43,17 +32,15 @@ function createSchema(premium: boolean) {
 		object({
 			milestonesChannel: snowflake,
 			milestonesInterval: pipe(
-				union([number(), string()]),
-				transform((value) => (typeof value === "number" ? value : Number.parseInt(value, 10))),
-				number("Milestones interval must be a number"),
-				minValue(MIN_MILESTONES_INTERVAL, "Milestones interval is too short"),
-				maxValue(MAX_MILESTONES_INTERVAL, "Milestones interval is too long"),
-				multipleOf(MILESTONES_INTERVAL_MULTIPLE_OF, "Milestones interval must be a multiple of 5"),
+				coerceToInt,
+				minValue(MIN_MILESTONES_INTERVAL),
+				maxValue(MAX_MILESTONES_INTERVAL),
+				multipleOf(MILESTONES_INTERVAL_MULTIPLE_OF),
 			),
-			milestonesMessage: pipe(
-				string("Milestones message must be a string"),
-				maxLength(MAX_MILESTONES_MESSAGE_LENGTH, "Milestones message is too long"),
-			),
+			milestonesMessage: union([
+				emptyStringToNull,
+				pipe(string(), minLength(MIN_MILESTONES_MESSAGE_LENGTH), maxLength(MAX_MILESTONES_MESSAGE_LENGTH)),
+			]),
 			milestonesRoles: createSnowflakesValidator(premium ? MAX_MILESTONES_ROLES_PREMIUM : MAX_MILESTONES_ROLES),
 			storeMilestones: toggle,
 		}),

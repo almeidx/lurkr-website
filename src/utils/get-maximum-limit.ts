@@ -8,7 +8,6 @@ import {
 	MAX_MENTION_COOLDOWN,
 	MAX_MENTION_COOLDOWN_ROLES,
 	MAX_MILESTONES_INTERVAL,
-	MAX_MILESTONES_MESSAGE_LENGTH,
 	MAX_MILESTONES_ROLES,
 	MAX_MILESTONES_ROLES_PREMIUM,
 	MAX_NO_ROLE_REWARD_ROLES,
@@ -23,7 +22,6 @@ import {
 	MAX_XP_CHANNELS_PREMIUM,
 	MAX_XP_DISALLOWED_PREFIXES,
 	MAX_XP_DISALLOWED_PREFIXES_PREMIUM,
-	MAX_XP_MESSAGE_LENGTH,
 	MAX_XP_MULTIPLIERS,
 	MAX_XP_MULTIPLIERS_PREMIUM,
 	MAX_XP_MULTIPLIER_TARGETS,
@@ -58,9 +56,6 @@ export function getMaximumLimit(setting: LimitedKey, premium: boolean) {
 		case "milestonesInterval":
 			return MAX_MILESTONES_INTERVAL;
 
-		case "milestonesMessage":
-			return MAX_MILESTONES_MESSAGE_LENGTH;
-
 		case "milestonesRoles":
 			return premium ? MAX_MILESTONES_ROLES_PREMIUM : MAX_MILESTONES_ROLES;
 
@@ -84,9 +79,6 @@ export function getMaximumLimit(setting: LimitedKey, premium: boolean) {
 
 		case "xpDisallowedPrefixes":
 			return premium ? MAX_XP_DISALLOWED_PREFIXES_PREMIUM : MAX_XP_DISALLOWED_PREFIXES;
-
-		case "xpMessage":
-			return MAX_XP_MESSAGE_LENGTH;
 
 		case "xpMultipliers":
 			return premium ? MAX_XP_MULTIPLIERS_PREMIUM : MAX_XP_MULTIPLIERS;
@@ -113,6 +105,7 @@ type LimitedKey =
 			| "id"
 			| "levels"
 			| "milestonesChannel"
+			| "milestonesMessage"
 			| "premium"
 			| "prioritiseMultiplierRoleHierarchy"
 			| "stackXpRoles"
@@ -126,6 +119,7 @@ type LimitedKey =
 			| "xpAnnounceMultipleOf"
 			| "xpAnnounceOnlyXpRoles"
 			| "xpChannelMode"
+			| "xpMessage"
 			| "xpInThreads"
 	  >
 	| "xpMultiplierTargets"

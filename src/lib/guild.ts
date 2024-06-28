@@ -1,7 +1,7 @@
 import type { Snowflake } from "@/utils/discord-cdn.ts";
 import type { UserFlags } from "@/utils/user-flags.ts";
 
-export const enum LevelingImportBot {
+export enum LevelingImportBot {
 	Mee6 = "Mee6",
 	Amari = "Amari",
 }

@@ -18,6 +18,7 @@ import {
 	MAX_XP_ROLE_REWARDS_PREMIUM,
 	MAX_XP_ROLE_REWARD_ROLES,
 	MAX_XP_ROLE_REWARD_ROLES_PREMIUM,
+	MIN_XP_MESSAGE_LENGTH,
 } from "@/lib/guild-config.ts";
 import { GuildAccentType, type GuildSettings, XpAnnouncementChannelType, XpChannelMode } from "@/lib/guild.ts";
 import { formDataToObject } from "@/utils/form-data-to-object.ts";
@@ -26,6 +27,7 @@ import {
 	UUID_REGEX,
 	booleanFlag,
 	createSnowflakesValidator,
+	emptyStringToNull,
 	snowflake,
 	toggle,
 	vanitySchema,
@@ -33,9 +35,8 @@ import {
 import {
 	array,
 	enum_,
-	literal,
 	maxLength,
-	null_,
+	minLength,
 	object,
 	optional,
 	parse,
@@ -99,10 +100,7 @@ function createSchema(premium: boolean) {
 	return lazy(() =>
 		object({
 			accentColour: optional(pipe(string(), regex(/^#[\da-f]{6}$/i))),
-			accentType: pipe(
-				union([literal(""), enum_(GuildAccentType)]),
-				transform((value) => value || null),
-			),
+			accentType: union([emptyStringToNull, pipe(string(), enum_(GuildAccentType))]),
 			levels: toggle,
 			noRoleRewardRoles: createSnowflakesValidator(
 				premium ? MAX_NO_ROLE_REWARD_ROLES_PREMIUM : MAX_NO_ROLE_REWARD_ROLES,
@@ -111,25 +109,22 @@ function createSchema(premium: boolean) {
 			noXpRoles: createSnowflakesValidator(premium ? MAX_NO_XP_ROLES_PREMIUM : MAX_NO_XP_ROLES),
 			stackXpRoles: booleanFlag,
 			topXpRole: snowflake,
-			vanity: pipe(
-				string(),
-				transform((value) => value || null),
-				union([null_(), vanitySchema]),
-			),
+			vanity: union([emptyStringToNull, vanitySchema]),
 			xpAnnounceChannel: snowflake,
 			xpAnnounceChannelType: enum_(XpAnnouncementChannelType),
 			xpChannelMode: enum_(XpChannelMode),
 			xpChannels: createSnowflakesValidator(premium ? MAX_XP_CHANNELS_PREMIUM : MAX_XP_CHANNELS),
 			xpDisallowedPrefixes: pipe(
-				string("XP disallowed prefixes must be a string"),
-				transform((value) => {
-					if (typeof value === "string") return JSON.parse(value);
-				}),
+				string(),
+				transform((value) => JSON.parse(value)),
 				array(pipe(string(), maxLength(MAX_XP_DISALLOWED_PREFIX_LENGTH))),
 				maxLength(premium ? MAX_XP_DISALLOWED_PREFIXES_PREMIUM : MAX_XP_DISALLOWED_PREFIXES),
 			),
 			xpInThreads: toggle,
-			xpMessage: pipe(string(), maxLength(MAX_XP_MESSAGE_LENGTH)),
+			xpMessage: union([
+				emptyStringToNull,
+				pipe(string(), minLength(MIN_XP_MESSAGE_LENGTH), maxLength(MAX_XP_MESSAGE_LENGTH)),
+			]),
 		}),
 	);
 }
