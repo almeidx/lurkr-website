@@ -39,6 +39,7 @@ export function DashboardGuildList({ guilds }: { readonly guilds: GuildInfo[] })
 						"flex size-9 items-center justify-center rounded-lg bg-green-400",
 						!targetGuildHref && "cursor-not-allowed bg-green-400/50",
 					)}
+					prefetch={false}
 				>
 					<span className="sr-only">
 						{targetGuildHref?.startsWith("https:") ? "Add Lurkr to the searched guild" : "Go to the searched guild"}

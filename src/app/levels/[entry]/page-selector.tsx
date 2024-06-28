@@ -18,6 +18,7 @@ export function PageSelector({ amount, entry, page }: PageSelectorProps) {
 						isPastEnd && idx !== 0 ? "pointer-events-none opacity-50" : "cursor-pointer",
 					)}
 					href={isPastEnd && idx !== 0 ? `/levels/${entry}?page=${page}` : `/levels/${entry}?page=${num}`}
+					prefetch={false}
 				>
 					{num}
 				</Link>

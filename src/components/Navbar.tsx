@@ -110,7 +110,9 @@ export function Navbar({ children }: PropsWithChildren) {
 								</Link>
 							</li>
 							<li className="text-white hover:text-white/75">
-								<Link href="/premium">Premium</Link>
+								<Link href="/premium" prefetch={false}>
+									Premium
+								</Link>
 							</li>
 							<li className="text-white hover:text-white/75">
 								<ExternalLink href={DOCS_URL}>Docs</ExternalLink>

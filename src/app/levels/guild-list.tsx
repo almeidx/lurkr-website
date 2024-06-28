@@ -39,6 +39,7 @@ export function LeaderboardGuildList({ guilds }: { readonly guilds: GuildInfo[] 
 						"flex size-9 items-center justify-center rounded-lg bg-green-400",
 						!targetGuildHref && "cursor-not-allowed bg-green-400/50",
 					)}
+					prefetch={false}
 				>
 					<span className="sr-only">{targetGuildHref?.startsWith("https:") ? "Go to the searched server" : null}</span>
 					<Send className="size-7" />
@@ -101,6 +102,7 @@ export function LeaderboardGuildInput() {
 						"flex size-9 items-center justify-center rounded-lg bg-green-400",
 						!guildHref && "cursor-not-allowed bg-green-400/50",
 					)}
+					prefetch={false}
 				>
 					<span className="sr-only">Go to the searched server</span>
 					<Send className="size-7" />

@@ -91,6 +91,7 @@ export function DashboardMenu({ guild, guilds }: DashboardMenuProps) {
 							: "text-black before:absolute before:inset-1 before:rounded-lg before:bg-patreon before:blur-lg after:absolute after:inset-0 after:z-10 after:rounded-lg after:bg-patreon",
 					)}
 					href="/premium"
+					prefetch={false}
 				>
 					<span className="z-20 flex items-center justify-center gap-3 text-xl">
 						<Patreon className="size-6" />

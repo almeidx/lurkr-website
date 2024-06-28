@@ -110,7 +110,7 @@ function DynamicLink({ className, href, children, ...props }: ComponentProps<typ
 	}
 
 	return (
-		<Link className={className} href={href}>
+		<Link className={className} href={href} prefetch={false}>
 			{children}
 		</Link>
 	);
