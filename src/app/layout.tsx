@@ -90,8 +90,6 @@ export const metadata: Metadata = {
 
 	openGraph: {
 		siteName: "Lurkr",
-		title: "Lurkr",
-		description: DESCRIPTION,
 		type: "website",
 	},
 
