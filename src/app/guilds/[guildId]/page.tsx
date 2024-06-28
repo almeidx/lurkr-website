@@ -80,7 +80,9 @@ async function getData(guildId: Snowflake, token: string) {
 	]);
 
 	if (!getGuildOverviewResponse.ok) {
-		throw new Error("Failed to fetch overview status");
+		throw new Error(
+			`Failed to fetch guild overview (${getGuildOverviewResponse.status}): ${await getGuildOverviewResponse.text()}`,
+		);
 	}
 
 	return {
