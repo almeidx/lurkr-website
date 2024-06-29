@@ -1,7 +1,11 @@
+import { ExternalLink } from "@/components/ExternalLink.tsx";
+import { SUPPORT_SERVER_INVITE } from "@/shared-links.mjs";
 import type { Metadata } from "next";
+import Link from "next/link";
+import type { PropsWithChildren } from "react";
 
 export default function TermsAndConditions() {
-	const lastModified = new Date(2_021, 5, 20).toLocaleString("en-GB", {
+	const lastModified = new Date(2_024, 5, 29).toLocaleDateString("en-GB", {
 		month: "long",
 		day: "numeric",
 		year: "numeric",
@@ -9,133 +13,152 @@ export default function TermsAndConditions() {
 
 	return (
 		<div className="container mx-auto mt-5 flex flex-col items-center">
-			<h1 className="font-bold text-2xl">Terms and Conditions</h1>
+			<h1 className="font-bold text-2xl">Terms of Service</h1>
 
-			<p className="mb-5 text-white/75 tracking-tighter">Last modified: {lastModified}</p>
+			<p className="mb-5 text-white/75 tracking-tighter">Last modified and effective: {lastModified}</p>
 
-			<main className="mb-8 flex max-w-7xl flex-col gap-5 px-4">
-				<p className="text-white/75">
-					These terms and conditions ("Agreement") set forth the general terms and conditions of your use of the
-					lurkr.gg website ("Website" or "Service") and any of its related products and services (collectively,
-					"Services"). This Agreement is legally binding between you ("User", "you" or "your") and this Website operator
-					("Operator", "we", "us" or "our"). By accessing and using the Website and Services, you acknowledge that you
-					have read, understood, and agree to be bound by the terms of this Agreement. If you are entering into this
-					Agreement on behalf of a business or other legal entity, you represent that you have the authority to bind
-					such entity to this Agreement, in which case the terms "User", "you" or "your" shall refer to such entity. If
-					you do not have such authority, or if you do not agree with the terms of this Agreement, you must not accept
-					this Agreement and may not access and use the Website and Services. You acknowledge that this Agreement is a
-					contract between you and the Operator, even though it is electronic and is not physically signed by you, and
-					it governs your use of the Website and Services.
+			<main className="mb-8 flex max-w-4xl flex-col gap-5 px-4 text-white/75">
+				<p>
+					Welcome to Lurkr. These Terms of Service ("Terms") govern your use of the Lurkr Discord bot and any associated
+					services (collectively, the "Service"). By using Lurkr, you agree to comply with and be bound by these Terms.
+					If you do not agree to these Terms, please do not use our Service.
 				</p>
 
-				<a href="#age-requirement" id="age-requirement" className="mt-5 font-semibold text-2xl">
-					Age Requirement
-				</a>
+				<SectionHeading>1. Use of the Service</SectionHeading>
 
-				<p className="text-white/75">
-					You must be at least 13 years of age to use the Website and Services. By using the Website and Services and by
-					agreeing to this Agreement you warrant and represent that you are at least 13 years of age.
+				<p>
+					<BoldSubHeader>1.1 Eligibility: </BoldSubHeader>
+					You must be at least 13 years old to use Lurkr. By using the Service, you represent and warrant that you meet
+					this age requirement.
 				</p>
 
-				<a href="#other-resources" id="other-resources" className="mt-5 font-semibold text-2xl">
-					Links to other resources
-				</a>
-
-				<p className="text-white/75">
-					Although the Website and Services may link to other resources (such as websites, mobile applications, etc.),
-					we are not, directly or indirectly, implying any approval, association, sponsorship, endorsement, or
-					affiliation with any linked resource, unless specifically stated herein. We are not responsible for examining
-					or evaluating, and we do not warrant the offerings of, any businesses or individuals or the content of their
-					resources. We do not assume any responsibility or liability for the actions, products, services, and content
-					of any other third parties. You should carefully review the legal statements and other conditions of use of
-					any resource which you access through a link on the Website and Services. Your linking to any other off-site
-					resources is at your own risk.
+				<p>
+					<BoldSubHeader>1.2 Compliance: </BoldSubHeader>
+					You agree to comply with all applicable laws and regulations when using the Service.
 				</p>
 
-				<a href="#prohibited-uses" id="prohibited-uses" className="mt-5 font-semibold text-2xl">
-					Prohibited uses
-				</a>
-
-				<p className="text-white/75">
-					In addition to other terms as set forth in the Agreement, you are prohibited from using the Website and
-					Services or Content: (a) for any unlawful purpose; (b) to solicit others to perform or participate in any
-					unlawful acts; (c) to violate any international, federal, provincial or state regulations, rules, laws, or
-					local ordinances; (d) to infringe upon or violate our intellectual property rights or the intellectual
-					property rights of others; (e) to harass, abuse, insult, harm, defame, slander, disparage, intimidate, or
-					discriminate based on gender, sexual orientation, religion, ethnicity, race, age, national origin, or
-					disability; (f) to submit false or misleading information; (g) to upload or transmit viruses or any other type
-					of malicious code that will or may be used in any way that will affect the functionality or operation of the
-					Website and Services, third party products and services, or the Internet; (h) to spam, phish, pharm, pretext,
-					spider, crawl, or scrape; (i) for any obscene or immoral purpose; or (j) to interfere with or circumvent the
-					security features of the Website and Services, third party products and services, or the Internet. We reserve
-					the right to terminate your use of the Website and Services for violating any of the prohibited uses.
+				<p>
+					<BoldSubHeader>1.3 Account Responsibility: </BoldSubHeader>
+					You are responsible for maintaining the confidentiality of any authentication tokens and for all activities
+					that occur under your account.
 				</p>
 
-				<a href="#property-rights" id="property-rights" className="mt-5 font-semibold text-2xl">
-					Intellectual property rights
-				</a>
+				<SectionHeading>2. Data Collection and Privacy</SectionHeading>
 
-				<p className="text-white/75">
-					&quot;Intellectual Property Rights&quot; means all present and future rights conferred by statute, common law
-					or equity in or in relation to any copyright and related rights, trademarks, designs, patents, inventions,
-					goodwill and the right to sue for passing off, rights to inventions, rights to use, and all other intellectual
-					property rights, in each case whether registered or unregistered and including all applications and rights to
-					apply for and be granted, rights to claim priority from, such rights and all similar or equivalent rights or
-					forms of protection and any other results of intellectual activity which subsist or will subsist now or in the
-					future in any part of the world. This Agreement does not transfer to you any intellectual property owned by
-					the Operator or third parties, and all rights, titles, and interests in and to such property will remain (as
-					between the parties) solely with the Operator. All trademarks, service marks, graphics and logos used in
-					connection with the Website and Services, are trademarks or registered trademarks of the Operator or its
-					licensors. Other trademarks, service marks, graphics and logos used in connection with the Website and
-					Services may be the trademarks of other third parties. Your use of the Website and Services grants you no
-					right or license to reproduce or otherwise use any of the Operator or third party trademarks.
+				<p>
+					<BoldSubHeader>2.1 Data Collection: </BoldSubHeader>
+					Our{" "}
+					<Link className="text-blue-400 hover:text-blue-600" href="/privacy">
+						Privacy Policy
+					</Link>{" "}
+					outlines the data we collect and how we use it. By using the Service, you consent to the collection and use of
+					your data as described in our{" "}
+					<Link className="text-blue-400 hover:text-blue-600" href="/privacy">
+						Privacy Policy
+					</Link>
+					.
 				</p>
 
-				<a href="#severability" id="severability" className="mt-5 font-semibold text-2xl">
-					Severability
-				</a>
-
-				<p className="text-white/75">
-					All rights and restrictions contained in this Agreement may be exercised and shall be applicable and binding
-					only to the extent that they do not violate any applicable laws and are intended to be limited to the extent
-					necessary so that they will not render this Agreement illegal, invalid or unenforceable. If any provision or
-					portion of any provision of this Agreement shall be held to be illegal, invalid or unenforceable by a court of
-					competent jurisdiction, it is the intention of the parties that the remaining provisions or portions thereof
-					shall constitute their agreement with respect to the subject matter hereof, and all such remaining provisions
-					or portions thereof shall remain in full force and effect.
+				<p>
+					<BoldSubHeader>2.2 User Data: </BoldSubHeader>
+					You acknowledge that we collect certain data related to your use of the Service, including user and server
+					data, to provide and improve our services.
 				</p>
 
-				<a href="#changes-and-amendments" id="changes-and-amendments" className="mt-5 font-semibold text-2xl">
-					Changes and amendments
-				</a>
+				<SectionHeading>3. Service Availability and Modifications</SectionHeading>
 
-				<p className="text-white/75">
-					We reserve the right to modify this Agreement or its terms relating to the Website and Services at any time,
-					effective upon posting of an updated version of this Agreement on the Website. When we do, we will revise the
-					updated date at the bottom of this page. Continued use of the Website and Services after any such changes
-					shall constitute your consent to such changes.
+				<p>
+					<BoldSubHeader>3.1 Availability: </BoldSubHeader>
+					We strive to keep the Service available at all times but do not guarantee uninterrupted access.
 				</p>
 
-				<a href="#acceptance" id="acceptance" className="mt-5 font-semibold text-2xl">
-					Acceptance of these terms
-				</a>
-
-				<p className="text-white/75">
-					You acknowledge that you have read this Agreement and agree to all its terms and conditions. By accessing and
-					using the Website and Services you agree to be bound by this Agreement. If you do not agree to abide by the
-					terms of this Agreement, you are not authorized to access or use the Website and Services.
+				<p>
+					<BoldSubHeader>3.2 Modifications: </BoldSubHeader>
+					We reserve the right to modify, suspend, or discontinue the Service at any time without notice. We are not
+					liable for any such changes or interruptions.
 				</p>
 
-				<a href="#contact-us" id="contact-us" className="mt-5 font-semibold text-2xl">
-					Contacting us
-				</a>
+				<SectionHeading>4. Prohibited Activities</SectionHeading>
+				<p>You agree not to engage in any of the following activities:</p>
 
-				<p className="text-white/75">
-					If you would like to contact us to understand more about this Agreement or wish to contact us concerning any
-					matter relating to it, you may send an email to{" "}
-					<a className="text-blue-300" href="mailto:admin@lurkr.gg">
+				<p>
+					<BoldSubHeader>4.1 Misuse: </BoldSubHeader>
+					Using the Service for any unlawful purpose or in violation of any applicable laws or regulations.
+				</p>
+
+				<p>
+					<BoldSubHeader>4.2 Disruption: </BoldSubHeader>
+					Attempting to disrupt or interfere with the Service or its infrastructure.
+				</p>
+
+				<p>
+					<BoldSubHeader>4.3 Unauthorized Access: </BoldSubHeader>
+					Gaining or attempting to gain unauthorized access to any part of the Service.
+				</p>
+
+				<SectionHeading>5. Intellectual Property</SectionHeading>
+
+				<p>
+					<BoldSubHeader>5.1 Ownership: </BoldSubHeader>
+					All content, trademarks, and intellectual property related to Lurkr are owned by us or our licensors. You may
+					not use any of our intellectual property without our prior written consent.
+				</p>
+
+				<p>
+					<BoldSubHeader>5.2 User Content: </BoldSubHeader>
+					By submitting content through the Service, you grant us a worldwide, non-exclusive, royalty-free license to
+					use, reproduce, and distribute such content as necessary to provide the Service.
+				</p>
+
+				<SectionHeading>6. Termination</SectionHeading>
+
+				<p>
+					<BoldSubHeader>6.1 Termination by User: </BoldSubHeader>
+					You may stop using the Service at any time.
+				</p>
+
+				<p>
+					<BoldSubHeader>6.2 Termination by Us: </BoldSubHeader>
+					We may suspend or terminate your access to the Service at any time for any reason, including if you violate
+					these Terms.
+				</p>
+
+				<SectionHeading>7. Disclaimers and Limitation of Liability</SectionHeading>
+
+				<p>
+					<BoldSubHeader>7.1 Disclaimers: </BoldSubHeader>
+					The Service is provided "as is" and "as available" without warranties of any kind, either express or implied.
+				</p>
+
+				<p>
+					<BoldSubHeader>7.2 Limitation of Liability: </BoldSubHeader>
+					To the fullest extent permitted by law, we are not liable for any indirect, incidental, special,
+					consequential, or punitive damages arising from your use of the Service.
+				</p>
+
+				<SectionHeading>8. Indemnification</SectionHeading>
+				<p>
+					You agree to indemnify and hold us harmless from any claims, damages, liabilities, and expenses arising out of
+					your use of the Service or your violation of these Terms.
+				</p>
+
+				<SectionHeading>9. Changes to These Terms</SectionHeading>
+				<p>
+					We may update these Terms from time to time. We will notify you of any changes by updating the effective date
+					of these Terms. Your continued use of the Service after any such changes constitutes your acceptance of the
+					new Terms.
+				</p>
+
+				<SectionHeading>10. Contact Information</SectionHeading>
+				<p>
+					For questions or concerns about these Terms, contact us at{" "}
+					<a className="text-blue-400 hover:text-blue-600" href="mailto:admin@lurkr.gg">
 						admin@lurkr.gg
-					</a>
+					</a>{" "}
+					or via a Direct Message in{" "}
+					<ExternalLink className="text-blue-400 hover:text-blue-600" href={SUPPORT_SERVER_INVITE}>
+						Discord
+					</ExternalLink>
 					.
 				</p>
 			</main>
@@ -144,5 +167,15 @@ export default function TermsAndConditions() {
 }
 
 export const metadata: Metadata = {
-	title: "Terms and Conditions",
+	title: "Terms of Service",
+	description:
+		"See our terms and conditions to learn about the rules and guidelines you must follow when using our services.",
 };
+
+function SectionHeading({ children }: PropsWithChildren) {
+	return <h2 className="mt-5 font-semibold text-2xl text-white">{children}</h2>;
+}
+
+function BoldSubHeader({ children }: PropsWithChildren) {
+	return <span className="font-semibold text-white">{children}</span>;
+}

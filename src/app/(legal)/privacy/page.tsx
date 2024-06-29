@@ -1,11 +1,28 @@
+import { ExternalLink } from "@/components/ExternalLink.tsx";
+import { SUPPORT_SERVER_INVITE } from "@/shared-links.mjs";
 import type { Metadata } from "next";
+import type { PropsWithChildren } from "react";
 
 export default function PrivacyPolicy() {
-	const lastModified = new Date(2_021, 5, 20).toLocaleString("en-GB", {
+	const lastModified = new Date(2_024, 5, 29).toLocaleDateString("en-GB", {
 		month: "long",
 		day: "numeric",
 		year: "numeric",
 	});
+
+	const contactDetails = (
+		<>
+			at{" "}
+			<a className="text-blue-400 hover:text-blue-600" href="mailto:admin@lurkr.gg">
+				admin@lurkr.gg
+			</a>{" "}
+			or via a Direct Message in{" "}
+			<ExternalLink className="text-blue-400 hover:text-blue-600" href={SUPPORT_SERVER_INVITE}>
+				Discord
+			</ExternalLink>
+			.
+		</>
+	);
 
 	return (
 		<div className="container mx-auto mt-5 flex flex-col items-center">
@@ -13,109 +30,189 @@ export default function PrivacyPolicy() {
 
 			<p className="mb-5 text-white/75 tracking-tighter">Last modified: {lastModified}</p>
 
-			<main className="mb-8 flex max-w-7xl flex-col gap-5 px-4">
-				<p className="text-white/75">
-					This Privacy Policy describes Our policies and procedures on the collection, use and disclosure of Your
-					information when You use the Service and tells You about Your privacy rights and how the law protects You.
+			<main className="mb-8 flex max-w-4xl flex-col gap-5 px-4 text-white/75">
+				<p>
+					Welcome to Lurkr. Lurkr is a Discord bot that provides several features such as leveling, image generation,
+					member growth tracking, emoji management, automated member milestones, on join roles, and role mention
+					cooldown. Your privacy is important to us. This Privacy Policy explains how we collect, use, and protect your
+					information when you use our services.
 				</p>
 
-				<p className="text-white/75">
-					If you choose to use our Service, then you agree to the collection and use of information in relation to this
-					policy. The Personal Information that we collect is used for providing and improving the Service. We will not
-					use or share your information with anyone except as described in this Privacy Policy.
+				<SectionHeading>Information Collection</SectionHeading>
+
+				<p>We collect the following Discord-related data:</p>
+
+				<UnorderedList>
+					<li className="space-y-2">
+						<span className="font-bold">User:</span> id, avatar, discriminator, global name, locale, username:
+						<UnorderedList>
+							<li>Primarily used for the web dashboard and leveling leaderboard;</li>
+							<li>Automatically collected via the leveling system and web dashboard authentication.</li>
+						</UnorderedList>
+					</li>
+
+					<li className="space-y-2">
+						<span className="font-bold">Guild:</span> id, icon, name, member count, owner id:
+						<UnorderedList>
+							<li>Mainly for displaying user servers on the web dashboard;</li>
+							<li>Member count used for the member growth tracking and automated member milestones systems;</li>
+							<li>Automatically collected upon adding Lurkr to a server.</li>
+						</UnorderedList>
+					</li>
+
+					<li className="space-y-2">
+						<span className="font-bold">Channels and Roles:</span> id, name, and other public fields:
+						<UnorderedList>
+							<li>For server settings in the web dashboard;</li>
+							<li>Automatically collected upon adding Lurkr to a server.</li>
+						</UnorderedList>
+					</li>
+				</UnorderedList>
+
+				<SectionHeading>Additional Data Collected</SectionHeading>
+
+				<p>
+					When certain Lurkr systems, which are opt-in, are enabled, additional data may be collected. This data is used
+					to provide the functionality of the system. The systems and the data they collect are as follows:
 				</p>
 
-				<a href="#information-collection" id="information-collection" className="mt-5 font-semibold text-2xl">
-					Information Collection and Use
-				</a>
+				<UnorderedList>
+					<li className="space-y-2">
+						<span className="font-bold">Leveling System:</span> (disabled by default)
+						<UnorderedList>
+							<li>Total messages contributing to user experience in leveling-enabled channels;</li>
+							<li>Daily log of the amount of messages contributing to the user's level.</li>
+						</UnorderedList>
+					</li>
 
-				<p className="text-white/75">
-					For a better experience, while using our Service, we may require you to provide us with certain personally
-					identifiable information, including but not limited to Discord ID. The information that we request will be
-					retained by us and used as described in this privacy policy.
+					<li className="space-y-2">
+						<span className="font-bold">Automated Member Milestones System:</span> (disabled by default)
+						<UnorderedList>
+							<li>User id and member count upon hitting milestones.</li>
+						</UnorderedList>
+					</li>
+
+					<li className="space-y-2">
+						<span className="font-bold">Member Growth Feature:</span> (disabled by default)
+						<UnorderedList>
+							<li>Daily member count at 0:00 UTC for growth tracking.</li>
+						</UnorderedList>
+					</li>
+
+					<li className="space-y-2">
+						<span className="font-bold">Role Mention Cooldown System:</span> (disabled by default)
+						<UnorderedList>
+							<li>Temporary storage of role and user ids for mentioned roles.</li>
+						</UnorderedList>
+					</li>
+				</UnorderedList>
+
+				<p>
+					We also store several bot-related settings that control the behavior of Lurkr, together with the Guild data.
 				</p>
 
-				<a href="#log-data" id="log-data" className="mt-5 font-semibold text-2xl">
-					Log Data
-				</a>
+				<SectionHeading>Use of Information</SectionHeading>
 
-				<p className="text-white/75">
-					We want to inform you that whenever you use our Service, in a case of an error in the app we collect data and
-					information (through third party products) on your phone called Log Data. This Log Data may include
-					information such as your device Internet Protocol (&quot;IP&quot;) address, device name, operating system
-					version, the configuration of the app when utilizing our Service, the time and date of your use of the
-					Service, and other statistics.
+				<p>The information we collect is used to:</p>
+
+				<UnorderedList>
+					<li>Provide and improve bot functionality;</li>
+
+					<li>
+						Improving user experience through features such as the web dashboard, leaderboards, graphs, and automated
+						systems.
+					</li>
+				</UnorderedList>
+
+				<SectionHeading>Data Sharing and Disclosure</SectionHeading>
+
+				<p>We do not share your data with third parties except as required by law.</p>
+
+				<SectionHeading>Data Security</SectionHeading>
+
+				<p>We implement industry-standard security measures to protect your data from unauthorized access and use.</p>
+
+				<SectionHeading>User Control</SectionHeading>
+
+				<p>
+					Server admins can delete all stored data (including levels, logs, milestones, daily member counts) via a
+					command or the web dashboard. They can also reset bot-related settings to their default values.
 				</p>
 
-				<a href="#cookies" id="cookies" className="mt-5 font-semibold text-2xl">
-					Cookies
-				</a>
-
-				<p className="text-white/75">
-					Cookies are files with a small amount of data that are commonly used as anonymous unique identifiers. These
-					are sent to your browser from the websites that you visit and are stored on your device&apos;s internal
-					memory.
-				</p>
-				<p className="text-white/75">
-					This Service does not use these &quot;cookies&quot; explicitly. However, the app may use third party code and
-					libraries that use &quot;cookies&quot; to collect information and improve their services. You have the option
-					to either accept or refuse these cookies and know when a cookie is being sent to your device. If you choose to
-					refuse our cookies, you may not be able to use some portions of this Service.
+				<p>
+					Individual users can request their data deletion or address questions or concerns by contacting us{" "}
+					{contactDetails}
 				</p>
 
-				<a href="#security" id="security" className="mt-5 font-semibold text-2xl">
-					Security
-				</a>
+				<SectionHeading>Data Retention</SectionHeading>
 
-				<p className="text-white/75">
-					We value your trust in providing us your Personal Information, thus we are striving to use commercially
-					acceptable means of protecting it. But remember that no method of transmission over the internet, or method of
-					electronic storage is 100% secure and reliable, and we cannot guarantee its absolute security.
+				<p>
+					Data is stored as long as the bot is in the server. If the bot is removed, associated data is retained for 30
+					days in case the server admins decide to re-invite it. After this period, all data is deleted.
 				</p>
 
-				<a href="#links" id="links" className="mt-5 font-semibold text-2xl">
-					Links to Other Sites
-				</a>
+				<SectionHeading>Cookies</SectionHeading>
 
-				<p className="text-white/75">
-					This Service may contain links to other sites. If you click on a third-party link, you will be directed to
-					that site. Note that these external sites are not operated by us. Therefore, we strongly advise you to review
-					the Privacy Policy of these websites. We have no control over and assume no responsibility for the content,
-					privacy policies, or practices of any third-party sites or services.
-				</p>
-
-				<a href="#children-privacy" id="children-privacy" className="mt-5 font-semibold text-2xl">
-					Children&apos;s Privacy
-				</a>
-
-				<p className="text-white/75">
-					These Services do not address anyone under the age of 13. We do not knowingly collect personally identifiable
-					information from children under 13 years of age. In the case we discover that a child under 13 has provided us
-					with personal information, we immediately delete this from our servers. If you are a parent or guardian and
-					you are aware that your child has provided us with personal information, please contact us so that we will be
-					able to do necessary actions.
-				</p>
-
-				<a href="#changes" id="changes" className="mt-5 font-semibold text-2xl">
-					Changes to This Privacy Policy
-				</a>
-
-				<p className="text-white/75">
-					We may update our Privacy Policy from time to time. Thus, you are advised to review this page periodically for
-					any changes. We will notify you of any changes by posting the new Privacy Policy on this page.
-				</p>
-
-				<a href="#contact-us" id="contact-us" className="mt-5 font-semibold text-2xl">
-					Contact Us
-				</a>
-
-				<p className="text-white/75">
-					If you have any questions or suggestions about our Privacy Policy, do not hesitate to contact us at{" "}
-					<a className="text-blue-300" href="mailto:admin@lurkr.gg">
-						admin@lurkr.gg
-					</a>
+				<p>
+					We use functional cookies to provide the web dashboard, namely for authentication purposes. Our third-party
+					DNS provider, Cloudflare, may also use cookies to provide their service. For more information, please refer to
+					the{" "}
+					<ExternalLink className="text-blue-400 hover:text-blue-600" href="https://www.cloudflare.com/cookie-policy/">
+						Cloudflare Cookie Policy
+					</ExternalLink>
 					.
 				</p>
+
+				<SectionHeading>Third-Party Services</SectionHeading>
+
+				<p>We make use of the following third-party systems:</p>
+
+				<UnorderedList>
+					<li>
+						<span className="font-bold">Cloudflare:</span> DNS provider and web security.{" "}
+						<ExternalLink
+							className="text-blue-400 hover:text-blue-600"
+							href="https://www.cloudflare.com/privacypolicy/"
+						>
+							Cloudflare Privacy Policy
+						</ExternalLink>
+					</li>
+
+					<li>
+						<span className="font-bold">Cloudflare Web Analytics:</span> Web analytics.{" "}
+						<ExternalLink
+							className="text-blue-400 hover:text-blue-600"
+							href="https://www.cloudflare.com/privacypolicy/"
+						>
+							Cloudflare Privacy Policy
+						</ExternalLink>
+					</li>
+
+					<li>
+						<span className="font-bold">Vercel:</span> Web dashboard hosting.{" "}
+						<ExternalLink className="text-blue-400 hover:text-blue-600" href="https://vercel.com/legal/privacy-policy">
+							Vercel Privacy Policy
+						</ExternalLink>
+					</li>
+
+					<li>
+						<span className="font-bold">Google Tag Manager:</span> Managing website tags.{" "}
+						<ExternalLink className="text-blue-400 hover:text-blue-600" href="https://policies.google.com/privacy">
+							Google Privacy Policy
+						</ExternalLink>
+					</li>
+				</UnorderedList>
+
+				<SectionHeading>Changes to this Policy</SectionHeading>
+
+				<p>
+					We may update this Privacy Policy from time to time. We will notify you of any changes by updating the
+					effective date of this policy.
+				</p>
+
+				<SectionHeading>Contact Information</SectionHeading>
+
+				<p>For questions or concerns about this Privacy Policy, contact us {contactDetails}</p>
 			</main>
 		</div>
 	);
@@ -123,4 +220,14 @@ export default function PrivacyPolicy() {
 
 export const metadata: Metadata = {
 	title: "Privacy Policy",
+	description:
+		"See our privacy policy to learn how we collect, use, and protect your information when you use our services.",
 };
+
+function SectionHeading({ children }: PropsWithChildren) {
+	return <h2 className="mt-5 font-semibold text-2xl text-white">{children}</h2>;
+}
+
+function UnorderedList({ children }: PropsWithChildren) {
+	return <ul className="ml-6 list-disc space-y-4">{children}</ul>;
+}

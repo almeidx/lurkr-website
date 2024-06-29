@@ -87,7 +87,7 @@ export default async function Premium() {
 					</div>
 
 					<p className="max-w-prose text-balance text-center text-white/75">
-						Purchases are subject to our <Link href="/terms">Terms & Conditions</Link> &{" "}
+						Purchases are subject to our <Link href="/terms">Terms of Service</Link> &{" "}
 						<Link href="/privacy">Privacy Policy</Link> and to the{" "}
 						<ExternalLink href="https://www.patreon.com/policy/legal">Terms of Service</ExternalLink> and{" "}
 						<ExternalLink href="https://support.patreon.com/hc/articles/205032045-Patreon-s-refund-policy">

@@ -47,7 +47,7 @@ export function Footer() {
 							</li>
 							<li>
 								<Link className="block py-0.5" href="/terms">
-									Terms & Conditions
+									Terms of Service
 								</Link>
 							</li>
 						</ul>
