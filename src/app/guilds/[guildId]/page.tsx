@@ -1,6 +1,7 @@
 import fallbackAvatarImg from "@/assets/fallback-avatar.png";
 import { ImageWithFallback } from "@/components/ImageWithFallback.tsx";
 import { QuestionMark } from "@/components/QuestionMark.tsx";
+import { SignInButton } from "@/components/SignIn.tsx";
 import type { User } from "@/lib/auth.ts";
 import { DOCS_URL, TOKEN_COOKIE } from "@/utils/constants.ts";
 import { type Snowflake, userAvatar } from "@/utils/discord-cdn.ts";
@@ -13,8 +14,19 @@ import { ItemStatus } from "./item-status.tsx";
 import { resolveOverviewStatuses } from "./resolve-overview-statuses.ts";
 
 export default async function Dashboard({ params }: { readonly params: { guildId: string } }) {
-	const token = cookies().get(TOKEN_COOKIE)!.value;
-	const { overview, user } = await getData(params.guildId, token);
+	const token = cookies().get(TOKEN_COOKIE)?.value;
+	const data = await getData(params.guildId, token);
+
+	if (!data) {
+		return (
+			<div className="mt-6 flex flex-col items-center gap-2 text-center text-white/75 text-xl tracking-tight">
+				You need to be signed in to view this page.
+				<SignInButton />
+			</div>
+		);
+	}
+
+	const { overview, user } = data;
 
 	const statuses = resolveOverviewStatuses(overview);
 
@@ -63,7 +75,11 @@ export const metadata: Metadata = {
 	description: "Configure your server with Lurkr!",
 };
 
-async function getData(guildId: Snowflake, token: string) {
+async function getData(guildId: Snowflake, token: string | undefined) {
+	if (!token) {
+		return null;
+	}
+
 	const [getGuildOverviewResponse, getCurrentUserResponse] = await Promise.all([
 		makeApiRequest(`/guilds/${guildId}/overview`, token, {
 			next: {
@@ -80,9 +96,12 @@ async function getData(guildId: Snowflake, token: string) {
 	]);
 
 	if (!getGuildOverviewResponse.ok) {
-		throw new Error(
-			`Failed to fetch guild overview (${getGuildOverviewResponse.status}): ${await getGuildOverviewResponse.text()}`,
+		console.error(
+			"Failed to fetch guild overview",
+			getGuildOverviewResponse.status,
+			await getGuildOverviewResponse.text(),
 		);
+		return null;
 	}
 
 	return {
