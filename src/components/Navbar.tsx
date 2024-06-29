@@ -3,22 +3,22 @@
 import logoSmallImg from "@/assets/logo-small.webp";
 import { ExternalLink } from "@/components/ExternalLink.tsx";
 import { DOCS_URL } from "@/utils/constants.ts";
+import type { Snowflake } from "@/utils/discord-cdn.ts";
 import { ArrowBackIos, Menu, MenuOpen } from "@mui/icons-material";
 import clsx from "clsx";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { type PropsWithChildren, useEffect, useState } from "react";
-import { useMediaQuery } from "usehooks-ts";
 
 export function Navbar({ children }: PropsWithChildren) {
 	const [menuOpen, setMenuOpen] = useState(false);
 	const pathname = usePathname()!;
-	// TODO: Use css only for this instead of js
-	const isMedium = useMediaQuery("(max-width: 768px)");
 
 	const isDashboard = pathname.startsWith("/guilds") && pathname.length > "/guilds/".length;
 	const guildId = isDashboard ? pathname.match(/^\/guilds\/(\d+)/)?.[1] : null;
+
+	const showMobileDashboardNavbar = isDashboard && !!guildId;
 
 	// biome-ignore lint/correctness/useExhaustiveDependencies: Intentional
 	useEffect(() => {
@@ -56,70 +56,9 @@ export function Navbar({ children }: PropsWithChildren) {
 					<MenuOpen className="size-6" />
 				</button>
 
-				<ul className="flex flex-col items-center gap-5 text-xl md:flex-row md:items-baseline md:text-base">
-					{isMedium && isDashboard && guildId ? (
-						<>
-							<li className="text-white hover:text-white/75">
-								<Link href="/guilds" className="flex items-center">
-									<ArrowBackIos />
-									Back
-								</Link>
-							</li>
-							<li className="text-white hover:text-white/75">
-								<Link href={`/guilds/${guildId}`}>Overview</Link>
-							</li>
-							<li className="text-white hover:text-white/75">
-								<Link href={`/guilds/${guildId}/leveling`}>Leveling</Link>
-							</li>
-							<li className="text-white hover:text-white/75">
-								<Link href={`/guilds/${guildId}/import`}>Import Bots</Link>
-							</li>
-							<li className="text-white hover:text-white/75">
-								<Link href={`/guilds/${guildId}/multipliers`}>Multipliers</Link>
-							</li>
-							<li className="text-white hover:text-white/75">
-								<Link href={`/guilds/${guildId}/roles`}>Role Management</Link>
-							</li>
-							<li className="text-white hover:text-white/75">
-								<Link href={`/guilds/${guildId}/milestones`}>Milestones</Link>
-							</li>
-							<li className="text-white hover:text-white/75">
-								<Link href={`/guilds/${guildId}/emojis`}>Emoji List</Link>
-							</li>
-							<li className="text-white hover:text-white/75">
-								<Link href={`/guilds/${guildId}/miscellaneous`}>Miscellaneous</Link>
-							</li>
-							<li className="text-white hover:text-white/75">
-								<Link href={`/guilds/${guildId}/danger`}>Danger Zone</Link>
-							</li>
-						</>
-					) : (
-						<>
-							<li className="text-white hover:text-white/75">
-								<Link href="/guilds">Dashboard</Link>
-							</li>
-							<li className="text-white hover:text-white/75">
-								<Link href="/levels">Levels</Link>
-							</li>
-							<li className="text-white hover:text-white/75">
-								<Link href="/levels/calculator">Calculator</Link>
-							</li>
-							<li className="text-white hover:text-white/75">
-								<Link href="/status" prefetch={false}>
-									Status
-								</Link>
-							</li>
-							<li className="text-white hover:text-white/75">
-								<Link href="/premium" prefetch={false}>
-									Premium
-								</Link>
-							</li>
-							<li className="text-white hover:text-white/75">
-								<ExternalLink href={DOCS_URL}>Docs</ExternalLink>
-							</li>
-						</>
-					)}
-				</ul>
+				{guildId ? <DashboardMobileNavbarLinks guildId={guildId} show={showMobileDashboardNavbar} /> : null}
+
+				<NavbarLinks hideMobile={showMobileDashboardNavbar} />
 			</nav>
 
 			<div
@@ -135,5 +74,84 @@ export function Navbar({ children }: PropsWithChildren) {
 				<Menu className="size-6" />
 			</button>
 		</header>
+	);
+}
+
+function NavbarLinks({ hideMobile }: { hideMobile?: boolean }) {
+	return (
+		<ul
+			className={clsx(
+				"flex-col items-center gap-5 text-xl md:flex-row md:items-baseline md:text-base",
+				hideMobile ? "hidden md:flex" : "flex",
+			)}
+		>
+			<li className="text-white hover:text-white/75">
+				<Link href="/guilds">Dashboard</Link>
+			</li>
+			<li className="text-white hover:text-white/75">
+				<Link href="/levels">Levels</Link>
+			</li>
+			<li className="text-white hover:text-white/75">
+				<Link href="/levels/calculator">Calculator</Link>
+			</li>
+			<li className="text-white hover:text-white/75">
+				<Link href="/status" prefetch={false}>
+					Status
+				</Link>
+			</li>
+			<li className="text-white hover:text-white/75">
+				<Link href="/premium" prefetch={false}>
+					Premium
+				</Link>
+			</li>
+			<li className="text-white hover:text-white/75">
+				<ExternalLink href={DOCS_URL}>Docs</ExternalLink>
+			</li>
+		</ul>
+	);
+}
+
+function DashboardMobileNavbarLinks({ guildId, show }: { guildId: Snowflake; show: boolean }) {
+	return (
+		<ul
+			className={clsx(
+				"flex-col items-center gap-5 text-xl md:flex-row md:items-baseline md:text-base",
+				show && "flex md:hidden",
+			)}
+		>
+			<li className="text-white hover:text-white/75">
+				<Link href="/guilds" className="flex items-center">
+					<ArrowBackIos />
+					Back
+				</Link>
+			</li>
+			<li className="text-white hover:text-white/75">
+				<Link href={`/guilds/${guildId}`}>Overview</Link>
+			</li>
+			<li className="text-white hover:text-white/75">
+				<Link href={`/guilds/${guildId}/leveling`}>Leveling</Link>
+			</li>
+			<li className="text-white hover:text-white/75">
+				<Link href={`/guilds/${guildId}/import`}>Import Bots</Link>
+			</li>
+			<li className="text-white hover:text-white/75">
+				<Link href={`/guilds/${guildId}/multipliers`}>Multipliers</Link>
+			</li>
+			<li className="text-white hover:text-white/75">
+				<Link href={`/guilds/${guildId}/roles`}>Role Management</Link>
+			</li>
+			<li className="text-white hover:text-white/75">
+				<Link href={`/guilds/${guildId}/milestones`}>Milestones</Link>
+			</li>
+			<li className="text-white hover:text-white/75">
+				<Link href={`/guilds/${guildId}/emojis`}>Emoji List</Link>
+			</li>
+			<li className="text-white hover:text-white/75">
+				<Link href={`/guilds/${guildId}/miscellaneous`}>Miscellaneous</Link>
+			</li>
+			<li className="text-white hover:text-white/75">
+				<Link href={`/guilds/${guildId}/danger`}>Danger Zone</Link>
+			</li>
+		</ul>
 	);
 }
