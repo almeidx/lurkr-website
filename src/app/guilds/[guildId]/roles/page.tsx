@@ -10,9 +10,9 @@ import { cookies } from "next/headers";
 import { UnknownGuildOrMissingAccess } from "../unknown-guild.tsx";
 import { OnJoinRoles } from "./01-on-join-roles.tsx";
 import { OnJoinRolesDelay } from "./02-on-join-roles-delay.tsx";
-import { OnJoinRolesForBadges } from "./03-on-join-roles-for-badges.tsx";
-import { MentionCooldownRoles } from "./04-mention-cooldown-roles.tsx";
-import { MentionCooldown } from "./05-mention-cooldown.tsx";
+import { OnJoinRolesForBadges } from "./10-on-join-roles-for-badges.tsx";
+import { MentionCooldownRoles } from "./20-mention-cooldown-roles.tsx";
+import { MentionCooldown } from "./21-mention-cooldown.tsx";
 import { update } from "./update.ts";
 
 export default async function Roles({ params: { guildId } }: { readonly params: { guildId: Snowflake } }) {

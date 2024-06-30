@@ -11,7 +11,7 @@ import { BotSelector } from "./02-bot-selector.tsx";
 import { IncludeRoleRewards } from "./03-include-role-rewards.tsx";
 import { ImportUntil } from "./04-import-until.tsx";
 import { getOngoingImportStatus, importBotData } from "./actions.ts";
-import { BeginImportButton } from "./being-import-button.tsx";
+import { BeginImportButton } from "./begin-import-button.tsx";
 import { ImportStatus, ImportStatusTitle, StartImportError } from "./import-status.tsx";
 
 export function ImportForm({ guildId, data }: { guildId: Snowflake; data: GetImportStatusResponse | null }) {

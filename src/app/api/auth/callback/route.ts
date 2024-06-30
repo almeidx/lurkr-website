@@ -1,5 +1,5 @@
 import { REDIRECT_TO_COOKIE, TOKEN_COOKIE } from "@/utils/constants.ts";
-import { makeApiRequest } from "@/utils/make-api-request";
+import { makeApiRequest } from "@/utils/make-api-request.ts";
 import { type NextRequest, NextResponse } from "next/server";
 
 export async function GET(request: NextRequest) {

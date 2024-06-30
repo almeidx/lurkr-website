@@ -2,10 +2,9 @@ import "client-only";
 // The reason for using "client-only" instead of "use client" is because of the function parameter in the component,
 // which triggers a warning since functions are not serializable.
 
-import { CreateMultiplierButton } from "@/app/guilds/[guildId]/multipliers/create-multiplier-button.tsx";
-import { ChannelSelector } from "@/components/dashboard/ChannelSelector.tsx";
 import { Input } from "@/components/dashboard/Input.tsx";
 import { Label } from "@/components/dashboard/Label.tsx";
+import { RoleSelector } from "@/components/dashboard/RoleSelector.tsx";
 import { Text } from "@/components/dashboard/Text.tsx";
 import {
 	MAX_XP_MULTIPLIER_TARGETS,
@@ -13,32 +12,33 @@ import {
 	MAX_XP_MULTIPLIER_VALUE,
 	MIN_XP_MULTIPLIER_VALUE,
 } from "@/lib/guild-config.ts";
-import { type Channel, type XpMultiplier, XpMultiplierType } from "@/lib/guild.ts";
+import { type Role, type XpMultiplier, XpMultiplierType } from "@/lib/guild.ts";
 import { getMaximumLimit } from "@/utils/get-maximum-limit.ts";
-import { mapChannelIdsToChannels } from "@/utils/map-channel-ids-to-channels.ts";
+import { mapRoleIdsToRoles } from "@/utils/map-role-ids-to-roles.ts";
 import { AddComment, Delete } from "@mui/icons-material";
 import { type Dispatch, type SetStateAction, useState } from "react";
+import { CreateMultiplierButton } from "./create-multiplier-button.tsx";
 
-export function ChannelMultipliers({
-	channels,
+export function RoleMultipliers({
 	multipliers,
 	premium,
+	roles,
 	multiplierCount,
 	setMultiplierCount,
-}: ChannelMultipliersProps) {
-	const [channelMultipliers, setChannelMultipliers] = useState<XpMultiplier[]>(() =>
-		multipliers.filter((multiplier) => multiplier.type === XpMultiplierType.Channel),
+}: RoleMultipliersProps) {
+	const [roleMultipliers, setRoleMultipliers] = useState<XpMultiplier[]>(() =>
+		multipliers.filter((multiplier) => multiplier.type === XpMultiplierType.Role),
 	);
-	const [newChannels, setNewChannels] = useState<readonly Channel[]>([]);
+	const [newRoles, setNewRoles] = useState<readonly Role[]>([]);
 	const [newMultiplier, setNewMultiplier] = useState<string>("");
 
-	const existingMultiplierValues = channelMultipliers.map(({ multiplier }) => multiplier);
+	const existingMultiplierValues = roleMultipliers.map(({ multiplier }) => multiplier);
 
 	const maxMultipliers = getMaximumLimit("xpMultipliers", premium);
 
 	function handleCreateMultiplier() {
 		const multiplier = Number.parseFloat(newMultiplier);
-		const channelIds = newChannels.map(({ id }) => id);
+		const roleIds = newRoles.map(({ id }) => id);
 
 		const maxTargets = getMaximumLimit("xpMultiplierTargets", premium);
 
@@ -46,42 +46,41 @@ export function ChannelMultipliers({
 			Number.isNaN(multiplier) ||
 			multiplier < MIN_XP_MULTIPLIER_VALUE ||
 			multiplier > MAX_XP_MULTIPLIER_VALUE ||
-			channelIds.length === 0 ||
-			channelIds.length > maxTargets ||
+			roleIds.length === 0 ||
+			roleIds.length > maxTargets ||
 			multiplierCount >= maxMultipliers
 		) {
 			return;
 		}
 
-		setChannelMultipliers((prev) =>
-			[...prev, { id: crypto.randomUUID(), multiplier, targets: channelIds, type: XpMultiplierType.Channel }].sort(
+		setRoleMultipliers((prev) =>
+			[...prev, { id: crypto.randomUUID(), multiplier, targets: roleIds, type: XpMultiplierType.Role }].sort(
 				(a, b) => a.multiplier - b.multiplier,
 			),
 		);
 
-		setNewChannels([]);
+		setNewRoles([]);
 		setNewMultiplier("");
 		setMultiplierCount((prev) => prev + 1);
 	}
 
 	function handleDeleteMultiplier(id: string) {
-		setChannelMultipliers((prev) => prev.filter((multiplier) => multiplier.id !== id));
+		setRoleMultipliers((prev) => prev.filter((multiplier) => multiplier.id !== id));
 		setMultiplierCount((prev) => prev - 1);
 	}
 
 	return (
 		<>
 			<div className="flex flex-wrap items-center gap-3">
-				<Text>Select your channels:</Text>
+				<Text>Select your roles:</Text>
 
-				<ChannelSelector
-					channels={channels}
+				<RoleSelector
 					defaultValues={[]}
-					inputId="channel-selector"
+					inputId="role-selector"
 					max={getMaximumLimit("xpMultiplierTargets", premium)}
-					menuPlacement="top" // Placing the menu on top always to avoid overflow
-					settingId="newChannels"
-					onChange={(newChannels) => setNewChannels(newChannels)}
+					roles={roles}
+					settingId="newRoles"
+					onChange={(newRoles) => setNewRoles(newRoles)}
 				/>
 
 				<Text>and the multiplier to apply to them:</Text>
@@ -102,28 +101,28 @@ export function ChannelMultipliers({
 					maxMultipliers={maxMultipliers}
 					multiplierCount={multiplierCount}
 					newMultiplier={newMultiplier}
-					newTargets={newChannels}
+					newTargets={newRoles}
 					existingMultiplierValues={existingMultiplierValues}
 				>
 					<AddComment className="size-6 text-white" />
 				</CreateMultiplierButton>
 			</div>
 
-			{channelMultipliers.length ? (
+			{roleMultipliers.length ? (
 				<>
 					<Label
-						sub={`Max. ${MAX_XP_MULTIPLIER_TARGETS} channels total - Max. ${MAX_XP_MULTIPLIER_TARGETS_PREMIUM} for Premium`}
+						sub={`Max. ${MAX_XP_MULTIPLIER_TARGETS} roles total - Max. ${MAX_XP_MULTIPLIER_TARGETS_PREMIUM} for Premium`}
 					>
-						Manage your channel multipliers…
+						Manage your role multipliers…
 					</Label>
 
-					{channelMultipliers.map((multiplier) => (
-						<ChannelMultiplier
+					{roleMultipliers.map((multiplier) => (
+						<RoleMultiplier
 							key={multiplier.id}
 							{...multiplier}
-							channels={channels}
-							premium={premium}
+							roles={roles}
 							onDelete={handleDeleteMultiplier}
+							premium={premium}
 						/>
 					))}
 				</>
@@ -132,8 +131,8 @@ export function ChannelMultipliers({
 	);
 }
 
-function ChannelMultiplier({ id, multiplier, premium, onDelete, channels, targets }: ChannelMultiplierProps) {
-	const resolvedChannels = mapChannelIdsToChannels(targets, channels);
+function RoleMultiplier({ id, multiplier, premium, onDelete, roles, targets }: RoleMultiplierProps) {
+	const resolvedRoles = mapRoleIdsToRoles(targets, roles);
 
 	return (
 		<div className="flex items-center gap-4">
@@ -149,27 +148,27 @@ function ChannelMultiplier({ id, multiplier, premium, onDelete, channels, target
 				{multiplier}
 			</button>
 
-			<ChannelSelector
-				channels={channels}
-				defaultValues={resolvedChannels}
-				inputId={`channel-multipliers-${id}`}
+			<RoleSelector
+				defaultValues={resolvedRoles}
+				inputId={`role-multipliers-${id}`}
 				max={getMaximumLimit("xpMultiplierTargets", premium)}
-				settingId={`xpMultipliers-${XpMultiplierType.Channel}-${multiplier}-${id}`}
+				roles={roles}
+				settingId={`xpMultipliers-${XpMultiplierType.Role}-${multiplier}-${id}`}
 			/>
 		</div>
 	);
 }
 
-type ChannelMultiplierProps = Omit<XpMultiplier, "type"> & {
-	readonly channels: Channel[];
+type RoleMultiplierProps = Omit<XpMultiplier, "type"> & {
 	onDelete(id: string): void;
 	readonly premium: boolean;
+	readonly roles: Role[];
 };
 
-interface ChannelMultipliersProps {
-	readonly channels: Channel[];
+interface RoleMultipliersProps {
 	readonly multipliers: XpMultiplier[];
 	readonly premium: boolean;
+	readonly roles: Role[];
 	readonly multiplierCount: number;
 	readonly setMultiplierCount: Dispatch<SetStateAction<number>>;
 }

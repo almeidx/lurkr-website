@@ -1,6 +1,4 @@
 import { getGuildSettings } from "@/app/guilds/[guildId]/get-guild-data.ts";
-import { VoteBoost } from "@/app/guilds/[guildId]/multipliers/01-vote-boost.tsx";
-import { MultipliersWithTargets } from "@/app/guilds/[guildId]/multipliers/03-multipliers-with-targets.tsx";
 import { Separator } from "@/components/Separator.tsx";
 import { Form } from "@/components/dashboard/Form.tsx";
 import { Section } from "@/components/dashboard/Section.tsx";
@@ -10,6 +8,8 @@ import type { Metadata } from "next";
 import { cookies } from "next/headers";
 import { UnknownGuildOrMissingAccess } from "../unknown-guild.tsx";
 import { GlobalMultipliers } from "./01-global-multipliers.tsx";
+import { VoteBoost } from "./02-vote-boost.tsx";
+import { MultipliersWithTargets } from "./10-multipliers-with-targets.tsx";
 import { update } from "./update.ts";
 
 export default async function Multipliers({ params: { guildId } }: { readonly params: { guildId: Snowflake } }) {

@@ -7,7 +7,7 @@ import premiumImg from "@/assets/showcases/premium.png";
 import rankCardsImg from "@/assets/showcases/rank-cards.png";
 import roleRewardsImg from "@/assets/showcases/role-rewards.png";
 import { ExternalLink } from "@/components/ExternalLink.tsx";
-import { Showcase } from "@/components/Showcase";
+import { Showcase } from "@/components/Showcase.tsx";
 import { BOT_INVITE } from "@/shared-links.mjs";
 import { formatNumber } from "@/utils/format-number.ts";
 import { makeApiRequest } from "@/utils/make-api-request.ts";

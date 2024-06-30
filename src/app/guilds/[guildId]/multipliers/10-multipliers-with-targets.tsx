@@ -1,13 +1,13 @@
 "use client";
 
-import { RoleMultipliers } from "@/app/guilds/[guildId]/multipliers/04-role-multipliers";
-import { RoleMultiplierPriority } from "@/app/guilds/[guildId]/multipliers/05-role-multiplier-priority";
-import { ChannelMultipliers } from "@/app/guilds/[guildId]/multipliers/06-channel-multipliers";
 import { Separator } from "@/components/Separator.tsx";
 import { Section } from "@/components/dashboard/Section.tsx";
 import { Text } from "@/components/dashboard/Text.tsx";
 import type { Guild, GuildSettings } from "@/lib/guild.ts";
 import { useState } from "react";
+import { RoleMultipliers } from "./11-role-multipliers.tsx";
+import { RoleMultiplierPriority } from "./12-role-multiplier-priority.tsx";
+import { ChannelMultipliers } from "./13-channel-multipliers.tsx";
 
 export function MultipliersWithTargets({ guild, settings }: MultipliersProps) {
 	const [multiplierCount, setMultiplierCount] = useState(settings.xpMultipliers.length);

@@ -1,6 +1,6 @@
 import { TOKEN_COOKIE } from "@/utils/constants.ts";
 import { isSnowflake } from "@/utils/is-snowflake.ts";
-import { makeApiRequest } from "@/utils/make-api-request";
+import { makeApiRequest } from "@/utils/make-api-request.ts";
 import type { NextRequest } from "next/server";
 
 export async function GET(request: NextRequest, { params: { guildId } }: { params: { guildId: string } }) {
