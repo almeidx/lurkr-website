@@ -5,6 +5,7 @@ import { makeApiRequest } from "@/utils/make-api-request.ts";
 import { cookies } from "next/headers";
 import type { PropsWithChildren } from "react";
 import { DashboardMenu } from "./dashboard-menu.tsx";
+import { UnknownGuildOrMissingAccess } from "./unknown-guild.tsx";
 
 export default async function DashboardLayout({
 	children,
@@ -13,6 +14,10 @@ export default async function DashboardLayout({
 	const { guildId } = params;
 	const token = cookies().get(TOKEN_COOKIE)!.value;
 	const { guild, guilds } = await getData(guildId, token);
+
+	if (!guild) {
+		return <UnknownGuildOrMissingAccess>{children}</UnknownGuildOrMissingAccess>;
+	}
 
 	return (
 		<div className="flex justify-center">
@@ -42,15 +47,13 @@ async function getData(guildId: Snowflake, token: string) {
 	]);
 
 	if (!metadataResponse.ok) {
-		throw new Error("Failed to get guild information");
+		console.error("Failed to fetch guild metadata", metadataResponse.status, await metadataResponse.text());
 	}
 
 	const guilds = guildsResponse.ok ? ((await guildsResponse.json()) as GuildInfo[]).filter((guild) => guild.botIn) : [];
+	const guild = metadataResponse.ok ? ((await metadataResponse.json()) as GuildMetadataResult) : null;
 
-	return {
-		guild: (await metadataResponse.json()) as GuildMetadataResult,
-		guilds,
-	};
+	return { guild, guilds };
 }
 
 export interface GuildMetadataResult {

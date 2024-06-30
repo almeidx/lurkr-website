@@ -1,6 +1,7 @@
 import Link from "next/link";
+import type { PropsWithChildren } from "react";
 
-export function UnknownGuildOrMissingAccess() {
+export function UnknownGuildOrMissingAccess({ children }: PropsWithChildren) {
 	return (
 		<div className="mt-16 flex flex-col items-center gap-12">
 			<h1 className="font-bold text-9xl tracking-widest">404</h1>
@@ -10,6 +11,8 @@ export function UnknownGuildOrMissingAccess() {
 					Take me back
 				</Link>
 			</p>
+
+			{children}
 		</div>
 	);
 }
