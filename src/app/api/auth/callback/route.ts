@@ -18,7 +18,10 @@ export async function GET(request: NextRequest) {
 
 	const registerResponse = await makeApiRequest("/auth/register", null, {
 		method: "POST",
-		headers: { "Content-Type": "application/json" },
+		headers: {
+			"Content-Type": "application/json",
+			"X-Environment": process.env.ENVIRONMENT ?? "prod",
+		},
 		body: JSON.stringify({ code }),
 	});
 
