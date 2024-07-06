@@ -11,12 +11,15 @@ import { BRAND_COLOR, DESCRIPTION } from "@/utils/constants.ts";
 import { GoogleTagManager } from "@next/third-parties/google";
 import type { Metadata, Viewport } from "next";
 import { type PropsWithChildren, Suspense } from "react";
+import { PreviewWarning } from "../components/PreviewWarning.tsx";
 
 if (process.env.NODE_ENV === "production") {
 	console.assert(process.env.NEXT_PUBLIC_GTM_ID, "NEXT_PUBLIC_GTM_ID environment variable is missing");
 }
 
 export default function RootLayout({ children }: PropsWithChildren) {
+	const isPreview = process.env.ENVIRONMENT !== "prod" && process.env.NODE_ENV !== "development";
+
 	return (
 		<html lang="en">
 			<body
@@ -39,6 +42,8 @@ export default function RootLayout({ children }: PropsWithChildren) {
 						<CookieNotice />
 					</Suspense>
 				</Providers>
+
+				{isPreview && <PreviewWarning />}
 
 				<svg className="absolute size-0" aria-hidden="true" focusable="false">
 					<linearGradient
