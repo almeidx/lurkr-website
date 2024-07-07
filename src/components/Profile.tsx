@@ -37,7 +37,7 @@ export function ProfileButton({ avatar, globalName, id, username }: User) {
 
 				<p className="max-w-16 truncate md:max-w-32 xl:max-w-56">{globalName ?? username}</p>
 
-				<MenuButtonArrow className={clsx("transition duration-150 ease-in-out", open ? "rotate-180" : "rotate-0")} />
+				<MenuButtonArrow className={clsx("transition ease-in-out", open ? "rotate-180" : "rotate-0")} />
 			</MenuButton>
 
 			<Menu

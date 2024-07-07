@@ -20,7 +20,8 @@ import { TopLevelingRole } from "./20-top-leveling-role.tsx";
 import { NoTopLevelingRoles } from "./21-no-top-leveling-roles.tsx";
 import { LevelUpMessageChannel } from "./30-level-up-message-channel.tsx";
 import { LevelUpMessage } from "./31-level-up-message.tsx";
-import { LevelUpMessageConditions } from "./32-level-up-message-conditions.tsx";
+import { LevelUpMessageEmbed } from "./32-level-up-message-embed.tsx";
+import { LevelUpMessageConditions } from "./33-level-up-message-conditions.tsx";
 import { LevelingRoleRewards } from "./40-leveling-role-rewards.tsx";
 import { StackRoleRewards } from "./41-stack-role-rewards.tsx";
 import { NoRoleRewardsRoles } from "./42-no-role-rewards-roles.tsx";
@@ -112,12 +113,9 @@ export default async function Leveling({ params: { guildId } }: { readonly param
 					defaultCustomChannel={settings.xpAnnounceChannel}
 				/>
 
-				<LevelUpMessage
-					defaultValue={settings.xpMessage}
-					emojis={guild.emojis}
-					premium={guild.premium}
-					roles={guild.roles}
-				/>
+				<LevelUpMessage defaultValue={settings.xpMessage} emojis={guild.emojis} roles={guild.roles} />
+
+				<LevelUpMessageEmbed defaultValue={settings.xpMessageEmbed} emojis={guild.emojis} roles={guild.roles} />
 
 				<LevelUpMessageConditions settings={settings} premium={guild.premium} />
 			</Section>

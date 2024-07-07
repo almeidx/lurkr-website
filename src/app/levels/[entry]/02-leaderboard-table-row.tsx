@@ -28,7 +28,6 @@ export function LeaderboardTableRow({ guildId, row, isManager }: LeaderboardTabl
 					"flex w-full items-center gap-1 border border-white/25 bg-dark-gray px-2 py-1.5 hover:bg-dark-gray/50",
 					open ? "mb-0 rounded-t-lg" : "mb-4 rounded-lg",
 				)}
-				key={row.userId}
 				store={disclosure}
 			>
 				<div className="flex min-w-14 max-w-[15%] justify-center rounded-s-lg">

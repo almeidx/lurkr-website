@@ -6,6 +6,7 @@ import type { Emoji, Role } from "@/lib/guild.ts";
 import { decimalRoleColorToHex } from "@/utils/decimal-to-hex-color.ts";
 import { emojiImage } from "@/utils/discord-cdn.ts";
 import { Combobox, ComboboxItem, ComboboxPopover, useComboboxStore } from "@ariakit/react/combobox";
+import clsx from "clsx";
 import { matchSorter } from "match-sorter";
 import Image from "next/image";
 import {
@@ -31,6 +32,8 @@ export function Textarea({
 	roles,
 	value,
 	setValue,
+	emulateInput,
+	required,
 }: TextareaWithAutocompleteProps) {
 	const ref = useRef<HTMLTextAreaElement>(null);
 	const [trigger, setTrigger] = useState<string | null>(null);
@@ -109,8 +112,8 @@ export function Textarea({
 				autoSelect
 				value={value}
 				showOnChange={false}
-				showOnKeyDown={false}
-				showOnMouseDown={false}
+				showOnKeyPress={false}
+				showOnClick={false}
 				setValueOnChange={false}
 				render={
 					<textarea
@@ -119,9 +122,13 @@ export function Textarea({
 						maxLength={max}
 						minLength={min}
 						ref={ref}
-						rows={4}
-						className="max-h-64 min-h-[3rem] w-full max-w-3xl resize-y rounded-lg bg-light-gray px-3 py-2 leading-relaxed shadow-dim-inner"
+						rows={emulateInput ? 1 : 4}
+						className={clsx(
+							"w-full max-w-3xl rounded-lg bg-light-gray px-3 py-2 leading-relaxed shadow-dim-inner",
+							emulateInput ? "h-10 resize-none overflow-y-hidden" : "max-h-64 min-h-10 resize-y",
+						)}
 						placeholder={placeholder}
+						required={required}
 						onScroll={combobox.render}
 						onPointerDown={combobox.hide}
 						onChange={onChange}
@@ -182,6 +189,8 @@ interface TextareaWithAutocompleteProps {
 	readonly roles: Role[];
 	setValue(value: string | ((prevValue: string) => string)): void;
 	readonly value: string;
+	readonly emulateInput?: boolean;
+	readonly required?: boolean;
 }
 
 function getTriggerOffset(element: HTMLTextAreaElement) {

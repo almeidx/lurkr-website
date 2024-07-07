@@ -1,27 +1,14 @@
 "use client";
 
 import { Label } from "@/components/dashboard/Label.tsx";
-import { type PlaceholderValue, Textarea } from "@/components/dashboard/Textarea.tsx";
+import { Textarea } from "@/components/dashboard/Textarea.tsx";
 import { DEFAULT_XP_MESSAGE, MAX_XP_MESSAGE_LENGTH, MIN_XP_MESSAGE_LENGTH } from "@/lib/guild-config.ts";
 import type { Emoji, Role } from "@/lib/guild.ts";
 import { RestartAlt } from "@mui/icons-material";
 import { useState } from "react";
+import { levelUpMessagePlaceholders } from "./level-up-message-placeholders.ts";
 
-const placeholders = [
-	{ id: "{user}", name: "{user} • @user" },
-	{ id: "{user.avatar}", name: "{user.avatar} • image url" },
-	{ id: "{user.discriminator}", name: "{user.discriminator} • 0001" },
-	{ id: "{user.id}", name: "{user.id} • 1234567890123456789" },
-	{ id: "{user.tag}", name: "{user.tag} • user#0001 or user" },
-	{ id: "{user.username}", name: "{user.username} • user" },
-	{ id: "{guild.icon}", name: "{guild.icon} • image url" },
-	{ id: "{guild.id}", name: "{guild.id} • 1234567890123456789" },
-	{ id: "{guild.name}", name: "{guild.name} • Server name" },
-	{ id: "{level}", name: "{level} • The new level" },
-	{ id: "{xp}", name: "{xp} • The user's xp" },
-] satisfies PlaceholderValue[];
-
-export function LevelUpMessage({ defaultValue, emojis, premium, roles }: LevelUpMessageProps) {
+export function LevelUpMessage({ defaultValue, emojis, roles }: LevelUpMessageProps) {
 	const [value, setValue] = useState(defaultValue ?? "");
 
 	function handleReset() {
@@ -52,7 +39,7 @@ export function LevelUpMessage({ defaultValue, emojis, premium, roles }: LevelUp
 				min={MIN_XP_MESSAGE_LENGTH}
 				roles={roles}
 				placeholder="e.g. {user} has leveled up to **level {level}**!"
-				placeholders={placeholders}
+				placeholders={levelUpMessagePlaceholders}
 				value={value}
 				setValue={setValue}
 			/>
@@ -63,6 +50,5 @@ export function LevelUpMessage({ defaultValue, emojis, premium, roles }: LevelUp
 interface LevelUpMessageProps {
 	readonly defaultValue: string | null;
 	readonly emojis: Emoji[];
-	readonly premium: boolean;
 	readonly roles: Role[];
 }

@@ -79,7 +79,7 @@ export function DefaultRankCardColor({ defaultAccentColour, defaultAccentType }:
 					<div aria-hidden="true" className="size-7 rounded-lg" style={{ backgroundColor: color }} />
 				</div>
 
-				<Popover store={popover} className="mb-4">
+				<Popover store={popover} className="my-4">
 					<ColorPicker onChange={setColor} value={color} />
 				</Popover>
 			</div>

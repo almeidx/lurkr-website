@@ -21,6 +21,15 @@ import {
 	MIN_XP_MESSAGE_LENGTH,
 } from "@/lib/guild-config.ts";
 import { GuildAccentType, type GuildSettings, XpAnnouncementChannelType, XpChannelMode } from "@/lib/guild.ts";
+import {
+	EMBED_AUTHOR_NAME_MAX_LENGTH,
+	EMBED_DESCRIPTION_MAX_LENGTH,
+	EMBED_FIELD_NAME_MAX_LENGTH,
+	EMBED_FIELD_VALUE_MAX_LENGTH,
+	EMBED_FOOTER_TEXT_MAX_LENGTH,
+	EMBED_TITLE_MAX_LENGTH,
+	EMBED_URL_MAX_LENGTH,
+} from "@/utils/embed-limits.ts";
 import { formDataToObject } from "@/utils/form-data-to-object.ts";
 import { lazy } from "@/utils/lazy.ts";
 import {
@@ -34,9 +43,15 @@ import {
 } from "@/utils/schemas.ts";
 import {
 	array,
+	boolean,
 	enum_,
+	integer,
+	literal,
 	maxLength,
+	maxValue,
 	minLength,
+	minValue,
+	number,
 	object,
 	optional,
 	parse,
@@ -124,6 +139,49 @@ function createSchema(premium: boolean) {
 			xpMessage: union([
 				emptyStringToNull,
 				pipe(string(), minLength(MIN_XP_MESSAGE_LENGTH), maxLength(MAX_XP_MESSAGE_LENGTH)),
+			]),
+			xpMessageEmbed: union([
+				pipe(
+					literal("{}"),
+					transform(() => null),
+				),
+				pipe(
+					string(),
+					transform((value) => JSON.parse(value)),
+					object({
+						author: optional(
+							object({
+								icon_url: optional(pipe(string(), minLength(10), maxLength(EMBED_URL_MAX_LENGTH))),
+								name: pipe(string(), minLength(1), maxLength(EMBED_AUTHOR_NAME_MAX_LENGTH)),
+								url: optional(pipe(string(), minLength(10), maxLength(EMBED_URL_MAX_LENGTH))),
+							}),
+						),
+						title: optional(pipe(string(), maxLength(EMBED_TITLE_MAX_LENGTH))),
+						description: optional(pipe(string(), maxLength(EMBED_DESCRIPTION_MAX_LENGTH))),
+						fields: optional(
+							pipe(
+								array(
+									object({
+										name: pipe(string(), minLength(1), maxLength(EMBED_FIELD_NAME_MAX_LENGTH)),
+										value: pipe(string(), minLength(1), maxLength(EMBED_FIELD_VALUE_MAX_LENGTH)),
+										inline: optional(boolean()),
+									}),
+								),
+								maxLength(25),
+							),
+						),
+						footer: optional(
+							object({
+								text: pipe(string(), minLength(1), maxLength(EMBED_FOOTER_TEXT_MAX_LENGTH)),
+								icon_url: optional(pipe(string(), minLength(10), maxLength(EMBED_URL_MAX_LENGTH))),
+							}),
+						),
+						color: optional(pipe(number(), integer(), minValue(0), maxValue(0xffffff))),
+						thumbnail: optional(object({ url: pipe(string(), minLength(10), maxLength(EMBED_URL_MAX_LENGTH)) })),
+						image: optional(object({ url: pipe(string(), minLength(10), maxLength(EMBED_URL_MAX_LENGTH)) })),
+						url: optional(pipe(string(), minLength(10), maxLength(EMBED_URL_MAX_LENGTH))),
+					}),
+				),
 			]),
 		}),
 	);

@@ -47,6 +47,33 @@ export interface Role {
 	position: number;
 }
 
+export interface Embed {
+	title?: string;
+	description?: string;
+	color?: number;
+	footer?: {
+		text: string;
+		icon_url?: string;
+	};
+	author?: {
+		name: string;
+		icon_url?: string;
+		url?: string;
+	};
+	image?: {
+		url: string;
+	};
+	thumbnail?: {
+		url: string;
+	};
+	fields?: {
+		name: string;
+		value: string;
+		inline?: boolean;
+	}[];
+	url?: string;
+}
+
 export interface GuildSettings {
 	accentColour: string | null;
 	accentType: GuildAccentType | null;
@@ -86,6 +113,7 @@ export interface GuildSettings {
 	xpDisallowedPrefixes: string[];
 	xpInThreads: boolean;
 	xpMessage: string | null;
+	xpMessageEmbed: Embed | null;
 	xpMultipliers: XpMultiplier[];
 	xpRoleRewards: XpRoleReward[];
 }
