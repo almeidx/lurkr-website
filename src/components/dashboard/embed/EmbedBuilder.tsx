@@ -9,6 +9,7 @@ import {
 	EMBED_FOOTER_TEXT_MAX_LENGTH,
 	EMBED_TITLE_MAX_LENGTH,
 	EMBED_URL_MAX_LENGTH,
+	EMBED_URL_MIN_LENGTH,
 } from "@/utils/embed-limits.ts";
 import { Popover, PopoverDisclosure, usePopoverStore } from "@ariakit/react/popover";
 import { Colorize } from "@mui/icons-material";
@@ -226,6 +227,7 @@ export function EmbedBuilder({ defaultValue, emojis, roles, placeholders }: Embe
 					<Input
 						id="embed-url"
 						placeholder="Enter URL"
+						minLength={EMBED_URL_MIN_LENGTH}
 						maxLength={EMBED_URL_MAX_LENGTH}
 						value={embedState.url}
 						onChange={(event) => handleChange("url", event.target.value)}
@@ -281,6 +283,7 @@ export function EmbedBuilder({ defaultValue, emojis, roles, placeholders }: Embe
 					<Input
 						id="embed-author-icon"
 						placeholder="Enter author icon URL"
+						minLength={EMBED_URL_MIN_LENGTH}
 						maxLength={EMBED_URL_MAX_LENGTH}
 						value={embedState.author_icon_url}
 						onChange={(event) => handleChange("author_icon_url", event.target.value)}
@@ -295,6 +298,7 @@ export function EmbedBuilder({ defaultValue, emojis, roles, placeholders }: Embe
 					<Input
 						id="embed-author-url"
 						placeholder="Enter author URL"
+						minLength={EMBED_URL_MIN_LENGTH}
 						maxLength={EMBED_URL_MAX_LENGTH}
 						value={embedState.author_url}
 						onChange={(event) => handleChange("author_url", event.target.value)}
@@ -332,6 +336,7 @@ export function EmbedBuilder({ defaultValue, emojis, roles, placeholders }: Embe
 					<Input
 						id="embed-footer-icon"
 						placeholder="Footer icon URL"
+						minLength={EMBED_URL_MIN_LENGTH}
 						maxLength={EMBED_URL_MAX_LENGTH}
 						value={embedState.footer_icon_url}
 						onChange={(event) => handleChange("footer_icon_url", event.target.value)}
@@ -350,6 +355,7 @@ export function EmbedBuilder({ defaultValue, emojis, roles, placeholders }: Embe
 					<Input
 						id="embed-image-url"
 						placeholder="Enter image URL"
+						minLength={EMBED_URL_MIN_LENGTH}
 						maxLength={EMBED_URL_MAX_LENGTH}
 						value={embedState.image_url}
 						onChange={(event) => handleChange("image_url", event.target.value)}
@@ -364,6 +370,7 @@ export function EmbedBuilder({ defaultValue, emojis, roles, placeholders }: Embe
 					<Input
 						id="embed-thumbnail-url"
 						placeholder="Enter thumbnail URL"
+						minLength={EMBED_URL_MIN_LENGTH}
 						maxLength={EMBED_URL_MAX_LENGTH}
 						value={embedState.thumbnail_url}
 						onChange={(event) => handleChange("thumbnail_url", event.target.value)}
