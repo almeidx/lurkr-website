@@ -72,8 +72,8 @@ importers:
         specifier: ^1.8.3
         version: 1.8.3
       '@next/bundle-analyzer':
-        specifier: v15.0.0-canary.49
-        version: 15.0.0-canary.49
+        specifier: v15.0.0-rc.0
+        version: 15.0.0-rc.0
       '@types/node':
         specifier: ^20.14.10
         version: 20.14.10
@@ -651,8 +651,8 @@ packages:
     resolution: {integrity: sha512-C5wRPw9waqL2jk3jEDeJv+f7ScuO3N0a39HVdyFLkwKxHH4Sya4ZbzZsu2JLi6eEqe7RuHipHL6mC7B2OfYZZw==}
     engines: {node: '>= 10'}
 
-  '@next/bundle-analyzer@15.0.0-canary.49':
-    resolution: {integrity: sha512-bl5ouLihz2MNOjYNIKEf/skZnPFFWRElrFJs5DCzbBx+ao4ZLEuxQ0eyyW8KacN0s3udTz5RUbQpEUVckPcyVQ==}
+  '@next/bundle-analyzer@15.0.0-rc.0':
+    resolution: {integrity: sha512-42idubQ3sV0BsP+x+BC5XuESr8jO5o5jnmhKOKI/lCFzq5hUvnAxkqcmehkiyCy6b3bTSUv6D8nC1fOisqFtew==}
 
   '@next/env@15.0.0-canary.49':
     resolution: {integrity: sha512-PrFRDwctdRiOUKMNke3XK1b5fVhDWIGkhsDdkWUW5Jcden4UUATT6CgxtuSJlNRYhMrswpwQ5zQTfvEwzIjfvA==}
@@ -3211,7 +3211,7 @@ snapshots:
       '@napi-rs/simple-git-win32-arm64-msvc': 0.1.16
       '@napi-rs/simple-git-win32-x64-msvc': 0.1.16
 
-  '@next/bundle-analyzer@15.0.0-canary.49':
+  '@next/bundle-analyzer@15.0.0-rc.0':
     dependencies:
       webpack-bundle-analyzer: 4.10.1
     transitivePeerDependencies:
