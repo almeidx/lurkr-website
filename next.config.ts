@@ -1,6 +1,7 @@
 import nextBundleAnalyzer from "@next/bundle-analyzer";
-// import nextra from "nextra";
+import type { NextConfig } from "next";
 import { BOT_INVITE, GITHUB_REPOSITORY_URL, PATREON_URL, SUPPORT_SERVER_INVITE, TOPGG_URL } from "./shared-links.mjs";
+// import nextra from "nextra";
 
 const bundleAnalyzerEnabled = process.env.ANALYZE === "true";
 
@@ -9,7 +10,6 @@ const bundleAnalyzerEnabled = process.env.ANALYZE === "true";
 // 	themeConfig: "./theme.config.jsx",
 // });
 
-/** @type {import("next").NextConfig} */
 const nextConfig = {
 	reactStrictMode: true,
 	images: {
@@ -29,7 +29,7 @@ const nextConfig = {
 			fullUrl: true,
 		},
 	},
-	redirects() {
+	async redirects() {
 		return [
 			{
 				destination: BOT_INVITE,
@@ -58,7 +58,7 @@ const nextConfig = {
 			},
 		];
 	},
-};
+} satisfies NextConfig;
 
 // export default withNextra(bundleAnalyzerEnabled ? nextBundleAnalyzer(nextConfig) : nextConfig);
-export default bundleAnalyzerEnabled ? nextBundleAnalyzer(nextConfig) : nextConfig;
+export default bundleAnalyzerEnabled ? nextBundleAnalyzer()(nextConfig) : nextConfig;
