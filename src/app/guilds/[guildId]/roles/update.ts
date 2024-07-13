@@ -35,7 +35,7 @@ const autoRoleFlagsKeySchema = pipe(
 	}),
 );
 
-export async function update(guildId: string, premium: boolean, data: FormData) {
+export async function update(guildId: string, premium: boolean, _currentState: unknown, data: FormData) {
 	const rawData = formDataToObject(data);
 	const schema = premium ? premiumSchema() : regularSchema();
 
@@ -49,7 +49,7 @@ export async function update(guildId: string, premium: boolean, data: FormData) 
 			})),
 	} satisfies Partial<GuildSettings>;
 
-	await action(guildId, settings, `settings:${guildId}:roles`);
+	return action(guildId, settings, `settings:${guildId}:roles`);
 }
 
 function createSchema(premium: boolean) {

@@ -53,7 +53,7 @@ const xpMultipliersKeySchema = pipe(
 	}),
 );
 
-export async function update(guildId: string, premium: boolean, data: FormData) {
+export async function update(guildId: string, premium: boolean, _currentState: unknown, data: FormData) {
 	const rawData = formDataToObject(data);
 
 	const parsed = parse(schema, rawData);
@@ -79,5 +79,5 @@ export async function update(guildId: string, premium: boolean, data: FormData) 
 		throw new Error(`Maximum of ${maxXpMultipliers} XP multipliers exceeded`);
 	}
 
-	await action(guildId, settings, `settings:${guildId}:multipliers`);
+	return action(guildId, settings, `settings:${guildId}:multipliers`);
 }

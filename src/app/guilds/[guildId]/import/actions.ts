@@ -16,7 +16,7 @@ const importBotDataSchema = object({
 	withRoleRewards: toggle,
 });
 
-export async function importBotData(guildId: string, _currentState: any, data: FormData) {
+export async function importBotData(guildId: string, _currentState: unknown, data: FormData) {
 	const token = cookies().get(TOKEN_COOKIE)?.value;
 	if (!token) {
 		throw new Error("Missing token");

@@ -77,7 +77,7 @@ const xpRoleRewardsKeySchema = pipe(
 const regularXpRoleRewardRolesSchema = lazy(() => createSnowflakesValidator(MAX_XP_ROLE_REWARD_ROLES));
 const premiumXpRoleRewardRolesSchema = lazy(() => createSnowflakesValidator(MAX_XP_ROLE_REWARD_ROLES_PREMIUM));
 
-export async function update(guildId: string, premium: boolean, data: FormData) {
+export async function update(guildId: string, premium: boolean, _currentState: unknown, data: FormData) {
 	const rawData = formDataToObject(data);
 	const schema = premium ? premiumSchema() : regularSchema();
 
@@ -108,7 +108,7 @@ export async function update(guildId: string, premium: boolean, data: FormData) 
 		throw new Error(`Too many XP role rewards (max ${maxXpRoleRewards})`);
 	}
 
-	await action(guildId, settings, `settings:${guildId}:leveling`);
+	return action(guildId, settings, `settings:${guildId}:leveling`);
 }
 
 function createSchema(premium: boolean) {

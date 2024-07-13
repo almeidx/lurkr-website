@@ -19,12 +19,12 @@ import { maxLength, maxValue, minLength, minValue, multipleOf, object, parse, pi
 const regularSchema = createSchema(false);
 const premiumSchema = createSchema(true);
 
-export async function update(guildId: string, premium: boolean, data: FormData) {
+export async function update(guildId: string, premium: boolean, _currentState: unknown, data: FormData) {
 	const schema = premium ? premiumSchema() : regularSchema();
 
 	const settings = parse(schema, formDataToObject(data)) satisfies Partial<GuildSettings>;
 
-	await action(guildId, settings, `settings:${guildId}:milestones`);
+	return action(guildId, settings, `settings:${guildId}:milestones`);
 }
 
 function createSchema(premium: boolean) {

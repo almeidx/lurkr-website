@@ -29,8 +29,10 @@ export async function action(guildId: string, data: Partial<GuildSettings>, tag:
 
 		console.error(`Failed to update guild ${guildId} settings:`, error);
 
-		throw new Error("Failed to update settings");
+		return false;
 	}
 
 	revalidateTag(tag);
+
+	return true;
 }
