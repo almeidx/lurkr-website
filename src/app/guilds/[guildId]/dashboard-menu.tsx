@@ -156,7 +156,7 @@ function Item({ guildId, name, path, isActive, children }: ItemProps) {
 				href={`/guilds/${guildId}/${path}`}
 				type="button"
 			>
-				<div className="size-fit rounded-xl bg-darker p-2">{children}</div>
+				<div className="flex size-9 items-center justify-center rounded-xl bg-darker">{children}</div>
 
 				<span className={clsx("font-semibold", path === "danger" && "text-red")}>{name}</span>
 			</Link>

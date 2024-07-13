@@ -9,7 +9,7 @@ export function GET(request: NextRequest) {
 
 	return NextResponse.redirect(redirectUrl, {
 		headers: {
-			"Set-Cookie": `${TOKEN_COOKIE}=; Path=/; Max-Age=0;`,
+			"Set-Cookie": `${TOKEN_COOKIE}=; Path=/; Max-Age=0; HttpOnly; Secure; SameSite=Lax`,
 		},
 	});
 }

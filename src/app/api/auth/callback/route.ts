@@ -4,12 +4,7 @@ import { type NextRequest, NextResponse } from "next/server";
 
 export async function GET(request: NextRequest) {
 	if (!request.nextUrl.searchParams.has("code")) {
-		// NextResponse.error() is not implemented
-		// return NextResponse.error();
-
-		console.error("Missing code parameter: ", request.nextUrl.toString());
-
-		return new Response("Missing code parameter", { status: 400 });
+		return Response.json({ message: "Missing code parameter" }, { status: 400 });
 	}
 
 	const code = request.nextUrl.searchParams.get("code");
@@ -28,8 +23,14 @@ export async function GET(request: NextRequest) {
 	if (!registerResponse.ok) {
 		console.error("Failed to register user:", await registerResponse.text());
 
-		// return NextResponse.error();
-		return new Response("Failed to register user", { status: 500 });
+		const redirectUrl = new URL("/", request.url);
+		redirectUrl.searchParams.set("login_failure", "1");
+
+		return NextResponse.redirect(redirectUrl, {
+			headers: {
+				"Set-Cookie": getSetCookieHeader("", 0),
+			},
+		});
 	}
 
 	const { token, maxAge } = (await registerResponse.json()) as RegisterResponse;
@@ -38,7 +39,7 @@ export async function GET(request: NextRequest) {
 
 	return NextResponse.redirect(redirectUrl, {
 		headers: {
-			"Set-Cookie": `${TOKEN_COOKIE}=${token}; Path=/; Max-Age=${maxAge}; HttpOnly; Secure; SameSite=Lax`,
+			"Set-Cookie": getSetCookieHeader(token, maxAge),
 		},
 	});
 }
@@ -51,6 +52,10 @@ function getRedirectToValue(redirectTo: string | undefined, origin: string) {
 	const { pathname } = new URL(redirectTo, origin);
 
 	return pathname.startsWith("/guilds") ? new URL(pathname, origin) : null;
+}
+
+function getSetCookieHeader(token: string, maxAge: number) {
+	return `${TOKEN_COOKIE}=${token}; Path=/; Max-Age=${maxAge}; HttpOnly; Secure; SameSite=Lax` as const;
 }
 
 interface RegisterResponse {
