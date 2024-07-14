@@ -83,6 +83,7 @@ export function RoleSelector({
 							backgroundColor: "transparent",
 							border: `1px solid ${state!.data!.resolvedColor}`,
 							borderRadius: "20px",
+							maxWidth: "50vw",
 						}),
 						multiValueLabel: (baseStyles, state) => ({
 							...baseStyles,

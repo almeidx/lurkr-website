@@ -4,7 +4,25 @@ import logoSmallImg from "@/assets/logo-small.webp";
 import { ExternalLink } from "@/components/ExternalLink.tsx";
 import { DOCS_URL } from "@/utils/constants.ts";
 import type { Snowflake } from "@/utils/discord-cdn.ts";
-import { ArrowBackIos, Menu, MenuOpen } from "@mui/icons-material";
+import {
+	ArrowBackIos,
+	AutoStories,
+	Calculate,
+	Dashboard,
+	EmojiEmotions,
+	FormatListBulleted,
+	Menu,
+	MenuOpen,
+	MiscellaneousServices,
+	RocketLaunch,
+	Settings,
+	SignalCellular3Bar,
+	Signpost,
+	SmartToy,
+	TrendingUp,
+	Warning,
+	WorkspacePremium,
+} from "@mui/icons-material";
 import clsx from "clsx";
 import Image from "next/image";
 import Link from "next/link";
@@ -81,31 +99,57 @@ function NavbarLinks({ hideMobile }: { hideMobile?: boolean }) {
 	return (
 		<ul
 			className={clsx(
-				"flex-col items-center gap-5 text-xl md:flex-row md:items-baseline md:text-base",
+				"flex-col gap-5 text-xl md:flex-row md:items-baseline md:text-base",
 				hideMobile ? "hidden md:flex" : "flex",
 			)}
 		>
 			<li className="text-white hover:text-white/75">
-				<Link href="/guilds">Dashboard</Link>
+				<Link href="/guilds" className="flex items-center gap-2">
+					<div className="md:hidden">
+						<Dashboard />
+					</div>
+					Dashboard
+				</Link>
 			</li>
-			<li className="text-white hover:text-white/75">
-				<Link href="/levels">Levels</Link>
+			<li className="flex items-center gap-2 text-white hover:text-white/75">
+				<Link href="/levels" className="flex items-center gap-2">
+					<div className="md:hidden">
+						<TrendingUp />
+					</div>
+					Levels
+				</Link>
 			</li>
-			<li className="text-white hover:text-white/75">
-				<Link href="/levels/calculator">Calculator</Link>
+			<li className="flex items-center gap-2 text-white hover:text-white/75">
+				<Link href="/levels/calculator" className="flex items-center gap-2">
+					<div className="md:hidden">
+						<Calculate />
+					</div>
+					Calculator
+				</Link>
 			</li>
-			<li className="text-white hover:text-white/75">
-				<Link href="/status" prefetch={false}>
+			<li className="flex items-center gap-2 text-white hover:text-white/75">
+				<Link href="/status" prefetch={false} className="flex items-center gap-2">
+					<div className="md:hidden">
+						<SignalCellular3Bar />
+					</div>
 					Status
 				</Link>
 			</li>
-			<li className="text-white hover:text-white/75">
-				<Link href="/premium" prefetch={false}>
+			<li className="flex items-center gap-2 text-white hover:text-white/75">
+				<Link href="/premium" prefetch={false} className="flex items-center gap-2">
+					<div className="md:hidden">
+						<WorkspacePremium />
+					</div>
 					Premium
 				</Link>
 			</li>
-			<li className="text-white hover:text-white/75">
-				<ExternalLink href={DOCS_URL}>Docs</ExternalLink>
+			<li className="flex items-center gap-2 text-white hover:text-white/75">
+				<ExternalLink href={DOCS_URL} className="flex items-center gap-2">
+					<div className="md:hidden">
+						<AutoStories />
+					</div>
+					Docs
+				</ExternalLink>
 			</li>
 		</ul>
 	);
@@ -113,44 +157,66 @@ function NavbarLinks({ hideMobile }: { hideMobile?: boolean }) {
 
 function DashboardMobileNavbarLinks({ guildId, show }: { guildId: Snowflake; show: boolean }) {
 	return (
-		<ul
-			className={clsx(
-				"flex-col items-center gap-5 text-xl md:flex-row md:items-baseline md:text-base",
-				show && "flex md:hidden",
-			)}
-		>
+		<ul className={clsx("flex-col gap-5 text-xl md:flex-row md:items-baseline md:text-base", show && "flex md:hidden")}>
 			<li className="text-white hover:text-white/75">
-				<Link href="/guilds" className="flex items-center">
+				<Link href="/guilds" className="flex items-center gap-2">
 					<ArrowBackIos />
 					Back
 				</Link>
 			</li>
 			<li className="text-white hover:text-white/75">
-				<Link href={`/guilds/${guildId}`}>Overview</Link>
+				<Link href={`/guilds/${guildId}`} className="flex items-center gap-2">
+					<Settings />
+					Overview
+				</Link>
 			</li>
 			<li className="text-white hover:text-white/75">
-				<Link href={`/guilds/${guildId}/leveling`}>Leveling</Link>
+				<Link href={`/guilds/${guildId}/leveling`} className="flex items-center gap-2">
+					<TrendingUp className="text-[#ff7077]" />
+					Leveling
+				</Link>
 			</li>
 			<li className="text-white hover:text-white/75">
-				<Link href={`/guilds/${guildId}/import`}>Import Bots</Link>
+				<Link href={`/guilds/${guildId}/import`} className="flex items-center gap-2">
+					<SmartToy />
+					Import Bots
+				</Link>
 			</li>
 			<li className="text-white hover:text-white/75">
-				<Link href={`/guilds/${guildId}/multipliers`}>Multipliers</Link>
+				<Link href={`/guilds/${guildId}/multipliers`} className="flex items-center gap-2">
+					<RocketLaunch className="text-[#82cbff]" />
+					Multipliers
+				</Link>
 			</li>
 			<li className="text-white hover:text-white/75">
-				<Link href={`/guilds/${guildId}/roles`}>Role Management</Link>
+				<Link href={`/guilds/${guildId}/roles`} className="flex items-center gap-2">
+					<FormatListBulleted className="text-[#d2ffae]" />
+					Role Management
+				</Link>
 			</li>
 			<li className="text-white hover:text-white/75">
-				<Link href={`/guilds/${guildId}/milestones`}>Milestones</Link>
+				<Link href={`/guilds/${guildId}/milestones`} className="flex items-center gap-2">
+					<Signpost className="text-[#804994]" />
+					Milestones
+				</Link>
 			</li>
 			<li className="text-white hover:text-white/75">
-				<Link href={`/guilds/${guildId}/emojis`}>Emoji List</Link>
+				<Link href={`/guilds/${guildId}/emojis`} className="flex items-center gap-2">
+					<EmojiEmotions className="text-[#ffe87c]" />
+					Emoji List
+				</Link>
 			</li>
 			<li className="text-white hover:text-white/75">
-				<Link href={`/guilds/${guildId}/miscellaneous`}>Miscellaneous</Link>
+				<Link href={`/guilds/${guildId}/miscellaneous`} className="flex items-center gap-2">
+					<MiscellaneousServices className="text-[#73ffc4]" />
+					Miscellaneous
+				</Link>
 			</li>
 			<li className="text-white hover:text-white/75">
-				<Link href={`/guilds/${guildId}/danger`}>Danger Zone</Link>
+				<Link href={`/guilds/${guildId}/danger`} className="flex items-center gap-2">
+					<Warning className="text-[#ff9254]" />
+					Danger Zone
+				</Link>
 			</li>
 		</ul>
 	);

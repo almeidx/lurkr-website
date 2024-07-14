@@ -77,6 +77,7 @@ export function CreatableList({ children, defaultValues, inputId, max, placehold
 							backgroundColor: "transparent",
 							border: "1px solid #e2e2e2bf",
 							borderRadius: "20px",
+							maxWidth: "50vw",
 						}),
 						multiValueLabel: (baseStyles) => ({
 							...baseStyles,
