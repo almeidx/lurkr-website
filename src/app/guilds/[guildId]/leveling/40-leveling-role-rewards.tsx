@@ -25,11 +25,14 @@ export function LevelingRoleRewards({ defaultRoleRewards, premium, roles }: Leve
 	const maxRoleRewards = getMaximumLimit("xpRoleRewards", premium);
 	const maxRoleRewardRoles = getMaximumLimit("xpRoleRewardRoles", premium);
 
+	const isDuplicate = roleRewards.some((roleReward) => roleReward.level === Number.parseInt(newLevel, 10));
+
 	function handleCreateRoleReward() {
 		const level = Number.parseInt(newLevel, 10);
 		const roleIds = newRoles.map(({ id }) => id);
 
 		if (
+			isDuplicate ||
 			Number.isNaN(level) ||
 			level < MIN_XP_ROLE_REWARD_LEVEL ||
 			level > MAX_XP_ROLE_REWARD_LEVEL ||
@@ -86,7 +89,7 @@ export function LevelingRoleRewards({ defaultRoleRewards, premium, roles }: Leve
 				<button
 					className="rounded-lg bg-green p-1 transition-colors disabled:cursor-not-allowed [&:not(:disabled)]:hover:bg-green/75"
 					onClick={handleCreateRoleReward}
-					disabled={roleRewards.length >= maxRoleRewards || !newRoles.length || !newLevel}
+					disabled={roleRewards.length >= maxRoleRewards || !newRoles.length || !newLevel || isDuplicate}
 					type="button"
 				>
 					<AddComment className="size-6 text-white" />
