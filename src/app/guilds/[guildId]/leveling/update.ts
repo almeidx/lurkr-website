@@ -20,7 +20,13 @@ import {
 	MAX_XP_ROLE_REWARD_ROLES_PREMIUM,
 	MIN_XP_MESSAGE_LENGTH,
 } from "@/lib/guild-config.ts";
-import { GuildAccentType, type GuildSettings, XpAnnouncementChannelType, XpChannelMode } from "@/lib/guild.ts";
+import {
+	AutoResetLevels,
+	GuildAccentType,
+	type GuildSettings,
+	XpAnnouncementChannelType,
+	XpChannelMode,
+} from "@/lib/guild.ts";
 import {
 	EMBED_AUTHOR_NAME_MAX_LENGTH,
 	EMBED_DESCRIPTION_MAX_LENGTH,
@@ -83,10 +89,11 @@ export async function update(guildId: string, premium: boolean, _currentState: u
 
 	const xpRoleRewardRolesSchema = premium ? premiumXpRoleRewardRolesSchema() : regularXpRoleRewardRolesSchema();
 
-	const parsed = parse(schema, rawData);
+	const { autoResetLevelsBan, autoResetLevelsLeave, ...parsed } = parse(schema, rawData);
 
 	const settings = {
 		...parsed,
+		autoResetLevels: transformAutoResetLevels(autoResetLevelsLeave, autoResetLevelsBan),
 		xpRoleRewards: Object.entries(rawData)
 			.filter(([key]) => key.startsWith("xpRoleRewards-"))
 			.map(([key, value]) => ({
@@ -116,6 +123,8 @@ function createSchema(premium: boolean) {
 		object({
 			accentColour: optional(pipe(string(), regex(/^#[\da-f]{6}$/i))),
 			accentType: union([emptyStringToNull, pipe(string(), enum_(GuildAccentType))]),
+			autoResetLevelsLeave: toggle,
+			autoResetLevelsBan: toggle,
 			levels: toggle,
 			noRoleRewardRoles: createSnowflakesValidator(
 				premium ? MAX_NO_ROLE_REWARD_ROLES_PREMIUM : MAX_NO_ROLE_REWARD_ROLES,
@@ -185,4 +194,20 @@ function createSchema(premium: boolean) {
 			]),
 		}),
 	);
+}
+
+function transformAutoResetLevels(leave: boolean, ban: boolean) {
+	if (leave && ban) {
+		return AutoResetLevels.BanAndLeave;
+	}
+
+	if (leave) {
+		return AutoResetLevels.Leave;
+	}
+
+	if (ban) {
+		return AutoResetLevels.Ban;
+	}
+
+	return AutoResetLevels.None;
 }
