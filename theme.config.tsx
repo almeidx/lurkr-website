@@ -8,7 +8,7 @@ import { GitHub } from "@/components/icons/GitHub.tsx";
 import { BASE_URL } from "@/utils/constants.ts";
 import { usePathname } from "next/navigation";
 import { type DocsThemeConfig, useConfig } from "nextra-theme-docs";
-import { SUPPORT_SERVER_INVITE } from "./shared-links.mjs";
+import { GITHUB_REPOSITORY_URL, SUPPORT_SERVER_INVITE } from "./shared-links.mjs";
 
 export default {
 	logo: (
@@ -42,10 +42,10 @@ export default {
 		);
 	},
 	project: {
-		link: "https://github.com/almeidx/lurkr-website",
+		link: GITHUB_REPOSITORY_URL,
 		icon: <GitHub className="size-7" />,
 	},
-	docsRepositoryBase: "https://github.com/almeidx/lurkr-website/edit/beta/src/pages/docs",
+	docsRepositoryBase: `${GITHUB_REPOSITORY_URL}/edit/main`,
 	footer: {
 		component: <Footer />,
 	},
