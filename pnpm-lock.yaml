@@ -346,14 +346,8 @@ packages:
   '@emotion/weak-memoize@0.4.0':
     resolution: {integrity: sha512-snKqtPW01tN0ui7yu9rGv69aJXr/a/Ywvl11sUjNtEcRc+ng/mQriFL0wLXMef74iHa/EkftbDzU9F8iFbH+zg==}
 
-  '@floating-ui/core@1.6.4':
-    resolution: {integrity: sha512-a4IowK4QkXl4SCWTGUR0INAfEOX3wtsYw3rKK5InQEHMGObkR8Xk44qYQD9P4r6HHw0iIfK6GUKECmY8sTkqRA==}
-
   '@floating-ui/core@1.6.5':
     resolution: {integrity: sha512-8GrTWmoFhm5BsMZOTHeGD2/0FLKLQQHvO/ZmQga4tKempYRLz8aqJGqXVuQgisnMObq2YZ2SgkwctN1LOOxcqA==}
-
-  '@floating-ui/dom@1.6.7':
-    resolution: {integrity: sha512-wmVfPG5o2xnKDU4jx/m4w5qva9FWHcnZ8BvzEe90D/RpwsJaTAVYPEPdQ8sbr/N8zZTAHlZUTQdqg8ZUbzHmng==}
 
   '@floating-ui/dom@1.6.8':
     resolution: {integrity: sha512-kx62rP19VZ767Q653wsP1XZCGIirkE09E0QUGNYTM/ttbbQHqcGPdSfWFxUyyNLc/W6aoJRBajOSXhP6GXjC0Q==}
@@ -363,9 +357,6 @@ packages:
     peerDependencies:
       react: '>=16.8.0'
       react-dom: '>=16.8.0'
-
-  '@floating-ui/utils@0.2.4':
-    resolution: {integrity: sha512-dWO2pw8hhi+WrXq1YJy2yCuWoL20PddgGaqTgVe4cOS9Q6qklXCiA1tJEqX6BEwRNSCP84/afac9hd4MS+zEUA==}
 
   '@floating-ui/utils@0.2.5':
     resolution: {integrity: sha512-sTcG+QZ6fdEUObICavU+aB3Mp8HY4n14wYHdxK4fXjPmv3PXZZeY5RaguJmGyeH/CJQhX3fqKUtS4qc1LoHwhQ==}
@@ -2861,7 +2852,7 @@ snapshots:
   '@ariakit/react-core@0.4.7(react-dom@19.0.0-rc.0(react@19.0.0-rc.0))(react@19.0.0-rc.0)':
     dependencies:
       '@ariakit/core': 0.4.7
-      '@floating-ui/dom': 1.6.7
+      '@floating-ui/dom': 1.6.8
       react: 19.0.0-rc.0
       react-dom: 19.0.0-rc.0(react@19.0.0-rc.0)
       use-sync-external-store: 1.2.2(react@19.0.0-rc.0)
@@ -3091,18 +3082,9 @@ snapshots:
 
   '@emotion/weak-memoize@0.4.0': {}
 
-  '@floating-ui/core@1.6.4':
-    dependencies:
-      '@floating-ui/utils': 0.2.4
-
   '@floating-ui/core@1.6.5':
     dependencies:
       '@floating-ui/utils': 0.2.5
-
-  '@floating-ui/dom@1.6.7':
-    dependencies:
-      '@floating-ui/core': 1.6.4
-      '@floating-ui/utils': 0.2.4
 
   '@floating-ui/dom@1.6.8':
     dependencies:
@@ -3114,8 +3096,6 @@ snapshots:
       '@floating-ui/dom': 1.6.8
       react: 19.0.0-rc.0
       react-dom: 19.0.0-rc.0(react@19.0.0-rc.0)
-
-  '@floating-ui/utils@0.2.4': {}
 
   '@floating-ui/utils@0.2.5': {}
 
@@ -5433,7 +5413,7 @@ snapshots:
       '@babel/runtime': 7.24.8
       '@emotion/cache': 11.13.0
       '@emotion/react': 11.11.4(@types/react@18.3.3)(react@19.0.0-rc.0)
-      '@floating-ui/dom': 1.6.7
+      '@floating-ui/dom': 1.6.8
       '@types/react-transition-group': 4.4.10
       memoize-one: 6.0.0
       prop-types: 15.8.1
