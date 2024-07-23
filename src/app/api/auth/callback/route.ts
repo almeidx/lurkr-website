@@ -51,7 +51,7 @@ function getRedirectToValue(redirectTo: string | undefined, origin: string) {
 
 	const { pathname } = new URL(redirectTo, origin);
 
-	return pathname.startsWith("/guilds") ? new URL(pathname, origin) : null;
+	return pathname.startsWith("/guilds") || /\/levels\/[^/]+\/me/.test(pathname) ? new URL(pathname, origin) : null;
 }
 
 function getSetCookieHeader(token: string, maxAge: number) {
