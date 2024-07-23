@@ -4,6 +4,7 @@ summary: Prepare Lurkr for observation. This guide covers the initial steps to g
 publishedAt: 2024-04-29
 ---
 
+import Image from 'next/image';
 import { Separator } from '@/components/Separator.tsx'
 import togglingLevelingSystem from '@/assets/docs/toggling-leveling-system.png'
 import settingLevelingChannels from '@/assets/docs/setting-leveling-channels.png'
@@ -23,8 +24,8 @@ Lurkr can pick up where you left off just moments ago!
 By default, Lurkr will not have leveling enabled. Any user activity that may have occurred before you enabled leveling has not been counted.
 You need to enable it to get started by typing the following command:
 
-<img
-	src={togglingLevelingSystem.src}
+<Image
+	src={togglingLevelingSystem}
 	alt="Usage of the slash command '/config toggle option:Leveling System'"
 	width={400}
 	height={100}
@@ -51,8 +52,8 @@ For now, use the /config set command to add as many channels as you want!
 
 You can enter as many channels as your current server plan will allow. You can check the limits on the Patreon Perks page!
 
-<img
-	src={settingLevelingChannels.src}
+<Image
+	src={settingLevelingChannels}
 	alt="Usage of the slash command '/config set option:Leveling Channels'"
 	width={700}
 	height={100}
@@ -62,8 +63,8 @@ Now the bot will send a confirmation message of the information you just entered
 however included with that is also a grey button that let's you toggle between the blacklist and the whitelist option whilst still retaining all of the channels you just set!
 If you therefore want only the channels you just entered to be used as leveling channels, press the button that says 'Switch to whitelist'
 
-<img
-	src={levelingSwitchToWhitelist.src}
+<Image
+	src={levelingSwitchToWhitelist}
 	alt="If you don't do anything, the channels will be set as they are!"
 	width={700}
 	height={130}

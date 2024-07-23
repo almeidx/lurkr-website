@@ -1,14 +1,14 @@
 import nextBundleAnalyzer from "@next/bundle-analyzer";
 import type { NextConfig } from "next";
+import nextra from "nextra";
 import { BOT_INVITE, GITHUB_REPOSITORY_URL, PATREON_URL, SUPPORT_SERVER_INVITE, TOPGG_URL } from "./shared-links.mjs";
-// import nextra from "nextra";
 
 const bundleAnalyzerEnabled = process.env.ANALYZE === "true";
 
-// const withNextra = nextra({
-// 	theme: "nextra-theme-docs",
-// 	themeConfig: "./theme.config.jsx",
-// });
+const withNextra = nextra({
+	theme: "nextra-theme-docs",
+	themeConfig: "./theme.config.tsx",
+});
 
 const nextConfig = {
 	reactStrictMode: true,
@@ -60,5 +60,4 @@ const nextConfig = {
 	},
 } satisfies NextConfig;
 
-// export default withNextra(bundleAnalyzerEnabled ? nextBundleAnalyzer(nextConfig) : nextConfig);
-export default bundleAnalyzerEnabled ? nextBundleAnalyzer()(nextConfig) : nextConfig;
+export default withNextra(bundleAnalyzerEnabled ? nextBundleAnalyzer()(nextConfig) : nextConfig);
