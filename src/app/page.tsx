@@ -92,11 +92,11 @@ export default async function Homepage() {
 					<div className="container flex flex-col space-y-4">
 						{featured.length > 8 ? (
 							<>
-								<FeaturedGuilds guilds={featured1} />
-								<FeaturedGuilds guilds={featured2} />
+								<FeaturedGuilds speed={40} guilds={featured1} />
+								<FeaturedGuilds direction="right" speed={30} guilds={featured2} />
 							</>
 						) : (
-							<FeaturedGuilds guilds={featured} />
+							<FeaturedGuilds speed={40} guilds={featured} />
 						)}
 					</div>
 				</>

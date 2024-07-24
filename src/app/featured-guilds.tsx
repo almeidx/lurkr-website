@@ -1,7 +1,5 @@
 "use client";
 
-import "swiper/css";
-
 import discoverableSvg from "@/assets/guild-badges/discoverable.svg";
 import partnerSvg from "@/assets/guild-badges/partner.svg";
 import verifiedSvg from "@/assets/guild-badges/verified.svg";
@@ -9,34 +7,16 @@ import { ImageWithFallback } from "@/components/ImageWithFallback.tsx";
 import { type Snowflake, guildIcon } from "@/utils/discord-cdn.ts";
 import { formatToNearestOrderOfMagnitude } from "@/utils/format-to-nearest-order-of-magnitude.ts";
 import Image from "next/image";
-import { Autoplay, FreeMode } from "swiper/modules";
-import { Swiper, SwiperSlide } from "swiper/react";
+import Marquee from "react-fast-marquee";
 
-export function FeaturedGuilds({ guilds }: FeaturedGuildsProps) {
+export function FeaturedGuilds({ guilds, direction = "left", speed }: FeaturedGuildsProps) {
 	return (
 		<div className="relative">
-			<Swiper
-				spaceBetween={20}
-				slidesPerView={4}
-				breakpoints={{
-					0: { slidesPerView: 1 },
-					640: { slidesPerView: 1 },
-					768: { slidesPerView: 2 },
-					1024: { slidesPerView: 3 },
-					1280: { slidesPerView: 3 },
-					1536: { slidesPerView: 4 },
-				}}
-				loop
-				autoplay={{ delay: 2_000 }}
-				freeMode={{ enabled: true }}
-				modules={[Autoplay, FreeMode]}
-			>
+			<Marquee play speed={speed} direction={direction} gradient gradientColor="#171717">
 				{guilds.map((guild, idx) => (
-					<SwiperSlide className="mr-5 max-w-96" key={guild.id}>
-						<FeaturedGuild key={guild.id} index={idx} {...guild} />
-					</SwiperSlide>
+					<FeaturedGuild key={guild.id} index={idx} {...guild} />
 				))}
-			</Swiper>
+			</Marquee>
 
 			<div className="absolute inset-y-0 right-[90%] left-0 z-10 bg-gradient-to-l from-transparent to-background" />
 			<div className="absolute inset-y-0 right-0 left-[90%] z-10 bg-gradient-to-r from-transparent to-background" />
@@ -78,6 +58,8 @@ function FeaturedGuild({ id, icon, name, memberCount, partner, verified, index }
 interface FeaturedGuildsProps {
 	readonly guilds: readonly FeaturedGuild[];
 	readonly startDelay?: number;
+	readonly speed: number;
+	readonly direction?: "left" | "right";
 }
 
 export interface FeaturedGuild {
