@@ -6,9 +6,9 @@ publishedAt: 2024-07-24
 
 import Image from 'next/image';
 import { Separator } from '@/components/Separator.tsx'
-import automaticRoleMentionCooldown1 from '@/assets/docs/automatic-role-mention-cooldown1.png'
-import automaticRoleMentionCooldown2 from '@/assets/docs/automatic-role-mention-cooldown2.png'
-import automaticRoleMentionCooldown3 from '@/assets/docs/automatic-role-mention-cooldown3.png'
+import settingRoleMentionCooldownRolesImg from '@/assets/docs/setting-role-mention-cooldown-roles.png'
+import settingRoleMentionCooldownTimeImg from '@/assets/docs/setting-role-mention-cooldown-time.png'
+import modalSetRoleMentionCooldownTimeImg from '@/assets/docs/modal-set-role-mention-cooldown-time.png'
 
 # 👑 Automatic Role Mention Cooldown
 
@@ -30,12 +30,16 @@ Typically, this will be the moderator role or the administrator role, however, i
 
 To set your role(s), type the following command. You can enter as many roles as your current server plan will allow. You can check the limits on the Patreon Perks page!
 
-<!--- {% content-ref url="../information/patreon-perks.md" %}
+{/* {% content-ref url="../information/patreon-perks.md" %}
 [patreon-perks.md](../information/patreon-perks.md)
----> {% endcontent-ref %}
+{% endcontent-ref %} */}
 
 <Image
-	src={automaticRoleMentionCooldown1}
+	className="mx-auto mt-2"
+	src={settingRoleMentionCooldownRolesImg}
+	alt="Usage of the slash command '/config set option:Role Mention Cooldown Roles'"
+	width={593}
+	height={94}
 />
 
 ### Setting up the cooldown time
@@ -45,13 +49,21 @@ The cooldown time can be any time between **5 minutes** and **30 minutes**, and 
 To set your cooldown time, type the following command:
 
 <Image
-	src={automaticRoleMentionCooldown2}
+	className="mx-auto mt-2"
+	src={settingRoleMentionCooldownTimeImg}
+	alt="Usage of the slash command '/config set option:Role Mention Cooldown Time'"
+	width={510}
+	height={100}
 />
 
 A modal-box will then appear, in which you can then enter the time interval you want to assign.
 
 <Image
-	src={automaticRoleMentionCooldown3}
+	className="mx-auto mt-2"
+	src={modalSetRoleMentionCooldownTimeImg}
+	alt="Example of the Modal pop-up for setting the Role Mention Cooldown Time"
+	width={455}
+	height={298}
 />
 
 ### Final Words
@@ -60,4 +72,4 @@ And that's it! You've successfully created automatic role mention cooldowns with
 
 If you need any more assistance with Lurkr, check out the rest of this documentation or join our support server to talk to an actual human!
 
-<!--- {% embed url="https://lurkr.gg/support" %} --->
+{/* {% embed url="https://lurkr.gg/support" %} */}
