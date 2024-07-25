@@ -1,3 +1,4 @@
+import typography from "@tailwindcss/typography";
 import scrollbars from "tailwind-scrollbar";
 import type { Config } from "tailwindcss";
 import colors from "tailwindcss/colors";
@@ -80,6 +81,8 @@ export default {
 		},
 	},
 	plugins: [
+		typography(),
+
 		scrollbars({ nocompatible: true }),
 
 		// https://www.hyperui.dev/blog/text-shadow-with-tailwindcss
