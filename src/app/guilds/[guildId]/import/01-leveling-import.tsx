@@ -16,7 +16,7 @@ import { ImportStatus, ImportStatusTitle, StartImportError } from "./import-stat
 export function ImportForm({ guildId, data }: { guildId: Snowflake; data: GetImportStatusResponse | null }) {
 	const [importStatusState, setImportStatusState] = useState<GetImportStatusResponse | null>(null);
 	const [formState, formAction] = useActionState(importBotData.bind(null, guildId), null);
-	const intervalRef = useRef<NodeJS.Timeout>();
+	const intervalRef = useRef<NodeJS.Timeout>(null);
 
 	const importStatus = importStatusState ?? data;
 

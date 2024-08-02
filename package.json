@@ -16,7 +16,7 @@
 		"@ariakit/react": "^0.4.7",
 		"@emotion/styled": "^11.13.0",
 		"@mui/icons-material": "^5.16.6",
-		"@next/third-parties": "v15.0.0-canary.66",
+		"@next/third-parties": "15.0.0-canary.99",
 		"@visx/axis": "^3.10.1",
 		"@visx/gradient": "^3.3.0",
 		"@visx/grid": "^3.5.0",
@@ -29,13 +29,13 @@
 		"@visx/vendor": "^3.5.0",
 		"clsx": "^2.1.1",
 		"match-sorter": "^6.3.4",
-		"next": "v15.0.0-canary.66",
+		"next": "15.0.0-canary.99",
 		"next-nprogress-bar": "^2.3.13",
-		"nextra": "3.0.0-alpha.28",
-		"nextra-theme-docs": "3.0.0-alpha.28",
-		"react": "19.0.0-rc.0",
+		"nextra": "3.0.0-alpha.31",
+		"nextra-theme-docs": "3.0.0-alpha.31",
+		"react": "19.0.0-rc-06d0b89e-20240801",
 		"react-colorful": "^5.6.1",
-		"react-dom": "19.0.0-rc.0",
+		"react-dom": "19.0.0-rc-06d0b89e-20240801",
 		"react-fast-marquee": "^1.6.5",
 		"react-select": "^5.8.0",
 		"sharp": "^0.33.4",
@@ -44,14 +44,14 @@
 	},
 	"devDependencies": {
 		"@biomejs/biome": "^1.8.3",
-		"@next/bundle-analyzer": "v15.0.0-canary.66",
+		"@next/bundle-analyzer": "15.0.0-canary.99",
 		"@tailwindcss/typography": "^0.5.13",
-		"@types/node": "^20.14.12",
-		"@types/react": "^18.3.3",
-		"@types/react-dom": "^18.3.0",
+		"@types/node": "^20.14.14",
+		"@types/react": "npm:types-react@19.0.0-rc.1",
+		"@types/react-dom": "npm:types-react-dom@19.0.0-rc.1",
 		"@types/textarea-caret": "^3.0.3",
-		"autoprefixer": "^10.4.19",
-		"babel-plugin-react-compiler": "0.0.0-experimental-938cd9a-20240601",
+		"autoprefixer": "^10.4.20",
+		"babel-plugin-react-compiler": "0.0.0-experimental-334f00b-20240725",
 		"cross-env": "^7.0.3",
 		"husky": "^9.1.4",
 		"postcss": "^8.4.40",
@@ -65,10 +65,12 @@
 	},
 	"pnpm": {
 		"patchedDependencies": {
-			"nextra-theme-docs@3.0.0-alpha.28": "patches/nextra-theme-docs@3.0.0-alpha.28.patch"
+			"nextra-theme-docs@3.0.0-alpha.31": "patches/nextra-theme-docs@3.0.0-alpha.31.patch"
+		},
+		"overrides": {
+			"@headlessui/react": "^2.1.2",
+			"@types/react": "npm:types-react@19.0.0-rc.1",
+			"@types/react-dom": "npm:types-react-dom@19.0.0-rc.1"
 		}
-	},
-	"resolutions": {
-		"@headlessui/react": "^2.1.2"
 	}
 }

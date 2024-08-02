@@ -1,6 +1,7 @@
 "use client";
 
 import { type KeyboardEventHandler, type PropsWithChildren, useState } from "react";
+import type { CSSObjectWithLabel } from "react-select";
 import CreatableSelect from "react-select/creatable";
 
 const components = {
@@ -39,19 +40,20 @@ export function CreatableList({ children, defaultValues, inputId, max, placehold
 					inputId={inputId}
 					isMulti
 					menuIsOpen={false}
-					getOptionLabel={(option) => option}
-					getOptionValue={(option) => option}
-					onChange={(newValue) => {
+					// TODO: Remove explicit types once react-select has been updated
+					getOptionLabel={(option: string) => option}
+					getOptionValue={(option: string) => option}
+					onChange={(newValue: string[]) => {
 						if (newValue.length > max) return;
 
 						setValues(newValue);
 					}}
-					onInputChange={(newValue) => setInputValue(newValue)}
+					onInputChange={(newValue: string) => setInputValue(newValue)}
 					onKeyDown={handleKeyDown}
 					placeholder={placeholder}
 					value={values}
 					styles={{
-						control: (baseStyles) => ({
+						control: (baseStyles: CSSObjectWithLabel) => ({
 							...baseStyles,
 							backgroundColor: "#474747",
 							border: "none",
@@ -61,33 +63,33 @@ export function CreatableList({ children, defaultValues, inputId, max, placehold
 							maxWidth: "48rem",
 							padding: "0.2rem",
 						}),
-						menu: (baseStyles) => ({
+						menu: (baseStyles: CSSObjectWithLabel) => ({
 							...baseStyles,
 							backgroundColor: "#2d2d2d",
 							borderRadius: "0.375rem",
 							color: "#e2e2e2",
 						}),
-						option: (baseStyles, state) => ({
+						option: (baseStyles: CSSObjectWithLabel, state: { isFocused: boolean }) => ({
 							...baseStyles,
 							backgroundColor: state.isFocused ? "#474747" : "#2d2d2d",
 							color: "#e2e2e2",
 						}),
-						multiValue: (baseStyles) => ({
+						multiValue: (baseStyles: CSSObjectWithLabel) => ({
 							...baseStyles,
 							backgroundColor: "transparent",
 							border: "1px solid #e2e2e2bf",
 							borderRadius: "20px",
 							maxWidth: "50vw",
 						}),
-						multiValueLabel: (baseStyles) => ({
+						multiValueLabel: (baseStyles: CSSObjectWithLabel) => ({
 							...baseStyles,
 							color: "#e2e2e2",
 						}),
-						input: (baseStyles) => ({
+						input: (baseStyles: CSSObjectWithLabel) => ({
 							...baseStyles,
 							color: "#e2e2e2",
 						}),
-						multiValueRemove: (baseStyles) => ({
+						multiValueRemove: (baseStyles: CSSObjectWithLabel) => ({
 							...baseStyles,
 							color: "#e2e2e2",
 							borderTopRightRadius: "20px",
@@ -97,7 +99,7 @@ export function CreatableList({ children, defaultValues, inputId, max, placehold
 								color: "#2d2d2d",
 							},
 						}),
-						placeholder: (baseStyles) => ({
+						placeholder: (baseStyles: CSSObjectWithLabel) => ({
 							...baseStyles,
 							color: "#e2e2e280",
 						}),

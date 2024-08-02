@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
 
 export function SaveButton({ pending, success }: SaveButtonProps) {
 	const [showSuccessStatus, setShowSuccessStatus] = useState(false);
-	const timeoutRef = useRef<NodeJS.Timeout>();
+	const timeoutRef = useRef<NodeJS.Timeout>(null);
 
 	useEffect(() => {
 		if (success !== null) {
@@ -16,7 +16,7 @@ export function SaveButton({ pending, success }: SaveButtonProps) {
 			}
 
 			timeoutRef.current = setTimeout(() => {
-				timeoutRef.current = undefined;
+				timeoutRef.current = null;
 				setShowSuccessStatus(false);
 			}, 3_000);
 		}

@@ -3,7 +3,7 @@
 import { type Channel, ChannelType } from "@/lib/guild.ts";
 import { mapChannelIdsToChannels } from "@/utils/map-channel-ids-to-channels.ts";
 import { type PropsWithChildren, useMemo, useState } from "react";
-import Select from "react-select";
+import Select, { type CSSObjectWithLabel } from "react-select";
 
 export function ChannelSelector({
 	channels,
@@ -70,9 +70,10 @@ export function ChannelSelector({
 					placeholder="e.g. general"
 					value={values}
 					isDisabled={disabled}
-					getOptionLabel={(option) => option.name}
-					getOptionValue={(option) => option.id}
-					onChange={(newValues) => {
+					// TODO: Remove explicit types once react-select has been updated
+					getOptionLabel={(option: Channel) => option.name}
+					getOptionValue={(option: Channel) => option.id}
+					onChange={(newValues: Channel[]) => {
 						if (newValues.length > max) return;
 
 						setValues(newValues);
@@ -82,11 +83,11 @@ export function ChannelSelector({
 					closeMenuOnSelect={false}
 					menuPlacement={menuPlacement}
 					styles={{
-						container: (baseStyles) => ({
+						container: (baseStyles: CSSObjectWithLabel) => ({
 							...baseStyles,
 							opacity: disabled ? 0.5 : 1,
 						}),
-						control: (baseStyles) => ({
+						control: (baseStyles: CSSObjectWithLabel) => ({
 							...baseStyles,
 							backgroundColor: "#474747",
 							border: "none",
@@ -97,7 +98,7 @@ export function ChannelSelector({
 							minWidth: "16rem",
 							padding: "0.2rem",
 						}),
-						menu: (baseStyles) => ({
+						menu: (baseStyles: CSSObjectWithLabel) => ({
 							...baseStyles,
 							backgroundColor: "#2d2d2d",
 							borderRadius: "0.375rem",
@@ -106,7 +107,7 @@ export function ChannelSelector({
 							minWidth: "16rem",
 							zIndex: "999999",
 						}),
-						option: (baseStyles) => ({
+						option: (baseStyles: CSSObjectWithLabel) => ({
 							...baseStyles,
 							color: "#e2e2e2",
 							backgroundColor: "#2d2d2d",
@@ -114,14 +115,14 @@ export function ChannelSelector({
 								backgroundColor: "#474747",
 							},
 						}),
-						multiValue: (baseStyles) => ({
+						multiValue: (baseStyles: CSSObjectWithLabel) => ({
 							...baseStyles,
 							backgroundColor: "transparent",
 							border: "1px solid #e2e2e2bf",
 							borderRadius: "20px",
 							maxWidth: "50vw",
 						}),
-						multiValueLabel: (baseStyles) => ({
+						multiValueLabel: (baseStyles: CSSObjectWithLabel) => ({
 							...baseStyles,
 							color: "#e2e2e2",
 							":before": {
@@ -129,11 +130,11 @@ export function ChannelSelector({
 								margin: "0 0.2rem",
 							},
 						}),
-						input: (baseStyles) => ({
+						input: (baseStyles: CSSObjectWithLabel) => ({
 							...baseStyles,
 							color: "#e2e2e2",
 						}),
-						multiValueRemove: (baseStyles) => ({
+						multiValueRemove: (baseStyles: CSSObjectWithLabel) => ({
 							...baseStyles,
 							color: "#e2e2e2",
 							borderTopRightRadius: "20px",
@@ -143,7 +144,7 @@ export function ChannelSelector({
 								color: "#2d2d2d",
 							},
 						}),
-						placeholder: (baseStyles) => ({
+						placeholder: (baseStyles: CSSObjectWithLabel) => ({
 							...baseStyles,
 							color: "#e2e2e280",
 						}),

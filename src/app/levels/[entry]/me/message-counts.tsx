@@ -99,6 +99,7 @@ export function MessageCounts({ width, height, data }: BarsProps) {
 				</Group>
 			</svg>
 			{tooltipOpen && tooltipData && (
+				// @ts-expect-error: React version mismatch
 				<TooltipWithBounds
 					top={tooltipTop}
 					left={tooltipLeft}

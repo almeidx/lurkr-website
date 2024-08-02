@@ -3,7 +3,7 @@
 import type { Role } from "@/lib/guild.ts";
 import { decimalRoleColorToHex } from "@/utils/decimal-to-hex-color.ts";
 import { type PropsWithChildren, useState } from "react";
-import Select, { type GroupBase, type OptionProps, components } from "react-select";
+import Select, { type CSSObjectWithLabel, type GroupBase, type OptionProps, components } from "react-select";
 
 export function RoleSelector({
 	children,
@@ -39,12 +39,12 @@ export function RoleSelector({
 					instanceId={`${inputId}-select`}
 					inputId={inputId}
 					options={roleOptions}
-					getOptionLabel={(option) => option.name}
-					getOptionValue={(option) => option.id}
+					getOptionLabel={(option: RoleWithResolvedColor) => option.name}
+					getOptionValue={(option: RoleWithResolvedColor) => option.id}
 					isMulti
 					placeholder="e.g. Member"
 					value={values}
-					onChange={(newValues) => {
+					onChange={(newValues: RoleWithResolvedColor[]) => {
 						if (newValues.length > max) return;
 
 						setValues(newValues);
@@ -54,7 +54,7 @@ export function RoleSelector({
 					menuPlacement={menuPlacement}
 					components={{ Option }}
 					styles={{
-						control: (baseStyles) => ({
+						control: (baseStyles: CSSObjectWithLabel) => ({
 							...baseStyles,
 							backgroundColor: "#474747",
 							border: "none",
@@ -65,7 +65,7 @@ export function RoleSelector({
 							minWidth: "16rem",
 							padding: "0.2rem",
 						}),
-						menu: (baseStyles) => ({
+						menu: (baseStyles: CSSObjectWithLabel) => ({
 							...baseStyles,
 							backgroundColor: "#2d2d2d",
 							borderRadius: "0.375rem",
@@ -73,19 +73,19 @@ export function RoleSelector({
 							maxWidth: "48rem",
 							minWidth: "16rem",
 						}),
-						option: (baseStyles, state) => ({
+						option: (baseStyles: CSSObjectWithLabel, state: { isFocused: boolean }) => ({
 							...baseStyles,
 							backgroundColor: state.isFocused ? "#474747" : "#2d2d2d",
 							color: "#e2e2e2",
 						}),
-						multiValue: (baseStyles, state) => ({
+						multiValue: (baseStyles: CSSObjectWithLabel, state: { data: { resolvedColor: string } }) => ({
 							...baseStyles,
 							backgroundColor: "transparent",
 							border: `1px solid ${state!.data!.resolvedColor}`,
 							borderRadius: "20px",
 							maxWidth: "50vw",
 						}),
-						multiValueLabel: (baseStyles, state) => ({
+						multiValueLabel: (baseStyles: CSSObjectWithLabel, state: { data: { resolvedColor: string } }) => ({
 							...baseStyles,
 							color: "#e2e2e2",
 
@@ -104,11 +104,11 @@ export function RoleSelector({
 								flexShrink: "0",
 							},
 						}),
-						input: (baseStyles) => ({
+						input: (baseStyles: CSSObjectWithLabel) => ({
 							...baseStyles,
 							color: "#e2e2e2",
 						}),
-						multiValueRemove: (baseStyles, state) => ({
+						multiValueRemove: (baseStyles: CSSObjectWithLabel, state: { data: { resolvedColor: string } }) => ({
 							...baseStyles,
 							color: "#e2e2e2",
 							borderTopRightRadius: "20px",
@@ -118,7 +118,7 @@ export function RoleSelector({
 								color: "#2d2d2d",
 							},
 						}),
-						placeholder: (baseStyles) => ({
+						placeholder: (baseStyles: CSSObjectWithLabel) => ({
 							...baseStyles,
 							color: "#e2e2e280",
 						}),
