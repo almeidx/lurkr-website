@@ -1,4 +1,6 @@
-import { Check, Close, ShowChart } from "@mui/icons-material";
+import { Check } from "@/components/icons/mdi/check.tsx";
+import { Close } from "@/components/icons/mdi/close.tsx";
+import { ShowChart } from "@/components/icons/mdi/show-chart.tsx";
 import clsx from "clsx";
 import type { PropsWithChildren } from "react";
 import { ItemStatusPopover } from "./item-status-popover.tsx";

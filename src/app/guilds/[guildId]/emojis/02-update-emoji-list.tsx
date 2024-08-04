@@ -1,7 +1,7 @@
 "use client";
 
+import { UpdateOutlined } from "@/components/icons/mdi/update-outlined.tsx";
 import { Tooltip, TooltipAnchor, useTooltipStore } from "@ariakit/react/tooltip";
-import { UpdateOutlined } from "@mui/icons-material";
 
 export function UpdateEmojiList() {
 	const tooltip = useTooltipStore({ showTimeout: 150 });

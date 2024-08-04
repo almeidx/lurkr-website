@@ -1,5 +1,5 @@
+import { FileDownload } from "@/components/icons/mdi/file-download.tsx";
 import type { Snowflake } from "@/utils/discord-cdn.ts";
-import { FileDownload } from "@mui/icons-material";
 import clsx from "clsx";
 
 export function DownloadLevelingData({ guildId, levelingSystemEnabled }: DownloadLevelingDataProps) {

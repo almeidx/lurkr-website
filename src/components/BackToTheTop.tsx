@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowUpward } from "@mui/icons-material";
+import { ArrowUpward } from "@/components/icons/mdi/arrow-upward.tsx";
 
 export function BackToTheTop() {
 	return (
@@ -10,7 +10,7 @@ export function BackToTheTop() {
 			type="button"
 		>
 			<p>Lost? Back to the top</p>
-			<ArrowUpward className="size-8 fill-icon-gradient-primary" />
+			<ArrowUpward className="size-8" fill="url(#icon-gradient-primary)" />
 		</button>
 	);
 }

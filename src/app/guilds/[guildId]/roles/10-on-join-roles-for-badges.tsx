@@ -3,13 +3,14 @@
 import { Label } from "@/components/dashboard/Label.tsx";
 import { RoleSelector, type RoleWithResolvedColor } from "@/components/dashboard/RoleSelector.tsx";
 import { Text } from "@/components/dashboard/Text.tsx";
+import { Delete } from "@/components/icons/mdi/delete.tsx";
+import { PersonAdd } from "@/components/icons/mdi/person-add.tsx";
 import { MAX_AUTO_ROLE_FLAGS_ROLES } from "@/lib/guild-config.ts";
 import type { AutoRoleFlag, Role } from "@/lib/guild.ts";
 import { getMaximumLimit } from "@/utils/get-maximum-limit.ts";
 import { mapRoleIdsToRoles } from "@/utils/map-role-ids-to-roles.ts";
 import { BadgeInfo, UserFlags } from "@/utils/user-flags.ts";
 import { Select, SelectArrow, SelectItem, SelectLabel, SelectPopover, useSelectStore } from "@ariakit/react/select";
-import { Delete, PersonAddAlt1 } from "@mui/icons-material";
 import Image from "next/image";
 import { useState } from "react";
 
@@ -105,7 +106,7 @@ export function OnJoinRolesForBadges({ defaultValues, premium, roles }: OnJoinRo
 					disabled={autoRoleFlags.length >= maxAutoRoleFlags || !newRoles.length || !flag}
 					type="button"
 				>
-					<PersonAddAlt1 className="size-6 text-white" />
+					<PersonAdd className="size-6 text-white" />
 				</button>
 			</div>
 

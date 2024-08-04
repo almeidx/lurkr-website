@@ -8,10 +8,16 @@ import rankCardsImg from "@/assets/showcases/rank-cards.png";
 import roleRewardsImg from "@/assets/showcases/role-rewards.png";
 import { ExternalLink } from "@/components/ExternalLink.tsx";
 import { Showcase } from "@/components/Showcase.tsx";
+import { AttachMoney } from "@/components/icons/mdi/attach-money.tsx";
+import { Brush } from "@/components/icons/mdi/brush.tsx";
+import { CloudDownload } from "@/components/icons/mdi/cloud-download.tsx";
+import { Launch } from "@/components/icons/mdi/launch.tsx";
+import { MilitaryTech } from "@/components/icons/mdi/military-tech.tsx";
+import { Speed } from "@/components/icons/mdi/speed.tsx";
+import { TrendingUp } from "@/components/icons/mdi/trending-up.tsx";
 import { BOT_INVITE } from "@/shared-links.mjs";
 import { formatNumber } from "@/utils/format-number.ts";
 import { makeApiRequest } from "@/utils/make-api-request.ts";
-import { AttachMoney, Brush, CloudDownload, Launch, MilitaryTech, Speed, TrendingUp } from "@mui/icons-material";
 import Image from "next/image";
 import Link from "next/link";
 

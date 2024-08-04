@@ -1,5 +1,5 @@
+import { ReportProblem } from "@/components/icons/mdi/report-problem.tsx";
 import { makeApiRequest } from "@/utils/make-api-request.ts";
-import { ReportProblem } from "@mui/icons-material";
 import type { Metadata } from "next";
 import type { Shard } from "./shard.tsx";
 import { ShardsContainer } from "./shards-container.tsx";

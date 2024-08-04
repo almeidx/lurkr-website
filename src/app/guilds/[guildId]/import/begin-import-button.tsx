@@ -1,8 +1,8 @@
 "use client";
 
 import { Confirmation } from "@/components/Confirmation.tsx";
+import { SystemUpdate } from "@/components/icons/mdi/system-update.tsx";
 import { Tooltip, TooltipAnchor, useTooltipStore } from "@ariakit/react/tooltip";
-import { SystemUpdate } from "@mui/icons-material";
 
 export function BeginImportButton({ isRateLimited, importOngoing }: BeginImportButtonProps) {
 	const tooltip = useTooltipStore({ showTimeout: 50 });

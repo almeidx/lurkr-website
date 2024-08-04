@@ -59,11 +59,6 @@ export default {
 				regular: "1.5px 1.5px 0px rgba(0, 33, 66, 0.95)",
 			},
 
-			fill: {
-				"icon-gradient-primary": "url(#icon-gradient-primary)",
-				"icon-gradient-tertiary": "url(#icon-gradient-tertiary)",
-			},
-
 			keyframes: {
 				"pulse-success": {
 					"0%, 100%": {

@@ -1,7 +1,7 @@
 "use client";
 
+import { Help } from "@/components/icons/mdi/help.tsx";
 import { Tooltip, TooltipAnchor, useTooltipStore } from "@ariakit/react/tooltip";
-import { Help } from "@mui/icons-material";
 import type { PropsWithChildren } from "react";
 
 export function InfoSection({ children, title, tooltip }: InfoSectionProps) {
@@ -13,7 +13,7 @@ export function InfoSection({ children, title, tooltip }: InfoSectionProps) {
 			<p className="font-bold text-4xl">{children}</p>
 
 			<TooltipAnchor className="absolute top-2 right-2 size-[14px] rounded-full" store={tooltipStore}>
-				<Help className="size-[14px] fill-icon-gradient-tertiary" />
+				<Help className="size-[14px]" fill="url(#icon-gradient-tertiary)" />
 			</TooltipAnchor>
 
 			<Tooltip

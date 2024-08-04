@@ -1,5 +1,6 @@
 import type { ConfigLimitComparison, LevelingFeature } from "@/app/premium/features.ts";
-import { Check, Close } from "@mui/icons-material";
+import { Check } from "@/components/icons/mdi/check.tsx";
+import { Close } from "@/components/icons/mdi/close.tsx";
 
 export function ComparisonTable({ section, features }: ComparisonTableProps) {
 	const isConfigLimit = "suffix" in features[0]!;

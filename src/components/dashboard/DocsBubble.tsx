@@ -1,9 +1,9 @@
 "use client";
 
 import { ExternalLink } from "@/components/ExternalLink.tsx";
+import { Help } from "@/components/icons/mdi/help.tsx";
 import { DOCS_URL } from "@/utils/constants.ts";
 import { Tooltip, TooltipAnchor, useTooltipStore } from "@ariakit/react/tooltip";
-import { Help } from "@mui/icons-material";
 
 export function DocsBubble({ tooltip, path }: DocsBubblePropos) {
 	const tooltipStore = useTooltipStore({
@@ -17,7 +17,7 @@ export function DocsBubble({ tooltip, path }: DocsBubblePropos) {
 	const link = (
 		<ExternalLink href={`${DOCS_URL}${path}`}>
 			<span className="sr-only">Open documentation in a new tab</span>
-			<Help className="ml-2 size-5 fill-icon-gradient-tertiary" />
+			<Help className="ml-2 size-5" fill="url(#icon-gradient-tertiary)" />
 		</ExternalLink>
 	);
 

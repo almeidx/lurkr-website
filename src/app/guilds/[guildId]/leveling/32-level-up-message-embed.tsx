@@ -1,9 +1,9 @@
 "use client";
 
 import { EmbedBuilder } from "@/components/dashboard/embed/EmbedBuilder.tsx";
+import { ExpandMore } from "@/components/icons/mdi/expand-more.tsx";
 import type { Embed, Emoji, Role } from "@/lib/guild.ts";
 import { Disclosure, DisclosureContent, useDisclosureStore } from "@ariakit/react/disclosure";
-import { ExpandMore } from "@mui/icons-material";
 import clsx from "clsx";
 import { levelUpMessagePlaceholders } from "./level-up-message-placeholders.ts";
 

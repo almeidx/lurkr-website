@@ -2,27 +2,25 @@
 
 import logoSmallImg from "@/assets/logo-small.webp";
 import { ExternalLink } from "@/components/ExternalLink.tsx";
+import { ArrowBackIos } from "@/components/icons/mdi/arrow-back-ios.tsx";
+import { AutoStories } from "@/components/icons/mdi/auto-stories.tsx";
+import { Calculate } from "@/components/icons/mdi/calculate.tsx";
+import { Dashboard } from "@/components/icons/mdi/dashboard.tsx";
+import { EmojiEmotions } from "@/components/icons/mdi/emoji-emotions.tsx";
+import { FormatListBulleted } from "@/components/icons/mdi/format-list-bulleted.tsx";
+import { MenuOpen } from "@/components/icons/mdi/menu-open.tsx";
+import { Menu } from "@/components/icons/mdi/menu.tsx";
+import { MiscellaneousServices } from "@/components/icons/mdi/miscellaneous-services.tsx";
+import { RocketLaunch } from "@/components/icons/mdi/rocket-launch.tsx";
+import { Settings } from "@/components/icons/mdi/settings.tsx";
+import { SignalCellular3Bar } from "@/components/icons/mdi/signal-cellular3-bar.tsx";
+import { Signpost } from "@/components/icons/mdi/signpost.tsx";
+import { SmartToy } from "@/components/icons/mdi/smart-toy.tsx";
+import { TrendingUp } from "@/components/icons/mdi/trending-up.tsx";
+import { Warning } from "@/components/icons/mdi/warning.tsx";
+import { WorkspacePremium } from "@/components/icons/mdi/workspace-premium.tsx";
 import { DOCS_URL } from "@/utils/constants.ts";
 import type { Snowflake } from "@/utils/discord-cdn.ts";
-import {
-	ArrowBackIos,
-	AutoStories,
-	Calculate,
-	Dashboard,
-	EmojiEmotions,
-	FormatListBulleted,
-	Menu,
-	MenuOpen,
-	MiscellaneousServices,
-	RocketLaunch,
-	Settings,
-	SignalCellular3Bar,
-	Signpost,
-	SmartToy,
-	TrendingUp,
-	Warning,
-	WorkspacePremium,
-} from "@mui/icons-material";
 import clsx from "clsx";
 import Image from "next/image";
 import Link from "next/link";

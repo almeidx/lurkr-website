@@ -2,13 +2,13 @@
 
 import { Label } from "@/components/dashboard/Label.tsx";
 import { type PlaceholderValue, Textarea } from "@/components/dashboard/Textarea.tsx";
+import { RestartAlt } from "@/components/icons/mdi/restart-alt.tsx";
 import {
 	DEFAULT_MILESTONES_MESSAGE,
 	MAX_MILESTONES_MESSAGE_LENGTH,
 	MIN_MILESTONES_MESSAGE_LENGTH,
 } from "@/lib/guild-config.ts";
 import type { Emoji, Role } from "@/lib/guild.ts";
-import { RestartAlt } from "@mui/icons-material";
 import { useState } from "react";
 
 const placeholders = [

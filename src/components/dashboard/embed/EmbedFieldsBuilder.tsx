@@ -4,9 +4,9 @@ import "client-only";
 
 import { Separator } from "@/components/Separator.tsx";
 import { Toggle } from "@/components/Toggle.tsx";
+import { Close } from "@/components/icons/mdi/close.tsx";
 import type { Embed, Emoji, Role } from "@/lib/guild.ts";
 import { EMBED_FIELD_NAME_MAX_LENGTH, EMBED_FIELD_VALUE_MAX_LENGTH, MAX_EMBED_FIELDS } from "@/utils/embed-limits.ts";
-import { Close } from "@mui/icons-material";
 import { type Dispatch, Fragment, type SetStateAction } from "react";
 import { Input } from "../Input.tsx";
 import { Label } from "../Label.tsx";

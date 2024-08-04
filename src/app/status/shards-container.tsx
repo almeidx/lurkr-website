@@ -1,9 +1,9 @@
 "use client";
 
 import { Input } from "@/components/dashboard/Input.tsx";
+import { ReportProblem } from "@/components/icons/mdi/report-problem.tsx";
 import { getShardIdForGuildId } from "@/utils/get-shard-id-for-guild-id.ts";
 import { isSnowflake } from "@/utils/is-snowflake.ts";
-import { ReportProblem } from "@mui/icons-material";
 import { useState } from "react";
 import { type Shard, ShardDisplay } from "./shard.tsx";
 

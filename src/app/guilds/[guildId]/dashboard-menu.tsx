@@ -4,20 +4,18 @@ import type { GuildInfo } from "@/app/guilds/page.tsx";
 import fallbackAvatarImg from "@/assets/fallback-avatar.png";
 import { ImageWithFallback } from "@/components/ImageWithFallback.tsx";
 import { Patreon } from "@/components/icons/Patreon.tsx";
+import { EmojiEmotions } from "@/components/icons/mdi/emoji-emotions.tsx";
+import { FormatListBulleted } from "@/components/icons/mdi/format-list-bulleted.tsx";
+import { MiscellaneousServices } from "@/components/icons/mdi/miscellaneous-services.tsx";
+import { RocketLaunch } from "@/components/icons/mdi/rocket-launch.tsx";
+import { Settings } from "@/components/icons/mdi/settings.tsx";
+import { Signpost } from "@/components/icons/mdi/signpost.tsx";
+import { SmartToy } from "@/components/icons/mdi/smart-toy.tsx";
+import { TrendingUp } from "@/components/icons/mdi/trending-up.tsx";
+import { Warning } from "@/components/icons/mdi/warning.tsx";
 import type { Guild, GuildSettings } from "@/lib/guild.ts";
 import { guildIcon } from "@/utils/discord-cdn.ts";
 import { Menu, MenuButton, MenuButtonArrow, MenuItem, useMenuStore } from "@ariakit/react/menu";
-import {
-	EmojiEmotions,
-	FormatListBulleted,
-	MiscellaneousServices,
-	RocketLaunch,
-	Settings,
-	Signpost,
-	SmartToy,
-	TrendingUp,
-	Warning,
-} from "@mui/icons-material";
 import clsx from "clsx";
 import Link from "next/link";
 import { usePathname } from "next/navigation";

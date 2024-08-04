@@ -1,7 +1,8 @@
 import { LoadingSpinner } from "@/components/LoadingSpinner.tsx";
+import { Done } from "@/components/icons/mdi/done.tsx";
+import { ErrorOutline } from "@/components/icons/mdi/error-outline.tsx";
 import { LevelingImportError } from "@/lib/guild.ts";
 import { dateToRelativeTimeAgo } from "@/utils/date-to-relative-time-ago.ts";
-import { Done, Error as ErrorIcon } from "@mui/icons-material";
 import type { GetImportStatusResponse } from "./01-leveling-import.tsx";
 import type { StartLevelingImportResult } from "./actions.ts";
 
@@ -50,7 +51,7 @@ export function ImportStatus({ formState, importStatus }: ImportStatusProps) {
 				<p>The leveling import has failed.</p>
 
 				<div className="flex items-center gap-2">
-					<ErrorIcon className="text-red" />
+					<ErrorOutline className="text-red" />
 					<p>Failed to start. Please, try again later.</p>
 				</div>
 			</>
@@ -69,7 +70,7 @@ export function ImportStatus({ formState, importStatus }: ImportStatusProps) {
 				<p>The leveling import has failed.</p>
 
 				<div className="flex items-center gap-2">
-					<ErrorIcon className="text-red" />
+					<ErrorOutline className="text-red" />
 					<p>{getImportStatusErrorText(importStatus.error)}</p>
 				</div>
 			</>

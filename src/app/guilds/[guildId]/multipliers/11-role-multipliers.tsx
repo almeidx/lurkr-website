@@ -6,6 +6,8 @@ import { Input } from "@/components/dashboard/Input.tsx";
 import { Label } from "@/components/dashboard/Label.tsx";
 import { RoleSelector } from "@/components/dashboard/RoleSelector.tsx";
 import { Text } from "@/components/dashboard/Text.tsx";
+import { AddComment } from "@/components/icons/mdi/add-comment.tsx";
+import { Delete } from "@/components/icons/mdi/delete.tsx";
 import {
 	MAX_XP_MULTIPLIER_TARGETS,
 	MAX_XP_MULTIPLIER_TARGETS_PREMIUM,
@@ -15,7 +17,6 @@ import {
 import { type Role, type XpMultiplier, XpMultiplierType } from "@/lib/guild.ts";
 import { getMaximumLimit } from "@/utils/get-maximum-limit.ts";
 import { mapRoleIdsToRoles } from "@/utils/map-role-ids-to-roles.ts";
-import { AddComment, Delete } from "@mui/icons-material";
 import { type Dispatch, type SetStateAction, useState } from "react";
 import { CreateMultiplierButton } from "./create-multiplier-button.tsx";
 

@@ -2,8 +2,9 @@
 
 import { checkVanityAvailability } from "@/app/guilds/[guildId]/leveling/actions.ts";
 import { Input } from "@/components/dashboard/Input.tsx";
+import { Check } from "@/components/icons/mdi/check.tsx";
+import { Close } from "@/components/icons/mdi/close.tsx";
 import { MAX_VANITY_LENGTH, MIN_VANITY_LENGTH, VANITY_REGEX_SOURCE } from "@/lib/guild-config.ts";
-import { Check, Close } from "@mui/icons-material";
 import { type ChangeEvent, useRef, useState } from "react";
 
 export function LeaderboardVanity({ defaultValue }: { defaultValue: string | null }) {

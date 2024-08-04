@@ -1,6 +1,7 @@
 "use client";
 
 import { Separator } from "@/components/Separator.tsx";
+import { Colorize } from "@/components/icons/mdi/colorize.tsx";
 import type { Embed, Emoji, Role } from "@/lib/guild.ts";
 import { BRAND_COLOR } from "@/utils/constants.ts";
 import {
@@ -12,7 +13,6 @@ import {
 	EMBED_URL_MIN_LENGTH,
 } from "@/utils/embed-limits.ts";
 import { Popover, PopoverDisclosure, usePopoverStore } from "@ariakit/react/popover";
-import { Colorize } from "@mui/icons-material";
 import { useMemo, useState } from "react";
 import { HexColorInput } from "react-colorful";
 import { ColorPicker } from "../ColorPicker.tsx";

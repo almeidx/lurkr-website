@@ -3,10 +3,10 @@
 import type { GuildInfo } from "@/app/guilds/page.tsx";
 import fallbackAvatarImg from "@/assets/fallback-avatar.png";
 import { ImageWithFallback } from "@/components/ImageWithFallback.tsx";
+import { Send } from "@/components/icons/mdi/send.tsx";
 import { BOT_INVITE } from "@/shared-links.mjs";
 import { guildIcon } from "@/utils/discord-cdn.ts";
 import { isSnowflake } from "@/utils/is-snowflake.ts";
-import { Send } from "@mui/icons-material";
 import clsx from "clsx";
 import { matchSorter } from "match-sorter";
 import Link from "next/link";

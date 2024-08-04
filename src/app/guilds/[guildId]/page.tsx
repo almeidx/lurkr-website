@@ -1,9 +1,9 @@
 import fallbackAvatarImg from "@/assets/fallback-avatar.png";
 import { ImageWithFallback } from "@/components/ImageWithFallback.tsx";
-import { QuestionMark } from "@/components/QuestionMark.tsx";
 import { SignInButton } from "@/components/SignIn.tsx";
+import { DocsBubble } from "@/components/dashboard/DocsBubble.tsx";
 import type { User } from "@/lib/auth.ts";
-import { DOCS_URL, TOKEN_COOKIE } from "@/utils/constants.ts";
+import { TOKEN_COOKIE } from "@/utils/constants.ts";
 import { type Snowflake, userAvatar } from "@/utils/discord-cdn.ts";
 import { getTimePeriod } from "@/utils/get-time-period.ts";
 import { greeting } from "@/utils/greeting.ts";
@@ -55,7 +55,10 @@ export default async function Dashboard({ params }: { readonly params: { guildId
 
 			<h3 className="mt-10 mb-4 flex items-center gap-2 font-semibold text-2xl">
 				Configuration Overview
-				<QuestionMark href={`${DOCS_URL}/config-commands/config/troubleshoot`} />
+				<DocsBubble
+					path="/config-commands/config/troubleshoot"
+					tooltip="Learn more about the config troubleshoot system"
+				/>
 				<span className="ml-2 inline-block rounded-full bg-red px-2 font-bold text-sm text-white uppercase">BETA</span>
 			</h3>
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { Close } from "@mui/icons-material";
+import { Close } from "@/components/icons/mdi/close.tsx";
 import { useState } from "react";
 import { ExternalLink } from "./ExternalLink.tsx";
 
