@@ -19,8 +19,8 @@ importers:
   .:
     dependencies:
       '@ariakit/react':
-        specifier: ^0.4.8
-        version: 0.4.8(react-dom@19.0.0-rc-187dd6a7-20240806(react@19.0.0-rc-187dd6a7-20240806))(react@19.0.0-rc-187dd6a7-20240806)
+        specifier: ^0.4.9
+        version: 0.4.9(react-dom@19.0.0-rc-187dd6a7-20240806(react@19.0.0-rc-187dd6a7-20240806))(react@19.0.0-rc-187dd6a7-20240806)
       '@next/third-parties':
         specifier: 15.0.0-canary.110
         version: 15.0.0-canary.110(next@15.0.0-canary.110(babel-plugin-react-compiler@0.0.0-experimental-334f00b-20240725)(react-dom@19.0.0-rc-187dd6a7-20240806(react@19.0.0-rc-187dd6a7-20240806))(react@19.0.0-rc-187dd6a7-20240806))(react@19.0.0-rc-187dd6a7-20240806)
@@ -137,17 +137,17 @@ packages:
     resolution: {integrity: sha512-UrcABB+4bUrFABwbluTIBErXwvbsU/V7TZWfmbgJfbkwiBuziS9gxdODUyuiecfdGQ85jglMW6juS3+z5TsKLw==}
     engines: {node: '>=10'}
 
-  '@ariakit/core@0.4.8':
-    resolution: {integrity: sha512-HQS+9CI7pMqqVlAt5bPGenT0/e65UxXY+PKtgU7Y+0UToBDBRolO5S9+UUSDm8OmJHSnq24owEGm1Mv28l5XCQ==}
+  '@ariakit/core@0.4.9':
+    resolution: {integrity: sha512-nV0B/OTK/0iB+P9RC7fudznYZ8eR6rR1F912Zc54e3+wSW5RrRvNOiRxyMrgENidd4R7cCMDw77XJLSBLKgEPQ==}
 
-  '@ariakit/react-core@0.4.8':
-    resolution: {integrity: sha512-TzsddUWQwWYhrEVWHA/Gf7KCGx8rwFohAHfuljjqidKeZi2kUmuRAImCTG9oga34FWHFf4AdXQbBKclMNt0nrQ==}
+  '@ariakit/react-core@0.4.9':
+    resolution: {integrity: sha512-E/DD9FiQTw/oQByjNoPX/uGHi7kgX1XURbjEfj4uSaAbfy+x8K8dIXw8IldF4tzFUM9AHH99IcN1cBKSUDPWPw==}
     peerDependencies:
       react: ^17.0.0 || ^18.0.0 || ^19.0.0
       react-dom: ^17.0.0 || ^18.0.0 || ^19.0.0
 
-  '@ariakit/react@0.4.8':
-    resolution: {integrity: sha512-Bb1vOrp0X52hxi1wE9TEHjjZ/Y08tVq2ZH+RFDwRQB3g04uVwrrhnTccHepC6rsObrDpAOV3/YlJCi4k/lSUaQ==}
+  '@ariakit/react@0.4.9':
+    resolution: {integrity: sha512-C0Thnc6HqCaL+CKg2bz60wm60FpjAF0MYiA7AAPFWtWnSFpfz0UQjPv+h1FEU3a6iAXKj3QJ6W8JN/AnKVx/kQ==}
     peerDependencies:
       react: ^17.0.0 || ^18.0.0 || ^19.0.0
       react-dom: ^17.0.0 || ^18.0.0 || ^19.0.0
@@ -2796,19 +2796,19 @@ snapshots:
 
   '@alloc/quick-lru@5.2.0': {}
 
-  '@ariakit/core@0.4.8': {}
+  '@ariakit/core@0.4.9': {}
 
-  '@ariakit/react-core@0.4.8(react-dom@19.0.0-rc-187dd6a7-20240806(react@19.0.0-rc-187dd6a7-20240806))(react@19.0.0-rc-187dd6a7-20240806)':
+  '@ariakit/react-core@0.4.9(react-dom@19.0.0-rc-187dd6a7-20240806(react@19.0.0-rc-187dd6a7-20240806))(react@19.0.0-rc-187dd6a7-20240806)':
     dependencies:
-      '@ariakit/core': 0.4.8
+      '@ariakit/core': 0.4.9
       '@floating-ui/dom': 1.6.10
       react: 19.0.0-rc-187dd6a7-20240806
       react-dom: 19.0.0-rc-187dd6a7-20240806(react@19.0.0-rc-187dd6a7-20240806)
       use-sync-external-store: 1.2.2(react@19.0.0-rc-187dd6a7-20240806)
 
-  '@ariakit/react@0.4.8(react-dom@19.0.0-rc-187dd6a7-20240806(react@19.0.0-rc-187dd6a7-20240806))(react@19.0.0-rc-187dd6a7-20240806)':
+  '@ariakit/react@0.4.9(react-dom@19.0.0-rc-187dd6a7-20240806(react@19.0.0-rc-187dd6a7-20240806))(react@19.0.0-rc-187dd6a7-20240806)':
     dependencies:
-      '@ariakit/react-core': 0.4.8(react-dom@19.0.0-rc-187dd6a7-20240806(react@19.0.0-rc-187dd6a7-20240806))(react@19.0.0-rc-187dd6a7-20240806)
+      '@ariakit/react-core': 0.4.9(react-dom@19.0.0-rc-187dd6a7-20240806(react@19.0.0-rc-187dd6a7-20240806))(react@19.0.0-rc-187dd6a7-20240806)
       react: 19.0.0-rc-187dd6a7-20240806
       react-dom: 19.0.0-rc-187dd6a7-20240806(react@19.0.0-rc-187dd6a7-20240806)
 
