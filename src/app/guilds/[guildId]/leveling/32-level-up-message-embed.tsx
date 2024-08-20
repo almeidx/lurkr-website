@@ -3,13 +3,13 @@
 import { EmbedBuilder } from "@/components/dashboard/embed/EmbedBuilder.tsx";
 import { ExpandMore } from "@/components/icons/mdi/expand-more.tsx";
 import type { Embed, Emoji, Role } from "@/lib/guild.ts";
-import { Disclosure, DisclosureContent, useDisclosureStore } from "@ariakit/react/disclosure";
+import { Disclosure, DisclosureContent, useDisclosureStore, useStoreState } from "@ariakit/react";
 import clsx from "clsx";
 import { levelUpMessagePlaceholders } from "./level-up-message-placeholders.ts";
 
 export function LevelUpMessageEmbed({ defaultValue, emojis, roles }: LevelUpMessageEmbedProps) {
 	const disclosure = useDisclosureStore();
-	const open = disclosure.useState("open");
+	const open = useStoreState(disclosure, "open");
 
 	return (
 		<div className="flex flex-col">

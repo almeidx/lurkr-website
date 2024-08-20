@@ -9,11 +9,12 @@ import { Topic } from "@/components/icons/mdi/topic.tsx";
 import { type Channel, XpAnnouncementChannelType } from "@/lib/guild.ts";
 import type { Snowflake } from "@/utils/discord-cdn.ts";
 import { mapChannelIdsToChannels } from "@/utils/map-channel-ids-to-channels.ts";
+import { useStoreState } from "@ariakit/react";
 import { useMemo } from "react";
 
 export function LevelUpMessageChannel({ channels, defaultValue, defaultCustomChannel }: LevelUpMessageProps) {
 	const radio = useRadioStore({ defaultValue });
-	const value = radio.useState("value");
+	const value = useStoreState(radio, "value");
 
 	const customChannel = useMemo(() => {
 		if (value === XpAnnouncementChannelType.Custom && defaultCustomChannel) {

@@ -2,7 +2,7 @@
 
 import { Confirmation } from "@/components/Confirmation.tsx";
 import { SystemUpdate } from "@/components/icons/mdi/system-update.tsx";
-import { Tooltip, TooltipAnchor, useTooltipStore } from "@ariakit/react/tooltip";
+import { Tooltip, TooltipAnchor, useTooltipStore } from "@ariakit/react";
 
 export function BeginImportButton({ isRateLimited, importOngoing }: BeginImportButtonProps) {
 	const tooltip = useTooltipStore({ showTimeout: 50 });

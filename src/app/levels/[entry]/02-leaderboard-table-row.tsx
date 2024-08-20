@@ -7,7 +7,7 @@ import { ImageWithFallback } from "@/components/ImageWithFallback.tsx";
 import { RadialProgressBar } from "@/components/RadialProgressBar.tsx";
 import { type Snowflake, userAvatar } from "@/utils/discord-cdn.ts";
 import { formatNumber } from "@/utils/format-number.ts";
-import { Disclosure, DisclosureContent, useDisclosureStore } from "@ariakit/react/disclosure";
+import { Disclosure, DisclosureContent, useDisclosureStore, useStoreState } from "@ariakit/react";
 import clsx from "clsx";
 import dynamic from "next/dynamic";
 
@@ -15,7 +15,7 @@ const Confirmation = dynamic(() => import("@/components/Confirmation.tsx").then(
 
 export function LeaderboardTableRow({ guildId, row, isManager }: LeaderboardTableRowProps) {
 	const disclosure = useDisclosureStore();
-	const open = disclosure.useState("open");
+	const open = useStoreState(disclosure, "open");
 
 	async function handleResetLevelConfirm() {
 		await userLevelResetAction(guildId, row.userId);

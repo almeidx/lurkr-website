@@ -3,7 +3,15 @@
 import amariIcon from "@/assets/bots/amari.png";
 import mee6Icon from "@/assets/bots/mee6.svg";
 import { LevelingImportBot } from "@/lib/guild.ts";
-import { Select, SelectArrow, SelectItem, SelectLabel, SelectPopover, useSelectStore } from "@ariakit/react/select";
+import {
+	Select,
+	SelectArrow,
+	SelectItem,
+	SelectLabel,
+	SelectPopover,
+	useSelectStore,
+	useStoreState,
+} from "@ariakit/react";
 import Image from "next/image";
 
 const bots = [
@@ -13,7 +21,7 @@ const bots = [
 
 export function BotSelector() {
 	const select = useSelectStore({ defaultValue: "" });
-	const value = select.useState("value");
+	const value = useStoreState(select, "value");
 
 	const selectedBot = bots.find((bot) => bot.name === value);
 

@@ -9,7 +9,7 @@ import { Palette } from "@/components/icons/mdi/palette.tsx";
 import { Storage } from "@/components/icons/mdi/storage.tsx";
 import { GuildAccentType } from "@/lib/guild.ts";
 import { BRAND_COLOR } from "@/utils/constants.ts";
-import { Popover, PopoverDisclosure, usePopoverStore } from "@ariakit/react/popover";
+import { Popover, PopoverDisclosure, usePopoverStore, useStoreState } from "@ariakit/react";
 import { useEffect, useState } from "react";
 import { HexColorInput } from "react-colorful";
 
@@ -17,7 +17,7 @@ export function DefaultRankCardColor({ defaultAccentColour, defaultAccentType }:
 	const [color, setColor] = useState(defaultAccentColour ?? BRAND_COLOR);
 
 	const radio = useRadioStore({ defaultValue: defaultAccentType ?? "" });
-	const value = radio.useState("value");
+	const value = useStoreState(radio, "value");
 	const popover = usePopoverStore();
 
 	useEffect(() => {

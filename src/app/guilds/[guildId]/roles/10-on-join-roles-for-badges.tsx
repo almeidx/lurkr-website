@@ -10,7 +10,15 @@ import type { AutoRoleFlag, Role } from "@/lib/guild.ts";
 import { getMaximumLimit } from "@/utils/get-maximum-limit.ts";
 import { mapRoleIdsToRoles } from "@/utils/map-role-ids-to-roles.ts";
 import { BadgeInfo, UserFlags } from "@/utils/user-flags.ts";
-import { Select, SelectArrow, SelectItem, SelectLabel, SelectPopover, useSelectStore } from "@ariakit/react/select";
+import {
+	Select,
+	SelectArrow,
+	SelectItem,
+	SelectLabel,
+	SelectPopover,
+	useSelectStore,
+	useStoreState,
+} from "@ariakit/react";
 import Image from "next/image";
 import { useState } from "react";
 
@@ -18,7 +26,7 @@ export function OnJoinRolesForBadges({ defaultValues, premium, roles }: OnJoinRo
 	const [autoRoleFlags, setAutoRoleFlags] = useState<readonly AutoRoleFlag[]>(defaultValues);
 	const [newRoles, setNewRoles] = useState<readonly RoleWithResolvedColor[]>([]);
 	const select = useSelectStore({ defaultValue: UserFlags.ActiveDeveloper.toString() });
-	const flag = select.useState("value");
+	const flag = useStoreState(select, "value");
 
 	const maxAutoRoleFlags = getMaximumLimit("autoRoleFlags", premium);
 

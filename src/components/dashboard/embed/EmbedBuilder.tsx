@@ -12,7 +12,7 @@ import {
 	EMBED_URL_MAX_LENGTH,
 	EMBED_URL_MIN_LENGTH,
 } from "@/utils/embed-limits.ts";
-import { Popover, PopoverDisclosure, usePopoverStore } from "@ariakit/react/popover";
+import { Popover, PopoverDisclosure, usePopoverStore } from "@ariakit/react";
 import { useMemo, useState } from "react";
 import { HexColorInput } from "react-colorful";
 import { ColorPicker } from "../ColorPicker.tsx";

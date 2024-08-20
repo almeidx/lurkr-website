@@ -3,7 +3,7 @@
 import { ExternalLink } from "@/components/ExternalLink.tsx";
 import { Help } from "@/components/icons/mdi/help.tsx";
 import { DOCS_URL } from "@/utils/constants.ts";
-import { Tooltip, TooltipAnchor, useTooltipStore } from "@ariakit/react/tooltip";
+import { Tooltip, TooltipAnchor, useTooltipStore } from "@ariakit/react";
 
 export function DocsBubble({ tooltip, path }: DocsBubblePropos) {
 	const tooltipStore = useTooltipStore({

@@ -1,6 +1,6 @@
 "use client";
 
-import { Dialog, DialogDescription, DialogDismiss, DialogHeading, useDialogStore } from "@ariakit/react/dialog";
+import { Dialog, DialogDescription, DialogDismiss, DialogHeading, useDialogStore } from "@ariakit/react";
 import type { MouseEvent, PropsWithChildren, ReactNode } from "react";
 
 export function Confirmation({

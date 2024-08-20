@@ -15,7 +15,7 @@ import { TrendingUp } from "@/components/icons/mdi/trending-up.tsx";
 import { Warning } from "@/components/icons/mdi/warning.tsx";
 import type { Guild, GuildSettings } from "@/lib/guild.ts";
 import { guildIcon } from "@/utils/discord-cdn.ts";
-import { Menu, MenuButton, MenuButtonArrow, MenuItem, useMenuStore } from "@ariakit/react/menu";
+import { Menu, MenuButton, MenuButtonArrow, MenuItem, useMenuStore } from "@ariakit/react";
 import clsx from "clsx";
 import Link from "next/link";
 import { usePathname } from "next/navigation";

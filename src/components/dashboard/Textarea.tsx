@@ -5,7 +5,7 @@
 import type { Emoji, Role } from "@/lib/guild.ts";
 import { decimalRoleColorToHex } from "@/utils/decimal-to-hex-color.ts";
 import { emojiImage } from "@/utils/discord-cdn.ts";
-import { Combobox, ComboboxItem, ComboboxPopover, useComboboxStore } from "@ariakit/react/combobox";
+import { Combobox, ComboboxItem, ComboboxPopover, useComboboxStore, useStoreState } from "@ariakit/react";
 import clsx from "clsx";
 import { matchSorter } from "match-sorter";
 import Image from "next/image";
@@ -41,8 +41,8 @@ export function Textarea({
 
 	const combobox = useComboboxStore();
 
-	const searchValue = combobox.useState("value");
-	const mounted = combobox.useState("mounted");
+	const searchValue = useStoreState(combobox, "value");
+	const mounted = useStoreState(combobox, "mounted");
 	const deferredSearchValue = useDeferredValue(searchValue);
 
 	const matches = matchSorter(getList(trigger, emojis, roles, placeholders), deferredSearchValue, {

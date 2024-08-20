@@ -2,7 +2,7 @@ import "client-only";
 // The reason for using "client-only" instead of "use client" is because of the function parameter in the component,
 // which triggers a warning since functions are not serializable.
 
-import { Tooltip, TooltipAnchor, useTooltipStore } from "@ariakit/react/tooltip";
+import { Tooltip, TooltipAnchor, useTooltipStore } from "@ariakit/react";
 import type { PropsWithChildren } from "react";
 
 export function CreateMultiplierButton({

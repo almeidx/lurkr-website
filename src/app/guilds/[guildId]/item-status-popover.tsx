@@ -1,6 +1,6 @@
 "use client";
 
-import { Popover, PopoverArrow, PopoverDescription, PopoverDisclosure, usePopoverStore } from "@ariakit/react/popover";
+import { Popover, PopoverArrow, PopoverDescription, PopoverDisclosure, usePopoverStore } from "@ariakit/react";
 import type { PropsWithChildren } from "react";
 
 export function ItemStatusPopover({ children, description }: PropsWithChildren<{ readonly description: string }>) {

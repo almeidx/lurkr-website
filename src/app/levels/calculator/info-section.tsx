@@ -1,7 +1,7 @@
 "use client";
 
 import { Help } from "@/components/icons/mdi/help.tsx";
-import { Tooltip, TooltipAnchor, useTooltipStore } from "@ariakit/react/tooltip";
+import { Tooltip, TooltipAnchor, useTooltipStore } from "@ariakit/react";
 import type { PropsWithChildren } from "react";
 
 export function InfoSection({ children, title, tooltip }: InfoSectionProps) {

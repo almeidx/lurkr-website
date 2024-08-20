@@ -1,6 +1,6 @@
 "use client";
 
-import { Radio as AriakitRadio } from "@ariakit/react/radio";
+import { Radio as AriakitRadio } from "@ariakit/react";
 import clsx from "clsx";
 import type { ComponentProps } from "react";
 
@@ -19,4 +19,4 @@ export function Radio({
 	);
 }
 
-export { RadioGroup, useRadioStore } from "@ariakit/react/radio";
+export { RadioGroup, useRadioStore } from "@ariakit/react";

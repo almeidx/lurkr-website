@@ -5,7 +5,15 @@ import { ImageWithFallback } from "@/components/ImageWithFallback.tsx";
 import type { User } from "@/lib/auth.ts";
 import { SUPPORT_SERVER_INVITE } from "@/shared-links.mjs";
 import { userAvatar } from "@/utils/discord-cdn.ts";
-import { Menu, MenuButton, MenuButtonArrow, MenuItem, MenuSeparator, useMenuStore } from "@ariakit/react/menu";
+import {
+	Menu,
+	MenuButton,
+	MenuButtonArrow,
+	MenuItem,
+	MenuSeparator,
+	useMenuStore,
+	useStoreState,
+} from "@ariakit/react";
 import clsx from "clsx";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -13,7 +21,7 @@ import { useEffect } from "react";
 
 export function ProfileButton({ avatar, globalName, id, username }: User) {
 	const store = useMenuStore();
-	const open = store.useState("open");
+	const open = useStoreState(store, "open");
 	const pathname = usePathname();
 
 	// biome-ignore lint/correctness/useExhaustiveDependencies: This is intended.
