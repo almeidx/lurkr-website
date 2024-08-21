@@ -8,11 +8,11 @@ import {
 	minLength,
 	minValue,
 	number,
-	optional,
 	pipe,
 	regex,
 	string,
 	transform,
+	undefined_,
 	union,
 } from "valibot";
 
@@ -48,8 +48,8 @@ export const coerceToFloat = pipe(
 export const snowflake = union([emptyStringToNull, pipe(string(), SNOWFLAKE_REGEX_SCHEMA)]);
 
 export const toggle = pipe(
-	optional(literal("on")),
-	transform((value) => value === "on"),
+	union([undefined_(), literal("on")]),
+	transform((val) => val === "on"),
 );
 
 export const booleanFlag = pipe(
