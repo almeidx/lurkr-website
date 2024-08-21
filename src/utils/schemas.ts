@@ -49,7 +49,7 @@ export const snowflake = union([emptyStringToNull, pipe(string(), SNOWFLAKE_REGE
 
 export const toggle = pipe(
 	union([undefined_(), literal("on")]),
-	transform((val) => val === "on"),
+	transform((value) => value === "on"),
 );
 
 export const booleanFlag = pipe(
