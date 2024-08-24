@@ -1,5 +1,5 @@
 export const DESCRIPTION =
-	"The Ultimate No-Paywall & Featured Leveling Bot. Transfer your MEE6/Amari Leaderboard to get started!";
+	"The Ultimate No-Paywall & Featured Leveling Bot. Transfer your MEE6/Amari/Polaris Leaderboard to get started!";
 export const BRAND_COLOR = "#ff7077";
 
 export const MAX_WINDOW_TITLE_LENGTH = 60;

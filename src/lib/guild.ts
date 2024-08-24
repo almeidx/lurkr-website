@@ -4,6 +4,7 @@ import type { UserFlags } from "@/utils/user-flags.ts";
 export enum LevelingImportBot {
 	Mee6 = "Mee6",
 	Amari = "Amari",
+	Polaris = "Polaris",
 }
 
 export const enum LevelingImportError {

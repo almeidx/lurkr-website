@@ -2,6 +2,7 @@
 
 import amariIcon from "@/assets/bots/amari.png";
 import mee6Icon from "@/assets/bots/mee6.svg";
+import polarisIcon from "@/assets/bots/polaris.svg";
 import { LevelingImportBot } from "@/lib/guild.ts";
 import {
 	Select,
@@ -17,6 +18,7 @@ import Image from "next/image";
 const bots = [
 	{ name: LevelingImportBot.Mee6, icon: mee6Icon },
 	{ name: LevelingImportBot.Amari, icon: amariIcon },
+	{ name: LevelingImportBot.Polaris, icon: polarisIcon },
 ] as const;
 
 export function BotSelector() {

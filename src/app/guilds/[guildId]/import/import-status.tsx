@@ -84,7 +84,10 @@ export function ImportStatus({ formState, importStatus }: ImportStatusProps) {
 				<div className="flex items-center gap-2">
 					<Done className="text-green" />
 
-					<p>The leveling import has completed successfully. {importStatus.progress} users were imported.</p>
+					<p>
+						The leveling import has completed successfully. {importStatus.progress.toLocaleString("en")} users were
+						imported.
+					</p>
 				</div>
 			</>
 		);
@@ -108,7 +111,7 @@ export function ImportStatus({ formState, importStatus }: ImportStatusProps) {
 				</p>
 			</div>
 
-			<p>{importStatus.progress} users imported so far.</p>
+			<p>{importStatus.progress.toLocaleString("en")} users imported so far.</p>
 		</>
 	);
 }
