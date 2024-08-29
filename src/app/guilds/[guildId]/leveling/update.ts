@@ -8,6 +8,10 @@ import {
 	MAX_NO_TOP_XP_ROLES_PREMIUM,
 	MAX_NO_XP_ROLES,
 	MAX_NO_XP_ROLES_PREMIUM,
+	MAX_XP_ANNOUNCE_LEVEL,
+	MAX_XP_ANNOUNCE_LEVELS,
+	MAX_XP_ANNOUNCE_MINIMUM_LEVEL,
+	MAX_XP_ANNOUNCE_MULTIPLE_OF,
 	MAX_XP_CHANNELS,
 	MAX_XP_CHANNELS_PREMIUM,
 	MAX_XP_DISALLOWED_PREFIXES,
@@ -18,6 +22,9 @@ import {
 	MAX_XP_ROLE_REWARDS_PREMIUM,
 	MAX_XP_ROLE_REWARD_ROLES,
 	MAX_XP_ROLE_REWARD_ROLES_PREMIUM,
+	MIN_XP_ANNOUNCE_LEVEL,
+	MIN_XP_ANNOUNCE_MINIMUM_LEVEL,
+	MIN_XP_ANNOUNCE_MULTIPLE_OF,
 	MIN_XP_MESSAGE_LENGTH,
 } from "@/lib/guild-config.ts";
 import {
@@ -41,6 +48,7 @@ import { lazy } from "@/utils/lazy.ts";
 import {
 	UUID_REGEX,
 	booleanFlag,
+	coerceToInt,
 	createSnowflakesValidator,
 	emptyStringToNull,
 	snowflake,
@@ -136,6 +144,21 @@ function createSchema(premium: boolean) {
 			vanity: union([emptyStringToNull, vanitySchema]),
 			xpAnnounceChannel: snowflake,
 			xpAnnounceChannelType: enum_(XpAnnouncementChannelType),
+			xpAnnounceLevels: pipe(
+				string(),
+				transform((value) => JSON.parse(value)),
+				array(pipe(number(), integer(), minValue(MIN_XP_ANNOUNCE_LEVEL), maxValue(MAX_XP_ANNOUNCE_LEVEL))),
+				maxLength(MAX_XP_ANNOUNCE_LEVELS),
+			),
+			xpAnnounceMinimumLevel: pipe(
+				coerceToInt,
+				minValue(MIN_XP_ANNOUNCE_MINIMUM_LEVEL),
+				maxValue(MAX_XP_ANNOUNCE_MINIMUM_LEVEL),
+			),
+			xpAnnounceMultipleOf: union([
+				emptyStringToNull,
+				pipe(coerceToInt, minValue(MIN_XP_ANNOUNCE_MULTIPLE_OF), maxValue(MAX_XP_ANNOUNCE_MULTIPLE_OF)),
+			]),
 			xpChannelMode: enum_(XpChannelMode),
 			xpChannels: createSnowflakesValidator(premium ? MAX_XP_CHANNELS_PREMIUM : MAX_XP_CHANNELS),
 			xpDisallowedPrefixes: pipe(

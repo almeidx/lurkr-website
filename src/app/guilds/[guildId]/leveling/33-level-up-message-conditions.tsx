@@ -56,6 +56,7 @@ export function LevelUpMessageConditions({ settings, premium }: LevelUpMessageCo
 				type="number"
 				min={MIN_XP_ANNOUNCE_MINIMUM_LEVEL}
 				max={MAX_XP_ANNOUNCE_MINIMUM_LEVEL}
+				defaultValue={settings.xpAnnounceMinimumLevel}
 			/>
 
 			<div className="mt-2 flex items-center">
@@ -76,6 +77,7 @@ export function LevelUpMessageConditions({ settings, premium }: LevelUpMessageCo
 				type="number"
 				min={MIN_XP_ANNOUNCE_MULTIPLE_OF}
 				max={MAX_XP_ANNOUNCE_MULTIPLE_OF}
+				defaultValue={settings.xpAnnounceMultipleOf ?? ""}
 			/>
 		</>
 	);
