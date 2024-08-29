@@ -147,7 +147,7 @@ function createSchema(premium: boolean) {
 			xpAnnounceLevels: pipe(
 				string(),
 				transform((value) => JSON.parse(value)),
-				array(pipe(number(), integer(), minValue(MIN_XP_ANNOUNCE_LEVEL), maxValue(MAX_XP_ANNOUNCE_LEVEL))),
+				array(pipe(coerceToInt, minValue(MIN_XP_ANNOUNCE_LEVEL), maxValue(MAX_XP_ANNOUNCE_LEVEL))),
 				maxLength(MAX_XP_ANNOUNCE_LEVELS),
 			),
 			xpAnnounceMinimumLevel: union([
