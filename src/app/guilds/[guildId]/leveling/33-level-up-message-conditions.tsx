@@ -56,7 +56,8 @@ export function LevelUpMessageConditions({ settings, premium }: LevelUpMessageCo
 				type="number"
 				min={MIN_XP_ANNOUNCE_MINIMUM_LEVEL}
 				max={MAX_XP_ANNOUNCE_MINIMUM_LEVEL}
-				defaultValue={settings.xpAnnounceMinimumLevel}
+				// Special case: 0 is not allowed, but it's the default value
+				defaultValue={settings.xpAnnounceMinimumLevel === 0 ? "" : settings.xpAnnounceMinimumLevel}
 			/>
 
 			<div className="mt-2 flex items-center">

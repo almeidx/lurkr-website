@@ -150,11 +150,13 @@ function createSchema(premium: boolean) {
 				array(pipe(number(), integer(), minValue(MIN_XP_ANNOUNCE_LEVEL), maxValue(MAX_XP_ANNOUNCE_LEVEL))),
 				maxLength(MAX_XP_ANNOUNCE_LEVELS),
 			),
-			xpAnnounceMinimumLevel: pipe(
-				coerceToInt,
-				minValue(MIN_XP_ANNOUNCE_MINIMUM_LEVEL),
-				maxValue(MAX_XP_ANNOUNCE_MINIMUM_LEVEL),
-			),
+			xpAnnounceMinimumLevel: union([
+				pipe(
+					literal(""),
+					transform(() => 0),
+				),
+				pipe(coerceToInt, minValue(MIN_XP_ANNOUNCE_MINIMUM_LEVEL), maxValue(MAX_XP_ANNOUNCE_MINIMUM_LEVEL)),
+			]),
 			xpAnnounceMultipleOf: union([
 				emptyStringToNull,
 				pipe(coerceToInt, minValue(MIN_XP_ANNOUNCE_MULTIPLE_OF), maxValue(MAX_XP_ANNOUNCE_MULTIPLE_OF)),
