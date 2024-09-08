@@ -49,7 +49,7 @@ export const metadata: Metadata = {
 	},
 
 	manifest: "/manifest.json",
-	icons: { apple: "/apple-icon-180.png" },
+	icons: { apple: "/apple-icon-180.png", icon: "icon.png" },
 	appleWebApp: { title: "Lurkr", capable: true },
 	applicationName: "Lurkr",
 	other: {
