@@ -1,6 +1,7 @@
 import { DashboardGuildList } from "@/app/guilds/guild-list.tsx";
 import fallbackAvatarImg from "@/assets/fallback-avatar.png";
 import { ImageWithFallback } from "@/components/ImageWithFallback.tsx";
+import { SignInButton } from "@/components/SignIn.tsx";
 import type { User } from "@/lib/auth.ts";
 import { TOKEN_COOKIE } from "@/utils/constants.ts";
 import { type Snowflake, userAvatar } from "@/utils/discord-cdn.ts";
@@ -11,7 +12,20 @@ import { cookies } from "next/headers";
 
 export default async function GuildList() {
 	const token = cookies().get(TOKEN_COOKIE)!.value;
-	const { guilds, user } = await getGuilds(token);
+	const data = await getGuilds(token);
+
+	if (!data) {
+		return (
+			<div className="flex flex-col items-center gap-2 py-4">
+				<div className="mt-6 flex flex-col items-center gap-2 text-center text-white/75 text-xl tracking-tight">
+					If you wish to see the servers you have access to, please login.
+					<SignInButton />
+				</div>
+			</div>
+		);
+	}
+
+	const { guilds, user } = data;
 
 	return (
 		<div className="flex flex-col items-center gap-2 py-4">
@@ -66,7 +80,7 @@ async function getGuilds(token: string) {
 	]);
 
 	if (getGuildsResponse.status === 401 || !getCurrentUserResponse.ok) {
-		throw new Error("Unauthorized");
+		return null;
 	}
 
 	const user = (await getCurrentUserResponse.json()) as User;
