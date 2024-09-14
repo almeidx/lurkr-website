@@ -8,13 +8,13 @@ export function LevelingChannelMode({ defaultValue }: { readonly defaultValue?: 
 
 	return (
 		<RadioGroup className="flex w-fit flex-col gap-4" store={radio}>
-			<label className="flex text-lg text-white/75 tracking-tight md:text-xl">
-				<Radio value={XpChannelMode.Whitelist} id="xpChannelMode" name="xpChannelMode" rightMargin />
+			<label className="flex text-lg text-white/75 tracking-tight md:text-xl" htmlFor="xpChannelModeWhitelist">
+				<Radio value={XpChannelMode.Whitelist} id="xpChannelModeWhitelist" name="xpChannelMode" rightMargin />
 				Allow leveling only in these channels…
 			</label>
 
-			<label className="flex text-lg text-white/75 tracking-tight md:text-xl">
-				<Radio value={XpChannelMode.Blacklist} id="xpChannelMode" name="xpChannelMode" rightMargin />
+			<label className="flex text-lg text-white/75 tracking-tight md:text-xl" htmlFor="xpChannelModeBlacklist">
+				<Radio value={XpChannelMode.Blacklist} id="xpChannelModeBlacklist" name="xpChannelMode" rightMargin />
 				Allow leveling in all channels except…
 			</label>
 		</RadioGroup>

@@ -28,37 +28,37 @@ export function DefaultRankCardColor({ defaultAccentColour, defaultAccentType }:
 
 	return (
 		<RadioGroup className="flex w-fit flex-col gap-4" store={radio}>
-			<label className="flex items-center justify-between">
+			<label className="flex items-center justify-between" htmlFor="accentTypeNone">
 				<div className="flex items-center text-lg text-white/75 tracking-tight md:text-xl">
 					<DoNotDisturbAlt className="mr-2" fill="url(#icon-gradient-tertiary)" />
 					None
 				</div>
-				<Radio value="" id="accentType" name="accentType" />
+				<Radio value="" id="accentTypeNone" name="accentType" />
 			</label>
 
-			<label className="flex items-center justify-between">
+			<label className="flex items-center justify-between" htmlFor="accentTypeIconAverage">
 				<div className="flex items-center text-lg text-white/75 tracking-tight md:text-xl">
 					<Storage className="mr-2" fill="url(#icon-gradient-tertiary)" />
 					Average Server-icon Colour
 				</div>
-				<Radio value={GuildAccentType.IconAverage} id="accentType" name="accentType" />
+				<Radio value={GuildAccentType.IconAverage} id="accentTypeIconAverage" name="accentType" />
 			</label>
 
-			<label className="flex items-center justify-between">
+			<label className="flex items-center justify-between" htmlFor="accentTypeBannerAverage">
 				<div className="flex items-center text-lg text-white/75 tracking-tight md:text-xl">
 					<Flag className="mr-2" fill="url(#icon-gradient-tertiary)" />
 					Average Server-banner Colour
 				</div>
-				<Radio value={GuildAccentType.BannerAverage} id="accentType" name="accentType" />
+				<Radio value={GuildAccentType.BannerAverage} id="accentTypeBannerAverage" name="accentType" />
 			</label>
 
 			<div className="flex flex-col gap-2">
-				<label className="flex items-center justify-between">
+				<label className="flex items-center justify-between" htmlFor="accentTypeCustom">
 					<div className="flex items-center text-lg text-white/75 tracking-tight md:text-xl">
 						<Palette className="mr-2" fill="url(#icon-gradient-tertiary)" />
 						Custom Colour
 					</div>
-					<Radio value={GuildAccentType.Custom} id="accentType" name="accentType" />
+					<Radio value={GuildAccentType.Custom} id="accentTypeCustom" name="accentType" />
 				</label>
 
 				<div className="flex items-center gap-2">

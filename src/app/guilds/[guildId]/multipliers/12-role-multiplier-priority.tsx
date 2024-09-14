@@ -7,17 +7,15 @@ export function RoleMultiplierPriority({ defaultValue }: { readonly defaultValue
 
 	return (
 		<RadioGroup className="flex w-fit flex-col gap-4" store={radio}>
-			<label className="flex text-lg text-white/75 tracking-tight md:text-xl">
-				<Radio
-					value="false"
-					id="prioritiseMultiplierRoleHierarchy"
-					name="prioritiseMultiplierRoleHierarchy"
-					rightMargin
-				/>
+			<label className="flex text-lg text-white/75 tracking-tight md:text-xl" htmlFor="prioritiseMultiplierValue">
+				<Radio value="false" id="prioritiseMultiplierValue" name="prioritiseMultiplierRoleHierarchy" rightMargin />
 				Highest multiplier value
 			</label>
 
-			<label className="flex text-lg text-white/75 tracking-tight md:text-xl">
+			<label
+				className="flex text-lg text-white/75 tracking-tight md:text-xl"
+				htmlFor="prioritiseMultiplierRoleHierarchy"
+			>
 				<Radio
 					value="true"
 					id="prioritiseMultiplierRoleHierarchy"

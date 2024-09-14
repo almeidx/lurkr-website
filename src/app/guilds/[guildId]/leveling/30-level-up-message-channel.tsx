@@ -27,28 +27,32 @@ export function LevelUpMessageChannel({ channels, defaultValue, defaultCustomCha
 
 	return (
 		<RadioGroup className="flex w-fit flex-col gap-4" store={radio}>
-			<label className="flex items-center justify-between">
+			<label className="flex items-center justify-between" htmlFor="xpAnnounceChannelTypeDirect">
 				<div className="flex items-center text-lg text-white/75 tracking-tight md:text-xl">
 					<Chat className="mr-2 text-[#fff]" fill="url(#icon-gradient-tertiary)" />
 					Direct messages
 				</div>
-				<Radio value={XpAnnouncementChannelType.Direct} id="xpAnnounceChannelType" name="xpAnnounceChannelType" />
+				<Radio value={XpAnnouncementChannelType.Direct} id="xpAnnounceChannelTypeDirect" name="xpAnnounceChannelType" />
 			</label>
 
-			<label className="flex items-center justify-between">
+			<label className="flex items-center justify-between" htmlFor="xpAnnounceChannelTypeSameChannel">
 				<div className="flex items-center text-lg text-white/75 tracking-tight md:text-xl">
 					<Topic className="mr-2 text-[#fff]" fill="url(#icon-gradient-tertiary)" />
 					The same channel
 				</div>
-				<Radio value={XpAnnouncementChannelType.SameChannel} id="xpAnnounceChannelType" name="xpAnnounceChannelType" />
+				<Radio
+					value={XpAnnouncementChannelType.SameChannel}
+					id="xpAnnounceChannelTypeSameChannel"
+					name="xpAnnounceChannelType"
+				/>
 			</label>
 
-			<label className="flex items-center justify-between">
+			<label className="flex items-center justify-between" htmlFor="xpAnnounceChannelTypeNone">
 				<div className="flex items-center text-lg text-white/75 tracking-tight md:text-xl">
 					<DoNotDisturbAlt className="mr-2 text-[#fff]" fill="url(#icon-gradient-tertiary)" />
 					None
 				</div>
-				<Radio value={XpAnnouncementChannelType.None} id="xpAnnounceChannelType" name="xpAnnounceChannelType" />
+				<Radio value={XpAnnouncementChannelType.None} id="xpAnnounceChannelTypeNone" name="xpAnnounceChannelType" />
 			</label>
 
 			{/* TODO: Clear channel selector if user selects a different radio option */}
@@ -61,12 +65,16 @@ export function LevelUpMessageChannel({ channels, defaultValue, defaultCustomCha
 				required={value === XpAnnouncementChannelType.Custom}
 				settingId="xpAnnounceChannel"
 			>
-				<label className="flex items-center justify-between">
+				<label className="flex items-center justify-between" htmlFor="xpAnnounceChannelTypeCustom">
 					<div className="flex items-center text-lg text-white/75 tracking-tight md:text-xl">
 						<ChatBubble className="mr-2 text-[#fff]" fill="url(#icon-gradient-tertiary)" />
 						Custom Channel
 					</div>
-					<Radio value={XpAnnouncementChannelType.Custom} id="xpAnnounceChannelType" name="xpAnnounceChannelType" />
+					<Radio
+						value={XpAnnouncementChannelType.Custom}
+						id="xpAnnounceChannelTypeCustom"
+						name="xpAnnounceChannelType"
+					/>
 				</label>
 			</ChannelSelector>
 		</RadioGroup>
