@@ -2,7 +2,7 @@
 name: Bug report
 about: Report incorrect or unexpected behavior of the website.
 title: ""
-labels: "type: bug"
+labels: "bug"
 ---
 
 **Describe the bug**

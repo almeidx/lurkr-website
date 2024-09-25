@@ -2,7 +2,7 @@
 name: Feature request
 about: Request a feature for the website
 title: ""
-labels: "type: enhancement"
+labels: "feature request"
 ---
 
 **Is your feature request related to a problem? Please describe.**
