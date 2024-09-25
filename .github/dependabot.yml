@@ -22,6 +22,10 @@ updates:
           - react-dom
         update-types:
           - major
+    ignore:
+      - dependency-name: '@types/node'
+        versions:
+          - 22.x
 
   - package-ecosystem: github-actions
     directory: /
