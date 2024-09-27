@@ -142,7 +142,7 @@ export function Textarea({
 					hidden={!hasMatches}
 					fitViewport
 					getAnchorRect={() => (ref.current ? getAnchorRect(ref.current) : null)}
-					className="z-[10000] rounded-lg border border-white/30 bg-darker px-2 py-1"
+					className="z-[10000] rounded-lg border border-white/25 bg-darker px-2 py-1"
 				>
 					{matches.map((value) => (
 						<ComboboxItem

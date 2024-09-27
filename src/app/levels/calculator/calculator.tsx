@@ -56,14 +56,14 @@ export function Calculator() {
 			</div>
 
 			<div className="flex flex-col items-center gap-5 md:flex-row">
-				<InfoSection title="Approx. Messages" tooltip={APPROXIMATE_MESSAGES_TOOLTIP}>
-					{approxMessages}
+				<InfoSection title="Approx. Messages" tooltip={APPROXIMATE_MESSAGES_TOOLTIP} raw={approxMessages}>
+					{formatNumber(approxMessages)}
 				</InfoSection>
 				<InfoSection title="Estimated Time" tooltip={ESTIMATED_TIME_TOOLTIP}>
-					{estimatedTime}
+					{prettySeconds(estimatedTime)}
 				</InfoSection>
-				<InfoSection title="Exp. Required" tooltip={EXPERIENCE_REQUIRED_TOOLTIP}>
-					{expRequired}
+				<InfoSection title="Exp. Required" tooltip={EXPERIENCE_REQUIRED_TOOLTIP} raw={expRequired}>
+					{formatNumber(expRequired)}
 				</InfoSection>
 			</div>
 		</>
@@ -81,19 +81,19 @@ function calculate(desiredLevel: string, currentLevel: string, multiplier: strin
 		desiredLevel_ <= 0 ||
 		currentLevel_ > MAX_LEVEL ||
 		currentLevel_ < 0 ||
-		multiplier_ <= MIN_XP_MULTIPLIER_VALUE ||
+		multiplier_ < MIN_XP_MULTIPLIER_VALUE ||
 		multiplier_ > MAX_XP_MULTIPLIER_VALUE ||
 		desiredLevel_ <= currentLevel_
 	) {
-		return { approxMessages: "0", estimatedTime: "0", expRequired: "0" };
+		return { approxMessages: 0, estimatedTime: 0, expRequired: 0 };
 	}
 
 	const expRequired = getRequiredXp(desiredLevel_) - getRequiredXp(currentLevel_);
 
 	const approxMessages = Math.ceil(expRequired / avgXpPerMessage / multiplier_);
-	const estimatedTime = prettySeconds(approxMessages * timePerMessage);
+	const estimatedTime = approxMessages * timePerMessage;
 
-	return { expRequired: formatNumber(expRequired), approxMessages: formatNumber(approxMessages), estimatedTime };
+	return { expRequired, approxMessages, estimatedTime };
 }
 
 function getRequiredXp(level: number): number {
