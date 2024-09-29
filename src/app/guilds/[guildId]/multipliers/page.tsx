@@ -12,8 +12,10 @@ import { VoteBoost } from "./02-vote-boost.tsx";
 import { MultipliersWithTargets } from "./10-multipliers-with-targets.tsx";
 import { update } from "./update.ts";
 
-export default async function Multipliers({ params: { guildId } }: { readonly params: { guildId: Snowflake } }) {
-	const token = cookies().get(TOKEN_COOKIE)!.value;
+export default async function Multipliers({ params }: { readonly params: Promise<{ guildId: Snowflake }> }) {
+	const { guildId } = await params;
+
+	const token = (await cookies()).get(TOKEN_COOKIE)!.value;
 	const guildData = await getGuildSettings(guildId, token, "multipliers");
 
 	if (!guildData) {

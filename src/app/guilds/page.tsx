@@ -11,7 +11,7 @@ import type { Metadata } from "next";
 import { cookies } from "next/headers";
 
 export default async function GuildList() {
-	const token = cookies().get(TOKEN_COOKIE)!.value;
+	const token = (await cookies()).get(TOKEN_COOKIE)!.value;
 	const data = await getGuilds(token);
 
 	if (!data) {

@@ -13,9 +13,10 @@ import { cookies } from "next/headers";
 import { ItemStatus } from "./item-status.tsx";
 import { resolveOverviewStatuses } from "./resolve-overview-statuses.ts";
 
-export default async function Dashboard({ params }: { readonly params: { guildId: string } }) {
-	const token = cookies().get(TOKEN_COOKIE)?.value;
-	const data = await getData(params.guildId, token);
+export default async function Dashboard({ params }: { readonly params: Promise<{ guildId: string }> }) {
+	const { guildId } = await params;
+	const token = (await cookies()).get(TOKEN_COOKIE)?.value;
+	const data = await getData(guildId, token);
 
 	if (!data) {
 		return (

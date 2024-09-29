@@ -5,8 +5,8 @@ import Link from "next/link";
 const COOKIE_CONSENT = "cookie_consent";
 const COOKIE_CONSENT_VALUE = "1";
 
-export function CookieNotice() {
-	const hasConsented = cookies().get(COOKIE_CONSENT)?.value === COOKIE_CONSENT_VALUE;
+export async function CookieNotice() {
+	const hasConsented = (await cookies()).get(COOKIE_CONSENT)?.value === COOKIE_CONSENT_VALUE;
 
 	if (hasConsented) {
 		return null;
@@ -15,7 +15,7 @@ export function CookieNotice() {
 	async function acceptCookies() {
 		"use server";
 
-		cookies().set(COOKIE_CONSENT, COOKIE_CONSENT_VALUE, {
+		(await cookies()).set(COOKIE_CONSENT, COOKIE_CONSENT_VALUE, {
 			httpOnly: true,
 			path: "/",
 			sameSite: "strict",

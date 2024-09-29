@@ -12,8 +12,10 @@ import { StoreMemberCountData } from "./01-store-member-count-data.tsx";
 import { AutomaticallyPublishChannels } from "./02-automatically-publish-channels.tsx";
 import { update } from "./update.ts";
 
-export default async function Miscellaneous({ params: { guildId } }: { readonly params: { guildId: Snowflake } }) {
-	const token = cookies().get(TOKEN_COOKIE)!.value;
+export default async function Miscellaneous({ params }: { readonly params: Promise<{ guildId: Snowflake }> }) {
+	const { guildId } = await params;
+
+	const token = (await cookies()).get(TOKEN_COOKIE)!.value;
 	const guildData = await getGuildSettings(guildId, token, "miscellaneous");
 
 	if (!guildData) {

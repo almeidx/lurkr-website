@@ -14,7 +14,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 export default async function Premium() {
-	const token = cookies().get(TOKEN_COOKIE)?.value;
+	const token = (await cookies()).get(TOKEN_COOKIE)?.value;
 	const currentPlan = token ? await getData(token) : null;
 
 	return (

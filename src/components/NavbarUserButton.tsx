@@ -6,7 +6,7 @@ import { makeApiRequest } from "@/utils/make-api-request.ts";
 import { cookies } from "next/headers";
 
 export async function NavbarUserButton() {
-	const token = cookies().get(TOKEN_COOKIE)?.value;
+	const token = (await cookies()).get(TOKEN_COOKIE)?.value;
 	const user = token ? await getUser(token) : null;
 
 	return user ? <ProfileButton {...user} /> : <SignInButton />;

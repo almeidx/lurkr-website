@@ -30,8 +30,10 @@ import { DefaultRankCardColor } from "./60-default-rank-card-color.tsx";
 import { LeaderboardVanity } from "./70-leaderboard-vanity.tsx";
 import { update } from "./update.ts";
 
-export default async function Leveling({ params: { guildId } }: { readonly params: { guildId: Snowflake } }) {
-	const token = cookies().get(TOKEN_COOKIE)!.value;
+export default async function Leveling({ params }: { readonly params: Promise<{ guildId: Snowflake }> }) {
+	const { guildId } = await params;
+
+	const token = (await cookies()).get(TOKEN_COOKIE)!.value;
 	const guildData = await getGuildSettings(guildId, token, "leveling");
 
 	if (!guildData) {

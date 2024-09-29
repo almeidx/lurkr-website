@@ -10,7 +10,7 @@ import { parse } from "valibot";
 export async function resetGuildDataAction(guildIdInput: string) {
 	const guildId = parse(snowflake, guildIdInput);
 
-	const token = cookies().get(TOKEN_COOKIE)?.value;
+	const token = (await cookies()).get(TOKEN_COOKIE)?.value;
 	if (!token) {
 		throw new Error("Unauthorized");
 	}

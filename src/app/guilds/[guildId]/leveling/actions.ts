@@ -9,7 +9,7 @@ import { parse } from "valibot";
 export async function checkVanityAvailability(vanityInput: string): Promise<VanityAvailabilityResponse> {
 	const vanity = parse(vanitySchema, vanityInput);
 
-	const token = cookies().get(TOKEN_COOKIE)?.value;
+	const token = (await cookies()).get(TOKEN_COOKIE)?.value;
 	if (!token) {
 		throw new Error("Unauthorized");
 	}
