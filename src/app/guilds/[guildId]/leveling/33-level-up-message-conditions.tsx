@@ -1,7 +1,9 @@
+import { Toggle } from "@/components/Toggle.tsx";
 import { CreatableList } from "@/components/dashboard/CreatableList.tsx";
 import { DocsBubble } from "@/components/dashboard/DocsBubble.tsx";
 import { Input } from "@/components/dashboard/Input.tsx";
 import { Label } from "@/components/dashboard/Label.tsx";
+import { Text } from "@/components/dashboard/Text.tsx";
 import {
 	MAX_XP_ANNOUNCE_LEVEL,
 	MAX_XP_ANNOUNCE_MINIMUM_LEVEL,
@@ -80,6 +82,18 @@ export function LevelUpMessageConditions({ settings, premium }: LevelUpMessageCo
 				max={MAX_XP_ANNOUNCE_MULTIPLE_OF}
 				defaultValue={settings.xpAnnounceMultipleOf ?? ""}
 			/>
+
+			<div className="flex h-6 gap-4 rounded-lg">
+				<Text
+					docsPath="/guides/customize-level-up-messages#when-to-send-the-level-up-message"
+					htmlFor="xpAnnounceOnlyXpRoles"
+					tooltip="Choose whether only levels with Role Rewards should trigger the level up message."
+				>
+					Only send the level up message for levels with Role Rewards?{" "}
+				</Text>
+
+				<Toggle initialValue={settings.xpAnnounceOnlyXpRoles} id="xpAnnounceOnlyXpRoles" />
+			</div>
 		</>
 	);
 }
