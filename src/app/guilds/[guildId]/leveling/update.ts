@@ -161,6 +161,7 @@ function createSchema(premium: boolean) {
 				emptyStringToNull,
 				pipe(coerceToInt, minValue(MIN_XP_ANNOUNCE_MULTIPLE_OF), maxValue(MAX_XP_ANNOUNCE_MULTIPLE_OF)),
 			]),
+			xpAnnounceOnlyXpRoles: toggle,
 			xpChannelMode: enum_(XpChannelMode),
 			xpChannels: createSnowflakesValidator(premium ? MAX_XP_CHANNELS_PREMIUM : MAX_XP_CHANNELS),
 			xpDisallowedPrefixes: pipe(

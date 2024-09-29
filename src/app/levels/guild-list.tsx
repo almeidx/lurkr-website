@@ -55,7 +55,7 @@ export function LeaderboardGuildList({ guilds }: { readonly guilds: GuildInfo[] 
 						prefetch={false}
 					>
 						<div
-							className="-left-11 -top-14 invisible absolute z-50 w-40 rounded-lg bg-darker px-3 py-2 text-white shadow-md outline outline-1 outline-white group-hover:visible"
+							className="-left-11 -top-14 invisible absolute z-50 w-40 rounded-lg bg-darker px-3 py-2 text-white shadow-md outline outline-1 outline-white/25 group-hover:visible"
 							// biome-ignore lint/a11y/useSemanticElements: TODO: Use Tooltip from ariakit
 							role="tooltip"
 						>
