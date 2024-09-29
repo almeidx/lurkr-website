@@ -11,7 +11,7 @@ export async function userLevelResetAction(guildIdInput: string, userIdInput: st
 	const guildId = parse(snowflake, guildIdInput);
 	const userId = parse(snowflake, userIdInput);
 
-	const token = cookies().get(TOKEN_COOKIE)?.value;
+	const token = (await cookies()).get(TOKEN_COOKIE)?.value;
 	if (!token) {
 		throw new Error("Unauthorized");
 	}

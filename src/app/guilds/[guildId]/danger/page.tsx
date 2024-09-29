@@ -10,8 +10,10 @@ import { UnknownGuildOrMissingAccess } from "../unknown-guild.tsx";
 import { DownloadLevelingData } from "./01-download-leveling-data.tsx";
 import { ResetGuildData } from "./02-reset-guild-data.tsx";
 
-export default async function DangerZone({ params: { guildId } }: { readonly params: { guildId: Snowflake } }) {
-	const token = cookies().get(TOKEN_COOKIE)!.value;
+export default async function DangerZone({ params }: { readonly params: Promise<{ guildId: Snowflake }> }) {
+	const { guildId } = await params;
+
+	const token = (await cookies()).get(TOKEN_COOKIE)!.value;
 	const guildData = await getGuildSettings(guildId, token, "danger");
 
 	if (!guildData) {

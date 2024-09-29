@@ -10,9 +10,10 @@ import { UnknownGuildOrMissingAccess } from "./unknown-guild.tsx";
 export default async function DashboardLayout({
 	children,
 	params,
-}: PropsWithChildren<{ params: { guildId: Snowflake } }>) {
-	const { guildId } = params;
-	const token = cookies().get(TOKEN_COOKIE)!.value;
+}: PropsWithChildren<{ params: Promise<{ guildId: Snowflake }> }>) {
+	const { guildId } = await params;
+
+	const token = (await cookies()).get(TOKEN_COOKIE)!.value;
 	const { guild, guilds } = await getData(guildId, token);
 
 	if (!guild) {

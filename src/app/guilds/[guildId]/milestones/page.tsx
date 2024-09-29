@@ -14,8 +14,10 @@ import { MilestoneMessage } from "./03-milestone-message.tsx";
 import { MilestoneRoles } from "./04-milestone-roles.tsx";
 import { update } from "./update.ts";
 
-export default async function Milestones({ params: { guildId } }: { readonly params: { guildId: Snowflake } }) {
-	const token = cookies().get(TOKEN_COOKIE)!.value;
+export default async function Milestones({ params }: { readonly params: Promise<{ guildId: Snowflake }> }) {
+	const { guildId } = await params;
+
+	const token = (await cookies()).get(TOKEN_COOKIE)!.value;
 	const guildData = await getGuildSettings(guildId, token, "milestones");
 
 	if (!guildData) {

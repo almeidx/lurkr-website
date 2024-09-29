@@ -6,7 +6,7 @@ import { cookies } from "next/headers";
 import { LeaderboardGuildInput, LeaderboardGuildList } from "./guild-list.tsx";
 
 export default async function Levels() {
-	const token = cookies().get(TOKEN_COOKIE)?.value;
+	const token = (await cookies()).get(TOKEN_COOKIE)?.value;
 	const data = token ? await getGuilds(token) : null;
 
 	return (

@@ -7,7 +7,7 @@ import { revalidateTag } from "next/cache";
 import { cookies } from "next/headers";
 
 export async function action(guildId: string, data: Partial<GuildSettings>, tag: string) {
-	const token = cookies().get(TOKEN_COOKIE)?.value;
+	const token = (await cookies()).get(TOKEN_COOKIE)?.value;
 	if (!token) {
 		throw new Error("Missing token");
 	}

@@ -5,8 +5,10 @@ import type { Metadata } from "next";
 import { cookies } from "next/headers";
 import { type GetImportStatusResponse, ImportForm } from "./01-leveling-import.tsx";
 
-export default async function Miscellaneous({ params: { guildId } }: { readonly params: { guildId: Snowflake } }) {
-	const token = cookies().get(TOKEN_COOKIE)!.value;
+export default async function Miscellaneous({ params }: { readonly params: Promise<{ guildId: Snowflake }> }) {
+	const { guildId } = await params;
+
+	const token = (await cookies()).get(TOKEN_COOKIE)!.value;
 	const data = await getData(guildId, token);
 
 	return <ImportForm guildId={guildId} data={data} />;

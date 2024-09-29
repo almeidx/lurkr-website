@@ -15,8 +15,10 @@ import { MentionCooldownRoles } from "./20-mention-cooldown-roles.tsx";
 import { MentionCooldown } from "./21-mention-cooldown.tsx";
 import { update } from "./update.ts";
 
-export default async function Roles({ params: { guildId } }: { readonly params: { guildId: Snowflake } }) {
-	const token = cookies().get(TOKEN_COOKIE)!.value;
+export default async function Roles({ params }: { readonly params: Promise<{ guildId: Snowflake }> }) {
+	const { guildId } = await params;
+
+	const token = (await cookies()).get(TOKEN_COOKIE)!.value;
 	const guildData = await getGuildSettings(guildId, token, "roles");
 
 	if (!guildData) {

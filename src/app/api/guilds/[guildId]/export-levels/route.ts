@@ -3,7 +3,9 @@ import { isSnowflake } from "@/utils/is-snowflake.ts";
 import { makeApiRequest } from "@/utils/make-api-request.ts";
 import type { NextRequest } from "next/server";
 
-export async function GET(request: NextRequest, { params: { guildId } }: { params: { guildId: string } }) {
+export async function GET(request: NextRequest, { params }: { params: Promise<{ guildId: string }> }) {
+	const { guildId } = await params;
+
 	const token = request.cookies.get(TOKEN_COOKIE)?.value;
 	if (!token) {
 		return Response.json({ message: "Unauthorized" }, { status: 401 });

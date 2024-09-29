@@ -4,8 +4,10 @@ import { TOKEN_COOKIE } from "@/utils/constants.ts";
 import { makeApiRequest } from "@/utils/make-api-request.ts";
 import { cookies } from "next/headers";
 
-export default async function MyLevel({ params: { entry } }: { params: { entry: string } }) {
-	const token = cookies().get(TOKEN_COOKIE)?.value;
+export default async function MyLevel({ params }: { params: Promise<{ entry: string }> }) {
+	const { entry } = await params;
+
+	const token = (await cookies()).get(TOKEN_COOKIE)?.value;
 	const data = token ? await getData(entry, token) : null;
 
 	if (!data) {

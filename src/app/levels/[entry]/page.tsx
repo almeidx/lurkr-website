@@ -23,14 +23,17 @@ if (!process.env.LEVELS_METADATA_KEY) {
 
 const MAX_LEADERBOARD_PAGE = 100;
 
-export default async function Leaderboard({ params: { entry }, searchParams }: LeaderboardProps) {
-	let page = Number.parseInt(searchParams.page, 10);
+export default async function Leaderboard({ params, searchParams }: LeaderboardProps) {
+	const { page: rawPage } = await searchParams;
+	const { entry } = await params;
+
+	let page = Number.parseInt(rawPage, 10);
 
 	if (Number.isNaN(page) || page < 1 || page > MAX_LEADERBOARD_PAGE) {
 		page = 1;
 	}
 
-	const token = cookies().get(TOKEN_COOKIE)?.value;
+	const token = (await cookies()).get(TOKEN_COOKIE)?.value;
 	const data = await getData(entry, token, page);
 
 	if (!data) {
@@ -125,7 +128,9 @@ export default async function Leaderboard({ params: { entry }, searchParams }: L
 	);
 }
 
-export async function generateMetadata({ params: { entry } }: LeaderboardProps): Promise<Metadata> {
+export async function generateMetadata({ params }: LeaderboardProps): Promise<Metadata> {
+	const { entry } = await params;
+
 	const response = await makeApiRequest(`/levels/${entry}/metadata`, null, {
 		headers: {
 			Authorization: process.env.LEVELS_METADATA_KEY!,
@@ -197,6 +202,6 @@ interface Level {
 }
 
 interface LeaderboardProps {
-	params: { entry: string };
-	searchParams: { page: string };
+	params: Promise<{ entry: string }>;
+	searchParams: Promise<{ page: string }>;
 }

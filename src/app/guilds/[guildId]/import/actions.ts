@@ -17,7 +17,7 @@ const importBotDataSchema = object({
 });
 
 export async function importBotData(guildId: string, _currentState: unknown, data: FormData) {
-	const token = cookies().get(TOKEN_COOKIE)?.value;
+	const token = (await cookies()).get(TOKEN_COOKIE)?.value;
 	if (!token) {
 		throw new Error("Missing token");
 	}
@@ -47,7 +47,7 @@ export async function importBotData(guildId: string, _currentState: unknown, dat
 }
 
 export async function getOngoingImportStatus(guildId: string) {
-	const token = cookies().get(TOKEN_COOKIE)?.value;
+	const token = (await cookies()).get(TOKEN_COOKIE)?.value;
 	if (!token) {
 		throw new Error("Missing token");
 	}
