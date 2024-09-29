@@ -11,6 +11,7 @@ export const MAX_AUTO_ROLE_TIMEOUT = 30;
 
 export const MIN_MENTION_COOLDOWN = 1;
 export const MAX_MENTION_COOLDOWN = 30;
+export const MAX_MENTION_COOLDOWN_PREMIUM = 360;
 
 export const MAX_MENTION_COOLDOWN_ROLES = 25;
 

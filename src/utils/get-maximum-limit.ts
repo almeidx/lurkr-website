@@ -6,6 +6,7 @@ import {
 	MAX_AUTO_ROLE_FLAGS_ROLES,
 	MAX_AUTO_ROLE_TIMEOUT,
 	MAX_MENTION_COOLDOWN,
+	MAX_MENTION_COOLDOWN_PREMIUM,
 	MAX_MENTION_COOLDOWN_ROLES,
 	MAX_MILESTONES_INTERVAL,
 	MAX_MILESTONES_ROLES,
@@ -48,7 +49,7 @@ export function getMaximumLimit(setting: LimitedKey, premium: boolean) {
 			return MAX_AUTO_ROLE_TIMEOUT;
 
 		case "mentionCooldown":
-			return MAX_MENTION_COOLDOWN;
+			return premium ? MAX_MENTION_COOLDOWN_PREMIUM : MAX_MENTION_COOLDOWN;
 
 		case "mentionCooldownRoles":
 			return MAX_MENTION_COOLDOWN_ROLES;
