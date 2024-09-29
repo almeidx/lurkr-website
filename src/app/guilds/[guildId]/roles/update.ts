@@ -58,7 +58,11 @@ function createSchema(premium: boolean) {
 		object({
 			autoRole: createSnowflakesValidator(premium ? MAX_AUTO_ROLES_PREMIUM : MAX_AUTO_ROLES),
 			autoRoleTimeout: createMinuteIntervalValidator(MIN_AUTO_ROLE_TIMEOUT, MAX_AUTO_ROLE_TIMEOUT, "Auto role timeout"),
-			mentionCooldown: createMinuteIntervalValidator(MIN_MENTION_COOLDOWN, premium ? MAX_MENTION_COOLDOWN_PREMIUM : MAX_MENTION_COOLDOWN, "Mention cooldown"),
+			mentionCooldown: createMinuteIntervalValidator(
+				MIN_MENTION_COOLDOWN,
+				premium ? MAX_MENTION_COOLDOWN_PREMIUM : MAX_MENTION_COOLDOWN,
+				"Mention cooldown",
+			),
 			mentionCooldownRoles: createSnowflakesValidator(MAX_MENTION_COOLDOWN_ROLES),
 		}),
 	);
