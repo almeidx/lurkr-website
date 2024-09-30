@@ -24,7 +24,7 @@ export async function update(guildId: string, premium: boolean, _currentState: u
 
 	const settings = parse(schema, formDataToObject(data)) satisfies Partial<GuildSettings>;
 
-	return action(guildId, settings, `settings:${guildId}:milestones`);
+	return action(guildId, settings, `settings:${guildId}:milestones`, premium);
 }
 
 function createSchema(premium: boolean) {

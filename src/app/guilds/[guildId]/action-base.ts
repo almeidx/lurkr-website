@@ -6,7 +6,7 @@ import { makeApiRequest } from "@/utils/make-api-request.ts";
 import { revalidateTag } from "next/cache";
 import { cookies } from "next/headers";
 
-export async function action(guildId: string, data: Partial<GuildSettings>, tag: string) {
+export async function action(guildId: string, data: Partial<GuildSettings>, tag: string, premium: boolean) {
 	const token = (await cookies()).get(TOKEN_COOKIE)?.value;
 	if (!token) {
 		throw new Error("Missing token");
@@ -14,7 +14,9 @@ export async function action(guildId: string, data: Partial<GuildSettings>, tag:
 
 	console.log(data);
 
-	const response = await makeApiRequest(`/guilds/${guildId}`, token, {
+	const route = premium ? `/guilds/${guildId}/premium` : `/guilds/${guildId}`;
+
+	const response = await makeApiRequest(route, token, {
 		method: "PATCH",
 		headers: {
 			"Content-Type": "application/json",

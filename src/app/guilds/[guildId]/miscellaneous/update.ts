@@ -15,7 +15,7 @@ export async function update(guildId: string, premium: boolean, _currentState: u
 	const schema = premium ? premiumSchema() : regularSchema();
 	const settings = parse(schema, formDataToObject(data)) satisfies Partial<GuildSettings>;
 
-	return action(guildId, settings, `settings:${guildId}:miscellaneous`);
+	return action(guildId, settings, `settings:${guildId}:miscellaneous`, premium);
 }
 
 function createSchema(premium: boolean) {

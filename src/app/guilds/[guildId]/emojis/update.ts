@@ -11,8 +11,8 @@ const schema = object({
 	emojiListChannel: snowflake,
 });
 
-export async function update(guildId: string, _currentState: unknown, data: FormData) {
+export async function update(guildId: string, premium: boolean, _currentState: unknown, data: FormData) {
 	const settings = parse(schema, formDataToObject(data)) satisfies Partial<GuildSettings>;
 
-	return action(guildId, settings, `settings:${guildId}:emojis`);
+	return action(guildId, settings, `settings:${guildId}:emojis`, premium);
 }

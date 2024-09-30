@@ -123,7 +123,7 @@ export async function update(guildId: string, premium: boolean, _currentState: u
 		throw new Error(`Too many XP role rewards (max ${maxXpRoleRewards})`);
 	}
 
-	return action(guildId, settings, `settings:${guildId}:leveling`);
+	return action(guildId, settings, `settings:${guildId}:leveling`, premium);
 }
 
 function createSchema(premium: boolean) {

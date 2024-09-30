@@ -23,7 +23,7 @@ export default async function Emojis({ params }: { readonly params: Promise<{ gu
 
 	const { guild, settings } = guildData;
 
-	const action = update.bind(null, guildId);
+	const action = update.bind(null, guildId, guildData.guild.premium);
 
 	return (
 		<Form

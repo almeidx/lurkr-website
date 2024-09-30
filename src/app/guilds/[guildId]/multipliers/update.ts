@@ -79,5 +79,5 @@ export async function update(guildId: string, premium: boolean, _currentState: u
 		throw new Error(`Maximum of ${maxXpMultipliers} XP multipliers exceeded`);
 	}
 
-	return action(guildId, settings, `settings:${guildId}:multipliers`);
+	return action(guildId, settings, `settings:${guildId}:multipliers`, premium);
 }

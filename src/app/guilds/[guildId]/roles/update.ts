@@ -50,7 +50,7 @@ export async function update(guildId: string, premium: boolean, _currentState: u
 			})),
 	} satisfies Partial<GuildSettings>;
 
-	return action(guildId, settings, `settings:${guildId}:roles`);
+	return action(guildId, settings, `settings:${guildId}:roles`, premium);
 }
 
 function createSchema(premium: boolean) {
