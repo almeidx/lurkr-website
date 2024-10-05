@@ -1,8 +1,42 @@
 ---
 title: Change Log
 summary: Stay up to date with the latest changes to Lurkr.
-publishedAt: 2024-07-23
+publishedAt: 2024-10-05
 ---
+
+## Quality of Life Improvements
+
+29 September 2024
+
+### Discord Bot
+
+- Increased the Role Mention Cooldown interval to __6 Hours__ for [Lurkr Ultimate](/premium) servers.
+	- The standard limit of 30 minutes has not been changed.
+
+- Added a `user` option to `/background view` command.
+	- This new option is meant to help users find and report (`/background report`) offensive user backgrounds.
+
+- Added named colour options to the `/colour` command.
+	- This means you can now type `red` or `green` instead of a complicated hex code! Give it a try!
+
+- Fixed Polaris Import importing incorrect levels.
+- Reduced probability of getting an "unexpected error" when using `/importxp`.
+- Renamed the `until` option in the `/importxp` command to `min_level` for better clarity on what the option does.
+- Fixed an issue not gaining XP when an active multiplier is too low (ie. x0.01).
+
+- Unfortunately Polaris Import's might still sometimes fail with "unexpected errors".
+This is because of Polaris' inherent instability and cannot be fixed on our end.
+
+### Dashboard
+
+- Added a toggle for **Only Announce Level-Ups Together With Role Rewards** which was previously only available through the config command.
+	- You can find it under __Leveling > Level Up Message__.
+
+- Added showing the non-shortened number when hovering over it in the Leveling Calculator.
+	- Instead of `21.3M`, hovering over the number with your mouse will show `21,303,511` now.
+
+- Fixed level up message conditions not showing/updating correctly.
+- Miscellaneous styling fixes.
 
 ## Polaris Leaderboard Import
 
