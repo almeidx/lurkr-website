@@ -31,7 +31,10 @@ export function ProfileButton({ avatar, globalName, id, username }: User) {
 
 	return (
 		<>
-			<MenuButton store={store} className="flex items-center justify-center gap-2 rounded-lg bg-light-gray px-2 py-1">
+			<MenuButton
+				store={store}
+				className="flex w-fit items-center justify-center gap-2 rounded-lg bg-light-gray px-2 py-1"
+			>
 				<ImageWithFallback
 					alt="Your profile picture"
 					className="aspect-square rounded-full"
