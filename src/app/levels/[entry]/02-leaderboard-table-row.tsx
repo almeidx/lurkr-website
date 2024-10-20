@@ -11,7 +11,9 @@ import { Disclosure, DisclosureContent, useDisclosureStore, useStoreState } from
 import clsx from "clsx";
 import dynamic from "next/dynamic";
 
-const Confirmation = dynamic(() => import("@/components/Confirmation.tsx").then((mod) => mod.Confirmation));
+const Confirmation = dynamic(() =>
+	import("@/components/Confirmation.tsx").then((mod) => ({ default: mod.Confirmation })),
+);
 
 export function LeaderboardTableRow({ guildId, row, isManager }: LeaderboardTableRowProps) {
 	const disclosure = useDisclosureStore();
