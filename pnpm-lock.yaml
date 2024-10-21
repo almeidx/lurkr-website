@@ -19,8 +19,8 @@ importers:
         specifier: ^0.4.13
         version: 0.4.13(react-dom@19.0.0-rc-bf7e210c-20241017(react@19.0.0-rc-bf7e210c-20241017))(react@19.0.0-rc-bf7e210c-20241017)
       '@next/third-parties':
-        specifier: 15.0.0-canary.200
-        version: 15.0.0-canary.200(next@15.0.0-canary.200(babel-plugin-react-compiler@19.0.0-beta-9ee70a1-20241017)(react-dom@19.0.0-rc-bf7e210c-20241017(react@19.0.0-rc-bf7e210c-20241017))(react@19.0.0-rc-bf7e210c-20241017))(react@19.0.0-rc-bf7e210c-20241017)
+        specifier: 15.0.0-rc.1
+        version: 15.0.0-rc.1(next@15.0.0-canary.200(babel-plugin-react-compiler@19.0.0-beta-9ee70a1-20241017)(react-dom@19.0.0-rc-bf7e210c-20241017(react@19.0.0-rc-bf7e210c-20241017))(react@19.0.0-rc-bf7e210c-20241017))(react@19.0.0-rc-bf7e210c-20241017)
       '@visx/axis':
         specifier: ^3.10.1
         version: 3.10.1(react@19.0.0-rc-bf7e210c-20241017)
@@ -638,8 +638,8 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@next/third-parties@15.0.0-canary.200':
-    resolution: {integrity: sha512-bkZwHkIqQijkUqzfCUEkbhCE94J1pIPgYROpr6xq60AvSaL5hg9HS1pWTEDaCM1T9nvxeVbrfucQRlsXNV5Ccg==}
+  '@next/third-parties@15.0.0-rc.1':
+    resolution: {integrity: sha512-JuE58y75uMtYjxis1wdrWD4okImuGq2tUc5xjGkH+26lQ2IO1aCtcMPjeL1Vwop/PF5b3MyXEjMXO+6KcatrQw==}
     peerDependencies:
       next: ^13.0.0 || ^14.0.0 || ^15.0.0
       react: 19.0.0-rc-bf7e210c-20241017
@@ -3326,7 +3326,7 @@ snapshots:
   '@next/swc-win32-x64-msvc@15.0.0-canary.200':
     optional: true
 
-  '@next/third-parties@15.0.0-canary.200(next@15.0.0-canary.200(babel-plugin-react-compiler@19.0.0-beta-9ee70a1-20241017)(react-dom@19.0.0-rc-bf7e210c-20241017(react@19.0.0-rc-bf7e210c-20241017))(react@19.0.0-rc-bf7e210c-20241017))(react@19.0.0-rc-bf7e210c-20241017)':
+  '@next/third-parties@15.0.0-rc.1(next@15.0.0-canary.200(babel-plugin-react-compiler@19.0.0-beta-9ee70a1-20241017)(react-dom@19.0.0-rc-bf7e210c-20241017(react@19.0.0-rc-bf7e210c-20241017))(react@19.0.0-rc-bf7e210c-20241017))(react@19.0.0-rc-bf7e210c-20241017)':
     dependencies:
       next: 15.0.0-canary.200(babel-plugin-react-compiler@19.0.0-beta-9ee70a1-20241017)(react-dom@19.0.0-rc-bf7e210c-20241017(react@19.0.0-rc-bf7e210c-20241017))(react@19.0.0-rc-bf7e210c-20241017)
       react: 19.0.0-rc-bf7e210c-20241017
