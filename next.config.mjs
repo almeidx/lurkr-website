@@ -19,7 +19,7 @@ const nextConfig = {
 	},
 	experimental: {
 		reactCompiler: true,
-		ppr: true,
+		// ppr: true,
 	},
 	logging: {
 		fetches: {
