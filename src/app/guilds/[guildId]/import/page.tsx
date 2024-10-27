@@ -20,16 +20,20 @@ export const metadata: Metadata = {
 };
 
 async function getData(guildId: Snowflake, token: string) {
-	const response = await makeApiRequest(`/levels/${guildId}/import`, token, {
-		next: {
-			tags: [`import-status:${guildId}`],
-			revalidate: 15,
-		},
-	});
+	try {
+		const response = await makeApiRequest(`/levels/${guildId}/import`, token, {
+			next: {
+				tags: [`import-status:${guildId}`],
+				revalidate: 15,
+			},
+		});
 
-	if (!response.ok) {
+		if (!response.ok) {
+			return null;
+		}
+
+		return response.json() as Promise<GetImportStatusResponse>;
+	} catch {
 		return null;
 	}
-
-	return response.json() as Promise<GetImportStatusResponse>;
 }
