@@ -49,10 +49,11 @@ export default {
 	footer: {
 		component: <Footer />,
 	},
-	// color: {
-	// 	hue: 357.06,
-	// 	saturation: 100,
-	// },
+	color: {
+		hue: 357.06,
+		saturation: 100,
+		lightness: 72,
+	},
 	chat: {
 		link: SUPPORT_SERVER_INVITE,
 		icon: <Discord className="size-7" />,

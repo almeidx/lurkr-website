@@ -25,8 +25,8 @@
 		"match-sorter": "^7.0.0",
 		"next": "^15.0.2",
 		"next-nprogress-bar": "^2.3.14",
-		"nextra": "3.1.3",
-		"nextra-theme-docs": "3.1.3",
+		"nextra": "3.2.0",
+		"nextra-theme-docs": "3.2.0",
 		"p-retry": "^6.2.0",
 		"react": "19.0.0-rc-65a56d0e-20241020",
 		"react-colorful": "^5.6.1",
@@ -40,7 +40,7 @@
 	"devDependencies": {
 		"@biomejs/biome": "^1.9.4",
 		"@tailwindcss/typography": "^0.5.15",
-		"@types/node": "^20.17.3",
+		"@types/node": "^22.8.4",
 		"@types/react": "npm:types-react@19.0.0-rc.1",
 		"@types/react-dom": "npm:types-react-dom@19.0.0-rc.1",
 		"@types/textarea-caret": "^3.0.3",
@@ -52,13 +52,12 @@
 		"tailwindcss": "^3.4.14",
 		"typescript": "~5.6.3"
 	},
-	"packageManager": "pnpm@9.12.2",
+	"packageManager": "pnpm@9.12.3",
 	"engines": {
 		"node": ">=20"
 	},
 	"pnpm": {
 		"overrides": {
-			"@headlessui/react": "^2.2.0",
 			"@types/react": "npm:types-react@19.0.0-rc.1",
 			"@types/react-dom": "npm:types-react-dom@19.0.0-rc.1",
 			"react": "19.0.0-rc-65a56d0e-20241020",

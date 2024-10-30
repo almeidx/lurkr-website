@@ -1,3 +1,4 @@
+import type { NextConfig } from "next";
 import nextra from "nextra";
 import { BOT_INVITE, GITHUB_REPOSITORY_URL, PATREON_URL, SUPPORT_SERVER_INVITE, TOPGG_URL } from "./shared-links.mjs";
 
@@ -6,7 +7,6 @@ const withNextra = nextra({
 	themeConfig: "./theme.config.tsx",
 });
 
-/** @type {import('next').NextConfig} */
 const nextConfig = {
 	reactStrictMode: true,
 	images: {
@@ -55,6 +55,6 @@ const nextConfig = {
 			},
 		];
 	},
-};
+} as const satisfies NextConfig;
 
 export default withNextra(nextConfig);
