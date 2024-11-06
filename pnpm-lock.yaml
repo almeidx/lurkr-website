@@ -54,11 +54,11 @@ importers:
         specifier: ^2.3.14
         version: 2.3.14
       nextra:
-        specifier: 3.2.0
-        version: 3.2.0(acorn@8.14.0)(next@15.0.2(babel-plugin-react-compiler@19.0.0-beta-9ee70a1-20241017)(react-dom@19.0.0-rc-65a56d0e-20241020(react@19.0.0-rc-65a56d0e-20241020))(react@19.0.0-rc-65a56d0e-20241020))(react-dom@19.0.0-rc-65a56d0e-20241020(react@19.0.0-rc-65a56d0e-20241020))(react@19.0.0-rc-65a56d0e-20241020)(types-react@19.0.0-rc.1)(typescript@5.6.3)
+        specifier: 3.2.1
+        version: 3.2.1(acorn@8.14.0)(next@15.0.2(babel-plugin-react-compiler@19.0.0-beta-9ee70a1-20241017)(react-dom@19.0.0-rc-65a56d0e-20241020(react@19.0.0-rc-65a56d0e-20241020))(react@19.0.0-rc-65a56d0e-20241020))(react-dom@19.0.0-rc-65a56d0e-20241020(react@19.0.0-rc-65a56d0e-20241020))(react@19.0.0-rc-65a56d0e-20241020)(types-react@19.0.0-rc.1)(typescript@5.6.3)
       nextra-theme-docs:
-        specifier: 3.2.0
-        version: 3.2.0(next@15.0.2(babel-plugin-react-compiler@19.0.0-beta-9ee70a1-20241017)(react-dom@19.0.0-rc-65a56d0e-20241020(react@19.0.0-rc-65a56d0e-20241020))(react@19.0.0-rc-65a56d0e-20241020))(nextra@3.2.0(acorn@8.14.0)(next@15.0.2(babel-plugin-react-compiler@19.0.0-beta-9ee70a1-20241017)(react-dom@19.0.0-rc-65a56d0e-20241020(react@19.0.0-rc-65a56d0e-20241020))(react@19.0.0-rc-65a56d0e-20241020))(react-dom@19.0.0-rc-65a56d0e-20241020(react@19.0.0-rc-65a56d0e-20241020))(react@19.0.0-rc-65a56d0e-20241020)(types-react@19.0.0-rc.1)(typescript@5.6.3))(react-dom@19.0.0-rc-65a56d0e-20241020(react@19.0.0-rc-65a56d0e-20241020))(react@19.0.0-rc-65a56d0e-20241020)
+        specifier: 3.2.1
+        version: 3.2.1(next@15.0.2(babel-plugin-react-compiler@19.0.0-beta-9ee70a1-20241017)(react-dom@19.0.0-rc-65a56d0e-20241020(react@19.0.0-rc-65a56d0e-20241020))(react@19.0.0-rc-65a56d0e-20241020))(nextra@3.2.1(acorn@8.14.0)(next@15.0.2(babel-plugin-react-compiler@19.0.0-beta-9ee70a1-20241017)(react-dom@19.0.0-rc-65a56d0e-20241020(react@19.0.0-rc-65a56d0e-20241020))(react@19.0.0-rc-65a56d0e-20241020))(react-dom@19.0.0-rc-65a56d0e-20241020(react@19.0.0-rc-65a56d0e-20241020))(react@19.0.0-rc-65a56d0e-20241020)(types-react@19.0.0-rc.1)(typescript@5.6.3))(react-dom@19.0.0-rc-65a56d0e-20241020(react@19.0.0-rc-65a56d0e-20241020))(react@19.0.0-rc-65a56d0e-20241020)
       p-retry:
         specifier: ^6.2.0
         version: 6.2.0
@@ -94,8 +94,8 @@ importers:
         specifier: ^0.5.15
         version: 0.5.15(tailwindcss@3.4.14)
       '@types/node':
-        specifier: ^20.17.3
-        version: 20.17.3
+        specifier: ^20.17.6
+        version: 20.17.6
       '@types/react':
         specifier: npm:types-react@19.0.0-rc.1
         version: types-react@19.0.0-rc.1
@@ -344,8 +344,8 @@ packages:
       react: 19.0.0-rc-65a56d0e-20241020
       react-dom: 19.0.0-rc-65a56d0e-20241020
 
-  '@floating-ui/react@0.26.26':
-    resolution: {integrity: sha512-iv2BjdcyoF1j1708Z9CrGtMc9ZZvMPZnDqyB1FrSWYCi+/nlPArUO/u9QhwC4E1Pi4T0g18GZ4W702m0NDh9bw==}
+  '@floating-ui/react@0.26.27':
+    resolution: {integrity: sha512-jLP72x0Kr2CgY6eTYi/ra3VA9LOkTo4C+DUTrbFgFOExKy3omYVmwMjNKqxAHdsnyLS96BIDLcO2SlnsNf8KUQ==}
     peerDependencies:
       react: 19.0.0-rc-65a56d0e-20241020
       react-dom: 19.0.0-rc-65a56d0e-20241020
@@ -353,8 +353,8 @@ packages:
   '@floating-ui/utils@0.2.8':
     resolution: {integrity: sha512-kym7SodPp8/wloecOpcmSnWJsK7M0E5Wg8UcFA+uO4B9s5d0ywXOEro/8HM9x0rW+TljRzul/14UYz3TleT3ig==}
 
-  '@formatjs/intl-localematcher@0.5.6':
-    resolution: {integrity: sha512-roz1+Ba5e23AHX6KUAWmLEyTRZegM5YDuxuvkHCyK3RJddf/UXB2f+s7pOMm9ktfPGla0g+mQXOn5vsuYirnaA==}
+  '@formatjs/intl-localematcher@0.5.7':
+    resolution: {integrity: sha512-GGFtfHGQVFe/niOZp24Kal5b2i36eE2bNL0xi9Sg/yd0TR8aLjcteApZdHmismP5QQax1cMnZM9yWySUUjJteA==}
 
   '@headlessui/react@2.2.0':
     resolution: {integrity: sha512-RzCEg+LXsuI7mHiSomsu/gBJSjpupm6A1qIZ5sWjd7JhARNlMiSA4kKfJpCKwU9tE+zMRterhhrP74PvfJrpXQ==}
@@ -921,8 +921,8 @@ packages:
   '@types/nlcst@2.0.3':
     resolution: {integrity: sha512-vSYNSDe6Ix3q+6Z7ri9lyWqgGhJTmzRjZRqyq15N0Z/1/UnVsno9G/N40NBijoYx2seFDIl0+B2mgAb9mezUCA==}
 
-  '@types/node@20.17.3':
-    resolution: {integrity: sha512-tSQrmKKatLDGnG92h40GD7FzUt0MjahaHwOME4VAFeeA/Xopayq5qLyQRy7Jg/pjgKIFBXuKcGhJo+UdYG55jQ==}
+  '@types/node@20.17.6':
+    resolution: {integrity: sha512-VEI7OdvK2wP7XHnsuXbAJnEpEkF6NjSN45QJlL4VGqZSXsnicpesdTWsg9RISeSdYd3yeRj/y3k5KGjUXYnFwQ==}
 
   '@types/parse-json@4.0.2':
     resolution: {integrity: sha512-dISoDXWWQwUquiKsyZ4Ng+HX2KsPL7LyHKHQwgGFEA3IaKac4Obd+h2a/a6waisAoepJlBcx9paWqjA8/HVjCw==}
@@ -1544,8 +1544,8 @@ packages:
     resolution: {integrity: sha512-Y+ughcF9jSUJvncXwqRageavjrNPAI+1M/L3BI3PyLp1nmgYTGUXU6t5z1Y7OWuThoDdhPME07bQU+d5LxdJqw==}
     engines: {node: '>=12.0.0'}
 
-  estree-util-value-to-estree@3.1.2:
-    resolution: {integrity: sha512-S0gW2+XZkmsx00tU2uJ4L9hUT7IFabbml9pHh2WQqFmAbxit++YGZne0sKJbNwkj9Wvg9E4uqWl4nCIFQMmfag==}
+  estree-util-value-to-estree@3.2.1:
+    resolution: {integrity: sha512-Vt2UOjyPbNQQgT5eJh+K5aATti0OjCIAGc9SgMdOFYbohuifsWclR74l0iZTJwePMgWYdX1hlVS+dedH9XV8kw==}
 
   estree-util-visit@2.0.0:
     resolution: {integrity: sha512-m5KgiH85xAhhW8Wta0vShLcUvOsh3LLPI2YVwcbio1l7E09NTLL1EyMZFM1OyWowoH0skScNbhOPl4kcBgzTww==}
@@ -1956,8 +1956,8 @@ packages:
   mdast-util-to-hast@13.2.0:
     resolution: {integrity: sha512-QGYKEuUsYT9ykKBCMOEDLsU5JRObWQusAolFMeko/tYPufNkRffBAQjIE+99jbA87xv6FgmjLtwjh9wBWajwAA==}
 
-  mdast-util-to-markdown@2.1.1:
-    resolution: {integrity: sha512-OrkcCoqAkEg9b1ykXBrA0ehRc8H4fGU/03cACmW2xXzau1+dIdS+qJugh1Cqex3hMumSBgSE/5pc7uqP12nLAw==}
+  mdast-util-to-markdown@2.1.2:
+    resolution: {integrity: sha512-xj68wMTvGXVOKonmog6LwyJKrYXZPvlwabaryTjLh9LuvovB/KAH+kvi8Gjj+7rJjsFi23nkUxRQv1KqSroMqA==}
 
   mdast-util-to-string@4.0.0:
     resolution: {integrity: sha512-0H44vDimn51F0YwvxSJSm0eCDOJTRlmN0R1yBh4HLj9wiV1Dn0QoXGbvFAWj2hSItVTlCmBF1hqKlIyUBVFLPg==}
@@ -2122,8 +2122,8 @@ packages:
   next-nprogress-bar@2.3.14:
     resolution: {integrity: sha512-r2zdo5SFakm1CSYLBo2/+9X2F5NRnbV/LI1b/Iu3mFLa9ln+Dlwx3vjJc3kVHI4i42jRC0an++obVHeWkYU6gA==}
 
-  next-themes@0.3.0:
-    resolution: {integrity: sha512-/QHIrsYpd6Kfk7xakK4svpDI5mmXP0gfvCoJdGpZQ2TOrQZmsW0QxjaiLn8wbIKjtm4BTSqLoix4lxYYOnLJ/w==}
+  next-themes@0.4.3:
+    resolution: {integrity: sha512-nG84VPkTdUHR2YeD89YchvV4I9RbiMAql3GiLEQlPvq1ioaqPaIReK+yMRdg/zgiXws620qS1rU30TiWmmG9lA==}
     peerDependencies:
       react: 19.0.0-rc-65a56d0e-20241020
       react-dom: 19.0.0-rc-65a56d0e-20241020
@@ -2149,16 +2149,16 @@ packages:
       sass:
         optional: true
 
-  nextra-theme-docs@3.2.0:
-    resolution: {integrity: sha512-bUa0W3rh+OgUrE8aJXqYpjVAu0AmkJuHZd9Me0qjGK5YinSvQv7jzAWI7+Af4vnWdRkPlh6MIUUHAOPo+Yalcw==}
+  nextra-theme-docs@3.2.1:
+    resolution: {integrity: sha512-Xfa8ogYpJVaErBxKcmCidxRnlXujgJZyoCn39NkbUodfMteW0WEQoYsbib/++Kc1pZEK17piAyNRvDJQ4lqWlQ==}
     peerDependencies:
       next: '>=13'
-      nextra: 3.2.0
+      nextra: 3.2.1
       react: 19.0.0-rc-65a56d0e-20241020
       react-dom: 19.0.0-rc-65a56d0e-20241020
 
-  nextra@3.2.0:
-    resolution: {integrity: sha512-Gi+Q6BI9rFmQdy3e4FXCqgaSUcv8CGRVOVWbgY6/GTAWKMKK4v5M1gxYNhxdOywSkIoXrxSeXbIaj0qgNdjv3A==}
+  nextra@3.2.1:
+    resolution: {integrity: sha512-msCOx9/hXIBP8fY4HZZsa6oV7n8Fh49SRYTnF/+bdgYMLw4YKNdixLT3V1Wgw+ajHwfWfuzxE+5Xecp+6ygzig==}
     engines: {node: '>=18'}
     peerDependencies:
       next: '>=13'
@@ -2426,8 +2426,8 @@ packages:
   regenerator-runtime@0.14.1:
     resolution: {integrity: sha512-dYnhHh0nJoMfnkZs6GmmhFknAGRrLznOu5nc9ML+EJxGvrx6H7teuevqVqCuPcPK//3eDrrjQhehXVx9cnkGdw==}
 
-  regex@4.3.3:
-    resolution: {integrity: sha512-r/AadFO7owAq1QJVeZ/nq9jNS1vyZt+6t1p/E59B56Rn2GCya+gr1KSyOzNL/er+r+B7phv5jG2xU2Nz1YkmJg==}
+  regex@4.4.0:
+    resolution: {integrity: sha512-uCUSuobNVeqUupowbdZub6ggI5/JZkYyJdDogddJr60L764oxC2pMZov1fQ3wM9bdyzUILDG+Sqx6NAKAz9rKQ==}
 
   rehype-katex@7.0.1:
     resolution: {integrity: sha512-OiM2wrZ/wuhKkigASodFoo8wimG3H12LWQaH8qSPVJn9apWKFSH3YOCtbKpBorTVw/eI7cuT21XBbvwEswbIOA==}
@@ -2733,6 +2733,9 @@ packages:
 
   tslib@2.8.0:
     resolution: {integrity: sha512-jWVzBLplnCmoaTr13V9dYbiQ99wvZRd0vNWaDRg+aVYRcjDF3nDksxFDE/+fkXnKhpnUUkmx5pK/v8mCtLVqZA==}
+
+  tslib@2.8.1:
+    resolution: {integrity: sha512-oJFu94HQb+KVduSUQL7wnpmqnfmLsOA/nAh6b6EH0wCEoK0/mPeXU6c3wKDV83MkOuHPRHtSXKKU99IBazS/2w==}
 
   twoslash-protocol@0.2.12:
     resolution: {integrity: sha512-5qZLXVYfZ9ABdjqbvPc4RWMr7PrpPaaDSeaYY55vl/w1j6H6kzsWK/urAEIXlzYlyrFmyz1UbwIt+AA0ck+wbg==}
@@ -3090,7 +3093,7 @@ snapshots:
 
   '@emnapi/runtime@1.3.1':
     dependencies:
-      tslib: 2.8.0
+      tslib: 2.8.1
     optional: true
 
   '@emotion/babel-plugin@11.12.0':
@@ -3177,7 +3180,7 @@ snapshots:
       react: 19.0.0-rc-65a56d0e-20241020
       react-dom: 19.0.0-rc-65a56d0e-20241020(react@19.0.0-rc-65a56d0e-20241020)
 
-  '@floating-ui/react@0.26.26(react-dom@19.0.0-rc-65a56d0e-20241020(react@19.0.0-rc-65a56d0e-20241020))(react@19.0.0-rc-65a56d0e-20241020)':
+  '@floating-ui/react@0.26.27(react-dom@19.0.0-rc-65a56d0e-20241020(react@19.0.0-rc-65a56d0e-20241020))(react@19.0.0-rc-65a56d0e-20241020)':
     dependencies:
       '@floating-ui/react-dom': 2.1.2(react-dom@19.0.0-rc-65a56d0e-20241020(react@19.0.0-rc-65a56d0e-20241020))(react@19.0.0-rc-65a56d0e-20241020)
       '@floating-ui/utils': 0.2.8
@@ -3187,13 +3190,13 @@ snapshots:
 
   '@floating-ui/utils@0.2.8': {}
 
-  '@formatjs/intl-localematcher@0.5.6':
+  '@formatjs/intl-localematcher@0.5.7':
     dependencies:
-      tslib: 2.8.0
+      tslib: 2.8.1
 
   '@headlessui/react@2.2.0(react-dom@19.0.0-rc-65a56d0e-20241020(react@19.0.0-rc-65a56d0e-20241020))(react@19.0.0-rc-65a56d0e-20241020)':
     dependencies:
-      '@floating-ui/react': 0.26.26(react-dom@19.0.0-rc-65a56d0e-20241020(react@19.0.0-rc-65a56d0e-20241020))(react@19.0.0-rc-65a56d0e-20241020)
+      '@floating-ui/react': 0.26.27(react-dom@19.0.0-rc-65a56d0e-20241020(react@19.0.0-rc-65a56d0e-20241020))(react@19.0.0-rc-65a56d0e-20241020)
       '@react-aria/focus': 3.18.4(react@19.0.0-rc-65a56d0e-20241020)
       '@react-aria/interactions': 3.22.4(react@19.0.0-rc-65a56d0e-20241020)
       '@tanstack/react-virtual': 3.10.8(react-dom@19.0.0-rc-65a56d0e-20241020(react@19.0.0-rc-65a56d0e-20241020))(react@19.0.0-rc-65a56d0e-20241020)
@@ -3772,7 +3775,7 @@ snapshots:
     dependencies:
       '@types/unist': 3.0.3
 
-  '@types/node@20.17.3':
+  '@types/node@20.17.6':
     dependencies:
       undici-types: 6.19.8
 
@@ -4463,7 +4466,7 @@ snapshots:
     dependencies:
       is-plain-obj: 3.0.0
 
-  estree-util-value-to-estree@3.1.2:
+  estree-util-value-to-estree@3.2.1:
     dependencies:
       '@types/estree': 1.0.6
 
@@ -4918,7 +4921,7 @@ snapshots:
       devlop: 1.1.0
       escape-string-regexp: 5.0.0
       mdast-util-from-markdown: 2.0.2
-      mdast-util-to-markdown: 2.1.1
+      mdast-util-to-markdown: 2.1.2
       micromark-extension-frontmatter: 2.0.0
     transitivePeerDependencies:
       - supports-color
@@ -4936,7 +4939,7 @@ snapshots:
       '@types/mdast': 4.0.4
       devlop: 1.1.0
       mdast-util-from-markdown: 2.0.2
-      mdast-util-to-markdown: 2.1.1
+      mdast-util-to-markdown: 2.1.2
       micromark-util-normalize-identifier: 2.0.0
     transitivePeerDependencies:
       - supports-color
@@ -4945,7 +4948,7 @@ snapshots:
     dependencies:
       '@types/mdast': 4.0.4
       mdast-util-from-markdown: 2.0.2
-      mdast-util-to-markdown: 2.1.1
+      mdast-util-to-markdown: 2.1.2
     transitivePeerDependencies:
       - supports-color
 
@@ -4955,7 +4958,7 @@ snapshots:
       devlop: 1.1.0
       markdown-table: 3.0.4
       mdast-util-from-markdown: 2.0.2
-      mdast-util-to-markdown: 2.1.1
+      mdast-util-to-markdown: 2.1.2
     transitivePeerDependencies:
       - supports-color
 
@@ -4964,7 +4967,7 @@ snapshots:
       '@types/mdast': 4.0.4
       devlop: 1.1.0
       mdast-util-from-markdown: 2.0.2
-      mdast-util-to-markdown: 2.1.1
+      mdast-util-to-markdown: 2.1.2
     transitivePeerDependencies:
       - supports-color
 
@@ -4976,7 +4979,7 @@ snapshots:
       mdast-util-gfm-strikethrough: 2.0.0
       mdast-util-gfm-table: 2.0.0
       mdast-util-gfm-task-list-item: 2.0.0
-      mdast-util-to-markdown: 2.1.1
+      mdast-util-to-markdown: 2.1.2
     transitivePeerDependencies:
       - supports-color
 
@@ -4987,7 +4990,7 @@ snapshots:
       devlop: 1.1.0
       longest-streak: 3.1.0
       mdast-util-from-markdown: 2.0.2
-      mdast-util-to-markdown: 2.1.1
+      mdast-util-to-markdown: 2.1.2
       unist-util-remove-position: 5.0.0
     transitivePeerDependencies:
       - supports-color
@@ -4999,7 +5002,7 @@ snapshots:
       '@types/mdast': 4.0.4
       devlop: 1.1.0
       mdast-util-from-markdown: 2.0.2
-      mdast-util-to-markdown: 2.1.1
+      mdast-util-to-markdown: 2.1.2
     transitivePeerDependencies:
       - supports-color
 
@@ -5012,7 +5015,7 @@ snapshots:
       ccount: 2.0.1
       devlop: 1.1.0
       mdast-util-from-markdown: 2.0.2
-      mdast-util-to-markdown: 2.1.1
+      mdast-util-to-markdown: 2.1.2
       parse-entities: 4.0.1
       stringify-entities: 4.0.4
       unist-util-stringify-position: 4.0.0
@@ -5026,7 +5029,7 @@ snapshots:
       mdast-util-mdx-expression: 2.0.1
       mdast-util-mdx-jsx: 3.1.3
       mdast-util-mdxjs-esm: 2.0.1
-      mdast-util-to-markdown: 2.1.1
+      mdast-util-to-markdown: 2.1.2
     transitivePeerDependencies:
       - supports-color
 
@@ -5037,7 +5040,7 @@ snapshots:
       '@types/mdast': 4.0.4
       devlop: 1.1.0
       mdast-util-from-markdown: 2.0.2
-      mdast-util-to-markdown: 2.1.1
+      mdast-util-to-markdown: 2.1.2
     transitivePeerDependencies:
       - supports-color
 
@@ -5058,7 +5061,7 @@ snapshots:
       unist-util-visit: 5.0.0
       vfile: 6.0.3
 
-  mdast-util-to-markdown@2.1.1:
+  mdast-util-to-markdown@2.1.2:
     dependencies:
       '@types/mdast': 4.0.4
       '@types/unist': 3.0.3
@@ -5425,7 +5428,7 @@ snapshots:
     dependencies:
       nprogress: 0.2.0
 
-  next-themes@0.3.0(react-dom@19.0.0-rc-65a56d0e-20241020(react@19.0.0-rc-65a56d0e-20241020))(react@19.0.0-rc-65a56d0e-20241020):
+  next-themes@0.4.3(react-dom@19.0.0-rc-65a56d0e-20241020(react@19.0.0-rc-65a56d0e-20241020))(react@19.0.0-rc-65a56d0e-20241020):
     dependencies:
       react: 19.0.0-rc-65a56d0e-20241020
       react-dom: 19.0.0-rc-65a56d0e-20241020(react@19.0.0-rc-65a56d0e-20241020)
@@ -5456,23 +5459,23 @@ snapshots:
       - '@babel/core'
       - babel-plugin-macros
 
-  nextra-theme-docs@3.2.0(next@15.0.2(babel-plugin-react-compiler@19.0.0-beta-9ee70a1-20241017)(react-dom@19.0.0-rc-65a56d0e-20241020(react@19.0.0-rc-65a56d0e-20241020))(react@19.0.0-rc-65a56d0e-20241020))(nextra@3.2.0(acorn@8.14.0)(next@15.0.2(babel-plugin-react-compiler@19.0.0-beta-9ee70a1-20241017)(react-dom@19.0.0-rc-65a56d0e-20241020(react@19.0.0-rc-65a56d0e-20241020))(react@19.0.0-rc-65a56d0e-20241020))(react-dom@19.0.0-rc-65a56d0e-20241020(react@19.0.0-rc-65a56d0e-20241020))(react@19.0.0-rc-65a56d0e-20241020)(types-react@19.0.0-rc.1)(typescript@5.6.3))(react-dom@19.0.0-rc-65a56d0e-20241020(react@19.0.0-rc-65a56d0e-20241020))(react@19.0.0-rc-65a56d0e-20241020):
+  nextra-theme-docs@3.2.1(next@15.0.2(babel-plugin-react-compiler@19.0.0-beta-9ee70a1-20241017)(react-dom@19.0.0-rc-65a56d0e-20241020(react@19.0.0-rc-65a56d0e-20241020))(react@19.0.0-rc-65a56d0e-20241020))(nextra@3.2.1(acorn@8.14.0)(next@15.0.2(babel-plugin-react-compiler@19.0.0-beta-9ee70a1-20241017)(react-dom@19.0.0-rc-65a56d0e-20241020(react@19.0.0-rc-65a56d0e-20241020))(react@19.0.0-rc-65a56d0e-20241020))(react-dom@19.0.0-rc-65a56d0e-20241020(react@19.0.0-rc-65a56d0e-20241020))(react@19.0.0-rc-65a56d0e-20241020)(types-react@19.0.0-rc.1)(typescript@5.6.3))(react-dom@19.0.0-rc-65a56d0e-20241020(react@19.0.0-rc-65a56d0e-20241020))(react@19.0.0-rc-65a56d0e-20241020):
     dependencies:
       '@headlessui/react': 2.2.0(react-dom@19.0.0-rc-65a56d0e-20241020(react@19.0.0-rc-65a56d0e-20241020))(react@19.0.0-rc-65a56d0e-20241020)
       clsx: 2.1.1
       escape-string-regexp: 5.0.0
       flexsearch: 0.7.43
       next: 15.0.2(babel-plugin-react-compiler@19.0.0-beta-9ee70a1-20241017)(react-dom@19.0.0-rc-65a56d0e-20241020(react@19.0.0-rc-65a56d0e-20241020))(react@19.0.0-rc-65a56d0e-20241020)
-      next-themes: 0.3.0(react-dom@19.0.0-rc-65a56d0e-20241020(react@19.0.0-rc-65a56d0e-20241020))(react@19.0.0-rc-65a56d0e-20241020)
-      nextra: 3.2.0(acorn@8.14.0)(next@15.0.2(babel-plugin-react-compiler@19.0.0-beta-9ee70a1-20241017)(react-dom@19.0.0-rc-65a56d0e-20241020(react@19.0.0-rc-65a56d0e-20241020))(react@19.0.0-rc-65a56d0e-20241020))(react-dom@19.0.0-rc-65a56d0e-20241020(react@19.0.0-rc-65a56d0e-20241020))(react@19.0.0-rc-65a56d0e-20241020)(types-react@19.0.0-rc.1)(typescript@5.6.3)
+      next-themes: 0.4.3(react-dom@19.0.0-rc-65a56d0e-20241020(react@19.0.0-rc-65a56d0e-20241020))(react@19.0.0-rc-65a56d0e-20241020)
+      nextra: 3.2.1(acorn@8.14.0)(next@15.0.2(babel-plugin-react-compiler@19.0.0-beta-9ee70a1-20241017)(react-dom@19.0.0-rc-65a56d0e-20241020(react@19.0.0-rc-65a56d0e-20241020))(react@19.0.0-rc-65a56d0e-20241020))(react-dom@19.0.0-rc-65a56d0e-20241020(react@19.0.0-rc-65a56d0e-20241020))(react@19.0.0-rc-65a56d0e-20241020)(types-react@19.0.0-rc.1)(typescript@5.6.3)
       react: 19.0.0-rc-65a56d0e-20241020
       react-dom: 19.0.0-rc-65a56d0e-20241020(react@19.0.0-rc-65a56d0e-20241020)
       scroll-into-view-if-needed: 3.1.0
       zod: 3.23.8
 
-  nextra@3.2.0(acorn@8.14.0)(next@15.0.2(babel-plugin-react-compiler@19.0.0-beta-9ee70a1-20241017)(react-dom@19.0.0-rc-65a56d0e-20241020(react@19.0.0-rc-65a56d0e-20241020))(react@19.0.0-rc-65a56d0e-20241020))(react-dom@19.0.0-rc-65a56d0e-20241020(react@19.0.0-rc-65a56d0e-20241020))(react@19.0.0-rc-65a56d0e-20241020)(types-react@19.0.0-rc.1)(typescript@5.6.3):
+  nextra@3.2.1(acorn@8.14.0)(next@15.0.2(babel-plugin-react-compiler@19.0.0-beta-9ee70a1-20241017)(react-dom@19.0.0-rc-65a56d0e-20241020(react@19.0.0-rc-65a56d0e-20241020))(react@19.0.0-rc-65a56d0e-20241020))(react-dom@19.0.0-rc-65a56d0e-20241020(react@19.0.0-rc-65a56d0e-20241020))(react@19.0.0-rc-65a56d0e-20241020)(types-react@19.0.0-rc.1)(typescript@5.6.3):
     dependencies:
-      '@formatjs/intl-localematcher': 0.5.6
+      '@formatjs/intl-localematcher': 0.5.7
       '@headlessui/react': 2.2.0(react-dom@19.0.0-rc-65a56d0e-20241020(react@19.0.0-rc-65a56d0e-20241020))(react@19.0.0-rc-65a56d0e-20241020)
       '@mdx-js/mdx': 3.1.0(acorn@8.14.0)
       '@mdx-js/react': 3.1.0(react@19.0.0-rc-65a56d0e-20241020)(types-react@19.0.0-rc.1)
@@ -5483,7 +5486,7 @@ snapshots:
       better-react-mathjax: 2.0.3(react@19.0.0-rc-65a56d0e-20241020)
       clsx: 2.1.1
       estree-util-to-js: 2.0.0
-      estree-util-value-to-estree: 3.1.2
+      estree-util-value-to-estree: 3.2.1
       github-slugger: 2.0.0
       graceful-fs: 4.2.11
       gray-matter: 4.0.3
@@ -5543,7 +5546,7 @@ snapshots:
 
   oniguruma-to-js@0.4.3:
     dependencies:
-      regex: 4.3.3
+      regex: 4.4.0
 
   p-finally@1.0.0: {}
 
@@ -5806,7 +5809,7 @@ snapshots:
 
   regenerator-runtime@0.14.1: {}
 
-  regex@4.3.3: {}
+  regex@4.4.0: {}
 
   rehype-katex@7.0.1:
     dependencies:
@@ -5918,7 +5921,7 @@ snapshots:
   remark-stringify@11.0.0:
     dependencies:
       '@types/mdast': 4.0.4
-      mdast-util-to-markdown: 2.1.1
+      mdast-util-to-markdown: 2.1.2
       unified: 11.0.5
 
   remove-accents@0.5.0: {}
@@ -6204,6 +6207,8 @@ snapshots:
   ts-interface-checker@0.1.13: {}
 
   tslib@2.8.0: {}
+
+  tslib@2.8.1: {}
 
   twoslash-protocol@0.2.12: {}
 
