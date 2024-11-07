@@ -45,8 +45,8 @@ importers:
         specifier: ^2.1.1
         version: 2.1.1
       match-sorter:
-        specifier: ^7.0.0
-        version: 7.0.0
+        specifier: ^8.0.0
+        version: 8.0.0
       next:
         specifier: ^15.0.2
         version: 15.0.2(babel-plugin-react-compiler@19.0.0-beta-9ee70a1-20241017)(react-dom@19.0.0-rc-65a56d0e-20241020(react@19.0.0-rc-65a56d0e-20241020))(react@19.0.0-rc-65a56d0e-20241020)
@@ -189,10 +189,6 @@ packages:
     resolution: {integrity: sha512-reoQYNiAJreZNsJzyrDNzFQ+IQ5JFiIzAHJg9bn94S3l+4++J7RsIhNMoB+lgP/9tpmiAQqspv+xfdxTSzREOw==}
     engines: {node: '>=6.0.0'}
     hasBin: true
-
-  '@babel/runtime@7.25.7':
-    resolution: {integrity: sha512-FjoyLe754PMiYsFaN5C94ttGiOmBNYTf6pLr4xXHAT5uctHb092PBszndLDR5XA/jghQvn4n7JMHl7dmTgbm9w==}
-    engines: {node: '>=6.9.0'}
 
   '@babel/runtime@7.26.0':
     resolution: {integrity: sha512-FDSOghenHTiToteC/QRlv2q3DhPZ/oOXTBoirfWNx1Cx3TMVcGWQtMMmQcSvb/JjpNeGzx8Pq/b4fKEJuWm1sw==}
@@ -1899,8 +1895,8 @@ packages:
     engines: {node: '>= 18'}
     hasBin: true
 
-  match-sorter@7.0.0:
-    resolution: {integrity: sha512-J1370vFVhvn81QrUYv54y3IZbsaG1X4otKSwtGZbyfZxgWgjVxdRkASY+uaT2IlQUGeWFBEPbGFVKv1DNnHYKA==}
+  match-sorter@8.0.0:
+    resolution: {integrity: sha512-bGJ6Zb+OhzXe+ptP5d80OLVx7AkqfRbtGEh30vNSfjNwllu+hHI+tcbMIT/fbkx/FKN1PmKuDb65+Oofg+XUxw==}
 
   math-expression-evaluator@1.4.0:
     resolution: {integrity: sha512-4vRUvPyxdO8cWULGTh9dZWL2tZK6LDBvj+OGHBER7poH9Qdt7kXEoj20wiz4lQUbUXQZFjPbe5mVDo9nutizCw==}
@@ -2999,10 +2995,6 @@ snapshots:
   '@babel/parser@7.26.1':
     dependencies:
       '@babel/types': 7.26.0
-
-  '@babel/runtime@7.25.7':
-    dependencies:
-      regenerator-runtime: 0.14.1
 
   '@babel/runtime@7.26.0':
     dependencies:
@@ -4877,9 +4869,9 @@ snapshots:
 
   marked@13.0.3: {}
 
-  match-sorter@7.0.0:
+  match-sorter@8.0.0:
     dependencies:
-      '@babel/runtime': 7.25.7
+      '@babel/runtime': 7.26.0
       remove-accents: 0.5.0
 
   math-expression-evaluator@1.4.0: {}
