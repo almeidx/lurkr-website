@@ -73,7 +73,7 @@ export function ChannelSelector({
 					// TODO: Remove explicit types once react-select has been updated
 					getOptionLabel={(option: Channel) => option.name}
 					getOptionValue={(option: Channel) => option.id}
-					onChange={(newValues: Channel[]) => {
+					onChange={(newValues: readonly Channel[]) => {
 						if (newValues.length > max) return;
 
 						setValues(newValues);

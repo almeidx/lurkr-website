@@ -44,7 +44,7 @@ export function RoleSelector({
 					isMulti
 					placeholder="e.g. Member"
 					value={values}
-					onChange={(newValues: RoleWithResolvedColor[]) => {
+					onChange={(newValues: readonly RoleWithResolvedColor[]) => {
 						if (newValues.length > max) return;
 
 						setValues(newValues);
