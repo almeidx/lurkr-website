@@ -43,7 +43,7 @@ export function CreatableList({ children, defaultValues, inputId, max, placehold
 					// TODO: Remove explicit types once react-select has been updated
 					getOptionLabel={(option: string) => option}
 					getOptionValue={(option: string) => option}
-					onChange={(newValue: string[]) => {
+					onChange={(newValue: readonly string[]) => {
 						if (newValue.length > max) return;
 
 						setValues(newValue);
