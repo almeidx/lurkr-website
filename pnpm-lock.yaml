@@ -15,8 +15,8 @@ importers:
   .:
     dependencies:
       '@ariakit/react':
-        specifier: ^0.4.14
-        version: 0.4.14(react-dom@19.0.0-rc-65a56d0e-20241020(react@19.0.0-rc-65a56d0e-20241020))(react@19.0.0-rc-65a56d0e-20241020)
+        specifier: ^0.4.15
+        version: 0.4.15(react-dom@19.0.0-rc-65a56d0e-20241020(react@19.0.0-rc-65a56d0e-20241020))(react@19.0.0-rc-65a56d0e-20241020)
       '@next/third-parties':
         specifier: ^15.0.3
         version: 15.0.3(next@15.0.3(babel-plugin-react-compiler@19.0.0-beta-63b359f-20241101)(react-dom@19.0.0-rc-65a56d0e-20241020(react@19.0.0-rc-65a56d0e-20241020))(react@19.0.0-rc-65a56d0e-20241020))(react@19.0.0-rc-65a56d0e-20241020)
@@ -94,8 +94,8 @@ importers:
         specifier: ^0.5.15
         version: 0.5.15(tailwindcss@3.4.15)
       '@types/node':
-        specifier: ^20.17.7
-        version: 20.17.7
+        specifier: ^20.17.9
+        version: 20.17.9
       '@types/react':
         specifier: npm:types-react@19.0.0-rc.1
         version: types-react@19.0.0-rc.1
@@ -139,17 +139,17 @@ packages:
   '@antfu/utils@0.7.10':
     resolution: {integrity: sha512-+562v9k4aI80m1+VuMHehNJWLOFjBnXn3tdOitzD0il5b7smkSBal4+a3oKiQTbrwMmN/TBUMDvbdoWDehgOww==}
 
-  '@ariakit/core@0.4.13':
-    resolution: {integrity: sha512-XwHm1OAKZhHkT5z3pSzeRyjUxW2VtPesMP0wa7fiVRXmibRJnJIxffGLZmUy4CHbOtQ46nlT3AlP5hXNQrS0Ow==}
+  '@ariakit/core@0.4.14':
+    resolution: {integrity: sha512-hpzZvyYzGhP09S9jW1XGsU/FD5K3BKsH1eG/QJ8rfgEeUdPS7BvHPt5lHbOeJ2cMrRzBEvsEzLi1ivfDifHsVA==}
 
-  '@ariakit/react-core@0.4.14':
-    resolution: {integrity: sha512-vRdl3k7Q7Z3oHNbv8Afz3lbvmpqhKlHW22REFIdA/UE7/YsbD3dhMVncGsmsCHSA06PXF3esk7wP0QkZymO1CQ==}
+  '@ariakit/react-core@0.4.15':
+    resolution: {integrity: sha512-Up8+U97nAPJdyUh9E8BCEhJYTA+eVztWpHoo1R9zZfHd4cnBWAg5RHxEmMH+MamlvuRxBQA71hFKY/735fDg+A==}
     peerDependencies:
       react: 19.0.0-rc-65a56d0e-20241020
       react-dom: 19.0.0-rc-65a56d0e-20241020
 
-  '@ariakit/react@0.4.14':
-    resolution: {integrity: sha512-UfUf54idAiUvkrnqmr55birSMiJ2+xHWviaKHXX9kdFHV27xL2O2ulNEXvk79wnjrgOlBXOvWe16FrY1VR5Vcw==}
+  '@ariakit/react@0.4.15':
+    resolution: {integrity: sha512-0V2LkNPFrGRT+SEIiObx/LQjR6v3rR+mKEDUu/3tq7jfCZ+7+6Q6EMR1rFaK+XMkaRY1RWUcj/rRDWAUWnsDww==}
     peerDependencies:
       react: 19.0.0-rc-65a56d0e-20241020
       react-dom: 19.0.0-rc-65a56d0e-20241020
@@ -890,8 +890,8 @@ packages:
   '@types/nlcst@2.0.3':
     resolution: {integrity: sha512-vSYNSDe6Ix3q+6Z7ri9lyWqgGhJTmzRjZRqyq15N0Z/1/UnVsno9G/N40NBijoYx2seFDIl0+B2mgAb9mezUCA==}
 
-  '@types/node@20.17.7':
-    resolution: {integrity: sha512-sZXXnpBFMKbao30dUAvzKbdwA2JM1fwUtVEq/kxKuPI5mMwZiRElCpTXb0Biq/LMEVpXDZL5G5V0RPnxKeyaYg==}
+  '@types/node@20.17.9':
+    resolution: {integrity: sha512-0JOXkRyLanfGPE2QRCwgxhzlBAvaRdCNMcvbd7jFfpmD4eEXll7LRwy5ymJmyeZqk7Nh7eD2LeUyQ68BbndmXw==}
 
   '@types/parse-json@4.0.2':
     resolution: {integrity: sha512-dISoDXWWQwUquiKsyZ4Ng+HX2KsPL7LyHKHQwgGFEA3IaKac4Obd+h2a/a6waisAoepJlBcx9paWqjA8/HVjCw==}
@@ -2850,19 +2850,19 @@ snapshots:
 
   '@antfu/utils@0.7.10': {}
 
-  '@ariakit/core@0.4.13': {}
+  '@ariakit/core@0.4.14': {}
 
-  '@ariakit/react-core@0.4.14(react-dom@19.0.0-rc-65a56d0e-20241020(react@19.0.0-rc-65a56d0e-20241020))(react@19.0.0-rc-65a56d0e-20241020)':
+  '@ariakit/react-core@0.4.15(react-dom@19.0.0-rc-65a56d0e-20241020(react@19.0.0-rc-65a56d0e-20241020))(react@19.0.0-rc-65a56d0e-20241020)':
     dependencies:
-      '@ariakit/core': 0.4.13
+      '@ariakit/core': 0.4.14
       '@floating-ui/dom': 1.6.12
       react: 19.0.0-rc-65a56d0e-20241020
       react-dom: 19.0.0-rc-65a56d0e-20241020(react@19.0.0-rc-65a56d0e-20241020)
       use-sync-external-store: 1.2.2(react@19.0.0-rc-65a56d0e-20241020)
 
-  '@ariakit/react@0.4.14(react-dom@19.0.0-rc-65a56d0e-20241020(react@19.0.0-rc-65a56d0e-20241020))(react@19.0.0-rc-65a56d0e-20241020)':
+  '@ariakit/react@0.4.15(react-dom@19.0.0-rc-65a56d0e-20241020(react@19.0.0-rc-65a56d0e-20241020))(react@19.0.0-rc-65a56d0e-20241020)':
     dependencies:
-      '@ariakit/react-core': 0.4.14(react-dom@19.0.0-rc-65a56d0e-20241020(react@19.0.0-rc-65a56d0e-20241020))(react@19.0.0-rc-65a56d0e-20241020)
+      '@ariakit/react-core': 0.4.15(react-dom@19.0.0-rc-65a56d0e-20241020(react@19.0.0-rc-65a56d0e-20241020))(react@19.0.0-rc-65a56d0e-20241020)
       react: 19.0.0-rc-65a56d0e-20241020
       react-dom: 19.0.0-rc-65a56d0e-20241020(react@19.0.0-rc-65a56d0e-20241020)
 
@@ -3642,7 +3642,7 @@ snapshots:
     dependencies:
       '@types/unist': 3.0.3
 
-  '@types/node@20.17.7':
+  '@types/node@20.17.9':
     dependencies:
       undici-types: 6.19.8
 
