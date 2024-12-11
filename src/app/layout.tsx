@@ -12,6 +12,8 @@ import type { Metadata, Viewport } from "next";
 import { type PropsWithChildren, Suspense } from "react";
 import { PreviewWarning } from "../components/PreviewWarning.tsx";
 
+export const runtime = "edge";
+
 export default function RootLayout({ children }: PropsWithChildren) {
 	const isPreview = process.env.ENVIRONMENT !== "prod" && process.env.NODE_ENV !== "development";
 
