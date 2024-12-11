@@ -13,7 +13,7 @@
 	},
 	"dependencies": {
 		"@ariakit/react": "^0.4.15",
-		"@next/third-parties": "^15.0.4",
+		"@next/third-parties": "^15.1.0",
 		"@visx/axis": "^3.12.0",
 		"@visx/grid": "^3.12.0",
 		"@visx/group": "^3.12.0",
@@ -23,45 +23,37 @@
 		"@visx/tooltip": "^3.12.0",
 		"clsx": "^2.1.1",
 		"match-sorter": "^8.0.0",
-		"next": "^15.0.4",
-		"next-nprogress-bar": "^2.3.15",
-		"nextra": "3.2.5",
-		"nextra-theme-docs": "3.2.5",
+		"next": "^15.1.0",
+		"next-nprogress-bar": "^2.4.2",
+		"nextra": "^3.2.5",
+		"nextra-theme-docs": "^3.2.5",
 		"p-retry": "^6.2.1",
-		"react": "19.0.0-rc-65a56d0e-20241020",
+		"react": "^19.0.0",
 		"react-colorful": "^5.6.1",
-		"react-dom": "19.0.0-rc-65a56d0e-20241020",
+		"react-dom": "^19.0.0",
 		"react-fast-marquee": "^1.6.5",
 		"react-select": "^5.8.3",
 		"sharp": "^0.33.5",
 		"textarea-caret": "^3.1.0",
-		"valibot": "^0.42.1"
+		"valibot": "^1.0.0-beta.9"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "^1.9.4",
 		"@tailwindcss/typography": "^0.5.15",
-		"@types/node": "^20.17.9",
-		"@types/react": "npm:types-react@19.0.0-rc.1",
-		"@types/react-dom": "npm:types-react-dom@19.0.0-rc.1",
+		"@types/node": "^22.10.2",
+		"@types/react": "^19.0.1",
+		"@types/react-dom": "^19.0.2",
 		"@types/textarea-caret": "^3.0.3",
 		"autoprefixer": "^10.4.20",
-		"babel-plugin-react-compiler": "19.0.0-beta-63b359f-20241101",
+		"babel-plugin-react-compiler": "^19.0.0-beta-37ed2a7-20241206",
 		"husky": "^9.1.7",
 		"postcss": "^8.4.49",
 		"tailwind-scrollbar": "^3.1.0",
 		"tailwindcss": "^3.4.16",
 		"typescript": "~5.7.2"
 	},
-	"packageManager": "pnpm@9.12.3",
+	"packageManager": "pnpm@9.15.0",
 	"engines": {
-		"node": ">=20"
-	},
-	"pnpm": {
-		"overrides": {
-			"@types/react": "npm:types-react@19.0.0-rc.1",
-			"@types/react-dom": "npm:types-react-dom@19.0.0-rc.1",
-			"react": "19.0.0-rc-65a56d0e-20241020",
-			"react-dom": "19.0.0-rc-65a56d0e-20241020"
-		}
+		"node": ">=22"
 	}
 }
