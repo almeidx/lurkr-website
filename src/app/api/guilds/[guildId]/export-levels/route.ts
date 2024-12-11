@@ -3,6 +3,8 @@ import { isSnowflake } from "@/utils/is-snowflake.ts";
 import { makeApiRequest } from "@/utils/make-api-request.ts";
 import type { NextRequest } from "next/server";
 
+export const runtime = "edge";
+
 export async function GET(request: NextRequest, { params }: { params: Promise<{ guildId: string }> }) {
 	const { guildId } = await params;
 
