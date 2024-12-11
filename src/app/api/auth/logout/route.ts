@@ -2,6 +2,8 @@ import { TOKEN_COOKIE } from "@/utils/constants.ts";
 import { revalidateTag } from "next/cache";
 import { type NextRequest, NextResponse } from "next/server";
 
+export const runtime = "edge";
+
 export function GET(request: NextRequest) {
 	const redirectUrl = new URL("/", request.url);
 
