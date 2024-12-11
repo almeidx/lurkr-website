@@ -7,10 +7,14 @@
 		"build": "next build",
 		"postbuild": "pagefind --site .next/server/app --output-path public/_pagefind",
 		"dev": "next dev --turbo",
+		"build:worker": "opennextjs-cloudflare",
+		"deploy:worker": "npm run build:worker && wrangler deploy",
+		"dev:worker": "wrangler dev --port 8771",
 		"fmt": "pnpm run format",
 		"format": "biome check --write --unsafe",
 		"lint": "biome check",
 		"prepare": "husky .github/husky",
+		"preview:worker": "npm run build:worker && npm run dev:worker",
 		"start": "next start"
 	},
 	"dependencies": {
@@ -36,6 +40,7 @@
 	},
 	"devDependencies": {
 		"@biomejs/biome": "^1.9.4",
+		"@opennextjs/cloudflare": "^0.5.12",
 		"@tailwindcss/postcss": "^4.0.15",
 		"@tailwindcss/typography": "^0.5.16",
 		"@types/js-cookie": "^3.0.6",
@@ -50,14 +55,15 @@
 		"postcss": "^8.5.3",
 		"tailwind-scrollbar": "^4.0.1",
 		"tailwindcss": "^4.0.15",
-		"typescript": "~5.8.2"
+		"typescript": "~5.8.2",
+		"wrangler": "^4.4.0"
 	},
 	"packageManager": "pnpm@10.6.5",
 	"engines": {
 		"node": ">=22.14.0"
 	},
 	"pnpm": {
-		"onlyBuiltDependencies": ["@biomejs/biome", "sharp"],
+		"onlyBuiltDependencies": ["@biomejs/biome", "esbuild", "sharp", "workerd"],
 		"overrides": {
 			"react-is": "^19.0.0"
 		}
