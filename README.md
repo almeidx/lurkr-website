@@ -20,7 +20,7 @@ This repository houses the [lurkr.gg] website, which is the website for the Lurk
 
 ### Local setup
 
-This setup assumes you have [Git], and [Node.js] setup on your machine. This repository requires [Node.js] version 20 or higher, and uses the [pnpm] package manager, so you should have basic knowledge about how to use them.
+This setup assumes you have [Git], and [Node.js] setup on your machine. This repository requires [Node.js] version 22 or higher, and uses the [pnpm] package manager, so you should have basic knowledge about how to use them.
 
 #### Cloning repository
 
