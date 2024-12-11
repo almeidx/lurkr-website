@@ -2,6 +2,8 @@ import { REDIRECT_TO_COOKIE, TOKEN_COOKIE } from "@/utils/constants.ts";
 import { makeApiRequest } from "@/utils/make-api-request.ts";
 import { type NextRequest, NextResponse } from "next/server";
 
+export const runtime = "edge";
+
 export async function GET(request: NextRequest) {
 	if (!request.nextUrl.searchParams.has("code")) {
 		return Response.json({ message: "Missing code parameter" }, { status: 400 });
