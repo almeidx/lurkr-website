@@ -7,6 +7,19 @@ const withNextra = nextra({
 	themeConfig: "./theme.config.tsx",
 });
 
+const cspHeader = `
+	default-src 'self';
+	script-src 'self' 'unsafe-inline'${process.env.NODE_ENV === "production" ? "" : " 'unsafe-eval'"} static.cloudflareinsights.com;
+	style-src 'self' 'unsafe-inline';
+	img-src 'self' cdn.discordapp.com blob: data:;
+	font-src 'self';
+	object-src 'none';
+	base-uri 'self';
+	form-action 'self';
+	frame-ancestors 'none';
+	upgrade-insecure-requests;
+`;
+
 const nextConfig = {
 	reactStrictMode: true,
 	images: {
@@ -52,6 +65,19 @@ const nextConfig = {
 				destination: SUPPORT_SERVER_INVITE,
 				permanent: true,
 				source: "/support",
+			},
+		];
+	},
+	async headers() {
+		return [
+			{
+				source: "/(.*)",
+				headers: [
+					{
+						key: "Content-Security-Policy",
+						value: cspHeader.replace(/\n/g, ""),
+					},
+				],
 			},
 		];
 	},
