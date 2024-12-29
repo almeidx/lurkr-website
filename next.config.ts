@@ -20,6 +20,17 @@ const cspHeader = `
 	upgrade-insecure-requests;
 `;
 
+const ppHeader = `
+	accelerometer=(),
+	camera=(),
+	geolocation=(),
+	gyroscope=(),
+	magnetometer=(),
+	microphone=(),
+	payment=(),
+	usb=()
+`;
+
 const nextConfig = {
 	reactStrictMode: true,
 	images: {
@@ -76,6 +87,18 @@ const nextConfig = {
 					{
 						key: "Content-Security-Policy",
 						value: cspHeader.replace(/\n/g, ""),
+					},
+					{
+						key: "X-Content-Type-Options",
+						value: "nosniff",
+					},
+					{
+						key: "Referrer-Policy",
+						value: "strict-origin-when-cross-origin",
+					},
+					{
+						key: "Permissions-Policy",
+						value: ppHeader.replace(/\n/g, ""),
 					},
 				],
 			},
