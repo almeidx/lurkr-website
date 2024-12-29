@@ -12,4 +12,5 @@ export const levelUpMessagePlaceholders = [
 	{ id: "{guild.name}", name: "{guild.name} • Server name" },
 	{ id: "{level}", name: "{level} • The new level" },
 	{ id: "{xp}", name: "{xp} • The user's xp" },
+	{ id: "{roleRewards}", name: "{roleRewards} • Role rewards gained" },
 ] satisfies PlaceholderValue[];
