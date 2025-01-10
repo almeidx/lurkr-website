@@ -46,10 +46,10 @@ importers:
         version: 2.4.3
       nextra:
         specifier: ^3.3.1
-        version: 3.3.1(@types/react@19.0.3)(acorn@8.14.0)(next@15.1.4(babel-plugin-react-compiler@19.0.0-beta-63e3235-20250105)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(typescript@5.7.2)
+        version: 3.3.1(@types/react@19.0.4)(acorn@8.14.0)(next@15.1.4(babel-plugin-react-compiler@19.0.0-beta-63e3235-20250105)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(typescript@5.7.3)
       nextra-theme-docs:
         specifier: ^3.3.1
-        version: 3.3.1(next@15.1.4(babel-plugin-react-compiler@19.0.0-beta-63e3235-20250105)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(nextra@3.3.1(@types/react@19.0.3)(acorn@8.14.0)(next@15.1.4(babel-plugin-react-compiler@19.0.0-beta-63e3235-20250105)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(typescript@5.7.2))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+        version: 3.3.1(next@15.1.4(babel-plugin-react-compiler@19.0.0-beta-63e3235-20250105)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(nextra@3.3.1(@types/react@19.0.4)(acorn@8.14.0)(next@15.1.4(babel-plugin-react-compiler@19.0.0-beta-63e3235-20250105)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(typescript@5.7.3))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       p-retry:
         specifier: ^6.2.1
         version: 6.2.1
@@ -67,7 +67,7 @@ importers:
         version: 1.6.5(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       react-select:
         specifier: ^5.9.0
-        version: 5.9.0(@types/react@19.0.3)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+        version: 5.9.0(@types/react@19.0.4)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       sharp:
         specifier: ^0.33.5
         version: 0.33.5
@@ -76,7 +76,7 @@ importers:
         version: 3.1.0
       valibot:
         specifier: 1.0.0-beta.11
-        version: 1.0.0-beta.11(typescript@5.7.2)
+        version: 1.0.0-beta.11(typescript@5.7.3)
     devDependencies:
       '@biomejs/biome':
         specifier: ^1.9.4
@@ -88,11 +88,11 @@ importers:
         specifier: ^22.10.5
         version: 22.10.5
       '@types/react':
-        specifier: ^19.0.3
-        version: 19.0.3
+        specifier: ^19.0.4
+        version: 19.0.4
       '@types/react-dom':
         specifier: ^19.0.2
-        version: 19.0.2(@types/react@19.0.3)
+        version: 19.0.2(@types/react@19.0.4)
       '@types/textarea-caret':
         specifier: ^3.0.3
         version: 3.0.3
@@ -115,8 +115,8 @@ importers:
         specifier: ^3.4.17
         version: 3.4.17
       typescript:
-        specifier: ~5.7.2
-        version: 5.7.2
+        specifier: ~5.7.3
+        version: 5.7.3
 
 packages:
 
@@ -890,8 +890,8 @@ packages:
     peerDependencies:
       '@types/react': '*'
 
-  '@types/react@19.0.3':
-    resolution: {integrity: sha512-UavfHguIjnnuq9O67uXfgy/h3SRJbidAYvNjLceB+2RIKVRBzVsh0QO+Pw6BCSQqFS9xwzKfwstXx0m6AbAREA==}
+  '@types/react@19.0.4':
+    resolution: {integrity: sha512-3O4QisJDYr1uTUMZHA2YswiQZRq+Pd8D+GdVFYikTutYsTz+QZgWkAPnP7rx9txoI6EXKcPiluMqWPFV3tT9Wg==}
 
   '@types/retry@0.12.2':
     resolution: {integrity: sha512-XISRgDJ2Tc5q4TRqvgJtzsRkFYNJzZrhTdtMoGVBttwzzQJkPnS3WWTFc7kuDRoPtPakl+T+OfdEUjYJj7Jbow==}
@@ -2648,8 +2648,8 @@ packages:
     peerDependencies:
       typescript: '*'
 
-  typescript@5.7.2:
-    resolution: {integrity: sha512-i5t66RHxDvVN40HfDd1PsEThGNnlMCMT3jMUuoh9/0TaqWevNontacunWyN02LA9/fIbEWlcHZcgTKb9QoaLfg==}
+  typescript@5.7.3:
+    resolution: {integrity: sha512-84MVSjMEHP+FQRPy3pX9sTVV/INIex71s9TL2Gm5FG/WG1SqXeKyZ0k7/blY/4FdOzI12CBy1vGc4og/eus0fw==}
     engines: {node: '>=14.17'}
     hasBin: true
 
@@ -2986,7 +2986,7 @@ snapshots:
 
   '@emotion/memoize@0.9.0': {}
 
-  '@emotion/react@11.14.0(@types/react@19.0.3)(react@19.0.0)':
+  '@emotion/react@11.14.0(@types/react@19.0.4)(react@19.0.0)':
     dependencies:
       '@babel/runtime': 7.26.0
       '@emotion/babel-plugin': 11.13.5
@@ -2998,7 +2998,7 @@ snapshots:
       hoist-non-react-statics: 3.3.2
       react: 19.0.0
     optionalDependencies:
-      '@types/react': 19.0.3
+      '@types/react': 19.0.4
     transitivePeerDependencies:
       - supports-color
 
@@ -3206,10 +3206,10 @@ snapshots:
       - acorn
       - supports-color
 
-  '@mdx-js/react@3.1.0(@types/react@19.0.3)(react@19.0.0)':
+  '@mdx-js/react@3.1.0(@types/react@19.0.4)(react@19.0.0)':
     dependencies:
       '@types/mdx': 2.0.13
-      '@types/react': 19.0.3
+      '@types/react': 19.0.4
       react: 19.0.0
 
   '@mermaid-js/parser@0.3.0':
@@ -3384,11 +3384,11 @@ snapshots:
     dependencies:
       '@shikijs/types': 1.26.1
 
-  '@shikijs/twoslash@1.26.1(typescript@5.7.2)':
+  '@shikijs/twoslash@1.26.1(typescript@5.7.3)':
     dependencies:
       '@shikijs/core': 1.26.1
       '@shikijs/types': 1.26.1
-      twoslash: 0.2.12(typescript@5.7.2)
+      twoslash: 0.2.12(typescript@5.7.3)
     transitivePeerDependencies:
       - supports-color
       - typescript
@@ -3620,15 +3620,15 @@ snapshots:
 
   '@types/parse-json@4.0.2': {}
 
-  '@types/react-dom@19.0.2(@types/react@19.0.3)':
+  '@types/react-dom@19.0.2(@types/react@19.0.4)':
     dependencies:
-      '@types/react': 19.0.3
+      '@types/react': 19.0.4
 
-  '@types/react-transition-group@4.4.12(@types/react@19.0.3)':
+  '@types/react-transition-group@4.4.12(@types/react@19.0.4)':
     dependencies:
-      '@types/react': 19.0.3
+      '@types/react': 19.0.4
 
-  '@types/react@19.0.3':
+  '@types/react@19.0.4':
     dependencies:
       csstype: 3.1.3
 
@@ -3643,10 +3643,10 @@ snapshots:
 
   '@types/unist@3.0.3': {}
 
-  '@typescript/vfs@1.6.0(typescript@5.7.2)':
+  '@typescript/vfs@1.6.0(typescript@5.7.3)':
     dependencies:
       debug: 4.4.0
-      typescript: 5.7.2
+      typescript: 5.7.3
     transitivePeerDependencies:
       - supports-color
 
@@ -3654,7 +3654,7 @@ snapshots:
 
   '@visx/axis@3.13.0-alpha.0(react@19.0.0)':
     dependencies:
-      '@types/react': 19.0.3
+      '@types/react': 19.0.4
       '@visx/group': 3.13.0-alpha.0(react@19.0.0)
       '@visx/point': 3.12.0
       '@visx/scale': 3.12.0
@@ -3666,8 +3666,8 @@ snapshots:
 
   '@visx/bounds@3.13.0-alpha.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)':
     dependencies:
-      '@types/react': 19.0.3
-      '@types/react-dom': 19.0.2(@types/react@19.0.3)
+      '@types/react': 19.0.4
+      '@types/react-dom': 19.0.2(@types/react@19.0.4)
       prop-types: 15.8.1
       react: 19.0.0
       react-dom: 19.0.0(react@19.0.0)
@@ -3679,7 +3679,7 @@ snapshots:
 
   '@visx/grid@3.13.0-alpha.0(react@19.0.0)':
     dependencies:
-      '@types/react': 19.0.3
+      '@types/react': 19.0.4
       '@visx/curve': 3.12.0
       '@visx/group': 3.13.0-alpha.0(react@19.0.0)
       '@visx/point': 3.12.0
@@ -3691,7 +3691,7 @@ snapshots:
 
   '@visx/group@3.13.0-alpha.0(react@19.0.0)':
     dependencies:
-      '@types/react': 19.0.3
+      '@types/react': 19.0.4
       classnames: 2.5.1
       prop-types: 15.8.1
       react: 19.0.0
@@ -3701,7 +3701,7 @@ snapshots:
   '@visx/responsive@3.13.0-alpha.0(react@19.0.0)':
     dependencies:
       '@types/lodash': 4.17.14
-      '@types/react': 19.0.3
+      '@types/react': 19.0.4
       lodash: 4.17.21
       prop-types: 15.8.1
       react: 19.0.0
@@ -3715,7 +3715,7 @@ snapshots:
       '@types/d3-path': 1.0.11
       '@types/d3-shape': 1.3.12
       '@types/lodash': 4.17.14
-      '@types/react': 19.0.3
+      '@types/react': 19.0.4
       '@visx/curve': 3.12.0
       '@visx/group': 3.13.0-alpha.0(react@19.0.0)
       '@visx/scale': 3.12.0
@@ -3729,7 +3729,7 @@ snapshots:
   '@visx/text@3.13.0-alpha.0(react@19.0.0)':
     dependencies:
       '@types/lodash': 4.17.14
-      '@types/react': 19.0.3
+      '@types/react': 19.0.4
       classnames: 2.5.1
       lodash: 4.17.21
       prop-types: 15.8.1
@@ -3738,7 +3738,7 @@ snapshots:
 
   '@visx/tooltip@3.13.0-alpha.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)':
     dependencies:
-      '@types/react': 19.0.3
+      '@types/react': 19.0.4
       '@visx/bounds': 3.13.0-alpha.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       classnames: 2.5.1
       prop-types: 15.8.1
@@ -5269,7 +5269,7 @@ snapshots:
       - '@babel/core'
       - babel-plugin-macros
 
-  nextra-theme-docs@3.3.1(next@15.1.4(babel-plugin-react-compiler@19.0.0-beta-63e3235-20250105)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(nextra@3.3.1(@types/react@19.0.3)(acorn@8.14.0)(next@15.1.4(babel-plugin-react-compiler@19.0.0-beta-63e3235-20250105)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(typescript@5.7.2))(react-dom@19.0.0(react@19.0.0))(react@19.0.0):
+  nextra-theme-docs@3.3.1(next@15.1.4(babel-plugin-react-compiler@19.0.0-beta-63e3235-20250105)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(nextra@3.3.1(@types/react@19.0.4)(acorn@8.14.0)(next@15.1.4(babel-plugin-react-compiler@19.0.0-beta-63e3235-20250105)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(typescript@5.7.3))(react-dom@19.0.0(react@19.0.0))(react@19.0.0):
     dependencies:
       '@headlessui/react': 2.2.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       clsx: 2.1.1
@@ -5277,20 +5277,20 @@ snapshots:
       flexsearch: 0.7.43
       next: 15.1.4(babel-plugin-react-compiler@19.0.0-beta-63e3235-20250105)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       next-themes: 0.4.4(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
-      nextra: 3.3.1(@types/react@19.0.3)(acorn@8.14.0)(next@15.1.4(babel-plugin-react-compiler@19.0.0-beta-63e3235-20250105)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(typescript@5.7.2)
+      nextra: 3.3.1(@types/react@19.0.4)(acorn@8.14.0)(next@15.1.4(babel-plugin-react-compiler@19.0.0-beta-63e3235-20250105)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(typescript@5.7.3)
       react: 19.0.0
       react-dom: 19.0.0(react@19.0.0)
       scroll-into-view-if-needed: 3.1.0
       zod: 3.24.1
 
-  nextra@3.3.1(@types/react@19.0.3)(acorn@8.14.0)(next@15.1.4(babel-plugin-react-compiler@19.0.0-beta-63e3235-20250105)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(typescript@5.7.2):
+  nextra@3.3.1(@types/react@19.0.4)(acorn@8.14.0)(next@15.1.4(babel-plugin-react-compiler@19.0.0-beta-63e3235-20250105)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(typescript@5.7.3):
     dependencies:
       '@formatjs/intl-localematcher': 0.5.10
       '@headlessui/react': 2.2.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       '@mdx-js/mdx': 3.1.0(acorn@8.14.0)
-      '@mdx-js/react': 3.1.0(@types/react@19.0.3)(react@19.0.0)
+      '@mdx-js/react': 3.1.0(@types/react@19.0.4)(react@19.0.0)
       '@napi-rs/simple-git': 0.1.19
-      '@shikijs/twoslash': 1.26.1(typescript@5.7.2)
+      '@shikijs/twoslash': 1.26.1(typescript@5.7.3)
       '@theguild/remark-mermaid': 0.1.3(react@19.0.0)
       '@theguild/remark-npm2yarn': 0.3.3
       better-react-mathjax: 2.0.3(react@19.0.0)
@@ -5533,19 +5533,19 @@ snapshots:
       react: 19.0.0
       react-dom: 19.0.0(react@19.0.0)
 
-  react-select@5.9.0(@types/react@19.0.3)(react-dom@19.0.0(react@19.0.0))(react@19.0.0):
+  react-select@5.9.0(@types/react@19.0.4)(react-dom@19.0.0(react@19.0.0))(react@19.0.0):
     dependencies:
       '@babel/runtime': 7.26.0
       '@emotion/cache': 11.14.0
-      '@emotion/react': 11.14.0(@types/react@19.0.3)(react@19.0.0)
+      '@emotion/react': 11.14.0(@types/react@19.0.4)(react@19.0.0)
       '@floating-ui/dom': 1.6.13
-      '@types/react-transition-group': 4.4.12(@types/react@19.0.3)
+      '@types/react-transition-group': 4.4.12(@types/react@19.0.4)
       memoize-one: 6.0.0
       prop-types: 15.8.1
       react: 19.0.0
       react-dom: 19.0.0(react@19.0.0)
       react-transition-group: 4.4.5(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
-      use-isomorphic-layout-effect: 1.2.0(@types/react@19.0.3)(react@19.0.0)
+      use-isomorphic-layout-effect: 1.2.0(@types/react@19.0.4)(react@19.0.0)
     transitivePeerDependencies:
       - '@types/react'
       - supports-color
@@ -6004,15 +6004,15 @@ snapshots:
 
   twoslash-protocol@0.2.12: {}
 
-  twoslash@0.2.12(typescript@5.7.2):
+  twoslash@0.2.12(typescript@5.7.3):
     dependencies:
-      '@typescript/vfs': 1.6.0(typescript@5.7.2)
+      '@typescript/vfs': 1.6.0(typescript@5.7.3)
       twoslash-protocol: 0.2.12
-      typescript: 5.7.2
+      typescript: 5.7.3
     transitivePeerDependencies:
       - supports-color
 
-  typescript@5.7.2: {}
+  typescript@5.7.3: {}
 
   ufo@1.5.4: {}
 
@@ -6101,11 +6101,11 @@ snapshots:
       escalade: 3.2.0
       picocolors: 1.1.1
 
-  use-isomorphic-layout-effect@1.2.0(@types/react@19.0.3)(react@19.0.0):
+  use-isomorphic-layout-effect@1.2.0(@types/react@19.0.4)(react@19.0.0):
     dependencies:
       react: 19.0.0
     optionalDependencies:
-      '@types/react': 19.0.3
+      '@types/react': 19.0.4
 
   use-sync-external-store@1.4.0(react@19.0.0):
     dependencies:
@@ -6115,9 +6115,9 @@ snapshots:
 
   uuid@9.0.1: {}
 
-  valibot@1.0.0-beta.11(typescript@5.7.2):
+  valibot@1.0.0-beta.11(typescript@5.7.3):
     optionalDependencies:
-      typescript: 5.7.2
+      typescript: 5.7.3
 
   vfile-location@5.0.3:
     dependencies:
