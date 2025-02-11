@@ -222,7 +222,7 @@ function createSchema(premium: boolean) {
 	);
 }
 
-function transformAutoResetLevels(leave: boolean, ban: boolean) {
+function transformAutoResetLevels(leave: boolean | undefined, ban: boolean | undefined) {
 	if (leave && ban) {
 		return AutoResetLevels.BanAndLeave;
 	}
