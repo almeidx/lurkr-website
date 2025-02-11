@@ -86,7 +86,7 @@ importers:
         version: 4.0.0
       '@tailwindcss/typography':
         specifier: ^0.5.16
-        version: 0.5.16(tailwindcss@4.0.0)
+        version: 0.5.16(tailwindcss@4.0.6)
       '@types/node':
         specifier: ^22.10.5
         version: 22.10.5
@@ -110,10 +110,10 @@ importers:
         version: 8.5.1
       tailwind-scrollbar:
         specifier: ^3.1.0
-        version: 3.1.0(tailwindcss@4.0.0)
+        version: 3.1.0(tailwindcss@4.0.6)
       tailwindcss:
-        specifier: ^4.0.0
-        version: 4.0.0
+        specifier: ^4.0.6
+        version: 4.0.6
       typescript:
         specifier: ~5.7.3
         version: 5.7.3
@@ -3285,13 +3285,13 @@ snapshots:
       postcss: 8.5.1
       tailwindcss: 4.0.0
 
-  '@tailwindcss/typography@0.5.16(tailwindcss@4.0.0)':
+  '@tailwindcss/typography@0.5.16(tailwindcss@4.0.6)':
     dependencies:
       lodash.castarray: 4.4.0
       lodash.isplainobject: 4.0.6
       lodash.merge: 4.6.2
       postcss-selector-parser: 6.0.10
-      tailwindcss: 4.0.0
+      tailwindcss: 4.0.6
 
   '@tanstack/react-virtual@3.11.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0)':
     dependencies:
@@ -5612,9 +5612,9 @@ snapshots:
 
   tabbable@6.2.0: {}
 
-  tailwind-scrollbar@3.1.0(tailwindcss@4.0.0):
+  tailwind-scrollbar@3.1.0(tailwindcss@4.0.6):
     dependencies:
-      tailwindcss: 4.0.0
+      tailwindcss: 4.0.6
 
   tailwindcss@4.0.0: {}
 
