@@ -86,7 +86,7 @@ export function DashboardMenu({ guild, guilds }: DashboardMenuProps) {
 						"relative flex w-full rounded-lg px-3 py-2 font-bold",
 						guild.premium
 							? "border border-white text-white"
-							: "text-black before:absolute before:inset-1 before:rounded-lg before:bg-patreon before:blur-lg after:absolute after:inset-0 after:z-10 after:rounded-lg after:bg-patreon",
+							: "before:bg-(image:--patreon-gradient) after:bg-(image:--patreon-gradient) text-black before:absolute before:inset-1 before:rounded-lg before:blur-lg after:absolute after:inset-0 after:z-10 after:rounded-lg",
 					)}
 					href="/premium"
 					prefetch={false}

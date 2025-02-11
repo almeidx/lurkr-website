@@ -28,9 +28,9 @@ export function Confirmation({
 			<Dialog
 				store={dialog}
 				backdrop={
-					<div className="z-[100001] bg-black/10 opacity-0 backdrop-blur-0 transition-[opacity,backdrop-filter] duration-150 ease-in-out data-[enter]:opacity-100 data-[enter]:backdrop-blur-sm" />
+					<div className="z-100001 bg-black/10 opacity-0 backdrop-blur-0 transition-[opacity,backdrop-filter] duration-150 ease-in-out data-enter:opacity-100 data-enter:backdrop-blur-xs" />
 				}
-				className="-translate-x-1/2 fixed top-20 left-1/2 z-[100002] scale-95 rounded-lg border border-white/25 bg-dark-gray px-4 py-3 opacity-0 transition-[opacity,transform] duration-150 ease-in-out data-[enter]:scale-100 data-[enter]:opacity-100"
+				className="-translate-x-1/2 fixed top-20 left-1/2 z-100002 scale-95 rounded-lg border border-white/25 bg-dark-gray px-4 py-3 opacity-0 transition-[opacity,transform] duration-150 ease-in-out data-enter:scale-100 data-enter:opacity-100"
 				portal={!useSubmitButton}
 			>
 				<DialogHeading className="mb-4 font-bold text-xl">{buttonText}</DialogHeading>

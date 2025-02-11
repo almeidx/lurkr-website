@@ -142,7 +142,7 @@ export function Textarea({
 					hidden={!hasMatches}
 					fitViewport
 					getAnchorRect={() => (ref.current ? getAnchorRect(ref.current) : null)}
-					className="z-[10000] rounded-lg border border-white/25 bg-darker px-2 py-1"
+					className="z-10000 rounded-lg border border-white/25 bg-darker px-2 py-1"
 				>
 					{matches.map((value) => (
 						<ComboboxItem
@@ -150,7 +150,7 @@ export function Textarea({
 							value={value.name}
 							focusOnHover
 							onClick={onItemClick(value)}
-							className="flex items-center gap-2 data-[active-item]:bg-black"
+							className="flex items-center gap-2 data-active-item:bg-black"
 							data-id={value.id}
 						>
 							{trigger === ":" ? (

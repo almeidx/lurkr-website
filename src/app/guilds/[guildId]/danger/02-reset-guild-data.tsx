@@ -16,8 +16,7 @@ export function ResetGuildData({ guildId }: { readonly guildId: Snowflake }) {
 			buttonText="Reset All"
 		>
 			Are you sure you want to delete all of your server settings, leveling leaderboard, member counts insights, and
-			milestones?
-			<p className="font-bold text-red">This action is irreversible.</p>
+			milestones? <span className="font-bold text-red">This action is irreversible.</span>
 		</Confirmation>
 	);
 }

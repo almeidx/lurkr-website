@@ -93,7 +93,7 @@ export function OnJoinRolesForBadges({ defaultValues, premium, roles }: OnJoinRo
 					store={select}
 					gutter={8}
 					sameWidth
-					className="z-[10000] flex w-80 flex-col gap-2 rounded-lg bg-light-gray px-3 py-2 shadow-dim-inner"
+					className="z-10000 flex w-80 flex-col gap-2 rounded-lg bg-light-gray px-3 py-2 shadow-dim-inner"
 				>
 					{Object.entries(BadgeInfo).map(([flag, { icon, name }]) => (
 						<SelectItem
@@ -109,7 +109,7 @@ export function OnJoinRolesForBadges({ defaultValues, premium, roles }: OnJoinRo
 				</SelectPopover>
 
 				<button
-					className="rounded-lg bg-green p-1 transition-colors disabled:cursor-not-allowed [&:not(:disabled)]:hover:bg-green/75"
+					className="rounded-lg bg-green p-1 transition-colors not-disabled:hover:bg-green/75 disabled:cursor-not-allowed"
 					onClick={handleCreate}
 					disabled={autoRoleFlags.length >= maxAutoRoleFlags || !newRoles.length || !flag}
 					type="button"

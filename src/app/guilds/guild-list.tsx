@@ -28,7 +28,7 @@ export function DashboardGuildList({ guilds }: { readonly guilds: GuildInfo[] })
 				<input
 					type="text"
 					placeholder="Enter a server name or id…"
-					className="h-10 w-72 rounded-lg bg-light-gray px-4 py-3 shadow-sm md:w-96"
+					className="h-10 w-72 rounded-lg bg-light-gray px-4 py-3 shadow-xs md:w-96"
 					value={term}
 					onChange={(event) => setTerm(event.target.value)}
 				/>
@@ -36,7 +36,7 @@ export function DashboardGuildList({ guilds }: { readonly guilds: GuildInfo[] })
 				<Link
 					href={targetGuildHref ?? "/guilds"}
 					className={clsx(
-						"flex size-9 items-center justify-center rounded-lg bg-green-400",
+						"flex size-9 items-center justify-center rounded-lg bg-green",
 						!targetGuildHref && "cursor-not-allowed bg-green-400/50",
 					)}
 					prefetch={false}
@@ -57,12 +57,12 @@ export function DashboardGuildList({ guilds }: { readonly guilds: GuildInfo[] })
 						prefetch={false}
 					>
 						<div
-							className="-left-11 -top-14 invisible absolute z-50 w-40 rounded-lg bg-darker px-3 py-2 text-white shadow-md outline outline-1 outline-white/25 group-focus-within:visible group-hover:visible"
+							className="-left-11 -top-14 invisible absolute z-50 w-40 rounded-lg bg-darker px-3 py-2 text-white shadow-md outline outline-white/25 group-focus-within:visible group-hover:visible"
 							role="tooltip"
 						>
 							<p className="truncate text-center">{guild.name}</p>
 
-							<div className="-bottom-1.5 -translate-x-1/2 absolute left-1/2 size-3 rotate-45 bg-darker shadow-md [box-shadow:0_-1px_0_#fff_inset,-1px_0_0_#fff_inset]" />
+							<div className="-bottom-1.5 -translate-x-1/2 absolute left-1/2 size-3 rotate-45 bg-darker shadow-md [box-shadow:0_-1px_0_rgba(255,255,255,0.25)_inset,-1px_0_0_rgba(255,255,255,0.25)_inset]" />
 						</div>
 
 						<ImageWithFallback

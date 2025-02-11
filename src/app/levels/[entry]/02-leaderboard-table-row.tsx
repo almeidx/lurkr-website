@@ -27,7 +27,7 @@ export function LeaderboardTableRow({ guildId, row, isManager }: LeaderboardTabl
 		<>
 			<Disclosure
 				className={clsx(
-					"flex w-full items-center gap-1 border border-white/25 bg-dark-gray px-2 py-1.5 hover:bg-dark-gray/50",
+					"flex w-full cursor-pointer items-center gap-1 border border-white/25 bg-dark-gray px-2 py-1.5 hover:bg-dark-gray/50",
 					open ? "mb-0 rounded-t-lg" : "mb-4 rounded-lg",
 				)}
 				store={disclosure}

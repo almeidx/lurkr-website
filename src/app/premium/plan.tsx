@@ -24,7 +24,7 @@ export function PremiumPlan({
 		<div
 			className={clsx(
 				"relative mb-8 flex h-fit flex-1 flex-col rounded-xl bg-dark-gray px-8 py-9",
-				tier !== 0 && "before:-inset-px before:absolute before:z-[-1] before:blur-sm",
+				tier !== 0 && "before:-inset-px before:absolute before:z-[-1] before:blur-xs",
 				tier === 1
 					? "before:bg-gradient-lurkr-max"
 					: tier === 2
@@ -90,7 +90,7 @@ export function PremiumPlan({
 
 			<DynamicLink
 				className={clsx(
-					"relative z-[1] mt-4 w-fit self-center rounded-lg px-6 py-2 text-center font-bold text-black text-xl before:absolute before:inset-0 before:z-[-1] before:rounded-lg before:bg-gradient-radial-hover before:opacity-0 before:transition-opacity before:duration-300 hover:before:opacity-100",
+					"relative z-1 mt-4 w-fit self-center rounded-lg px-6 py-2 text-center font-bold text-black text-xl before:absolute before:inset-0 before:z-[-1] before:rounded-lg before:bg-gradient-radial-hover before:opacity-0 before:transition-opacity before:duration-300 hover:before:opacity-100",
 					tier === 1 ? "bg-gradient-lurkr-max" : tier === 2 ? "bg-gradient-lurkr-ultimate" : "bg-gradient-radial",
 					isCurrent ? "pointer-events-none opacity-50" : "cursor-pointer",
 				)}

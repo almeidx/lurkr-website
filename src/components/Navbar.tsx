@@ -51,10 +51,7 @@ export function Navbar({ children }: PropsWithChildren) {
 
 	return (
 		<header className="mx-4 mt-4 flex max-w-7xl items-center justify-between rounded-lg border border-white/25 px-4 py-1 xl:mx-auto">
-			<Link
-				className={clsx("flex flex-1 items-center gap-2", menuOpen ? "fixed top-5 left-8 z-[100000]" : "")}
-				href="/"
-			>
+			<Link className={clsx("flex flex-1 items-center gap-2", menuOpen ? "fixed top-5 left-8 z-100000" : "")} href="/">
 				<Image alt="Lurkr logo" className="size-[45px]" height={45} priority quality={100} src={logoSmallImg} />
 
 				<p className="font-medium text-xl">Lurkr</p>
@@ -62,12 +59,12 @@ export function Navbar({ children }: PropsWithChildren) {
 
 			<nav
 				className={clsx(
-					"fixed inset-0 z-[99999] flex flex-1 items-center justify-center bg-background md:static md:block md:bg-transparent",
+					"fixed inset-0 z-99999 flex flex-1 items-center justify-center bg-background md:static md:block md:bg-transparent",
 					menuOpen ? "block" : "hidden",
 				)}
 			>
 				<button
-					className={clsx("fixed top-8 right-8 z-[99999] md:z-0 md:hidden")}
+					className={clsx("fixed top-8 right-8 z-99999 md:z-0 md:hidden")}
 					onClick={handleMenuClose}
 					aria-label="Close menu"
 					type="button"
@@ -83,7 +80,7 @@ export function Navbar({ children }: PropsWithChildren) {
 			<div
 				className={clsx(
 					"flex-1 md:flex md:flex-row-reverse",
-					menuOpen ? "-translate-x-1/2 fixed bottom-7 left-1/2 z-[100000] bg-black/50" : "hidden",
+					menuOpen ? "-translate-x-1/2 fixed bottom-7 left-1/2 z-100000 bg-black/50" : "hidden",
 				)}
 			>
 				{children}

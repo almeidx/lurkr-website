@@ -27,7 +27,7 @@ export async function CookieNotice() {
 	return (
 		<form
 			action={acceptCookies}
-			className="fixed right-8 bottom-8 left-8 z-[100003] flex flex-col rounded-md border border-white/25 bg-darker px-3 py-2 sm:left-auto sm:max-w-xl"
+			className="fixed right-8 bottom-8 left-8 z-100003 flex flex-col rounded-md border border-white/25 bg-darker px-3 py-2 sm:left-auto sm:max-w-xl"
 		>
 			<p className="mb-2 font-bold text-xl">Cookies</p>
 

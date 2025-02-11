@@ -1,11 +1,88 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@import "./scrollbar.css";
 
-* {
-	@apply scrollbar-thin scrollbar-track-[rgba(10,10,10,25%)] scrollbar-thumb-light-gray scrollbar-thumb-rounded-xl;
-	scrollbar-gutter: stable;
+@layer base {
+	*,
+	::after,
+	::before,
+	::backdrop,
+	::file-selector-button {
+		border-color: var(--color-gray-200, currentColor);
+	}
 }
+
+@theme {
+	--breakpoint-xs: 475px;
+	--shadow-dim-inner: 0px 0px 10px 0px #00000080 inset;
+
+	--color-background: #171717;
+	--color-white: #e2e2e2;
+	--color-blurple: #5865f2;
+	--color-primary: #ff7077;
+
+	--color-darker: #1e1f22;
+
+	--color-light-gray: #474747;
+	--color-dark-gray: #232323;
+
+	--color-red: #df4444;
+	--color-yellow: #fbb748;
+	--color-green: #3ea25e;
+
+	--drop-shadow-regular: 1.5px 1.5px 0px rgba(0, 33, 66, 0.95);
+
+	--patreon-gradient: linear-gradient(93.24deg, #ff424d 0%, #ff7077 100%);
+
+	--animate-pulse-success: pulse-success 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+
+	@keyframes pulse-success {
+		0%,
+		100% {
+			background-color: rgba(62, 162, 94, 1);
+		}
+		50% {
+			background-color: rgba(62, 162, 94, 0.6);
+		}
+	}
+}
+
+.bg-gradient-radial {
+	background: linear-gradient(92.52deg, #ff7077 0%, #ffe87c 100%);
+}
+.bg-gradient-radial-hover {
+	background: linear-gradient(93deg, #ffe87c 0%, #804994 100%);
+}
+.bg-gradient-lurkr-max {
+	background: linear-gradient(90deg, #aad6c6 1%, #fa9079 33%, #fcc953 66%, #74da9c 100%);
+}
+.bg-gradient-lurkr-ultimate {
+	background: linear-gradient(90deg, #a2fbec 1%, #f985ff 33%, #904dff 66%, #4d54fe 100%);
+}
+
+.text-shadow-regular {
+	text-shadow: 1.5px 1.5px 0px rgba(0, 33, 66, 0.95);
+}
+
+.slider-thumb\:size-4::-webkit-slider-thumb {
+	width: 1rem;
+	height: 1rem;
+}
+.slider-thumb\:appearance-none::-webkit-slider-thumb {
+	-webkit-appearance: none;
+	appearance: none;
+}
+.slider-thumb\:rounded-full::-webkit-slider-thumb {
+	border-radius: 9999px;
+}
+.slider-thumb\:border-none::-webkit-slider-thumb {
+	border-style: none;
+}
+.slider-thumb\:bg-primary::-webkit-slider-thumb {
+	--tw-bg-opacity: 1;
+	background-color: rgb(255 112 119 / var(--tw-bg-opacity, 1));
+}
+
+@plugin "@tailwindcss/typography";
 
 body {
 	text-rendering: optimizeLegibility;
@@ -16,7 +93,7 @@ img {
 }
 
 *::placeholder {
-	@apply !text-white/50;
+	@apply text-white/50!;
 }
 
 .no-drag {

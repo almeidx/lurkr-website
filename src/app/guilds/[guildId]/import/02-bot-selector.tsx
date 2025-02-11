@@ -62,7 +62,7 @@ export function BotSelector() {
 				store={select}
 				gutter={8}
 				sameWidth
-				className="z-[10000] flex w-40 flex-col gap-2 rounded-lg bg-light-gray px-3 py-2 shadow-dim-inner md:w-56"
+				className="z-10000 flex w-40 flex-col gap-2 rounded-lg bg-light-gray px-3 py-2 shadow-dim-inner md:w-56"
 			>
 				<SelectItem
 					key="none"
@@ -78,7 +78,7 @@ export function BotSelector() {
 				{bots.map(({ name, icon }) => (
 					<SelectItem
 						key={name}
-						className="flex cursor-default items-center gap-2 text-lg text-white/75 tracking-tight data-[active-item]:text-white"
+						className="flex cursor-default items-center gap-2 text-lg text-white/75 tracking-tight data-active-item:text-white"
 						store={select}
 						value={name}
 					>

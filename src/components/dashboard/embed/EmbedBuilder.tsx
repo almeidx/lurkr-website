@@ -159,12 +159,12 @@ export function EmbedBuilder({ defaultValue, emojis, roles, placeholders }: Embe
 					</Label>
 
 					<div className="flex items-center gap-2">
-						<PopoverDisclosure className="h-10 rounded-lg bg-light-gray px-3 py-2 disabled:opacity-50" store={popover}>
+						<PopoverDisclosure className="h-10 cursor-pointer rounded-lg bg-light-gray px-3 py-2" store={popover}>
 							<Colorize />
 						</PopoverDisclosure>
 
 						<HexColorInput
-							className="w-52 rounded-lg bg-light-gray px-3 py-2 shadow-dim-inner disabled:opacity-50 md:w-64"
+							className="w-52 rounded-lg bg-light-gray px-3 py-2 shadow-dim-inner md:w-64"
 							color={embedState.color}
 							prefixed
 							onChange={(color) => handleChange("color", color)}

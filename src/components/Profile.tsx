@@ -51,11 +51,7 @@ export function ProfileButton({ avatar, globalName, id, username }: User) {
 				<MenuButtonArrow className={clsx("transition ease-in-out", open ? "rotate-180" : "rotate-0")} />
 			</MenuButton>
 
-			<Menu
-				gutter={8}
-				store={store}
-				className="z-[10003] flex min-w-52 flex-col gap-2 rounded-lg bg-dark-gray px-3 py-2"
-			>
+			<Menu gutter={8} store={store} className="z-10003 flex min-w-52 flex-col gap-2 rounded-lg bg-dark-gray px-3 py-2">
 				<MenuItem className="rounded-lg px-2 py-1 hover:bg-light-gray/30">
 					<Link href="/guilds">Your servers</Link>
 				</MenuItem>
