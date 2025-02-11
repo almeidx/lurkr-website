@@ -33,11 +33,7 @@ export function SaveButton({ pending, success }: SaveButtonProps) {
 			type="submit"
 			className={clsx(
 				"w-40 rounded-lg px-4 py-2 text-xl",
-				pending
-					? "animate-pulse cursor-not-allowed bg-light-gray"
-					: success === false && showSuccessStatus
-						? "bg-red"
-						: "bg-green",
+				pending ? "animate-pulse bg-light-gray" : success === false && showSuccessStatus ? "bg-red" : "bg-green",
 			)}
 			disabled={pending}
 		>

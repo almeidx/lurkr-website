@@ -109,7 +109,7 @@ export function OnJoinRolesForBadges({ defaultValues, premium, roles }: OnJoinRo
 				</SelectPopover>
 
 				<button
-					className="rounded-lg bg-green p-1 transition-colors not-disabled:hover:bg-green/75 disabled:cursor-not-allowed"
+					className="rounded-lg bg-green p-1 transition-colors not-disabled:hover:bg-green/75"
 					onClick={handleCreate}
 					disabled={autoRoleFlags.length >= maxAutoRoleFlags || !newRoles.length || !flag}
 					type="button"

@@ -159,7 +159,7 @@ export function EmbedBuilder({ defaultValue, emojis, roles, placeholders }: Embe
 					</Label>
 
 					<div className="flex items-center gap-2">
-						<PopoverDisclosure className="h-10 cursor-pointer rounded-lg bg-light-gray px-3 py-2" store={popover}>
+						<PopoverDisclosure className="h-10 rounded-lg bg-light-gray px-3 py-2" store={popover}>
 							<Colorize />
 						</PopoverDisclosure>
 

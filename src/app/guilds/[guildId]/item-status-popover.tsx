@@ -8,9 +8,7 @@ export function ItemStatusPopover({ children, description }: PropsWithChildren<{
 
 	return (
 		<>
-			<PopoverDisclosure className="cursor-pointer" store={store}>
-				{children}
-			</PopoverDisclosure>
+			<PopoverDisclosure store={store}>{children}</PopoverDisclosure>
 
 			<Popover
 				className="left-4 z-10004 flex flex-col rounded-lg border border-white/25 bg-darker px-4 py-3 shadow-md"

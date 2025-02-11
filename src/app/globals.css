@@ -96,6 +96,14 @@ img {
 	@apply text-white/50!;
 }
 
+button:not([disabled]) {
+	@apply cursor-pointer;
+}
+
+button[disabled] {
+	@apply cursor-not-allowed;
+}
+
 .no-drag {
 	-webkit-user-drag: none;
 	-moz-user-drag: none;

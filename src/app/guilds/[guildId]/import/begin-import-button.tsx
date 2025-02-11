@@ -11,7 +11,7 @@ export function BeginImportButton({ isRateLimited, importOngoing }: BeginImportB
 
 	const btn = (
 		<Confirmation
-			className="flex w-fit items-center justify-between gap-3 rounded-lg bg-green px-2 py-1 font-semibold text-lg text-shadow-regular transition-colors hover:bg-green/90 disabled:cursor-not-allowed disabled:bg-green/50 md:text-xl"
+			className="flex w-fit items-center justify-between gap-3 rounded-lg bg-green px-2 py-1 font-semibold text-lg text-shadow-regular transition-colors hover:bg-green/90 disabled:bg-green/50 md:text-xl"
 			disabled={disabled}
 			buttonText={
 				<>

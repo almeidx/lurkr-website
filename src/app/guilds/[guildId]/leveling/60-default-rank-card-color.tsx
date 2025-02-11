@@ -63,7 +63,7 @@ export function DefaultRankCardColor({ defaultAccentColour, defaultAccentType }:
 
 				<div className="flex items-center gap-2">
 					<PopoverDisclosure
-						className="h-10 cursor-pointer rounded-lg bg-light-gray px-3 py-2 disabled:opacity-50"
+						className="h-10 rounded-lg bg-light-gray px-3 py-2 disabled:opacity-50"
 						store={popover}
 						disabled={value !== GuildAccentType.Custom}
 					>

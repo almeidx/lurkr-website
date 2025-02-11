@@ -88,7 +88,7 @@ export function LevelingRoleRewards({ defaultRoleRewards, premium, roles }: Leve
 				/>
 
 				<button
-					className="rounded-lg bg-green p-1 transition-colors not-disabled:hover:bg-green/75 disabled:cursor-not-allowed"
+					className="rounded-lg bg-green p-1 transition-colors not-disabled:hover:bg-green/75"
 					onClick={handleCreateRoleReward}
 					disabled={roleRewards.length >= maxRoleRewards || !newRoles.length || !newLevel || isDuplicate}
 					type="button"

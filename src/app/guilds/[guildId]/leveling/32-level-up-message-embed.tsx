@@ -15,7 +15,7 @@ export function LevelUpMessageEmbed({ defaultValue, emojis, roles }: LevelUpMess
 		<div className="flex flex-col">
 			<Disclosure
 				className={clsx(
-					"flex max-w-3xl cursor-pointer items-center justify-between gap-1 border border-white/25 bg-dark-gray px-2 py-1.5 hover:bg-dark-gray/50",
+					"flex max-w-3xl items-center justify-between gap-1 border border-white/25 bg-dark-gray px-2 py-1.5 hover:bg-dark-gray/50",
 					open ? "mb-0 rounded-t-lg" : "mb-4 rounded-lg",
 				)}
 				store={disclosure}
