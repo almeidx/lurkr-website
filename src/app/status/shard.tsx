@@ -26,7 +26,7 @@ export function ShardDisplay({ guilds, members, ping, shardId, uptime, highlight
 				{guilds.toLocaleString()} guilds{"\n"}
 				{members.toLocaleString()} members{"\n"}
 				{ping}ms ping{"\n"}
-				{prettySeconds(uptime / 1_000)} uptime
+				{prettySeconds(Math.trunc(uptime / 1_000))} uptime
 			</Tooltip>
 		</>
 	);
