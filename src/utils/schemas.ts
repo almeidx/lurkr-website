@@ -48,7 +48,13 @@ export const coerceToFloat = pipe(
 export const snowflake = union([emptyStringToNull, pipe(string(), SNOWFLAKE_REGEX_SCHEMA)]);
 
 export const toggle = pipe(
-	optional(literal("on")),
+	optional(
+		union([
+			literal("on"),
+			literal("off"), // This value is actually never passed, but it needs to be here for valibot to allow the default value
+		]),
+		"off",
+	),
 	transform((value) => value === "on"),
 );
 
