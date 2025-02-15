@@ -55,7 +55,7 @@ function getRedirectToValue(redirectTo: string | undefined, origin: string) {
 }
 
 function getSetCookieHeader(token: string, maxAge: number) {
-	return `${TOKEN_COOKIE}=${token}; Path=/; Max-Age=${maxAge}; HttpOnly; Secure; SameSite=Lax` as const;
+	return `${TOKEN_COOKIE}=${token}; Path=/; Max-Age=${maxAge}; Secure; SameSite=Lax` as const;
 }
 
 interface RegisterResponse {
