@@ -40,7 +40,7 @@ export default async function DangerZone({ params }: { readonly params: Promise<
 						Download the leveling database for your server…
 					</Text>
 
-					<DownloadLevelingData guildId={guildId} levelingSystemEnabled={settings.levels} />
+					<DownloadLevelingData guildId={guildId} levelingSystemEnabled={settings.levels} token={token} />
 
 					<Separator />
 
