@@ -53,17 +53,23 @@ export function ProfileButton({ avatar, globalName, id, username }: User) {
 
 			<Menu gutter={8} store={store} className="z-10003 flex min-w-52 flex-col gap-2 rounded-lg bg-dark-gray px-3 py-2">
 				<MenuItem className="rounded-lg px-2 py-1 hover:bg-light-gray/30">
-					<Link href="/guilds">Your servers</Link>
+					<Link href="/guilds" className="block w-full">
+						Your servers
+					</Link>
 				</MenuItem>
 
 				<MenuSeparator className="border-white/25" />
 
 				<MenuItem className="rounded-lg px-2 py-1 hover:bg-light-gray/30">
-					<a href={SUPPORT_SERVER_INVITE}>Support server</a>
+					<a href={SUPPORT_SERVER_INVITE} className="block w-full">
+						Support server
+					</a>
 				</MenuItem>
 
 				<MenuItem className="rounded-lg px-2 py-1 hover:bg-light-gray/30">
-					<a href="/api/auth/logout">Logout</a>
+					<a href="/api/auth/logout" className="block w-full">
+						Logout
+					</a>
 				</MenuItem>
 			</Menu>
 		</>

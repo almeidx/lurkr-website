@@ -12,7 +12,7 @@ export function Toggle({ id, disabled, initialValue, ...props }: ToggleProps) {
 				type="checkbox"
 				{...props}
 			/>
-			<div className="peer h-6 w-11 rounded-full border-red-800 bg-red after:absolute after:top-0.5 after:left-[2px] after:size-5 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all peer-checked:bg-green peer-checked:after:translate-x-full peer-checked:after:border-white" />
+			<div className="peer h-6 w-11 rounded-full border-red-800 bg-red after:absolute after:top-0.5 after:left-0.5 after:size-5 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all peer-checked:bg-green peer-checked:after:translate-x-full peer-checked:after:border-white" />
 		</label>
 	);
 }

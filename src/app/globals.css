@@ -12,7 +12,7 @@
 }
 
 @theme {
-	--breakpoint-xs: 475px;
+	--breakpoint-xs: 30rem;
 	--shadow-dim-inner: 0px 0px 10px 0px #00000080 inset;
 
 	--color-background: #171717;
@@ -31,7 +31,11 @@
 
 	--drop-shadow-regular: 1.5px 1.5px 0px rgba(0, 33, 66, 0.95);
 
-	--patreon-gradient: linear-gradient(93.24deg, #ff424d 0%, #ff7077 100%);
+	--lurkr-gradient: 92.52deg, #ff7077 0%, #ffe87c 100%;
+	--lurkr-gradient-alt: 93deg, #ffe87c 0%, #804994 100%;
+	--lurkr-max-gradient: 90deg, #aad6c6 1%, #fa9079 33%, #fcc953 66%, #74da9c 100%;
+	--lurkr-ultimate-gradient: 90deg, #a2fbec 1%, #f985ff 33%, #904dff 66%, #4d54fe 100%;
+	--patreon-gradient: 93.24deg, #ff424d 0%, #ff7077 100%;
 
 	--animate-pulse-success: pulse-success 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 
@@ -46,23 +50,11 @@
 	}
 }
 
-.bg-gradient-radial {
-	background: linear-gradient(92.52deg, #ff7077 0%, #ffe87c 100%);
-}
-.bg-gradient-radial-hover {
-	background: linear-gradient(93deg, #ffe87c 0%, #804994 100%);
-}
-.bg-gradient-lurkr-max {
-	background: linear-gradient(90deg, #aad6c6 1%, #fa9079 33%, #fcc953 66%, #74da9c 100%);
-}
-.bg-gradient-lurkr-ultimate {
-	background: linear-gradient(90deg, #a2fbec 1%, #f985ff 33%, #904dff 66%, #4d54fe 100%);
-}
-
 .text-shadow-regular {
 	text-shadow: 1.5px 1.5px 0px rgba(0, 33, 66, 0.95);
 }
 
+/* The tailwind-scrollbar plugin doesn't work */
 .slider-thumb\:size-4::-webkit-slider-thumb {
 	width: 1rem;
 	height: 1rem;

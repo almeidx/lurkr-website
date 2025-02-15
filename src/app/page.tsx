@@ -108,7 +108,7 @@ export default async function Homepage() {
 				</>
 			) : null}
 
-			<div className="flex flex-col items-center gap-2 px-6 text-center [text-wrap:balance]">
+			<div className="flex flex-col items-center gap-2 text-balance px-6 text-center">
 				<Showcase
 					index={0}
 					description="Seamlessly transition to Lurkr and never look back at unreasonable paywalls."
@@ -184,20 +184,25 @@ export default async function Homepage() {
 function StartLevelingButton() {
 	return (
 		<ExternalLink
-			className="group w-72 rounded-lg bg-gradient-radial p-0.5 text-center font-bold text-3xl"
+			className="group relative flex w-72 items-center justify-center rounded-lg p-px font-bold text-3xl"
 			href={BOT_INVITE}
 		>
-			<div className="size-full rounded-lg py-2 transition-colors group-hover:bg-background">
-				<div className="flex h-full items-center justify-center text-center text-black transition-colors group-hover:bg-gradient-radial group-hover:bg-clip-text group-hover:text-transparent">
+			{/* Background gradient that becomes border on hover */}
+			<div className="absolute inset-0 rounded-lg bg-linear-(--lurkr-gradient) transition-all group-hover:bg-clip-padding group-hover:p-px" />
+
+			{/* Inner background that appears on hover */}
+			<div className="relative flex w-full justify-center rounded-lg px-4 py-2 transition-colors group-hover:bg-background">
+				{/* Text with background color by default, gradient on hover */}
+				<span className="text-background transition-colors group-hover:bg-linear-(--lurkr-gradient) group-hover:bg-clip-text group-hover:text-transparent">
 					Start Leveling
-				</div>
+				</span>
 			</div>
 		</ExternalLink>
 	);
 }
 
 function ShowcaseSeparator() {
-	return <div className="my-4 h-6 w-[2px] bg-gradient-radial" />;
+	return <div className="my-4 h-6 w-0.5 bg-linear-(--lurkr-gradient)" />;
 }
 
 async function getData() {
@@ -218,9 +223,9 @@ async function getData() {
 		statsResponse.status === "fulfilled"
 			? ((await statsResponse.value.json()) as StatsResponse)
 			: {
-					guildCount: 24_000,
-					messageCount: 400_000_000,
-					memberCount: 10_000_000,
+					guildCount: 31_000,
+					messageCount: 580_000_000,
+					memberCount: 14_000_000,
 					uptime: 99.9,
 				};
 	const featured =
