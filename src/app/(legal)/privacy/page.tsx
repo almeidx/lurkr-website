@@ -3,7 +3,7 @@ import { SUPPORT_SERVER_INVITE } from "@/shared-links.mjs";
 import type { Metadata } from "next";
 
 export default function PrivacyPolicy() {
-	const lastModified = new Date(2_024, 5, 29).toLocaleDateString("en-GB", {
+	const lastModified = new Date(2_025, 1, 15).toLocaleDateString("en-GB", {
 		month: "long",
 		day: "numeric",
 		year: "numeric",
@@ -169,11 +169,6 @@ export default function PrivacyPolicy() {
 					<li>
 						<strong>Vercel:</strong> Web dashboard hosting.{" "}
 						<ExternalLink href="https://vercel.com/legal/privacy-policy">Vercel Privacy Policy</ExternalLink>
-					</li>
-
-					<li>
-						<strong>Google Tag Manager:</strong> Managing website tags.{" "}
-						<ExternalLink href="https://policies.google.com/privacy">Google Privacy Policy</ExternalLink>
 					</li>
 				</ul>
 
