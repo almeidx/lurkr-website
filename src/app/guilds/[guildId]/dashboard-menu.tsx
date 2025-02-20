@@ -1,7 +1,7 @@
 "use client";
 
 import type { GuildInfo } from "@/app/guilds/page.tsx";
-import fallbackAvatarImg from "@/assets/fallback-avatar.png";
+import fallbackAvatarImg from "@/assets/fallback-avatar.webp";
 import { ImageWithFallback } from "@/components/ImageWithFallback.tsx";
 import { Patreon } from "@/components/icons/Patreon.tsx";
 import { EmojiEmotions } from "@/components/icons/mdi/emoji-emotions.tsx";

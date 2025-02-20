@@ -1,5 +1,5 @@
 import { DashboardGuildList } from "@/app/guilds/guild-list.tsx";
-import fallbackAvatarImg from "@/assets/fallback-avatar.png";
+import fallbackAvatarImg from "@/assets/fallback-avatar.webp";
 import { ImageWithFallback } from "@/components/ImageWithFallback.tsx";
 import { SignInButton } from "@/components/SignIn.tsx";
 import type { User } from "@/lib/auth.ts";

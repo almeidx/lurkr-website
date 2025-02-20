@@ -1,6 +1,6 @@
 "use client";
 
-import amariIcon from "@/assets/bots/amari.png";
+import amariIcon from "@/assets/bots/amari.webp";
 import mee6Icon from "@/assets/bots/mee6.svg";
 import polarisIcon from "@/assets/bots/polaris.svg";
 import { LevelingImportBot } from "@/lib/guild.ts";

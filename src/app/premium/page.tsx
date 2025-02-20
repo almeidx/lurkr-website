@@ -1,10 +1,10 @@
 import { configLimitFeatures, extraFeatures, levelingFeatures } from "@/app/premium/features.ts";
 import { PremiumPlan } from "@/app/premium/plan.tsx";
 import { ComparisonTable } from "@/app/premium/table.tsx";
-import logoImg from "@/assets/logo.png";
-import lurkrFreeImg from "@/assets/premium-plans/lurkr-free.png";
-import lurkrMaxImg from "@/assets/premium-plans/lurkr-max.png";
-import lurkrUltimateImg from "@/assets/premium-plans/lurkr-ultimate.png";
+import logoImg from "@/assets/logo.webp";
+import lurkrFreeImg from "@/assets/premium-plans/lurkr-free.webp";
+import lurkrMaxImg from "@/assets/premium-plans/lurkr-max.webp";
+import lurkrUltimateImg from "@/assets/premium-plans/lurkr-ultimate.webp";
 import { ExternalLink } from "@/components/ExternalLink.tsx";
 import { TOKEN_COOKIE } from "@/utils/constants.ts";
 import { makeApiRequest } from "@/utils/make-api-request.ts";

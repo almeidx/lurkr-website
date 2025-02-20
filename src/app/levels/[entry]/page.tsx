@@ -1,6 +1,6 @@
 import { LeaderboardTable } from "@/app/levels/[entry]/01-leaderboard-table.tsx";
 import { PageSelector } from "@/app/levels/[entry]/page-selector.tsx";
-import fallbackAvatarImg from "@/assets/fallback-avatar.png";
+import fallbackAvatarImg from "@/assets/fallback-avatar.webp";
 import { ImageWithFallback } from "@/components/ImageWithFallback.tsx";
 import { SidebarSection } from "@/components/leaderboard/SidebarSection.tsx";
 import type { Guild } from "@/lib/guild.ts";

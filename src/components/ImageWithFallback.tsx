@@ -1,6 +1,6 @@
 "use client";
 
-import fallbackAvatarImg from "@/assets/fallback-avatar.png";
+import fallbackAvatarImg from "@/assets/fallback-avatar.webp";
 import Image, { type StaticImageData } from "next/image";
 import { type ComponentProps, useEffect, useState } from "react";
 

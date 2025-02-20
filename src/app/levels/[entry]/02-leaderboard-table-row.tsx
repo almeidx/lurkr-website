@@ -2,7 +2,7 @@
 
 import { userLevelResetAction } from "@/app/levels/[entry]/actions";
 import type { GetLevelsResponse } from "@/app/levels/[entry]/page";
-import fallbackAvatarImg from "@/assets/fallback-avatar.png";
+import fallbackAvatarImg from "@/assets/fallback-avatar.webp";
 import { ImageWithFallback } from "@/components/ImageWithFallback.tsx";
 import { RadialProgressBar } from "@/components/RadialProgressBar.tsx";
 import { type Snowflake, userAvatar } from "@/utils/discord-cdn.ts";

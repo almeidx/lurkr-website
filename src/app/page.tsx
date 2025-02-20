@@ -1,11 +1,11 @@
 import { type FeaturedGuild, FeaturedGuilds } from "@/app/featured-guilds.tsx";
-import logoImg from "@/assets/logo.png";
-import importImg from "@/assets/showcases/import.png";
-import levelingImg from "@/assets/showcases/leveling.png";
-import multipliersImg from "@/assets/showcases/multipliers.png";
-import premiumImg from "@/assets/showcases/premium.png";
-import rankCardsImg from "@/assets/showcases/rank-cards.png";
-import roleRewardsImg from "@/assets/showcases/role-rewards.png";
+import logoImg from "@/assets/logo.webp";
+import importImg from "@/assets/showcases/import.webp";
+import levelingImg from "@/assets/showcases/leveling.webp";
+import multipliersImg from "@/assets/showcases/multipliers.webp";
+import premiumImg from "@/assets/showcases/premium.webp";
+import rankCardsImg from "@/assets/showcases/rank-cards.webp";
+import roleRewardsImg from "@/assets/showcases/role-rewards.webp";
 import { ExternalLink } from "@/components/ExternalLink.tsx";
 import { Showcase } from "@/components/Showcase.tsx";
 import { AttachMoney } from "@/components/icons/mdi/attach-money.tsx";

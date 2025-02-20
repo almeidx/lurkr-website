@@ -1,6 +1,6 @@
 "use client";
 
-import fallbackAvatarImg from "@/assets/fallback-avatar.png";
+import fallbackAvatarImg from "@/assets/fallback-avatar.webp";
 import { ImageWithFallback } from "@/components/ImageWithFallback.tsx";
 import type { User } from "@/lib/auth.ts";
 import { SUPPORT_SERVER_INVITE } from "@/shared-links.mjs";
