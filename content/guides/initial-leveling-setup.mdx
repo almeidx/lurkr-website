@@ -1,0 +1,56 @@
+---
+title: Initial Leveling Setup
+summary: Prepare Lurkr for observation. This guide covers the initial steps to get Lurkr tracking activity and rewarding your members.
+publishedAt: 2024-04-29
+---
+
+### Coming From A Different Bot?
+
+Are you switching to Lurkr from a different leveling bot which you've already used extensively?
+We understand that resetting your servers leaderboard is something you'd rather never do,
+and setting up leveling role rewards from scratch is a hassle as well.
+
+Why not check out how to automatically import levels from other bots? If the bot you're coming from is supported,
+Lurkr can pick up where you left off just moments ago!
+
+### Toggling Levels
+
+By default, Lurkr will not have leveling enabled. Any user activity that may have occurred before you enabled leveling has not been counted.
+You need to enable it to get started by typing the following command:
+
+<center className="mt-2">
+	![Usage of the slash command '/config toggle option:Leveling System'](/static/docs/toggling-leveling-system.webp)
+</center>
+
+### What Messages Count for Leveling?
+
+Any of the following messages can count towards leveling progression, provided the member is not blocked from leveling in some way or another.
+
+- Default text messages
+- Reply text messages
+- Slash command usages (Any bot, non-ephemeral)
+- Context menu command usages (Any bot, non-ephemeral)
+
+<hr />
+
+### Adding Leveling Channels
+
+You can now add specific channels that users can gain XP in. The channels you setup will be by default blacklisted channels,
+meaning that they are the only ones that are excluded from being able to gain XP.
+
+However, as we will explain shortly you can very easily change that within moments.
+For now, use the /config set command to add as many channels as you want!
+
+You can enter as many channels as your current server plan will allow. You can check the limits on the Patreon Perks page!
+
+<center className="mt-2">
+	![Usage of the slash command '/config set option:Leveling Channels'](/static/docs/setting-leveling-channels.webp)
+</center>
+
+Now the bot will send a confirmation message of the information you just entered,
+however included with that is also a grey button that let's you toggle between the blacklist and the whitelist option whilst still retaining all of the channels you just set!
+If you therefore want only the channels you just entered to be used as leveling channels, press the button that says 'Switch to whitelist'
+
+<center className="mt-2">
+	![If you don't do anything, the channels will be set as they are!](/static/docs/leveling-switch-to-whitelist.webp)
+</center>

@@ -1,10 +1,12 @@
 export const DESCRIPTION =
-	"The Ultimate No-Paywall & Featured Leveling Bot. Transfer your MEE6/Amari/Polaris Leaderboard to get started!";
+	"The ultimate no-paywall & featureful leveling bot. Transfer your MEE6/Amari/Polaris leaderboard to get started!";
 export const BRAND_COLOR = "#ff7077";
 
 export const MAX_WINDOW_TITLE_LENGTH = 60;
 
-export const BASE_URL = process.env.NEXT_PUBLIC_URL!;
+export const BASE_URL = process.env.NEXT_PUBLIC_URL || process.env.VERCEL_PROJECT_PRODUCTION_URL || "https://lurkr.gg";
+export const PUBLIC_URL = new URL(BASE_URL);
+
 const clientId = process.env.NEXT_PUBLIC_DISCORD_CLIENT_ID!;
 
 const signInUrl = new URL("https://discord.com/api/oauth2/authorize");

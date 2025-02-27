@@ -1,7 +1,9 @@
 "use client";
 
+import "@/app/globals.css";
+
 import { openSans } from "@/app/fonts.ts";
-import { BRAND_COLOR, DESCRIPTION } from "@/utils/constants.ts";
+import { BRAND_COLOR, DESCRIPTION, PUBLIC_URL } from "@/utils/constants.ts";
 import type { Metadata, Viewport } from "next";
 
 export default function GlobalError({ error, reset }: GlobalErrorProps) {
@@ -36,27 +38,31 @@ interface GlobalErrorProps {
 }
 
 export const metadata: Metadata = {
-	title: "Lurkr",
+	metadataBase: PUBLIC_URL,
+
+	title: {
+		default: "Lurkr",
+		template: "%s • Lurkr",
+	},
 	description: DESCRIPTION,
 
-	keywords: ["Lurkr", "Lurkr Bot", "Lurkr Invite", "Lurkr Discord", "Emoji Manager", "Emoji Manager Discord", "Lurker"],
+	appleWebApp: {
+		title: "Lurkr",
+		capable: true,
+	},
+
+	applicationName: "Lurkr",
 
 	openGraph: {
 		siteName: "Lurkr",
-		title: "Lurkr",
-		description: DESCRIPTION,
 		type: "website",
 	},
 
-	manifest: "/manifest.json",
-	icons: { apple: "/apple-icon-180.png", icon: "/icon.png" },
-	appleWebApp: { title: "Lurkr", capable: true },
-	applicationName: "Lurkr",
 	other: {
-		"msapplication-square70x70logo": "mstile-icon-128.png",
-		"msapplication-square150x150logo": "mstile-icon-270.png",
-		"msapplication-square310x310logo": "mstile-icon-558.png",
-		"msapplication-wide310x150logo": "mstile-icon-558-270.png",
+		"msapplication-square70x70logo": "/static/mstile-icon-128.png",
+		"msapplication-square150x150logo": "/static/mstile-icon-270.png",
+		"msapplication-square310x310logo": "/static/mstile-icon-558.png",
+		"msapplication-wide310x150logo": "/static/mstile-icon-558-270.png",
 		"msapplication-TileColor": BRAND_COLOR,
 	},
 };

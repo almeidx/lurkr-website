@@ -1,0 +1,86 @@
+{
+	"$schema": "https://json.schemastore.org/web-manifest-combined.json",
+	"background_color": "#171717",
+	"description": "The ultimate no-paywall & featureful leveling bot. Transfer your MEE6/Amari/Polaris leaderboard to get started!",
+	"dir": "ltr",
+	"display": "standalone",
+	"id": "gg.lurkr.app",
+	"lang": "en",
+	"name": "Lurkr",
+	"orientation": "natural",
+	"short_name": "Lurkr",
+	"start_url": "/",
+	"theme_color": "#ff7077",
+	"icons": [
+		{
+			"purpose": "any",
+			"sizes": "192x192",
+			"src": "/static/manifest-icon-192.maskable.png",
+			"type": "image/png"
+		},
+		{
+			"purpose": "maskable",
+			"sizes": "192x192",
+			"src": "/static/manifest-icon-192.maskable.png",
+			"type": "image/png"
+		},
+		{
+			"purpose": "any",
+			"sizes": "512x512",
+			"src": "/static/manifest-icon-512.maskable.png",
+			"type": "image/png"
+		},
+		{
+			"purpose": "maskable",
+			"sizes": "512x512",
+			"src": "/static/manifest-icon-512.maskable.png",
+			"type": "image/png"
+		}
+	],
+	"shortcuts": [
+		{
+			"icons": [
+				{
+					"purpose": "any",
+					"src": "/static/manifest-icon-192.maskable.png",
+					"type": "image/png"
+				}
+			],
+			"name": "Your servers",
+			"url": "/guilds"
+		},
+		{
+			"icons": [
+				{
+					"purpose": "any",
+					"src": "/static/manifest-icon-192.maskable.png",
+					"type": "image/png"
+				}
+			],
+			"name": "Your leaderboards",
+			"url": "/levels"
+		},
+		{
+			"icons": [
+				{
+					"purpose": "any",
+					"src": "/static/manifest-icon-192.maskable.png",
+					"type": "image/png"
+				}
+			],
+			"name": "Leveling Calculator",
+			"url": "/levels/calculator"
+		},
+		{
+			"icons": [
+				{
+					"purpose": "any",
+					"src": "/static/manifest-icon-192.maskable.png",
+					"type": "image/png"
+				}
+			],
+			"name": "Documentation",
+			"url": "/docs"
+		}
+	]
+}

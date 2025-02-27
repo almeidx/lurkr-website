@@ -29,6 +29,8 @@
 	--color-yellow: #fbb748;
 	--color-green: #3ea25e;
 
+	--color-brand: #ff7077;
+
 	--drop-shadow-regular: 1.5px 1.5px 0px rgba(0, 33, 66, 0.95);
 
 	--lurkr-gradient: 92.52deg, #ff7077 0%, #ffe87c 100%;
@@ -109,4 +111,9 @@ button[disabled] {
 .prose-blue-400 {
 	--tw-prose-links: rgba(96 165 250);
 	--tw-prose-invert-links: rgba(96 165 250);
+}
+
+.nextra-sidebar {
+	/* Fix nextra's sidebar overlapping over our footer border */
+	@apply border-b border-transparent;
 }

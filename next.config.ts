@@ -3,8 +3,7 @@ import nextra from "nextra";
 import { BOT_INVITE, GITHUB_REPOSITORY_URL, PATREON_URL, SUPPORT_SERVER_INVITE, TOPGG_URL } from "./shared-links.mjs";
 
 const withNextra = nextra({
-	theme: "nextra-theme-docs",
-	themeConfig: "./theme.config.tsx",
+	contentDirBasePath: "/docs",
 });
 
 const apiDomain = process.env.NEXT_PUBLIC_API_URL!.split("://")[1];
