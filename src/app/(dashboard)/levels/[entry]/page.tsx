@@ -27,11 +27,7 @@ export default async function Leaderboard({ params, searchParams }: LeaderboardP
 	const { page: rawPage } = await searchParams;
 	const { entry } = await params;
 
-	let page = Number.parseInt(rawPage, 10);
-
-	if (Number.isNaN(page) || page < 1 || page > MAX_LEADERBOARD_PAGE) {
-		page = 1;
-	}
+	const page = parsePage(rawPage);
 
 	const token = (await cookies()).get(TOKEN_COOKIE)?.value;
 	const data = await getData(entry, token, page);
@@ -128,7 +124,7 @@ export default async function Leaderboard({ params, searchParams }: LeaderboardP
 	);
 }
 
-export async function generateMetadata({ params }: LeaderboardProps): Promise<Metadata> {
+export async function generateMetadata({ params, searchParams }: LeaderboardProps): Promise<Metadata> {
 	const { entry } = await params;
 
 	const response = await makeApiRequest(`/levels/${entry}/metadata`, null, {
@@ -149,11 +145,29 @@ export async function generateMetadata({ params }: LeaderboardProps): Promise<Me
 
 	const guild = (await response.json()) as LevelsGuildMetadataResponse;
 
+	const { page: rawPage } = await searchParams;
+	const page = parsePage(rawPage);
+
+	const MEMBERS_PER_PAGE = 100;
+
+	const previousUrl = page === 1 ? null : `/levels/${entry}?page=${page - 1}`;
+	const nextUrl =
+		page === MAX_LEADERBOARD_PAGE
+			? null
+			: guild.approximateLevelsCount > page * MEMBERS_PER_PAGE
+				? `/levels/${entry}?page=${page + 1}`
+				: null;
+
 	const titleSuffix = " • Leaderboard";
 
 	return {
 		title: `${ellipsis(guild.name, MAX_WINDOW_TITLE_LENGTH - titleSuffix.length)}${titleSuffix}`,
 		description: `View the leveling leaderboard of ${guild.name}, including rewards and multipliers!`,
+
+		pagination: {
+			previous: previousUrl,
+			next: nextUrl,
+		},
 	};
 }
 
@@ -170,6 +184,16 @@ async function getData(entry: string, token: string | undefined, page: number) {
 	}
 
 	return response.json() as Promise<GetLevelsResponse>;
+}
+
+function parsePage(rawPage: string) {
+	const page = Number.parseInt(rawPage, 10);
+
+	if (Number.isNaN(page) || page < 1 || page > MAX_LEADERBOARD_PAGE) {
+		return 1;
+	}
+
+	return page;
 }
 
 interface LevelsGuildMetadataResponse {
