@@ -29,9 +29,6 @@ importers:
       nextra:
         specifier: ^4.2.13
         version: 4.2.13(acorn@8.14.0)(next@15.2.0(babel-plugin-react-compiler@19.0.0-beta-e1e972c-20250221)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(typescript@5.7.3)
-      nextra-theme-blog:
-        specifier: ^4.2.13
-        version: 4.2.13(next@15.2.0(babel-plugin-react-compiler@19.0.0-beta-e1e972c-20250221)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(nextra@4.2.13(acorn@8.14.0)(next@15.2.0(babel-plugin-react-compiler@19.0.0-beta-e1e972c-20250221)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(typescript@5.7.3))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       nextra-theme-docs:
         specifier: ^4.2.13
         version: 4.2.13(@types/react@19.0.10)(next@15.2.0(babel-plugin-react-compiler@19.0.0-beta-e1e972c-20250221)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(nextra@4.2.13(acorn@8.14.0)(next@15.2.0(babel-plugin-react-compiler@19.0.0-beta-e1e972c-20250221)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(typescript@5.7.3))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(use-sync-external-store@1.4.0(react@19.0.0))
@@ -1964,13 +1961,6 @@ packages:
       react: ^16.8 || ^17 || ^18 || ^19 || ^19.0.0-rc
       react-dom: ^16.8 || ^17 || ^18 || ^19 || ^19.0.0-rc
 
-  next-view-transitions@0.3.4:
-    resolution: {integrity: sha512-SSiskenQ8JkEFGzPjvFwC5LGGoqgTxM5dxexkeugxvcXFLpWI2ZUh4IsCURD3ovW+8Ue7xXlrtrpy8b7XR7IwQ==}
-    peerDependencies:
-      next: '>=14.0.0'
-      react: ^18.2.0
-      react-dom: ^18.2.0
-
   next@15.2.0:
     resolution: {integrity: sha512-VaiM7sZYX8KIAHBrRGSFytKknkrexNfGb8GlG6e93JqueCspuGte8i4ybn8z4ww1x3f2uzY4YpTaBEW4/hvsoQ==}
     engines: {node: ^18.18.0 || ^19.8.0 || >= 20.0.0}
@@ -1991,14 +1981,6 @@ packages:
         optional: true
       sass:
         optional: true
-
-  nextra-theme-blog@4.2.13:
-    resolution: {integrity: sha512-Fqz+N9uv1EqKmEaHry9DO9uSzOLJNLZ0WLoj/83WxxMpwKdDhxWPuQxYRkHtXt9IlKv41l9A936hnmUDFwPLUg==}
-    peerDependencies:
-      next: '>=14'
-      nextra: 4.2.13
-      react: '>=18'
-      react-dom: '>=18'
 
   nextra-theme-docs@4.2.13:
     resolution: {integrity: sha512-PO+ltZFtKXe2Jt4hgdJi5JahQHOjt2qmz5wVSfhS+PZDMAuFCa0UubBvkCyQDF3YdKjUI2gJ8CW0fGw84yeseQ==}
@@ -4893,12 +4875,6 @@ snapshots:
       react: 19.0.0
       react-dom: 19.0.0(react@19.0.0)
 
-  next-view-transitions@0.3.4(next@15.2.0(babel-plugin-react-compiler@19.0.0-beta-e1e972c-20250221)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0):
-    dependencies:
-      next: 15.2.0(babel-plugin-react-compiler@19.0.0-beta-e1e972c-20250221)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
-      react: 19.0.0
-      react-dom: 19.0.0(react@19.0.0)
-
   next@15.2.0(babel-plugin-react-compiler@19.0.0-beta-e1e972c-20250221)(react-dom@19.0.0(react@19.0.0))(react@19.0.0):
     dependencies:
       '@next/env': 15.2.0
@@ -4924,16 +4900,6 @@ snapshots:
     transitivePeerDependencies:
       - '@babel/core'
       - babel-plugin-macros
-
-  nextra-theme-blog@4.2.13(next@15.2.0(babel-plugin-react-compiler@19.0.0-beta-e1e972c-20250221)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(nextra@4.2.13(acorn@8.14.0)(next@15.2.0(babel-plugin-react-compiler@19.0.0-beta-e1e972c-20250221)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(typescript@5.7.3))(react-dom@19.0.0(react@19.0.0))(react@19.0.0):
-    dependencies:
-      next: 15.2.0(babel-plugin-react-compiler@19.0.0-beta-e1e972c-20250221)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
-      next-themes: 0.4.4(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
-      next-view-transitions: 0.3.4(next@15.2.0(babel-plugin-react-compiler@19.0.0-beta-e1e972c-20250221)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
-      nextra: 4.2.13(acorn@8.14.0)(next@15.2.0(babel-plugin-react-compiler@19.0.0-beta-e1e972c-20250221)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(typescript@5.7.3)
-      react: 19.0.0
-      react-compiler-runtime: 0.0.0-experimental-22c6e49-20241219(react@19.0.0)
-      react-dom: 19.0.0(react@19.0.0)
 
   nextra-theme-docs@4.2.13(@types/react@19.0.10)(next@15.2.0(babel-plugin-react-compiler@19.0.0-beta-e1e972c-20250221)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(nextra@4.2.13(acorn@8.14.0)(next@15.2.0(babel-plugin-react-compiler@19.0.0-beta-e1e972c-20250221)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(typescript@5.7.3))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(use-sync-external-store@1.4.0(react@19.0.0)):
     dependencies:
