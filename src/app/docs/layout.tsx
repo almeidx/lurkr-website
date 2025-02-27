@@ -11,7 +11,6 @@ import { GITHUB_REPOSITORY_URL } from "@/shared-links.mjs";
 import { BRAND_COLOR, DOCS_URL, PUBLIC_URL } from "@/utils/constants.ts";
 import type { Metadata, Viewport } from "next";
 import Image from "next/image";
-import type { Folder } from "nextra";
 import { Layout, Navbar } from "nextra-theme-docs";
 import { Banner, Head } from "nextra/components";
 import { getPageMap } from "nextra/page-map";
@@ -39,11 +38,7 @@ export default async function RootLayout({ children }: PropsWithChildren) {
 		</Banner>
 	);
 
-	const pageMap = (
-		(await getPageMap())
-			// Seems like `contentDirBasePath` is not being respected for the page map (?)
-			.filter((page) => !("route" in page) || page.route.startsWith("/docs"))[0] as Folder
-	).children;
+	const pageMap = await getPageMap("/docs");
 
 	return (
 		<html lang="en" suppressHydrationWarning>
