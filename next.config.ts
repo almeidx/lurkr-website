@@ -10,7 +10,7 @@ const apiDomain = process.env.NEXT_PUBLIC_API_URL!.split("://")[1];
 
 const cspHeader = `
 	default-src 'self';
-	script-src 'self' 'unsafe-inline'${process.env.NODE_ENV === "production" ? "" : " 'unsafe-eval'"} static.cloudflareinsights.com;
+	script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval'${process.env.NODE_ENV === "production" ? "" : " 'unsafe-eval'"} static.cloudflareinsights.com;
 	style-src 'self' 'unsafe-inline';
 	img-src 'self' cdn.discordapp.com blob: data:;
 	font-src 'self';
