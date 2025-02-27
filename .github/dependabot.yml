@@ -22,6 +22,12 @@ updates:
           - react-dom
         update-types:
           - major
+      nextra:
+        patterns:
+          - nextra
+          - nextra-*
+        update-types:
+          - major
 
   - package-ecosystem: github-actions
     directory: /
