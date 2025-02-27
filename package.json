@@ -4,6 +4,7 @@
 	"homepage": "https://lurkr.gg",
 	"scripts": {
 		"build": "next build",
+		"postbuild": "pagefind --site .next/server/app --output-path public/_pagefind",
 		"dev": "next dev",
 		"fmt": "pnpm run format",
 		"format": "biome check --write --unsafe",
@@ -41,6 +42,7 @@
 		"@types/textarea-caret": "^3.0.3",
 		"babel-plugin-react-compiler": "19.0.0-beta-e1e972c-20250221",
 		"husky": "^9.1.7",
+		"pagefind": "^1.3.0",
 		"postcss": "^8.5.3",
 		"tailwind-scrollbar": "^4.0.1",
 		"tailwindcss": "^4.0.9",
