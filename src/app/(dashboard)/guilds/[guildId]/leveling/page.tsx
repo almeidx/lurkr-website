@@ -30,6 +30,8 @@ import { DefaultRankCardColor } from "./60-default-rank-card-color.tsx";
 import { LeaderboardVanity } from "./70-leaderboard-vanity.tsx";
 import { update } from "./update.ts";
 
+export const runtime = "edge";
+
 export default async function Leveling({ params }: { readonly params: Promise<{ guildId: Snowflake }> }) {
 	const { guildId } = await params;
 

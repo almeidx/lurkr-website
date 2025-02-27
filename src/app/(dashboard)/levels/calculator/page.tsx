@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Calculator } from "./calculator.tsx";
 
+export const runtime = "edge";
+
 export default function CalculatorPage() {
 	return (
 		<div className="flex flex-col items-center justify-center gap-12 py-4">

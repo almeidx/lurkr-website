@@ -2,6 +2,8 @@ import { ExternalLink } from "@/components/ExternalLink.tsx";
 import { SUPPORT_SERVER_INVITE } from "@/shared-links.mjs";
 import type { Metadata } from "next";
 
+export const runtime = "edge";
+
 export default function PrivacyPolicy() {
 	const lastModified = new Date(2_025, 1, 15).toLocaleDateString("en-GB", {
 		month: "long",

@@ -5,6 +5,8 @@ import type { Metadata } from "next";
 import { cookies } from "next/headers";
 import { type GetImportStatusResponse, ImportForm } from "./01-leveling-import.tsx";
 
+export const runtime = "edge";
+
 export default async function Miscellaneous({ params }: { readonly params: Promise<{ guildId: Snowflake }> }) {
 	const { guildId } = await params;
 

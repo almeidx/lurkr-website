@@ -1,7 +1,10 @@
-import { useMDXComponents } from "@/mdx-components.tsx";
-import { generateStaticParamsFor, importPage } from "nextra/pages";
+import { useMDXComponents } from "@/_mdx-components";
+// import { generateStaticParamsFor, importPage } from "nextra/pages";
+import { importPage } from "nextra/pages";
 
-export const generateStaticParams = generateStaticParamsFor("mdxPath");
+export const runtime = "edge";
+
+// export const generateStaticParams = generateStaticParamsFor("mdxPath");
 
 export async function generateMetadata(props: any) {
 	const params = await props.params;

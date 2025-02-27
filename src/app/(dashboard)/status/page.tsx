@@ -4,6 +4,8 @@ import type { Metadata } from "next";
 import type { Shard } from "./shard.tsx";
 import { ShardsContainer } from "./shards-container.tsx";
 
+export const runtime = "edge";
+
 export default async function Status() {
 	const data = await getData();
 

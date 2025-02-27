@@ -12,6 +12,8 @@ import { VoteBoost } from "./02-vote-boost.tsx";
 import { MultipliersWithTargets } from "./10-multipliers-with-targets.tsx";
 import { update } from "./update.ts";
 
+export const runtime = "edge";
+
 export default async function Multipliers({ params }: { readonly params: Promise<{ guildId: Snowflake }> }) {
 	const { guildId } = await params;
 

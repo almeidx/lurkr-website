@@ -23,6 +23,8 @@ if (!process.env.LEVELS_METADATA_KEY) {
 
 const MAX_LEADERBOARD_PAGE = 100;
 
+export const runtime = "edge";
+
 export default async function Leaderboard({ params, searchParams }: LeaderboardProps) {
 	const { page: rawPage } = await searchParams;
 	const { entry } = await params;

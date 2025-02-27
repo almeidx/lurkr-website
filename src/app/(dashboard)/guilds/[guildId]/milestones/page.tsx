@@ -14,6 +14,8 @@ import { MilestoneMessage } from "./03-milestone-message.tsx";
 import { MilestoneRoles } from "./04-milestone-roles.tsx";
 import { update } from "./update.ts";
 
+export const runtime = "edge";
+
 export default async function Milestones({ params }: { readonly params: Promise<{ guildId: Snowflake }> }) {
 	const { guildId } = await params;
 

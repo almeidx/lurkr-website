@@ -11,6 +11,8 @@ import { EmojiListChannel } from "./01-emoji-list-channel.tsx";
 import { UpdateEmojiList } from "./02-update-emoji-list.tsx";
 import { update } from "./update.ts";
 
+export const runtime = "edge";
+
 export default async function Emojis({ params }: { readonly params: Promise<{ guildId: Snowflake }> }) {
 	const { guildId } = await params;
 

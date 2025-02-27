@@ -6,6 +6,8 @@ import { TOKEN_COOKIE } from "@/utils/constants.ts";
 import { makeApiRequest } from "@/utils/make-api-request.ts";
 import { cookies } from "next/headers";
 
+export const runtime = "edge";
+
 export default async function MyLevel({ params }: { params: Promise<{ entry: string }> }) {
 	const { entry } = await params;
 

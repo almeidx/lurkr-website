@@ -15,6 +15,8 @@ import { MentionCooldownRoles } from "./20-mention-cooldown-roles.tsx";
 import { MentionCooldown } from "./21-mention-cooldown.tsx";
 import { update } from "./update.ts";
 
+export const runtime = "edge";
+
 export default async function Roles({ params }: { readonly params: Promise<{ guildId: Snowflake }> }) {
 	const { guildId } = await params;
 

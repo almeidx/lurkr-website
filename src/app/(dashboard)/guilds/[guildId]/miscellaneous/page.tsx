@@ -12,6 +12,8 @@ import { StoreMemberCountData } from "./01-store-member-count-data.tsx";
 import { AutomaticallyPublishChannels } from "./02-automatically-publish-channels.tsx";
 import { update } from "./update.ts";
 
+export const runtime = "edge";
+
 export default async function Miscellaneous({ params }: { readonly params: Promise<{ guildId: Snowflake }> }) {
 	const { guildId } = await params;
 

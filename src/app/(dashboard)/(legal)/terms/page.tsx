@@ -3,6 +3,8 @@ import { SUPPORT_SERVER_INVITE } from "@/shared-links.mjs";
 import type { Metadata } from "next";
 import Link from "next/link";
 
+export const runtime = "edge";
+
 export default function TermsAndConditions() {
 	const lastModified = new Date(2_024, 5, 29).toLocaleDateString("en-GB", {
 		month: "long",

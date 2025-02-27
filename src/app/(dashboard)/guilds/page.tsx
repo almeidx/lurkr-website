@@ -10,6 +10,8 @@ import { makeApiRequest } from "@/utils/make-api-request.ts";
 import type { Metadata } from "next";
 import { cookies } from "next/headers";
 
+export const runtime = "edge";
+
 export default async function GuildList() {
 	const token = (await cookies()).get(TOKEN_COOKIE)!.value;
 	const data = await getGuilds(token);

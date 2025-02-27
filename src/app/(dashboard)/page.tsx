@@ -21,6 +21,8 @@ import { makeApiRequest } from "@/utils/make-api-request.ts";
 import Image from "next/image";
 import Link from "next/link";
 
+export const runtime = "edge";
+
 export default async function Homepage() {
 	const {
 		stats: { guildCount, memberCount, messageCount, uptime },
