@@ -10,6 +10,7 @@
 		"isolatedModules": true,
 		"jsx": "preserve",
 		"lib": ["dom", "dom.iterable", "esnext"],
+		"libReplacement": false,
 		"module": "esnext",
 		"moduleResolution": "bundler",
 		"noEmit": true,
