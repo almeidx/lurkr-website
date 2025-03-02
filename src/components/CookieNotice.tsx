@@ -28,8 +28,9 @@ export function CookieNotice() {
 			sameSite: "strict",
 			secure: true,
 			expires: expiryDate,
-		}),
-			setHasConsented(true);
+		});
+
+		setHasConsented(true);
 	}
 
 	return (
