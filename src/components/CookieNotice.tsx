@@ -1,34 +1,39 @@
-import { Time } from "@/utils/time.ts";
-import { cookies } from "next/headers";
+"use client";
+
+import Cookies from "js-cookie";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
-const COOKIE_CONSENT = "cookie_consent";
-const COOKIE_CONSENT_VALUE = "1";
+const COOKIE_CONSENT_COOKIE = "biscuits";
+const ACK_VALUE = "aye";
 
-export async function CookieNotice() {
-	const hasConsented = (await cookies()).get(COOKIE_CONSENT)?.value === COOKIE_CONSENT_VALUE;
+export function CookieNotice() {
+	const [hasConsented, setHasConsented] = useState<boolean | null>(null);
 
-	if (hasConsented) {
+	useEffect(() => {
+		const cookieValue = Cookies.get(COOKIE_CONSENT_COOKIE);
+		setHasConsented(cookieValue === ACK_VALUE);
+	}, []);
+
+	if (hasConsented === null || hasConsented === true) {
 		return null;
 	}
 
-	async function acceptCookies() {
-		"use server";
+	function acceptCookies() {
+		const expiryDate = new Date();
+		expiryDate.setFullYear(expiryDate.getFullYear() + 1);
 
-		(await cookies()).set(COOKIE_CONSENT, COOKIE_CONSENT_VALUE, {
-			httpOnly: true,
+		Cookies.set(COOKIE_CONSENT_COOKIE, ACK_VALUE, {
 			path: "/",
 			sameSite: "strict",
 			secure: true,
-			expires: new Date(Date.now() + Time.Years),
-		});
+			expires: expiryDate,
+		}),
+			setHasConsented(true);
 	}
 
 	return (
-		<form
-			action={acceptCookies}
-			className="fixed right-8 bottom-8 left-8 z-100003 flex flex-col rounded-md border border-white/25 bg-darker px-3 py-2 sm:left-auto sm:max-w-xl"
-		>
+		<div className="fixed right-8 bottom-8 left-8 z-100003 flex flex-col rounded-md border border-white/25 bg-darker px-3 py-2 sm:left-auto sm:max-w-xl">
 			<p className="mb-2 font-bold text-xl">Cookies</p>
 
 			<p>
@@ -40,9 +45,13 @@ export async function CookieNotice() {
 				.
 			</p>
 
-			<button className="mt-2 w-fit rounded-md bg-primary px-3 py-1 hover:bg-primary/75" type="submit">
+			<button
+				className="mt-2 w-fit rounded-md bg-primary px-3 py-1 hover:bg-primary/75"
+				type="button"
+				onClick={acceptCookies}
+			>
 				Accept
 			</button>
-		</form>
+		</div>
 	);
 }
