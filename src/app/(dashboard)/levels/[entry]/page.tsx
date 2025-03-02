@@ -1,5 +1,5 @@
 import { LeaderboardTable } from "@/app/(dashboard)/levels/[entry]/01-leaderboard-table.tsx";
-import { PageSelector } from "@/app/(dashboard)/levels/[entry]/page-selector.tsx";
+import { LEADERBOARD_MAX_PAGE, PageSelector } from "@/app/(dashboard)/levels/[entry]/page-selector.tsx";
 import fallbackAvatarImg from "@/assets/fallback-avatar.webp";
 import { ImageWithFallback } from "@/components/ImageWithFallback.tsx";
 import { SidebarSection } from "@/components/leaderboard/SidebarSection.tsx";
@@ -20,8 +20,6 @@ import { UnknownGuildOrDisabledLevels } from "./unknown-guild.tsx";
 if (!process.env.LEVELS_METADATA_KEY) {
 	throw new Error("Missing LEVELS_METADATA_KEY environment variable");
 }
-
-const MAX_LEADERBOARD_PAGE = 100;
 
 export default async function Leaderboard({ params, searchParams }: LeaderboardProps) {
 	const { page: rawPage } = await searchParams;
@@ -152,7 +150,7 @@ export async function generateMetadata({ params, searchParams }: LeaderboardProp
 
 	const previousUrl = page === 1 ? null : `/levels/${entry}?page=${page - 1}`;
 	const nextUrl =
-		page === MAX_LEADERBOARD_PAGE
+		page === LEADERBOARD_MAX_PAGE
 			? null
 			: guild.approximateLevelsCount > page * MEMBERS_PER_PAGE
 				? `/levels/${entry}?page=${page + 1}`
@@ -189,7 +187,7 @@ async function getData(entry: string, token: string | undefined, page: number) {
 function parsePage(rawPage: string) {
 	const page = Number.parseInt(rawPage, 10);
 
-	if (Number.isNaN(page) || page < 1 || page > MAX_LEADERBOARD_PAGE) {
+	if (Number.isNaN(page) || page < 1 || page > LEADERBOARD_MAX_PAGE) {
 		return 1;
 	}
 
