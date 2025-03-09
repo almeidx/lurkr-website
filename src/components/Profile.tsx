@@ -1,40 +1,15 @@
-"use client";
-
 import fallbackAvatarImg from "@/assets/fallback-avatar.webp";
 import { ImageWithFallback } from "@/components/ImageWithFallback.tsx";
 import type { User } from "@/lib/auth.ts";
 import { SUPPORT_SERVER_INVITE } from "@/shared-links.js";
 import { userAvatar } from "@/utils/discord-cdn.ts";
-import {
-	Menu,
-	MenuButton,
-	MenuButtonArrow,
-	MenuItem,
-	MenuSeparator,
-	useMenuStore,
-	useStoreState,
-} from "@ariakit/react";
-import clsx from "clsx";
+import { Menu, MenuButton, MenuButtonArrow, MenuItem, MenuProvider, MenuSeparator } from "@ariakit/react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { useEffect } from "react";
 
 export function ProfileButton({ avatar, globalName, id, username }: User) {
-	const store = useMenuStore();
-	const open = useStoreState(store, "open");
-	const pathname = usePathname();
-
-	// biome-ignore lint/correctness/useExhaustiveDependencies: This is intended.
-	useEffect(() => {
-		store.setOpen(false);
-	}, [pathname]);
-
 	return (
-		<>
-			<MenuButton
-				store={store}
-				className="flex w-fit items-center justify-center gap-2 rounded-lg bg-light-gray px-2 py-1"
-			>
+		<MenuProvider>
+			<MenuButton className="group flex w-fit items-center justify-center gap-2 rounded-lg bg-light-gray px-2 py-1">
 				<ImageWithFallback
 					alt="Your profile picture"
 					className="aspect-square rounded-full"
@@ -48,10 +23,10 @@ export function ProfileButton({ avatar, globalName, id, username }: User) {
 
 				<p className="max-w-16 truncate md:max-w-32 xl:max-w-56">{globalName ?? username}</p>
 
-				<MenuButtonArrow className={clsx("transition ease-in-out", open ? "rotate-180" : "rotate-0")} />
+				<MenuButtonArrow className="transition ease-in-out group-aria-expanded:rotate-180" />
 			</MenuButton>
 
-			<Menu gutter={8} store={store} className="z-10003 flex min-w-52 flex-col gap-2 rounded-lg bg-dark-gray px-3 py-2">
+			<Menu gutter={8} className="z-10003 flex min-w-52 flex-col gap-2 rounded-lg bg-dark-gray px-3 py-2">
 				<MenuItem className="rounded-lg px-2 py-1 hover:bg-light-gray/30">
 					<Link href="/guilds" className="block w-full">
 						Your servers
@@ -72,6 +47,6 @@ export function ProfileButton({ avatar, globalName, id, username }: User) {
 					</a>
 				</MenuItem>
 			</Menu>
-		</>
+		</MenuProvider>
 	);
 }

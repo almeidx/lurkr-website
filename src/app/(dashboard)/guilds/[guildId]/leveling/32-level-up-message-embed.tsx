@@ -8,9 +8,9 @@ export function LevelUpMessageEmbed({ defaultValue, emojis, roles }: LevelUpMess
 	return (
 		<div className="flex flex-col">
 			<DisclosureProvider>
-				<Disclosure className="flex max-w-3xl items-center justify-between gap-1 rounded-lg border border-white/25 bg-dark-gray px-2 py-1.5 hover:bg-dark-gray/50 aria-expanded:mb-0 aria-expanded:rounded-t-lg aria-expanded:rounded-b-none">
+				<Disclosure className="group flex max-w-3xl items-center justify-between gap-1 rounded-lg border border-white/25 bg-dark-gray px-2 py-1.5 hover:bg-dark-gray/50 aria-expanded:mb-0 aria-expanded:rounded-t-lg aria-expanded:rounded-b-none">
 					Embed
-					<ExpandMore className="rotate-0 transition ease-in-out aria-expanded:rotate-180" />
+					<ExpandMore className="transition ease-in-out group-aria-expanded:rotate-180" />
 				</Disclosure>
 
 				<DisclosureContent className="flex max-w-3xl flex-col rounded-b-lg border border-white/25 bg-dark-gray px-2 py-1.5">
