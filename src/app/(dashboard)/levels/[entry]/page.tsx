@@ -1,5 +1,9 @@
 import { LeaderboardTable } from "@/app/(dashboard)/levels/[entry]/01-leaderboard-table.tsx";
-import { LEADERBOARD_MAX_PAGE, PageSelector } from "@/app/(dashboard)/levels/[entry]/page-selector.tsx";
+import {
+	LEADERBOARD_ENTRIES_PER_PAGE,
+	LEADERBOARD_MAX_PAGE,
+	PageSelector,
+} from "@/app/(dashboard)/levels/[entry]/page-selector.tsx";
 import fallbackAvatarImg from "@/assets/fallback-avatar.webp";
 import { ImageWithFallback } from "@/components/ImageWithFallback.tsx";
 import { SidebarSection } from "@/components/leaderboard/SidebarSection.tsx";
@@ -146,13 +150,11 @@ export async function generateMetadata({ params, searchParams }: LeaderboardProp
 	const { page: rawPage } = await searchParams;
 	const page = parsePage(rawPage);
 
-	const MEMBERS_PER_PAGE = 100;
-
 	const previousUrl = page === 1 ? null : `/levels/${entry}?page=${page - 1}`;
 	const nextUrl =
 		page === LEADERBOARD_MAX_PAGE
 			? null
-			: guild.approximateLevelsCount > page * MEMBERS_PER_PAGE
+			: guild.approximateLevelsCount > page * LEADERBOARD_ENTRIES_PER_PAGE
 				? `/levels/${entry}?page=${page + 1}`
 				: null;
 
