@@ -10,7 +10,7 @@ import { isSnowflake } from "@/utils/is-snowflake.ts";
 import clsx from "clsx";
 import { matchSorter } from "match-sorter";
 import Link from "next/link";
-import { useState } from "react";
+import { type ChangeEvent, useState } from "react";
 
 export function LeaderboardGuildList({ guilds }: { readonly guilds: GuildInfo[] }) {
 	const [term, setTerm] = useState("");
@@ -22,6 +22,10 @@ export function LeaderboardGuildList({ guilds }: { readonly guilds: GuildInfo[] 
 	const termGuildHref = termGuild ? `/levels/${termGuild.id}` : null;
 	const targetGuildHref = filteredGuildHref ?? termGuildHref ?? (isSnowflake(term) ? `/levels/${term}` : null);
 
+	function handleTermChange(event: ChangeEvent<HTMLInputElement>) {
+		setTerm(event.target.value);
+	}
+
 	return (
 		<>
 			<div className="mt-12 flex items-center gap-4">
@@ -30,7 +34,7 @@ export function LeaderboardGuildList({ guilds }: { readonly guilds: GuildInfo[] 
 					placeholder="Enter a server name or id…"
 					className="h-10 w-72 rounded-lg bg-light-gray px-4 py-3 shadow-xs md:w-96"
 					value={term}
-					onChange={(event) => setTerm(event.target.value)}
+					onChange={handleTermChange}
 				/>
 
 				<Link
@@ -81,9 +85,13 @@ export function LeaderboardGuildList({ guilds }: { readonly guilds: GuildInfo[] 
 }
 
 export function LeaderboardGuildInput() {
-	const [term, setTerm] = useState("");
+	const [guildId, setGuildId] = useState("");
 
-	const guildHref = isSnowflake(term) ? `/levels/${term}?page=1` : null;
+	const guildHref = isSnowflake(guildId) ? `/levels/${guildId}?page=1` : null;
+
+	function handleGuildIdChange(event: ChangeEvent<HTMLInputElement>) {
+		setGuildId(event.target.value);
+	}
 
 	return (
 		<>
@@ -92,8 +100,8 @@ export function LeaderboardGuildInput() {
 					type="text"
 					placeholder="Enter a server id…"
 					className="h-10 w-72 rounded-lg bg-light-gray px-4 py-3 shadow-xs md:w-96"
-					value={term}
-					onChange={(event) => setTerm(event.target.value)}
+					value={guildId}
+					onChange={handleGuildIdChange}
 				/>
 
 				<Link

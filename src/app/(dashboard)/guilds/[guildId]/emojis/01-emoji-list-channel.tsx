@@ -1,5 +1,3 @@
-"use client";
-
 import { ChannelSelector } from "@/components/dashboard/ChannelSelector.tsx";
 import { Label } from "@/components/dashboard/Label.tsx";
 import type { Channel } from "@/lib/guild.ts";
@@ -10,17 +8,15 @@ export function EmojiListChannel({ channels, defaultValue }: EmojiListChannelPro
 	const defaultValues = mapChannelIdsToChannels(defaultValue, channels);
 
 	return (
-		<>
-			<ChannelSelector
-				channels={channels}
-				defaultValues={defaultValues}
-				inputId="emoji-list-channel"
-				max={1}
-				settingId="emojiListChannel"
-			>
-				<Label sub="Max. 1">Channel</Label>
-			</ChannelSelector>
-		</>
+		<ChannelSelector
+			channels={channels}
+			defaultValues={defaultValues}
+			inputId="emoji-list-channel"
+			max={1}
+			settingId="emojiListChannel"
+		>
+			<Label sub="Max. 1">Channel</Label>
+		</ChannelSelector>
 	);
 }
 

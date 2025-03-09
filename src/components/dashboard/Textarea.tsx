@@ -136,6 +136,7 @@ export function Textarea({
 					/>
 				}
 			/>
+
 			{mounted && (
 				<ComboboxPopover
 					store={combobox}

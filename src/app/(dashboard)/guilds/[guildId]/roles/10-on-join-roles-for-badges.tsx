@@ -25,6 +25,7 @@ import { useState } from "react";
 export function OnJoinRolesForBadges({ defaultValues, premium, roles }: OnJoinRolesForBadgesProps) {
 	const [autoRoleFlags, setAutoRoleFlags] = useState<readonly AutoRoleFlag[]>(defaultValues);
 	const [newRoles, setNewRoles] = useState<readonly RoleWithResolvedColor[]>([]);
+
 	const select = useSelectStore({ defaultValue: UserFlags.ActiveDeveloper.toString() });
 	const flag = useStoreState(select, "value");
 

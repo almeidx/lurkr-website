@@ -12,7 +12,7 @@ import {
 	EMBED_URL_MAX_LENGTH,
 	EMBED_URL_MIN_LENGTH,
 } from "@/utils/embed-limits.ts";
-import { Popover, PopoverDisclosure, usePopoverStore } from "@ariakit/react";
+import { Popover, PopoverDisclosure, PopoverProvider } from "@ariakit/react";
 import { useMemo, useState } from "react";
 import { HexColorInput } from "react-colorful";
 import { ColorPicker } from "../ColorPicker.tsx";
@@ -42,8 +42,6 @@ export function EmbedBuilder({ defaultValue, emojis, roles, placeholders }: Embe
 	const [fields, setFields] = useState(
 		() => defaultValue?.fields?.map((field) => ({ ...field, inline: field.inline ?? false })) ?? [],
 	);
-
-	const popover = usePopoverStore();
 
 	const embed = useMemo(() => {
 		const embed: Embed = {};
@@ -158,26 +156,28 @@ export function EmbedBuilder({ defaultValue, emojis, roles, placeholders }: Embe
 						Color
 					</Label>
 
-					<div className="flex items-center gap-2">
-						<PopoverDisclosure className="h-10 rounded-lg bg-light-gray px-3 py-2" store={popover}>
-							<Colorize />
-						</PopoverDisclosure>
+					<PopoverProvider>
+						<div className="flex items-center gap-2">
+							<PopoverDisclosure className="h-10 rounded-lg bg-light-gray px-3 py-2">
+								<Colorize />
+							</PopoverDisclosure>
 
-						<HexColorInput
-							className="w-52 rounded-lg bg-light-gray px-3 py-2 shadow-dim-inner md:w-64"
-							color={embedState.color}
-							prefixed
-							onChange={(color) => handleChange("color", color)}
-							id="embed-color"
-							name="embed-color"
-						/>
+							<HexColorInput
+								className="w-52 rounded-lg bg-light-gray px-3 py-2 shadow-dim-inner md:w-64"
+								color={embedState.color}
+								prefixed
+								onChange={(color) => handleChange("color", color)}
+								id="embed-color"
+								name="embed-color"
+							/>
 
-						<div aria-hidden="true" className="size-7 rounded-lg" style={{ backgroundColor: embedState.color }} />
-					</div>
+							<div aria-hidden="true" className="size-7 rounded-lg" style={{ backgroundColor: embedState.color }} />
+						</div>
 
-					<Popover store={popover} className="my-4">
-						<ColorPicker onChange={(color) => handleChange("color", color)} value={embedState.color} />
-					</Popover>
+						<Popover className="my-4">
+							<ColorPicker onChange={(color) => handleChange("color", color)} value={embedState.color} />
+						</Popover>
+					</PopoverProvider>
 				</div>
 
 				<div className="flex gap-2">

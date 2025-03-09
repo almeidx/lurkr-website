@@ -1,7 +1,6 @@
 "use client";
 
 import { formatNumber } from "@/utils/format-number.ts";
-import React from "react";
 import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, type TooltipProps, XAxis, YAxis } from "recharts";
 
 const verticalMargin = 30;

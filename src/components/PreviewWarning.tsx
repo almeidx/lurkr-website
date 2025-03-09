@@ -16,7 +16,7 @@ export function PreviewWarning() {
 			<div className="flex items-center justify-between">
 				<p className="font-bold">Unstable Preview</p>
 
-				<button className="" type="button" onClick={() => setIsClosed(true)}>
+				<button type="button" onClick={() => setIsClosed(true)}>
 					<Close className="text-xs" />
 				</button>
 			</div>

@@ -58,9 +58,7 @@ export function LeaderboardVanity({ defaultValue }: { defaultValue: string | nul
 					<Close />
 					<p>This vanity URL is already taken.</p>
 				</div>
-			) : (
-				<></>
-			)}
+			) : null}
 		</div>
 	);
 }

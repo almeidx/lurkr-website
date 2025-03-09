@@ -4,13 +4,17 @@ import { Input } from "@/components/dashboard/Input.tsx";
 import { ReportProblem } from "@/components/icons/mdi/report-problem.tsx";
 import { getShardIdForGuildId } from "@/utils/get-shard-id-for-guild-id.ts";
 import { isSnowflake } from "@/utils/is-snowflake.ts";
-import { useState } from "react";
+import { type ChangeEvent, useState } from "react";
 import { type Shard, ShardDisplay } from "./shard.tsx";
 
 export function ShardsContainer({ shards, totalShards }: ShardsContainerProps) {
 	const [guildId, setGuildId] = useState("");
 
 	const highlightedShard = guildId && isSnowflake(guildId) ? getShardIdForGuildId(guildId, totalShards) : null;
+
+	function handleGuildIdChange(event: ChangeEvent<HTMLInputElement>) {
+		setGuildId(event.target.value);
+	}
 
 	return (
 		<>
@@ -19,7 +23,7 @@ export function ShardsContainer({ shards, totalShards }: ShardsContainerProps) {
 				id="serverId"
 				placeholder="Enter a server id…"
 				value={guildId}
-				onChange={(event) => setGuildId(event.target.value)}
+				onChange={handleGuildIdChange}
 				maxLength={20}
 			/>
 

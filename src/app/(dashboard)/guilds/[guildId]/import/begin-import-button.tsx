@@ -1,12 +1,8 @@
-"use client";
-
 import { Confirmation } from "@/components/Confirmation.tsx";
 import { SystemUpdate } from "@/components/icons/mdi/system-update.tsx";
-import { Tooltip, TooltipAnchor, useTooltipStore } from "@ariakit/react";
+import { Tooltip, TooltipAnchor, TooltipProvider } from "@ariakit/react";
 
 export function BeginImportButton({ isRateLimited, importOngoing }: BeginImportButtonProps) {
-	const tooltip = useTooltipStore({ showTimeout: 50 });
-
 	const disabled = isRateLimited || importOngoing;
 
 	const btn = (
@@ -31,18 +27,13 @@ export function BeginImportButton({ isRateLimited, importOngoing }: BeginImportB
 
 	if (disabled) {
 		return (
-			<>
-				<TooltipAnchor className="w-fit" store={tooltip}>
-					{btn}
-				</TooltipAnchor>
+			<TooltipProvider showTimeout={50}>
+				<TooltipAnchor className="w-fit">{btn}</TooltipAnchor>
 
-				<Tooltip
-					store={tooltip}
-					className="max-w-xs rounded-lg border bg-darker p-2 leading-relaxed tracking-tight md:max-w-prose"
-				>
+				<Tooltip className="max-w-xs rounded-lg border bg-darker p-2 leading-relaxed tracking-tight md:max-w-prose">
 					{importOngoing ? "An import is already in progress." : "Importing is rate limited to once per hour."}
 				</Tooltip>
-			</>
+			</TooltipProvider>
 		);
 	}
 

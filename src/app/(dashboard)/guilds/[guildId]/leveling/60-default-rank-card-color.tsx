@@ -9,7 +9,7 @@ import { Palette } from "@/components/icons/mdi/palette.tsx";
 import { Storage } from "@/components/icons/mdi/storage.tsx";
 import { GuildAccentType } from "@/lib/guild.ts";
 import { BRAND_COLOR } from "@/utils/constants.ts";
-import { Popover, PopoverDisclosure, usePopoverStore, useStoreState } from "@ariakit/react";
+import { Popover, PopoverDisclosure, PopoverProvider, useStoreState } from "@ariakit/react";
 import { useEffect, useState } from "react";
 import { HexColorInput } from "react-colorful";
 
@@ -18,7 +18,6 @@ export function DefaultRankCardColor({ defaultAccentColour, defaultAccentType }:
 
 	const radio = useRadioStore({ defaultValue: defaultAccentType ?? "" });
 	const value = useStoreState(radio, "value");
-	const popover = usePopoverStore();
 
 	useEffect(() => {
 		if (value !== GuildAccentType.Custom) {
@@ -61,31 +60,32 @@ export function DefaultRankCardColor({ defaultAccentColour, defaultAccentType }:
 					<Radio value={GuildAccentType.Custom} id="accentTypeCustom" name="accentType" />
 				</label>
 
-				<div className="flex items-center gap-2">
-					<PopoverDisclosure
-						className="h-10 rounded-lg bg-light-gray px-3 py-2 disabled:opacity-50"
-						store={popover}
-						disabled={value !== GuildAccentType.Custom}
-					>
-						<Colorize />
-					</PopoverDisclosure>
+				<PopoverProvider>
+					<div className="flex items-center gap-2">
+						<PopoverDisclosure
+							className="h-10 rounded-lg bg-light-gray px-3 py-2 disabled:opacity-50"
+							disabled={value !== GuildAccentType.Custom}
+						>
+							<Colorize />
+						</PopoverDisclosure>
 
-					<HexColorInput
-						className="w-52 rounded-lg bg-light-gray px-3 py-2 shadow-dim-inner disabled:opacity-50 md:w-64"
-						color={color}
-						prefixed
-						onChange={setColor}
-						id="accentColour"
-						name="accentColour"
-						disabled={value !== GuildAccentType.Custom}
-					/>
+						<HexColorInput
+							className="w-52 rounded-lg bg-light-gray px-3 py-2 shadow-dim-inner disabled:opacity-50 md:w-64"
+							color={color}
+							prefixed
+							onChange={setColor}
+							id="accentColour"
+							name="accentColour"
+							disabled={value !== GuildAccentType.Custom}
+						/>
 
-					<div aria-hidden="true" className="size-7 rounded-lg" style={{ backgroundColor: color }} />
-				</div>
+						<div aria-hidden="true" className="size-7 rounded-lg" style={{ backgroundColor: color }} />
+					</div>
 
-				<Popover store={popover} className="my-4">
-					<ColorPicker onChange={setColor} value={color} />
-				</Popover>
+					<Popover className="my-4">
+						<ColorPicker onChange={setColor} value={color} />
+					</Popover>
+				</PopoverProvider>
 			</div>
 		</RadioGroup>
 	);

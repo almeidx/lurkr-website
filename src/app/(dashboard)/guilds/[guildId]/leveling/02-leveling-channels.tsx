@@ -1,5 +1,3 @@
-"use client";
-
 import { ChannelSelector } from "@/components/dashboard/ChannelSelector.tsx";
 import { Label } from "@/components/dashboard/Label.tsx";
 import { MAX_XP_CHANNELS, MAX_XP_CHANNELS_PREMIUM } from "@/lib/guild-config.ts";

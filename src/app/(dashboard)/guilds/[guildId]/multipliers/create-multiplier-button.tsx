@@ -1,8 +1,4 @@
-import "client-only";
-// The reason for using "client-only" instead of "use client" is because of the function parameter in the component,
-// which triggers a warning since functions are not serializable.
-
-import { Tooltip, TooltipAnchor, useTooltipStore } from "@ariakit/react";
+import { Tooltip, TooltipAnchor, TooltipProvider } from "@ariakit/react";
 import type { PropsWithChildren } from "react";
 
 export function CreateMultiplierButton({
@@ -14,8 +10,6 @@ export function CreateMultiplierButton({
 	newTargets,
 	existingMultiplierValues,
 }: CreateMultiplierButtonProps) {
-	const tooltip = useTooltipStore({ showTimeout: 50 });
-
 	const multiplierIsInUse = existingMultiplierValues.includes(Number.parseFloat(newMultiplier));
 	const isButtonDisabled =
 		multiplierCount >= maxMultipliers || !newTargets.length || !newMultiplier || multiplierIsInUse;
@@ -33,22 +27,17 @@ export function CreateMultiplierButton({
 
 	if (isButtonDisabled) {
 		return (
-			<>
-				<TooltipAnchor className="" store={tooltip}>
-					{btn}
-				</TooltipAnchor>
+			<TooltipProvider>
+				<TooltipAnchor>{btn}</TooltipAnchor>
 
-				<Tooltip
-					store={tooltip}
-					className="max-w-xs rounded-lg border bg-darker p-2 leading-relaxed tracking-tight md:max-w-prose"
-				>
+				<Tooltip className="max-w-xs rounded-lg border bg-darker p-2 leading-relaxed tracking-tight md:max-w-prose">
 					{multiplierCount >= maxMultipliers
 						? "You've reached the maximum number of multipliers."
 						: multiplierIsInUse
 							? "This multiplier value is already in use."
 							: "Please select, at least, one target and enter a multiplier value."}
 				</Tooltip>
-			</>
+			</TooltipProvider>
 		);
 	}
 

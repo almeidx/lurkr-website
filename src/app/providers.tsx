@@ -9,8 +9,7 @@ export function Providers({ children }: PropsWithChildren) {
 		<>
 			{children}
 
-			{/* biome-ignore lint/complexity/noUselessFragments: The auto fix causes a syntax error */}
-			<Suspense fallback={<></>}>
+			<Suspense>
 				<ProgressBar height="2px" color={BRAND_COLOR} options={{ showSpinner: false }} shallowRouting />
 			</Suspense>
 		</>

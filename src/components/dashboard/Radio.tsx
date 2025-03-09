@@ -1,5 +1,3 @@
-"use client";
-
 import { Radio as AriakitRadio } from "@ariakit/react";
 import clsx from "clsx";
 import type { ComponentProps } from "react";

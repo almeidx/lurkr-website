@@ -1,5 +1,3 @@
-"use client";
-
 import { Slider } from "@/components/dashboard/Slider.tsx";
 import { Text } from "@/components/dashboard/Text.tsx";
 import { MAX_XP_MULTIPLIER_VALUE, MIN_XP_MULTIPLIER_VALUE } from "@/lib/guild-config.ts";

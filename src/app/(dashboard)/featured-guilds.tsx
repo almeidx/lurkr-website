@@ -1,5 +1,3 @@
-"use client";
-
 import discoverableSvg from "@/assets/guild-badges/discoverable.svg";
 import partnerSvg from "@/assets/guild-badges/partner.svg";
 import verifiedSvg from "@/assets/guild-badges/verified.svg";

@@ -15,7 +15,7 @@ import { TrendingUp } from "@/components/icons/mdi/trending-up.tsx";
 import { Warning } from "@/components/icons/mdi/warning.tsx";
 import type { Guild, GuildSettings } from "@/lib/guild.ts";
 import { guildIcon } from "@/utils/discord-cdn.ts";
-import { Menu, MenuButton, MenuButtonArrow, MenuItem, useMenuStore } from "@ariakit/react";
+import { Menu, MenuButton, MenuButtonArrow, MenuItem, MenuProvider } from "@ariakit/react";
 import clsx from "clsx";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -23,62 +23,55 @@ import type { PropsWithChildren } from "react";
 import type { GuildMetadataResult } from "./layout.tsx";
 
 export function DashboardMenu({ guild, guilds }: DashboardMenuProps) {
-	const menu = useMenuStore();
 	const pathname = usePathname()!;
 
 	const currentDashSection = (pathname.split("/")[3] ?? "overview") as Section;
 
 	return (
 		<div className="flex flex-col items-center gap-6 bg-transparent py-0 pr-8 pl-12 md:sticky md:top-12">
-			<MenuButton
-				store={menu}
-				className="flex w-full max-w-[16.5rem] items-center justify-between rounded-lg bg-dark-gray px-3 py-2 shadow-inner"
-			>
-				<div className="flex items-center gap-2 rounded-lg">
-					<ImageWithFallback
-						alt={`${guild.name}'s icon`}
-						src={guildIcon(guild.id, guild.icon)}
-						width={28}
-						height={28}
-						className="size-7 rounded-lg"
-						fallback={fallbackAvatarImg}
-						unoptimized={Boolean(guild.icon)}
-					/>
+			<MenuProvider>
+				<MenuButton className="flex w-full max-w-[16.5rem] items-center justify-between rounded-lg bg-dark-gray px-3 py-2 shadow-inner">
+					<div className="flex items-center gap-2 rounded-lg">
+						<ImageWithFallback
+							alt={`${guild.name}'s icon`}
+							src={guildIcon(guild.id, guild.icon)}
+							width={28}
+							height={28}
+							className="size-7 rounded-lg"
+							fallback={fallbackAvatarImg}
+							unoptimized={Boolean(guild.icon)}
+						/>
 
-					<p className="line-clamp-1">{guild.name}</p>
-				</div>
+						<p className="line-clamp-1">{guild.name}</p>
+					</div>
 
-				<MenuButtonArrow />
-			</MenuButton>
+					<MenuButtonArrow />
+				</MenuButton>
 
-			<Menu
-				store={menu}
-				gutter={8}
-				sameWidth
-				className="z-50 flex max-h-96 flex-col overflow-y-auto rounded-lg bg-dark-gray"
-			>
-				{guilds.map((guild) => (
-					<MenuItem key={guild.id} store={menu}>
-						<Link
-							className="flex cursor-pointer items-center gap-2 px-1.5 py-2 hover:bg-white/10"
-							href={`/guilds/${guild.id}`}
-							prefetch={guilds.length < 3}
-						>
-							<ImageWithFallback
-								alt={`${guild.name}'s icon`}
-								src={guildIcon(guild.id, guild.icon)}
-								width={32}
-								height={32}
-								className="rounded-lg"
-								fallback={fallbackAvatarImg}
-								unoptimized={Boolean(guild.icon)}
-							/>
+				<Menu gutter={8} sameWidth className="z-50 flex max-h-96 flex-col overflow-y-auto rounded-lg bg-dark-gray">
+					{guilds.map((guild) => (
+						<MenuItem key={guild.id}>
+							<Link
+								className="flex cursor-pointer items-center gap-2 px-1.5 py-2 hover:bg-white/10"
+								href={`/guilds/${guild.id}`}
+								prefetch={guilds.length < 3}
+							>
+								<ImageWithFallback
+									alt={`${guild.name}'s icon`}
+									src={guildIcon(guild.id, guild.icon)}
+									width={32}
+									height={32}
+									className="rounded-lg"
+									fallback={fallbackAvatarImg}
+									unoptimized={Boolean(guild.icon)}
+								/>
 
-							<p className="line-clamp-1">{guild.name}</p>
-						</Link>
-					</MenuItem>
-				))}
-			</Menu>
+								<p className="line-clamp-1">{guild.name}</p>
+							</Link>
+						</MenuItem>
+					))}
+				</Menu>
+			</MenuProvider>
 
 			<div>
 				<Link

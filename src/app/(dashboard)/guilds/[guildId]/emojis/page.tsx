@@ -8,7 +8,6 @@ import type { Metadata } from "next";
 import { cookies } from "next/headers";
 import { UnknownGuildOrMissingAccess } from "../unknown-guild.tsx";
 import { EmojiListChannel } from "./01-emoji-list-channel.tsx";
-import { UpdateEmojiList } from "./02-update-emoji-list.tsx";
 import { update } from "./update.ts";
 
 export default async function Emojis({ params }: { readonly params: Promise<{ guildId: Snowflake }> }) {
@@ -43,7 +42,7 @@ export default async function Emojis({ params }: { readonly params: Promise<{ gu
 
 				<EmojiListChannel channels={guild.channels} defaultValue={settings.emojiListChannel} />
 
-				<UpdateEmojiList />
+				{/* <UpdateEmojiList /> */}
 			</Section>
 		</Form>
 	);

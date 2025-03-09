@@ -10,7 +10,7 @@ import { isSnowflake } from "@/utils/is-snowflake.ts";
 import clsx from "clsx";
 import { matchSorter } from "match-sorter";
 import Link from "next/link";
-import { useState } from "react";
+import { type ChangeEvent, useState } from "react";
 
 export function DashboardGuildList({ guilds }: { readonly guilds: GuildInfo[] }) {
 	const [term, setTerm] = useState("");
@@ -22,6 +22,10 @@ export function DashboardGuildList({ guilds }: { readonly guilds: GuildInfo[] })
 	const termGuildHref = termGuild ? guildHref(termGuild) : null;
 	const targetGuildHref = filteredGuildHref ?? termGuildHref;
 
+	function handleTermChange(event: ChangeEvent<HTMLInputElement>) {
+		setTerm(event.target.value);
+	}
+
 	return (
 		<>
 			<div className="mt-12 flex items-center gap-4">
@@ -30,7 +34,7 @@ export function DashboardGuildList({ guilds }: { readonly guilds: GuildInfo[] })
 					placeholder="Enter a server name or id…"
 					className="h-10 w-72 rounded-lg bg-light-gray px-4 py-3 shadow-xs md:w-96"
 					value={term}
-					onChange={(event) => setTerm(event.target.value)}
+					onChange={handleTermChange}
 				/>
 
 				<Link

@@ -63,7 +63,7 @@ export default async function Leaderboard({ params, searchParams }: LeaderboardP
 			</header>
 
 			<main className="mx-auto mt-8 flex flex-col gap-12 lg:flex-row">
-				<div className="w-full px-4 md:px-0">
+				<div className="w-full space-y-4 px-4 md:px-0">
 					<LeaderboardTable data={levels} guildId={guild.id} isManager={isManager} />
 
 					{levels.length === 0 ? (

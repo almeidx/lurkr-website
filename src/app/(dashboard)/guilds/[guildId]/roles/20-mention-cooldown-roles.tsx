@@ -1,5 +1,3 @@
-"use client";
-
 import { Label } from "@/components/dashboard/Label.tsx";
 import { RoleSelector } from "@/components/dashboard/RoleSelector.tsx";
 import { MAX_MENTION_COOLDOWN_ROLES } from "@/lib/guild-config.ts";

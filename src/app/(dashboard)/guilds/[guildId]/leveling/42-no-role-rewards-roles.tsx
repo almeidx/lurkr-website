@@ -1,5 +1,3 @@
-"use client";
-
 import { DocsBubble } from "@/components/dashboard/DocsBubble.tsx";
 import { Label } from "@/components/dashboard/Label.tsx";
 import { RoleSelector } from "@/components/dashboard/RoleSelector.tsx";

@@ -8,17 +8,15 @@ export function MilestonesChannel({ channels, defaultValue }: MilestonesChannelP
 	const defaultValues = mapChannelIdsToChannels(defaultValue, channels);
 
 	return (
-		<>
-			<ChannelSelector
-				channels={channels}
-				defaultValues={defaultValues}
-				inputId="milestones-channel"
-				max={1}
-				settingId="milestonesChannel"
-			>
-				<Label sub="Max. 1">Channel</Label>
-			</ChannelSelector>
-		</>
+		<ChannelSelector
+			channels={channels}
+			defaultValues={defaultValues}
+			inputId="milestones-channel"
+			max={1}
+			settingId="milestonesChannel"
+		>
+			<Label sub="Max. 1">Channel</Label>
+		</ChannelSelector>
 	);
 }
 

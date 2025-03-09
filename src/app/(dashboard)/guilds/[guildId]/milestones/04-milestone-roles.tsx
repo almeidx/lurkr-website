@@ -1,5 +1,3 @@
-"use client";
-
 import { Label } from "@/components/dashboard/Label.tsx";
 import { RoleSelector } from "@/components/dashboard/RoleSelector.tsx";
 import { MAX_MILESTONES_ROLES, MAX_MILESTONES_ROLES_PREMIUM } from "@/lib/guild-config.ts";
