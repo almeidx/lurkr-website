@@ -2,7 +2,7 @@ import "@/app/globals.css";
 
 import { openSans } from "@/app/fonts.ts";
 import { Providers } from "@/app/providers.tsx";
-import { CookieNotice } from "@/components/CookieNotice.tsx";
+import { CookieNoticeHandler } from "@/components/CookieNoticeHandler.tsx";
 import { Footer } from "@/components/Footer.tsx";
 import { Navbar } from "@/components/Navbar.tsx";
 import { NavbarUserButton } from "@/components/NavbarUserButton.tsx";
@@ -33,10 +33,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
 
 					<Footer />
 
-					{/* biome-ignore lint/complexity/noUselessFragments: The auto fix causes a syntax error */}
-					<Suspense fallback={<></>}>
-						<CookieNotice />
-					</Suspense>
+					<CookieNoticeHandler />
 				</Providers>
 
 				{isPreview && <PreviewWarning />}

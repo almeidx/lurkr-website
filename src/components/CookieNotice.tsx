@@ -1,33 +1,22 @@
 "use client";
 
+import { COOKIE_NOTICE_ACK, COOKIE_NOTICE_COOKIE } from "@/utils/constants.ts";
 import Cookies from "js-cookie";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
-const COOKIE_CONSENT_COOKIE = "biscuits";
-const ACK_VALUE = "aye";
+export function CookieNotice({ defaultHasConsented }: { readonly defaultHasConsented: boolean }) {
+	const [hasConsented, setHasConsented] = useState(defaultHasConsented);
 
-export function CookieNotice() {
-	const [hasConsented, setHasConsented] = useState<boolean | null>(null);
-
-	useEffect(() => {
-		const cookieValue = Cookies.get(COOKIE_CONSENT_COOKIE);
-		setHasConsented(cookieValue === ACK_VALUE);
-	}, []);
-
-	if (hasConsented === null || hasConsented === true) {
+	if (hasConsented) {
 		return null;
 	}
 
 	function acceptCookies() {
-		const expiryDate = new Date();
-		expiryDate.setFullYear(expiryDate.getFullYear() + 1);
-
-		Cookies.set(COOKIE_CONSENT_COOKIE, ACK_VALUE, {
-			path: "/",
-			sameSite: "strict",
+		Cookies.set(COOKIE_NOTICE_COOKIE, COOKIE_NOTICE_ACK, {
+			expires: 365,
 			secure: true,
-			expires: expiryDate,
+			sameSite: "strict",
 		});
 
 		setHasConsented(true);
@@ -51,7 +40,7 @@ export function CookieNotice() {
 				type="button"
 				onClick={acceptCookies}
 			>
-				Accept
+				Okay
 			</button>
 		</div>
 	);
