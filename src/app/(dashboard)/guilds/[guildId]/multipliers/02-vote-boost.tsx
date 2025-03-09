@@ -1,7 +1,7 @@
 import { ExternalLink } from "@/components/ExternalLink.tsx";
 import { Toggle } from "@/components/Toggle.tsx";
 import { Text } from "@/components/dashboard/Text.tsx";
-import { TOPGG_URL } from "@/shared-links.mjs";
+import { TOPGG_URL } from "@/shared-links.js";
 
 export function VoteBoost({ defaultValue }: { readonly defaultValue: boolean }) {
 	return (

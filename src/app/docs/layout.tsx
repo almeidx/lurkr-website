@@ -7,7 +7,7 @@ import logoSmallImg from "@/assets/logo-small.webp";
 import { ExternalLink } from "@/components/ExternalLink.tsx";
 import { Footer } from "@/components/Footer.tsx";
 import { SvgGradients } from "@/components/svg-gradients.tsx";
-import { GITHUB_REPOSITORY_URL } from "@/shared-links.mjs";
+import { GITHUB_REPOSITORY_URL } from "@/shared-links.js";
 import { BRAND_COLOR, DOCS_URL, PUBLIC_URL } from "@/utils/constants.ts";
 import type { Metadata, Viewport } from "next";
 import Image from "next/image";

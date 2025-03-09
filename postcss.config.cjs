@@ -1,3 +1,0 @@
-exports.plugins = {
-	"@tailwindcss/postcss": {},
-};

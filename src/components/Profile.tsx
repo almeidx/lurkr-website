@@ -3,7 +3,7 @@
 import fallbackAvatarImg from "@/assets/fallback-avatar.webp";
 import { ImageWithFallback } from "@/components/ImageWithFallback.tsx";
 import type { User } from "@/lib/auth.ts";
-import { SUPPORT_SERVER_INVITE } from "@/shared-links.mjs";
+import { SUPPORT_SERVER_INVITE } from "@/shared-links.js";
 import { userAvatar } from "@/utils/discord-cdn.ts";
 import {
 	Menu,

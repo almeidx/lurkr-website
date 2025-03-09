@@ -4,7 +4,7 @@ import type { GuildInfo } from "@/app/(dashboard)/guilds/page.tsx";
 import fallbackAvatarImg from "@/assets/fallback-avatar.webp";
 import { ImageWithFallback } from "@/components/ImageWithFallback.tsx";
 import { Send } from "@/components/icons/mdi/send.tsx";
-import { BOT_INVITE } from "@/shared-links.mjs";
+import { BOT_INVITE } from "@/shared-links.js";
 import { guildIcon } from "@/utils/discord-cdn.ts";
 import { isSnowflake } from "@/utils/is-snowflake.ts";
 import clsx from "clsx";

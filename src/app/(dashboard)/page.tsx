@@ -15,7 +15,7 @@ import { Launch } from "@/components/icons/mdi/launch.tsx";
 import { MilitaryTech } from "@/components/icons/mdi/military-tech.tsx";
 import { Speed } from "@/components/icons/mdi/speed.tsx";
 import { TrendingUp } from "@/components/icons/mdi/trending-up.tsx";
-import { BOT_INVITE } from "@/shared-links.mjs";
+import { BOT_INVITE } from "@/shared-links.js";
 import { formatNumber } from "@/utils/format-number.ts";
 import { makeApiRequest } from "@/utils/make-api-request.ts";
 import Image from "next/image";

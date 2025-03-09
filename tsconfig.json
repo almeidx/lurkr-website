@@ -20,7 +20,7 @@
 		"noUncheckedIndexedAccess": true,
 		"noUnusedLocals": true,
 		"paths": {
-			"@/shared-links.mjs": ["./shared-links.mjs"],
+			"@/shared-links.js": ["./src/shared-links.js"],
 			"@/*": ["./src/*"]
 		},
 		"plugins": [
@@ -35,5 +35,5 @@
 		"useUnknownInCatchVariables": true
 	},
 	"exclude": ["node_modules"],
-	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "shared-links.mjs"]
+	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/shared-links.js"]
 }

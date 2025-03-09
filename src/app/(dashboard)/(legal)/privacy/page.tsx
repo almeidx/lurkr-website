@@ -1,5 +1,5 @@
 import { ExternalLink } from "@/components/ExternalLink.tsx";
-import { SUPPORT_SERVER_INVITE } from "@/shared-links.mjs";
+import { SUPPORT_SERVER_INVITE } from "@/shared-links.js";
 import type { Metadata } from "next";
 
 export default function PrivacyPolicy() {

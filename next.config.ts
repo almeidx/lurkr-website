@@ -1,6 +1,12 @@
 import type { NextConfig } from "next";
 import nextra from "nextra";
-import { BOT_INVITE, GITHUB_REPOSITORY_URL, PATREON_URL, SUPPORT_SERVER_INVITE, TOPGG_URL } from "./shared-links.mjs";
+import {
+	BOT_INVITE,
+	GITHUB_REPOSITORY_URL,
+	PATREON_URL,
+	SUPPORT_SERVER_INVITE,
+	TOPGG_URL,
+} from "./src/shared-links.js";
 
 const withNextra = nextra({
 	contentDirBasePath: "/docs",

@@ -2,7 +2,7 @@ import { ExternalLink } from "@/components/ExternalLink.tsx";
 import { Check } from "@/components/icons/mdi/check.tsx";
 import { Close } from "@/components/icons/mdi/close.tsx";
 import { ShowChart } from "@/components/icons/mdi/show-chart.tsx";
-import { PATREON_URL } from "@/shared-links.mjs";
+import { PATREON_URL } from "@/shared-links.js";
 import clsx from "clsx";
 import type { StaticImageData } from "next/image";
 import Image from "next/image";
