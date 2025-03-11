@@ -13,12 +13,13 @@ const withNextra = nextra({
 });
 
 const apiDomain = process.env.NEXT_PUBLIC_API_URL!.split("://")[1];
+const backgroundBucketDomain = process.env.BACKGROUNDS_BUCKET_DOMAIN!;
 
 const cspHeader = `
 	default-src 'self';
 	script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval'${process.env.NODE_ENV === "production" ? "" : " 'unsafe-eval'"} static.cloudflareinsights.com;
 	style-src 'self' 'unsafe-inline';
-	img-src 'self' cdn.discordapp.com blob: data:;
+	img-src 'self' cdn.discordapp.com ${backgroundBucketDomain} blob: data:;
 	font-src 'self';
 	object-src 'none';
 	base-uri 'self';
@@ -45,6 +46,10 @@ const nextConfig = {
 		remotePatterns: [
 			{
 				hostname: "cdn.discordapp.com",
+				protocol: "https",
+			},
+			{
+				hostname: backgroundBucketDomain,
 				protocol: "https",
 			},
 		],

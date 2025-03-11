@@ -117,3 +117,7 @@ button[disabled] {
 	/* Fix nextra's sidebar overlapping over our footer border */
 	@apply border-b border-transparent;
 }
+
+div[data-rmiz-modal-content] {
+	@apply bg-darker;
+}

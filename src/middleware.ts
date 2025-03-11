@@ -27,5 +27,13 @@ export const config = {
 				{ type: "header", key: "purpose", value: "prefetch" },
 			],
 		},
+		{
+			source: "/profile",
+			missing: [
+				{ type: "cookie", key: "token" },
+				{ type: "header", key: "next-router-prefetch" },
+				{ type: "header", key: "purpose", value: "prefetch" },
+			],
+		},
 	],
 };

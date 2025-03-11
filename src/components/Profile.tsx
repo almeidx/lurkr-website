@@ -28,6 +28,12 @@ export function ProfileButton({ avatar, globalName, id, username }: User) {
 
 			<Menu gutter={8} className="z-10003 flex min-w-52 flex-col gap-2 rounded-lg bg-dark-gray px-3 py-2">
 				<MenuItem className="rounded-lg px-2 py-1 hover:bg-light-gray/30">
+					<Link href="/profile" className="block w-full">
+						Your profile
+					</Link>
+				</MenuItem>
+
+				<MenuItem className="rounded-lg px-2 py-1 hover:bg-light-gray/30">
 					<Link href="/guilds" className="block w-full">
 						Your servers
 					</Link>
