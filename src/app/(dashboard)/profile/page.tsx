@@ -1,13 +1,13 @@
 import "react-medium-image-zoom/dist/styles.css";
 
-import { ImageWithFallback } from "@/components/ImageWithFallback";
+import { ImageWithFallback } from "@/components/ImageWithFallback.tsx";
 import { Section } from "@/components/dashboard/Section.tsx";
-import { Text } from "@/components/dashboard/Text";
+import { Text } from "@/components/dashboard/Text.tsx";
 import { UserAccentType, getCurrentUser } from "@/lib/auth.ts";
 import { TOKEN_COOKIE } from "@/utils/constants.ts";
 import { userAvatar } from "@/utils/discord-cdn.ts";
-import { greeting } from "@/utils/greeting";
-import { makeApiRequest } from "@/utils/make-api-request";
+import { greeting } from "@/utils/greeting.ts";
+import { makeApiRequest } from "@/utils/make-api-request.ts";
 import dynamic from "next/dynamic";
 import { cookies } from "next/headers";
 

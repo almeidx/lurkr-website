@@ -1,7 +1,7 @@
 "use client";
 
-import { userLevelResetAction } from "@/app/(dashboard)/levels/[entry]/actions";
-import type { GetLevelsResponse } from "@/app/(dashboard)/levels/[entry]/page";
+import { userLevelResetAction } from "@/app/(dashboard)/levels/[entry]/actions.ts";
+import type { GetLevelsResponse } from "@/app/(dashboard)/levels/[entry]/page.tsx";
 import fallbackAvatarImg from "@/assets/fallback-avatar.webp";
 import { ImageWithFallback } from "@/components/ImageWithFallback.tsx";
 import { RadialProgressBar } from "@/components/RadialProgressBar.tsx";

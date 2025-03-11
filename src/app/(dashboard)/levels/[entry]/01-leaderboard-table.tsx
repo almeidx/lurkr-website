@@ -1,5 +1,5 @@
-import { LeaderboardTableRow } from "@/app/(dashboard)/levels/[entry]/02-leaderboard-table-row";
-import type { GetLevelsResponse } from "@/app/(dashboard)/levels/[entry]/page";
+import { LeaderboardTableRow } from "@/app/(dashboard)/levels/[entry]/02-leaderboard-table-row.tsx";
+import type { GetLevelsResponse } from "@/app/(dashboard)/levels/[entry]/page.tsx";
 import type { Snowflake } from "@/utils/discord-cdn.ts";
 
 export function LeaderboardTable({ data, guildId, isManager }: LeaderboardTableProps) {
