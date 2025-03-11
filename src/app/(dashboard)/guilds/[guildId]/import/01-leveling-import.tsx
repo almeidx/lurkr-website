@@ -8,7 +8,7 @@ import { Time } from "@/utils/time.ts";
 import { useActionState, useEffect, useRef, useState } from "react";
 import { BotSelector } from "./02-bot-selector.tsx";
 import { IncludeRoleRewards } from "./03-include-role-rewards.tsx";
-import { ImportUntil } from "./04-import-until.tsx";
+import { ImportMinLevel } from "./04-import-min-level.tsx";
 import { getOngoingImportStatus, importBotData } from "./actions.ts";
 import { BeginImportButton } from "./begin-import-button.tsx";
 import { ImportStatus, ImportStatusTitle, StartImportError } from "./import-status.tsx";
@@ -83,7 +83,7 @@ export function ImportForm({ guildId, data }: { guildId: Snowflake; data: GetImp
 
 						<IncludeRoleRewards />
 
-						<ImportUntil />
+						<ImportMinLevel />
 					</div>
 
 					<BeginImportButton importOngoing={importOngoing} isRateLimited={isRateLimited || lastImportIsWithinHour} />
