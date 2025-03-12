@@ -6,7 +6,7 @@ export function ImportMinLevel() {
 		<div className="flex w-fit flex-col gap-2">
 			<Text
 				tooltip="The minimum level a member has to have to be in order to be imported. Lower levels than this number will not be imported."
-				docsPath="/guides/importing-levels-from-other-bots#until-option"
+				docsPath="/guides/importing-levels-from-other-bots#minimum-level-option"
 			>
 				Minimum level to be imported:
 			</Text>
