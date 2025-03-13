@@ -1,0 +1,278 @@
+@import "tailwindcss";
+@import "./scrollbar.css";
+@import "./theme.css";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@layer base {
+	*,
+	::after,
+	::before,
+	::backdrop,
+	::file-selector-button {
+		border-color: var(--color-gray-200, currentColor);
+	}
+}
+
+@theme {
+	--breakpoint-xs: 30rem;
+	--shadow-dim-inner: 0px 0px 10px 0px #00000080 inset;
+
+	--color-background: #171717;
+	--color-white: #e2e2e2;
+	--color-blurple: #5865f2;
+	--color-primary: #ff7077;
+
+	--color-darker: #1e1f22;
+
+	--color-light-gray: #474747;
+	--color-dark-gray: #232323;
+
+	--color-red: #df4444;
+	--color-yellow: #fbb748;
+	--color-green: #3ea25e;
+
+	--color-brand: #ff7077;
+
+	--drop-shadow-regular: 1.5px 1.5px 0px rgba(0, 33, 66, 0.95);
+
+	--lurkr-gradient: 92.52deg, #ff7077 0%, #ffe87c 100%;
+	--lurkr-gradient-alt: 93deg, #ffe87c 0%, #804994 100%;
+	--lurkr-max-gradient: 90deg, #aad6c6 1%, #fa9079 33%, #fcc953 66%, #74da9c 100%;
+	--lurkr-ultimate-gradient: 90deg, #a2fbec 1%, #f985ff 33%, #904dff 66%, #4d54fe 100%;
+	--patreon-gradient: 93.24deg, #ff424d 0%, #ff7077 100%;
+
+	--animate-pulse-success: pulse-success 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+
+	/* #region Tremor */
+	--animate-hide: hide 150ms cubic-bezier(0.16, 1, 0.3, 1);
+	--animate-slide-down-fade: slide-down-fade 150ms cubic-bezier(0.16, 1, 0.3, 1);
+	--animate-slide-left-fade: slide-left-fade 150ms cubic-bezier(0.16, 1, 0.3, 1);
+	--animate-slide-up-fade: slide-up-fade 150ms cubic-bezier(0.16, 1, 0.3, 1);
+	--animate-slide-right-fade: slide-right-fade 150ms cubic-bezier(0.16, 1, 0.3, 1);
+	--animate-accordion-open: accordion-open 150ms cubic-bezier(0.87, 0, 0.13, 1);
+	--animate-accordion-close: accordion-close 150ms cubic-bezier(0.87, 0, 0.13, 1);
+	--animate-dialog-overlay-show: dialog-overlay-show 150ms cubic-bezier(0.16, 1, 0.3, 1);
+	--animate-dialog-content-show: dialog-content-show 150ms cubic-bezier(0.16, 1, 0.3, 1);
+	--animate-slide-down-fade: slide-down-fade ease-in-out;
+	--animate-slide-up-fade: slide-up-fade ease-in-out;
+
+	@keyframes pulse-success {
+		0%,
+		100% {
+			background-color: rgba(62, 162, 94, 1);
+		}
+		50% {
+			background-color: rgba(62, 162, 94, 0.6);
+		}
+	}
+
+	@keyframes hide {
+		from {
+			opacity: 1;
+		}
+		to {
+			opacity: 0;
+		}
+	}
+
+	@keyframes slide-down-fade {
+		from {
+			opacity: 0;
+			transform: translateY(-6px);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0px);
+		}
+	}
+
+	@keyframes slide-left-fade {
+		from {
+			opacity: 0;
+			transform: translateX(6px);
+		}
+		to {
+			opacity: 1;
+			transform: translateX(0px);
+		}
+	}
+
+	@keyframes slide-up-fade {
+		from {
+			opacity: 0;
+			transform: translateY(6px);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0px);
+		}
+	}
+
+	@keyframes slide-right-fade {
+		from {
+			opacity: 0;
+			transform: translateX(-6px);
+		}
+		to {
+			opacity: 1;
+			transform: translateX(0px);
+		}
+	}
+
+	@keyframes accordion-open {
+		from {
+			height: 0px;
+		}
+		to {
+			height: var(--radix-accordion-content-height);
+		}
+	}
+
+	@keyframes accordion-close {
+		from {
+			height: var(--radix-accordion-content-height);
+		}
+		to {
+			height: 0px;
+		}
+	}
+
+	@keyframes dialog-overlay-show {
+		from {
+			opacity: 0;
+		}
+		to {
+			opacity: 1;
+		}
+	}
+
+	@keyframes dialog-content-show {
+		from {
+			opacity: 0;
+			transform: translate(-50%, -45%) scale(0.95);
+		}
+		to {
+			opacity: 1;
+			transform: translate(-50%, -50%) scale(1);
+		}
+	}
+
+	@keyframes slide-up-fade {
+		from {
+			opacity: 0;
+			transform: translateY(12px);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0px);
+		}
+	}
+
+	@keyframes slide-down-fade {
+		from {
+			opacity: 0;
+			transform: translateY(-26px);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0px);
+		}
+	}
+
+	/* #endregion Tremor */
+}
+
+/* #region CLaP */
+
+:root {
+	--destructive: oklch(0.577 0.245 27.325);
+	--destructive-foreground: oklch(0.577 0.245 27.325);
+}
+
+.dark {
+	--destructive: oklch(0.396 0.141 25.723);
+	--destructive-foreground: oklch(0.637 0.237 25.331);
+}
+
+@theme inline {
+	--color-warning: var(--destructive);
+	--color-warning-foreground: var(--destructive-foreground);
+}
+
+/* #endregion CLaP */
+
+.text-shadow-regular {
+	text-shadow: 1.5px 1.5px 0px rgba(0, 33, 66, 0.95);
+}
+
+/* The tailwind-scrollbar plugin doesn't work */
+.slider-thumb\:size-4::-webkit-slider-thumb {
+	width: 1rem;
+	height: 1rem;
+}
+.slider-thumb\:appearance-none::-webkit-slider-thumb {
+	-webkit-appearance: none;
+	appearance: none;
+}
+.slider-thumb\:rounded-full::-webkit-slider-thumb {
+	border-radius: 9999px;
+}
+.slider-thumb\:border-none::-webkit-slider-thumb {
+	border-style: none;
+}
+.slider-thumb\:bg-primary::-webkit-slider-thumb {
+	--tw-bg-opacity: 1;
+	background-color: rgb(255 112 119 / var(--tw-bg-opacity, 1));
+}
+
+@plugin "@tailwindcss/typography";
+@plugin "@tailwindcss/forms";
+
+body {
+	text-rendering: optimizeLegibility;
+}
+
+img {
+	@apply select-none;
+}
+
+*::placeholder {
+	@apply text-white/50!;
+}
+
+button:not([disabled]) {
+	@apply cursor-pointer;
+}
+
+button[disabled] {
+	@apply cursor-not-allowed;
+}
+
+.no-drag {
+	-webkit-user-drag: none;
+	-moz-user-drag: none;
+	-o-user-drag: none;
+}
+
+.rfm-child {
+	@apply mr-4;
+}
+
+.prose-blue-400 {
+	--tw-prose-links: rgba(96 165 250);
+	--tw-prose-invert-links: rgba(96 165 250);
+}
+
+.nextra-sidebar {
+	/* Fix nextra's sidebar overlapping over our footer border */
+	@apply border-b border-transparent;
+}
+
+div[data-rmiz-modal-content] {
+	@apply bg-darker;
+}
+
+.mask {
+	mask-image: radial-gradient(rgba(0, 0, 0, 1) 0%, transparent 80%);
+}
