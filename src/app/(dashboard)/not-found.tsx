@@ -1,4 +1,4 @@
-import "@/app/globals.css";
+import "@/css/globals.css";
 
 import { Text } from "@/components/dashboard/Text.tsx";
 

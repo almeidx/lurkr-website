@@ -1,4 +1,4 @@
-import "@/app/globals.css";
+import "@/css/globals.css";
 import "nextra-theme-docs/style.css";
 
 import { openSans } from "@/app/fonts.ts";
