@@ -1,6 +1,6 @@
 "use client";
 
-import "@/app/globals.css";
+import "@/css/globals.css";
 
 import { openSans } from "@/app/fonts.ts";
 import { BRAND_COLOR, DESCRIPTION, PUBLIC_URL } from "@/utils/constants.ts";
