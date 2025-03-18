@@ -123,6 +123,7 @@ export default async function Leveling({ params }: { readonly params: Promise<{ 
 			</Section>
 
 			<Section
+				id="role-rewards"
 				name="Role Rewards"
 				docsPath="/guides/leveling-role-rewards"
 				tooltip="Select different roles to reward your members with at different levels. You can reward multiple roles at the same level."

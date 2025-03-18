@@ -68,7 +68,7 @@ export function LevelingRoleRewards({ defaultRoleRewards, premium, roles }: Leve
 
 				<RoleSelector
 					defaultValues={[]}
-					inputId="role-rewards"
+					inputId="role-rewards-sel"
 					max={getMaximumLimit("xpRoleRewardRoles", premium)}
 					roles={roles}
 					settingId="newRoles"
