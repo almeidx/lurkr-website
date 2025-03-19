@@ -58,6 +58,10 @@ export const metadata: Metadata = {
 		capable: true,
 	},
 
+	verification: {
+		google: process.env.GOOGLE_SITE_VERIFICATION,
+	},
+
 	applicationName: "Lurkr",
 
 	openGraph: {
