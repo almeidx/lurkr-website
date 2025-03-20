@@ -23,8 +23,7 @@ import { LevelUpMessage } from "./31-level-up-message.tsx";
 import { LevelUpMessageEmbed } from "./32-level-up-message-embed.tsx";
 import { LevelUpMessageConditions } from "./33-level-up-message-conditions.tsx";
 import { LevelingRoleRewards } from "./40-leveling-role-rewards.tsx";
-import { StackRoleRewards } from "./41-stack-role-rewards.tsx";
-import { NoRoleRewardsRoles } from "./42-no-role-rewards-roles.tsx";
+import { NoRoleRewardsRoles } from "./41-no-role-rewards-roles.tsx";
 import { AutomaticallyResetLevels } from "./50-automatically-reset-levels.tsx";
 import { DefaultRankCardColor } from "./60-default-rank-card-color.tsx";
 import { LeaderboardVanity } from "./70-leaderboard-vanity.tsx";
@@ -129,12 +128,6 @@ export default async function Leveling({ params }: { readonly params: Promise<{ 
 				tooltip="Select different roles to reward your members with at different levels. You can reward multiple roles at the same level."
 			>
 				<LevelingRoleRewards defaultRoleRewards={settings.xpRoleRewards} premium={guild.premium} roles={guild.roles} />
-
-				<Separator />
-
-				<Text>What to do with previous rewards…</Text>
-
-				<StackRoleRewards defaultValue={settings.stackXpRoles} />
 
 				<Separator />
 

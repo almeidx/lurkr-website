@@ -1,5 +1,7 @@
 "use client";
 
+import { Toggle } from "@/components/Toggle.tsx";
+import { DocsBubble } from "@/components/dashboard/DocsBubble.tsx";
 import { Input } from "@/components/dashboard/Input.tsx";
 import { Label } from "@/components/dashboard/Label.tsx";
 import { RoleSelector } from "@/components/dashboard/RoleSelector.tsx";
@@ -16,7 +18,7 @@ import {
 import type { Role, XpRoleReward } from "@/lib/guild.ts";
 import { getMaximumLimit } from "@/utils/get-maximum-limit.ts";
 import { mapRoleIdsToRoles } from "@/utils/map-role-ids-to-roles.ts";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export function LevelingRoleRewards({ defaultRoleRewards, premium, roles }: LevelingRoleRewardsProps) {
 	const [roleRewards, setRoleRewards] = useState<XpRoleReward[]>(defaultRoleRewards);
@@ -27,6 +29,10 @@ export function LevelingRoleRewards({ defaultRoleRewards, premium, roles }: Leve
 	const maxRoleRewardRoles = getMaximumLimit("xpRoleRewardRoles", premium);
 
 	const isDuplicate = roleRewards.some((roleReward) => roleReward.level === Number.parseInt(newLevel, 10));
+
+	useEffect(() => {
+		setRoleRewards(defaultRoleRewards);
+	}, [defaultRoleRewards]);
 
 	function handleCreateRoleReward() {
 		const level = Number.parseInt(newLevel, 10);
@@ -44,7 +50,9 @@ export function LevelingRoleRewards({ defaultRoleRewards, premium, roles }: Leve
 			return;
 		}
 
-		setRoleRewards((prev) => [...prev, { id: crypto.randomUUID(), level, roleIds }].sort((a, b) => a.level - b.level));
+		setRoleRewards((prev) =>
+			[...prev, { id: crypto.randomUUID(), level, roleIds, stack: true }].sort((a, b) => a.level - b.level),
+		);
 
 		setNewRoles([]);
 		setNewLevel("");
@@ -118,11 +126,11 @@ export function LevelingRoleRewards({ defaultRoleRewards, premium, roles }: Leve
 	);
 }
 
-function RoleRewardDisplay({ id, level, premium, roleIds, onDelete, roles }: RoleRewardDisplayProps) {
+function RoleRewardDisplay({ id, level, premium, roleIds, onDelete, roles, stack }: RoleRewardDisplayProps) {
 	const resolvedRoles = mapRoleIdsToRoles(roleIds, roles);
 
 	return (
-		<div className="flex items-center gap-4">
+		<div className="flex flex-wrap items-center gap-4">
 			<button
 				className="group relative flex size-9 items-center justify-center rounded-lg border border-white bg-[#1e1f22] text-[#fff]"
 				onClick={() => onDelete(id)}
@@ -134,6 +142,17 @@ function RoleRewardDisplay({ id, level, premium, roleIds, onDelete, roles }: Rol
 
 				{level}
 			</button>
+
+			<div className="flex items-center gap-2 rounded-lg bg-[#1e1f22] p-2">
+				<Toggle id={`xpRoleRewards-${level}-${id}-stack`} initialValue={stack} />
+
+				<span className="text-sm text-white/75">Stack</span>
+
+				<DocsBubble
+					path="/guides/leveling-automation#stacking-role-rewards"
+					tooltip="When disabled, members will lose this role reward if they earn a higher level role reward"
+				/>
+			</div>
 
 			<RoleSelector
 				defaultValues={resolvedRoles}

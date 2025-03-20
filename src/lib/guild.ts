@@ -97,7 +97,6 @@ export interface GuildSettings {
 	noTopXpRoles: Snowflake[];
 	noXpRoles: Snowflake[];
 	prioritiseMultiplierRoleHierarchy: boolean;
-	stackXpRoles: boolean;
 	storeCounts: boolean;
 	storeMilestones: boolean;
 	topXpRole: Snowflake | null;
@@ -175,4 +174,5 @@ export interface XpRoleReward {
 	id: string;
 	level: number;
 	roleIds: Snowflake[];
+	stack: boolean;
 }

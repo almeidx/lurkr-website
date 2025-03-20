@@ -109,7 +109,6 @@ type LimitedKey =
 			| "milestonesMessage"
 			| "premium"
 			| "prioritiseMultiplierRoleHierarchy"
-			| "stackXpRoles"
 			| "storeCounts"
 			| "storeMilestones"
 			| "topXpRole"
