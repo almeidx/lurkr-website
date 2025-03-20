@@ -23,9 +23,7 @@ export function DocsBubble({ tooltip, path }: DocsBubblePropos) {
 		<TooltipProvider showTimeout={100}>
 			<TooltipAnchor>{link}</TooltipAnchor>
 
-			<Tooltip className="max-w-prose text-balance rounded-lg border border-white/25 bg-darker px-3 py-2">
-				{tooltip}
-			</Tooltip>
+			<Tooltip className="max-w-prose rounded-lg border border-white/25 bg-darker px-3 py-2">{tooltip}</Tooltip>
 		</TooltipProvider>
 	);
 }

@@ -47,7 +47,6 @@ import { formDataToObject } from "@/utils/form-data-to-object.ts";
 import { lazy } from "@/utils/lazy.ts";
 import {
 	UUID_REGEX,
-	booleanFlag,
 	coerceToInt,
 	createSnowflakesValidator,
 	emptyStringToNull,
@@ -103,10 +102,11 @@ export async function update(guildId: string, premium: boolean, _currentState: u
 		...parsed,
 		autoResetLevels: transformAutoResetLevels(autoResetLevelsLeave, autoResetLevelsBan),
 		xpRoleRewards: Object.entries(rawData)
-			.filter(([key]) => key.startsWith("xpRoleRewards-"))
+			.filter(([key]) => key.startsWith("xpRoleRewards-") && !key.endsWith("-stack"))
 			.map(([key, value]) => ({
 				...parse(xpRoleRewardsKeySchema, key),
 				roleIds: parse(xpRoleRewardRolesSchema, value),
+				stack: rawData[`${key}-stack`] === "on",
 			})),
 	} satisfies Partial<GuildSettings>;
 
@@ -139,7 +139,6 @@ function createSchema(premium: boolean) {
 			),
 			noTopXpRoles: createSnowflakesValidator(premium ? MAX_NO_TOP_XP_ROLES_PREMIUM : MAX_NO_TOP_XP_ROLES),
 			noXpRoles: createSnowflakesValidator(premium ? MAX_NO_XP_ROLES_PREMIUM : MAX_NO_XP_ROLES),
-			stackXpRoles: booleanFlag,
 			topXpRole: snowflake,
 			vanity: union([emptyStringToNull, vanitySchema]),
 			xpAnnounceChannel: snowflake,
