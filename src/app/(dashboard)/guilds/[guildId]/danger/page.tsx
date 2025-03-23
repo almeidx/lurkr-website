@@ -6,6 +6,7 @@ import { TOKEN_COOKIE } from "@/utils/constants.ts";
 import type { Snowflake } from "@/utils/discord-cdn.ts";
 import type { Metadata } from "next";
 import { cookies } from "next/headers";
+import { SignInRequired } from "../sign-in-required.tsx";
 import { UnknownGuildOrMissingAccess } from "../unknown-guild.tsx";
 import { DownloadLevelingData } from "./01-download-leveling-data.tsx";
 import { ResetGuildData } from "./02-reset-guild-data.tsx";
@@ -13,7 +14,11 @@ import { ResetGuildData } from "./02-reset-guild-data.tsx";
 export default async function DangerZone({ params }: { readonly params: Promise<{ guildId: Snowflake }> }) {
 	const { guildId } = await params;
 
-	const token = (await cookies()).get(TOKEN_COOKIE)!.value;
+	const token = (await cookies()).get(TOKEN_COOKIE)?.value;
+	if (!token) {
+		return <SignInRequired />;
+	}
+
 	const guildData = await getGuildSettings(guildId, token, "danger");
 
 	if (!guildData) {

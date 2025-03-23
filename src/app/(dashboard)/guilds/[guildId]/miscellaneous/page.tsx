@@ -7,6 +7,7 @@ import { TOKEN_COOKIE } from "@/utils/constants.ts";
 import type { Snowflake } from "@/utils/discord-cdn.ts";
 import type { Metadata } from "next";
 import { cookies } from "next/headers";
+import { SignInRequired } from "../sign-in-required.tsx";
 import { UnknownGuildOrMissingAccess } from "../unknown-guild.tsx";
 import { StoreMemberCountData } from "./01-store-member-count-data.tsx";
 import { AutomaticallyPublishChannels } from "./02-automatically-publish-channels.tsx";
@@ -15,7 +16,11 @@ import { update } from "./update.ts";
 export default async function Miscellaneous({ params }: { readonly params: Promise<{ guildId: Snowflake }> }) {
 	const { guildId } = await params;
 
-	const token = (await cookies()).get(TOKEN_COOKIE)!.value;
+	const token = (await cookies()).get(TOKEN_COOKIE)?.value;
+	if (!token) {
+		return <SignInRequired />;
+	}
+
 	const guildData = await getGuildSettings(guildId, token, "miscellaneous");
 
 	if (!guildData) {

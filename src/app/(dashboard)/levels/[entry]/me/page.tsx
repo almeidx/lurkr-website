@@ -10,6 +10,10 @@ export default async function MyLevel({ params }: { params: Promise<{ entry: str
 	const { entry } = await params;
 
 	const token = (await cookies()).get(TOKEN_COOKIE)?.value;
+	if (!token) {
+		return <NotLoggedIn />;
+	}
+
 	const data = token ? await getData(entry, token) : null;
 
 	if (!data) {
@@ -28,6 +32,14 @@ export default async function MyLevel({ params }: { params: Promise<{ entry: str
 
 				<MessageCounts data={data} />
 			</div>
+		</div>
+	);
+}
+
+function NotLoggedIn() {
+	return (
+		<div className="flex w-full flex-col gap-5 px-4 py-4">
+			<p>You must be logged in to view your leveling progress.</p>
 		</div>
 	);
 }

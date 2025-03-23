@@ -6,6 +6,7 @@ import { TOKEN_COOKIE } from "@/utils/constants.ts";
 import type { Snowflake } from "@/utils/discord-cdn.ts";
 import type { Metadata } from "next";
 import { cookies } from "next/headers";
+import { SignInRequired } from "../sign-in-required.tsx";
 import { UnknownGuildOrMissingAccess } from "../unknown-guild.tsx";
 import { EmojiListChannel } from "./01-emoji-list-channel.tsx";
 import { update } from "./update.ts";
@@ -13,7 +14,11 @@ import { update } from "./update.ts";
 export default async function Emojis({ params }: { readonly params: Promise<{ guildId: Snowflake }> }) {
 	const { guildId } = await params;
 
-	const token = (await cookies()).get(TOKEN_COOKIE)!.value;
+	const token = (await cookies()).get(TOKEN_COOKIE)?.value;
+	if (!token) {
+		return <SignInRequired />;
+	}
+
 	const guildData = await getGuildSettings(guildId, token, "emojis");
 
 	if (!guildData) {

@@ -1,7 +1,12 @@
 import { REDIRECT_TO_COOKIE, SIGN_IN_URL } from "@/utils/constants.ts";
+import { isbot } from "isbot";
 import { type NextRequest, NextResponse } from "next/server";
 
 export function middleware(request: NextRequest) {
+	if (isbot(request.headers.get("user-agent"))) {
+		return NextResponse.next();
+	}
+
 	return NextResponse.redirect(SIGN_IN_URL, {
 		headers: {
 			"Set-Cookie": `${REDIRECT_TO_COOKIE}=${request.nextUrl.pathname}; Path=/; HttpOnly; Max-Age=60;`,

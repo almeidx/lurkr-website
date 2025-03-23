@@ -7,6 +7,7 @@ import { TOKEN_COOKIE } from "@/utils/constants.ts";
 import type { Snowflake } from "@/utils/discord-cdn.ts";
 import type { Metadata } from "next";
 import { cookies } from "next/headers";
+import { SignInRequired } from "../sign-in-required.tsx";
 import { UnknownGuildOrMissingAccess } from "../unknown-guild.tsx";
 import { OnJoinRoles } from "./01-on-join-roles.tsx";
 import { OnJoinRolesDelay } from "./02-on-join-roles-delay.tsx";
@@ -18,7 +19,11 @@ import { update } from "./update.ts";
 export default async function Roles({ params }: { readonly params: Promise<{ guildId: Snowflake }> }) {
 	const { guildId } = await params;
 
-	const token = (await cookies()).get(TOKEN_COOKIE)!.value;
+	const token = (await cookies()).get(TOKEN_COOKIE)?.value;
+	if (!token) {
+		return <SignInRequired />;
+	}
+
 	const guildData = await getGuildSettings(guildId, token, "roles");
 
 	if (!guildData) {

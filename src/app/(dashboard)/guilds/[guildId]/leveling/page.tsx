@@ -10,6 +10,7 @@ import { TOKEN_COOKIE } from "@/utils/constants.ts";
 import type { Snowflake } from "@/utils/discord-cdn.ts";
 import type { Metadata } from "next";
 import { cookies } from "next/headers";
+import { SignInRequired } from "../sign-in-required.tsx";
 import { UnknownGuildOrMissingAccess } from "../unknown-guild.tsx";
 import { LevelingChannelMode } from "./01-leveling-channel-mode.tsx";
 import { LevelingChannels } from "./02-leveling-channels.tsx";
@@ -32,7 +33,11 @@ import { update } from "./update.ts";
 export default async function Leveling({ params }: { readonly params: Promise<{ guildId: Snowflake }> }) {
 	const { guildId } = await params;
 
-	const token = (await cookies()).get(TOKEN_COOKIE)!.value;
+	const token = (await cookies()).get(TOKEN_COOKIE)?.value;
+	if (!token) {
+		return <SignInRequired />;
+	}
+
 	const guildData = await getGuildSettings(guildId, token, "leveling");
 
 	if (!guildData) {

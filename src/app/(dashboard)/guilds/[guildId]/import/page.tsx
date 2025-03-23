@@ -3,12 +3,17 @@ import type { Snowflake } from "@/utils/discord-cdn.ts";
 import { makeApiRequest } from "@/utils/make-api-request.ts";
 import type { Metadata } from "next";
 import { cookies } from "next/headers";
+import { SignInRequired } from "../sign-in-required.tsx";
 import { type GetImportStatusResponse, ImportForm } from "./01-leveling-import.tsx";
 
 export default async function Miscellaneous({ params }: { readonly params: Promise<{ guildId: Snowflake }> }) {
 	const { guildId } = await params;
 
-	const token = (await cookies()).get(TOKEN_COOKIE)!.value;
+	const token = (await cookies()).get(TOKEN_COOKIE)?.value;
+	if (!token) {
+		return <SignInRequired />;
+	}
+
 	const data = await getData(guildId, token);
 
 	return <ImportForm guildId={guildId} data={data} />;

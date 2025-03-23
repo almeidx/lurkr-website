@@ -1,6 +1,5 @@
 import fallbackAvatarImg from "@/assets/fallback-avatar.webp";
 import { ImageWithFallback } from "@/components/ImageWithFallback.tsx";
-import { SignInButton } from "@/components/SignIn.tsx";
 import { DocsBubble } from "@/components/dashboard/DocsBubble.tsx";
 import type { User } from "@/lib/auth.ts";
 import { TOKEN_COOKIE } from "@/utils/constants.ts";
@@ -12,6 +11,7 @@ import type { Metadata } from "next";
 import { cookies } from "next/headers";
 import { ItemStatus } from "./item-status.tsx";
 import { resolveOverviewStatuses } from "./resolve-overview-statuses.ts";
+import { SignInRequired } from "./sign-in-required.tsx";
 
 export default async function Dashboard({ params }: { readonly params: Promise<{ guildId: string }> }) {
 	const { guildId } = await params;
@@ -19,12 +19,7 @@ export default async function Dashboard({ params }: { readonly params: Promise<{
 	const data = await getData(guildId, token);
 
 	if (!data) {
-		return (
-			<div className="mt-6 flex flex-col items-center gap-2 text-center text-white/75 text-xl tracking-tight">
-				You need to be signed in to view this page.
-				<SignInButton />
-			</div>
-		);
+		return <SignInRequired />;
 	}
 
 	const { overview, user } = data;
