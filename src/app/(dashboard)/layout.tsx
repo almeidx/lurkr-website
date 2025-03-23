@@ -15,6 +15,8 @@ import { type PropsWithChildren, Suspense } from "react";
 
 const isPreview = process.env.ENVIRONMENT !== "prod" && process.env.NODE_ENV !== "development";
 
+export const runtime = "edge";
+
 export default function RootLayout({ children }: PropsWithChildren) {
 	return (
 		<html lang="en">
