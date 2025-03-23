@@ -29,7 +29,7 @@ export function Footer() {
 								</ExternalLink>
 							</li>
 							<li>
-								<ExternalLink className="block py-0.5" href={`${TOPGG_URL}?source=web-footer`}>
+								<ExternalLink className="block py-0.5" href={`${TOPGG_URL}&utm_campaign=footer`}>
 									Vote on Us!
 								</ExternalLink>
 							</li>

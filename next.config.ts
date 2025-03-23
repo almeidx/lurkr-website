@@ -76,7 +76,7 @@ const nextConfig = {
 				source: "/patreon",
 			},
 			{
-				destination: `${TOPGG_URL}?source=redirect`,
+				destination: `${TOPGG_URL}&utm_campaign=redirect`,
 				permanent: true,
 				source: "/vote",
 			},

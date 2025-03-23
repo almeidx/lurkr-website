@@ -13,7 +13,7 @@ export function VoteBoost({ defaultValue }: { readonly defaultValue: boolean }) 
 			>
 				<span className="whitespace-normal">
 					Allow users that vote for Lurkr on{" "}
-					<ExternalLink href={`${TOPGG_URL}?source=dash-multipliers`} className="transition-colors hover:text-blurple">
+					<ExternalLink href={`${TOPGG_URL}&utm_campaign=multipliers`} className="transition-colors hover:text-blurple">
 						top.gg
 					</ExternalLink>{" "}
 					to gain 20% more experience?{" "}
