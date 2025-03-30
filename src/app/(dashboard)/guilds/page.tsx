@@ -11,7 +11,7 @@ import type { Metadata } from "next";
 import { cookies } from "next/headers";
 
 export default async function GuildList() {
-	const token = (await cookies()).get(TOKEN_COOKIE)!.value;
+	const token = (await cookies()).get(TOKEN_COOKIE)?.value;
 	const data = await getGuilds(token);
 
 	if (!data) {
@@ -64,7 +64,11 @@ export const metadata: Metadata = {
 	description: "Configure your server with Lurkr!",
 };
 
-async function getGuilds(token: string) {
+async function getGuilds(token: string | undefined) {
+	if (!token) {
+		return null;
+	}
+
 	const [getGuildsResponse, getCurrentUserResponse] = await Promise.all([
 		makeApiRequest("/users/@me/guilds", token, {
 			next: {
