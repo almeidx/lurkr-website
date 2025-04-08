@@ -131,7 +131,7 @@ export async function generateMetadata({ params, searchParams }: LeaderboardProp
 
 	const response = await makeApiRequest(`/levels/${entry}/metadata`, null, {
 		headers: {
-			Authorization: process.env.LEVELS_METADATA_KEY!,
+			"X-Internal-Key": process.env.LEVELS_METADATA_KEY!,
 		},
 		next: {
 			revalidate: 6 * 60 * 60, // 6 hours
