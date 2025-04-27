@@ -17,7 +17,7 @@ export async function makeApiRequest(route: string, token: string | null | undef
 
 			// Do not retry on 4xx errors
 			if (response.status >= 400 && response.status < 500) {
-				let message = response.statusText;
+				let message = response.statusText || response.status.toString();
 
 				if (response.headers.get("content-type")?.includes("application/json")) {
 					try {

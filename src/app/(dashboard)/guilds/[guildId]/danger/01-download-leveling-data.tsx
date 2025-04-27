@@ -38,13 +38,7 @@ export function DownloadLevelingData({ guildId, levelingSystemEnabled, token }: 
 		setIsLoading(true);
 
 		try {
-			const response = await makeApiRequest(`/levels/${guildId}/export`, token, {
-				method: "POST",
-				body: "{}",
-				headers: {
-					"Content-Type": "application/json",
-				},
-			});
+			const response = await makeApiRequest(`/levels/${guildId}/export`, token, { method: "POST" });
 			if (response.ok) {
 				const data = (await response.json()) as DataExportResult;
 				setDataExport(data);
