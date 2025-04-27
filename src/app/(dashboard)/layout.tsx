@@ -17,7 +17,7 @@ const isPreview = process.env.ENVIRONMENT !== "prod" && process.env.NODE_ENV !==
 
 export default function RootLayout({ children }: PropsWithChildren) {
 	return (
-		<html lang="en">
+		<html lang="en" className="dark" style={{ colorScheme: "dark" }}>
 			<body
 				className={`${openSans.variable} flex min-h-screen flex-col scroll-smooth bg-background font-sans text-white antialiased selection:bg-primary selection:text-white`}
 			>

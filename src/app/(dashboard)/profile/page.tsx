@@ -4,12 +4,14 @@ import { ImageWithFallback } from "@/components/ImageWithFallback.tsx";
 import { Section } from "@/components/dashboard/Section.tsx";
 import { Text } from "@/components/dashboard/Text.tsx";
 import { UserAccentType, getCurrentUser } from "@/lib/auth.ts";
+import type { UserGuildInfo } from "@/lib/guild.ts";
 import { TOKEN_COOKIE } from "@/utils/constants.ts";
 import { userAvatar } from "@/utils/discord-cdn.ts";
 import { greeting } from "@/utils/greeting.ts";
 import { makeApiRequest } from "@/utils/make-api-request.ts";
 import dynamic from "next/dynamic";
 import { cookies } from "next/headers";
+import { ApiKeys } from "./api-keys.tsx";
 
 const Zoom = dynamic(() => import("react-medium-image-zoom"));
 
@@ -20,7 +22,11 @@ export default async function ProfilePage() {
 		return <NotLoggedIn />;
 	}
 
-	const [userResult, backgroundResult] = await Promise.allSettled([getCurrentUser(token), getUserBackground(token)]);
+	const [userResult, backgroundResult, guildsResult] = await Promise.allSettled([
+		getCurrentUser(token),
+		getUserBackground(token),
+		getUserGuilds(token),
+	]);
 
 	if (userResult.status !== "fulfilled" || !userResult.value) {
 		return <NotLoggedIn />;
@@ -30,6 +36,8 @@ export default async function ProfilePage() {
 	const background = backgroundResult.status === "fulfilled" ? backgroundResult.value : null;
 
 	const locale = user.locale ? new Intl.DisplayNames([user.locale], { type: "language" }).of(user.locale) : null;
+
+	const guilds = guildsResult.status === "fulfilled" ? guildsResult.value : [];
 
 	return (
 		<div className="container mx-auto w-full max-w-5xl space-y-8 px-4 py-6">
@@ -122,6 +130,10 @@ export default async function ProfilePage() {
 					<p className="text-gray-400 text-sm">This color is used as the progress bar color of your rank card.</p>
 				</div>
 			</Section>
+
+			<Section>
+				<ApiKeys guilds={guilds} />
+			</Section>
 		</div>
 	);
 }
@@ -134,6 +146,8 @@ function NotLoggedIn() {
 	);
 }
 
+// #region Data fetchers
+
 async function getUserBackground(token: string) {
 	const response = await makeApiRequest("/users/@me/background", token, {
 		headers: {
@@ -143,8 +157,26 @@ async function getUserBackground(token: string) {
 	if (!response.ok) {
 		return null;
 	}
+
 	return response.json() as Promise<UserBackgroundResult>;
 }
+
+async function getUserGuilds(token: string) {
+	const response = await makeApiRequest("/users/@me/guilds?isAdmin=true&botIn=true", token, {
+		next: {
+			revalidate: 60, // 1 minute
+		},
+	});
+	if (!response.ok) {
+		return [];
+	}
+
+	const guilds = (await response.json()) as UserGuildInfo[];
+
+	return guilds.filter((guild) => guild.botIn);
+}
+
+// #endregion
 
 interface UserBackgroundResult {
 	url: string;

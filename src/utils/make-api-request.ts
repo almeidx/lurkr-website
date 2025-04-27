@@ -17,7 +17,20 @@ export async function makeApiRequest(route: string, token: string | null | undef
 
 			// Do not retry on 4xx errors
 			if (response.status >= 400 && response.status < 500) {
-				throw new AbortError(response.statusText);
+				let message = response.statusText;
+
+				if (response.headers.get("content-type")?.includes("application/json")) {
+					try {
+						const json = await response.json();
+						if (typeof json === "object" && json !== null && "message" in json && typeof json.message === "string") {
+							message += `: ${json.message}`;
+						}
+					} catch {
+						// Ignore
+					}
+				}
+
+				throw new AbortError(message);
 			}
 
 			const authErrorHeader = response.headers.get("x-auth-error");

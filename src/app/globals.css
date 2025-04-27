@@ -1,5 +1,13 @@
 @import "tailwindcss";
+@import "./animations.css";
 @import "./scrollbar.css";
+
+/* This plugin adds some sort of small border/outline around the cursor (not the input) whenever an input is focused */
+/* @plugin "@tailwindcss/forms"; */
+
+@plugin "@tailwindcss/typography";
+
+@custom-variant dark (&:where(.dark, .dark *));
 
 @layer base {
 	*,
@@ -38,18 +46,6 @@
 	--lurkr-max-gradient: 90deg, #aad6c6 1%, #fa9079 33%, #fcc953 66%, #74da9c 100%;
 	--lurkr-ultimate-gradient: 90deg, #a2fbec 1%, #f985ff 33%, #904dff 66%, #4d54fe 100%;
 	--patreon-gradient: 93.24deg, #ff424d 0%, #ff7077 100%;
-
-	--animate-pulse-success: pulse-success 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-
-	@keyframes pulse-success {
-		0%,
-		100% {
-			background-color: rgba(62, 162, 94, 1);
-		}
-		50% {
-			background-color: rgba(62, 162, 94, 0.6);
-		}
-	}
 }
 
 .text-shadow-regular {
@@ -75,8 +71,6 @@
 	--tw-bg-opacity: 1;
 	background-color: rgb(255 112 119 / var(--tw-bg-opacity, 1));
 }
-
-@plugin "@tailwindcss/typography";
 
 body {
 	text-rendering: optimizeLegibility;

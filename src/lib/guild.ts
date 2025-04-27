@@ -176,3 +176,15 @@ export interface XpRoleReward {
 	roleIds: Snowflake[];
 	stack: boolean;
 }
+
+export interface UserGuildInfo {
+	botIn: boolean;
+	icon: string | null;
+	id: Snowflake;
+	name: string;
+}
+
+export enum ApiKeyPermission {
+	Read = "Read",
+	Write = "Write",
+}
