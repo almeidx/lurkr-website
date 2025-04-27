@@ -41,7 +41,7 @@ export default async function RootLayout({ children }: PropsWithChildren) {
 	const pageMap = await getPageMap("/docs");
 
 	return (
-		<html lang="en" suppressHydrationWarning className="dark" style={{ colorScheme: "dark" }}>
+		<html lang="en" suppressHydrationWarning>
 			<Head
 				backgroundColor={{ dark: "#171717", light: "#171717" }}
 				color={{

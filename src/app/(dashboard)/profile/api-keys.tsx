@@ -9,6 +9,7 @@ import { TOKEN_COOKIE } from "@/utils/constants.ts";
 import type { Snowflake } from "@/utils/discord-cdn.ts";
 import { makeApiRequest } from "@/utils/make-api-request.ts";
 import Cookies from "js-cookie";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { CreateApiKeyDialog } from "./create-api-key-dialog.tsx";
 import { DeleteApiKeyDialog } from "./delete-api-key-dialog.tsx";
@@ -70,7 +71,13 @@ export function ApiKeys({ guilds }: ApiKeysProps) {
 				<div className="space-y-4">
 					<h3 className="font-semibold text-xl">API Keys</h3>
 
-					<Text>Overview of all registered API keys.</Text>
+					<Text>
+						Overview of all registered API keys. Learn more about the API{" "}
+						<Link className="text-primary" href="/docs/api">
+							here
+						</Link>
+						.
+					</Text>
 				</div>
 
 				<CreateApiKeyDialog revalidateApiKeys={revalidateApiKeys} />
@@ -99,7 +106,7 @@ export function ApiKeys({ guilds }: ApiKeysProps) {
 									<TableCell className="font-medium">{item.name}</TableCell>
 									<TableCell>
 										<Badge variant={item.permission === ApiKeyPermission.Read ? "success" : "warning"}>
-											{item.permission}
+											{item.permission === ApiKeyPermission.Read ? "Read" : "Read/Write"}
 										</Badge>
 									</TableCell>
 									<TableCell>{item.guildAccess.length}</TableCell>

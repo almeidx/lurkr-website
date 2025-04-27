@@ -169,7 +169,7 @@ export function CreateApiKeyDialog({ revalidateApiKeys }: { revalidateApiKeys: (
 
 								<SelectContent>
 									<SelectItem value={ApiKeyPermission.Read}>Read</SelectItem>
-									<SelectItem value={ApiKeyPermission.Write}>Write</SelectItem>
+									<SelectItem value={ApiKeyPermission.Write}>Read/Write</SelectItem>
 								</SelectContent>
 							</Select>
 						</div>
