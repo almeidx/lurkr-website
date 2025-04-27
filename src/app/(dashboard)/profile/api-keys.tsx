@@ -16,8 +16,10 @@ import { DeleteApiKeyDialog } from "./delete-api-key-dialog.tsx";
 import { GuildAccessApiKeyDialog } from "./guild-access-api-key-dialog.tsx";
 import { TableRowActions } from "./table-row-actions.tsx";
 
+const MAX_API_KEYS = 5;
+
 export function ApiKeys({ guilds }: ApiKeysProps) {
-	const [data, setData] = useState<GetUserApiKeysResult["keys"]>([]);
+	const [keys, setKeys] = useState<GetUserApiKeysResult["keys"]>([]);
 	const [isLoading, setIsLoading] = useState(true);
 
 	const [guildAccessDialogOpen, setGuildAccessDialogOpen] = useState(false);
@@ -33,7 +35,7 @@ export function ApiKeys({ guilds }: ApiKeysProps) {
 
 		setIsLoading(true);
 		getUserApiKeys(token)
-			.then((keys) => setData(keys))
+			.then((keys) => setKeys(keys))
 			.finally(() => setIsLoading(false));
 	}
 
@@ -71,7 +73,7 @@ export function ApiKeys({ guilds }: ApiKeysProps) {
 				<div className="flex items-center justify-between">
 					<h3 className="font-semibold text-xl">API Keys</h3>
 
-					<CreateApiKeyDialog revalidateApiKeys={revalidateApiKeys} />
+					{keys.length < MAX_API_KEYS ? <CreateApiKeyDialog revalidateApiKeys={revalidateApiKeys} /> : null}
 				</div>
 
 				<Text>
@@ -85,7 +87,7 @@ export function ApiKeys({ guilds }: ApiKeysProps) {
 
 			{isLoading ? (
 				<LoadingSpinner />
-			) : data.length > 0 ? (
+			) : keys.length > 0 ? (
 				<>
 					<div className="overflow-x-auto">
 						<div className="min-w-80">
@@ -103,7 +105,7 @@ export function ApiKeys({ guilds }: ApiKeysProps) {
 								</TableHead>
 
 								<TableBody>
-									{data.map((item, index) => (
+									{keys.map((item, index) => (
 										<TableRow key={item.id}>
 											<TableCell className="font-medium">{item.name}</TableCell>
 											<TableCell>
@@ -134,21 +136,21 @@ export function ApiKeys({ guilds }: ApiKeysProps) {
 						</div>
 					</div>
 
-					{focusedApiKeyIndex !== null && data[focusedApiKeyIndex] && (
+					{focusedApiKeyIndex !== null && keys[focusedApiKeyIndex] && (
 						<GuildAccessApiKeyDialog
-							keyId={data[focusedApiKeyIndex].id}
-							keyName={data[focusedApiKeyIndex].name}
-							guildAccess={data[focusedApiKeyIndex].guildAccess}
+							keyId={keys[focusedApiKeyIndex].id}
+							keyName={keys[focusedApiKeyIndex].name}
+							guildAccess={keys[focusedApiKeyIndex].guildAccess}
 							guilds={guilds}
 							open={guildAccessDialogOpen}
 							onOpenChange={handleCloseGuildAccessDialog}
 						/>
 					)}
 
-					{deleteDialogOpen && focusedApiKeyIndex !== null && data[focusedApiKeyIndex] && (
+					{deleteDialogOpen && focusedApiKeyIndex !== null && keys[focusedApiKeyIndex] && (
 						<DeleteApiKeyDialog
-							keyId={data[focusedApiKeyIndex].id}
-							keyName={data[focusedApiKeyIndex].name}
+							keyId={keys[focusedApiKeyIndex].id}
+							keyName={keys[focusedApiKeyIndex].name}
 							open={deleteDialogOpen}
 							onOpenChange={handleCloseDeleteApiKeyDialog}
 						/>
