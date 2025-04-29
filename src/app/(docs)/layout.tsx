@@ -19,7 +19,7 @@ export default function Layout({ children }: { children: ReactNode }) {
 						forcedTheme: "dark",
 					}}
 				>
-					<Banner id="alpha-docs-banner">
+					<Banner id="alpha-docs-banner" className="inline text-balance">
 						Alpha documentation. To view the full documentation, go to{" "}
 						<ExternalLink className="ml-1 text-blurple" href="https://docs.lurkr.gg">
 							docs.lurkr.gg
