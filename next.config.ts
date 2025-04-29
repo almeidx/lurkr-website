@@ -1,5 +1,5 @@
+import { createMDX } from "fumadocs-mdx/next";
 import type { NextConfig } from "next";
-import nextra from "nextra";
 import {
 	BOT_INVITE,
 	GITHUB_REPOSITORY_URL,
@@ -7,10 +7,6 @@ import {
 	SUPPORT_SERVER_INVITE,
 	TOPGG_URL,
 } from "./src/shared-links.js";
-
-const withNextra = nextra({
-	contentDirBasePath: "/docs",
-});
 
 const apiDomain = process.env.NEXT_PUBLIC_API_URL!.split("://")[1];
 const backgroundBucketDomain = process.env.BACKGROUNDS_BUCKET_DOMAIN!;
@@ -119,4 +115,6 @@ const nextConfig = {
 	},
 } as const satisfies NextConfig;
 
-export default withNextra(nextConfig);
+const withMDX = createMDX();
+
+export default withMDX(nextConfig);

@@ -1,4 +1,4 @@
-import "@/app/globals.css";
+import "./dashboard.css";
 
 import { openSans } from "@/app/fonts.ts";
 import { Providers } from "@/app/providers.tsx";

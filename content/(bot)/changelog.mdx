@@ -1,28 +1,29 @@
 ---
-title: Change Log
-summary: Stay up to date with the latest changes to Lurkr.
-publishedAt: 2024-10-05
+title: Changelog
+description: Stay up to date with the latest changes to Lurkr.
+icon: 📝
 ---
 
-# Change Log
+import { SUPPORT_SERVER_INVITE, UPDATES_CHANNEL_LINK } from "@/shared-links.js";
+import { ExternalLink } from "@/components/ExternalLink.tsx";
 
 Here you can find some of the relevant changes we've made to Lurkr over the past few months.
 We're always working on improving the bot and adding new features, so make sure to check back here regularly!
 
 Despite our efforts, this page is not always so up-to-date. For the most recent changes, please check the
-[#updates](https://discord.com/channels/705009450855039039/951585846367248424) channel in our
-[Discord Server](https://discord.gg/XUQAnkq2vy).
+<ExternalLink href={UPDATES_CHANNEL_LINK}>#updates</ExternalLink> channel in our
+<ExternalLink href={SUPPORT_SERVER_INVITE}>Discord Server</ExternalLink>.
 
 ## Introducing the Lurkr API!
 
 28 April 2025
 
-### Discord Bot
+### Discord Bot [!toc]
 
 - Added a **public API** for other developers to take advantage of Lurkr's deep Leveling System for their own projects!
   - This can allow you to add leveling requirements for your own bots, add or remove levels\/xp based on other factors, and integrate Lurkr leveling into other games!
   - You can create and customize your API key on your profile page: [lurkr.gg/profile](/profile)
-  - Please read the API Documentation before creating support requests: [docs.lurkr.gg/guides/api-introduction](https://docs.lurkr.gg/guides/api-introduction)
+  - Please read the API Documentation before creating support requests: [lurkr.gg/docs/api](/docs/api)
 
 - Improved and updated the rank card!
   - Now applies the name on the rank card in this order: <u>1.</u> Nickname, <u>2.</u> Display name, <u>3.</u> Username
@@ -35,7 +36,7 @@ Despite our efforts, this page is not always so up-to-date. For the most recent 
 - Fixed the rank card not showing when any image failed to load.
 - Fixed cyrillic alphabet not appearing in the rank card.
 
-### Dashboard
+### Dashboard [!toc]
 
 - Added an API key generation section to the profile page! [lurkr.gg/profile](/profile)
 
@@ -43,7 +44,7 @@ Despite our efforts, this page is not always so up-to-date. For the most recent 
 
 30 December 2024
 
-### Discord Bot
+### Discord Bot [!toc]
 
 - Added `{roleRewards}` placeholder to Level Up Message!
 	- This now allows you to show which role rewards your members get!
@@ -59,7 +60,7 @@ Despite our efforts, this page is not always so up-to-date. For the most recent 
 - Removed `/image`, `/purge`, and `/translate` commands.
   - They are no longer the focus of the bot, and weren't used by anyone anymore.
 
-### Dashboard
+### Dashboard [!toc]
 
 - Fixed a 404 error when accepting cookies in the dashboard page.
 - Fixed roles not being saved when updating an existing role multiplier.
@@ -68,7 +69,7 @@ Despite our efforts, this page is not always so up-to-date. For the most recent 
 
 29 September 2024
 
-### Discord Bot
+### Discord Bot [!toc]
 
 - Increased the Role Mention Cooldown interval to __6 Hours__ for [Lurkr Ultimate](/premium) servers.
 	- The standard limit of 30 minutes has not been changed.
@@ -87,7 +88,7 @@ Despite our efforts, this page is not always so up-to-date. For the most recent 
 - Unfortunately Polaris Import's might still sometimes fail with "unexpected errors".
 This is because of Polaris' inherent instability and cannot be fixed on our end.
 
-### Dashboard
+### Dashboard [!toc]
 
 - Added a toggle for **Only Announce Level-Ups Together With Role Rewards** which was previously only available through the config command.
 	- You can find it under __Leveling > Level Up Message__.
@@ -102,7 +103,7 @@ This is because of Polaris' inherent instability and cannot be fixed on our end.
 
 24 August 2024
 
-### Discord Bot
+### Discord Bot [!toc]
 
 - Added [Polaris](https://gdcolon.com/polaris/) support to the Import Bots section in the dashboard & `/importxp` command!
 	- Polaris has been discontinued by the creator, and we want to help server owners/admins enjoy a smooth transition to our leveling bot
@@ -111,7 +112,7 @@ This is because of Polaris' inherent instability and cannot be fixed on our end.
 - Changed the `/colour` error message to better communicate hex colour codes.
 - Fixed the very first message a user sends not counting towards their XP but still triggering the XP cooldown.
 
-### Dashboard
+### Dashboard [!toc]
 
 - Fixed several errors when saving changes on the leveling page of the dashboard.
 
@@ -119,7 +120,7 @@ This is because of Polaris' inherent instability and cannot be fixed on our end.
 
 8 July 2024
 
-### Dashboard
+### Dashboard [!toc]
 
 - Added the ability to create **Embed Messages** as the Level Up Message!
 	- You can now create embed messages _in addition_ to the normal level up message that gets sent!
@@ -137,7 +138,7 @@ This is because of Polaris' inherent instability and cannot be fixed on our end.
 
 27 June 2024
 
-### Discord Bot
+### Discord Bot [!toc]
 
 - Added a blacklisting system for users who upload innapropriate Backgrounds using `/background set`.
 	- This is tied to the `/background report` command.
@@ -154,7 +155,7 @@ This is because of Polaris' inherent instability and cannot be fixed on our end.
 - Fixed `/importxp` for AmariBot only importing the first 50 members
 - Stability improvements and other minor bug fixes
 
-### Dashboard
+### Dashboard [!toc]
 
 - Added the `Import Bots` section to the Dashboard!
 	- Adds the same functionality as the `/importxp` command but in the nice brand new website!
@@ -169,7 +170,7 @@ This is because of Polaris' inherent instability and cannot be fixed on our end.
 
 26 June 2024
 
-### Dashboard
+### Dashboard [!toc]
 
 2 Months ago we announced the launch of our new Beta website we've been crunching out for 2 Years! We're glad and
 <u>(slightly)</u> relieved to announce it is, as of right now live and accessible from https://lurkr.gg/ directly!
