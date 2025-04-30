@@ -55,19 +55,16 @@ importers:
         version: 4.1.0
       fumadocs-core:
         specifier: ^15.2.12
-        version: 15.2.12(@types/react@19.1.2)(next@15.3.1(babel-plugin-react-compiler@19.0.0-beta-ebf51a3-20250411)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+        version: 15.2.12(@types/react@19.1.2)(next@15.3.1(babel-plugin-react-compiler@19.1.0-rc.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       fumadocs-mdx:
         specifier: ^11.6.1
-        version: 11.6.1(acorn@8.14.1)(fumadocs-core@15.2.12(@types/react@19.1.2)(next@15.3.1(babel-plugin-react-compiler@19.0.0-beta-ebf51a3-20250411)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(next@15.3.1(babel-plugin-react-compiler@19.0.0-beta-ebf51a3-20250411)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))
+        version: 11.6.1(acorn@8.14.1)(fumadocs-core@15.2.12(@types/react@19.1.2)(next@15.3.1(babel-plugin-react-compiler@19.1.0-rc.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(next@15.3.1(babel-plugin-react-compiler@19.1.0-rc.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))
       fumadocs-openapi:
         specifier: ^8.1.3
-        version: 8.1.3(@types/react-dom@19.1.3(@types/react@19.1.2))(@types/react@19.1.2)(ajv@8.17.1)(next@15.3.1(babel-plugin-react-compiler@19.0.0-beta-ebf51a3-20250411)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(tailwindcss@4.1.4)
+        version: 8.1.3(@types/react-dom@19.1.3(@types/react@19.1.2))(@types/react@19.1.2)(ajv@8.17.1)(next@15.3.1(babel-plugin-react-compiler@19.1.0-rc.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(tailwindcss@4.1.5)
       fumadocs-ui:
         specifier: ^15.2.12
-        version: 15.2.12(@types/react-dom@19.1.3(@types/react@19.1.2))(@types/react@19.1.2)(next@15.3.1(babel-plugin-react-compiler@19.0.0-beta-ebf51a3-20250411)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(tailwindcss@4.1.4)
-      gray-matter:
-        specifier: ^4.0.3
-        version: 4.0.3
+        version: 15.2.12(@types/react-dom@19.1.3(@types/react@19.1.2))(@types/react@19.1.2)(next@15.3.1(babel-plugin-react-compiler@19.1.0-rc.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(tailwindcss@4.1.5)
       isbot:
         specifier: ^5.1.27
         version: 5.1.27
@@ -79,7 +76,7 @@ importers:
         version: 8.0.0
       next:
         specifier: ^15.3.1
-        version: 15.3.1(babel-plugin-react-compiler@19.0.0-beta-ebf51a3-20250411)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+        version: 15.3.1(babel-plugin-react-compiler@19.1.0-rc.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       next-nprogress-bar:
         specifier: ^2.4.7
         version: 2.4.7
@@ -110,18 +107,6 @@ importers:
       recharts:
         specifier: ^2.15.3
         version: 2.15.3(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      remark:
-        specifier: ^15.0.1
-        version: 15.0.1
-      remark-gfm:
-        specifier: ^4.0.1
-        version: 4.0.1
-      remark-mdx:
-        specifier: ^3.1.0
-        version: 3.1.0
-      remark-stringify:
-        specifier: ^11.0.0
-        version: 11.0.0
       shiki:
         specifier: ^3.3.0
         version: 3.3.0
@@ -133,7 +118,7 @@ importers:
         version: 3.2.0
       tailwind-variants:
         specifier: ^1.0.0
-        version: 1.0.0(tailwindcss@4.1.4)
+        version: 1.0.0(tailwindcss@4.1.5)
       textarea-caret:
         specifier: ^3.1.0
         version: 3.1.0
@@ -146,13 +131,13 @@ importers:
         version: 1.9.4
       '@tailwindcss/forms':
         specifier: ^0.5.10
-        version: 0.5.10(tailwindcss@4.1.4)
+        version: 0.5.10(tailwindcss@4.1.5)
       '@tailwindcss/postcss':
-        specifier: ^4.1.4
-        version: 4.1.4
+        specifier: ^4.1.5
+        version: 4.1.5
       '@tailwindcss/typography':
         specifier: ^0.5.16
-        version: 0.5.16(tailwindcss@4.1.4)
+        version: 0.5.16(tailwindcss@4.1.5)
       '@types/js-cookie':
         specifier: ^3.0.6
         version: 3.0.6
@@ -172,8 +157,11 @@ importers:
         specifier: ^3.0.4
         version: 3.0.4
       babel-plugin-react-compiler:
-        specifier: 19.0.0-beta-ebf51a3-20250411
-        version: 19.0.0-beta-ebf51a3-20250411
+        specifier: ^19.1.0-rc.1
+        version: 19.1.0-rc.1
+      gray-matter:
+        specifier: ^4.0.3
+        version: 4.0.3
       husky:
         specifier: ^9.1.7
         version: 9.1.7
@@ -183,12 +171,24 @@ importers:
       prettier:
         specifier: ^3.5.3
         version: 3.5.3
+      remark:
+        specifier: ^15.0.1
+        version: 15.0.1
+      remark-gfm:
+        specifier: ^4.0.1
+        version: 4.0.1
+      remark-mdx:
+        specifier: ^3.1.0
+        version: 3.1.0
+      remark-stringify:
+        specifier: ^11.0.0
+        version: 11.0.0
       tailwind-scrollbar:
         specifier: ^4.0.2
-        version: 4.0.2(react@19.1.0)(tailwindcss@4.1.4)
+        version: 4.0.2(react@19.1.0)(tailwindcss@4.1.5)
       tailwindcss:
-        specifier: ^4.1.4
-        version: 4.1.4
+        specifier: ^4.1.5
+        version: 4.1.5
       typescript:
         specifier: ~5.8.3
         version: 5.8.3
@@ -1337,65 +1337,65 @@ packages:
     peerDependencies:
       tailwindcss: '>=3.0.0 || >= 3.0.0-alpha.1 || >= 4.0.0-alpha.20 || >= 4.0.0-beta.1'
 
-  '@tailwindcss/node@4.1.4':
-    resolution: {integrity: sha512-MT5118zaiO6x6hNA04OWInuAiP1YISXql8Z+/Y8iisV5nuhM8VXlyhRuqc2PEviPszcXI66W44bCIk500Oolhw==}
+  '@tailwindcss/node@4.1.5':
+    resolution: {integrity: sha512-CBhSWo0vLnWhXIvpD0qsPephiaUYfHUX3U9anwDaHZAeuGpTiB3XmsxPAN6qX7bFhipyGBqOa1QYQVVhkOUGxg==}
 
-  '@tailwindcss/oxide-android-arm64@4.1.4':
-    resolution: {integrity: sha512-xMMAe/SaCN/vHfQYui3fqaBDEXMu22BVwQ33veLc8ep+DNy7CWN52L+TTG9y1K397w9nkzv+Mw+mZWISiqhmlA==}
+  '@tailwindcss/oxide-android-arm64@4.1.5':
+    resolution: {integrity: sha512-LVvM0GirXHED02j7hSECm8l9GGJ1RfgpWCW+DRn5TvSaxVsv28gRtoL4aWKGnXqwvI3zu1GABeDNDVZeDPOQrw==}
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [android]
 
-  '@tailwindcss/oxide-darwin-arm64@4.1.4':
-    resolution: {integrity: sha512-JGRj0SYFuDuAGilWFBlshcexev2hOKfNkoX+0QTksKYq2zgF9VY/vVMq9m8IObYnLna0Xlg+ytCi2FN2rOL0Sg==}
+  '@tailwindcss/oxide-darwin-arm64@4.1.5':
+    resolution: {integrity: sha512-//TfCA3pNrgnw4rRJOqavW7XUk8gsg9ddi8cwcsWXp99tzdBAZW0WXrD8wDyNbqjW316Pk2hiN/NJx/KWHl8oA==}
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [darwin]
 
-  '@tailwindcss/oxide-darwin-x64@4.1.4':
-    resolution: {integrity: sha512-sdDeLNvs3cYeWsEJ4H1DvjOzaGios4QbBTNLVLVs0XQ0V95bffT3+scptzYGPMjm7xv4+qMhCDrkHwhnUySEzA==}
+  '@tailwindcss/oxide-darwin-x64@4.1.5':
+    resolution: {integrity: sha512-XQorp3Q6/WzRd9OalgHgaqgEbjP3qjHrlSUb5k1EuS1Z9NE9+BbzSORraO+ecW432cbCN7RVGGL/lSnHxcd+7Q==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [darwin]
 
-  '@tailwindcss/oxide-freebsd-x64@4.1.4':
-    resolution: {integrity: sha512-VHxAqxqdghM83HslPhRsNhHo91McsxRJaEnShJOMu8mHmEj9Ig7ToHJtDukkuLWLzLboh2XSjq/0zO6wgvykNA==}
+  '@tailwindcss/oxide-freebsd-x64@4.1.5':
+    resolution: {integrity: sha512-bPrLWbxo8gAo97ZmrCbOdtlz/Dkuy8NK97aFbVpkJ2nJ2Jo/rsCbu0TlGx8joCuA3q6vMWTSn01JY46iwG+clg==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [freebsd]
 
-  '@tailwindcss/oxide-linux-arm-gnueabihf@4.1.4':
-    resolution: {integrity: sha512-OTU/m/eV4gQKxy9r5acuesqaymyeSCnsx1cFto/I1WhPmi5HDxX1nkzb8KYBiwkHIGg7CTfo/AcGzoXAJBxLfg==}
+  '@tailwindcss/oxide-linux-arm-gnueabihf@4.1.5':
+    resolution: {integrity: sha512-1gtQJY9JzMAhgAfvd/ZaVOjh/Ju/nCoAsvOVJenWZfs05wb8zq+GOTnZALWGqKIYEtyNpCzvMk+ocGpxwdvaVg==}
     engines: {node: '>= 10'}
     cpu: [arm]
     os: [linux]
 
-  '@tailwindcss/oxide-linux-arm64-gnu@4.1.4':
-    resolution: {integrity: sha512-hKlLNvbmUC6z5g/J4H+Zx7f7w15whSVImokLPmP6ff1QqTVE+TxUM9PGuNsjHvkvlHUtGTdDnOvGNSEUiXI1Ww==}
+  '@tailwindcss/oxide-linux-arm64-gnu@4.1.5':
+    resolution: {integrity: sha512-dtlaHU2v7MtdxBXoqhxwsWjav7oim7Whc6S9wq/i/uUMTWAzq/gijq1InSgn2yTnh43kR+SFvcSyEF0GCNu1PQ==}
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [linux]
 
-  '@tailwindcss/oxide-linux-arm64-musl@4.1.4':
-    resolution: {integrity: sha512-X3As2xhtgPTY/m5edUtddmZ8rCruvBvtxYLMw9OsZdH01L2gS2icsHRwxdU0dMItNfVmrBezueXZCHxVeeb7Aw==}
+  '@tailwindcss/oxide-linux-arm64-musl@4.1.5':
+    resolution: {integrity: sha512-fg0F6nAeYcJ3CriqDT1iVrqALMwD37+sLzXs8Rjy8Z1ZHshJoYceodfyUwGJEsQoTyWbliFNRs2wMQNXtT7MVA==}
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [linux]
 
-  '@tailwindcss/oxide-linux-x64-gnu@4.1.4':
-    resolution: {integrity: sha512-2VG4DqhGaDSmYIu6C4ua2vSLXnJsb/C9liej7TuSO04NK+JJJgJucDUgmX6sn7Gw3Cs5ZJ9ZLrnI0QRDOjLfNQ==}
+  '@tailwindcss/oxide-linux-x64-gnu@4.1.5':
+    resolution: {integrity: sha512-SO+F2YEIAHa1AITwc8oPwMOWhgorPzzcbhWEb+4oLi953h45FklDmM8dPSZ7hNHpIk9p/SCZKUYn35t5fjGtHA==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [linux]
 
-  '@tailwindcss/oxide-linux-x64-musl@4.1.4':
-    resolution: {integrity: sha512-v+mxVgH2kmur/X5Mdrz9m7TsoVjbdYQT0b4Z+dr+I4RvreCNXyCFELZL/DO0M1RsidZTrm6O1eMnV6zlgEzTMQ==}
+  '@tailwindcss/oxide-linux-x64-musl@4.1.5':
+    resolution: {integrity: sha512-6UbBBplywkk/R+PqqioskUeXfKcBht3KU7juTi1UszJLx0KPXUo10v2Ok04iBJIaDPkIFkUOVboXms5Yxvaz+g==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [linux]
 
-  '@tailwindcss/oxide-wasm32-wasi@4.1.4':
-    resolution: {integrity: sha512-2TLe9ir+9esCf6Wm+lLWTMbgklIjiF0pbmDnwmhR9MksVOq+e8aP3TSsXySnBDDvTTVd/vKu1aNttEGj3P6l8Q==}
+  '@tailwindcss/oxide-wasm32-wasi@4.1.5':
+    resolution: {integrity: sha512-hwALf2K9FHuiXTPqmo1KeOb83fTRNbe9r/Ixv9ZNQ/R24yw8Ge1HOWDDgTdtzntIaIUJG5dfXCf4g9AD4RiyhQ==}
     engines: {node: '>=14.0.0'}
     cpu: [wasm32]
     bundledDependencies:
@@ -1406,24 +1406,24 @@ packages:
       - '@emnapi/wasi-threads'
       - tslib
 
-  '@tailwindcss/oxide-win32-arm64-msvc@4.1.4':
-    resolution: {integrity: sha512-VlnhfilPlO0ltxW9/BgfLI5547PYzqBMPIzRrk4W7uupgCt8z6Trw/tAj6QUtF2om+1MH281Pg+HHUJoLesmng==}
+  '@tailwindcss/oxide-win32-arm64-msvc@4.1.5':
+    resolution: {integrity: sha512-oDKncffWzaovJbkuR7/OTNFRJQVdiw/n8HnzaCItrNQUeQgjy7oUiYpsm9HUBgpmvmDpSSbGaCa2Evzvk3eFmA==}
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [win32]
 
-  '@tailwindcss/oxide-win32-x64-msvc@4.1.4':
-    resolution: {integrity: sha512-+7S63t5zhYjslUGb8NcgLpFXD+Kq1F/zt5Xv5qTv7HaFTG/DHyHD9GA6ieNAxhgyA4IcKa/zy7Xx4Oad2/wuhw==}
+  '@tailwindcss/oxide-win32-x64-msvc@4.1.5':
+    resolution: {integrity: sha512-WiR4dtyrFdbb+ov0LK+7XsFOsG+0xs0PKZKkt41KDn9jYpO7baE3bXiudPVkTqUEwNfiglCygQHl2jklvSBi7Q==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [win32]
 
-  '@tailwindcss/oxide@4.1.4':
-    resolution: {integrity: sha512-p5wOpXyOJx7mKh5MXh5oKk+kqcz8T+bA3z/5VWWeQwFrmuBItGwz8Y2CHk/sJ+dNb9B0nYFfn0rj/cKHZyjahQ==}
+  '@tailwindcss/oxide@4.1.5':
+    resolution: {integrity: sha512-1n4br1znquEvyW/QuqMKQZlBen+jxAbvyduU87RS8R3tUSvByAkcaMTkJepNIrTlYhD+U25K4iiCIxE6BGdRYA==}
     engines: {node: '>= 10'}
 
-  '@tailwindcss/postcss@4.1.4':
-    resolution: {integrity: sha512-bjV6sqycCEa+AQSt2Kr7wpGF1bOZJ5wsqnLEkqSbM/JEHxx/yhMH8wHmdkPyApF9xhHeMSwnnkDUUMMM/hYnXw==}
+  '@tailwindcss/postcss@4.1.5':
+    resolution: {integrity: sha512-5lAC2/pzuyfhsFgk6I58HcNy6vPK3dV/PoPxSDuOTVbDvCddYHzHiJZZInGIY0venvzzfrTEUAXJFULAfFmObg==}
 
   '@tailwindcss/typography@0.5.16':
     resolution: {integrity: sha512-0wDLwCVF5V3x3b1SGXPCDcdsbDHMBe+lkFzBRaHeLvNi+nrrnZ1lA18u+OTWO8iSWU2GxUOCvlXtDuqftc1oiA==}
@@ -1571,8 +1571,8 @@ packages:
     resolution: {integrity: sha512-Cg7TFGpIr01vOQNODXOOaGz2NpCU5gl8x1qJFbb6hbZxR7XrcE2vtbAsTAbJ7/xwJtUuJEw8K8Zr/AE0LHlesg==}
     engines: {node: '>=10', npm: '>=6'}
 
-  babel-plugin-react-compiler@19.0.0-beta-ebf51a3-20250411:
-    resolution: {integrity: sha512-q84bNR9JG1crykAlJUt5Ud0/5BUyMFuQww/mrwIQDFBaxsikqBDj3f/FNDsVd2iR26A1HvXKWPEIfgJDv8/V2g==}
+  babel-plugin-react-compiler@19.1.0-rc.1:
+    resolution: {integrity: sha512-M4fpG+Hfq5gWzsJeeMErdRokzg0fdJ8IAk+JDhfB/WLT+U3WwJWR8edphypJrk447/JEvYu6DBFwsTn10bMW4Q==}
 
   bail@2.0.2:
     resolution: {integrity: sha512-0xO6mYd7JB2YesxDKplafRpsiOzPt9V02ddPCLbY1xYGPOX24NTyN50qnUxgCPcSoYMhKpAuBTjQoRZCAkUDRw==}
@@ -1732,8 +1732,8 @@ packages:
     resolution: {integrity: sha512-0je+qPKHEMohvfRTCEo3CrPG6cAzAYgmzKyxRiYSSDkS6eGJdyVJm7WaYA5ECaAD9wLB2T4EEeymA5aFVcYXCA==}
     engines: {node: '>=6'}
 
-  detect-libc@2.0.3:
-    resolution: {integrity: sha512-bwy0MGW55bG41VqxxypOsdSdGqLwXPI/focwgTYCFMbdUiBAxLg9CFzG08sz2aqzknwiX7Hkl0bQENjg8iLByw==}
+  detect-libc@2.0.4:
+    resolution: {integrity: sha512-3UDv+G9CsCKO1WKMGw9fwq/SWJYbI0c5Y7LU1AXYoDdbhE2AHQ6N6Nb34sG8Fj7T5APy8qXDCKuuIHd1BR0tVA==}
     engines: {node: '>=8'}
 
   detect-node-es@1.1.0:
@@ -2754,8 +2754,8 @@ packages:
     peerDependencies:
       tailwindcss: '*'
 
-  tailwindcss@4.1.4:
-    resolution: {integrity: sha512-1ZIUqtPITFbv/DxRmDr5/agPqJwF69d24m9qmM1939TJehgY539CtzeZRjbLt5G6fSy/7YqqYsfvoTEw9xUI2A==}
+  tailwindcss@4.1.5:
+    resolution: {integrity: sha512-nYtSPfWGDiWgCkwQG/m+aX83XCwf62sBgg3bIlNiiOcggnS1x3uVRDAuyelBFL+vJdOPPCGElxv9DjHJjRHiVA==}
 
   tapable@2.2.1:
     resolution: {integrity: sha512-GNzQvQTOIP6RyTfE2Qxb8ZVlNmw0n88vp1szwWRimP02mnTsx3Wtn5qRdqY9w2XduFNUgvOwhNnQsjwCp+kqaQ==}
@@ -4070,84 +4070,84 @@ snapshots:
     dependencies:
       tslib: 2.8.1
 
-  '@tailwindcss/forms@0.5.10(tailwindcss@4.1.4)':
+  '@tailwindcss/forms@0.5.10(tailwindcss@4.1.5)':
     dependencies:
       mini-svg-data-uri: 1.4.4
-      tailwindcss: 4.1.4
+      tailwindcss: 4.1.5
 
-  '@tailwindcss/node@4.1.4':
+  '@tailwindcss/node@4.1.5':
     dependencies:
       enhanced-resolve: 5.18.1
       jiti: 2.4.2
       lightningcss: 1.29.2
-      tailwindcss: 4.1.4
+      tailwindcss: 4.1.5
 
-  '@tailwindcss/oxide-android-arm64@4.1.4':
+  '@tailwindcss/oxide-android-arm64@4.1.5':
     optional: true
 
-  '@tailwindcss/oxide-darwin-arm64@4.1.4':
+  '@tailwindcss/oxide-darwin-arm64@4.1.5':
     optional: true
 
-  '@tailwindcss/oxide-darwin-x64@4.1.4':
+  '@tailwindcss/oxide-darwin-x64@4.1.5':
     optional: true
 
-  '@tailwindcss/oxide-freebsd-x64@4.1.4':
+  '@tailwindcss/oxide-freebsd-x64@4.1.5':
     optional: true
 
-  '@tailwindcss/oxide-linux-arm-gnueabihf@4.1.4':
+  '@tailwindcss/oxide-linux-arm-gnueabihf@4.1.5':
     optional: true
 
-  '@tailwindcss/oxide-linux-arm64-gnu@4.1.4':
+  '@tailwindcss/oxide-linux-arm64-gnu@4.1.5':
     optional: true
 
-  '@tailwindcss/oxide-linux-arm64-musl@4.1.4':
+  '@tailwindcss/oxide-linux-arm64-musl@4.1.5':
     optional: true
 
-  '@tailwindcss/oxide-linux-x64-gnu@4.1.4':
+  '@tailwindcss/oxide-linux-x64-gnu@4.1.5':
     optional: true
 
-  '@tailwindcss/oxide-linux-x64-musl@4.1.4':
+  '@tailwindcss/oxide-linux-x64-musl@4.1.5':
     optional: true
 
-  '@tailwindcss/oxide-wasm32-wasi@4.1.4':
+  '@tailwindcss/oxide-wasm32-wasi@4.1.5':
     optional: true
 
-  '@tailwindcss/oxide-win32-arm64-msvc@4.1.4':
+  '@tailwindcss/oxide-win32-arm64-msvc@4.1.5':
     optional: true
 
-  '@tailwindcss/oxide-win32-x64-msvc@4.1.4':
+  '@tailwindcss/oxide-win32-x64-msvc@4.1.5':
     optional: true
 
-  '@tailwindcss/oxide@4.1.4':
+  '@tailwindcss/oxide@4.1.5':
     optionalDependencies:
-      '@tailwindcss/oxide-android-arm64': 4.1.4
-      '@tailwindcss/oxide-darwin-arm64': 4.1.4
-      '@tailwindcss/oxide-darwin-x64': 4.1.4
-      '@tailwindcss/oxide-freebsd-x64': 4.1.4
-      '@tailwindcss/oxide-linux-arm-gnueabihf': 4.1.4
-      '@tailwindcss/oxide-linux-arm64-gnu': 4.1.4
-      '@tailwindcss/oxide-linux-arm64-musl': 4.1.4
-      '@tailwindcss/oxide-linux-x64-gnu': 4.1.4
-      '@tailwindcss/oxide-linux-x64-musl': 4.1.4
-      '@tailwindcss/oxide-wasm32-wasi': 4.1.4
-      '@tailwindcss/oxide-win32-arm64-msvc': 4.1.4
-      '@tailwindcss/oxide-win32-x64-msvc': 4.1.4
+      '@tailwindcss/oxide-android-arm64': 4.1.5
+      '@tailwindcss/oxide-darwin-arm64': 4.1.5
+      '@tailwindcss/oxide-darwin-x64': 4.1.5
+      '@tailwindcss/oxide-freebsd-x64': 4.1.5
+      '@tailwindcss/oxide-linux-arm-gnueabihf': 4.1.5
+      '@tailwindcss/oxide-linux-arm64-gnu': 4.1.5
+      '@tailwindcss/oxide-linux-arm64-musl': 4.1.5
+      '@tailwindcss/oxide-linux-x64-gnu': 4.1.5
+      '@tailwindcss/oxide-linux-x64-musl': 4.1.5
+      '@tailwindcss/oxide-wasm32-wasi': 4.1.5
+      '@tailwindcss/oxide-win32-arm64-msvc': 4.1.5
+      '@tailwindcss/oxide-win32-x64-msvc': 4.1.5
 
-  '@tailwindcss/postcss@4.1.4':
+  '@tailwindcss/postcss@4.1.5':
     dependencies:
       '@alloc/quick-lru': 5.2.0
-      '@tailwindcss/node': 4.1.4
-      '@tailwindcss/oxide': 4.1.4
+      '@tailwindcss/node': 4.1.5
+      '@tailwindcss/oxide': 4.1.5
       postcss: 8.5.3
-      tailwindcss: 4.1.4
+      tailwindcss: 4.1.5
 
-  '@tailwindcss/typography@0.5.16(tailwindcss@4.1.4)':
+  '@tailwindcss/typography@0.5.16(tailwindcss@4.1.5)':
     dependencies:
       lodash.castarray: 4.4.0
       lodash.isplainobject: 4.0.6
       lodash.merge: 4.6.2
       postcss-selector-parser: 6.0.10
-      tailwindcss: 4.1.4
+      tailwindcss: 4.1.5
 
   '@types/acorn@4.0.6':
     dependencies:
@@ -4272,7 +4272,7 @@ snapshots:
       cosmiconfig: 7.1.0
       resolve: 1.22.10
 
-  babel-plugin-react-compiler@19.0.0-beta-ebf51a3-20250411:
+  babel-plugin-react-compiler@19.1.0-rc.1:
     dependencies:
       '@babel/types': 7.27.0
 
@@ -4412,7 +4412,7 @@ snapshots:
 
   dequal@2.0.3: {}
 
-  detect-libc@2.0.3: {}
+  detect-libc@2.0.4: {}
 
   detect-node-es@1.1.0: {}
 
@@ -4557,7 +4557,7 @@ snapshots:
 
   foreach@2.0.6: {}
 
-  fumadocs-core@15.2.12(@types/react@19.1.2)(next@15.3.1(babel-plugin-react-compiler@19.0.0-beta-ebf51a3-20250411)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
+  fumadocs-core@15.2.12(@types/react@19.1.2)(next@15.3.1(babel-plugin-react-compiler@19.1.0-rc.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
     dependencies:
       '@formatjs/intl-localematcher': 0.6.1
       '@orama/orama': 3.1.6
@@ -4575,14 +4575,14 @@ snapshots:
       shiki: 3.3.0
       unist-util-visit: 5.0.0
     optionalDependencies:
-      next: 15.3.1(babel-plugin-react-compiler@19.0.0-beta-ebf51a3-20250411)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      next: 15.3.1(babel-plugin-react-compiler@19.1.0-rc.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       react: 19.1.0
       react-dom: 19.1.0(react@19.1.0)
     transitivePeerDependencies:
       - '@types/react'
       - supports-color
 
-  fumadocs-mdx@11.6.1(acorn@8.14.1)(fumadocs-core@15.2.12(@types/react@19.1.2)(next@15.3.1(babel-plugin-react-compiler@19.0.0-beta-ebf51a3-20250411)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(next@15.3.1(babel-plugin-react-compiler@19.0.0-beta-ebf51a3-20250411)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)):
+  fumadocs-mdx@11.6.1(acorn@8.14.1)(fumadocs-core@15.2.12(@types/react@19.1.2)(next@15.3.1(babel-plugin-react-compiler@19.1.0-rc.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(next@15.3.1(babel-plugin-react-compiler@19.1.0-rc.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)):
     dependencies:
       '@mdx-js/mdx': 3.1.0(acorn@8.14.1)
       '@standard-schema/spec': 1.0.0
@@ -4591,10 +4591,10 @@ snapshots:
       esbuild: 0.25.3
       estree-util-value-to-estree: 3.3.3
       fast-glob: 3.3.3
-      fumadocs-core: 15.2.12(@types/react@19.1.2)(next@15.3.1(babel-plugin-react-compiler@19.0.0-beta-ebf51a3-20250411)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      fumadocs-core: 15.2.12(@types/react@19.1.2)(next@15.3.1(babel-plugin-react-compiler@19.1.0-rc.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       gray-matter: 4.0.3
       lru-cache: 11.1.0
-      next: 15.3.1(babel-plugin-react-compiler@19.0.0-beta-ebf51a3-20250411)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      next: 15.3.1(babel-plugin-react-compiler@19.1.0-rc.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       picocolors: 1.1.1
       unist-util-visit: 5.0.0
       zod: 3.24.3
@@ -4602,7 +4602,7 @@ snapshots:
       - acorn
       - supports-color
 
-  fumadocs-openapi@8.1.3(@types/react-dom@19.1.3(@types/react@19.1.2))(@types/react@19.1.2)(ajv@8.17.1)(next@15.3.1(babel-plugin-react-compiler@19.0.0-beta-ebf51a3-20250411)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(tailwindcss@4.1.4):
+  fumadocs-openapi@8.1.3(@types/react-dom@19.1.3(@types/react@19.1.2))(@types/react@19.1.2)(ajv@8.17.1)(next@15.3.1(babel-plugin-react-compiler@19.1.0-rc.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(tailwindcss@4.1.5):
     dependencies:
       '@fumari/json-schema-to-typescript': 1.1.3
       '@radix-ui/react-dialog': 1.1.11(@types/react-dom@19.1.3(@types/react@19.1.2))(@types/react@19.1.2)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -4612,12 +4612,12 @@ snapshots:
       ajv-draft-04: 1.0.0(ajv@8.17.1)
       class-variance-authority: 0.7.1
       fast-glob: 3.3.3
-      fumadocs-core: 15.2.12(@types/react@19.1.2)(next@15.3.1(babel-plugin-react-compiler@19.0.0-beta-ebf51a3-20250411)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      fumadocs-ui: 15.2.12(@types/react-dom@19.1.3(@types/react@19.1.2))(@types/react@19.1.2)(next@15.3.1(babel-plugin-react-compiler@19.0.0-beta-ebf51a3-20250411)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(tailwindcss@4.1.4)
+      fumadocs-core: 15.2.12(@types/react@19.1.2)(next@15.3.1(babel-plugin-react-compiler@19.1.0-rc.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      fumadocs-ui: 15.2.12(@types/react-dom@19.1.3(@types/react@19.1.2))(@types/react@19.1.2)(next@15.3.1(babel-plugin-react-compiler@19.1.0-rc.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(tailwindcss@4.1.5)
       github-slugger: 2.0.0
       hast-util-to-jsx-runtime: 2.3.6
       js-yaml: 4.1.0
-      next: 15.3.1(babel-plugin-react-compiler@19.0.0-beta-ebf51a3-20250411)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      next: 15.3.1(babel-plugin-react-compiler@19.1.0-rc.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       next-themes: 0.4.6(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       openapi-sampler: 1.6.1
       react: 19.1.0
@@ -4636,7 +4636,7 @@ snapshots:
       - supports-color
       - tailwindcss
 
-  fumadocs-ui@15.2.12(@types/react-dom@19.1.3(@types/react@19.1.2))(@types/react@19.1.2)(next@15.3.1(babel-plugin-react-compiler@19.0.0-beta-ebf51a3-20250411)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(tailwindcss@4.1.4):
+  fumadocs-ui@15.2.12(@types/react-dom@19.1.3(@types/react@19.1.2))(@types/react@19.1.2)(next@15.3.1(babel-plugin-react-compiler@19.1.0-rc.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(tailwindcss@4.1.5):
     dependencies:
       '@radix-ui/react-accordion': 1.2.8(@types/react-dom@19.1.3(@types/react@19.1.2))(@types/react@19.1.2)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@radix-ui/react-collapsible': 1.1.8(@types/react-dom@19.1.3(@types/react@19.1.2))(@types/react@19.1.2)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -4648,9 +4648,9 @@ snapshots:
       '@radix-ui/react-slot': 1.2.0(@types/react@19.1.2)(react@19.1.0)
       '@radix-ui/react-tabs': 1.1.9(@types/react-dom@19.1.3(@types/react@19.1.2))(@types/react@19.1.2)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       class-variance-authority: 0.7.1
-      fumadocs-core: 15.2.12(@types/react@19.1.2)(next@15.3.1(babel-plugin-react-compiler@19.0.0-beta-ebf51a3-20250411)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      fumadocs-core: 15.2.12(@types/react@19.1.2)(next@15.3.1(babel-plugin-react-compiler@19.1.0-rc.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       lodash.merge: 4.6.2
-      next: 15.3.1(babel-plugin-react-compiler@19.0.0-beta-ebf51a3-20250411)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      next: 15.3.1(babel-plugin-react-compiler@19.1.0-rc.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       next-themes: 0.4.6(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       postcss-selector-parser: 7.1.0
       react: 19.1.0
@@ -4658,7 +4658,7 @@ snapshots:
       react-medium-image-zoom: 5.2.14(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       tailwind-merge: 3.2.0
     optionalDependencies:
-      tailwindcss: 4.1.4
+      tailwindcss: 4.1.5
     transitivePeerDependencies:
       - '@oramacloud/client'
       - '@types/react'
@@ -4881,7 +4881,7 @@ snapshots:
 
   lightningcss@1.29.2:
     dependencies:
-      detect-libc: 2.0.3
+      detect-libc: 2.0.4
     optionalDependencies:
       lightningcss-darwin-arm64: 1.29.2
       lightningcss-darwin-x64: 1.29.2
@@ -5376,7 +5376,7 @@ snapshots:
       react: 19.1.0
       react-dom: 19.1.0(react@19.1.0)
 
-  next@15.3.1(babel-plugin-react-compiler@19.0.0-beta-ebf51a3-20250411)(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
+  next@15.3.1(babel-plugin-react-compiler@19.1.0-rc.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
     dependencies:
       '@next/env': 15.3.1
       '@swc/counter': 0.1.3
@@ -5396,7 +5396,7 @@ snapshots:
       '@next/swc-linux-x64-musl': 15.3.1
       '@next/swc-win32-arm64-msvc': 15.3.1
       '@next/swc-win32-x64-msvc': 15.3.1
-      babel-plugin-react-compiler: 19.0.0-beta-ebf51a3-20250411
+      babel-plugin-react-compiler: 19.1.0-rc.1
       sharp: 0.34.1
     transitivePeerDependencies:
       - '@babel/core'
@@ -5749,7 +5749,7 @@ snapshots:
   sharp@0.34.1:
     dependencies:
       color: 4.2.3
-      detect-libc: 2.0.3
+      detect-libc: 2.0.4
       semver: 7.7.1
     optionalDependencies:
       '@img/sharp-darwin-arm64': 0.34.1
@@ -5843,19 +5843,19 @@ snapshots:
 
   tailwind-merge@3.2.0: {}
 
-  tailwind-scrollbar@4.0.2(react@19.1.0)(tailwindcss@4.1.4):
+  tailwind-scrollbar@4.0.2(react@19.1.0)(tailwindcss@4.1.5):
     dependencies:
       prism-react-renderer: 2.4.1(react@19.1.0)
-      tailwindcss: 4.1.4
+      tailwindcss: 4.1.5
     transitivePeerDependencies:
       - react
 
-  tailwind-variants@1.0.0(tailwindcss@4.1.4):
+  tailwind-variants@1.0.0(tailwindcss@4.1.5):
     dependencies:
       tailwind-merge: 3.0.2
-      tailwindcss: 4.1.4
+      tailwindcss: 4.1.5
 
-  tailwindcss@4.1.4: {}
+  tailwindcss@4.1.5: {}
 
   tapable@2.2.1: {}
 
