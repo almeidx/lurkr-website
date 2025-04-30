@@ -4,6 +4,8 @@ description: Prepare Lurkr for observation. This guide covers the initial steps 
 icon: 📈
 ---
 
+import { SUPPORT_SERVER_INVITE } from "@/shared-links.js";
+
 ## Coming From A Different Bot?
 
 Are you switching to Lurkr from a different leveling bot which you've already used extensively?
@@ -19,7 +21,7 @@ By default, Lurkr will not have leveling enabled. Any user activity that may hav
 You need to enable it to get started by typing the following command:
 
 <center>
-	![Usage of the slash command '/config toggle option:Leveling System'](@/assets/docs/toggling-leveling-system.webp)
+	![Usage of the slash command '/config toggle option:Leveling System'](../../_assets/toggling-leveling-system.webp)
 </center>
 
 ## What Messages Count for Leveling?
@@ -44,7 +46,7 @@ For now, use the /config set command to add as many channels as you want!
 You can enter as many channels as your current server plan will allow. You can check the limits on the Patreon Perks page!
 
 <center>
-	![Usage of the slash command '/config set option:Leveling Channels'](@/assets/docs/setting-leveling-channels.webp)
+	![Usage of the slash command '/config set option:Leveling Channels'](../../_assets/setting-leveling-channels.webp)
 </center>
 
 Now the bot will send a confirmation message of the information you just entered,
@@ -52,5 +54,14 @@ however included with that is also a grey button that let's you toggle between t
 If you therefore want only the channels you just entered to be used as leveling channels, press the button that says 'Switch to whitelist'
 
 <center>
-	![If you don't do anything, the channels will be set as they are!](@/assets/docs/leveling-switch-to-whitelist.webp)
+	![If you don't do anything, the channels will be set as they are!](../../_assets/leveling-switch-to-whitelist.webp)
 </center>
+
+<Cards>
+	<Card href="/docs/troubleshooting" title="🐛 Still need help?">
+		Check out the Troubleshooting guide!
+	</Card>
+	<Card href={SUPPORT_SERVER_INVITE} title="💬 Want to chat with an actual human?">
+		Join our support server
+	</Card>
+</Cards>

@@ -21,7 +21,7 @@ export default function Layout({ children }: { children: ReactNode }) {
 				>
 					<Banner id="alpha-docs-banner" className="inline place-content-center text-balance">
 						Alpha documentation. To view the full documentation, go to{" "}
-						<ExternalLink className="ml-1 text-blurple" href="https://docs.lurkr.gg">
+						<ExternalLink className="text-blurple" href="https://docs.lurkr.gg">
 							docs.lurkr.gg
 						</ExternalLink>
 					</Banner>
