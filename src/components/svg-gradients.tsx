@@ -1,7 +1,7 @@
 export function SvgGradients() {
 	return (
 		<>
-			<svg className="absolute size-0" aria-hidden="true" focusable="false">
+			<svg className="absolute size-0" aria-hidden focusable="false">
 				<linearGradient
 					id="icon-gradient-tertiary"
 					x1="-4"
@@ -15,7 +15,7 @@ export function SvgGradients() {
 				</linearGradient>
 			</svg>
 
-			<svg className="absolute size-0" aria-hidden="true" focusable="false">
+			<svg className="absolute size-0" aria-hidden focusable="false">
 				<linearGradient
 					id="icon-gradient-primary"
 					x1="5.00012"
@@ -29,7 +29,7 @@ export function SvgGradients() {
 				</linearGradient>
 			</svg>
 
-			<svg className="absolute size-0" aria-hidden="true" focusable="false">
+			<svg className="absolute size-0" aria-hidden focusable="false">
 				<defs>
 					<linearGradient id="percentual-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
 						<stop offset="0%" stopColor="#ffe87c" />

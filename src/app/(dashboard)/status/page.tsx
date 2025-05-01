@@ -17,7 +17,7 @@ export default async function Status() {
 				</p>
 			</header>
 
-			<main className="flex w-full max-w-3xl flex-col items-center justify-center gap-8 rounded-lg border border-white/25 bg-dark-gray px-[34px] py-8">
+			<main className="flex w-full max-w-3xl flex-col items-center justify-center gap-8 rounded-lg border border-white/25 bg-dark-gray px-8.5 py-8">
 				{data ? (
 					<ShardsContainer shards={data.shards} totalShards={data.totalShards} />
 				) : (

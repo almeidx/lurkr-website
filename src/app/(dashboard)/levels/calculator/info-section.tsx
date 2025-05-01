@@ -11,8 +11,8 @@ export function InfoSection({ children, title, tooltip, raw }: InfoSectionProps)
 			</p>
 
 			<TooltipProvider showTimeout={150}>
-				<TooltipAnchor className="absolute top-2 right-2 size-[14px] rounded-full">
-					<Help className="size-[14px]" fill="url(#icon-gradient-tertiary)" />
+				<TooltipAnchor className="absolute top-2 right-2 size-3.5 rounded-full">
+					<Help className="size-3.5" fill="url(#icon-gradient-tertiary)" />
 				</TooltipAnchor>
 
 				<Tooltip className="max-w-xs rounded-lg border border-white/25 bg-darker p-2 leading-relaxed tracking-tight md:max-w-prose">

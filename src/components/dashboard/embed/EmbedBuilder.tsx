@@ -171,7 +171,7 @@ export function EmbedBuilder({ defaultValue, emojis, roles, placeholders }: Embe
 								name="embed-color"
 							/>
 
-							<div aria-hidden="true" className="size-7 rounded-lg" style={{ backgroundColor: embedState.color }} />
+							<div aria-hidden className="size-7 rounded-lg" style={{ backgroundColor: embedState.color }} />
 						</div>
 
 						<Popover className="my-4">

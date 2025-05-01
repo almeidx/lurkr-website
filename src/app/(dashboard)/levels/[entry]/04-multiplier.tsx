@@ -49,8 +49,8 @@ function ChannelDisplay({ name, type }: Channel) {
 	}
 
 	return (
-		<div className="flex items-center gap-[0.2rem] rounded-[20px] border px-1">
-			<Image src={channelIcon} alt="Channel icon" width={12} height={12} />
+		<div className="flex items-center gap-1 rounded-md border border-white/25 px-1.5">
+			<Image className="size-3" src={channelIcon} alt="Channel icon" width={12} height={12} />
 			<p className="text-sm">{name}</p>
 		</div>
 	);

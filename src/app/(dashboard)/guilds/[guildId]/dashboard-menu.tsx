@@ -30,7 +30,7 @@ export function DashboardMenu({ guild, guilds }: DashboardMenuProps) {
 	return (
 		<div className="flex flex-col items-center gap-6 bg-transparent py-0 pr-8 pl-12 md:sticky md:top-12">
 			<MenuProvider>
-				<MenuButton className="flex w-full max-w-[16.5rem] items-center justify-between rounded-lg bg-dark-gray px-3 py-2 shadow-inner">
+				<MenuButton className="flex w-full max-w-66 items-center justify-between rounded-lg bg-dark-gray px-3 py-2 shadow-inner">
 					<div className="flex items-center gap-2 rounded-lg">
 						<ImageWithFallback
 							alt={`${guild.name}'s icon`}

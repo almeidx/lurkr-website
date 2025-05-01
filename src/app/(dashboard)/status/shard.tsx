@@ -7,7 +7,7 @@ export function ShardDisplay({ guilds, members, ping, shardId, uptime, highlight
 		<TooltipProvider showTimeout={150}>
 			<TooltipAnchor
 				className={clsx(
-					"flex size-[50px] items-center justify-center rounded-lg border border-white/25 font-bold text-4xl",
+					"flex size-12.5 items-center justify-center rounded-lg border border-white/25 font-bold text-4xl",
 					highlight ? "animate-pulse-success hover:animate-none" : "bg-darker",
 				)}
 			>

@@ -69,10 +69,10 @@ export function LeaderboardGuildList({ guilds }: { readonly guilds: GuildInfo[] 
 
 						<ImageWithFallback
 							alt={`${guild.name} server icon`}
-							className="size-[75px] rounded-full"
-							height={75}
+							className="size-19 rounded-full"
+							height={76}
 							src={guildIcon(guild.id, guild.icon)}
-							width={75}
+							width={76}
 							fallback={fallbackAvatarImg}
 							unoptimized={Boolean(guild.icon)}
 							priority={idx < 25}

@@ -136,7 +136,7 @@ function Option<
 	return (
 		<components.Option {...props}>
 			<span className="flex flex-1 items-center gap-2 text-left">
-				<div className="size-[14px] rounded-full" style={{ backgroundColor: props.data.resolvedColor }} />
+				<div className="size-3.5 rounded-full" style={{ backgroundColor: props.data.resolvedColor }} />
 
 				<span className="flex w-full items-center">{children}</span>
 			</span>

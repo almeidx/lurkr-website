@@ -27,7 +27,7 @@ export function ShardsContainer({ shards, totalShards }: ShardsContainerProps) {
 				maxLength={20}
 			/>
 
-			<div className="flex w-full flex-wrap items-center justify-center gap-x-[29px] gap-y-5">
+			<div className="flex w-full flex-wrap items-center justify-center gap-x-7.5 gap-y-5">
 				{shards ? (
 					shards.map((shard) => (
 						<ShardDisplay key={`shard-${shard.shardId}`} {...shard} highlight={shard.shardId === highlightedShard} />

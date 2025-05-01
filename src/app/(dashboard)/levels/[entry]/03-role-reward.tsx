@@ -21,8 +21,8 @@ export function RoleDisplay({ name, color }: Role) {
 	const hex = decimalRoleColorToHex(color);
 
 	return (
-		<div className="flex items-center gap-[0.2rem] rounded-[20px] border px-1" style={{ borderColor: hex }}>
-			<div className="mx-[0.1rem] size-[14px] rounded-full" style={{ backgroundColor: hex }} aria-hidden="true" />
+		<div className="flex items-center gap-1.5 rounded-md border border-white/25 px-1.5">
+			<div className="size-3.5 rounded-full" style={{ backgroundColor: hex }} aria-hidden />
 			<p className="truncate text-sm">{name}</p>
 		</div>
 	);

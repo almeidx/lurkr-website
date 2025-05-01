@@ -79,7 +79,7 @@ export function DefaultRankCardColor({ defaultAccentColour, defaultAccentType }:
 							disabled={value !== GuildAccentType.Custom}
 						/>
 
-						<div aria-hidden="true" className="size-7 rounded-lg" style={{ backgroundColor: color }} />
+						<div aria-hidden className="size-7 rounded-lg" style={{ backgroundColor: color }} />
 					</div>
 
 					<Popover className="my-4">

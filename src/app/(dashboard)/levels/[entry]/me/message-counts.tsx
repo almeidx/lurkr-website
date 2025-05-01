@@ -14,7 +14,7 @@ export function MessageCounts({ data }: BarsProps) {
 	}));
 
 	return (
-		<ResponsiveContainer width="100%" height="100%" className="max-h-96 w-full rounded-[14px] bg-black/30">
+		<ResponsiveContainer width="100%" height="100%" className="max-h-96 w-full rounded-2.5xl bg-black/30">
 			<BarChart
 				data={formattedData}
 				margin={{ top: verticalMargin, right: 20, left: horizontalMargin, bottom: verticalMargin }}

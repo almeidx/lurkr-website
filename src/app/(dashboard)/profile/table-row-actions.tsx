@@ -13,11 +13,11 @@ export function TableRowActions({ openDeleteDialog, openGuildAccessDialog }: Tab
 			<DropdownMenuTrigger asChild>
 				<Button
 					variant="ghost"
-					className="group aspect-square p-1.5 hover:border hover:border-gray-300 data-[state=open]:border-gray-300 data-[state=open]:bg-gray-50 data-[state=open]:dark:border-gray-700 data-[state=open]:dark:bg-gray-900 hover:dark:border-gray-700"
+					className="group aspect-square p-1.5 hover:border hover:border-gray-300 data-state=open:border-gray-300 data-state=open:bg-gray-50 data-state=open:dark:border-gray-700 data-state=open:dark:bg-gray-900 hover:dark:border-gray-700"
 					type="button"
 				>
 					<RiMoreFill
-						className="size-4 shrink-0 text-gray-500 group-hover:text-gray-700 group-data-[state=open]:text-gray-700 group-data-[state=open]:dark:text-gray-300 group-hover:dark:text-gray-300"
+						className="size-4 shrink-0 text-gray-500 group-hover:text-gray-700 group-data-state=open:text-gray-700 group-data-state=open:dark:text-gray-300 group-hover:dark:text-gray-300"
 						aria-hidden
 					/>
 				</Button>

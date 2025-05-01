@@ -7,7 +7,7 @@ export function Section(props: SectionProps) {
 	return (
 		<div className="flex flex-col gap-4 rounded-lg border border-white/25 bg-dark-gray px-6 py-8" id={id}>
 			{name && (
-				<h3 className="flex items-center font-semibold text-xl md:text-[1.4rem]">
+				<h3 className="flex items-center font-semibold text-xl md:text-2xl">
 					{name}
 					{"docsPath" in props && <DocsBubble path={props.docsPath} tooltip={props.tooltip} />}
 				</h3>

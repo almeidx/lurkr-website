@@ -9,7 +9,7 @@ export function Radio({
 	return (
 		<AriakitRadio
 			className={clsx(
-				"grid size-6 appearance-none place-content-center rounded-full bg-white before:size-[10px] before:scale-100 before:rounded-full before:duration-150 before:ease-in-out checked:border-8 checked:border-primary checked:before:scale-100 checked:before:shadow-[inset_1em_1em_white]",
+				"grid size-6 appearance-none place-content-center rounded-full bg-white before:size-2.5 before:scale-100 before:rounded-full before:duration-150 before:ease-in-out checked:border-8 checked:border-primary checked:before:scale-100 checked:before:shadow-[inset_1em_1em_white]",
 				rightMargin ? "mr-2" : "ml-4",
 			)}
 			{...props}

@@ -7,7 +7,7 @@ import { ItemStatusPopover } from "./item-status-popover.tsx";
 
 export function ItemStatus({ description, name, type }: ItemStatusProps) {
 	return (
-		<div className="flex min-w-[20rem] items-center gap-4">
+		<div className="flex min-w-80 items-center gap-4">
 			<div
 				className={clsx("relative size-9 rounded-xl", {
 					"bg-darker": type === "success",
