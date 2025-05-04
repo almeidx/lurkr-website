@@ -43,6 +43,7 @@ export default async function Leaderboard({ params, searchParams }: LeaderboardP
 				return (
 					<NotViewable description="You must be a member of this server to view this leaderboard." statusCode={403} />
 				);
+
 			default:
 				return (
 					<NotViewable
