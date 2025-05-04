@@ -1,8 +1,20 @@
 ---
 title: Changelog
+description: Tracks all significant changes to the Lurkr API. We maintain backward compatibility within each major version, so you can expect no breaking changes in v2.
+
 ---
 
-This page tracks all significant changes to the Lurkr API. We maintain backward compatibility within each major version, so you can expect no breaking changes in v2.
+## Public leaderboard endpoint
+
+Date: 2025-05-04
+
+We're making public an endpoint for retrieving the leaderboard of a server. This endpoint is available to all users,
+and it does not require authentication:
+
+- `GET /levels/{guildId}?page=1` - Get the leaderboard for a server.
+
+Additionally, we've removed the `user.locale` property from the body of the `POST /levels/{guildId}/users/{userId}`
+endpoint, and strictened the `user.avatar` schema, to ensure only a valid Discord avatar hash can be passed.
 
 ## Initial release
 

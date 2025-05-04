@@ -7,6 +7,11 @@ settings:
 overrides:
   react-is: ^19.1.0
 
+patchedDependencies:
+  p-retry:
+    hash: c75e89fd8beb8c000a9db38c7a66f078793315bb5db45f8fe9bfe8f9db0a9900
+    path: patches/p-retry.patch
+
 importers:
 
   .:
@@ -82,7 +87,7 @@ importers:
         version: 2.4.7
       p-retry:
         specifier: ^6.2.1
-        version: 6.2.1
+        version: 6.2.1(patch_hash=c75e89fd8beb8c000a9db38c7a66f078793315bb5db45f8fe9bfe8f9db0a9900)
       react:
         specifier: ^19.1.0
         version: 19.1.0
@@ -5426,7 +5431,7 @@ snapshots:
       fast-xml-parser: 4.5.3
       json-pointer: 0.6.2
 
-  p-retry@6.2.1:
+  p-retry@6.2.1(patch_hash=c75e89fd8beb8c000a9db38c7a66f078793315bb5db45f8fe9bfe8f9db0a9900):
     dependencies:
       '@types/retry': 0.12.2
       is-network-error: 1.1.0

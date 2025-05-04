@@ -19,7 +19,7 @@ import Link from "next/link";
 import { RedirectType, redirect } from "next/navigation";
 import { type RoleReward, RoleRewardDisplay } from "./03-role-reward.tsx";
 import { type Multiplier, MultiplierDisplay } from "./04-multiplier.tsx";
-import { UnknownGuildOrDisabledLevels } from "./unknown-guild.tsx";
+import { MustLogIn, NotViewable } from "./leaderboard-errors.tsx";
 
 if (!process.env.LEVELS_METADATA_KEY) {
 	throw new Error("Missing LEVELS_METADATA_KEY environment variable");
@@ -34,8 +34,23 @@ export default async function Leaderboard({ params, searchParams }: LeaderboardP
 	const token = (await cookies()).get(TOKEN_COOKIE)?.value;
 	const data = await getData(entry, token, page);
 
-	if (!data) {
-		return <UnknownGuildOrDisabledLevels />;
+	if ("error" in data) {
+		switch (data.error) {
+			case GetLeaderboardError.MustBeLoggedIn:
+				return <MustLogIn description="You must be logged in to view this leaderboard." statusCode={401} />;
+
+			case GetLeaderboardError.MustBeAMemberOfGuild:
+				return (
+					<NotViewable description="You must be a member of this server to view this leaderboard." statusCode={403} />
+				);
+			default:
+				return (
+					<NotViewable
+						description="This server does not exist or does not have the leveling system enabled"
+						statusCode={404}
+					/>
+				);
+		}
 	}
 
 	const { guild, isManager, vanity, levels, multipliers, roleRewards } = data;
@@ -172,18 +187,38 @@ export async function generateMetadata({ params, searchParams }: LeaderboardProp
 }
 
 async function getData(entry: string, token: string | undefined, page: number) {
-	const response = await makeApiRequest(`/levels/${entry}?page=${page}`, token, {
-		next: {
-			tags: [`levels:${entry}`],
-			revalidate: 60,
-		},
-	});
+	try {
+		const response = await makeApiRequest(`/levels/${entry}?page=${page}`, token, {
+			next: {
+				tags: [`levels:${entry}`],
+				revalidate: 60,
+			},
+		});
 
-	if (!response.ok) {
-		return null;
+		if (!response.ok) {
+			return { error: GetLeaderboardError.Generic };
+		}
+
+		return response.json() as Promise<GetLevelsResponse>;
+	} catch (error) {
+		if (error instanceof Error && error.cause) {
+			const response = error.cause as Response;
+
+			if (response.status === 401) {
+				return { error: GetLeaderboardError.MustBeLoggedIn };
+			}
+
+			if (response.status === 403) {
+				return { error: GetLeaderboardError.MustBeAMemberOfGuild };
+			}
+
+			if (response.status === 404) {
+				return { error: GetLeaderboardError.UnknownGuildOrDisabled };
+			}
+		}
+
+		return { error: GetLeaderboardError.Generic };
 	}
-
-	return response.json() as Promise<GetLevelsResponse>;
 }
 
 function parsePage(rawPage: string) {
@@ -194,6 +229,13 @@ function parsePage(rawPage: string) {
 	}
 
 	return page;
+}
+
+enum GetLeaderboardError {
+	Generic = 0,
+	MustBeLoggedIn = 1,
+	MustBeAMemberOfGuild = 2,
+	UnknownGuildOrDisabled = 3,
 }
 
 interface LevelsGuildMetadataResponse {
