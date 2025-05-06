@@ -1,10 +1,11 @@
 {
 	"$schema": "https://docs.renovatebot.com/renovate-schema.json",
 	"assignees": ["almeidx"],
-	"extends": ["config:recommended", ":semanticCommitTypeAll(chore)"],
+	"commitMessagePrefix": "deps:",
+	"extends": ["config:recommended"],
 	"lockFileMaintenance": {
 		"enabled": true,
-		"schedule": ["* 8 * * 0"]
+		"schedule": ["* 8 * * SUN"]
 	},
 	"packageRules": [
 		{
@@ -15,6 +16,8 @@
 		}
 	],
 	"postUpdateOptions": ["pnpmDedupe"],
-	"prHourlyLimit": 20,
-	"rangeStrategy": "widen"
+	"prHourlyLimit": 0,
+	"rangeStrategy": "bump",
+	"schedule": ["* 8 * * *"],
+	"timezone": "Europe/Lisbon"
 }
