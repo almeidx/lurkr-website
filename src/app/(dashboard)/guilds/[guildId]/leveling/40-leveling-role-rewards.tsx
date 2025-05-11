@@ -132,18 +132,18 @@ function RoleRewardDisplay({ id, level, premium, roleIds, onDelete, roles, stack
 	return (
 		<div className="flex flex-wrap items-center gap-4">
 			<button
-				className="group relative flex size-9 items-center justify-center rounded-lg border border-white bg-[#1e1f22] text-[#fff]"
+				className="group relative flex size-9 items-center justify-center rounded-lg border border-white bg-darker text-[#fff]"
 				onClick={() => onDelete(id)}
 				type="button"
 			>
-				<div className="absolute hidden size-9 items-center justify-center rounded-lg border border-white bg-[#1e1f22] group-hover:flex">
+				<div className="absolute hidden size-9 items-center justify-center rounded-lg border border-white bg-darker group-hover:flex">
 					<Delete className="size-5 text-[#ed4245]" />
 				</div>
 
 				{level}
 			</button>
 
-			<div className="flex items-center gap-2 rounded-lg bg-[#1e1f22] p-2">
+			<div className="flex items-center gap-2 rounded-lg bg-darker p-2">
 				<Toggle id={`xpRoleRewards-${level}-${id}-stack`} initialValue={stack} />
 
 				<span className="text-sm text-white/75">Stack</span>

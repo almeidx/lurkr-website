@@ -53,7 +53,7 @@ export function LeaderboardGuildList({ guilds }: { readonly guilds: GuildInfo[] 
 			<div className="my-7 flex max-w-2xl flex-wrap justify-center gap-12">
 				{filteredGuilds.map((guild, idx) => (
 					<Link
-						className="group relative flex size-20 items-center justify-center rounded-lg border border-white/25 bg-[#1e1f22]"
+						className="group relative flex size-20 items-center justify-center rounded-lg border border-white/25 bg-darker"
 						href={`/levels/${guild.vanity ?? guild.id}`}
 						key={guild.id}
 						prefetch={false}

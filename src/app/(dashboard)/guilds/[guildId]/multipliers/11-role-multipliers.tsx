@@ -138,11 +138,11 @@ function RoleMultiplier({ id, multiplier, premium, onDelete, roles, targets }: R
 	return (
 		<div className="flex items-center gap-4">
 			<button
-				className="group relative flex size-10 items-center justify-center rounded-lg border border-white/25 bg-[#1e1f22] text-[#fff] text-lg md:text-xl"
+				className="group relative flex size-10 items-center justify-center rounded-lg border border-white/25 bg-darker text-[#fff] text-lg md:text-xl"
 				onClick={() => onDelete(id)}
 				type="button"
 			>
-				<div className="absolute hidden size-10 items-center justify-center rounded-lg border border-red bg-[#1e1f22] group-hover:flex">
+				<div className="absolute hidden size-10 items-center justify-center rounded-lg border border-red bg-darker group-hover:flex">
 					<Delete className="size-5 text-[#ed4245]" />
 				</div>
 

@@ -63,7 +63,7 @@ const PopoverContent = React.forwardRef<React.ElementRef<typeof PopoverPrimitive
 					avoidCollisions={avoidCollisions}
 					className={cx(
 						// base
-						"max-h-[var(--radix-popper-available-height)] min-w-60 overflow-hidden rounded-md border p-2.5 text-sm shadow-md",
+						"max-h-(--radix-popper-available-height) min-w-60 overflow-hidden rounded-md border p-2.5 text-sm shadow-md",
 						// border color
 						"border-gray-200 dark:border-gray-800",
 						// text color

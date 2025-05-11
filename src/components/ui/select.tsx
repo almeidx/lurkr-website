@@ -106,7 +106,7 @@ const SelectContent = React.forwardRef<
 			ref={forwardedRef}
 			className={cx(
 				// base
-				"relative z-50 overflow-hidden rounded-md border shadow-black/[2.5%] shadow-xl",
+				"relative z-50 overflow-hidden rounded-md border shadow-black/2.5 shadow-xl",
 				// widths
 				"min-w-[calc(var(--radix-select-trigger-width)-2px)] max-w-[95vw]",
 				// heights
@@ -134,7 +134,7 @@ const SelectContent = React.forwardRef<
 				className={cx(
 					"p-1",
 					position === "popper" &&
-						"h-[var(--radix-select-trigger-height)] w-full min-w-[calc(var(--radix-select-trigger-width))]",
+						"h-(--radix-select-trigger-height) w-full min-w-[calc(var(--radix-select-trigger-width))]",
 				)}
 			>
 				{children}

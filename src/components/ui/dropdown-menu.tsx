@@ -61,11 +61,11 @@ const DropdownMenuSubMenuContent = React.forwardRef<
 			collisionPadding={collisionPadding}
 			className={cx(
 				// base
-				"relative z-50 overflow-hidden rounded-md border p-1 shadow-black/[2.5%] shadow-xl",
+				"relative z-50 overflow-hidden rounded-md border p-1 shadow-black/2.5 shadow-xl",
 				// widths
 				"min-w-32",
 				// heights
-				"max-h-[var(--radix-popper-available-height)]",
+				"max-h-(--radix-popper-available-height)",
 				// background color
 				"bg-white dark:bg-gray-950",
 				// text color
@@ -93,11 +93,11 @@ const DropdownMenuContent = React.forwardRef<
 			ref={forwardedRef}
 			className={cx(
 				// base
-				"relative z-50 overflow-hidden rounded-md border p-1 shadow-black/[2.5%] shadow-xl",
+				"relative z-50 overflow-hidden rounded-md border p-1 shadow-black/2.5 shadow-xl",
 				// widths
 				"min-w-48",
 				// heights
-				"max-h-[var(--radix-popper-available-height)]",
+				"max-h-(--radix-popper-available-height)",
 				// background color
 				"bg-white dark:bg-gray-950",
 				// text color

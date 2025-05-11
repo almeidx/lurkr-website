@@ -9,7 +9,7 @@ import { RoleDisplay } from "./03-role-reward.tsx";
 export function MultiplierDisplay({ multiplier, targets, type }: Multiplier) {
 	return (
 		<div className="flex items-center gap-4">
-			<span className="flex size-9 items-center justify-center rounded-lg border border-white/25 bg-[#1e1f22] text-[#fff]">
+			<span className="flex size-9 items-center justify-center rounded-lg border border-white/25 bg-darker text-[#fff]">
 				{multiplier}
 			</span>
 

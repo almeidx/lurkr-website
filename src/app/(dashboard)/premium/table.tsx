@@ -49,7 +49,7 @@ export function ComparisonTable({ section, features }: ComparisonTableProps) {
 								) : feature.free ? (
 									<Check className="size-8 text-[#93e19c]" />
 								) : (
-									<Close className="size-8 text-[#df4444]" />
+									<Close className="size-8 text-red" />
 								)}
 							</div>
 						</td>
@@ -60,7 +60,7 @@ export function ComparisonTable({ section, features }: ComparisonTableProps) {
 								) : feature.max ? (
 									<Check className="size-8 text-[#93e19c]" />
 								) : (
-									<Close className="size-8 text-[#df4444]" />
+									<Close className="size-8 text-red" />
 								)}
 							</div>
 						</td>
@@ -71,7 +71,7 @@ export function ComparisonTable({ section, features }: ComparisonTableProps) {
 								) : feature.ultimate ? (
 									<Check className="size-8 text-[#93e19c]" />
 								) : (
-									<Close className="size-8 text-[#df4444]" />
+									<Close className="size-8 text-red" />
 								)}
 							</div>
 						</td>

@@ -30,7 +30,7 @@ export function ItemStatus({ description, name, type }: ItemStatusProps) {
 					) : (
 						<ShowChart
 							key={`disabled-${name}`}
-							className="-translate-x-1/2 -translate-y-1/2 absolute top-1/2 left-1/2 z-10 size-7 text-[#474747]"
+							className="-translate-x-1/2 -translate-y-1/2 absolute top-1/2 left-1/2 z-10 size-7 text-light-gray"
 						/>
 					)}
 				</PopoverWrapper>

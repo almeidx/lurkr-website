@@ -24,7 +24,7 @@ const inputStyles = tv({
 		[
 			"file:-my-2 file:-ml-2.5 file:cursor-pointer file:rounded-l-[5px] file:rounded-r-none file:border-0 file:px-3 file:py-2 file:outline-hidden focus:outline-hidden disabled:pointer-events-none file:disabled:pointer-events-none",
 			"file:border-solid file:border-gray-300 file:bg-gray-50 file:text-gray-500 file:hover:bg-gray-100 dark:file:border-gray-800 dark:file:bg-gray-950 dark:file:hover:bg-gray-900/20 dark:file:disabled:border-gray-700",
-			"file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem]",
+			"file:[border-inline-end-width:1px] file:me-3",
 			"file:disabled:bg-gray-100 file:disabled:text-gray-500 dark:file:disabled:bg-gray-800",
 		],
 		// focus
@@ -81,7 +81,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
 							"text-gray-400 dark:text-gray-600",
 						)}
 					>
-						<RiSearchLine className="size-[1.125rem] shrink-0" aria-hidden="true" />
+						<RiSearchLine className="size-4.5 shrink-0" aria-hidden="true" />
 					</div>
 				)}
 				{isPassword && (

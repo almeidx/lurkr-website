@@ -146,11 +146,11 @@ function OnJoinRoleBadge({ flagId, id, premium, onDelete, roleIds, roles }: OnJo
 	return (
 		<div className="flex items-center gap-4">
 			<button
-				className="group relative flex size-10 items-center justify-center rounded-lg border border-white bg-[#1e1f22] text-[#fff] text-lg md:text-xl"
+				className="group relative flex size-10 items-center justify-center rounded-lg border border-white bg-darker text-[#fff] text-lg md:text-xl"
 				onClick={() => onDelete(id)}
 				type="button"
 			>
-				<div className="absolute hidden size-10 items-center justify-center rounded-lg border border-white bg-[#1e1f22] group-hover:flex">
+				<div className="absolute hidden size-10 items-center justify-center rounded-lg border border-white bg-darker group-hover:flex">
 					<Delete className="size-5 text-[#ed4245]" />
 				</div>
 
