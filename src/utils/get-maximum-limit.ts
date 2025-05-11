@@ -104,6 +104,7 @@ type LimitedKey =
 			| "emojiList"
 			| "emojiListChannel"
 			| "id"
+			| "leaderboardVisibility"
 			| "levels"
 			| "milestonesChannel"
 			| "milestonesMessage"

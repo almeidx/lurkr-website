@@ -31,6 +31,7 @@ import {
 	AutoResetLevels,
 	GuildAccentType,
 	type GuildSettings,
+	LeaderboardVisibility,
 	XpAnnouncementChannelType,
 	XpChannelMode,
 } from "@/lib/guild.ts";
@@ -133,6 +134,7 @@ function createSchema(premium: boolean) {
 			accentType: union([emptyStringToNull, pipe(string(), enum_(GuildAccentType))]),
 			autoResetLevelsLeave: toggle,
 			autoResetLevelsBan: toggle,
+			leaderboardVisibility: enum_(LeaderboardVisibility),
 			levels: toggle,
 			noRoleRewardRoles: createSnowflakesValidator(
 				premium ? MAX_NO_ROLE_REWARD_ROLES_PREMIUM : MAX_NO_ROLE_REWARD_ROLES,

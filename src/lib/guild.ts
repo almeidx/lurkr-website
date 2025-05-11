@@ -86,6 +86,7 @@ export interface GuildSettings {
 	emojiList: boolean;
 	emojiListChannel: Snowflake | null;
 	id: Snowflake;
+	leaderboardVisibility: LeaderboardVisibility;
 	levels: boolean;
 	mentionCooldown: number | null;
 	mentionCooldownRoles: Snowflake[];
@@ -155,6 +156,12 @@ export enum GuildAccentType {
 	BannerAverage = "BannerAverage",
 	Custom = "Custom",
 	IconAverage = "IconAverage",
+}
+
+export enum LeaderboardVisibility {
+	Public = "Public",
+	MembersOnly = "MembersOnly",
+	ManagersOnly = "ManagersOnly",
 }
 
 export interface AutoRoleFlag {

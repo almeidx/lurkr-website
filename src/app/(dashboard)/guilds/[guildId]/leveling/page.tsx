@@ -28,6 +28,7 @@ import { NoRoleRewardsRoles } from "./41-no-role-rewards-roles.tsx";
 import { AutomaticallyResetLevels } from "./50-automatically-reset-levels.tsx";
 import { DefaultRankCardColor } from "./60-default-rank-card-color.tsx";
 import { LeaderboardVanity } from "./70-leaderboard-vanity.tsx";
+import { EditLeaderboardVisibility } from "./71-leaderboard-visibility.tsx";
 import { update } from "./update.ts";
 
 export default async function Leveling({ params }: { readonly params: Promise<{ guildId: Snowflake }> }) {
@@ -172,6 +173,10 @@ export default async function Leveling({ params }: { readonly params: Promise<{ 
 				</div>
 
 				<LeaderboardVanity defaultValue={settings.vanity} />
+
+				<Separator />
+
+				<EditLeaderboardVisibility defaultValue={settings.leaderboardVisibility} guildId={guildId} />
 			</Section>
 		</Form>
 	);
