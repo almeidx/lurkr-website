@@ -13,7 +13,11 @@ export default async function DashboardLayout({
 }: PropsWithChildren<{ params: Promise<{ guildId: Snowflake }> }>) {
 	const { guildId } = await params;
 
-	const token = (await cookies()).get(TOKEN_COOKIE)!.value;
+	const token = (await cookies()).get(TOKEN_COOKIE)?.value;
+	if (!token) {
+		return <UnknownGuildOrMissingAccess>{children}</UnknownGuildOrMissingAccess>;
+	}
+
 	const { guild, guilds } = await getData(guildId, token);
 
 	if (!guild) {
