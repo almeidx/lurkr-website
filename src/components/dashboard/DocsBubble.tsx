@@ -11,7 +11,7 @@ export function DocsBubble({ tooltip, path }: DocsBubblePropos) {
 	const link = (
 		<ExternalLink href={`${DOCS_URL}${path}`}>
 			<span className="sr-only">Open documentation in a new tab</span>
-			<Help className="ml-2 size-5" fill="url(#icon-gradient-tertiary)" />
+			<Help aria-hidden className="ml-2 size-5" fill="url(#icon-gradient-tertiary)" />
 		</ExternalLink>
 	);
 

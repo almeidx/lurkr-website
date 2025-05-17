@@ -69,7 +69,7 @@ export function Navbar({ children }: PropsWithChildren) {
 					aria-label="Close menu"
 					type="button"
 				>
-					<MenuOpen className="size-6" />
+					<MenuOpen aria-hidden className="size-6" />
 				</button>
 
 				{guildId ? <DashboardMobileNavbarLinks guildId={guildId} show={showMobileDashboardNavbar} /> : null}
@@ -87,7 +87,7 @@ export function Navbar({ children }: PropsWithChildren) {
 			</div>
 
 			<button className="md:hidden" onClick={handleMenuClick} aria-label="Open menu" type="button">
-				<Menu className="size-6" />
+				<Menu aria-hidden className="size-6" />
 			</button>
 		</header>
 	);
@@ -104,7 +104,7 @@ function NavbarLinks({ hideMobile }: { hideMobile?: boolean }) {
 			<li className="text-white hover:text-white/75">
 				<Link href="/guilds" className="flex items-center gap-2">
 					<div className="md:hidden">
-						<Dashboard />
+						<Dashboard aria-hidden />
 					</div>
 					Dashboard
 				</Link>
@@ -112,7 +112,7 @@ function NavbarLinks({ hideMobile }: { hideMobile?: boolean }) {
 			<li className="flex items-center gap-2 text-white hover:text-white/75">
 				<Link href="/levels" className="flex items-center gap-2">
 					<div className="md:hidden">
-						<TrendingUp />
+						<TrendingUp aria-hidden />
 					</div>
 					Levels
 				</Link>
@@ -120,7 +120,7 @@ function NavbarLinks({ hideMobile }: { hideMobile?: boolean }) {
 			<li className="flex items-center gap-2 text-white hover:text-white/75">
 				<Link href="/levels/calculator" className="flex items-center gap-2">
 					<div className="md:hidden">
-						<Calculate />
+						<Calculate aria-hidden />
 					</div>
 					Calculator
 				</Link>
@@ -128,7 +128,7 @@ function NavbarLinks({ hideMobile }: { hideMobile?: boolean }) {
 			<li className="flex items-center gap-2 text-white hover:text-white/75">
 				<Link href="/status" prefetch={false} className="flex items-center gap-2">
 					<div className="md:hidden">
-						<SignalCellular3Bar />
+						<SignalCellular3Bar aria-hidden />
 					</div>
 					Status
 				</Link>
@@ -136,7 +136,7 @@ function NavbarLinks({ hideMobile }: { hideMobile?: boolean }) {
 			<li className="flex items-center gap-2 text-white hover:text-white/75">
 				<Link href="/premium" prefetch={false} className="flex items-center gap-2">
 					<div className="md:hidden">
-						<WorkspacePremium />
+						<WorkspacePremium aria-hidden />
 					</div>
 					Premium
 				</Link>
@@ -144,7 +144,7 @@ function NavbarLinks({ hideMobile }: { hideMobile?: boolean }) {
 			<li className="flex items-center gap-2 text-white hover:text-white/75">
 				<ExternalLink href={DOCS_URL} className="flex items-center gap-2">
 					<div className="md:hidden">
-						<AutoStories />
+						<AutoStories aria-hidden />
 					</div>
 					Docs
 				</ExternalLink>
@@ -158,61 +158,61 @@ function DashboardMobileNavbarLinks({ guildId, show }: { guildId: Snowflake; sho
 		<ul className={clsx("flex-col gap-5 text-xl md:flex-row md:items-baseline md:text-base", show && "flex md:hidden")}>
 			<li className="text-white hover:text-white/75">
 				<Link href="/guilds" className="flex items-center gap-2">
-					<ArrowBackIos />
+					<ArrowBackIos aria-hidden />
 					Back
 				</Link>
 			</li>
 			<li className="text-white hover:text-white/75">
 				<Link href={`/guilds/${guildId}`} className="flex items-center gap-2">
-					<Settings />
+					<Settings aria-hidden />
 					Overview
 				</Link>
 			</li>
 			<li className="text-white hover:text-white/75">
 				<Link href={`/guilds/${guildId}/leveling`} className="flex items-center gap-2">
-					<TrendingUp className="text-[#ff7077]" />
+					<TrendingUp aria-hidden className="text-[#ff7077]" />
 					Leveling
 				</Link>
 			</li>
 			<li className="text-white hover:text-white/75">
 				<Link href={`/guilds/${guildId}/import`} className="flex items-center gap-2">
-					<SmartToy />
+					<SmartToy aria-hidden />
 					Import Bots
 				</Link>
 			</li>
 			<li className="text-white hover:text-white/75">
 				<Link href={`/guilds/${guildId}/multipliers`} className="flex items-center gap-2">
-					<RocketLaunch className="text-[#82cbff]" />
+					<RocketLaunch aria-hidden className="text-[#82cbff]" />
 					Multipliers
 				</Link>
 			</li>
 			<li className="text-white hover:text-white/75">
 				<Link href={`/guilds/${guildId}/roles`} className="flex items-center gap-2">
-					<FormatListBulleted className="text-[#d2ffae]" />
+					<FormatListBulleted aria-hidden className="text-[#d2ffae]" />
 					Role Management
 				</Link>
 			</li>
 			<li className="text-white hover:text-white/75">
 				<Link href={`/guilds/${guildId}/milestones`} className="flex items-center gap-2">
-					<Signpost className="text-[#804994]" />
+					<Signpost aria-hidden className="text-[#804994]" />
 					Milestones
 				</Link>
 			</li>
 			<li className="text-white hover:text-white/75">
 				<Link href={`/guilds/${guildId}/emojis`} className="flex items-center gap-2">
-					<EmojiEmotions className="text-[#ffe87c]" />
+					<EmojiEmotions aria-hidden className="text-[#ffe87c]" />
 					Emoji List
 				</Link>
 			</li>
 			<li className="text-white hover:text-white/75">
 				<Link href={`/guilds/${guildId}/miscellaneous`} className="flex items-center gap-2">
-					<MiscellaneousServices className="text-[#73ffc4]" />
+					<MiscellaneousServices aria-hidden className="text-[#73ffc4]" />
 					Miscellaneous
 				</Link>
 			</li>
 			<li className="text-white hover:text-white/75">
 				<Link href={`/guilds/${guildId}/danger`} className="flex items-center gap-2">
-					<Warning className="text-[#ff9254]" />
+					<Warning aria-hidden className="text-[#ff9254]" />
 					Danger Zone
 				</Link>
 			</li>

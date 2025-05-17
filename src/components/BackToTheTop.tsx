@@ -14,7 +14,7 @@ export function BackToTheTop() {
 			type="button"
 		>
 			<p>Lost? Back to the top</p>
-			<ArrowUpward className="size-8" fill="url(#icon-gradient-primary)" />
+			<ArrowUpward className="size-8" fill="url(#icon-gradient-primary)" aria-hidden />
 		</button>
 	);
 }

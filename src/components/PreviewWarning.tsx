@@ -16,8 +16,8 @@ export function PreviewWarning() {
 			<div className="flex items-center justify-between">
 				<p className="font-bold">Unstable Preview</p>
 
-				<button type="button" onClick={() => setIsClosed(true)}>
-					<Close className="text-xs" />
+				<button type="button" onClick={() => setIsClosed(true)} aria-label="Close preview warning">
+					<Close aria-hidden className="text-xs" />
 				</button>
 			</div>
 

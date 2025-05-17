@@ -57,7 +57,7 @@ export function PremiumPlan({
 					{perks.map((perk) => (
 						<li key={perk} className="flex items-center gap-2">
 							<div className="flex size-9 items-center justify-center rounded-lg bg-darker">
-								<Check className="size-8 text-[#93e19c]" />
+								<Check aria-hidden className="size-8 text-[#93e19c]" />
 							</div>
 
 							{perk}
@@ -70,7 +70,7 @@ export function PremiumPlan({
 						{regular.map((perk) => (
 							<li key={perk} className="flex items-center gap-2">
 								<div className="flex size-9 items-center justify-center rounded-lg bg-darker">
-									<ShowChart className="size-8 text-[#f6e594]" />
+									<ShowChart aria-hidden className="size-8 text-[#f6e594]" />
 								</div>
 
 								{perk}
@@ -81,7 +81,7 @@ export function PremiumPlan({
 
 				<div className="flex items-center gap-2">
 					<div className="flex size-9 items-center justify-center rounded-lg bg-darker">
-						<Close className="size-8 text-[#b1b1b2]" />
+						<Close aria-hidden className="size-8 text-[#b1b1b2]" />
 					</div>
 
 					<p>{funny}</p>

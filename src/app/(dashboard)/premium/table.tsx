@@ -47,9 +47,9 @@ export function ComparisonTable({ section, features }: ComparisonTableProps) {
 								{isConfigLimit ? (
 									`${feature.free} ${(feature as ConfigLimitComparison).suffix}`
 								) : feature.free ? (
-									<Check className="size-8 text-[#93e19c]" />
+									<Check aria-label="Included" className="size-8 text-[#93e19c]" />
 								) : (
-									<Close className="size-8 text-red" />
+									<Close aria-label="Not included" className="size-8 text-red" />
 								)}
 							</div>
 						</td>
@@ -58,9 +58,9 @@ export function ComparisonTable({ section, features }: ComparisonTableProps) {
 								{isConfigLimit ? (
 									`${feature.max ?? feature.free} ${(feature as ConfigLimitComparison).suffix}`
 								) : feature.max ? (
-									<Check className="size-8 text-[#93e19c]" />
+									<Check aria-label="Included" className="size-8 text-[#93e19c]" />
 								) : (
-									<Close className="size-8 text-red" />
+									<Close aria-label="Not included" className="size-8 text-red" />
 								)}
 							</div>
 						</td>
@@ -69,9 +69,9 @@ export function ComparisonTable({ section, features }: ComparisonTableProps) {
 								{isConfigLimit ? (
 									`${feature.ultimate} ${(feature as ConfigLimitComparison).suffix}`
 								) : feature.ultimate ? (
-									<Check className="size-8 text-[#93e19c]" />
+									<Check aria-label="Included" className="size-8 text-[#93e19c]" />
 								) : (
-									<Close className="size-8 text-red" />
+									<Close aria-label="Not included" className="size-8 text-red" />
 								)}
 							</div>
 						</td>

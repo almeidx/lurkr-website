@@ -7,7 +7,7 @@ export function SignInButton() {
 			className="flex w-fit flex-nowrap items-center justify-center gap-2 whitespace-nowrap rounded-lg bg-blurple px-2 py-1"
 			href={SIGN_IN_URL}
 		>
-			<Discord className="size-5" />
+			<Discord aria-hidden className="size-5" />
 			Log in
 		</a>
 	);

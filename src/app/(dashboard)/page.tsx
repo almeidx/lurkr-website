@@ -57,7 +57,7 @@ export default async function Homepage() {
 						href="/guilds"
 					>
 						Dashboard
-						<Launch />
+						<Launch aria-hidden />
 					</Link>
 				</div>
 			</div>
