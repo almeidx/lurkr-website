@@ -13,7 +13,7 @@ export function MultiplierDisplay({ multiplier, targets, type }: Multiplier) {
 				{multiplier}
 			</span>
 
-			<div className="flex flex-1 flex-wrap gap-2">
+			<div className="flex flex-1 flex-wrap gap-2 overflow-x-hidden">
 				{type === XpMultiplierType.Global ? (
 					<p className="text-sm">Global</p>
 				) : (

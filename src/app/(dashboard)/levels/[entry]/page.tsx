@@ -106,29 +106,25 @@ export default async function Leaderboard({ params, searchParams }: LeaderboardP
 				</div>
 
 				<div className="flex w-full flex-col gap-5 px-4 sm:w-80 md:w-96 md:px-0">
-					<SidebarSection title="Role Rewards">
-						{roleRewards.length ? (
+					{roleRewards.length ? (
+						<SidebarSection title="Role Rewards">
 							<div className="flex flex-col gap-4">
 								{roleRewards.map((roleReward) => (
 									<RoleRewardDisplay key={roleReward.id} {...roleReward} />
 								))}
 							</div>
-						) : (
-							<p className="text-center">No role rewards set</p>
-						)}
-					</SidebarSection>
+						</SidebarSection>
+					) : null}
 
-					<SidebarSection title="Multipliers">
-						{multipliers.length ? (
+					{multipliers.length ? (
+						<SidebarSection title="Multipliers">
 							<div className="flex flex-col gap-4">
 								{multipliers.map((multipliers) => (
 									<MultiplierDisplay key={multipliers.id} {...multipliers} />
 								))}
 							</div>
-						) : (
-							<p className="text-center">No multipliers set</p>
-						)}
-					</SidebarSection>
+						</SidebarSection>
+					) : null}
 
 					<SidebarSection title="How it works">
 						<div className="space-y-2">

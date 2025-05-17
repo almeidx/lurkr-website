@@ -8,7 +8,7 @@ export function RoleRewardDisplay({ level, roles }: RoleReward) {
 				{level}
 			</span>
 
-			<div className="flex flex-1 flex-wrap gap-2">
+			<div className="flex flex-1 flex-wrap gap-2 overflow-x-hidden">
 				{roles.map((role) => (
 					<RoleDisplay key={role.id} {...role} />
 				))}
