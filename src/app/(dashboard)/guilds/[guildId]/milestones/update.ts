@@ -10,11 +10,11 @@ import {
 	MIN_MILESTONES_INTERVAL,
 	MIN_MILESTONES_MESSAGE_LENGTH,
 } from "@/lib/guild-config.ts";
-import type { GuildSettings } from "@/lib/guild.ts";
 import { formDataToObject } from "@/utils/form-data-to-object.ts";
 import { lazy } from "@/utils/lazy.ts";
 import { coerceToInt, createSnowflakesValidator, emptyStringToNull, snowflake, toggle } from "@/utils/schemas.ts";
-import { maxLength, maxValue, minLength, minValue, multipleOf, object, parse, pipe, string, union } from "valibot";
+import { ServerActionError } from "@/utils/server-action-error.ts";
+import { maxLength, maxValue, minLength, minValue, multipleOf, object, pipe, safeParse, string, union } from "valibot";
 
 const regularSchema = createSchema(false);
 const premiumSchema = createSchema(true);
@@ -22,9 +22,13 @@ const premiumSchema = createSchema(true);
 export async function update(guildId: string, premium: boolean, _currentState: unknown, data: FormData) {
 	const schema = premium ? premiumSchema() : regularSchema();
 
-	const settings = parse(schema, formDataToObject(data)) satisfies Partial<GuildSettings>;
+	const result = safeParse(schema, formDataToObject(data));
 
-	return action(guildId, settings, `settings:${guildId}:milestones`, premium);
+	if (!result.success) {
+		return { error: ServerActionError.SchemaMismatch, issues: JSON.stringify(result.issues) };
+	}
+
+	return action(guildId, result.output, `settings:${guildId}:milestones`, premium);
 }
 
 function createSchema(premium: boolean) {

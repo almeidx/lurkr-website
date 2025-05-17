@@ -12,8 +12,6 @@ export async function action(guildId: string, data: Partial<GuildSettings>, tag:
 		throw new Error("Missing token");
 	}
 
-	console.log(data);
-
 	const route = premium ? `/guilds/${guildId}/premium` : `/guilds/${guildId}`;
 
 	const response = await makeApiRequest(route, token, {

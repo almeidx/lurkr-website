@@ -16,8 +16,11 @@ import type { GuildSettings } from "@/lib/guild.ts";
 import { formDataToObject } from "@/utils/form-data-to-object.ts";
 import { lazy } from "@/utils/lazy.ts";
 import { UUID_REGEX, createMinuteIntervalValidator, createSnowflakesValidator } from "@/utils/schemas.ts";
+import { ServerActionError } from "@/utils/server-action-error.ts";
 import { UserFlags } from "@/utils/user-flags.ts";
-import { object, parse, pipe, regex, string, transform } from "valibot";
+import { object, parse, pipe, regex, safeParse, string, transform } from "valibot";
+
+// TODO: Use `safeParse` instead of `parse`
 
 const regularSchema = createSchema(false);
 const premiumSchema = createSchema(true);
@@ -40,8 +43,14 @@ export async function update(guildId: string, premium: boolean, _currentState: u
 	const rawData = formDataToObject(data);
 	const schema = premium ? premiumSchema() : regularSchema();
 
+	const parsed = safeParse(schema, rawData);
+
+	if (!parsed.success) {
+		return { error: ServerActionError.SchemaMismatch, issues: JSON.stringify(parsed.issues) };
+	}
+
 	const settings = {
-		...parse(schema, rawData),
+		...parsed.output,
 		autoRoleFlags: Object.entries(rawData)
 			.filter(([key]) => key.startsWith("autoRoleFlags-"))
 			.map(([key, value]) => ({

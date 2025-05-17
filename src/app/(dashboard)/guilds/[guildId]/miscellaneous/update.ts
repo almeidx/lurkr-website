@@ -2,20 +2,25 @@
 
 import { action } from "@/app/(dashboard)/guilds/[guildId]/action-base.ts";
 import { MAX_AUTO_PUBLISH_CHANNELS, MAX_AUTO_PUBLISH_CHANNELS_PREMIUM } from "@/lib/guild-config.ts";
-import type { GuildSettings } from "@/lib/guild.ts";
 import { formDataToObject } from "@/utils/form-data-to-object.ts";
 import { lazy } from "@/utils/lazy.ts";
 import { createSnowflakesValidator, toggle } from "@/utils/schemas.ts";
-import { object, parse } from "valibot";
+import { ServerActionError } from "@/utils/server-action-error.ts";
+import { object, safeParse } from "valibot";
 
 const regularSchema = createSchema(false);
 const premiumSchema = createSchema(true);
 
 export async function update(guildId: string, premium: boolean, _currentState: unknown, data: FormData) {
 	const schema = premium ? premiumSchema() : regularSchema();
-	const settings = parse(schema, formDataToObject(data)) satisfies Partial<GuildSettings>;
 
-	return action(guildId, settings, `settings:${guildId}:miscellaneous`, premium);
+	const result = safeParse(schema, formDataToObject(data));
+
+	if (!result.success) {
+		return { error: ServerActionError.SchemaMismatch, issues: JSON.stringify(result.issues) };
+	}
+
+	return action(guildId, result.output, `settings:${guildId}:miscellaneous`, premium);
 }
 
 function createSchema(premium: boolean) {

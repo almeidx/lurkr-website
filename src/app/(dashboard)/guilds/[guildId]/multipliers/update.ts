@@ -13,7 +13,10 @@ import { type GuildSettings, XpMultiplierType } from "@/lib/guild.ts";
 import { formDataToObject } from "@/utils/form-data-to-object.ts";
 import { lazy } from "@/utils/lazy.ts";
 import { UUID_REGEX, booleanFlag, coerceToFloat, createSnowflakesValidator, toggle } from "@/utils/schemas.ts";
-import { maxValue, minValue, object, parse, pipe, regex, string, transform } from "valibot";
+import { ServerActionError } from "@/utils/server-action-error.ts";
+import { maxValue, minValue, object, parse, pipe, regex, safeParse, string, transform } from "valibot";
+
+// TODO: Use `safeParse` instead of `parse`
 
 const schema = object({
 	prioritiseMultiplierRoleHierarchy: booleanFlag,
@@ -56,12 +59,16 @@ const xpMultipliersKeySchema = pipe(
 export async function update(guildId: string, premium: boolean, _currentState: unknown, data: FormData) {
 	const rawData = formDataToObject(data);
 
-	const parsed = parse(schema, rawData);
+	const parsed = safeParse(schema, rawData);
+
+	if (!parsed.success) {
+		return { error: ServerActionError.SchemaMismatch, issues: JSON.stringify(parsed.issues) };
+	}
 
 	const multiplierTargetsSchema = premium ? premiumMultiplierTargetsSchema() : regularMultiplierTargetsSchema();
 
 	const settings = {
-		...parsed,
+		...parsed.output,
 		xpMultipliers: Object.entries(rawData)
 			.filter(([key]) => key.startsWith("xpMultipliers-"))
 			.map(([key, value]) => {

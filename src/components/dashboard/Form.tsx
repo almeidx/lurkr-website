@@ -3,14 +3,34 @@
 import { Toggle } from "@/components/Toggle.tsx";
 import { SaveButton } from "@/components/dashboard/SaveButton.tsx";
 import type { GuildSettings } from "@/lib/guild.ts";
+import type { ServerActionError } from "@/utils/server-action-error.ts";
 import { type PropsWithChildren, useActionState, useEffect } from "react";
+import { toast } from "sonner";
+import type { GenericIssue } from "valibot";
 
 export function Form({ title, action, children, description, settingId, defaultValue }: FormProps) {
 	const [state, formAction, isPending] = useActionState(action, null);
 
 	useEffect(() => {
 		if (state === false) {
-			alert("Failed to save settings. There is likely an issue with your configuration.");
+			toast.error("Failed to save settings", {
+				description: "There is likely an issue with your configuration.",
+			});
+		} else if (state && state !== true && "error" in state) {
+			console.error("Failed to save settings", state);
+
+			let errorMessage: string;
+
+			if (state.issues) {
+				const issues = JSON.parse(state.issues) as GenericIssue[];
+				errorMessage = issues.map((issue) => `${issue.path?.[0]?.key ?? "Unknown"}: ${issue.message}`).join("\n");
+			} else if (state.issue) {
+				errorMessage = state.issue;
+			} else {
+				errorMessage = "An unknown error occurred.";
+			}
+
+			toast.error("Failed to save settings", { description: errorMessage });
 		}
 	}, [state]);
 
@@ -33,7 +53,7 @@ export function Form({ title, action, children, description, settingId, defaultV
 						</div>
 					) : null}
 
-					<SaveButton pending={isPending} success={state} />
+					<SaveButton pending={isPending} success={state === null ? null : state === true} />
 				</div>
 
 				{children}
@@ -43,7 +63,10 @@ export function Form({ title, action, children, description, settingId, defaultV
 }
 
 type FormProps = PropsWithChildren<{
-	action(currentState: unknown, data: FormData): Promise<boolean>;
+	action(
+		currentState: unknown,
+		data: FormData,
+	): Promise<boolean | { error: ServerActionError; issues?: string; issue?: string }>;
 	readonly defaultValue?: boolean;
 	readonly description?: string;
 	readonly settingId?: keyof GuildSettings;

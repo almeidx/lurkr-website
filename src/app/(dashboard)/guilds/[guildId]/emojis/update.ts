@@ -1,10 +1,10 @@
 "use server";
 
 import { action } from "@/app/(dashboard)/guilds/[guildId]/action-base.ts";
-import type { GuildSettings } from "@/lib/guild.ts";
 import { formDataToObject } from "@/utils/form-data-to-object.ts";
 import { snowflake, toggle } from "@/utils/schemas.ts";
-import { object, parse } from "valibot";
+import { ServerActionError } from "@/utils/server-action-error.ts";
+import { object, safeParse } from "valibot";
 
 const schema = object({
 	emojiList: toggle,
@@ -12,7 +12,11 @@ const schema = object({
 });
 
 export async function update(guildId: string, premium: boolean, _currentState: unknown, data: FormData) {
-	const settings = parse(schema, formDataToObject(data)) satisfies Partial<GuildSettings>;
+	const result = safeParse(schema, formDataToObject(data));
 
-	return action(guildId, settings, `settings:${guildId}:emojis`, premium);
+	if (!result.success) {
+		return { error: ServerActionError.SchemaMismatch, issues: JSON.stringify(result.issues) };
+	}
+
+	return action(guildId, result.output, `settings:${guildId}:emojis`, premium);
 }

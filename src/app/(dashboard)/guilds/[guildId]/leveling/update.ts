@@ -55,6 +55,7 @@ import {
 	toggle,
 	vanitySchema,
 } from "@/utils/schemas.ts";
+import { ServerActionError } from "@/utils/server-action-error.ts";
 import {
 	array,
 	boolean,
@@ -71,10 +72,13 @@ import {
 	parse,
 	pipe,
 	regex,
+	safeParse,
 	string,
 	transform,
 	union,
 } from "valibot";
+
+// TODO: Use `safeParse` instead of `parse`
 
 const regularSchema = createSchema(false);
 const premiumSchema = createSchema(true);
@@ -97,7 +101,13 @@ export async function update(guildId: string, premium: boolean, _currentState: u
 
 	const xpRoleRewardRolesSchema = premium ? premiumXpRoleRewardRolesSchema() : regularXpRoleRewardRolesSchema();
 
-	const { autoResetLevelsBan, autoResetLevelsLeave, ...parsed } = parse(schema, rawData);
+	const result = safeParse(schema, rawData);
+
+	if (!result.success) {
+		return { error: ServerActionError.SchemaMismatch, issues: JSON.stringify(result.issues) };
+	}
+
+	const { autoResetLevelsBan, autoResetLevelsLeave, ...parsed } = result.output;
 
 	const settings = {
 		...parsed,
@@ -112,16 +122,19 @@ export async function update(guildId: string, premium: boolean, _currentState: u
 	} satisfies Partial<GuildSettings>;
 
 	if (settings.accentType === GuildAccentType.Custom && !settings.accentColour) {
-		throw new Error("Missing accent colour");
+		return { error: ServerActionError.ManualValidationFail, issue: "Missing accent colour" };
 	}
 
 	if (settings.xpAnnounceChannelType === XpAnnouncementChannelType.Custom && !settings.xpAnnounceChannel) {
-		throw new Error("Missing XP announce channel");
+		return { error: ServerActionError.ManualValidationFail, issue: "Missing Level Up Message Announcement channel" };
 	}
 
 	const maxXpRoleRewards = premium ? MAX_XP_ROLE_REWARDS_PREMIUM : MAX_XP_ROLE_REWARDS;
 	if (settings.xpRoleRewards.length > maxXpRoleRewards) {
-		throw new Error(`Too many XP role rewards (max ${maxXpRoleRewards})`);
+		return {
+			error: ServerActionError.ManualValidationFail,
+			issue: `Too many XP role rewards (max ${maxXpRoleRewards})`,
+		};
 	}
 
 	return action(guildId, settings, `settings:${guildId}:leveling`, premium);
