@@ -4,14 +4,15 @@
 		"allowJs": true,
 		"allowUnreachableCode": false,
 		"allowUnusedLabels": false,
+		"downlevelIteration": true,
 		"esModuleInterop": true,
 		"forceConsistentCasingInFileNames": true,
 		"incremental": true,
 		"isolatedModules": true,
 		"jsx": "preserve",
-		"lib": ["dom", "dom.iterable", "esnext"],
+		"lib": ["DOM", "DOM.Iterable", "ESNext"],
 		"libReplacement": false,
-		"module": "esnext",
+		"module": "ESNext",
 		"moduleResolution": "bundler",
 		"noEmit": true,
 		"noFallthroughCasesInSwitch": true,
@@ -20,7 +21,6 @@
 		"noUncheckedIndexedAccess": true,
 		"noUnusedLocals": true,
 		"paths": {
-			"@/shared-links.js": ["./src/shared-links.js"],
 			"@/*": ["./src/*"]
 		},
 		"plugins": [
@@ -31,7 +31,7 @@
 		"resolveJsonModule": true,
 		"skipLibCheck": true,
 		"strict": true,
-		"target": "es5",
+		"target": "ES2017",
 		"useUnknownInCatchVariables": true
 	},
 	"exclude": ["node_modules"],

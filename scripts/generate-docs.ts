@@ -26,13 +26,13 @@ console.log("Updated files structure.");
 async function fixFilesStructure() {
 	const outputFiles = glob(`${output}/**/*.mdx`);
 
-	const tags = new Set();
+	const tags = new Set<string>();
 
 	for await (const file of outputFiles) {
 		const { data } = grayMatter.read(file);
 		const { title } = data;
 
-		const tag = file.replace(output, "").split(sep)[1]; // first item is an empty string
+		const tag = file.replace(output, "").split(sep)[1]!; // first item is an empty string
 
 		tags.add(tag);
 
