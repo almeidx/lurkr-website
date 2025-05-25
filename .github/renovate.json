@@ -5,7 +5,7 @@
 	"extends": ["config:recommended"],
 	"lockFileMaintenance": {
 		"enabled": true,
-		"schedule": ["* * * * SUN"]
+		"schedule": ["* 5-9 * * SUN"]
 	},
 	"packageRules": [
 		{
