@@ -37,7 +37,6 @@ const ppHeader = `
 `;
 
 const nextConfig = {
-	reactStrictMode: true,
 	images: {
 		remotePatterns: [
 			{
