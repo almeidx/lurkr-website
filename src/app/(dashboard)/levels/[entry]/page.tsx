@@ -141,20 +141,28 @@ export default async function Leaderboard({ params, searchParams }: LeaderboardP
 export async function generateMetadata({ params, searchParams }: LeaderboardProps): Promise<Metadata> {
 	const { entry } = await params;
 
-	const response = await makeApiRequest(`/levels/${entry}/metadata`, null, {
-		headers: {
-			"X-Internal-Key": process.env.LEVELS_METADATA_KEY!,
-		},
-		next: {
-			revalidate: 6 * 60 * 60, // 6 hours
-		},
-	});
+	const defaultMetadata = {
+		title: "Leaderboard",
+		description: "View the leveling leaderboard of a Discord server, including rewards and multipliers!",
+	};
 
-	if (!response.ok) {
-		return {
-			title: "Leaderboard",
-			description: "View the leveling leaderboard of a Discord server, including rewards and multipliers!",
-		};
+	let response: Response;
+
+	try {
+		response = await makeApiRequest(`/levels/${entry}/metadata`, null, {
+			headers: {
+				"X-Internal-Key": process.env.LEVELS_METADATA_KEY!,
+			},
+			next: {
+				revalidate: 6 * 60 * 60, // 6 hours
+			},
+		});
+
+		if (!response.ok) {
+			return defaultMetadata;
+		}
+	} catch {
+		return defaultMetadata;
 	}
 
 	const guild = (await response.json()) as LevelsGuildMetadataResponse;
