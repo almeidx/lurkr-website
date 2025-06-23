@@ -1,7 +1,16 @@
 "use client";
 
 import { formatNumber } from "@/utils/format-number.ts";
-import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, type TooltipProps, XAxis, YAxis } from "recharts";
+import {
+	Bar,
+	BarChart,
+	CartesianGrid,
+	ResponsiveContainer,
+	Tooltip,
+	type TooltipContentProps,
+	XAxis,
+	YAxis,
+} from "recharts";
 
 const verticalMargin = 30;
 const horizontalMargin = 50;
@@ -34,14 +43,14 @@ export function MessageCounts({ data }: BarsProps) {
 					tickLine={{ stroke: "#666" }}
 					axisLine={{ stroke: "#666" }}
 				/>
-				<Tooltip content={<CustomTooltip />} cursor={{ fill: "rgba(255, 255, 255, 0.1)" }} />
+				<Tooltip content={CustomTooltip} cursor={{ fill: "rgba(255, 255, 255, 0.1)" }} />
 				<Bar dataKey="updateCount" fill="#0072f5" radius={[2, 2, 0, 0]} />
 			</BarChart>
 		</ResponsiveContainer>
 	);
 }
 
-function CustomTooltip({ active, payload }: TooltipProps<number, string>) {
+function CustomTooltip({ active, payload }: TooltipContentProps<number, string>) {
 	if (active && payload && payload.length) {
 		const data = payload[0]!.payload;
 		return (
