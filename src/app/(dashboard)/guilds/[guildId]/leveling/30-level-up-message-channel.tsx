@@ -1,16 +1,16 @@
 "use client";
 
+import { useStoreState } from "@ariakit/react";
+import { useMemo } from "react";
 import { ChannelSelector } from "@/components/dashboard/ChannelSelector.tsx";
 import { Radio, RadioGroup, useRadioStore } from "@/components/dashboard/Radio.tsx";
-import { ChatBubble } from "@/components/icons/mdi/chat-bubble.tsx";
 import { Chat } from "@/components/icons/mdi/chat.tsx";
+import { ChatBubble } from "@/components/icons/mdi/chat-bubble.tsx";
 import { DoNotDisturbAlt } from "@/components/icons/mdi/do-not-disturb.tsx";
 import { Topic } from "@/components/icons/mdi/topic.tsx";
 import { type Channel, XpAnnouncementChannelType } from "@/lib/guild.ts";
 import type { Snowflake } from "@/utils/discord-cdn.ts";
 import { mapChannelIdsToChannels } from "@/utils/map-channel-ids-to-channels.ts";
-import { useStoreState } from "@ariakit/react";
-import { useMemo } from "react";
 
 export function LevelUpMessageChannel({ channels, defaultValue, defaultCustomChannel }: LevelUpMessageProps) {
 	const radio = useRadioStore({ defaultValue });
@@ -32,7 +32,7 @@ export function LevelUpMessageChannel({ channels, defaultValue, defaultCustomCha
 					<Chat className="mr-2 text-[#fff]" fill="url(#icon-gradient-tertiary)" />
 					Direct messages
 				</div>
-				<Radio value={XpAnnouncementChannelType.Direct} id="xpAnnounceChannelTypeDirect" name="xpAnnounceChannelType" />
+				<Radio id="xpAnnounceChannelTypeDirect" name="xpAnnounceChannelType" value={XpAnnouncementChannelType.Direct} />
 			</label>
 
 			<label className="flex items-center justify-between" htmlFor="xpAnnounceChannelTypeSameChannel">
@@ -41,9 +41,9 @@ export function LevelUpMessageChannel({ channels, defaultValue, defaultCustomCha
 					The same channel
 				</div>
 				<Radio
-					value={XpAnnouncementChannelType.SameChannel}
 					id="xpAnnounceChannelTypeSameChannel"
 					name="xpAnnounceChannelType"
+					value={XpAnnouncementChannelType.SameChannel}
 				/>
 			</label>
 
@@ -52,7 +52,7 @@ export function LevelUpMessageChannel({ channels, defaultValue, defaultCustomCha
 					<DoNotDisturbAlt className="mr-2 text-[#fff]" fill="url(#icon-gradient-tertiary)" />
 					None
 				</div>
-				<Radio value={XpAnnouncementChannelType.None} id="xpAnnounceChannelTypeNone" name="xpAnnounceChannelType" />
+				<Radio id="xpAnnounceChannelTypeNone" name="xpAnnounceChannelType" value={XpAnnouncementChannelType.None} />
 			</label>
 
 			{/* TODO: Clear channel selector if user selects a different radio option */}
@@ -71,9 +71,9 @@ export function LevelUpMessageChannel({ channels, defaultValue, defaultCustomCha
 						Custom Channel
 					</div>
 					<Radio
-						value={XpAnnouncementChannelType.Custom}
 						id="xpAnnounceChannelTypeCustom"
 						name="xpAnnounceChannelType"
+						value={XpAnnouncementChannelType.Custom}
 					/>
 				</label>
 			</ChannelSelector>

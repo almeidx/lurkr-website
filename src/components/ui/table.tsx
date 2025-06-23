@@ -1,7 +1,7 @@
 // Tremor Table [v1.0.0]
 
-import { cx } from "@/lib/utils.ts";
 import React from "react";
+import { cx } from "@/lib/utils.ts";
 
 const TableRoot = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
 	({ className, children, ...props }, forwardedRef) => (
@@ -26,8 +26,6 @@ TableRoot.displayName = "TableRoot";
 const Table = React.forwardRef<HTMLTableElement, React.TableHTMLAttributes<HTMLTableElement>>(
 	({ className, ...props }, forwardedRef) => (
 		<table
-			ref={forwardedRef}
-			tremor-id="tremor-raw"
 			className={cx(
 				// base
 				"w-full caption-bottom border-b",
@@ -35,6 +33,8 @@ const Table = React.forwardRef<HTMLTableElement, React.TableHTMLAttributes<HTMLT
 				"border-gray-200 dark:border-gray-800",
 				className,
 			)}
+			ref={forwardedRef}
+			tremor-id="tremor-raw"
 			{...props}
 		/>
 	),
@@ -43,7 +43,7 @@ const Table = React.forwardRef<HTMLTableElement, React.TableHTMLAttributes<HTMLT
 Table.displayName = "Table";
 
 const TableHead = React.forwardRef<HTMLTableSectionElement, React.HTMLAttributes<HTMLTableSectionElement>>(
-	({ className, ...props }, forwardedRef) => <thead ref={forwardedRef} className={cx(className)} {...props} />,
+	({ className, ...props }, forwardedRef) => <thead className={cx(className)} ref={forwardedRef} {...props} />,
 );
 
 TableHead.displayName = "TableHead";
@@ -51,7 +51,6 @@ TableHead.displayName = "TableHead";
 const TableHeaderCell = React.forwardRef<HTMLTableCellElement, React.ThHTMLAttributes<HTMLTableCellElement>>(
 	({ className, ...props }, forwardedRef) => (
 		<th
-			ref={forwardedRef}
 			className={cx(
 				// base
 				"border-b px-4 py-3.5 text-left font-semibold text-sm",
@@ -61,6 +60,7 @@ const TableHeaderCell = React.forwardRef<HTMLTableCellElement, React.ThHTMLAttri
 				"border-gray-200 dark:border-gray-800",
 				className,
 			)}
+			ref={forwardedRef}
 			{...props}
 		/>
 	),
@@ -71,7 +71,6 @@ TableHeaderCell.displayName = "TableHeaderCell";
 const TableBody = React.forwardRef<HTMLTableSectionElement, React.HTMLAttributes<HTMLTableSectionElement>>(
 	({ className, ...props }, forwardedRef) => (
 		<tbody
-			ref={forwardedRef}
 			className={cx(
 				// base
 				"divide-y",
@@ -79,6 +78,7 @@ const TableBody = React.forwardRef<HTMLTableSectionElement, React.HTMLAttributes
 				"divide-gray-200 dark:divide-gray-800",
 				className,
 			)}
+			ref={forwardedRef}
 			{...props}
 		/>
 	),
@@ -89,12 +89,12 @@ TableBody.displayName = "TableBody";
 const TableRow = React.forwardRef<HTMLTableRowElement, React.HTMLAttributes<HTMLTableRowElement>>(
 	({ className, ...props }, forwardedRef) => (
 		<tr
-			ref={forwardedRef}
 			className={cx(
 				"[&_td:last-child]:pr-4 [&_th:last-child]:pr-4",
 				"[&_td:first-child]:pl-4 [&_th:first-child]:pl-4",
 				className,
 			)}
+			ref={forwardedRef}
 			{...props}
 		/>
 	),
@@ -105,7 +105,6 @@ TableRow.displayName = "TableRow";
 const TableCell = React.forwardRef<HTMLTableCellElement, React.TdHTMLAttributes<HTMLTableCellElement>>(
 	({ className, ...props }, forwardedRef) => (
 		<td
-			ref={forwardedRef}
 			className={cx(
 				// base
 				"p-4 text-sm",
@@ -113,6 +112,7 @@ const TableCell = React.forwardRef<HTMLTableCellElement, React.TdHTMLAttributes<
 				"text-gray-600 dark:text-gray-400",
 				className,
 			)}
+			ref={forwardedRef}
 			{...props}
 		/>
 	),
@@ -124,7 +124,6 @@ const TableFoot = React.forwardRef<HTMLTableSectionElement, React.HTMLAttributes
 	({ className, ...props }, forwardedRef) => {
 		return (
 			<tfoot
-				ref={forwardedRef}
 				className={cx(
 					// base
 					"border-t text-left font-medium",
@@ -134,6 +133,7 @@ const TableFoot = React.forwardRef<HTMLTableSectionElement, React.HTMLAttributes
 					"border-gray-200 dark:border-gray-800",
 					className,
 				)}
+				ref={forwardedRef}
 				{...props}
 			/>
 		);
@@ -145,7 +145,6 @@ TableFoot.displayName = "TableFoot";
 const TableCaption = React.forwardRef<HTMLTableCaptionElement, React.HTMLAttributes<HTMLTableCaptionElement>>(
 	({ className, ...props }, forwardedRef) => (
 		<caption
-			ref={forwardedRef}
 			className={cx(
 				// base
 				"mt-3 px-3 text-center text-sm",
@@ -153,6 +152,7 @@ const TableCaption = React.forwardRef<HTMLTableCaptionElement, React.HTMLAttribu
 				"text-gray-500 dark:text-gray-500",
 				className,
 			)}
+			ref={forwardedRef}
 			{...props}
 		/>
 	),

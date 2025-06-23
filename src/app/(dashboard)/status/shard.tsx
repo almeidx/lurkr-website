@@ -1,6 +1,6 @@
-import { prettySeconds } from "@/utils/pretty-seconds.ts";
 import { Tooltip, TooltipAnchor, TooltipProvider } from "@ariakit/react";
 import clsx from "clsx";
+import { prettySeconds } from "@/utils/pretty-seconds.ts";
 
 export function ShardDisplay({ guilds, members, ping, shardId, uptime, highlight }: ShardDisplayProps) {
 	return (

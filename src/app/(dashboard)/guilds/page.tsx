@@ -1,3 +1,5 @@
+import type { Metadata } from "next";
+import { cookies } from "next/headers";
 import { DashboardGuildList } from "@/app/(dashboard)/guilds/guild-list.tsx";
 import fallbackAvatarImg from "@/assets/fallback-avatar.webp";
 import { ImageWithFallback } from "@/components/ImageWithFallback.tsx";
@@ -7,8 +9,6 @@ import { TOKEN_COOKIE } from "@/utils/constants.ts";
 import { type Snowflake, userAvatar } from "@/utils/discord-cdn.ts";
 import { greeting } from "@/utils/greeting.ts";
 import { makeApiRequest } from "@/utils/make-api-request.ts";
-import type { Metadata } from "next";
-import { cookies } from "next/headers";
 
 export default async function GuildList() {
 	const token = (await cookies()).get(TOKEN_COOKIE)?.value;
@@ -33,11 +33,11 @@ export default async function GuildList() {
 				<ImageWithFallback
 					alt="Your profile picture"
 					className="hidden size-28 rounded-full md:block"
+					fallback={fallbackAvatarImg}
 					height={112}
 					src={userAvatar(user.id, user.avatar)}
-					width={112}
-					fallback={fallbackAvatarImg}
 					unoptimized={Boolean(user.avatar)}
+					width={112}
 				/>
 
 				<div>
@@ -60,8 +60,8 @@ export default async function GuildList() {
 }
 
 export const metadata: Metadata = {
-	title: "Dashboards",
 	description: "Configure your server with Lurkr!",
+	title: "Dashboards",
 };
 
 async function getGuilds(token: string | undefined) {

@@ -1,24 +1,24 @@
 "use client";
 
-import { Toggle } from "@/components/Toggle.tsx";
+import { useEffect, useState } from "react";
 import { DocsBubble } from "@/components/dashboard/DocsBubble.tsx";
 import { Input } from "@/components/dashboard/Input.tsx";
 import { Label } from "@/components/dashboard/Label.tsx";
 import { RoleSelector } from "@/components/dashboard/RoleSelector.tsx";
 import { AddComment } from "@/components/icons/mdi/add-comment.tsx";
 import { Delete } from "@/components/icons/mdi/delete.tsx";
+import { Toggle } from "@/components/Toggle.tsx";
+import type { Role, XpRoleReward } from "@/lib/guild.ts";
 import {
-	MAX_XP_ROLE_REWARDS,
-	MAX_XP_ROLE_REWARDS_PREMIUM,
 	MAX_XP_ROLE_REWARD_LEVEL,
 	MAX_XP_ROLE_REWARD_ROLES,
 	MAX_XP_ROLE_REWARD_ROLES_PREMIUM,
+	MAX_XP_ROLE_REWARDS,
+	MAX_XP_ROLE_REWARDS_PREMIUM,
 	MIN_XP_ROLE_REWARD_LEVEL,
 } from "@/lib/guild-config.ts";
-import type { Role, XpRoleReward } from "@/lib/guild.ts";
 import { getMaximumLimit } from "@/utils/get-maximum-limit.ts";
 import { mapRoleIdsToRoles } from "@/utils/map-role-ids-to-roles.ts";
-import { useEffect, useState } from "react";
 
 export function LevelingRoleRewards({ defaultRoleRewards, premium, roles }: LevelingRoleRewardsProps) {
 	const [roleRewards, setRoleRewards] = useState<XpRoleReward[]>(defaultRoleRewards);
@@ -65,8 +65,8 @@ export function LevelingRoleRewards({ defaultRoleRewards, premium, roles }: Leve
 	return (
 		<>
 			<Label
-				sub={`Max. ${MAX_XP_ROLE_REWARD_ROLES} roles per level - Max. ${MAX_XP_ROLE_REWARD_ROLES_PREMIUM} for Premium`}
 				htmlFor="newXpRoleRewardLevel"
+				sub={`Max. ${MAX_XP_ROLE_REWARD_ROLES} roles per level - Max. ${MAX_XP_ROLE_REWARD_ROLES_PREMIUM} for Premium`}
 			>
 				Create your role rewards…
 			</Label>
@@ -78,27 +78,27 @@ export function LevelingRoleRewards({ defaultRoleRewards, premium, roles }: Leve
 					defaultValues={[]}
 					inputId="role-rewards-sel"
 					max={getMaximumLimit("xpRoleRewardRoles", premium)}
+					onChange={(newRoles) => setNewRoles(newRoles)}
 					roles={roles}
 					settingId="newRoles"
-					onChange={(newRoles) => setNewRoles(newRoles)}
 				/>
 
 				<p className="text-lg text-white/75 tracking-tight md:text-xl">and the level to reward it at: </p>
 
 				<Input
 					id="newLevel"
+					max={MAX_XP_ROLE_REWARD_LEVEL}
+					min={1}
+					onChange={(event) => setNewLevel(event.target.value)}
 					placeholder="Enter a level…"
 					type="number"
 					value={newLevel}
-					min={1}
-					max={MAX_XP_ROLE_REWARD_LEVEL}
-					onChange={(event) => setNewLevel(event.target.value)}
 				/>
 
 				<button
 					className="rounded-lg bg-green p-1 transition-colors not-disabled:hover:bg-green/75"
-					onClick={handleCreateRoleReward}
 					disabled={roleRewards.length >= maxRoleRewards || !newRoles.length || !newLevel || isDuplicate}
+					onClick={handleCreateRoleReward}
 					type="button"
 				>
 					<AddComment className="size-6 text-white" />
@@ -115,9 +115,9 @@ export function LevelingRoleRewards({ defaultRoleRewards, premium, roles }: Leve
 						<RoleRewardDisplay
 							key={roleReward.id}
 							{...roleReward}
-							roles={roles}
 							onDelete={handleDeleteRoleReward}
 							premium={premium}
+							roles={roles}
 						/>
 					))}
 				</>

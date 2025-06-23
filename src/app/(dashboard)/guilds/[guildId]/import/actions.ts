@@ -1,12 +1,12 @@
 "use server";
 
+import { cookies } from "next/headers";
+import { enum_, maxValue, minValue, object, parse, pipe } from "valibot";
 import { LevelingImportBot } from "@/lib/guild.ts";
 import { TOKEN_COOKIE } from "@/utils/constants.ts";
 import { formDataToObject } from "@/utils/form-data-to-object.ts";
 import { makeApiRequest } from "@/utils/make-api-request.ts";
 import { coerceToInt, toggle } from "@/utils/schemas.ts";
-import { cookies } from "next/headers";
-import { enum_, maxValue, minValue, object, parse, pipe } from "valibot";
 import type { GetImportStatusResponse } from "./01-leveling-import.tsx";
 import { StartImportError } from "./import-status.tsx";
 
@@ -28,10 +28,10 @@ export async function importBotData(guildId: string, _currentState: unknown, dat
 
 	const response = await makeApiRequest(`/levels/${guildId}/import`, token, {
 		body: JSON.stringify(options),
-		method: "POST",
 		headers: {
 			"Content-Type": "application/json",
 		},
+		method: "POST",
 	});
 
 	if (!response.ok) {
@@ -54,8 +54,8 @@ export async function getOngoingImportStatus(guildId: string) {
 
 	const response = await makeApiRequest(`/levels/${guildId}/import`, token, {
 		next: {
-			tags: [`import-status:${guildId}`],
 			revalidate: 5,
+			tags: [`import-status:${guildId}`],
 		},
 	});
 

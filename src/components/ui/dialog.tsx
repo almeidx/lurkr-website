@@ -1,8 +1,8 @@
 // Tremor Dialog [v1.0.0]
 
-import { cx, focusRing } from "@/lib/utils.ts";
 import * as DialogPrimitives from "@radix-ui/react-dialog";
 import React from "react";
+import { cx, focusRing } from "@/lib/utils.ts";
 
 const Dialog = (props: React.ComponentPropsWithoutRef<typeof DialogPrimitives.Root>) => {
 	return <DialogPrimitives.Root {...props} />;
@@ -27,7 +27,6 @@ const DialogOverlay = React.forwardRef<
 >(({ className, ...props }, forwardedRef) => {
 	return (
 		<DialogPrimitives.Overlay
-			ref={forwardedRef}
 			className={cx(
 				// base
 				"fixed inset-0 z-50 overflow-y-auto",
@@ -37,6 +36,7 @@ const DialogOverlay = React.forwardRef<
 				// "data-[state=open]:animate-dialog-overlay-show",
 				className,
 			)}
+			ref={forwardedRef}
 			{...props}
 		/>
 	);
@@ -52,7 +52,6 @@ const DialogContent = React.forwardRef<
 		<DialogPortal>
 			<DialogOverlay>
 				<DialogPrimitives.Content
-					ref={forwardedRef}
 					className={cx(
 						// base
 						"-translate-x-1/2 -translate-y-1/2 fixed top-1/2 left-1/2 z-50 w-[95vw] max-w-lg overflow-y-auto rounded-md border p-6 shadow-lg",
@@ -65,6 +64,7 @@ const DialogContent = React.forwardRef<
 						focusRing,
 						className,
 					)}
+					ref={forwardedRef}
 					tremor-id="tremor-raw"
 					{...props}
 				/>
@@ -86,7 +86,6 @@ const DialogTitle = React.forwardRef<
 	React.ComponentPropsWithoutRef<typeof DialogPrimitives.Title>
 >(({ className, ...props }, forwardedRef) => (
 	<DialogPrimitives.Title
-		ref={forwardedRef}
 		className={cx(
 			// base
 			"font-semibold text-lg",
@@ -94,6 +93,7 @@ const DialogTitle = React.forwardRef<
 			"text-gray-900 dark:text-gray-50",
 			className,
 		)}
+		ref={forwardedRef}
 		{...props}
 	/>
 ));
@@ -106,8 +106,8 @@ const DialogDescription = React.forwardRef<
 >(({ className, ...props }, forwardedRef) => {
 	return (
 		<DialogPrimitives.Description
-			ref={forwardedRef}
 			className={cx("text-gray-500 dark:text-gray-500", className)}
+			ref={forwardedRef}
 			{...props}
 		/>
 	);

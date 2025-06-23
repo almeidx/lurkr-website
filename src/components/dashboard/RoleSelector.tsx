@@ -1,9 +1,9 @@
 "use client";
 
+import { type PropsWithChildren, useState } from "react";
+import Select, { type CSSObjectWithLabel, components, type GroupBase, type OptionProps } from "react-select";
 import type { Role } from "@/lib/guild.ts";
 import { decimalRoleColorToHex } from "@/utils/decimal-to-hex-color.ts";
-import { type PropsWithChildren, useState } from "react";
-import Select, { type CSSObjectWithLabel, type GroupBase, type OptionProps, components } from "react-select";
 
 export function RoleSelector({
 	children,
@@ -32,38 +32,41 @@ export function RoleSelector({
 				value={values.map(({ id }) => id).join(",")}
 			/>
 
-			<label htmlFor={inputId} className="flex flex-col gap-2">
+			<label className="flex flex-col gap-2" htmlFor={inputId}>
 				{children}
 
 				<Select
-					instanceId={`${inputId}-select`}
-					inputId={inputId}
-					options={roleOptions}
+					closeMenuOnSelect={false}
+					components={{ Option }}
 					getOptionLabel={(option: RoleWithResolvedColor) => option.name}
 					getOptionValue={(option: RoleWithResolvedColor) => option.id}
+					inputId={inputId}
+					instanceId={`${inputId}-select`}
 					isMulti
-					placeholder="e.g. Member"
-					value={values}
+					menuPlacement={menuPlacement}
 					onChange={(newValues: readonly RoleWithResolvedColor[]) => {
 						if (newValues.length > max) return;
 
 						setValues(newValues);
 						onChange?.(newValues);
 					}}
-					closeMenuOnSelect={false}
-					menuPlacement={menuPlacement}
-					components={{ Option }}
+					options={roleOptions}
+					placeholder="e.g. Member"
 					styles={{
 						control: (baseStyles: CSSObjectWithLabel) => ({
 							...baseStyles,
 							backgroundColor: "#474747",
 							border: "none",
 							borderRadius: "0.375rem",
-							color: "#e2e2e2",
 							boxShadow: "0px 0px 10px 0px #00000080 inset",
+							color: "#e2e2e2",
 							maxWidth: "48rem",
 							minWidth: "16rem",
 							padding: "0.2rem",
+						}),
+						input: (baseStyles: CSSObjectWithLabel) => ({
+							...baseStyles,
+							color: "#e2e2e2",
 						}),
 						menu: (baseStyles: CSSObjectWithLabel) => ({
 							...baseStyles,
@@ -72,11 +75,6 @@ export function RoleSelector({
 							color: "#e2e2e2",
 							maxWidth: "48rem",
 							minWidth: "16rem",
-						}),
-						option: (baseStyles: CSSObjectWithLabel, state: { isFocused: boolean }) => ({
-							...baseStyles,
-							backgroundColor: state.isFocused ? "#474747" : "#2d2d2d",
-							color: "#e2e2e2",
 						}),
 						multiValue: (baseStyles: CSSObjectWithLabel, state: { data: { resolvedColor: string } }) => ({
 							...baseStyles,
@@ -87,42 +85,44 @@ export function RoleSelector({
 						}),
 						multiValueLabel: (baseStyles: CSSObjectWithLabel, state: { data: { resolvedColor: string } }) => ({
 							...baseStyles,
+
+							":before": {
+								backgroundColor: state!.data!.resolvedColor,
+								borderRadius: "50%",
+								content: "''",
+								display: "block",
+								flexShrink: "0",
+								height: "14px",
+								margin: "0 0.1rem",
+								width: "14px",
+							},
+							alignItems: "center",
 							color: "#e2e2e2",
 
 							display: "flex",
-							alignItems: "center",
 							gap: "0.2rem",
-
-							":before": {
-								display: "block",
-								content: "''",
-								margin: "0 0.1rem",
-								width: "14px",
-								height: "14px",
-								backgroundColor: state!.data!.resolvedColor,
-								borderRadius: "50%",
-								flexShrink: "0",
-							},
-						}),
-						input: (baseStyles: CSSObjectWithLabel) => ({
-							...baseStyles,
-							color: "#e2e2e2",
 						}),
 						multiValueRemove: (baseStyles: CSSObjectWithLabel, state: { data: { resolvedColor: string } }) => ({
 							...baseStyles,
-							color: "#e2e2e2",
-							borderTopRightRadius: "20px",
-							borderBottomRightRadius: "20px",
 							":hover": {
 								backgroundColor: state!.data!.resolvedColor,
 								color: "#2d2d2d",
 							},
+							borderBottomRightRadius: "20px",
+							borderTopRightRadius: "20px",
+							color: "#e2e2e2",
+						}),
+						option: (baseStyles: CSSObjectWithLabel, state: { isFocused: boolean }) => ({
+							...baseStyles,
+							backgroundColor: state.isFocused ? "#474747" : "#2d2d2d",
+							color: "#e2e2e2",
 						}),
 						placeholder: (baseStyles: CSSObjectWithLabel) => ({
 							...baseStyles,
 							color: "#e2e2e280",
 						}),
 					}}
+					value={values}
 				/>
 			</label>
 		</>

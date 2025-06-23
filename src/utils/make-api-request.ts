@@ -1,5 +1,5 @@
-import { API_URL } from "@/utils/constants.ts";
 import pRetry, { AbortError } from "p-retry";
+import { API_URL } from "@/utils/constants.ts";
 
 export async function makeApiRequest(route: string, token: string | null | undefined, init: RequestInit = {}) {
 	return pRetry(
@@ -41,10 +41,10 @@ export async function makeApiRequest(route: string, token: string | null | undef
 			return response;
 		},
 		{
-			retries: 3,
 			onFailedAttempt: (error) => {
 				console.error(`Attempt ${error.attemptNumber} failed. There are ${error.retriesLeft} retries left.`);
 			},
+			retries: 3,
 		},
 	);
 }

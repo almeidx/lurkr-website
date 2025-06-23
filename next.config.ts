@@ -37,6 +37,35 @@ const ppHeader = `
 `;
 
 const nextConfig = {
+	experimental: {
+		reactCompiler: true,
+		// ppr: true,
+	},
+	async headers() {
+		return [
+			{
+				headers: [
+					{
+						key: "Content-Security-Policy",
+						value: cspHeader.replace(/\n/g, ""),
+					},
+					{
+						key: "X-Content-Type-Options",
+						value: "nosniff",
+					},
+					{
+						key: "Referrer-Policy",
+						value: "strict-origin-when-cross-origin",
+					},
+					{
+						key: "Permissions-Policy",
+						value: ppHeader.replace(/\n/g, ""),
+					},
+				],
+				source: "/(.*)",
+			},
+		];
+	},
 	images: {
 		remotePatterns: [
 			{
@@ -48,10 +77,6 @@ const nextConfig = {
 				protocol: "https",
 			},
 		],
-	},
-	experimental: {
-		reactCompiler: true,
-		// ppr: true,
 	},
 	logging: {
 		fetches: {
@@ -84,31 +109,6 @@ const nextConfig = {
 				destination: SUPPORT_SERVER_INVITE,
 				permanent: true,
 				source: "/support",
-			},
-		];
-	},
-	async headers() {
-		return [
-			{
-				source: "/(.*)",
-				headers: [
-					{
-						key: "Content-Security-Policy",
-						value: cspHeader.replace(/\n/g, ""),
-					},
-					{
-						key: "X-Content-Type-Options",
-						value: "nosniff",
-					},
-					{
-						key: "Referrer-Policy",
-						value: "strict-origin-when-cross-origin",
-					},
-					{
-						key: "Permissions-Policy",
-						value: ppHeader.replace(/\n/g, ""),
-					},
-				],
 			},
 		];
 	},

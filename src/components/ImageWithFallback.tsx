@@ -1,8 +1,8 @@
 "use client";
 
-import fallbackAvatarImg from "@/assets/fallback-avatar.webp";
 import Image, { type StaticImageData } from "next/image";
 import { type ComponentProps, useEffect, useState } from "react";
+import fallbackAvatarImg from "@/assets/fallback-avatar.webp";
 
 /**
  * A wrapper around Next.js' Image component that allows for a fallback image to be used if the original image fails to load.

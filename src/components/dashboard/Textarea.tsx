@@ -2,9 +2,6 @@
 
 // Modified version of https://ariakit.org/examples/combobox-textarea
 
-import type { Emoji, Role } from "@/lib/guild.ts";
-import { decimalRoleColorToHex } from "@/utils/decimal-to-hex-color.ts";
-import { emojiImage } from "@/utils/discord-cdn.ts";
 import { Combobox, ComboboxItem, ComboboxPopover, useComboboxStore, useStoreState } from "@ariakit/react";
 import clsx from "clsx";
 import { matchSorter } from "match-sorter";
@@ -19,6 +16,9 @@ import {
 	useState,
 } from "react";
 import getCaretCoordinates from "textarea-caret";
+import type { Emoji, Role } from "@/lib/guild.ts";
+import { decimalRoleColorToHex } from "@/utils/decimal-to-hex-color.ts";
+import { emojiImage } from "@/utils/discord-cdn.ts";
 
 const triggers = ["@", ":", "{"];
 
@@ -108,60 +108,60 @@ export function Textarea({
 	return (
 		<>
 			<Combobox
-				store={combobox}
 				autoSelect
-				value={value}
-				showOnChange={false}
-				showOnKeyPress={false}
-				showOnClick={false}
-				setValueOnChange={false}
 				render={
 					<textarea
-						id={id}
-						name={id}
-						maxLength={max}
-						minLength={min}
-						ref={ref}
-						rows={emulateInput ? 1 : 4}
 						className={clsx(
 							"w-full max-w-3xl rounded-lg bg-light-gray px-3 py-2 leading-relaxed shadow-dim-inner",
 							emulateInput ? "h-10 resize-none overflow-y-hidden" : "max-h-64 min-h-10 resize-y",
 						)}
-						placeholder={placeholder}
-						required={required}
-						onScroll={combobox.render}
-						onPointerDown={combobox.hide}
+						id={id}
+						maxLength={max}
+						minLength={min}
+						name={id}
 						onChange={onChange}
 						onKeyDown={onKeyDown}
+						onPointerDown={combobox.hide}
+						onScroll={combobox.render}
+						placeholder={placeholder}
+						ref={ref}
+						required={required}
+						rows={emulateInput ? 1 : 4}
 					/>
 				}
+				setValueOnChange={false}
+				showOnChange={false}
+				showOnClick={false}
+				showOnKeyPress={false}
+				store={combobox}
+				value={value}
 			/>
 
 			{mounted && (
 				<ComboboxPopover
-					store={combobox}
-					hidden={!hasMatches}
+					className="z-10000 rounded-lg border border-white/25 bg-darker px-2 py-1"
 					fitViewport
 					getAnchorRect={() => (ref.current ? getAnchorRect(ref.current) : null)}
-					className="z-10000 rounded-lg border border-white/25 bg-darker px-2 py-1"
+					hidden={!hasMatches}
+					store={combobox}
 				>
 					{matches.map((value) => (
 						<ComboboxItem
-							key={value.id}
-							value={value.name}
-							focusOnHover
-							onClick={onItemClick(value)}
 							className="flex items-center gap-2 data-active-item:bg-black"
 							data-id={value.id}
+							focusOnHover
+							key={value.id}
+							onClick={onItemClick(value)}
+							value={value.name}
 						>
 							{trigger === ":" ? (
 								<Image
-									src={emojiImage(value.id, (value as Emoji).animated)}
 									alt={`${value.name} emoji image`}
-									width={16}
-									height={16}
 									className="size-4"
+									height={16}
+									src={emojiImage(value.id, (value as Emoji).animated)}
 									unoptimized
+									width={16}
 								/>
 							) : trigger === "@" ? (
 								<div
@@ -229,9 +229,9 @@ function getAnchorRect(element: HTMLTextAreaElement) {
 	const { x, y } = element.getBoundingClientRect();
 
 	return {
+		height,
 		x: left + x - element.scrollLeft,
 		y: top + y - element.scrollTop,
-		height,
 	};
 }
 

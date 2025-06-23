@@ -1,11 +1,11 @@
 "use client";
 
+import { useState } from "react";
 import { InfoSection } from "@/app/(dashboard)/levels/calculator/info-section.tsx";
 import { Input } from "@/components/dashboard/Input.tsx";
 import { MAX_XP_MULTIPLIER_VALUE, MIN_XP_MULTIPLIER_VALUE } from "@/lib/guild-config.ts";
 import { formatNumber } from "@/utils/format-number.ts";
 import { prettySeconds } from "@/utils/pretty-seconds.ts";
-import { useState } from "react";
 import { APPROXIMATE_MESSAGES_TOOLTIP, ESTIMATED_TIME_TOOLTIP, EXPERIENCE_REQUIRED_TOOLTIP } from "./tooltips.ts";
 
 const avgXpPerMessage = (15 + 40) / 2;
@@ -25,44 +25,44 @@ export function Calculator() {
 				<Input
 					className="h-10 w-64"
 					id="desiredLevel"
-					placeholder="Enter the desired level…"
-					min={1}
 					max={MAX_LEVEL}
+					min={1}
+					onChange={(event) => setDesiredLevel(event.target.value)}
+					placeholder="Enter the desired level…"
 					type="number"
 					value={desiredLevel}
-					onChange={(event) => setDesiredLevel(event.target.value)}
 				/>
 				<Input
 					className="h-10 w-64"
 					id="currentLevel"
-					placeholder="Enter the current level…"
-					min={1}
 					max={MAX_LEVEL}
+					min={1}
+					onChange={(event) => setCurrentLevel(event.target.value)}
+					placeholder="Enter the current level…"
 					type="number"
 					value={currentLevel}
-					onChange={(event) => setCurrentLevel(event.target.value)}
 				/>
 				<Input
 					className="h-10 w-64"
 					id="multiplier"
-					placeholder="Enter a leveling multiplier…"
-					min={MIN_XP_MULTIPLIER_VALUE}
-					step={MIN_XP_MULTIPLIER_VALUE}
 					max={MAX_XP_MULTIPLIER_VALUE}
+					min={MIN_XP_MULTIPLIER_VALUE}
+					onChange={(event) => setMultiplier(event.target.value)}
+					placeholder="Enter a leveling multiplier…"
+					step={MIN_XP_MULTIPLIER_VALUE}
 					type="number"
 					value={multiplier}
-					onChange={(event) => setMultiplier(event.target.value)}
 				/>
 			</div>
 
 			<div className="flex flex-col items-center gap-5 md:flex-row">
-				<InfoSection title="Approx. Messages" tooltip={APPROXIMATE_MESSAGES_TOOLTIP} raw={approxMessages}>
+				<InfoSection raw={approxMessages} title="Approx. Messages" tooltip={APPROXIMATE_MESSAGES_TOOLTIP}>
 					{formatNumber(approxMessages)}
 				</InfoSection>
 				<InfoSection title="Estimated Time" tooltip={ESTIMATED_TIME_TOOLTIP}>
 					{prettySeconds(estimatedTime)}
 				</InfoSection>
-				<InfoSection title="Exp. Required" tooltip={EXPERIENCE_REQUIRED_TOOLTIP} raw={expRequired}>
+				<InfoSection raw={expRequired} title="Exp. Required" tooltip={EXPERIENCE_REQUIRED_TOOLTIP}>
 					{formatNumber(expRequired)}
 				</InfoSection>
 			</div>
@@ -93,7 +93,7 @@ function calculate(desiredLevel: string, currentLevel: string, multiplier: strin
 	const approxMessages = Math.ceil(expRequired / avgXpPerMessage / multiplier_);
 	const estimatedTime = approxMessages * timePerMessage;
 
-	return { expRequired, approxMessages, estimatedTime };
+	return { approxMessages, estimatedTime, expRequired };
 }
 
 function getRequiredXp(level: number): number {

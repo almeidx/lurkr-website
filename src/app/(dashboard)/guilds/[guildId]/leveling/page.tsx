@@ -1,15 +1,15 @@
+import type { Metadata } from "next";
+import { cookies } from "next/headers";
 import { getGuildSettings } from "@/app/(dashboard)/guilds/[guildId]/get-guild-data.ts";
-import { Separator } from "@/components/Separator.tsx";
 import { DocsBubble } from "@/components/dashboard/DocsBubble.tsx";
 import { Form } from "@/components/dashboard/Form.tsx";
 import { Label } from "@/components/dashboard/Label.tsx";
 import { Section } from "@/components/dashboard/Section.tsx";
 import { Text } from "@/components/dashboard/Text.tsx";
+import { Separator } from "@/components/Separator.tsx";
 import { MAX_VANITY_LENGTH, MIN_VANITY_LENGTH } from "@/lib/guild-config.ts";
 import { TOKEN_COOKIE } from "@/utils/constants.ts";
 import type { Snowflake } from "@/utils/discord-cdn.ts";
-import type { Metadata } from "next";
-import { cookies } from "next/headers";
 import { SignInRequired } from "../sign-in-required.tsx";
 import { UnknownGuildOrMissingAccess } from "../unknown-guild.tsx";
 import { LevelingChannelMode } from "./01-leveling-channel-mode.tsx";
@@ -52,14 +52,14 @@ export default async function Leveling({ params }: { readonly params: Promise<{ 
 	return (
 		<Form
 			action={action}
-			title="Leveling"
-			description="Reward your member's activity with levels, role rewards and more!"
 			defaultValue={settings.levels}
+			description="Reward your member's activity with levels, role rewards and more!"
 			settingId="levels"
+			title="Leveling"
 		>
 			<Section
-				name="Leveling Channels"
 				docsPath="/guides/setting-up-server-leveling#adding-leveling-channels"
+				name="Leveling Channels"
 				tooltip="Choose in which channels your members can gain experience."
 			>
 				<LevelingChannelMode defaultValue={settings.xpChannelMode} />
@@ -94,8 +94,8 @@ export default async function Leveling({ params }: { readonly params: Promise<{ 
 			</Section>
 
 			<Section
-				name="All-time Leaderboard Champion"
 				docsPath="/guides/leveling-role-rewards#adding-the-daily-top-leveling-role"
+				name="All-time Leaderboard Champion"
 				tooltip="Choose a role to give to the member that is at rank #1 on the leaderboard. This role is given out daily at 0:00 UTC to members level 10 or above."
 			>
 				<Text>Award the member with the highest level in your server (updated daily)…</Text>
@@ -110,27 +110,27 @@ export default async function Leveling({ params }: { readonly params: Promise<{ 
 			</Section>
 
 			<Section
-				name="Level Up Message"
 				docsPath="/guides/customize-level-up-messages"
+				name="Level Up Message"
 				tooltip="Choose where the congratulatory level up message is sent to, if at all."
 			>
 				<LevelUpMessageChannel
 					channels={guild.channels}
-					defaultValue={settings.xpAnnounceChannelType}
 					defaultCustomChannel={settings.xpAnnounceChannel}
+					defaultValue={settings.xpAnnounceChannelType}
 				/>
 
 				<LevelUpMessage defaultValue={settings.xpMessage} emojis={guild.emojis} roles={guild.roles} />
 
 				<LevelUpMessageEmbed defaultValue={settings.xpMessageEmbed} emojis={guild.emojis} roles={guild.roles} />
 
-				<LevelUpMessageConditions settings={settings} premium={guild.premium} />
+				<LevelUpMessageConditions premium={guild.premium} settings={settings} />
 			</Section>
 
 			<Section
+				docsPath="/guides/leveling-role-rewards"
 				id="role-rewards"
 				name="Role Rewards"
-				docsPath="/guides/leveling-role-rewards"
 				tooltip="Select different roles to reward your members with at different levels. You can reward multiple roles at the same level."
 			>
 				<LevelingRoleRewards defaultRoleRewards={settings.xpRoleRewards} premium={guild.premium} roles={guild.roles} />
@@ -141,8 +141,8 @@ export default async function Leveling({ params }: { readonly params: Promise<{ 
 			</Section>
 
 			<Section
-				name="Automatically Resetting Levels"
 				docsPath="/guides/leveling-automation#automatically-resetting-levels"
+				name="Automatically Resetting Levels"
 				tooltip="Choose how a members levels are treated after being banned or leaving the server. The selected actions will not be reversible."
 			>
 				<Text>When do you want to automatically delete a users levels…</Text>
@@ -151,8 +151,8 @@ export default async function Leveling({ params }: { readonly params: Promise<{ 
 			</Section>
 
 			<Section
-				name="Server-Wide Default Customization"
 				docsPath="/guides/leveling-automation#server-wide-rank-card-colour"
+				name="Server-Wide Default Customization"
 				tooltip="Choose what colour will be displayed as the progress bar in the rand card image. If a member has set a personal rank card colour, this setting will be ignored for that member."
 			>
 				<Text>Set which colour the rank progress bar should be for your server members…</Text>
@@ -183,6 +183,6 @@ export default async function Leveling({ params }: { readonly params: Promise<{ 
 }
 
 export const metadata: Metadata = {
-	title: "Leveling Dashboard",
 	description: "Configure your server's leveling system with Lurkr!",
+	title: "Leveling Dashboard",
 };

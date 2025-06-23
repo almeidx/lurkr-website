@@ -1,9 +1,13 @@
 "use client";
 
+import { Menu, MenuButton, MenuButtonArrow, MenuItem, MenuProvider } from "@ariakit/react";
+import clsx from "clsx";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import type { PropsWithChildren } from "react";
 import type { GuildInfo } from "@/app/(dashboard)/guilds/page.tsx";
 import fallbackAvatarImg from "@/assets/fallback-avatar.webp";
 import { ImageWithFallback } from "@/components/ImageWithFallback.tsx";
-import { Patreon } from "@/components/icons/Patreon.tsx";
 import { EmojiEmotions } from "@/components/icons/mdi/emoji-emotions.tsx";
 import { FormatListBulleted } from "@/components/icons/mdi/format-list-bulleted.tsx";
 import { MiscellaneousServices } from "@/components/icons/mdi/miscellaneous-services.tsx";
@@ -13,13 +17,9 @@ import { Signpost } from "@/components/icons/mdi/signpost.tsx";
 import { SmartToy } from "@/components/icons/mdi/smart-toy.tsx";
 import { TrendingUp } from "@/components/icons/mdi/trending-up.tsx";
 import { Warning } from "@/components/icons/mdi/warning.tsx";
+import { Patreon } from "@/components/icons/Patreon.tsx";
 import type { Guild, GuildSettings } from "@/lib/guild.ts";
 import { guildIcon } from "@/utils/discord-cdn.ts";
-import { Menu, MenuButton, MenuButtonArrow, MenuItem, MenuProvider } from "@ariakit/react";
-import clsx from "clsx";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import type { PropsWithChildren } from "react";
 import type { GuildMetadataResult } from "./layout.tsx";
 
 export function DashboardMenu({ guild, guilds }: DashboardMenuProps) {
@@ -34,12 +34,12 @@ export function DashboardMenu({ guild, guilds }: DashboardMenuProps) {
 					<div className="flex items-center gap-2 rounded-lg">
 						<ImageWithFallback
 							alt={`${guild.name}'s icon`}
-							src={guildIcon(guild.id, guild.icon)}
-							width={28}
-							height={28}
 							className="size-7 rounded-lg"
 							fallback={fallbackAvatarImg}
+							height={28}
+							src={guildIcon(guild.id, guild.icon)}
 							unoptimized={Boolean(guild.icon)}
+							width={28}
 						/>
 
 						<p className="line-clamp-1">{guild.name}</p>
@@ -48,7 +48,7 @@ export function DashboardMenu({ guild, guilds }: DashboardMenuProps) {
 					<MenuButtonArrow />
 				</MenuButton>
 
-				<Menu gutter={8} sameWidth className="z-50 flex max-h-96 flex-col overflow-y-auto rounded-lg bg-dark-gray">
+				<Menu className="z-50 flex max-h-96 flex-col overflow-y-auto rounded-lg bg-dark-gray" gutter={8} sameWidth>
 					{guilds.map((guild) => (
 						<MenuItem key={guild.id}>
 							<Link
@@ -58,12 +58,12 @@ export function DashboardMenu({ guild, guilds }: DashboardMenuProps) {
 							>
 								<ImageWithFallback
 									alt={`${guild.name}'s icon`}
-									src={guildIcon(guild.id, guild.icon)}
-									width={32}
-									height={32}
 									className="rounded-lg"
 									fallback={fallbackAvatarImg}
+									height={32}
+									src={guildIcon(guild.id, guild.icon)}
 									unoptimized={Boolean(guild.icon)}
+									width={32}
 								/>
 
 								<p className="line-clamp-1">{guild.name}</p>
@@ -92,41 +92,41 @@ export function DashboardMenu({ guild, guilds }: DashboardMenuProps) {
 
 				<aside className="mt-6 mb-2">
 					<ul className="flex flex-col gap-1 whitespace-nowrap">
-						<Item guildId={guild.id} name="Overview" path="" isActive={currentDashSection === "overview"}>
+						<Item guildId={guild.id} isActive={currentDashSection === "overview"} name="Overview" path="">
 							<Settings className="size-5" />
 						</Item>
-						<Item guildId={guild.id} name="Leveling" path="leveling" isActive={currentDashSection === "leveling"}>
+						<Item guildId={guild.id} isActive={currentDashSection === "leveling"} name="Leveling" path="leveling">
 							<TrendingUp className="size-5 text-[#ff7077]" />
 						</Item>
-						<Item guildId={guild.id} name="Import Bots" path="import" isActive={currentDashSection === "import"}>
+						<Item guildId={guild.id} isActive={currentDashSection === "import"} name="Import Bots" path="import">
 							<SmartToy className="size-5" />
 						</Item>
 						<Item
 							guildId={guild.id}
+							isActive={currentDashSection === "multipliers"}
 							name="Multipliers"
 							path="multipliers"
-							isActive={currentDashSection === "multipliers"}
 						>
 							<RocketLaunch className="size-5 text-[#82cbff]" />
 						</Item>
-						<Item guildId={guild.id} name="Role Management" path="roles" isActive={currentDashSection === "roles"}>
+						<Item guildId={guild.id} isActive={currentDashSection === "roles"} name="Role Management" path="roles">
 							<FormatListBulleted className="size-5 text-[#d2ffae]" />
 						</Item>
-						<Item guildId={guild.id} name="Milestones" path="milestones" isActive={currentDashSection === "milestones"}>
+						<Item guildId={guild.id} isActive={currentDashSection === "milestones"} name="Milestones" path="milestones">
 							<Signpost className="size-5 text-[#804994]" />
 						</Item>
-						<Item guildId={guild.id} name="Emoji List" path="emojis" isActive={currentDashSection === "emojis"}>
+						<Item guildId={guild.id} isActive={currentDashSection === "emojis"} name="Emoji List" path="emojis">
 							<EmojiEmotions className="size-5 text-[#ffe87c]" />
 						</Item>
 						<Item
 							guildId={guild.id}
+							isActive={currentDashSection === "miscellaneous"}
 							name="Miscellaneous"
 							path="miscellaneous"
-							isActive={currentDashSection === "miscellaneous"}
 						>
 							<MiscellaneousServices className="size-5 text-[#73ffc4]" />
 						</Item>
-						<Item guildId={guild.id} name="Danger Zone" path="danger" isActive={currentDashSection === "danger"}>
+						<Item guildId={guild.id} isActive={currentDashSection === "danger"} name="Danger Zone" path="danger">
 							<Warning className="size-5 text-[#ff9254]" />
 						</Item>
 					</ul>

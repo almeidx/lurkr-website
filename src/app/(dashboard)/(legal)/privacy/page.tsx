@@ -1,11 +1,11 @@
+import type { Metadata } from "next";
 import { ExternalLink } from "@/components/ExternalLink.tsx";
 import { SUPPORT_SERVER_INVITE } from "@/shared-links.js";
-import type { Metadata } from "next";
 
 export default function PrivacyPolicy() {
 	const lastModified = new Date(2_025, 1, 15).toLocaleDateString("en-GB", {
-		month: "long",
 		day: "numeric",
+		month: "long",
 		year: "numeric",
 	});
 
@@ -188,7 +188,7 @@ export default function PrivacyPolicy() {
 }
 
 export const metadata: Metadata = {
-	title: "Privacy Policy",
 	description:
 		"See our privacy policy to learn how we collect, use, and protect your information when you use our services.",
+	title: "Privacy Policy",
 };

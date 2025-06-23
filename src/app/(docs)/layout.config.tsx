@@ -1,18 +1,18 @@
-import logoSmall from "@/assets/logo-small.webp";
-import { GITHUB_REPOSITORY_URL } from "@/shared-links.js";
 import type { BaseLayoutProps } from "fumadocs-ui/layouts/shared";
 import Image from "next/image";
+import logoSmall from "@/assets/logo-small.webp";
+import { GITHUB_REPOSITORY_URL } from "@/shared-links.js";
 
 export const baseOptions: BaseLayoutProps = {
+	githubUrl: GITHUB_REPOSITORY_URL,
 	nav: {
 		title: (
 			<>
-				<Image alt="Lurkr" src={logoSmall} sizes="20px" width={20} height={20} className="size-5" aria-label="Lurkr" />
+				<Image alt="Lurkr" aria-label="Lurkr" className="size-5" height={20} sizes="20px" src={logoSmall} width={20} />
 				<span className="font-medium">Lurkr Docs</span>
 			</>
 		),
 	},
-	githubUrl: GITHUB_REPOSITORY_URL,
 	themeSwitch: {
 		enabled: false,
 	},

@@ -3,11 +3,11 @@ import type { ComponentProps } from "react";
 export function Discord(props: ComponentProps<"svg">) {
 	return (
 		<svg
-			stroke="currentColor"
 			fill="currentColor"
+			height={200}
+			stroke="currentColor"
 			strokeWidth={0}
 			viewBox="0 0 640 512"
-			height={200}
 			width={200}
 			xmlns="http://www.w3.org/2000/svg"
 			{...props}

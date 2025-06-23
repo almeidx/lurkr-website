@@ -40,10 +40,10 @@ const Checkbox = React.forwardRef<
 				{checked === "indeterminate" ? (
 					<svg
 						aria-hidden="true"
-						width="16"
+						fill="none"
 						height="16"
 						viewBox="0 0 16 16"
-						fill="none"
+						width="16"
 						xmlns="http://www.w3.org/2000/svg"
 					>
 						<line stroke="currentColor" strokeLinecap="round" strokeWidth="2" x1="4" x2="12" y1="8" y2="8" />
@@ -51,10 +51,10 @@ const Checkbox = React.forwardRef<
 				) : (
 					<svg
 						aria-hidden="true"
-						width="16"
+						fill="none"
 						height="16"
 						viewBox="0 0 16 16"
-						fill="none"
+						width="16"
 						xmlns="http://www.w3.org/2000/svg"
 					>
 						<path

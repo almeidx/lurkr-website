@@ -1,5 +1,9 @@
 "use client";
 
+import clsx from "clsx";
+import { matchSorter } from "match-sorter";
+import Link from "next/link";
+import { type ChangeEvent, useState } from "react";
 import type { GuildInfo } from "@/app/(dashboard)/guilds/page.tsx";
 import fallbackAvatarImg from "@/assets/fallback-avatar.webp";
 import { ImageWithFallback } from "@/components/ImageWithFallback.tsx";
@@ -7,10 +11,6 @@ import { Send } from "@/components/icons/mdi/send.tsx";
 import { BOT_INVITE } from "@/shared-links.js";
 import { guildIcon } from "@/utils/discord-cdn.ts";
 import { isSnowflake } from "@/utils/is-snowflake.ts";
-import clsx from "clsx";
-import { matchSorter } from "match-sorter";
-import Link from "next/link";
-import { type ChangeEvent, useState } from "react";
 
 export function DashboardGuildList({ guilds }: { readonly guilds: GuildInfo[] }) {
 	const [term, setTerm] = useState("");
@@ -30,19 +30,19 @@ export function DashboardGuildList({ guilds }: { readonly guilds: GuildInfo[] })
 		<>
 			<div className="mt-12 flex items-center gap-4">
 				<input
-					type="text"
-					placeholder="Enter a server name or id…"
 					className="h-10 w-72 rounded-lg bg-light-gray px-4 py-3 shadow-xs md:w-96"
-					value={term}
 					onChange={handleTermChange}
+					placeholder="Enter a server name or id…"
+					type="text"
+					value={term}
 				/>
 
 				<Link
-					href={targetGuildHref ?? "/guilds"}
 					className={clsx(
 						"flex size-9 items-center justify-center rounded-lg bg-green",
 						!targetGuildHref && "cursor-not-allowed bg-green-400/50",
 					)}
+					href={targetGuildHref ?? "/guilds"}
 					prefetch={false}
 				>
 					<span className="sr-only">
@@ -72,12 +72,12 @@ export function DashboardGuildList({ guilds }: { readonly guilds: GuildInfo[] })
 						<ImageWithFallback
 							alt={`${guild.name} server icon`}
 							className="size-19 rounded-full"
-							height={76}
-							src={guildIcon(guild.id, guild.icon)}
-							width={76}
 							fallback={fallbackAvatarImg}
-							unoptimized={Boolean(guild.icon)}
+							height={76}
 							priority={idx < 25}
+							src={guildIcon(guild.id, guild.icon)}
+							unoptimized={Boolean(guild.icon)}
+							width={76}
 						/>
 					</Link>
 				))}

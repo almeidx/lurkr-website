@@ -1,5 +1,3 @@
-import { MAX_VANITY_LENGTH, MIN_VANITY_LENGTH, VANITY_REGEX_SOURCE } from "@/lib/guild-config.ts";
-import { Time } from "@/utils/time.ts";
 import {
 	array,
 	literal,
@@ -15,6 +13,8 @@ import {
 	transform,
 	union,
 } from "valibot";
+import { MAX_VANITY_LENGTH, MIN_VANITY_LENGTH, VANITY_REGEX_SOURCE } from "@/lib/guild-config.ts";
+import { Time } from "@/utils/time.ts";
 
 export const SELECT_VALUE_SCHEMA = pipe(string(), regex(/^(\d{17,19},)*\d{17,19}$/));
 
@@ -63,7 +63,7 @@ export const booleanFlag = pipe(
 	transform((value) => value === "true"),
 );
 
-export function createMinuteIntervalValidator(min: number, max: number, name: string) {
+export function createMinuteIntervalValidator(min: number, max: number, _name: string) {
 	return union([
 		pipe(
 			literal("0"),

@@ -1,11 +1,11 @@
 "use client";
 
+import { type ChangeEvent, useRef, useState } from "react";
 import { checkVanityAvailability } from "@/app/(dashboard)/guilds/[guildId]/leveling/actions.ts";
 import { Input } from "@/components/dashboard/Input.tsx";
 import { Check } from "@/components/icons/mdi/check.tsx";
 import { Close } from "@/components/icons/mdi/close.tsx";
 import { MAX_VANITY_LENGTH, MIN_VANITY_LENGTH, VANITY_REGEX_SOURCE } from "@/lib/guild-config.ts";
-import { type ChangeEvent, useRef, useState } from "react";
 
 export function LeaderboardVanity({ defaultValue }: { defaultValue: string | null }) {
 	const [vanity, setVanity] = useState(defaultValue ?? "");
@@ -43,12 +43,12 @@ export function LeaderboardVanity({ defaultValue }: { defaultValue: string | nul
 			<Input
 				className="w-full max-w-96"
 				id="vanity"
-				placeholder="Enter a vanity URL…"
-				minLength={MIN_VANITY_LENGTH}
 				maxLength={MAX_VANITY_LENGTH}
-				pattern={VANITY_REGEX_SOURCE}
-				value={vanity}
+				minLength={MIN_VANITY_LENGTH}
 				onChange={handleChange}
+				pattern={VANITY_REGEX_SOURCE}
+				placeholder="Enter a vanity URL…"
+				value={vanity}
 			/>
 
 			{available ? (

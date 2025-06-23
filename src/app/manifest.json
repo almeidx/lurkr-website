@@ -4,13 +4,6 @@
 	"description": "The ultimate no-paywall & featureful leveling bot. Transfer your MEE6/Amari/Polaris leaderboard to get started!",
 	"dir": "ltr",
 	"display": "standalone",
-	"id": "gg.lurkr.app",
-	"lang": "en",
-	"name": "Lurkr",
-	"orientation": "natural",
-	"short_name": "Lurkr",
-	"start_url": "/",
-	"theme_color": "#ff7077",
 	"icons": [
 		{
 			"purpose": "any",
@@ -37,6 +30,11 @@
 			"type": "image/png"
 		}
 	],
+	"id": "gg.lurkr.app",
+	"lang": "en",
+	"name": "Lurkr",
+	"orientation": "natural",
+	"short_name": "Lurkr",
 	"shortcuts": [
 		{
 			"icons": [
@@ -82,5 +80,7 @@
 			"name": "Documentation",
 			"url": "/docs"
 		}
-	]
+	],
+	"start_url": "/",
+	"theme_color": "#ff7077"
 }

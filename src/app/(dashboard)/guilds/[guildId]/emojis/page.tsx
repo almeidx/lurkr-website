@@ -1,11 +1,11 @@
+import type { Metadata } from "next";
+import { cookies } from "next/headers";
 import { getGuildSettings } from "@/app/(dashboard)/guilds/[guildId]/get-guild-data.ts";
 import { Form } from "@/components/dashboard/Form.tsx";
 import { Section } from "@/components/dashboard/Section.tsx";
 import { Text } from "@/components/dashboard/Text.tsx";
 import { TOKEN_COOKIE } from "@/utils/constants.ts";
 import type { Snowflake } from "@/utils/discord-cdn.ts";
-import type { Metadata } from "next";
-import { cookies } from "next/headers";
 import { SignInRequired } from "../sign-in-required.tsx";
 import { UnknownGuildOrMissingAccess } from "../unknown-guild.tsx";
 import { EmojiListChannel } from "./01-emoji-list-channel.tsx";
@@ -32,10 +32,10 @@ export default async function Emojis({ params }: { readonly params: Promise<{ gu
 	return (
 		<Form
 			action={action}
-			title="Emoji List"
-			description="Set up a list of all of your server emojis and forget about it as it updates itself!"
 			defaultValue={settings.emojiList}
+			description="Set up a list of all of your server emojis and forget about it as it updates itself!"
 			settingId="emojiList"
+			title="Emoji List"
 		>
 			<Section>
 				<Text
@@ -54,6 +54,6 @@ export default async function Emojis({ params }: { readonly params: Promise<{ gu
 }
 
 export const metadata: Metadata = {
-	title: "Emojis Dashboard",
 	description: "Configure Lurkr to automatically update a list of all of your server emojis!",
+	title: "Emojis Dashboard",
 };

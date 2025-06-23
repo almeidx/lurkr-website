@@ -1,6 +1,6 @@
-import { LoadingSpinner } from "@/components/LoadingSpinner.tsx";
 import { Done } from "@/components/icons/mdi/done.tsx";
 import { ErrorOutline } from "@/components/icons/mdi/error-outline.tsx";
+import { LoadingSpinner } from "@/components/LoadingSpinner.tsx";
 import { LevelingImportError } from "@/lib/guild.ts";
 import { dateToRelativeTimeAgo } from "@/utils/date-to-relative-time-ago.ts";
 import type { GetImportStatusResponse } from "./01-leveling-import.tsx";
@@ -13,7 +13,7 @@ export function ImportStatusTitle({ createdAt, completedAt }: { createdAt: Date;
 	return (
 		<div className="text-white/75">
 			Started{" "}
-			<time title={createdAt_.toLocaleString("en-GB")} dateTime={createdAt_.toISOString()} suppressHydrationWarning>
+			<time dateTime={createdAt_.toISOString()} suppressHydrationWarning title={createdAt_.toLocaleString("en-GB")}>
 				{dateToRelativeTimeAgo(createdAt_, "en-GB")}
 			</time>
 			{completedAt_ ? (
@@ -21,9 +21,9 @@ export function ImportStatusTitle({ createdAt, completedAt }: { createdAt: Date;
 					{" "}
 					- Completed{" "}
 					<time
-						title={completedAt_.toLocaleString("en-GB")}
 						dateTime={completedAt_.toISOString()}
 						suppressHydrationWarning
+						title={completedAt_.toLocaleString("en-GB")}
 					>
 						{dateToRelativeTimeAgo(completedAt_, "en-GB")}
 					</time>
@@ -104,7 +104,7 @@ export function ImportStatus({ formState, importStatus }: ImportStatusProps) {
 
 				<p>
 					The leveling import is still in progress. Last update{" "}
-					<time title={updatedAt_.toLocaleString("en-GB")} dateTime={updatedAt_.toISOString()} suppressHydrationWarning>
+					<time dateTime={updatedAt_.toISOString()} suppressHydrationWarning title={updatedAt_.toLocaleString("en-GB")}>
 						{dateToRelativeTimeAgo(updatedAt_, "en-GB")}
 					</time>
 					.

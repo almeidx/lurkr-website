@@ -1,5 +1,7 @@
 "use client";
 
+import { Disclosure, DisclosureContent, DisclosureProvider } from "@ariakit/react";
+import dynamic from "next/dynamic";
 import { userLevelResetAction } from "@/app/(dashboard)/levels/[entry]/actions.ts";
 import type { GetLevelsResponse } from "@/app/(dashboard)/levels/[entry]/page.tsx";
 import fallbackAvatarImg from "@/assets/fallback-avatar.webp";
@@ -7,8 +9,6 @@ import { ImageWithFallback } from "@/components/ImageWithFallback.tsx";
 import { RadialProgressBar } from "@/components/RadialProgressBar.tsx";
 import { type Snowflake, userAvatar } from "@/utils/discord-cdn.ts";
 import { formatNumber } from "@/utils/format-number.ts";
-import { Disclosure, DisclosureContent, DisclosureProvider } from "@ariakit/react";
-import dynamic from "next/dynamic";
 
 const Confirmation = dynamic(() =>
 	import("@/components/Confirmation.tsx").then((mod) => ({ default: mod.Confirmation })),
@@ -37,11 +37,11 @@ export function LeaderboardTableRow({ guildId, row, isManager }: LeaderboardTabl
 						<ImageWithFallback
 							alt={`${row.user.username} avatar`}
 							className="mr-4 size-8 rounded-full"
-							src={userAvatar(row.userId, row.user.avatar, { size: 32, format: "webp" })}
 							fallback={fallbackAvatarImg}
-							width={32}
 							height={32}
+							src={userAvatar(row.userId, row.user.avatar, { format: "webp", size: 32 })}
 							unoptimized={Boolean(row.user.avatar)}
+							width={32}
 						/>
 
 						<p className="max-w-40 sm:max-w-96">{row.user.username}</p>
@@ -52,7 +52,7 @@ export function LeaderboardTableRow({ guildId, row, isManager }: LeaderboardTabl
 					<div className="hidden min-w-14 max-w-[15%] text-center sm:block">{formatNumber(row.xp)}</div>
 
 					<div className="flex min-w-14 max-w-[15%] items-center justify-center">
-						<RadialProgressBar color={row.user.accentColour} percentage={row.progress} num={row.level} />
+						<RadialProgressBar color={row.user.accentColour} num={row.level} percentage={row.progress} />
 					</div>
 				</Disclosure>
 
@@ -78,9 +78,9 @@ export function LeaderboardTableRow({ guildId, row, isManager }: LeaderboardTabl
 							<p className="mb-2 w-fit border-b text-base">Admin actions:</p>
 
 							<Confirmation
+								buttonText="Reset level"
 								className="size-fit rounded-lg bg-red px-2 py-1.5 text-sm hover:bg-red/75"
 								onConfirm={handleResetLevelConfirm}
-								buttonText="Reset level"
 							>
 								Are you sure you want to reset {row.user.username}'s level?
 							</Confirmation>

@@ -1,23 +1,24 @@
 import "client-only";
+
 // The reason for using "client-only" instead of "use client" is because of the function parameter in the component,
 // which triggers a warning since functions are not serializable.
 
+import { type Dispatch, type SetStateAction, useState } from "react";
 import { Input } from "@/components/dashboard/Input.tsx";
 import { Label } from "@/components/dashboard/Label.tsx";
 import { RoleSelector } from "@/components/dashboard/RoleSelector.tsx";
 import { Text } from "@/components/dashboard/Text.tsx";
 import { AddComment } from "@/components/icons/mdi/add-comment.tsx";
 import { Delete } from "@/components/icons/mdi/delete.tsx";
+import { type Role, type XpMultiplier, XpMultiplierType } from "@/lib/guild.ts";
 import {
 	MAX_XP_MULTIPLIER_TARGETS,
 	MAX_XP_MULTIPLIER_TARGETS_PREMIUM,
 	MAX_XP_MULTIPLIER_VALUE,
 	MIN_XP_MULTIPLIER_VALUE,
 } from "@/lib/guild-config.ts";
-import { type Role, type XpMultiplier, XpMultiplierType } from "@/lib/guild.ts";
 import { getMaximumLimit } from "@/utils/get-maximum-limit.ts";
 import { mapRoleIdsToRoles } from "@/utils/map-role-ids-to-roles.ts";
-import { type Dispatch, type SetStateAction, useState } from "react";
 import { CreateMultiplierButton } from "./create-multiplier-button.tsx";
 
 export function RoleMultipliers({
@@ -79,31 +80,31 @@ export function RoleMultipliers({
 					defaultValues={[]}
 					inputId="role-selector"
 					max={getMaximumLimit("xpMultiplierTargets", premium)}
+					onChange={(newRoles) => setNewRoles(newRoles)}
 					roles={roles}
 					settingId="newRoles"
-					onChange={(newRoles) => setNewRoles(newRoles)}
 				/>
 
 				<Text>and the multiplier to apply to them:</Text>
 
 				<Input
 					id="newLevel"
+					max={MAX_XP_MULTIPLIER_VALUE}
+					min={MIN_XP_MULTIPLIER_VALUE}
+					onChange={(event) => setNewMultiplier(event.target.value)}
 					placeholder="Enter a multiplier…"
+					step={MIN_XP_MULTIPLIER_VALUE}
 					type="number"
 					value={newMultiplier}
-					min={MIN_XP_MULTIPLIER_VALUE}
-					max={MAX_XP_MULTIPLIER_VALUE}
-					step={MIN_XP_MULTIPLIER_VALUE}
-					onChange={(event) => setNewMultiplier(event.target.value)}
 				/>
 
 				<CreateMultiplierButton
+					existingMultiplierValues={existingMultiplierValues}
 					handleCreateMultiplier={handleCreateMultiplier}
 					maxMultipliers={maxMultipliers}
 					multiplierCount={multiplierCount}
 					newMultiplier={newMultiplier}
 					newTargets={newRoles}
-					existingMultiplierValues={existingMultiplierValues}
 				>
 					<AddComment className="size-6 text-white" />
 				</CreateMultiplierButton>
@@ -121,9 +122,9 @@ export function RoleMultipliers({
 						<RoleMultiplier
 							key={multiplier.id}
 							{...multiplier}
-							roles={roles}
 							onDelete={handleDeleteMultiplier}
 							premium={premium}
+							roles={roles}
 						/>
 					))}
 				</>

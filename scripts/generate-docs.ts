@@ -12,11 +12,11 @@ for await (const file of filesIter) {
 }
 
 await generateFiles({
+	groupBy: "tag",
+	includeDescription: true,
 	input: ["https://api.lurkr.gg/v2/docs/json"],
 	output,
-	includeDescription: true,
 	per: "operation",
-	groupBy: "tag",
 });
 
 await fixFilesStructure();

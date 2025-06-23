@@ -1,6 +1,6 @@
-import { DocsBubble } from "@/components/dashboard/DocsBubble.tsx";
 import clsx from "clsx";
 import type { PropsWithChildren } from "react";
+import { DocsBubble } from "@/components/dashboard/DocsBubble.tsx";
 
 export function Text(props: TextProps) {
 	const { children, htmlFor } = props;

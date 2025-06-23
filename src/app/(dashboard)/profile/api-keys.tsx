@@ -1,16 +1,16 @@
 "use client";
 
-import { LoadingSpinner } from "@/components/LoadingSpinner.tsx";
+import Cookies from "js-cookie";
+import Link from "next/link";
+import { useEffect, useState } from "react";
 import { Text } from "@/components/dashboard/Text.tsx";
+import { LoadingSpinner } from "@/components/LoadingSpinner.tsx";
 import { Badge } from "@/components/ui/badge.tsx";
 import { Table, TableBody, TableCell, TableHead, TableHeaderCell, TableRow } from "@/components/ui/table.tsx";
 import { ApiKeyPermission, type UserGuildInfo } from "@/lib/guild.ts";
 import { TOKEN_COOKIE } from "@/utils/constants.ts";
 import type { Snowflake } from "@/utils/discord-cdn.ts";
 import { makeApiRequest } from "@/utils/make-api-request.ts";
-import Cookies from "js-cookie";
-import Link from "next/link";
-import { useEffect, useState } from "react";
 import { CreateApiKeyDialog } from "./create-api-key-dialog.tsx";
 import { DeleteApiKeyDialog } from "./delete-api-key-dialog.tsx";
 import { GuildAccessApiKeyDialog } from "./guild-access-api-key-dialog.tsx";
@@ -26,6 +26,7 @@ export function ApiKeys({ guilds }: ApiKeysProps) {
 	const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
 	const [focusedApiKeyIndex, setFocusedApiKeyIndex] = useState<number | null>(null);
 
+	// biome-ignore lint/correctness/useExhaustiveDependencies: Only want to run this once on mount
 	useEffect(() => {
 		revalidateApiKeys();
 	}, []);
@@ -138,12 +139,12 @@ export function ApiKeys({ guilds }: ApiKeysProps) {
 
 					{focusedApiKeyIndex !== null && keys[focusedApiKeyIndex] && (
 						<GuildAccessApiKeyDialog
-							keyId={keys[focusedApiKeyIndex].id}
-							keyName={keys[focusedApiKeyIndex].name}
 							guildAccess={keys[focusedApiKeyIndex].guildAccess}
 							guilds={guilds}
-							open={guildAccessDialogOpen}
+							keyId={keys[focusedApiKeyIndex].id}
+							keyName={keys[focusedApiKeyIndex].name}
 							onOpenChange={handleCloseGuildAccessDialog}
+							open={guildAccessDialogOpen}
 						/>
 					)}
 
@@ -151,8 +152,8 @@ export function ApiKeys({ guilds }: ApiKeysProps) {
 						<DeleteApiKeyDialog
 							keyId={keys[focusedApiKeyIndex].id}
 							keyName={keys[focusedApiKeyIndex].name}
-							open={deleteDialogOpen}
 							onOpenChange={handleCloseDeleteApiKeyDialog}
+							open={deleteDialogOpen}
 						/>
 					)}
 				</>

@@ -1,8 +1,8 @@
 import { DocsBubble } from "@/components/dashboard/DocsBubble.tsx";
 import { Label } from "@/components/dashboard/Label.tsx";
 import { RoleSelector } from "@/components/dashboard/RoleSelector.tsx";
-import { MAX_NO_ROLE_REWARD_ROLES, MAX_NO_ROLE_REWARD_ROLES_PREMIUM } from "@/lib/guild-config.ts";
 import type { Role } from "@/lib/guild.ts";
+import { MAX_NO_ROLE_REWARD_ROLES, MAX_NO_ROLE_REWARD_ROLES_PREMIUM } from "@/lib/guild-config.ts";
 import { getMaximumLimit } from "@/utils/get-maximum-limit.ts";
 import { mapRoleIdsToRoles } from "@/utils/map-role-ids-to-roles.ts";
 

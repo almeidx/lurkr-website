@@ -1,12 +1,12 @@
+import type { Metadata } from "next";
+import { cookies } from "next/headers";
 import { getGuildSettings } from "@/app/(dashboard)/guilds/[guildId]/get-guild-data.ts";
-import { Separator } from "@/components/Separator.tsx";
 import { Form } from "@/components/dashboard/Form.tsx";
 import { Section } from "@/components/dashboard/Section.tsx";
 import { Text } from "@/components/dashboard/Text.tsx";
+import { Separator } from "@/components/Separator.tsx";
 import { TOKEN_COOKIE } from "@/utils/constants.ts";
 import type { Snowflake } from "@/utils/discord-cdn.ts";
-import type { Metadata } from "next";
-import { cookies } from "next/headers";
 import { SignInRequired } from "../sign-in-required.tsx";
 import { UnknownGuildOrMissingAccess } from "../unknown-guild.tsx";
 import { OnJoinRoles } from "./01-on-join-roles.tsx";
@@ -36,13 +36,13 @@ export default async function Roles({ params }: { readonly params: Promise<{ gui
 
 	return (
 		<Form
-			title="Role Management"
-			description="Automatically assign roles to users and avoid role mentions spam!"
 			action={action}
+			description="Automatically assign roles to users and avoid role mentions spam!"
+			title="Role Management"
 		>
 			<Section
-				name="On Join Roles"
 				docsPath="/guides/automatically-added-roles-with-timeout"
+				name="On Join Roles"
 				tooltip="Select roles that will be assigned to every member who joins your server."
 			>
 				<Text>
@@ -76,8 +76,8 @@ export default async function Roles({ params }: { readonly params: Promise<{ gui
 			</Section>
 
 			<Section
-				name="Role Mention Cooldown"
 				docsPath="/guides/automatic-role-mention-cooldown"
+				name="Role Mention Cooldown"
 				tooltip="Choose if certain roles should be mentionable by regular members, and for how long they should not be mentionable, after having been mentioned once. This is to avoid spam pings for Moderators or Admins."
 			>
 				<Text>Set which role(s) should get a cooldown when mentioned…</Text>
@@ -104,6 +104,6 @@ export default async function Roles({ params }: { readonly params: Promise<{ gui
 }
 
 export const metadata: Metadata = {
-	title: "Roles Dashboard",
 	description: "Automatically assign roles to users and avoid role mentions spam!",
+	title: "Roles Dashboard",
 };

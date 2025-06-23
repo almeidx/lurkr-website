@@ -1,9 +1,9 @@
+import { cookies } from "next/headers";
+import type { PropsWithChildren } from "react";
 import type { GuildInfo } from "@/app/(dashboard)/guilds/page.tsx";
 import { TOKEN_COOKIE } from "@/utils/constants.ts";
 import type { Snowflake } from "@/utils/discord-cdn.ts";
 import { makeApiRequest } from "@/utils/make-api-request.ts";
-import { cookies } from "next/headers";
-import type { PropsWithChildren } from "react";
 import { DashboardMenu } from "./dashboard-menu.tsx";
 import { UnknownGuildOrMissingAccess } from "./unknown-guild.tsx";
 

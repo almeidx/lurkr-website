@@ -1,5 +1,5 @@
-import { Toggle } from "@/components/Toggle.tsx";
 import { Text } from "@/components/dashboard/Text.tsx";
+import { Toggle } from "@/components/Toggle.tsx";
 
 export function IncludeRoleRewards() {
 	return (

@@ -1,13 +1,13 @@
-import { ExternalLink } from "@/components/ExternalLink.tsx";
-import { Check } from "@/components/icons/mdi/check.tsx";
-import { Close } from "@/components/icons/mdi/close.tsx";
-import { ShowChart } from "@/components/icons/mdi/show-chart.tsx";
-import { PATREON_URL } from "@/shared-links.js";
 import clsx from "clsx";
 import type { StaticImageData } from "next/image";
 import Image from "next/image";
 import Link from "next/link";
 import type { ComponentProps } from "react";
+import { ExternalLink } from "@/components/ExternalLink.tsx";
+import { Check } from "@/components/icons/mdi/check.tsx";
+import { Close } from "@/components/icons/mdi/close.tsx";
+import { ShowChart } from "@/components/icons/mdi/show-chart.tsx";
+import { PATREON_URL } from "@/shared-links.js";
 
 export function PremiumPlan({
 	buttonText,
@@ -38,11 +38,11 @@ export function PremiumPlan({
 
 			<Image
 				alt={`${name} premium plan promotional image`}
+				className="mt-2 size-36 self-center md:size-48"
+				height={200}
+				priority
 				src={img}
 				width={200}
-				height={200}
-				className="mt-2 size-36 self-center md:size-48"
-				priority
 			/>
 
 			<p className="text-center font-bold text-4xl md:text-6xl">
@@ -55,7 +55,7 @@ export function PremiumPlan({
 			<div className="mt-4 space-y-3 whitespace-normal text-sm text-white/75 tracking-tighter md:text-base xl:whitespace-nowrap">
 				<ul className="space-y-3">
 					{perks.map((perk) => (
-						<li key={perk} className="flex items-center gap-2">
+						<li className="flex items-center gap-2" key={perk}>
 							<div className="flex size-9 items-center justify-center rounded-lg bg-darker">
 								<Check aria-hidden className="size-8 text-[#93e19c]" />
 							</div>
@@ -68,7 +68,7 @@ export function PremiumPlan({
 				{regular && (
 					<ul className="space-y-3">
 						{regular.map((perk) => (
-							<li key={perk} className="flex items-center gap-2">
+							<li className="flex items-center gap-2" key={perk}>
 								<div className="flex size-9 items-center justify-center rounded-lg bg-darker">
 									<ShowChart aria-hidden className="size-8 text-[#f6e594]" />
 								</div>

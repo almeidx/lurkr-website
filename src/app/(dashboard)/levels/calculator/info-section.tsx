@@ -1,6 +1,6 @@
-import { Help } from "@/components/icons/mdi/help.tsx";
 import { Tooltip, TooltipAnchor, TooltipProvider } from "@ariakit/react";
 import type { PropsWithChildren } from "react";
+import { Help } from "@/components/icons/mdi/help.tsx";
 
 export function InfoSection({ children, title, tooltip, raw }: InfoSectionProps) {
 	return (

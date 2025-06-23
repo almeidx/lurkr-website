@@ -1,10 +1,10 @@
 "use client";
 
+import { type ChangeEvent, useState } from "react";
 import { Input } from "@/components/dashboard/Input.tsx";
 import { ReportProblem } from "@/components/icons/mdi/report-problem.tsx";
 import { getShardIdForGuildId } from "@/utils/get-shard-id-for-guild-id.ts";
 import { isSnowflake } from "@/utils/is-snowflake.ts";
-import { type ChangeEvent, useState } from "react";
 import { type Shard, ShardDisplay } from "./shard.tsx";
 
 export function ShardsContainer({ shards, totalShards }: ShardsContainerProps) {
@@ -21,10 +21,10 @@ export function ShardsContainer({ shards, totalShards }: ShardsContainerProps) {
 			<Input
 				className="w-full"
 				id="serverId"
+				maxLength={20}
+				onChange={handleGuildIdChange}
 				placeholder="Enter a server id…"
 				value={guildId}
-				onChange={handleGuildIdChange}
-				maxLength={20}
 			/>
 
 			<div className="flex w-full flex-wrap items-center justify-center gap-x-7.5 gap-y-5">

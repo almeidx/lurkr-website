@@ -1,7 +1,10 @@
 "use client";
 
-import { Separator } from "@/components/Separator.tsx";
+import { Popover, PopoverDisclosure, PopoverProvider } from "@ariakit/react";
+import { useMemo, useState } from "react";
+import { HexColorInput } from "react-colorful";
 import { Colorize } from "@/components/icons/mdi/colorize.tsx";
+import { Separator } from "@/components/Separator.tsx";
 import type { Embed, Emoji, Role } from "@/lib/guild.ts";
 import { BRAND_COLOR } from "@/utils/constants.ts";
 import {
@@ -12,9 +15,6 @@ import {
 	EMBED_URL_MAX_LENGTH,
 	EMBED_URL_MIN_LENGTH,
 } from "@/utils/embed-limits.ts";
-import { Popover, PopoverDisclosure, PopoverProvider } from "@ariakit/react";
-import { useMemo, useState } from "react";
-import { HexColorInput } from "react-colorful";
 import { ColorPicker } from "../ColorPicker.tsx";
 import { Input } from "../Input.tsx";
 import { Label } from "../Label.tsx";
@@ -24,17 +24,17 @@ import { EmbedFieldsBuilder } from "./EmbedFieldsBuilder.tsx";
 export function EmbedBuilder({ defaultValue, emojis, roles, placeholders }: EmbedBuilderProps) {
 	function generateDefaultEmbedState(val: Embed) {
 		return {
-			title: val.title ?? "",
-			description: val.description ?? "",
-			color: val.color ? `#${val.color.toString(16).padStart(6, "0")}` : BRAND_COLOR,
-			url: val.url ?? "",
-			author_name: val.author?.name ?? "",
 			author_icon_url: val.author?.icon_url ?? "",
+			author_name: val.author?.name ?? "",
 			author_url: val.author?.url ?? "",
-			footer_text: val.footer?.text ?? "",
+			color: val.color ? `#${val.color.toString(16).padStart(6, "0")}` : BRAND_COLOR,
+			description: val.description ?? "",
 			footer_icon_url: val.footer?.icon_url ?? "",
+			footer_text: val.footer?.text ?? "",
 			image_url: val.image?.url ?? "",
 			thumbnail_url: val.thumbnail?.url ?? "",
+			title: val.title ?? "",
+			url: val.url ?? "",
 		};
 	}
 
@@ -98,9 +98,9 @@ export function EmbedBuilder({ defaultValue, emojis, roles, placeholders }: Embe
 
 		if (fields.length) {
 			embed.fields = fields.map((field) => ({
+				inline: field.inline,
 				name: field.name,
 				value: field.value,
-				inline: field.inline,
 			}));
 		}
 
@@ -141,14 +141,14 @@ export function EmbedBuilder({ defaultValue, emojis, roles, placeholders }: Embe
 
 			setEmbedState(generateDefaultEmbedState(parsed));
 			setFields(parsed.fields ?? []);
-		} catch (error) {
+		} catch (_error) {
 			alert("Invalid JSON");
 		}
 	}
 
 	return (
 		<div className="flex flex-col gap-2">
-			<input type="hidden" name="xpMessageEmbed" value={embed} />
+			<input name="xpMessageEmbed" type="hidden" value={embed} />
 
 			<div className="flex flex-col-reverse items-start justify-between gap-2 xl:flex-row">
 				<div className="flex flex-col gap-2">
@@ -165,10 +165,10 @@ export function EmbedBuilder({ defaultValue, emojis, roles, placeholders }: Embe
 							<HexColorInput
 								className="w-52 rounded-lg bg-light-gray px-3 py-2 shadow-dim-inner md:w-64"
 								color={embedState.color}
-								prefixed
-								onChange={(color) => handleChange("color", color)}
 								id="embed-color"
 								name="embed-color"
+								onChange={(color) => handleChange("color", color)}
+								prefixed
 							/>
 
 							<div aria-hidden className="size-7 rounded-lg" style={{ backgroundColor: embedState.color }} />
@@ -201,21 +201,21 @@ export function EmbedBuilder({ defaultValue, emojis, roles, placeholders }: Embe
 
 			<div className="flex flex-col gap-4 md:flex-row">
 				<div className="flex flex-col gap-2 md:basis-1/2">
-					<Label sub={`Max. ${EMBED_TITLE_MAX_LENGTH} chars`} htmlFor="embed-title" small>
+					<Label htmlFor="embed-title" small sub={`Max. ${EMBED_TITLE_MAX_LENGTH} chars`}>
 						Title
 					</Label>
 
 					<Textarea
-						placeholder="Enter title"
 						emojis={emojis}
+						emulateInput
 						id="embed-title"
 						max={EMBED_TITLE_MAX_LENGTH}
 						min={1}
-						roles={roles}
+						placeholder="Enter title"
 						placeholders={placeholders}
-						value={embedState.title}
+						roles={roles}
 						setValue={(event: string) => handleChange("title", event)}
-						emulateInput
+						value={embedState.title}
 					/>
 				</div>
 
@@ -226,51 +226,51 @@ export function EmbedBuilder({ defaultValue, emojis, roles, placeholders }: Embe
 
 					<Input
 						id="embed-url"
-						placeholder="Enter URL"
-						minLength={EMBED_URL_MIN_LENGTH}
 						maxLength={EMBED_URL_MAX_LENGTH}
-						value={embedState.url}
+						minLength={EMBED_URL_MIN_LENGTH}
 						onChange={(event) => handleChange("url", event.target.value)}
+						placeholder="Enter URL"
+						value={embedState.url}
 					/>
 				</div>
 			</div>
 
 			<div className="flex flex-col gap-2">
-				<Label sub={`Max. ${EMBED_DESCRIPTION_MAX_LENGTH} chars`} htmlFor="embed-description" small>
+				<Label htmlFor="embed-description" small sub={`Max. ${EMBED_DESCRIPTION_MAX_LENGTH} chars`}>
 					Description
 				</Label>
 
 				<Textarea
-					placeholder="Enter description"
 					emojis={emojis}
 					id="embed-description"
 					max={EMBED_DESCRIPTION_MAX_LENGTH}
 					min={1}
-					roles={roles}
+					placeholder="Enter description"
 					placeholders={placeholders}
-					value={embedState.description}
+					roles={roles}
 					setValue={(event: string) => handleChange("description", event)}
+					value={embedState.description}
 				/>
 			</div>
 
 			<Separator />
 
 			<div className="flex flex-col gap-2">
-				<Label sub="Max. 256 chars" htmlFor="embed-author-name" small>
+				<Label htmlFor="embed-author-name" small sub="Max. 256 chars">
 					Author Name
 				</Label>
 
 				<Textarea
-					placeholder="Enter author name"
 					emojis={emojis}
+					emulateInput
 					id="embed-author-name"
 					max={EMBED_AUTHOR_NAME_MAX_LENGTH}
 					min={1}
-					roles={roles}
+					placeholder="Enter author name"
 					placeholders={placeholders}
-					value={embedState.author_name}
+					roles={roles}
 					setValue={(event: string) => handleChange("author_name", event)}
-					emulateInput
+					value={embedState.author_name}
 				/>
 			</div>
 
@@ -282,11 +282,11 @@ export function EmbedBuilder({ defaultValue, emojis, roles, placeholders }: Embe
 
 					<Input
 						id="embed-author-icon"
-						placeholder="Enter author icon URL"
-						minLength={EMBED_URL_MIN_LENGTH}
 						maxLength={EMBED_URL_MAX_LENGTH}
-						value={embedState.author_icon_url}
+						minLength={EMBED_URL_MIN_LENGTH}
 						onChange={(event) => handleChange("author_icon_url", event.target.value)}
+						placeholder="Enter author icon URL"
+						value={embedState.author_icon_url}
 					/>
 				</div>
 
@@ -297,11 +297,11 @@ export function EmbedBuilder({ defaultValue, emojis, roles, placeholders }: Embe
 
 					<Input
 						id="embed-author-url"
-						placeholder="Enter author URL"
-						minLength={EMBED_URL_MIN_LENGTH}
 						maxLength={EMBED_URL_MAX_LENGTH}
-						value={embedState.author_url}
+						minLength={EMBED_URL_MIN_LENGTH}
 						onChange={(event) => handleChange("author_url", event.target.value)}
+						placeholder="Enter author URL"
+						value={embedState.author_url}
 					/>
 				</div>
 			</div>
@@ -310,21 +310,21 @@ export function EmbedBuilder({ defaultValue, emojis, roles, placeholders }: Embe
 
 			<div className="flex flex-col gap-4 md:flex-row">
 				<div className="flex flex-col gap-2 md:basis-1/2">
-					<Label sub="Max. 2048 chars" htmlFor="embed-footer-text" small>
+					<Label htmlFor="embed-footer-text" small sub="Max. 2048 chars">
 						Footer Text
 					</Label>
 
 					<Textarea
-						placeholder="Enter footer text"
 						emojis={emojis}
+						emulateInput
 						id="embed-footer-text"
 						max={EMBED_FOOTER_TEXT_MAX_LENGTH}
 						min={1}
-						roles={roles}
+						placeholder="Enter footer text"
 						placeholders={placeholders}
-						value={embedState.footer_text}
+						roles={roles}
 						setValue={(event: string) => handleChange("footer_text", event)}
-						emulateInput
+						value={embedState.footer_text}
 					/>
 				</div>
 
@@ -335,11 +335,11 @@ export function EmbedBuilder({ defaultValue, emojis, roles, placeholders }: Embe
 
 					<Input
 						id="embed-footer-icon"
-						placeholder="Footer icon URL"
-						minLength={EMBED_URL_MIN_LENGTH}
 						maxLength={EMBED_URL_MAX_LENGTH}
-						value={embedState.footer_icon_url}
+						minLength={EMBED_URL_MIN_LENGTH}
 						onChange={(event) => handleChange("footer_icon_url", event.target.value)}
+						placeholder="Footer icon URL"
+						value={embedState.footer_icon_url}
 					/>
 				</div>
 			</div>
@@ -354,11 +354,11 @@ export function EmbedBuilder({ defaultValue, emojis, roles, placeholders }: Embe
 
 					<Input
 						id="embed-image-url"
-						placeholder="Enter image URL"
-						minLength={EMBED_URL_MIN_LENGTH}
 						maxLength={EMBED_URL_MAX_LENGTH}
-						value={embedState.image_url}
+						minLength={EMBED_URL_MIN_LENGTH}
 						onChange={(event) => handleChange("image_url", event.target.value)}
+						placeholder="Enter image URL"
+						value={embedState.image_url}
 					/>
 				</div>
 
@@ -369,11 +369,11 @@ export function EmbedBuilder({ defaultValue, emojis, roles, placeholders }: Embe
 
 					<Input
 						id="embed-thumbnail-url"
-						placeholder="Enter thumbnail URL"
-						minLength={EMBED_URL_MIN_LENGTH}
 						maxLength={EMBED_URL_MAX_LENGTH}
-						value={embedState.thumbnail_url}
+						minLength={EMBED_URL_MIN_LENGTH}
 						onChange={(event) => handleChange("thumbnail_url", event.target.value)}
+						placeholder="Enter thumbnail URL"
+						value={embedState.thumbnail_url}
 					/>
 				</div>
 			</div>
@@ -381,11 +381,11 @@ export function EmbedBuilder({ defaultValue, emojis, roles, placeholders }: Embe
 			<Separator />
 
 			<EmbedFieldsBuilder
-				fields={fields}
-				setFields={setFields}
 				emojis={emojis}
-				roles={roles}
+				fields={fields}
 				placeholders={placeholders}
+				roles={roles}
+				setFields={setFields}
 			/>
 		</div>
 	);

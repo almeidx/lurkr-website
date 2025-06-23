@@ -1,20 +1,20 @@
 "use server";
 
+import { maxValue, minValue, object, parse, pipe, regex, safeParse, string, transform } from "valibot";
 import { action } from "@/app/(dashboard)/guilds/[guildId]/action-base.ts";
+import { type GuildSettings, XpMultiplierType } from "@/lib/guild.ts";
 import {
-	MAX_XP_MULTIPLIERS,
-	MAX_XP_MULTIPLIERS_PREMIUM,
 	MAX_XP_MULTIPLIER_TARGETS,
 	MAX_XP_MULTIPLIER_TARGETS_PREMIUM,
 	MAX_XP_MULTIPLIER_VALUE,
+	MAX_XP_MULTIPLIERS,
+	MAX_XP_MULTIPLIERS_PREMIUM,
 	MIN_XP_MULTIPLIER_VALUE,
 } from "@/lib/guild-config.ts";
-import { type GuildSettings, XpMultiplierType } from "@/lib/guild.ts";
 import { formDataToObject } from "@/utils/form-data-to-object.ts";
 import { lazy } from "@/utils/lazy.ts";
-import { UUID_REGEX, booleanFlag, coerceToFloat, createSnowflakesValidator, toggle } from "@/utils/schemas.ts";
+import { booleanFlag, coerceToFloat, createSnowflakesValidator, toggle, UUID_REGEX } from "@/utils/schemas.ts";
 import { ServerActionError } from "@/utils/server-action-error.ts";
-import { maxValue, minValue, object, parse, pipe, regex, safeParse, string, transform } from "valibot";
 
 // TODO: Use `safeParse` instead of `parse`
 

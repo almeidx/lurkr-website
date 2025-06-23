@@ -1,3 +1,5 @@
+import Cookies from "js-cookie";
+import { toast } from "sonner";
 import { Button } from "@/components/ui/button.tsx";
 import {
 	Dialog,
@@ -11,8 +13,6 @@ import {
 import { TOKEN_COOKIE } from "@/utils/constants.ts";
 import { extractErrorMessage } from "@/utils/extract-error-message.ts";
 import { makeApiRequest } from "@/utils/make-api-request.ts";
-import Cookies from "js-cookie";
-import { toast } from "sonner";
 
 export function DeleteApiKeyDialog({ keyId, keyName, open, onOpenChange }: DeleteApiKeyDialogProps) {
 	const token = Cookies.get(TOKEN_COOKIE)!;
@@ -27,7 +27,7 @@ export function DeleteApiKeyDialog({ keyId, keyName, open, onOpenChange }: Delet
 	}
 
 	return (
-		<Dialog open={open} onOpenChange={onOpenChange}>
+		<Dialog onOpenChange={onOpenChange} open={open}>
 			<DialogContent>
 				<DialogHeader>
 					<DialogTitle>Delete API Key</DialogTitle>
@@ -39,7 +39,7 @@ export function DeleteApiKeyDialog({ keyId, keyName, open, onOpenChange }: Delet
 					<DialogClose asChild>
 						<Button variant="secondary">Cancel</Button>
 					</DialogClose>
-					<Button variant="destructive" onClick={handleDelete}>
+					<Button onClick={handleDelete} variant="destructive">
 						Delete
 					</Button>
 				</DialogFooter>

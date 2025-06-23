@@ -6,8 +6,8 @@ export function AutomaticallyResetLevels({ defaultValue }: { readonly defaultVal
 		<div className="space-y-2">
 			<label className="flex items-center gap-2" htmlFor="autoResetLevelsLeave">
 				<Checkbox
-					id="autoResetLevelsLeave"
 					defaultValue={defaultValue === AutoResetLevels.Leave || defaultValue === AutoResetLevels.BanAndLeave}
+					id="autoResetLevelsLeave"
 				/>
 
 				<p className="text-lg text-white/75 tracking-tight md:text-xl">When the user leaves</p>
@@ -15,8 +15,8 @@ export function AutomaticallyResetLevels({ defaultValue }: { readonly defaultVal
 
 			<label className="flex items-center gap-2" htmlFor="autoResetLevelsBan">
 				<Checkbox
-					id="autoResetLevelsBan"
 					defaultValue={defaultValue === AutoResetLevels.Ban || defaultValue === AutoResetLevels.BanAndLeave}
+					id="autoResetLevelsBan"
 				/>
 
 				<p className="text-lg text-white/75 tracking-tight md:text-xl">When the user is banned</p>

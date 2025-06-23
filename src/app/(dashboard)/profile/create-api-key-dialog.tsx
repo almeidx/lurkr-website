@@ -1,3 +1,7 @@
+import { RiClipboardLine } from "@remixicon/react";
+import Cookies from "js-cookie";
+import { type FormEvent, useState } from "react";
+import { toast } from "sonner";
 import { Button } from "@/components/ui/button.tsx";
 import { DatePicker } from "@/components/ui/date-picker.tsx";
 import {
@@ -17,10 +21,6 @@ import { ApiKeyPermission } from "@/lib/guild";
 import { TOKEN_COOKIE } from "@/utils/constants.ts";
 import { extractErrorMessage } from "@/utils/extract-error-message.ts";
 import { makeApiRequest } from "@/utils/make-api-request.ts";
-import { RiClipboardLine } from "@remixicon/react";
-import Cookies from "js-cookie";
-import { type FormEvent, useState } from "react";
-import { toast } from "sonner";
 
 export function CreateApiKeyDialog({ revalidateApiKeys }: { revalidateApiKeys: () => void }) {
 	const [isOpen, setIsOpen] = useState(false);
@@ -28,32 +28,32 @@ export function CreateApiKeyDialog({ revalidateApiKeys }: { revalidateApiKeys: (
 
 	const presets = [
 		{
-			label: "Tomorrow",
 			date: new Date(new Date().setDate(new Date().getDate() + 1)),
+			label: "Tomorrow",
 		},
 		{
-			label: "In a week",
 			date: new Date(new Date().setDate(new Date().getDate() + 7)),
+			label: "In a week",
 		},
 		{
-			label: "In a month",
 			date: new Date(new Date().setMonth(new Date().getMonth() + 1)),
+			label: "In a month",
 		},
 		{
-			label: "In 6 months",
 			date: new Date(new Date().setMonth(new Date().getMonth() + 6)),
+			label: "In 6 months",
 		},
 		{
-			label: "In a year",
 			date: new Date(new Date().setFullYear(new Date().getFullYear() + 1)),
+			label: "In a year",
 		},
 		{
-			label: "In 2 years",
 			date: new Date(new Date().setFullYear(new Date().getFullYear() + 2)),
+			label: "In 2 years",
 		},
 		{
-			label: "In 5 years",
 			date: new Date(new Date().setFullYear(new Date().getFullYear() + 5)),
+			label: "In 5 years",
 		},
 	];
 
@@ -70,11 +70,11 @@ export function CreateApiKeyDialog({ revalidateApiKeys }: { revalidateApiKeys: (
 
 		try {
 			const response = await makeApiRequest("/users/@me/keys", token, {
-				method: "POST",
+				body: JSON.stringify({ expiresAt, name, permission }),
 				headers: {
 					"Content-Type": "application/json",
 				},
-				body: JSON.stringify({ name, permission, expiresAt }),
+				method: "POST",
 			});
 
 			const result = (await response.json()) as CreateApiKeyResult;
@@ -101,7 +101,7 @@ export function CreateApiKeyDialog({ revalidateApiKeys }: { revalidateApiKeys: (
 	}
 
 	return (
-		<Dialog open={isOpen} onOpenChange={handleCloseDialog}>
+		<Dialog onOpenChange={handleCloseDialog} open={isOpen}>
 			<DialogTrigger asChild>
 				<Button>Create API Key</Button>
 			</DialogTrigger>
@@ -126,9 +126,9 @@ export function CreateApiKeyDialog({ revalidateApiKeys }: { revalidateApiKeys: (
 				{apiKey ? (
 					<div className="mt-2 space-y-2">
 						<div className="flex items-center gap-2">
-							<Input id="apiKey" value={apiKey} readOnly />
+							<Input id="apiKey" readOnly value={apiKey} />
 
-							<Button className="p-2.5" variant="secondary" onClick={() => handleCopyApiKey(apiKey)}>
+							<Button className="p-2.5" onClick={() => handleCopyApiKey(apiKey)} variant="secondary">
 								<span className="sr-only">Copy API Key to clipboard</span>
 								<RiClipboardLine aria-hidden className="size-4" />
 							</Button>
@@ -155,14 +155,14 @@ export function CreateApiKeyDialog({ revalidateApiKeys }: { revalidateApiKeys: (
 							<Label htmlFor="name" required>
 								Name
 							</Label>
-							<Input id="name" name="name" required placeholder="Enter a name" />
+							<Input id="name" name="name" placeholder="Enter a name" required />
 						</div>
 
 						<div>
 							<Label htmlFor="permission" required>
 								Permission
 							</Label>
-							<Select name="permission" defaultValue={ApiKeyPermission.Read}>
+							<Select defaultValue={ApiKeyPermission.Read} name="permission">
 								<SelectTrigger id="permission">
 									<SelectValue placeholder="Select a permission" />
 								</SelectTrigger>
@@ -176,7 +176,7 @@ export function CreateApiKeyDialog({ revalidateApiKeys }: { revalidateApiKeys: (
 
 						<div>
 							<Label htmlFor="expiresAt">Expiration date</Label>
-							<DatePicker presets={presets} name="expiresAt" />
+							<DatePicker name="expiresAt" presets={presets} />
 						</div>
 
 						<DialogFooter className="mt-4">

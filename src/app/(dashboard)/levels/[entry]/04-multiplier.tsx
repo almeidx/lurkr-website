@@ -1,9 +1,9 @@
+import Image from "next/image";
 import announcementChannel from "@/assets/channel-icons/announcement.svg";
 import forumChannel from "@/assets/channel-icons/forum.svg";
 import textChannel from "@/assets/channel-icons/text.svg";
 import voiceChannel from "@/assets/channel-icons/voice.svg";
 import { type Channel, ChannelType, type Role, XpMultiplierType } from "@/lib/guild.ts";
-import Image from "next/image";
 import { RoleDisplay } from "./03-role-reward.tsx";
 
 export function MultiplierDisplay({ multiplier, targets, type }: Multiplier) {
@@ -50,7 +50,7 @@ function ChannelDisplay({ name, type }: Channel) {
 
 	return (
 		<div className="flex items-center gap-1 rounded-md border border-white/25 px-1.5">
-			<Image className="size-3" src={channelIcon} alt="Channel icon" width={12} height={12} />
+			<Image alt="Channel icon" className="size-3" height={12} src={channelIcon} width={12} />
 			<p className="text-sm">{name}</p>
 		</div>
 	);

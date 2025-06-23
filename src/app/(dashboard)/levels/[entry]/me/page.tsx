@@ -1,10 +1,10 @@
+import { cookies } from "next/headers";
 import {
 	type GetMyMonthlyProgressResponse,
 	MessageCounts,
 } from "@/app/(dashboard)/levels/[entry]/me/message-counts.tsx";
 import { TOKEN_COOKIE } from "@/utils/constants.ts";
 import { makeApiRequest } from "@/utils/make-api-request.ts";
-import { cookies } from "next/headers";
 
 export default async function MyLevel({ params }: { params: Promise<{ entry: string }> }) {
 	const { entry } = await params;
@@ -47,8 +47,8 @@ function NotLoggedIn() {
 async function getData(entry: string, token: string) {
 	const response = await makeApiRequest(`/levels/${entry}/users/@me/monthly-progress`, token, {
 		next: {
-			tags: [`levels:${entry}:progress`],
 			revalidate: 60,
+			tags: [`levels:${entry}:progress`],
 		},
 	});
 

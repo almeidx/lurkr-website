@@ -1,9 +1,9 @@
 "use client";
 
-import { type Channel, ChannelType } from "@/lib/guild.ts";
-import { mapChannelIdsToChannels } from "@/utils/map-channel-ids-to-channels.ts";
 import { type PropsWithChildren, useMemo, useState } from "react";
 import Select, { type CSSObjectWithLabel } from "react-select";
+import { type Channel, ChannelType } from "@/lib/guild.ts";
+import { mapChannelIdsToChannels } from "@/utils/map-channel-ids-to-channels.ts";
 
 export function ChannelSelector({
 	channels,
@@ -59,29 +59,28 @@ export function ChannelSelector({
 				value={values.map(({ id }) => id).join(",")}
 			/>
 
-			<label htmlFor={inputId} className="flex flex-col gap-2">
+			<label className="flex flex-col gap-2" htmlFor={inputId}>
 				{children}
 
 				<Select
-					instanceId={`${inputId}-select`}
-					inputId={inputId}
-					options={channelOptions}
-					isMulti
-					placeholder="e.g. general"
-					value={values}
-					isDisabled={disabled}
-					// TODO: Remove explicit types once react-select has been updated
+					closeMenuOnSelect={false}
 					getOptionLabel={(option: Channel) => option.name}
 					getOptionValue={(option: Channel) => option.id}
+					inputId={inputId}
+					instanceId={`${inputId}-select`}
+					isDisabled={disabled}
+					isMulti
+					// TODO: Remove explicit types once react-select has been updated
+					menuPlacement={menuPlacement}
 					onChange={(newValues: readonly Channel[]) => {
 						if (newValues.length > max) return;
 
 						setValues(newValues);
 						onChange?.(newValues);
 					}}
+					options={channelOptions}
+					placeholder="e.g. general"
 					required={required}
-					closeMenuOnSelect={false}
-					menuPlacement={menuPlacement}
 					styles={{
 						container: (baseStyles: CSSObjectWithLabel) => ({
 							...baseStyles,
@@ -92,11 +91,15 @@ export function ChannelSelector({
 							backgroundColor: "#474747",
 							border: "none",
 							borderRadius: "0.375rem",
-							color: "#e2e2e2",
 							boxShadow: "0px 0px 10px 0px #00000080 inset",
+							color: "#e2e2e2",
 							maxWidth: "48rem",
 							minWidth: "16rem",
 							padding: "0.2rem",
+						}),
+						input: (baseStyles: CSSObjectWithLabel) => ({
+							...baseStyles,
+							color: "#e2e2e2",
 						}),
 						menu: (baseStyles: CSSObjectWithLabel) => ({
 							...baseStyles,
@@ -107,14 +110,6 @@ export function ChannelSelector({
 							minWidth: "16rem",
 							zIndex: "999999",
 						}),
-						option: (baseStyles: CSSObjectWithLabel) => ({
-							...baseStyles,
-							color: "#e2e2e2",
-							backgroundColor: "#2d2d2d",
-							":hover": {
-								backgroundColor: "#474747",
-							},
-						}),
 						multiValue: (baseStyles: CSSObjectWithLabel) => ({
 							...baseStyles,
 							backgroundColor: "transparent",
@@ -124,31 +119,36 @@ export function ChannelSelector({
 						}),
 						multiValueLabel: (baseStyles: CSSObjectWithLabel) => ({
 							...baseStyles,
-							color: "#e2e2e2",
 							":before": {
 								content: "'#'",
 								margin: "0 0.2rem",
 							},
-						}),
-						input: (baseStyles: CSSObjectWithLabel) => ({
-							...baseStyles,
 							color: "#e2e2e2",
 						}),
 						multiValueRemove: (baseStyles: CSSObjectWithLabel) => ({
 							...baseStyles,
-							color: "#e2e2e2",
-							borderTopRightRadius: "20px",
-							borderBottomRightRadius: "20px",
 							":hover": {
 								backgroundColor: "#e2e2e2",
 								color: "#2d2d2d",
 							},
+							borderBottomRightRadius: "20px",
+							borderTopRightRadius: "20px",
+							color: "#e2e2e2",
+						}),
+						option: (baseStyles: CSSObjectWithLabel) => ({
+							...baseStyles,
+							":hover": {
+								backgroundColor: "#474747",
+							},
+							backgroundColor: "#2d2d2d",
+							color: "#e2e2e2",
 						}),
 						placeholder: (baseStyles: CSSObjectWithLabel) => ({
 							...baseStyles,
 							color: "#e2e2e280",
 						}),
 					}}
+					value={values}
 				/>
 			</label>
 		</>

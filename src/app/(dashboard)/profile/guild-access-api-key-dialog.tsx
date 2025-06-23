@@ -1,3 +1,5 @@
+import Cookies from "js-cookie";
+import { toast } from "sonner";
 import { Button } from "@/components/ui/button.tsx";
 import { Checkbox } from "@/components/ui/checkbox.tsx";
 import {
@@ -15,8 +17,6 @@ import { TOKEN_COOKIE } from "@/utils/constants.ts";
 import type { Snowflake } from "@/utils/discord-cdn.ts";
 import { extractErrorMessage } from "@/utils/extract-error-message.ts";
 import { makeApiRequest } from "@/utils/make-api-request.ts";
-import Cookies from "js-cookie";
-import { toast } from "sonner";
 import type { GetUserApiKeysResult } from "./api-keys.tsx";
 
 export function GuildAccessApiKeyDialog({
@@ -60,7 +60,7 @@ export function GuildAccessApiKeyDialog({
 	}
 
 	return (
-		<Dialog open={open} onOpenChange={onOpenChange}>
+		<Dialog onOpenChange={onOpenChange} open={open}>
 			<DialogContent className="sm:max-w-lg">
 				<DialogHeader>
 					<DialogTitle>Edit {keyName} Guild Access</DialogTitle>
@@ -71,7 +71,7 @@ export function GuildAccessApiKeyDialog({
 
 				<div className="mt-2 flex max-h-96 flex-col gap-2 overflow-y-auto">
 					{guilds.map((guild) => (
-						<div key={guild.id} className="flex items-center gap-2">
+						<div className="flex items-center gap-2" key={guild.id}>
 							<Checkbox
 								defaultChecked={guildAccess.some((guildAccess) => guildAccess.guildId === guild.id)}
 								id={`guild-${guild.id}`}
@@ -81,7 +81,7 @@ export function GuildAccessApiKeyDialog({
 								}
 							/>
 
-							<Label htmlFor={`guild-${guild.id}`} className="truncate text-nowrap" title={guild.name}>
+							<Label className="truncate text-nowrap" htmlFor={`guild-${guild.id}`} title={guild.name}>
 								{guild.name}
 							</Label>
 						</div>

@@ -1,14 +1,14 @@
+import type { Metadata } from "next";
+import { cookies } from "next/headers";
 import fallbackAvatarImg from "@/assets/fallback-avatar.webp";
-import { ImageWithFallback } from "@/components/ImageWithFallback.tsx";
 import { DocsBubble } from "@/components/dashboard/DocsBubble.tsx";
+import { ImageWithFallback } from "@/components/ImageWithFallback.tsx";
 import type { User } from "@/lib/auth.ts";
 import { TOKEN_COOKIE } from "@/utils/constants.ts";
 import { type Snowflake, userAvatar } from "@/utils/discord-cdn.ts";
 import { getTimePeriod } from "@/utils/get-time-period.ts";
 import { greeting } from "@/utils/greeting.ts";
 import { makeApiRequest } from "@/utils/make-api-request.ts";
-import type { Metadata } from "next";
-import { cookies } from "next/headers";
 import { ItemStatus } from "./item-status.tsx";
 import { resolveOverviewStatuses } from "./resolve-overview-statuses.ts";
 import { SignInRequired } from "./sign-in-required.tsx";
@@ -35,8 +35,8 @@ export default async function Dashboard({ params }: { readonly params: Promise<{
 					fallback={fallbackAvatarImg}
 					height={100}
 					src={userAvatar(user.id, user.avatar)}
-					width={100}
 					unoptimized={Boolean(user.avatar)}
+					width={100}
 				/>
 
 				<div>
@@ -62,7 +62,7 @@ export default async function Dashboard({ params }: { readonly params: Promise<{
 
 			<div className="mt-6 flex max-w-6xl flex-wrap gap-x-8 gap-y-6 md:mt-12 md:gap-y-10">
 				{statuses.map(({ description, name, type }) => (
-					<ItemStatus key={name} name={name} description={description} type={type} />
+					<ItemStatus description={description} key={name} name={name} type={type} />
 				))}
 			</div>
 		</div>
@@ -70,8 +70,8 @@ export default async function Dashboard({ params }: { readonly params: Promise<{
 }
 
 export const metadata: Metadata = {
-	title: "Dashboard Overview",
 	description: "Configure your server with Lurkr!",
+	title: "Dashboard Overview",
 };
 
 async function getData(guildId: Snowflake, token: string | undefined) {
@@ -82,8 +82,8 @@ async function getData(guildId: Snowflake, token: string | undefined) {
 	const [getGuildOverviewResponse, getCurrentUserResponse] = await Promise.all([
 		makeApiRequest(`/guilds/${guildId}/overview`, token, {
 			next: {
-				tags: [`settings:${guildId}`],
 				revalidate: 30,
+				tags: [`settings:${guildId}`],
 			},
 		}),
 		makeApiRequest("/users/@me", token, {

@@ -1,5 +1,10 @@
 "use client";
 
+import clsx from "clsx";
+import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { type PropsWithChildren, useEffect, useState } from "react";
 import logoSmallImg from "@/assets/logo-small.webp";
 import { ExternalLink } from "@/components/ExternalLink.tsx";
 import { ArrowBackIos } from "@/components/icons/mdi/arrow-back-ios.tsx";
@@ -8,8 +13,8 @@ import { Calculate } from "@/components/icons/mdi/calculate.tsx";
 import { Dashboard } from "@/components/icons/mdi/dashboard.tsx";
 import { EmojiEmotions } from "@/components/icons/mdi/emoji-emotions.tsx";
 import { FormatListBulleted } from "@/components/icons/mdi/format-list-bulleted.tsx";
-import { MenuOpen } from "@/components/icons/mdi/menu-open.tsx";
 import { Menu } from "@/components/icons/mdi/menu.tsx";
+import { MenuOpen } from "@/components/icons/mdi/menu-open.tsx";
 import { MiscellaneousServices } from "@/components/icons/mdi/miscellaneous-services.tsx";
 import { RocketLaunch } from "@/components/icons/mdi/rocket-launch.tsx";
 import { Settings } from "@/components/icons/mdi/settings.tsx";
@@ -21,11 +26,6 @@ import { Warning } from "@/components/icons/mdi/warning.tsx";
 import { WorkspacePremium } from "@/components/icons/mdi/workspace-premium.tsx";
 import { DOCS_URL } from "@/utils/constants.ts";
 import type { Snowflake } from "@/utils/discord-cdn.ts";
-import clsx from "clsx";
-import Image from "next/image";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { type PropsWithChildren, useEffect, useState } from "react";
 
 export function Navbar({ children }: PropsWithChildren) {
 	const [menuOpen, setMenuOpen] = useState(false);
@@ -64,9 +64,9 @@ export function Navbar({ children }: PropsWithChildren) {
 				)}
 			>
 				<button
+					aria-label="Close menu"
 					className={clsx("fixed top-8 right-8 z-99999 md:z-0 md:hidden")}
 					onClick={handleMenuClose}
-					aria-label="Close menu"
 					type="button"
 				>
 					<MenuOpen aria-hidden className="size-6" />
@@ -86,7 +86,7 @@ export function Navbar({ children }: PropsWithChildren) {
 				{children}
 			</div>
 
-			<button className="md:hidden" onClick={handleMenuClick} aria-label="Open menu" type="button">
+			<button aria-label="Open menu" className="md:hidden" onClick={handleMenuClick} type="button">
 				<Menu aria-hidden className="size-6" />
 			</button>
 		</header>
@@ -102,7 +102,7 @@ function NavbarLinks({ hideMobile }: { hideMobile?: boolean }) {
 			)}
 		>
 			<li className="text-white hover:text-white/75">
-				<Link href="/guilds" className="flex items-center gap-2">
+				<Link className="flex items-center gap-2" href="/guilds">
 					<div className="md:hidden">
 						<Dashboard aria-hidden />
 					</div>
@@ -110,7 +110,7 @@ function NavbarLinks({ hideMobile }: { hideMobile?: boolean }) {
 				</Link>
 			</li>
 			<li className="flex items-center gap-2 text-white hover:text-white/75">
-				<Link href="/levels" className="flex items-center gap-2">
+				<Link className="flex items-center gap-2" href="/levels">
 					<div className="md:hidden">
 						<TrendingUp aria-hidden />
 					</div>
@@ -118,7 +118,7 @@ function NavbarLinks({ hideMobile }: { hideMobile?: boolean }) {
 				</Link>
 			</li>
 			<li className="flex items-center gap-2 text-white hover:text-white/75">
-				<Link href="/levels/calculator" className="flex items-center gap-2">
+				<Link className="flex items-center gap-2" href="/levels/calculator">
 					<div className="md:hidden">
 						<Calculate aria-hidden />
 					</div>
@@ -126,7 +126,7 @@ function NavbarLinks({ hideMobile }: { hideMobile?: boolean }) {
 				</Link>
 			</li>
 			<li className="flex items-center gap-2 text-white hover:text-white/75">
-				<Link href="/status" prefetch={false} className="flex items-center gap-2">
+				<Link className="flex items-center gap-2" href="/status" prefetch={false}>
 					<div className="md:hidden">
 						<SignalCellular3Bar aria-hidden />
 					</div>
@@ -134,7 +134,7 @@ function NavbarLinks({ hideMobile }: { hideMobile?: boolean }) {
 				</Link>
 			</li>
 			<li className="flex items-center gap-2 text-white hover:text-white/75">
-				<Link href="/premium" prefetch={false} className="flex items-center gap-2">
+				<Link className="flex items-center gap-2" href="/premium" prefetch={false}>
 					<div className="md:hidden">
 						<WorkspacePremium aria-hidden />
 					</div>
@@ -142,7 +142,7 @@ function NavbarLinks({ hideMobile }: { hideMobile?: boolean }) {
 				</Link>
 			</li>
 			<li className="flex items-center gap-2 text-white hover:text-white/75">
-				<ExternalLink href={DOCS_URL} className="flex items-center gap-2">
+				<ExternalLink className="flex items-center gap-2" href={DOCS_URL}>
 					<div className="md:hidden">
 						<AutoStories aria-hidden />
 					</div>
@@ -157,61 +157,61 @@ function DashboardMobileNavbarLinks({ guildId, show }: { guildId: Snowflake; sho
 	return (
 		<ul className={clsx("flex-col gap-5 text-xl md:flex-row md:items-baseline md:text-base", show && "flex md:hidden")}>
 			<li className="text-white hover:text-white/75">
-				<Link href="/guilds" className="flex items-center gap-2">
+				<Link className="flex items-center gap-2" href="/guilds">
 					<ArrowBackIos aria-hidden />
 					Back
 				</Link>
 			</li>
 			<li className="text-white hover:text-white/75">
-				<Link href={`/guilds/${guildId}`} className="flex items-center gap-2">
+				<Link className="flex items-center gap-2" href={`/guilds/${guildId}`}>
 					<Settings aria-hidden />
 					Overview
 				</Link>
 			</li>
 			<li className="text-white hover:text-white/75">
-				<Link href={`/guilds/${guildId}/leveling`} className="flex items-center gap-2">
+				<Link className="flex items-center gap-2" href={`/guilds/${guildId}/leveling`}>
 					<TrendingUp aria-hidden className="text-[#ff7077]" />
 					Leveling
 				</Link>
 			</li>
 			<li className="text-white hover:text-white/75">
-				<Link href={`/guilds/${guildId}/import`} className="flex items-center gap-2">
+				<Link className="flex items-center gap-2" href={`/guilds/${guildId}/import`}>
 					<SmartToy aria-hidden />
 					Import Bots
 				</Link>
 			</li>
 			<li className="text-white hover:text-white/75">
-				<Link href={`/guilds/${guildId}/multipliers`} className="flex items-center gap-2">
+				<Link className="flex items-center gap-2" href={`/guilds/${guildId}/multipliers`}>
 					<RocketLaunch aria-hidden className="text-[#82cbff]" />
 					Multipliers
 				</Link>
 			</li>
 			<li className="text-white hover:text-white/75">
-				<Link href={`/guilds/${guildId}/roles`} className="flex items-center gap-2">
+				<Link className="flex items-center gap-2" href={`/guilds/${guildId}/roles`}>
 					<FormatListBulleted aria-hidden className="text-[#d2ffae]" />
 					Role Management
 				</Link>
 			</li>
 			<li className="text-white hover:text-white/75">
-				<Link href={`/guilds/${guildId}/milestones`} className="flex items-center gap-2">
+				<Link className="flex items-center gap-2" href={`/guilds/${guildId}/milestones`}>
 					<Signpost aria-hidden className="text-[#804994]" />
 					Milestones
 				</Link>
 			</li>
 			<li className="text-white hover:text-white/75">
-				<Link href={`/guilds/${guildId}/emojis`} className="flex items-center gap-2">
+				<Link className="flex items-center gap-2" href={`/guilds/${guildId}/emojis`}>
 					<EmojiEmotions aria-hidden className="text-[#ffe87c]" />
 					Emoji List
 				</Link>
 			</li>
 			<li className="text-white hover:text-white/75">
-				<Link href={`/guilds/${guildId}/miscellaneous`} className="flex items-center gap-2">
+				<Link className="flex items-center gap-2" href={`/guilds/${guildId}/miscellaneous`}>
 					<MiscellaneousServices aria-hidden className="text-[#73ffc4]" />
 					Miscellaneous
 				</Link>
 			</li>
 			<li className="text-white hover:text-white/75">
-				<Link href={`/guilds/${guildId}/danger`} className="flex items-center gap-2">
+				<Link className="flex items-center gap-2" href={`/guilds/${guildId}/danger`}>
 					<Warning aria-hidden className="text-[#ff9254]" />
 					Danger Zone
 				</Link>

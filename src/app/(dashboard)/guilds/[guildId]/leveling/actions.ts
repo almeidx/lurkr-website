@@ -1,10 +1,10 @@
 "use server";
 
+import { cookies } from "next/headers";
+import { parse } from "valibot";
 import { TOKEN_COOKIE } from "@/utils/constants.ts";
 import { makeApiRequest } from "@/utils/make-api-request.ts";
 import { vanitySchema } from "@/utils/schemas.ts";
-import { cookies } from "next/headers";
-import { parse } from "valibot";
 
 export async function checkVanityAvailability(vanityInput: string): Promise<VanityAvailabilityResponse> {
 	const vanity = parse(vanitySchema, vanityInput);

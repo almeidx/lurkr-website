@@ -14,7 +14,7 @@ export function LeaderboardTable({ data, guildId, isManager }: LeaderboardTableP
 			</div>
 
 			{data.map((row) => (
-				<LeaderboardTableRow key={row.userId} guildId={guildId} row={row} isManager={isManager} />
+				<LeaderboardTableRow guildId={guildId} isManager={isManager} key={row.userId} row={row} />
 			))}
 		</div>
 	);

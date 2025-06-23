@@ -1,11 +1,11 @@
-import { getGuildSettings } from "@/app/(dashboard)/guilds/[guildId]/get-guild-data.ts";
-import { Separator } from "@/components/Separator.tsx";
-import { Section } from "@/components/dashboard/Section.tsx";
-import { Text } from "@/components/dashboard/Text.tsx";
-import { TOKEN_COOKIE } from "@/utils/constants.ts";
-import type { Snowflake } from "@/utils/discord-cdn.ts";
 import type { Metadata } from "next";
 import { cookies } from "next/headers";
+import { getGuildSettings } from "@/app/(dashboard)/guilds/[guildId]/get-guild-data.ts";
+import { Section } from "@/components/dashboard/Section.tsx";
+import { Text } from "@/components/dashboard/Text.tsx";
+import { Separator } from "@/components/Separator.tsx";
+import { TOKEN_COOKIE } from "@/utils/constants.ts";
+import type { Snowflake } from "@/utils/discord-cdn.ts";
 import { SignInRequired } from "../sign-in-required.tsx";
 import { UnknownGuildOrMissingAccess } from "../unknown-guild.tsx";
 import { DownloadLevelingData } from "./01-download-leveling-data.tsx";
@@ -68,6 +68,6 @@ export default async function DangerZone({ params }: { readonly params: Promise<
 }
 
 export const metadata: Metadata = {
-	title: "Danger Dashboard",
 	description: "Dangerous actions regarding your server configuration",
+	title: "Danger Dashboard",
 };

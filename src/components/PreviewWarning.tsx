@@ -1,7 +1,7 @@
 "use client";
 
-import { Close } from "@/components/icons/mdi/close.tsx";
 import { useState } from "react";
+import { Close } from "@/components/icons/mdi/close.tsx";
 import { ExternalLink } from "./ExternalLink.tsx";
 
 export function PreviewWarning() {
@@ -16,7 +16,7 @@ export function PreviewWarning() {
 			<div className="flex items-center justify-between">
 				<p className="font-bold">Unstable Preview</p>
 
-				<button type="button" onClick={() => setIsClosed(true)} aria-label="Close preview warning">
+				<button aria-label="Close preview warning" onClick={() => setIsClosed(true)} type="button">
 					<Close aria-hidden className="text-xs" />
 				</button>
 			</div>

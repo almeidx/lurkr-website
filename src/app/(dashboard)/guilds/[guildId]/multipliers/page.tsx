@@ -1,11 +1,11 @@
-import { getGuildSettings } from "@/app/(dashboard)/guilds/[guildId]/get-guild-data.ts";
-import { Separator } from "@/components/Separator.tsx";
-import { Form } from "@/components/dashboard/Form.tsx";
-import { Section } from "@/components/dashboard/Section.tsx";
-import { TOKEN_COOKIE } from "@/utils/constants.ts";
-import type { Snowflake } from "@/utils/discord-cdn.ts";
 import type { Metadata } from "next";
 import { cookies } from "next/headers";
+import { getGuildSettings } from "@/app/(dashboard)/guilds/[guildId]/get-guild-data.ts";
+import { Form } from "@/components/dashboard/Form.tsx";
+import { Section } from "@/components/dashboard/Section.tsx";
+import { Separator } from "@/components/Separator.tsx";
+import { TOKEN_COOKIE } from "@/utils/constants.ts";
+import type { Snowflake } from "@/utils/discord-cdn.ts";
 import { SignInRequired } from "../sign-in-required.tsx";
 import { UnknownGuildOrMissingAccess } from "../unknown-guild.tsx";
 import { GlobalMultipliers } from "./01-global-multipliers.tsx";
@@ -32,8 +32,8 @@ export default async function Multipliers({ params }: { readonly params: Promise
 	const action = update.bind(null, guildId, guild.premium);
 
 	return (
-		<Form title="Multipliers" description="Change who gains how much experience, and where!" action={action}>
-			<Section name="Global Multiplier" id="global-multiplier">
+		<Form action={action} description="Change who gains how much experience, and where!" title="Multipliers">
+			<Section id="global-multiplier" name="Global Multiplier">
 				<GlobalMultipliers multipliers={settings.xpMultipliers} />
 
 				<Separator />
@@ -47,6 +47,6 @@ export default async function Multipliers({ params }: { readonly params: Promise
 }
 
 export const metadata: Metadata = {
-	title: "Multipliers Dashboard",
 	description: "Configure how much experience each member gains in your server!",
+	title: "Multipliers Dashboard",
 };

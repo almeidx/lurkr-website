@@ -1,9 +1,9 @@
 "use client";
 
-import { BRAND_COLOR } from "@/utils/constants.ts";
 import { AppProgressBar as ProgressBar } from "next-nprogress-bar";
 import { type PropsWithChildren, Suspense } from "react";
 import { Toaster } from "sonner";
+import { BRAND_COLOR } from "@/utils/constants.ts";
 
 export function Providers({ children }: PropsWithChildren) {
 	return (
@@ -11,7 +11,7 @@ export function Providers({ children }: PropsWithChildren) {
 			{children}
 
 			<Suspense>
-				<ProgressBar height="2px" color={BRAND_COLOR} options={{ showSpinner: false }} shallowRouting />
+				<ProgressBar color={BRAND_COLOR} height="2px" options={{ showSpinner: false }} shallowRouting />
 				<Toaster closeButton richColors />
 			</Suspense>
 		</>

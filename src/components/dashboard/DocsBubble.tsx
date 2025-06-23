@@ -1,7 +1,7 @@
+import { Tooltip, TooltipAnchor, TooltipProvider } from "@ariakit/react";
 import { ExternalLink } from "@/components/ExternalLink.tsx";
 import { Help } from "@/components/icons/mdi/help.tsx";
 import { DOCS_URL } from "@/utils/constants.ts";
-import { Tooltip, TooltipAnchor, TooltipProvider } from "@ariakit/react";
 
 export function DocsBubble({ tooltip, path }: DocsBubblePropos) {
 	if (!path.startsWith("/")) {

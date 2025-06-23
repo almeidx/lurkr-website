@@ -1,3 +1,7 @@
+import type { Metadata } from "next";
+import { cookies } from "next/headers";
+import Image from "next/image";
+import Link from "next/link";
 import { configLimitFeatures, extraFeatures, levelingFeatures } from "@/app/(dashboard)/premium/features.ts";
 import { PremiumPlan } from "@/app/(dashboard)/premium/plan.tsx";
 import { ComparisonTable } from "@/app/(dashboard)/premium/table.tsx";
@@ -8,10 +12,6 @@ import lurkrUltimateImg from "@/assets/premium-plans/lurkr-ultimate.webp";
 import { ExternalLink } from "@/components/ExternalLink.tsx";
 import { TOKEN_COOKIE } from "@/utils/constants.ts";
 import { makeApiRequest } from "@/utils/make-api-request.ts";
-import type { Metadata } from "next";
-import { cookies } from "next/headers";
-import Image from "next/image";
-import Link from "next/link";
 
 export default async function Premium() {
 	const token = (await cookies()).get(TOKEN_COOKIE)?.value;
@@ -28,9 +28,9 @@ export default async function Premium() {
 						alt="Lurkr logo"
 						className="hidden aspect-square size-72 xl:block"
 						height={288}
-						width={288}
 						priority
 						src={logoImg}
+						width={288}
 					/>
 					<p className="font-bold text-lg text-shadow-regular xl:whitespace-nowrap xl:text-2xl">
 						Premium Status. Premium Support.
@@ -40,25 +40,27 @@ export default async function Premium() {
 				<main className="flex w-full flex-col items-center">
 					<div className="flex flex-col gap-4 lg:flex-row lg:gap-10 xl:gap-16">
 						<PremiumPlan
-							name="Lurkr Max"
+							buttonText="Turn it to Max!"
+							funny="Buys you groceries…"
 							img={lurkrMaxImg}
-							price={1}
+							isCurrent={currentPlan?.plan === "Basic"}
+							name="Lurkr Max"
 							perks={[
 								"Personal Premium Lurkr for you!",
 								"No tips on /level command for you",
 								"Patreon role in Lurkr support server",
 								"Premium support",
 							]}
-							funny="Buys you groceries…"
-							buttonText="Turn it to Max!"
+							price={1}
 							tier={1}
-							isCurrent={currentPlan?.plan === "Basic"}
 						/>
 
 						<PremiumPlan
-							name="Lurkr Ultimate"
+							buttonText="Become Ultimate!"
+							funny="Helps you pay taxes…"
 							img={lurkrUltimateImg}
-							price={5}
+							isCurrent={currentPlan?.plan === "Guild"}
+							name="Lurkr Ultimate"
 							perks={[
 								"Premium Lurkr for a whole server",
 								"Huge increase in configuration limits",
@@ -67,22 +69,20 @@ export default async function Premium() {
 								"Premium support",
 								"Helps developers maintain Lurkr!",
 							]}
-							funny="Helps you pay taxes…"
-							buttonText="Become Ultimate!"
+							price={5}
 							tier={2}
-							isCurrent={currentPlan?.plan === "Guild"}
 						/>
 
 						<PremiumPlan
-							name="Lurkr Free"
-							img={lurkrFreeImg}
-							price={0}
-							perks={["Standard configuration limits"]}
-							regular={["Tips on /level command", "No role in Lurkr support server", "Standard support"]}
-							funny="Kisses you goodnight…"
 							buttonText="Stay Free!"
-							tier={0}
+							funny="Kisses you goodnight…"
+							img={lurkrFreeImg}
 							isCurrent={currentPlan?.plan === "None"}
+							name="Lurkr Free"
+							perks={["Standard configuration limits"]}
+							price={0}
+							regular={["Tips on /level command", "No role in Lurkr support server", "Standard support"]}
+							tier={0}
 						/>
 					</div>
 
@@ -99,9 +99,9 @@ export default async function Premium() {
 					<h2 className="mt-8 font-bold text-4xl">Compare Lurkr Plans</h2>
 
 					<div className="mt-6 space-y-6">
-						<ComparisonTable section="Leveling" features={levelingFeatures} />
-						<ComparisonTable section="Configuration" features={configLimitFeatures} />
-						<ComparisonTable section="Extras" features={extraFeatures} />
+						<ComparisonTable features={levelingFeatures} section="Leveling" />
+						<ComparisonTable features={configLimitFeatures} section="Configuration" />
+						<ComparisonTable features={extraFeatures} section="Extras" />
 					</div>
 				</main>
 			</div>
@@ -110,9 +110,9 @@ export default async function Premium() {
 }
 
 export const metadata: Metadata = {
-	title: "Premium Plans",
 	description:
 		"Get the most out of Lurkr with our premium plans. Compare the different plans and choose the one that fits your needs.",
+	title: "Premium Plans",
 };
 
 async function getData(token: string) {

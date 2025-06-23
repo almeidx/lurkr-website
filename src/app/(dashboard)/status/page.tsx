@@ -1,6 +1,6 @@
+import type { Metadata } from "next";
 import { ReportProblem } from "@/components/icons/mdi/report-problem.tsx";
 import { makeApiRequest } from "@/utils/make-api-request.ts";
-import type { Metadata } from "next";
 import type { Shard } from "./shard.tsx";
 import { ShardsContainer } from "./shards-container.tsx";
 
@@ -32,8 +32,8 @@ export default async function Status() {
 }
 
 export const metadata: Metadata = {
-	title: "Status",
 	description: "Check if the bot is online in your server or is currently having issues!",
+	title: "Status",
 };
 
 async function getData() {

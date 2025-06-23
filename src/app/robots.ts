@@ -4,15 +4,14 @@ export default function robots(): MetadataRoute.Robots {
 	if (process.env.ENVIRONMENT !== "prod") {
 		return {
 			rules: {
-				userAgent: "*",
 				disallow: "/",
+				userAgent: "*",
 			},
 		};
 	}
 
 	return {
 		rules: {
-			userAgent: "*",
 			allow: ["/", "/guilds$"],
 			disallow: [
 				"/api/",
@@ -25,6 +24,7 @@ export default function robots(): MetadataRoute.Robots {
 				"/github",
 				"/support",
 			],
+			userAgent: "*",
 		},
 	};
 }

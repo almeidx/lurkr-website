@@ -13,7 +13,7 @@ interface LabelProps extends React.ComponentPropsWithoutRef<typeof LabelPrimitiv
 const Label = React.forwardRef<React.ElementRef<typeof LabelPrimitives.Root>, LabelProps>(
 	({ className, disabled, required, ...props }, forwardedRef) => (
 		<LabelPrimitives.Root
-			ref={forwardedRef}
+			aria-disabled={disabled}
 			className={cx(
 				// base
 				"text-sm leading-none",
@@ -25,7 +25,7 @@ const Label = React.forwardRef<React.ElementRef<typeof LabelPrimitives.Root>, La
 				},
 				className,
 			)}
-			aria-disabled={disabled}
+			ref={forwardedRef}
 			tremor-id="tremor-raw"
 			{...props}
 		>

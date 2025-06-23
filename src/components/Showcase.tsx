@@ -11,7 +11,7 @@ export function Showcase({
 }: PropsWithChildren<{ title: string; imgSrc: StaticImageData; description: string; index: number }>) {
 	return (
 		<div className={clsx("flex flex-col gap-2 xl:gap-8", index % 2 === 0 ? "xl:flex-row" : "xl:flex-row-reverse")}>
-			<Image className="aspect-2/1" alt={title} src={imgSrc} height={300} width={600} priority={index < 2} />
+			<Image alt={title} className="aspect-2/1" height={300} priority={index < 2} src={imgSrc} width={600} />
 
 			<div className="flex flex-col gap-2 xl:grid xl:grid-rows-3">
 				<div className="hidden xl:block" />

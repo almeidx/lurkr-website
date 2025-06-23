@@ -16,12 +16,12 @@ export function MilestoneInterval({ defaultValue, premium }: MilestoneIntervalPr
 			<Input
 				defaultValue={defaultValue}
 				id="milestonesInterval"
-				placeholder="Enter a number that is a multiple of 10…"
-				type="number"
-				required
-				min={MIN_MILESTONES_INTERVAL}
 				max={getMaximumLimit("milestonesInterval", premium)}
+				min={MIN_MILESTONES_INTERVAL}
+				placeholder="Enter a number that is a multiple of 10…"
+				required
 				step={MILESTONES_INTERVAL_MULTIPLE_OF}
+				type="number"
 			/>
 		</>
 	);

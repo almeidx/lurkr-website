@@ -22,7 +22,7 @@ export function RoleDisplay({ name, color }: Role) {
 
 	return (
 		<div className="flex items-center gap-1.5 rounded-md border border-white/25 px-1.5">
-			<div className="size-3.5 rounded-full" style={{ backgroundColor: hex }} aria-hidden />
+			<div aria-hidden className="size-3.5 rounded-full" style={{ backgroundColor: hex }} />
 			<p className="truncate text-sm">{name}</p>
 		</div>
 	);

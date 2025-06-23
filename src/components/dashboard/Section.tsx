@@ -1,5 +1,5 @@
-import { DocsBubble } from "@/components/dashboard/DocsBubble.tsx";
 import type { PropsWithChildren } from "react";
+import { DocsBubble } from "@/components/dashboard/DocsBubble.tsx";
 
 export function Section(props: SectionProps) {
 	const { children, id, name } = props;

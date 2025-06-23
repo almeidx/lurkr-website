@@ -1,3 +1,5 @@
+import Image from "next/image";
+import Link from "next/link";
 import { type FeaturedGuild, FeaturedGuilds } from "@/app/(dashboard)/featured-guilds.tsx";
 import logoImg from "@/assets/logo.webp";
 import importImg from "@/assets/showcases/import.webp";
@@ -7,7 +9,6 @@ import premiumImg from "@/assets/showcases/premium.webp";
 import rankCardsImg from "@/assets/showcases/rank-cards.webp";
 import roleRewardsImg from "@/assets/showcases/role-rewards.webp";
 import { ExternalLink } from "@/components/ExternalLink.tsx";
-import { Showcase } from "@/components/Showcase.tsx";
 import { AttachMoney } from "@/components/icons/mdi/attach-money.tsx";
 import { Brush } from "@/components/icons/mdi/brush.tsx";
 import { CloudDownload } from "@/components/icons/mdi/cloud-download.tsx";
@@ -15,11 +16,10 @@ import { Launch } from "@/components/icons/mdi/launch.tsx";
 import { MilitaryTech } from "@/components/icons/mdi/military-tech.tsx";
 import { Speed } from "@/components/icons/mdi/speed.tsx";
 import { TrendingUp } from "@/components/icons/mdi/trending-up.tsx";
+import { Showcase } from "@/components/Showcase.tsx";
 import { BOT_INVITE } from "@/shared-links.js";
 import { formatNumber } from "@/utils/format-number.ts";
 import { makeApiRequest } from "@/utils/make-api-request.ts";
-import Image from "next/image";
-import Link from "next/link";
 
 export default async function Homepage() {
 	const {
@@ -42,9 +42,9 @@ export default async function Homepage() {
 						alt="Lurkr logo"
 						className="hidden aspect-square size-72 xl:block"
 						height={288}
-						width={288}
 						priority
 						src={logoImg}
+						width={288}
 					/>
 					<p className="font-bold text-3xl text-shadow-regular xl:whitespace-nowrap xl:text-4xl">Finally, for Free.</p>
 				</div>
@@ -98,11 +98,11 @@ export default async function Homepage() {
 					<div className="container flex flex-col space-y-4">
 						{featured.length > 8 ? (
 							<>
-								<FeaturedGuilds speed={40} guilds={featured1} />
-								<FeaturedGuilds direction="right" speed={30} guilds={featured2} />
+								<FeaturedGuilds guilds={featured1} speed={40} />
+								<FeaturedGuilds direction="right" guilds={featured2} speed={30} />
 							</>
 						) : (
-							<FeaturedGuilds speed={40} guilds={featured} />
+							<FeaturedGuilds guilds={featured} speed={40} />
 						)}
 					</div>
 				</>
@@ -110,9 +110,9 @@ export default async function Homepage() {
 
 			<div className="flex flex-col items-center gap-2 text-balance px-6 text-center">
 				<Showcase
-					index={0}
 					description="Seamlessly transition to Lurkr and never look back at unreasonable paywalls."
 					imgSrc={importImg}
+					index={0}
 					title="Import & Never Lose Progress"
 				>
 					<CloudDownload className="size-9 text-[#60d1f6]" />
@@ -121,9 +121,9 @@ export default async function Homepage() {
 				<ShowcaseSeparator />
 
 				<Showcase
-					index={1}
 					description="Manage, Track & Reward your member's activity with deep and extensive configurations."
 					imgSrc={levelingImg}
+					index={1}
 					title="Ultimate Leveling System"
 				>
 					<TrendingUp className="size-9 text-[#ff7077]" />
@@ -132,9 +132,9 @@ export default async function Homepage() {
 				<ShowcaseSeparator />
 
 				<Showcase
-					index={2}
 					description="Take complete control of your style & make sure that even your rank card expresses you."
 					imgSrc={rankCardsImg}
+					index={2}
 					title="Customizable Rank Cards"
 				>
 					<Brush className="size-9 text-[#d2ffae]" />
@@ -143,9 +143,9 @@ export default async function Homepage() {
 				<ShowcaseSeparator />
 
 				<Showcase
-					index={3}
 					description="Incentivize activity with custom roles, permissions and other perks."
 					imgSrc={roleRewardsImg}
+					index={3}
 					title="Endless Role Rewards"
 				>
 					<MilitaryTech className="size-9 text-[#ffe87c]" />
@@ -154,9 +154,9 @@ export default async function Homepage() {
 				<ShowcaseSeparator />
 
 				<Showcase
-					index={4}
 					description="Create global, channel & role multipliers to deeply customize leveling speed."
 					imgSrc={multipliersImg}
+					index={4}
 					title="In-Depth Leveling Multipliers"
 				>
 					<Speed className="size-9 text-[#a475b5]" />
@@ -165,9 +165,9 @@ export default async function Homepage() {
 				<ShowcaseSeparator />
 
 				<Showcase
-					index={5}
 					description="We believe and focus in a fair premium model to unlock more configuration limits and not restrict standard features."
 					imgSrc={premiumImg}
+					index={5}
 					title="Fair Pricing for All"
 				>
 					<AttachMoney className="size-9 text-[#b6fe94]" />
@@ -230,14 +230,14 @@ async function getData() {
 			? ((await statsResponse.value.json()) as StatsResponse)
 			: {
 					guildCount: 31_000,
-					messageCount: 580_000_000,
 					memberCount: 14_000_000,
+					messageCount: 580_000_000,
 					uptime: 99.9,
 				};
 	const featured =
 		featuredResponse.status === "fulfilled" ? ((await featuredResponse.value.json()) as FeaturedGuild[]) : [];
 
-	return { stats, featured };
+	return { featured, stats };
 }
 
 interface StatsResponse {

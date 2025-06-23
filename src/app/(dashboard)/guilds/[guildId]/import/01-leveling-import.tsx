@@ -1,11 +1,11 @@
 "use client";
 
+import { useActionState, useEffect, useRef, useState } from "react";
 import { Label } from "@/components/dashboard/Label.tsx";
 import { Section } from "@/components/dashboard/Section.tsx";
 import type { LevelingImportBot, LevelingImportError } from "@/lib/guild.ts";
 import type { Snowflake } from "@/utils/discord-cdn.ts";
 import { Time } from "@/utils/time.ts";
-import { useActionState, useEffect, useRef, useState } from "react";
 import { BotSelector } from "./02-bot-selector.tsx";
 import { IncludeRoleRewards } from "./03-include-role-rewards.tsx";
 import { ImportMinLevel } from "./04-import-min-level.tsx";
@@ -72,8 +72,8 @@ export function ImportForm({ guildId, data }: { guildId: Snowflake; data: GetImp
 
 			<form action={formAction} className="mb-12 flex flex-col gap-4">
 				<Section
-					name="Import your servers leveling data from a different bot"
 					docsPath="/guides/importing-levels-from-other-bots"
+					name="Import your servers leveling data from a different bot"
 					tooltip="Import leveling data from other bots"
 				>
 					<Label sub="Limited to 1 use per hour">Lets get the import started…</Label>
@@ -96,8 +96,8 @@ export function ImportForm({ guildId, data }: { guildId: Snowflake; data: GetImp
 
 							{importStatus && (
 								<ImportStatusTitle
-									createdAt={new Date(importStatus.createdAt)}
 									completedAt={importStatus.completedAt ? new Date(importStatus.completedAt) : null}
+									createdAt={new Date(importStatus.createdAt)}
 								/>
 							)}
 						</div>

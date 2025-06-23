@@ -1,23 +1,24 @@
 import "client-only";
+
 // The reason for using "client-only" instead of "use client" is because of the function parameter in the component,
 // which triggers a warning since functions are not serializable.
 
+import { type Dispatch, type SetStateAction, useState } from "react";
 import { ChannelSelector } from "@/components/dashboard/ChannelSelector.tsx";
 import { Input } from "@/components/dashboard/Input.tsx";
 import { Label } from "@/components/dashboard/Label.tsx";
 import { Text } from "@/components/dashboard/Text.tsx";
 import { AddComment } from "@/components/icons/mdi/add-comment.tsx";
 import { Delete } from "@/components/icons/mdi/delete.tsx";
+import { type Channel, type XpMultiplier, XpMultiplierType } from "@/lib/guild.ts";
 import {
 	MAX_XP_MULTIPLIER_TARGETS,
 	MAX_XP_MULTIPLIER_TARGETS_PREMIUM,
 	MAX_XP_MULTIPLIER_VALUE,
 	MIN_XP_MULTIPLIER_VALUE,
 } from "@/lib/guild-config.ts";
-import { type Channel, type XpMultiplier, XpMultiplierType } from "@/lib/guild.ts";
 import { getMaximumLimit } from "@/utils/get-maximum-limit.ts";
 import { mapChannelIdsToChannels } from "@/utils/map-channel-ids-to-channels.ts";
-import { type Dispatch, type SetStateAction, useState } from "react";
 import { CreateMultiplierButton } from "./create-multiplier-button.tsx";
 
 export function ChannelMultipliers({
@@ -81,30 +82,30 @@ export function ChannelMultipliers({
 					inputId="channel-selector"
 					max={getMaximumLimit("xpMultiplierTargets", premium)}
 					menuPlacement="top" // Placing the menu on top always to avoid overflow
-					settingId="newChannels"
 					onChange={(newChannels) => setNewChannels(newChannels)}
+					settingId="newChannels"
 				/>
 
 				<Text>and the multiplier to apply to them:</Text>
 
 				<Input
 					id="newLevel"
+					max={MAX_XP_MULTIPLIER_VALUE}
+					min={MIN_XP_MULTIPLIER_VALUE}
+					onChange={(event) => setNewMultiplier(event.target.value)}
 					placeholder="Enter a multiplier…"
+					step={MIN_XP_MULTIPLIER_VALUE}
 					type="number"
 					value={newMultiplier}
-					min={MIN_XP_MULTIPLIER_VALUE}
-					max={MAX_XP_MULTIPLIER_VALUE}
-					step={MIN_XP_MULTIPLIER_VALUE}
-					onChange={(event) => setNewMultiplier(event.target.value)}
 				/>
 
 				<CreateMultiplierButton
+					existingMultiplierValues={existingMultiplierValues}
 					handleCreateMultiplier={handleCreateMultiplier}
 					maxMultipliers={maxMultipliers}
 					multiplierCount={multiplierCount}
 					newMultiplier={newMultiplier}
 					newTargets={newChannels}
-					existingMultiplierValues={existingMultiplierValues}
 				>
 					<AddComment className="size-6 text-white" />
 				</CreateMultiplierButton>
@@ -123,8 +124,8 @@ export function ChannelMultipliers({
 							key={multiplier.id}
 							{...multiplier}
 							channels={channels}
-							premium={premium}
 							onDelete={handleDeleteMultiplier}
+							premium={premium}
 						/>
 					))}
 				</>

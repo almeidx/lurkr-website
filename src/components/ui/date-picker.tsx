@@ -2,16 +2,16 @@
 
 "use client";
 
-import { cx, focusInput, focusRing, hasErrorInput } from "@/lib/utils";
 import { Time } from "@internationalized/date";
 import * as PopoverPrimitives from "@radix-ui/react-popover";
 import { type AriaTimeFieldProps, type TimeValue, useDateSegment, useTimeField } from "@react-aria/datepicker";
 import { type DateFieldState, type DateSegment, useTimeFieldState } from "@react-stately/datepicker";
 import { RiCalendar2Fill, RiSubtractFill } from "@remixicon/react";
-import { type Locale, format } from "date-fns";
+import { format, type Locale } from "date-fns";
 import { enUS } from "date-fns/locale";
 import * as React from "react";
-import { type VariantProps, tv } from "tailwind-variants";
+import { tv, type VariantProps } from "tailwind-variants";
+import { cx, focusInput, focusRing, hasErrorInput } from "@/lib/utils";
 import { Button } from "./button.tsx";
 import { Calendar as CalendarPrimitive, type Matcher } from "./calendar.tsx";
 
@@ -45,7 +45,6 @@ const TimeSegment = ({ segment, state }: TimeSegmentProps) => {
 	return (
 		<div
 			{...segmentProps}
-			ref={ref}
 			className={cx(
 				// base
 				"relative block w-full appearance-none rounded-md border px-2.5 py-1.5 text-left uppercase tabular-nums shadow-xs outline-hidden transition sm:text-sm",
@@ -60,11 +59,12 @@ const TimeSegment = ({ segment, state }: TimeSegmentProps) => {
 				// invalid (optional)
 				"invalid:border-red-500 invalid:ring-2 invalid:ring-red-200 group-aria-invalid/time-input:border-red-500 group-aria-invalid/time-input:ring-2 group-aria-invalid/time-input:ring-red-200 dark:group-aria-invalid/time-input:ring-red-400/20",
 				{
-					"w-fit! border-none bg-transparent px-0 text-gray-400 shadow-none": segment.type === "literal",
 					"border-gray-300 bg-gray-100 text-gray-400 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-500":
 						state.isDisabled && segment.text !== ":",
+					"w-fit! border-none bg-transparent px-0 text-gray-400 shadow-none": segment.type === "literal",
 				},
 			)}
+			ref={ref}
 		>
 			{segment.isPlaceholder ? segment.placeholder : segment.text}
 		</div>
@@ -84,10 +84,10 @@ const TimeInput = React.forwardRef<HTMLDivElement, TimeInputProps>(({ hourCycle,
 	const locale = window !== undefined ? window.navigator.language : "en-US";
 
 	const state = useTimeFieldState({
+		autoFocus: true,
 		hourCycle: hourCycle,
 		locale: locale,
 		shouldForceLeadingZeros: true,
-		autoFocus: true,
 		...props,
 	});
 
@@ -102,9 +102,9 @@ const TimeInput = React.forwardRef<HTMLDivElement, TimeInputProps>(({ hourCycle,
 	);
 
 	return (
-		<div {...fieldProps} ref={innerRef} className="group/time-input inline-flex w-full gap-x-2">
+		<div {...fieldProps} className="group/time-input inline-flex w-full gap-x-2" ref={innerRef}>
 			{state.segments.map((segment, i) => (
-				// biome-ignore lint/suspicious/noArrayIndexKey:
+				// biome-ignore lint/suspicious/noArrayIndexKey: Irrelevant
 				<TimeSegment key={i} segment={segment} state={state} />
 			))}
 		</div>
@@ -153,7 +153,7 @@ const Trigger = React.forwardRef<HTMLButtonElement, TriggerProps>(
 	({ className, children, placeholder, hasError, ...props }: TriggerProps, forwardedRef) => {
 		return (
 			<PopoverPrimitives.Trigger asChild>
-				<button ref={forwardedRef} className={cx(triggerStyles({ hasError }), className)} {...props}>
+				<button className={cx(triggerStyles({ hasError }), className)} ref={forwardedRef} {...props}>
 					<RiCalendar2Fill className="size-5 shrink-0 text-gray-400 dark:text-gray-600" />
 					<span className="flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-left text-gray-900 dark:text-gray-50">
 						{children ? (
@@ -180,12 +180,8 @@ const CalendarPopover = React.forwardRef<
 	return (
 		<PopoverPrimitives.Portal>
 			<PopoverPrimitives.Content
-				ref={forwardedRef}
-				sideOffset={10}
-				side="bottom"
 				align={align}
 				avoidCollisions
-				onOpenAutoFocus={(e) => e.preventDefault()}
 				className={cx(
 					// base
 					"relative z-50 w-fit rounded-md border text-sm shadow-black/2.5 shadow-xl",
@@ -201,6 +197,10 @@ const CalendarPopover = React.forwardRef<
 					"data-[state=open]:data-[side=bottom]:animate-slide-down-and-fade data-[state=open]:data-[side=left]:animate-slide-left-and-fade data-[state=open]:data-[side=right]:animate-slide-right-and-fade data-[state=open]:data-[side=top]:animate-slide-up-and-fade",
 					className,
 				)}
+				onOpenAutoFocus={(e) => e.preventDefault()}
+				ref={forwardedRef}
+				side="bottom"
+				sideOffset={10}
 				{...props}
 			>
 				{children}
@@ -319,10 +319,9 @@ const PresetContainer = <TPreset extends Preset, TValue>({
 		<ul className="flex items-start gap-x-2 sm:flex-col">
 			{presets.map((preset) => {
 				return (
-					<li key={`preset-${preset.label}`} className="sm:w-full sm:py-px">
+					<li className="sm:w-full sm:py-px" key={`preset-${preset.label}`}>
 						<button
-							type="button"
-							title={preset.label}
+							aria-label={`Select ${preset.label}`}
 							className={cx(
 								// base
 								"relative w-full overflow-hidden text-ellipsis whitespace-nowrap rounded-sm border px-2.5 py-1.5 text-left text-base shadow-xs outline-hidden transition-all sm:border-none sm:py-2 sm:text-sm sm:shadow-none",
@@ -340,7 +339,8 @@ const PresetContainer = <TPreset extends Preset, TValue>({
 								},
 							)}
 							onClick={() => handleClick(preset)}
-							aria-label={`Select ${preset.label}`}
+							title={preset.label}
+							type="button"
 						>
 							<span>{preset.label}</span>
 						</button>
@@ -453,7 +453,7 @@ const SingleDatePicker = ({
 				: new Time(0, 0),
 	);
 
-	// biome-ignore lint/correctness/useExhaustiveDependencies:
+	// biome-ignore lint/correctness/useExhaustiveDependencies: Intended
 	const initialDate = React.useMemo(() => {
 		return date;
 		// eslint-disable-next-line react-hooks/exhaustive-deps
@@ -469,7 +469,7 @@ const SingleDatePicker = ({
 		}
 	}, [date]);
 
-	// biome-ignore lint/correctness/useExhaustiveDependencies:
+	// biome-ignore lint/correctness/useExhaustiveDependencies: Intended
 	React.useEffect(() => {
 		if (!open) {
 			setMonth(date);
@@ -551,16 +551,16 @@ const SingleDatePicker = ({
 
 	return (
 		<>
-			<PopoverPrimitives.Root tremor-id="tremor-raw" open={open} onOpenChange={onOpenChange}>
+			<PopoverPrimitives.Root onOpenChange={onOpenChange} open={open} tremor-id="tremor-raw">
 				<Trigger
-					placeholder={placeholder}
-					disabled={disabled}
-					className={className}
-					hasError={hasError}
-					aria-required={props.required || props["aria-required"]}
 					aria-invalid={props["aria-invalid"]}
 					aria-label={props["aria-label"]}
 					aria-labelledby={props["aria-labelledby"]}
+					aria-required={props.required || props["aria-required"]}
+					className={className}
+					disabled={disabled}
+					hasError={hasError}
+					placeholder={placeholder}
 				>
 					{formattedDate}
 				</Trigger>
@@ -576,40 +576,40 @@ const SingleDatePicker = ({
 									)}
 								>
 									<div className="absolute px-2 pr-2 sm:inset-0 sm:left-0 sm:py-2">
-										<PresetContainer currentValue={date} presets={presets} onSelect={onDateChange} />
+										<PresetContainer currentValue={date} onSelect={onDateChange} presets={presets} />
 									</div>
 								</div>
 							)}
 							<div>
 								<CalendarPrimitive
+									disabled={disabledDays}
+									disableNavigation={disableNavigation}
+									enableYearNavigation={enableYearNavigation}
+									initialFocus
+									locale={locale}
 									mode="single"
 									month={month}
 									onMonthChange={setMonth}
-									selected={date}
 									onSelect={onDateChange}
-									disabled={disabledDays}
-									locale={locale}
-									enableYearNavigation={enableYearNavigation}
-									disableNavigation={disableNavigation}
-									initialFocus
+									selected={date}
 									{...props}
 								/>
 								{showTimePicker && (
 									<div className="border-gray-200 border-t p-3 dark:border-gray-800">
 										<TimeInput
 											aria-label="Time"
-											onChange={onTimeChange}
 											isDisabled={!date}
-											value={time}
 											isRequired={props.required}
+											onChange={onTimeChange}
+											value={time}
 										/>
 									</div>
 								)}
 								<div className="flex items-center gap-x-2 border-gray-200 border-t p-3 dark:border-gray-800">
-									<Button variant="secondary" className="h-8 w-full" type="button" onClick={onCancel}>
+									<Button className="h-8 w-full" onClick={onCancel} type="button" variant="secondary">
 										{translations?.cancel ?? "Cancel"}
 									</Button>
-									<Button variant="primary" className="h-8 w-full" type="button" onClick={onApply}>
+									<Button className="h-8 w-full" onClick={onApply} type="button" variant="primary">
 										{translations?.apply ?? "Apply"}
 									</Button>
 								</div>
@@ -619,7 +619,7 @@ const SingleDatePicker = ({
 				</CalendarPopover>
 			</PopoverPrimitives.Root>
 
-			<input type="hidden" name={props.name} value={date?.toISOString() ?? ""} />
+			<input name={props.name} type="hidden" value={date?.toISOString() ?? ""} />
 		</>
 	);
 };
@@ -671,7 +671,7 @@ const RangeDatePicker = ({
 				: new Time(0, 0),
 	);
 
-	// biome-ignore lint/correctness/useExhaustiveDependencies:
+	// biome-ignore lint/correctness/useExhaustiveDependencies: Intended
 	const initialRange = React.useMemo(() => {
 		return range;
 		// eslint-disable-next-line react-hooks/exhaustive-deps
@@ -687,7 +687,7 @@ const RangeDatePicker = ({
 		}
 	}, [range]);
 
-	// biome-ignore lint/correctness/useExhaustiveDependencies:
+	// biome-ignore lint/correctness/useExhaustiveDependencies: Intended
 	React.useEffect(() => {
 		if (!open) {
 			setMonth(range?.from);
@@ -829,16 +829,16 @@ const RangeDatePicker = ({
 	};
 
 	return (
-		<PopoverPrimitives.Root tremor-id="tremor-raw" open={open} onOpenChange={onOpenChange}>
+		<PopoverPrimitives.Root onOpenChange={onOpenChange} open={open} tremor-id="tremor-raw">
 			<Trigger
-				placeholder={placeholder}
-				disabled={disabled}
-				className={className}
-				hasError={hasError}
-				aria-required={props.required || props["aria-required"]}
 				aria-invalid={props["aria-invalid"]}
 				aria-label={props["aria-label"]}
 				aria-labelledby={props["aria-labelledby"]}
+				aria-required={props.required || props["aria-required"]}
+				className={className}
+				disabled={disabled}
+				hasError={hasError}
+				placeholder={placeholder}
 			>
 				{displayRange}
 			</Trigger>
@@ -854,26 +854,26 @@ const RangeDatePicker = ({
 								)}
 							>
 								<div className="absolute px-3 sm:inset-0 sm:left-0 sm:p-2">
-									<PresetContainer currentValue={range} presets={presets} onSelect={onRangeChange} />
+									<PresetContainer currentValue={range} onSelect={onRangeChange} presets={presets} />
 								</div>
 							</div>
 						)}
 						<div className="overflow-x-auto">
 							<CalendarPrimitive
-								mode="range"
-								selected={range}
-								onSelect={onRangeChange}
-								month={month}
-								onMonthChange={setMonth}
-								numberOfMonths={2}
-								disabled={disabledDays}
-								disableNavigation={disableNavigation}
-								enableYearNavigation={enableYearNavigation}
-								locale={locale}
-								initialFocus
 								classNames={{
 									months: "flex flex-row divide-x divide-gray-200 dark:divide-gray-800 overflow-x-auto",
 								}}
+								disabled={disabledDays}
+								disableNavigation={disableNavigation}
+								enableYearNavigation={enableYearNavigation}
+								initialFocus
+								locale={locale}
+								mode="range"
+								month={month}
+								numberOfMonths={2}
+								onMonthChange={setMonth}
+								onSelect={onRangeChange}
+								selected={range}
 								{...props}
 							/>
 							{showTimePicker && (
@@ -881,22 +881,22 @@ const RangeDatePicker = ({
 									<div className="flex flex-1 items-center gap-x-2">
 										<span className="text-gray-700 dark:text-gray-30">{translations?.start ?? "Start"}:</span>
 										<TimeInput
-											value={startTime}
-											onChange={(v) => onTimeChange(v, "start")}
 											aria-label="Start date time"
 											isDisabled={!range?.from}
 											isRequired={props.required}
+											onChange={(v) => onTimeChange(v, "start")}
+											value={startTime}
 										/>
 									</div>
 									<RiSubtractFill className="size-4 shrink-0 text-gray-400" />
 									<div className="flex flex-1 items-center gap-x-2">
 										<span className="text-gray-700 dark:text-gray-30">{translations?.end ?? "End"}:</span>
 										<TimeInput
-											value={endTime}
-											onChange={(v) => onTimeChange(v, "end")}
 											aria-label="End date time"
 											isDisabled={!range?.to}
 											isRequired={props.required}
+											onChange={(v) => onTimeChange(v, "end")}
+											value={endTime}
 										/>
 									</div>
 								</div>
@@ -907,10 +907,10 @@ const RangeDatePicker = ({
 									<span className="font-medium">{displayRange}</span>
 								</p>
 								<div className="mt-2 flex items-center gap-x-2 sm:mt-0">
-									<Button variant="secondary" className="h-8 w-full sm:w-fit" type="button" onClick={onCancel}>
+									<Button className="h-8 w-full sm:w-fit" onClick={onCancel} type="button" variant="secondary">
 										{translations?.cancel ?? "Cancel"}
 									</Button>
-									<Button variant="primary" className="h-8 w-full sm:w-fit" type="button" onClick={onApply}>
+									<Button className="h-8 w-full sm:w-fit" onClick={onApply} type="button" variant="primary">
 										{translations?.apply ?? "Apply"}
 									</Button>
 								</div>

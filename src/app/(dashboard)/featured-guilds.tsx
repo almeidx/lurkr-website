@@ -1,18 +1,18 @@
+import Image from "next/image";
+import Marquee from "react-fast-marquee";
 import discoverableSvg from "@/assets/guild-badges/discoverable.svg";
 import partnerSvg from "@/assets/guild-badges/partner.svg";
 import verifiedSvg from "@/assets/guild-badges/verified.svg";
 import { ImageWithFallback } from "@/components/ImageWithFallback.tsx";
-import { type Snowflake, guildIcon } from "@/utils/discord-cdn.ts";
+import { guildIcon, type Snowflake } from "@/utils/discord-cdn.ts";
 import { formatToNearestOrderOfMagnitude } from "@/utils/format-to-nearest-order-of-magnitude.ts";
-import Image from "next/image";
-import Marquee from "react-fast-marquee";
 
 export function FeaturedGuilds({ guilds, direction = "left", speed }: FeaturedGuildsProps) {
 	return (
 		<div className="relative">
-			<Marquee play speed={speed} direction={direction} gradient gradientColor="#171717">
+			<Marquee direction={direction} gradient gradientColor="#171717" play speed={speed}>
 				{guilds.map((guild, idx) => (
-					<FeaturedGuild key={guild.id} index={idx} {...guild} />
+					<FeaturedGuild index={idx} key={guild.id} {...guild} />
 				))}
 			</Marquee>
 
@@ -32,8 +32,8 @@ function FeaturedGuild({ id, icon, name, memberCount, partner, verified, index }
 				alt={`${name}'s icon`}
 				className="no-drag size-14 rounded-full md:size-16"
 				height={64}
-				src={guildIcon(id, icon, { format: "webp", size: 64 })}
 				priority={index < 4}
+				src={guildIcon(id, icon, { format: "webp", size: 64 })}
 				width={64}
 			/>
 
@@ -42,7 +42,7 @@ function FeaturedGuild({ id, icon, name, memberCount, partner, verified, index }
 					className="flex max-w-[70%] items-center gap-2 overflow-hidden text-ellipsis whitespace-nowrap font-bold text-lg sm:max-w-64 sm:text-xl md:max-w-64 lg:text-2xl"
 					title={name}
 				>
-					<Image src={iconSrc} alt={alt} width={20} height={20} className="no-drag size-5 rounded-full" />
+					<Image alt={alt} className="no-drag size-5 rounded-full" height={20} src={iconSrc} width={20} />
 					{name}
 				</p>
 				<p className="text-md text-white/50 md:text-lg">

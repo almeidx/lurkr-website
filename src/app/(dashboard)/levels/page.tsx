@@ -1,8 +1,8 @@
+import type { Metadata } from "next";
+import { cookies } from "next/headers";
 import { TOKEN_COOKIE } from "@/utils/constants.ts";
 import type { Snowflake } from "@/utils/discord-cdn.ts";
 import { makeApiRequest } from "@/utils/make-api-request.ts";
-import type { Metadata } from "next";
-import { cookies } from "next/headers";
 import { LeaderboardGuildInput, LeaderboardGuildList } from "./guild-list.tsx";
 
 export default async function Levels() {
@@ -28,8 +28,8 @@ export default async function Levels() {
 }
 
 export const metadata: Metadata = {
-	title: "Leaderboards",
 	description: "View the leveling leaderboard of any Lurkr-enabled server!",
+	title: "Leaderboards",
 };
 
 async function getGuilds(token: string) {

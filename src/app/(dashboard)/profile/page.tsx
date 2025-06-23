@@ -1,16 +1,16 @@
 import "react-medium-image-zoom/dist/styles.css";
 
-import { ImageWithFallback } from "@/components/ImageWithFallback.tsx";
+import dynamic from "next/dynamic";
+import { cookies } from "next/headers";
 import { Section } from "@/components/dashboard/Section.tsx";
 import { Text } from "@/components/dashboard/Text.tsx";
-import { UserAccentType, getCurrentUser } from "@/lib/auth.ts";
+import { ImageWithFallback } from "@/components/ImageWithFallback.tsx";
+import { getCurrentUser, UserAccentType } from "@/lib/auth.ts";
 import type { UserGuildInfo } from "@/lib/guild.ts";
 import { TOKEN_COOKIE } from "@/utils/constants.ts";
 import { userAvatar } from "@/utils/discord-cdn.ts";
 import { greeting } from "@/utils/greeting.ts";
 import { makeApiRequest } from "@/utils/make-api-request.ts";
-import dynamic from "next/dynamic";
-import { cookies } from "next/headers";
 import { ApiKeys } from "./api-keys.tsx";
 
 const Zoom = dynamic(() => import("react-medium-image-zoom"));
@@ -47,8 +47,8 @@ export default async function ProfilePage() {
 					className="hidden size-28 rounded-full md:block"
 					height={100}
 					src={userAvatar(user.id, user.avatar)}
-					width={100}
 					unoptimized={Boolean(user.avatar)}
+					width={100}
 				/>
 
 				<div>
@@ -70,7 +70,7 @@ export default async function ProfilePage() {
 						</div>
 					</div>
 
-					<span className="font-mono text-sm" aria-hidden>
+					<span aria-hidden className="font-mono text-sm">
 						{user.id}
 					</span>
 				</div>
@@ -95,9 +95,9 @@ export default async function ProfilePage() {
 							<ImageWithFallback
 								alt="Your background"
 								className="aspect-4/1 w-full object-cover"
+								height={260}
 								src={background.url || "/placeholder.svg"}
 								width={950}
-								height={260}
 							/>
 						</Zoom>
 					</div>

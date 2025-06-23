@@ -1,15 +1,5 @@
 "use client";
 
-import { Label } from "@/components/dashboard/Label.tsx";
-import { RoleSelector, type RoleWithResolvedColor } from "@/components/dashboard/RoleSelector.tsx";
-import { Text } from "@/components/dashboard/Text.tsx";
-import { Delete } from "@/components/icons/mdi/delete.tsx";
-import { PersonAdd } from "@/components/icons/mdi/person-add.tsx";
-import { MAX_AUTO_ROLE_FLAGS_ROLES } from "@/lib/guild-config.ts";
-import type { AutoRoleFlag, Role } from "@/lib/guild.ts";
-import { getMaximumLimit } from "@/utils/get-maximum-limit.ts";
-import { mapRoleIdsToRoles } from "@/utils/map-role-ids-to-roles.ts";
-import { BadgeInfo, UserFlags } from "@/utils/user-flags.ts";
 import {
 	Select,
 	SelectArrow,
@@ -21,6 +11,16 @@ import {
 } from "@ariakit/react";
 import Image from "next/image";
 import { useState } from "react";
+import { Label } from "@/components/dashboard/Label.tsx";
+import { RoleSelector, type RoleWithResolvedColor } from "@/components/dashboard/RoleSelector.tsx";
+import { Text } from "@/components/dashboard/Text.tsx";
+import { Delete } from "@/components/icons/mdi/delete.tsx";
+import { PersonAdd } from "@/components/icons/mdi/person-add.tsx";
+import type { AutoRoleFlag, Role } from "@/lib/guild.ts";
+import { MAX_AUTO_ROLE_FLAGS_ROLES } from "@/lib/guild-config.ts";
+import { getMaximumLimit } from "@/utils/get-maximum-limit.ts";
+import { mapRoleIdsToRoles } from "@/utils/map-role-ids-to-roles.ts";
+import { BadgeInfo, UserFlags } from "@/utils/user-flags.ts";
 
 export function OnJoinRolesForBadges({ defaultValues, premium, roles }: OnJoinRolesForBadgesProps) {
 	const [autoRoleFlags, setAutoRoleFlags] = useState<readonly AutoRoleFlag[]>(defaultValues);
@@ -46,7 +46,7 @@ export function OnJoinRolesForBadges({ defaultValues, premium, roles }: OnJoinRo
 		}
 
 		setAutoRoleFlags((prev) =>
-			[...prev, { id: crypto.randomUUID(), flagId, roleIds }].sort((a, b) => a.flagId - b.flagId),
+			[...prev, { flagId, id: crypto.randomUUID(), roleIds }].sort((a, b) => a.flagId - b.flagId),
 		);
 
 		setNewRoles([]);
@@ -69,9 +69,9 @@ export function OnJoinRolesForBadges({ defaultValues, premium, roles }: OnJoinRo
 					defaultValues={[]}
 					inputId="role-selector"
 					max={getMaximumLimit("autoRoleFlags", premium)}
+					onChange={(newRoles) => setNewRoles(newRoles)}
 					roles={roles}
 					settingId="newRoles"
-					onChange={(newRoles) => setNewRoles(newRoles)}
 				/>
 
 				<SelectLabel className="text-lg text-white/75 tracking-tight md:text-xl" store={select}>
@@ -79,11 +79,11 @@ export function OnJoinRolesForBadges({ defaultValues, premium, roles }: OnJoinRo
 				</SelectLabel>
 
 				<Select
-					store={select}
 					className="flex h-10 w-64 items-center justify-between rounded-lg bg-light-gray px-3 py-2 shadow-dim-inner"
+					store={select}
 				>
 					<div className="flex items-center gap-2 truncate">
-						<Image src={selectedBadgeInfo.icon} alt={`${selectedBadgeInfo.name} badge`} width={22} height={22} />
+						<Image alt={`${selectedBadgeInfo.name} badge`} height={22} src={selectedBadgeInfo.icon} width={22} />
 						{selectedBadgeInfo.name}
 					</div>
 
@@ -91,19 +91,19 @@ export function OnJoinRolesForBadges({ defaultValues, premium, roles }: OnJoinRo
 				</Select>
 
 				<SelectPopover
-					store={select}
+					className="z-10000 flex w-80 flex-col gap-2 rounded-lg bg-light-gray px-3 py-2 shadow-dim-inner"
 					gutter={8}
 					sameWidth
-					className="z-10000 flex w-80 flex-col gap-2 rounded-lg bg-light-gray px-3 py-2 shadow-dim-inner"
+					store={select}
 				>
 					{Object.entries(BadgeInfo).map(([flag, { icon, name }]) => (
 						<SelectItem
-							key={`${flag}-badge-select`}
 							className="flex cursor-pointer items-center gap-2 text-lg text-white/75 tracking-tight hover:text-white md:text-xl"
+							key={`${flag}-badge-select`}
 							store={select}
 							value={flag}
 						>
-							<Image src={icon} alt={`${name} badge`} width={22} height={22} />
+							<Image alt={`${name} badge`} height={22} src={icon} width={22} />
 							{name}
 						</SelectItem>
 					))}
@@ -111,8 +111,8 @@ export function OnJoinRolesForBadges({ defaultValues, premium, roles }: OnJoinRo
 
 				<button
 					className="rounded-lg bg-green p-1 transition-colors not-disabled:hover:bg-green/75"
-					onClick={handleCreate}
 					disabled={autoRoleFlags.length >= maxAutoRoleFlags || !newRoles.length || !flag}
+					onClick={handleCreate}
 					type="button"
 				>
 					<PersonAdd className="size-6 text-white" />
@@ -127,9 +127,9 @@ export function OnJoinRolesForBadges({ defaultValues, premium, roles }: OnJoinRo
 						<OnJoinRoleBadge
 							key={autoRoleFlag.id}
 							{...autoRoleFlag}
-							roles={roles}
 							onDelete={handleDelete}
 							premium={premium}
+							roles={roles}
 						/>
 					))}
 				</>
@@ -154,7 +154,7 @@ function OnJoinRoleBadge({ flagId, id, premium, onDelete, roleIds, roles }: OnJo
 					<Delete className="size-5 text-[#ed4245]" />
 				</div>
 
-				<Image src={badgeInfo.icon} alt={`${badgeInfo.name} badge`} width={22} height={22} />
+				<Image alt={`${badgeInfo.name} badge`} height={22} src={badgeInfo.icon} width={22} />
 			</button>
 
 			<RoleSelector

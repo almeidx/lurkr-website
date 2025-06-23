@@ -1,9 +1,10 @@
-import { Toggle } from "@/components/Toggle.tsx";
 import { CreatableList } from "@/components/dashboard/CreatableList.tsx";
 import { DocsBubble } from "@/components/dashboard/DocsBubble.tsx";
 import { Input } from "@/components/dashboard/Input.tsx";
 import { Label } from "@/components/dashboard/Label.tsx";
 import { Text } from "@/components/dashboard/Text.tsx";
+import { Toggle } from "@/components/Toggle.tsx";
+import type { GuildSettings } from "@/lib/guild.ts";
 import {
 	MAX_XP_ANNOUNCE_LEVEL,
 	MAX_XP_ANNOUNCE_MINIMUM_LEVEL,
@@ -12,7 +13,6 @@ import {
 	MIN_XP_ANNOUNCE_MINIMUM_LEVEL,
 	MIN_XP_ANNOUNCE_MULTIPLE_OF,
 } from "@/lib/guild-config.ts";
-import type { GuildSettings } from "@/lib/guild.ts";
 import { getMaximumLimit } from "@/utils/get-maximum-limit.ts";
 
 export function LevelUpMessageConditions({ settings, premium }: LevelUpMessageConditionsProps) {
@@ -53,13 +53,13 @@ export function LevelUpMessageConditions({ settings, premium }: LevelUpMessageCo
 			</div>
 
 			<Input
-				id="xpAnnounceMinimumLevel"
-				placeholder="Write the minimum level you want…"
-				type="number"
-				min={MIN_XP_ANNOUNCE_MINIMUM_LEVEL}
-				max={MAX_XP_ANNOUNCE_MINIMUM_LEVEL}
-				// Special case: 0 is not allowed, but it's the default value
 				defaultValue={settings.xpAnnounceMinimumLevel === 0 ? "" : settings.xpAnnounceMinimumLevel}
+				id="xpAnnounceMinimumLevel"
+				max={MAX_XP_ANNOUNCE_MINIMUM_LEVEL}
+				min={MIN_XP_ANNOUNCE_MINIMUM_LEVEL}
+				placeholder="Write the minimum level you want…"
+				// Special case: 0 is not allowed, but it's the default value
+				type="number"
 			/>
 
 			<div className="mt-2 flex items-center">
@@ -75,12 +75,12 @@ export function LevelUpMessageConditions({ settings, premium }: LevelUpMessageCo
 			</div>
 
 			<Input
+				defaultValue={settings.xpAnnounceMultipleOf ?? ""}
 				id="xpAnnounceMultipleOf"
+				max={MAX_XP_ANNOUNCE_MULTIPLE_OF}
+				min={MIN_XP_ANNOUNCE_MULTIPLE_OF}
 				placeholder="Write the factor for levels you want…"
 				type="number"
-				min={MIN_XP_ANNOUNCE_MULTIPLE_OF}
-				max={MAX_XP_ANNOUNCE_MULTIPLE_OF}
-				defaultValue={settings.xpAnnounceMultipleOf ?? ""}
 			/>
 
 			<div className="flex h-6 gap-4 rounded-lg">
@@ -92,7 +92,7 @@ export function LevelUpMessageConditions({ settings, premium }: LevelUpMessageCo
 					Only send the level up message for levels with Role Rewards?{" "}
 				</Text>
 
-				<Toggle initialValue={settings.xpAnnounceOnlyXpRoles} id="xpAnnounceOnlyXpRoles" />
+				<Toggle id="xpAnnounceOnlyXpRoles" initialValue={settings.xpAnnounceOnlyXpRoles} />
 			</div>
 		</>
 	);

@@ -1,24 +1,24 @@
 "use server";
 
+import { object, parse, pipe, regex, safeParse, string, transform } from "valibot";
 import { action } from "@/app/(dashboard)/guilds/[guildId]/action-base.ts";
+import type { GuildSettings } from "@/lib/guild.ts";
 import {
-	MAX_AUTO_ROLES,
-	MAX_AUTO_ROLES_PREMIUM,
 	MAX_AUTO_ROLE_FLAGS_ROLES,
 	MAX_AUTO_ROLE_TIMEOUT,
+	MAX_AUTO_ROLES,
+	MAX_AUTO_ROLES_PREMIUM,
 	MAX_MENTION_COOLDOWN,
 	MAX_MENTION_COOLDOWN_PREMIUM,
 	MAX_MENTION_COOLDOWN_ROLES,
 	MIN_AUTO_ROLE_TIMEOUT,
 	MIN_MENTION_COOLDOWN,
 } from "@/lib/guild-config.ts";
-import type { GuildSettings } from "@/lib/guild.ts";
 import { formDataToObject } from "@/utils/form-data-to-object.ts";
 import { lazy } from "@/utils/lazy.ts";
-import { UUID_REGEX, createMinuteIntervalValidator, createSnowflakesValidator } from "@/utils/schemas.ts";
+import { createMinuteIntervalValidator, createSnowflakesValidator, UUID_REGEX } from "@/utils/schemas.ts";
 import { ServerActionError } from "@/utils/server-action-error.ts";
 import { UserFlags } from "@/utils/user-flags.ts";
-import { object, parse, pipe, regex, safeParse, string, transform } from "valibot";
 
 // TODO: Use `safeParse` instead of `parse`
 
@@ -35,7 +35,7 @@ const autoRoleFlagsKeySchema = pipe(
 	regex(new RegExp(`^autoRoleFlags-(${userFlagNumbers.join("|")})-${UUID_REGEX.source}$`)),
 	transform((value) => {
 		const parts = value.split("-");
-		return { id: parts.slice(2).join("-"), flagId: Number(parts[1]) as UserFlags };
+		return { flagId: Number(parts[1]) as UserFlags, id: parts.slice(2).join("-") };
 	}),
 );
 

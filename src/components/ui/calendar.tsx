@@ -1,8 +1,9 @@
 // Tremor Calendar [v1.0.0]
 
+/** biome-ignore-all lint/nursery/noNestedComponentDefinitions: Lib stuff */
+
 "use client";
 
-import { cx, focusRing } from "@/lib/utils.ts";
 import { RiArrowLeftDoubleLine, RiArrowLeftSLine, RiArrowRightDoubleLine, RiArrowRightSLine } from "@remixicon/react";
 import { addYears, format, isSameMonth } from "date-fns";
 import * as React from "react";
@@ -16,6 +17,7 @@ import {
 	useDayRender,
 	useNavigation,
 } from "react-day-picker";
+import { cx, focusRing } from "@/lib/utils.ts";
 
 interface NavigationButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
 	onClick: () => void;
@@ -28,9 +30,6 @@ const NavigationButton = React.forwardRef<HTMLButtonElement, NavigationButtonPro
 		const Icon = icon;
 		return (
 			<button
-				ref={forwardedRef}
-				type="button"
-				disabled={disabled}
 				className={cx(
 					"flex size-8 shrink-0 select-none items-center justify-center rounded-sm border p-1 outline-hidden transition sm:size-[30px]",
 					// text color
@@ -47,7 +46,10 @@ const NavigationButton = React.forwardRef<HTMLButtonElement, NavigationButtonPro
 					"disabled:text-gray-400 dark:disabled:text-gray-600",
 					focusRing,
 				)}
+				disabled={disabled}
 				onClick={onClick}
+				ref={forwardedRef}
+				type="button"
 				{...props}
 			>
 				<Icon className="size-full shrink-0" />
@@ -91,19 +93,8 @@ const Calendar = ({
 }: CalendarProps & { enableYearNavigation?: boolean }) => {
 	return (
 		<DayPicker
-			mode={mode}
-			weekStartsOn={weekStartsOn}
-			numberOfMonths={numberOfMonths}
-			locale={locale}
-			showOutsideDays={numberOfMonths === 1}
 			className={cx(className)}
 			classNames={{
-				months: "flex space-y-0",
-				month: "space-y-4 p-3",
-				nav: "gap-1 flex items-center rounded-full size-full justify-between p-4",
-				table: "w-full border-collapse space-y-1",
-				head_cell: "w-9 font-medium text-sm sm:text-xs text-center text-gray-400 dark:text-gray-600 pb-2",
-				row: "w-full mt-0.5",
 				cell: cx("relative p-0 text-center focus-within:relative", "text-gray-900 dark:text-gray-50"),
 				day: cx(
 					"size-9 rounded-sm text-sm focus:z-10",
@@ -111,31 +102,33 @@ const Calendar = ({
 					"hover:bg-gray-200 dark:hover:bg-gray-700",
 					focusRing,
 				),
-				day_today: "font-semibold",
-				day_selected: cx(
-					"rounded-sm",
-					"aria-selected:bg-blue-500 aria-selected:text-white",
-					"dark:aria-selected:bg-blue-500 dark:aria-selected:text-white",
-				),
 				day_disabled: "text-gray-300! dark:text-gray-700! line-through disabled:hover:bg-transparent",
+				day_hidden: "invisible",
 				day_outside: "text-gray-400 dark:text-gray-600",
+				day_range_end: "rounded-l-none rounded-r!",
 				day_range_middle: cx(
 					"rounded-none!",
 					"aria-selected:bg-gray-100! aria-selected:text-gray-900!",
 					"dark:aria-selected:bg-gray-900! dark:aria-selected:text-gray-50!",
 				),
 				day_range_start: "rounded-r-none rounded-l!",
-				day_range_end: "rounded-l-none rounded-r!",
-				day_hidden: "invisible",
+				day_selected: cx(
+					"rounded-sm",
+					"aria-selected:bg-blue-500 aria-selected:text-white",
+					"dark:aria-selected:bg-blue-500 dark:aria-selected:text-white",
+				),
+				day_today: "font-semibold",
+				head_cell: "w-9 font-medium text-sm sm:text-xs text-center text-gray-400 dark:text-gray-600 pb-2",
+				month: "space-y-4 p-3",
+				months: "flex space-y-0",
+				nav: "gap-1 flex items-center rounded-full size-full justify-between p-4",
+				row: "w-full mt-0.5",
+				table: "w-full border-collapse space-y-1",
 				...classNames,
 			}}
 			components={{
-				IconLeft: () => <RiArrowLeftSLine aria-hidden="true" className="size-4" />,
-				IconRight: () => <RiArrowRightSLine aria-hidden="true" className="size-4" />,
 				Caption: ({ ...props }) => {
-					// biome-ignore lint/correctness/useHookAtTopLevel:
 					const { goToMonth, nextMonth, previousMonth, currentMonth, displayMonths } = useNavigation();
-					// biome-ignore lint/correctness/useHookAtTopLevel:
 					const { numberOfMonths, fromDate, toDate } = useDayPicker();
 
 					const displayIndex = displayMonths.findIndex((month) => isSameMonth(props.displayMonth, month));
@@ -164,30 +157,30 @@ const Calendar = ({
 							<div className="flex items-center gap-1">
 								{enableYearNavigation && !hidePreviousButton && (
 									<NavigationButton
+										aria-label="Go to previous year"
 										disabled={
 											disableNavigation ||
 											!previousMonth ||
 											(fromDate && addYears(currentMonth, -1).getTime() < fromDate.getTime())
 										}
-										aria-label="Go to previous year"
-										onClick={goToPreviousYear}
 										icon={RiArrowLeftDoubleLine}
+										onClick={goToPreviousYear}
 									/>
 								)}
 								{!hidePreviousButton && (
 									<NavigationButton
-										disabled={disableNavigation || !previousMonth}
 										aria-label="Go to previous month"
-										onClick={() => previousMonth && goToMonth(previousMonth)}
+										disabled={disableNavigation || !previousMonth}
 										icon={RiArrowLeftSLine}
+										onClick={() => previousMonth && goToMonth(previousMonth)}
 									/>
 								)}
 							</div>
 
 							<div
-								role="presentation"
 								aria-live="polite"
 								className="font-medium text-gray-900 text-sm capitalize tabular-nums dark:text-gray-50"
+								role="presentation"
 							>
 								{format(props.displayMonth, "LLLL yyy", { locale })}
 							</div>
@@ -195,22 +188,22 @@ const Calendar = ({
 							<div className="flex items-center gap-1">
 								{!hideNextButton && (
 									<NavigationButton
-										disabled={disableNavigation || !nextMonth}
 										aria-label="Go to next month"
-										onClick={() => nextMonth && goToMonth(nextMonth)}
+										disabled={disableNavigation || !nextMonth}
 										icon={RiArrowRightSLine}
+										onClick={() => nextMonth && goToMonth(nextMonth)}
 									/>
 								)}
 								{enableYearNavigation && !hideNextButton && (
 									<NavigationButton
+										aria-label="Go to next year"
 										disabled={
 											disableNavigation ||
 											!nextMonth ||
 											(toDate && addYears(currentMonth, 1).getTime() > toDate.getTime())
 										}
-										aria-label="Go to next year"
-										onClick={goToNextYear}
 										icon={RiArrowRightDoubleLine}
+										onClick={goToNextYear}
 									/>
 								)}
 							</div>
@@ -218,9 +211,7 @@ const Calendar = ({
 					);
 				},
 				Day: ({ date, displayMonth }: DayProps) => {
-					// biome-ignore lint/correctness/useHookAtTopLevel:
 					const buttonRef = React.useRef<HTMLButtonElement>(null);
-					// biome-ignore lint/correctness/useHookAtTopLevel:
 					const { activeModifiers, buttonProps, divProps, isButton, isHidden } = useDayRender(
 						date,
 						displayMonth,
@@ -240,23 +231,30 @@ const Calendar = ({
 					const { children: buttonChildren, className: buttonClassName, ...buttonPropsRest } = buttonProps;
 
 					return (
-						<button ref={buttonRef} {...buttonPropsRest} type="button" className={cx("relative", buttonClassName)}>
+						<button ref={buttonRef} {...buttonPropsRest} className={cx("relative", buttonClassName)} type="button">
 							{buttonChildren}
 							{today && (
 								<span
 									className={cx("-translate-x-1/2 absolute inset-x-1/2 bottom-1.5 h-0.5 w-4 rounded-[2px]", {
 										"bg-blue-500 dark:bg-blue-500": !selected,
-										"bg-white! dark:bg-gray-950!": selected,
-										"bg-gray-400! dark:bg-gray-600!": selected && range_middle,
 										"bg-gray-400 text-gray-400 dark:bg-gray-400 dark:text-gray-600": disabled,
+										"bg-gray-400! dark:bg-gray-600!": selected && range_middle,
+										"bg-white! dark:bg-gray-950!": selected,
 									})}
 								/>
 							)}
 						</button>
 					);
 				},
+				IconLeft: () => <RiArrowLeftSLine aria-hidden="true" className="size-4" />,
+				IconRight: () => <RiArrowRightSLine aria-hidden="true" className="size-4" />,
 			}}
+			locale={locale}
+			mode={mode}
+			numberOfMonths={numberOfMonths}
+			showOutsideDays={numberOfMonths === 1}
 			tremor-id="tremor-raw"
+			weekStartsOn={weekStartsOn}
 			{...(props as SingleProps & RangeProps)}
 		/>
 	);

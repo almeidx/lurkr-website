@@ -1,5 +1,5 @@
-import { Toggle } from "@/components/Toggle.tsx";
 import { Text } from "@/components/dashboard/Text.tsx";
+import { Toggle } from "@/components/Toggle.tsx";
 
 export function LevelingInThreads({ defaultValue }: { readonly defaultValue: boolean }) {
 	return (
@@ -12,7 +12,7 @@ export function LevelingInThreads({ defaultValue }: { readonly defaultValue: boo
 				Allow members to gain experience in threads?{" "}
 			</Text>
 
-			<Toggle initialValue={defaultValue} id="xpInThreads" />
+			<Toggle id="xpInThreads" initialValue={defaultValue} />
 		</div>
 	);
 }

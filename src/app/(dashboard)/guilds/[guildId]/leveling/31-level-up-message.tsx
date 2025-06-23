@@ -1,11 +1,11 @@
 "use client";
 
+import { useState } from "react";
 import { Label } from "@/components/dashboard/Label.tsx";
 import { Textarea } from "@/components/dashboard/Textarea.tsx";
 import { RestartAlt } from "@/components/icons/mdi/restart-alt.tsx";
-import { DEFAULT_XP_MESSAGE, MAX_XP_MESSAGE_LENGTH, MIN_XP_MESSAGE_LENGTH } from "@/lib/guild-config.ts";
 import type { Emoji, Role } from "@/lib/guild.ts";
-import { useState } from "react";
+import { DEFAULT_XP_MESSAGE, MAX_XP_MESSAGE_LENGTH, MIN_XP_MESSAGE_LENGTH } from "@/lib/guild-config.ts";
 import { levelUpMessagePlaceholders } from "./level-up-message-placeholders.ts";
 
 export function LevelUpMessage({ defaultValue, emojis, roles }: LevelUpMessageProps) {
@@ -18,7 +18,7 @@ export function LevelUpMessage({ defaultValue, emojis, roles }: LevelUpMessagePr
 	return (
 		<div className="flex max-w-3xl flex-col gap-2">
 			<div className="flex items-center justify-between">
-				<Label sub={`Max. ${MAX_XP_MESSAGE_LENGTH.toLocaleString("en")} chars`} htmlFor="xpMessage">
+				<Label htmlFor="xpMessage" sub={`Max. ${MAX_XP_MESSAGE_LENGTH.toLocaleString("en")} chars`}>
 					Set the level up message to say something custom…
 				</Label>
 
@@ -33,15 +33,15 @@ export function LevelUpMessage({ defaultValue, emojis, roles }: LevelUpMessagePr
 			</div>
 
 			<Textarea
-				id="xpMessage"
 				emojis={emojis}
+				id="xpMessage"
 				max={MAX_XP_MESSAGE_LENGTH}
 				min={MIN_XP_MESSAGE_LENGTH}
-				roles={roles}
 				placeholder="e.g. {user} has leveled up to **level {level}**!"
 				placeholders={levelUpMessagePlaceholders}
-				value={value}
+				roles={roles}
 				setValue={setValue}
+				value={value}
 			/>
 		</div>
 	);

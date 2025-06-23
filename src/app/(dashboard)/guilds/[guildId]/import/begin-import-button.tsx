@@ -1,20 +1,20 @@
+import { Tooltip, TooltipAnchor, TooltipProvider } from "@ariakit/react";
 import { Confirmation } from "@/components/Confirmation.tsx";
 import { SystemUpdate } from "@/components/icons/mdi/system-update.tsx";
-import { Tooltip, TooltipAnchor, TooltipProvider } from "@ariakit/react";
 
 export function BeginImportButton({ isRateLimited, importOngoing }: BeginImportButtonProps) {
 	const disabled = isRateLimited || importOngoing;
 
 	const btn = (
 		<Confirmation
-			className="flex w-fit items-center justify-between gap-3 rounded-lg bg-green px-2 py-1 font-semibold text-lg text-shadow-regular transition-colors hover:bg-green/90 disabled:bg-green/50 md:text-xl"
-			disabled={disabled}
 			buttonText={
 				<>
 					Import
 					<SystemUpdate className="size-5 drop-shadow-regular" />
 				</>
 			}
+			className="flex w-fit items-center justify-between gap-3 rounded-lg bg-green px-2 py-1 font-semibold text-lg text-shadow-regular transition-colors hover:bg-green/90 disabled:bg-green/50 md:text-xl"
+			disabled={disabled}
 			useSubmitButton
 		>
 			Are you sure you want to import leveling data into this server?

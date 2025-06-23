@@ -1,3 +1,7 @@
+import type { Metadata } from "next";
+import { cookies } from "next/headers";
+import Link from "next/link";
+import { RedirectType, redirect } from "next/navigation";
 import { LeaderboardTable } from "@/app/(dashboard)/levels/[entry]/01-leaderboard-table.tsx";
 import {
 	LEADERBOARD_ENTRIES_PER_PAGE,
@@ -9,14 +13,10 @@ import { ImageWithFallback } from "@/components/ImageWithFallback.tsx";
 import { SidebarSection } from "@/components/leaderboard/SidebarSection.tsx";
 import type { Guild } from "@/lib/guild.ts";
 import { MAX_WINDOW_TITLE_LENGTH, TOKEN_COOKIE } from "@/utils/constants.ts";
-import { type Snowflake, guildIcon } from "@/utils/discord-cdn.ts";
+import { guildIcon, type Snowflake } from "@/utils/discord-cdn.ts";
 import { ellipsis } from "@/utils/ellipsis.ts";
 import { isSnowflake } from "@/utils/is-snowflake.ts";
 import { makeApiRequest } from "@/utils/make-api-request.ts";
-import type { Metadata } from "next";
-import { cookies } from "next/headers";
-import Link from "next/link";
-import { RedirectType, redirect } from "next/navigation";
 import { type RoleReward, RoleRewardDisplay } from "./03-role-reward.tsx";
 import { type Multiplier, MultiplierDisplay } from "./04-multiplier.tsx";
 import { MustLogIn, NotViewable } from "./leaderboard-errors.tsx";
@@ -67,11 +67,11 @@ export default async function Leaderboard({ params, searchParams }: LeaderboardP
 					<ImageWithFallback
 						alt={`${guild.name} guild icon`}
 						className="size-9 rounded-lg border"
-						src={guildIcon(guild.id, guild.icon, { size: 64 })}
 						fallback={fallbackAvatarImg}
-						width={36}
 						height={36}
+						src={guildIcon(guild.id, guild.icon, { size: 64 })}
 						unoptimized={Boolean(guild.icon)}
+						width={36}
 					/>
 
 					<h1 className="font-bold text-2xl text-white md:text-3xl">{guild.name}</h1>
@@ -142,8 +142,8 @@ export async function generateMetadata({ params, searchParams }: LeaderboardProp
 	const { entry } = await params;
 
 	const defaultMetadata = {
-		title: "Leaderboard",
 		description: "View the leveling leaderboard of a Discord server, including rewards and multipliers!",
+		title: "Leaderboard",
 	};
 
 	let response: Response;
@@ -181,13 +181,13 @@ export async function generateMetadata({ params, searchParams }: LeaderboardProp
 	const titleSuffix = " • Leaderboard";
 
 	return {
-		title: `${ellipsis(guild.name, MAX_WINDOW_TITLE_LENGTH - titleSuffix.length)}${titleSuffix}`,
 		description: `View the leveling leaderboard of ${guild.name}, including rewards and multipliers!`,
 
 		pagination: {
-			previous: previousUrl,
 			next: nextUrl,
+			previous: previousUrl,
 		},
+		title: `${ellipsis(guild.name, MAX_WINDOW_TITLE_LENGTH - titleSuffix.length)}${titleSuffix}`,
 	};
 }
 
@@ -195,8 +195,8 @@ async function getData(entry: string, token: string | undefined, page: number) {
 	try {
 		const response = await makeApiRequest(`/levels/${entry}?page=${page}`, token, {
 			next: {
-				tags: [`levels:${entry}`],
 				revalidate: 60,
+				tags: [`levels:${entry}`],
 			},
 		});
 

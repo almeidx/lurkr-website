@@ -1,7 +1,7 @@
+import Link from "next/link";
 import { BackToTheTop } from "@/components/BackToTheTop.tsx";
 import { ExternalLink } from "@/components/ExternalLink.tsx";
 import { GITHUB_REPOSITORY_URL, SUPPORT_SERVER_INVITE, TOPGG_URL } from "@/shared-links.js";
-import Link from "next/link";
 
 export function Footer() {
 	return (

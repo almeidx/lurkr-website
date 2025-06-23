@@ -17,8 +17,8 @@ export function CreateMultiplierButton({
 	const btn = (
 		<button
 			className="rounded-lg bg-green p-1 transition-colors not-disabled:hover:bg-green/75 disabled:opacity-50"
-			onClick={handleCreateMultiplier}
 			disabled={isButtonDisabled}
+			onClick={handleCreateMultiplier}
 			type="button"
 		>
 			{children}

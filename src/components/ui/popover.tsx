@@ -1,8 +1,8 @@
 // Tremor Popover [v0.0.3]
 
-import { cx } from "@/lib/utils.ts";
 import * as PopoverPrimitives from "@radix-ui/react-popover";
 import React from "react";
+import { cx } from "@/lib/utils.ts";
 
 const Popover = (props: React.ComponentPropsWithoutRef<typeof PopoverPrimitives.Root>) => {
 	return <PopoverPrimitives.Root {...props} />;
@@ -55,11 +55,7 @@ const PopoverContent = React.forwardRef<React.ElementRef<typeof PopoverPrimitive
 		return (
 			<PopoverPrimitives.Portal>
 				<PopoverPrimitives.Content
-					ref={forwardedRef}
-					sideOffset={sideOffset}
-					side={side}
 					align={align}
-					collisionPadding={collisionPadding}
 					avoidCollisions={avoidCollisions}
 					className={cx(
 						// base
@@ -77,8 +73,7 @@ const PopoverContent = React.forwardRef<React.ElementRef<typeof PopoverPrimitive
 
 						className,
 					)}
-					tremor-id="tremor-raw"
-					// https://github.com/radix-ui/primitives/issues/1159
+					collisionPadding={collisionPadding}
 					onWheel={(event) => {
 						event.stopPropagation();
 						const isScrollingDown = event.deltaY > 0;
@@ -88,6 +83,11 @@ const PopoverContent = React.forwardRef<React.ElementRef<typeof PopoverPrimitive
 							event.currentTarget.dispatchEvent(new KeyboardEvent("keydown", { key: "ArrowUp" }));
 						}
 					}}
+					ref={forwardedRef}
+					side={side}
+					sideOffset={sideOffset}
+					// https://github.com/radix-ui/primitives/issues/1159
+					tremor-id="tremor-raw"
 					{...props}
 				/>
 			</PopoverPrimitives.Portal>

@@ -1,7 +1,7 @@
 import { ChannelSelector } from "@/components/dashboard/ChannelSelector.tsx";
 import { Label } from "@/components/dashboard/Label.tsx";
-import { MAX_AUTO_PUBLISH_CHANNELS, MAX_AUTO_PUBLISH_CHANNELS_PREMIUM } from "@/lib/guild-config.ts";
 import { type Channel, ChannelType } from "@/lib/guild.ts";
+import { MAX_AUTO_PUBLISH_CHANNELS, MAX_AUTO_PUBLISH_CHANNELS_PREMIUM } from "@/lib/guild-config.ts";
 import type { Snowflake } from "@/utils/discord-cdn.ts";
 import { getMaximumLimit } from "@/utils/get-maximum-limit.ts";
 

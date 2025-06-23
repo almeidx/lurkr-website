@@ -38,7 +38,7 @@ export function ComparisonTable({ section, features }: ComparisonTableProps) {
 
 			<tbody>
 				{features.map((feature) => (
-					<tr key={feature.name} className="group">
+					<tr className="group" key={feature.name}>
 						<td className="text-wrap border border-white/25 border-l-0 group-last-of-type:border-b-0">
 							<span className="text-wrap px-1.5 py-2">{feature.name}</span>
 						</td>

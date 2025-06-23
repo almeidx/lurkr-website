@@ -1,7 +1,5 @@
 "use client";
 
-import { LeaderboardVisibility } from "@/lib/guild.ts";
-import type { Snowflake } from "@/utils/discord-cdn.ts";
 import {
 	Select,
 	SelectArrow,
@@ -12,6 +10,8 @@ import {
 	useStoreState,
 } from "@ariakit/react";
 import Link from "next/link";
+import { LeaderboardVisibility } from "@/lib/guild.ts";
+import type { Snowflake } from "@/utils/discord-cdn.ts";
 
 export function EditLeaderboardVisibility({ defaultValue, guildId }: EditLeaderboardVisibilityProps) {
 	const select = useSelectStore({ defaultValue });
@@ -28,10 +28,10 @@ export function EditLeaderboardVisibility({ defaultValue, guildId }: EditLeaderb
 			</SelectLabel>
 
 			<Select
-				store={select}
 				className="flex h-10 w-56 items-center justify-between rounded-lg bg-light-gray px-3 py-2 shadow-dim-inner"
 				name="leaderboardVisibility"
 				required
+				store={select}
 			>
 				<span>{getLabel(value)}</span>
 
@@ -39,10 +39,10 @@ export function EditLeaderboardVisibility({ defaultValue, guildId }: EditLeaderb
 			</Select>
 
 			<SelectPopover
-				store={select}
+				className="z-10000 flex w-40 flex-col gap-2 rounded-lg bg-light-gray px-3 py-2 shadow-dim-inner md:w-56"
 				gutter={8}
 				sameWidth
-				className="z-10000 flex w-40 flex-col gap-2 rounded-lg bg-light-gray px-3 py-2 shadow-dim-inner md:w-56"
+				store={select}
 			>
 				<SelectItem store={select} value={LeaderboardVisibility.Public}>
 					Public

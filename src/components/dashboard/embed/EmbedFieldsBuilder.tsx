@@ -1,13 +1,14 @@
 import "client-only";
+
 // The reason for using "client-only" instead of "use client" is because of the function parameter in the component,
 // which triggers a warning since functions are not serializable.
 
+import { type Dispatch, Fragment, type SetStateAction } from "react";
+import { Close } from "@/components/icons/mdi/close.tsx";
 import { Separator } from "@/components/Separator.tsx";
 import { Toggle } from "@/components/Toggle.tsx";
-import { Close } from "@/components/icons/mdi/close.tsx";
 import type { Embed, Emoji, Role } from "@/lib/guild.ts";
 import { EMBED_FIELD_NAME_MAX_LENGTH, EMBED_FIELD_VALUE_MAX_LENGTH, MAX_EMBED_FIELDS } from "@/utils/embed-limits.ts";
-import { type Dispatch, Fragment, type SetStateAction } from "react";
 import { Input } from "../Input.tsx";
 import { Label } from "../Label.tsx";
 import { type PlaceholderValue, Textarea } from "../Textarea.tsx";
@@ -18,7 +19,7 @@ export function EmbedFieldsBuilder({ fields, setFields, emojis, roles, placehold
 			return;
 		}
 
-		setFields((prevState) => [...prevState, { name: "", value: "", inline: false }]);
+		setFields((prevState) => [...prevState, { inline: false, name: "", value: "" }]);
 	}
 
 	function handleFieldChange<K extends keyof (typeof fields)[number]>(
@@ -43,15 +44,15 @@ export function EmbedFieldsBuilder({ fields, setFields, emojis, roles, placehold
 
 	return (
 		<div className="flex flex-col gap-2">
-			<Label sub={`Max. ${MAX_EMBED_FIELDS}`} htmlFor="embed-fields" small>
+			<Label htmlFor="embed-fields" small sub={`Max. ${MAX_EMBED_FIELDS}`}>
 				Fields
 			</Label>
 
 			<button
 				className="rounded-lg border border-white/25 bg-light-gray px-3 py-2 transition-colors hover:bg-light-gray/50 disabled:cursor-not-allowedç disabled:opacity-50"
-				type="button"
-				onClick={handleAddNewField}
 				disabled={fields.length >= MAX_EMBED_FIELDS}
+				onClick={handleAddNewField}
+				type="button"
 			>
 				Add new field
 			</button>
@@ -67,26 +68,26 @@ export function EmbedFieldsBuilder({ fields, setFields, emojis, roles, placehold
 								<div className="flex flex-1 flex-col gap-2">
 									<div className="flex gap-2">
 										<Label
-											sub={`Max. ${EMBED_FIELD_NAME_MAX_LENGTH} chars`}
 											htmlFor={`embed-field-name-${index}`}
 											small
+											sub={`Max. ${EMBED_FIELD_NAME_MAX_LENGTH} chars`}
 										>
 											Field Name
 										</Label>
 
-										<button type="button" onClick={() => handleDeleteField(index)}>
+										<button onClick={() => handleDeleteField(index)} type="button">
 											<Close className="text-red" />
 										</button>
 									</div>
 
 									<Input
 										id={`embed-field-name-${index}`}
-										placeholder="Enter field name"
-										value={field.name}
-										min={1}
 										maxLength={EMBED_FIELD_NAME_MAX_LENGTH}
-										required
+										min={1}
 										onChange={(event) => handleFieldChange(index, "name", event.target.value)}
+										placeholder="Enter field name"
+										required
+										value={field.name}
 									/>
 								</div>
 
@@ -96,29 +97,29 @@ export function EmbedFieldsBuilder({ fields, setFields, emojis, roles, placehold
 									</Label>
 
 									<Toggle
-										id={`embed-field-inline-${index}`}
 										checked={field.inline}
+										id={`embed-field-inline-${index}`}
 										onChange={(event) => handleFieldChange(index, "inline", event.target.checked)}
 									/>
 								</div>
 							</div>
 
 							<div className="flex basis-1/2 flex-col gap-2">
-								<Label sub={`Max. ${EMBED_FIELD_VALUE_MAX_LENGTH} chars`} htmlFor={`embed-field-value-${index}`} small>
+								<Label htmlFor={`embed-field-value-${index}`} small sub={`Max. ${EMBED_FIELD_VALUE_MAX_LENGTH} chars`}>
 									Field Value
 								</Label>
 
 								<Textarea
-									placeholder="Enter field value"
 									emojis={emojis}
 									id={`embed-field-value-${index}`}
 									max={EMBED_FIELD_VALUE_MAX_LENGTH}
 									min={1}
+									placeholder="Enter field value"
+									placeholders={placeholders}
 									required
 									roles={roles}
-									placeholders={placeholders}
-									value={field.value}
 									setValue={(event: string) => handleFieldChange(index, "value", event)}
+									value={field.value}
 								/>
 							</div>
 						</div>

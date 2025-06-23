@@ -1,9 +1,5 @@
 "use client";
 
-import amariIcon from "@/assets/bots/amari.webp";
-import mee6Icon from "@/assets/bots/mee6.svg";
-import polarisIcon from "@/assets/bots/polaris.svg";
-import { LevelingImportBot } from "@/lib/guild.ts";
 import {
 	Select,
 	SelectArrow,
@@ -14,11 +10,15 @@ import {
 	useStoreState,
 } from "@ariakit/react";
 import Image from "next/image";
+import amariIcon from "@/assets/bots/amari.webp";
+import mee6Icon from "@/assets/bots/mee6.svg";
+import polarisIcon from "@/assets/bots/polaris.svg";
+import { LevelingImportBot } from "@/lib/guild.ts";
 
 const bots = [
-	{ name: LevelingImportBot.Mee6, icon: mee6Icon },
-	{ name: LevelingImportBot.Amari, icon: amariIcon },
-	{ name: LevelingImportBot.Polaris, icon: polarisIcon },
+	{ icon: mee6Icon, name: LevelingImportBot.Mee6 },
+	{ icon: amariIcon, name: LevelingImportBot.Amari },
+	{ icon: polarisIcon, name: LevelingImportBot.Polaris },
 ] as const;
 
 export function BotSelector() {
@@ -34,20 +34,20 @@ export function BotSelector() {
 			</SelectLabel>
 
 			<Select
-				store={select}
 				className="flex h-10 w-56 items-center justify-between rounded-lg bg-light-gray px-3 py-2 shadow-dim-inner"
 				id="bot"
 				name="bot"
 				required
+				store={select}
 			>
 				{selectedBot ? (
 					<div className="flex items-center gap-2">
 						<Image
-							src={selectedBot.icon}
 							alt={`${selectedBot.name} icon`}
-							width={20}
-							height={20}
 							className="size-5 rounded-full"
+							height={20}
+							src={selectedBot.icon}
+							width={20}
 						/>
 						{selectedBot.name}
 					</div>
@@ -59,30 +59,30 @@ export function BotSelector() {
 			</Select>
 
 			<SelectPopover
-				store={select}
+				className="z-10000 flex w-40 flex-col gap-2 rounded-lg bg-light-gray px-3 py-2 shadow-dim-inner md:w-56"
 				gutter={8}
 				sameWidth
-				className="z-10000 flex w-40 flex-col gap-2 rounded-lg bg-light-gray px-3 py-2 shadow-dim-inner md:w-56"
+				store={select}
 			>
 				<SelectItem
-					key="none"
 					className="flex cursor-pointer items-center gap-2 text-lg text-white/75 tracking-tight hover:text-white"
-					store={select}
-					value=""
 					disabled
 					hidden
+					key="none"
+					store={select}
+					value=""
 				>
 					Select your current bot
 				</SelectItem>
 
 				{bots.map(({ name, icon }) => (
 					<SelectItem
-						key={name}
 						className="flex cursor-default items-center gap-2 text-lg text-white/75 tracking-tight data-active-item:text-white"
+						key={name}
 						store={select}
 						value={name}
 					>
-						<Image src={icon} alt={`${name} icon`} width={20} height={20} className="size-5 rounded-full" />
+						<Image alt={`${name} icon`} className="size-5 rounded-full" height={20} src={icon} width={20} />
 						{name}
 					</SelectItem>
 				))}

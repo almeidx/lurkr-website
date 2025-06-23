@@ -1,9 +1,9 @@
 "use client";
 
-import { COOKIE_NOTICE_ACK, COOKIE_NOTICE_COOKIE } from "@/utils/constants.ts";
 import Cookies from "js-cookie";
 import Link from "next/link";
 import { useState } from "react";
+import { COOKIE_NOTICE_ACK, COOKIE_NOTICE_COOKIE } from "@/utils/constants.ts";
 
 export function CookieNotice({ defaultHasConsented }: { readonly defaultHasConsented: boolean }) {
 	const [hasConsented, setHasConsented] = useState(defaultHasConsented);
@@ -15,8 +15,8 @@ export function CookieNotice({ defaultHasConsented }: { readonly defaultHasConse
 	function acceptCookies() {
 		Cookies.set(COOKIE_NOTICE_COOKIE, COOKIE_NOTICE_ACK, {
 			expires: 365,
-			secure: true,
 			sameSite: "strict",
+			secure: true,
 		});
 
 		setHasConsented(true);
@@ -37,8 +37,8 @@ export function CookieNotice({ defaultHasConsented }: { readonly defaultHasConse
 
 			<button
 				className="mt-2 w-fit rounded-md bg-primary px-3 py-1 hover:bg-primary/75"
-				type="button"
 				onClick={acceptCookies}
+				type="button"
 			>
 				Okay
 			</button>

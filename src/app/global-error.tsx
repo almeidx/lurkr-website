@@ -2,9 +2,9 @@
 
 import "@/app/globals.css";
 
+import type { Metadata, Viewport } from "next";
 import { openSans } from "@/app/fonts.ts";
 import { BRAND_COLOR, DESCRIPTION, PUBLIC_URL } from "@/utils/constants.ts";
-import type { Metadata, Viewport } from "next";
 
 export default function GlobalError({ error, reset }: GlobalErrorProps) {
 	console.error(error);
@@ -38,24 +38,14 @@ interface GlobalErrorProps {
 }
 
 export const metadata: Metadata = {
-	metadataBase: PUBLIC_URL,
-
-	title: {
-		default: "Lurkr",
-		template: "%s • Lurkr",
-	},
-	description: DESCRIPTION,
-
 	appleWebApp: {
-		title: "Lurkr",
 		capable: true,
-	},
-
-	verification: {
-		google: process.env.GOOGLE_SITE_VERIFICATION,
+		title: "Lurkr",
 	},
 
 	applicationName: "Lurkr",
+	description: DESCRIPTION,
+	metadataBase: PUBLIC_URL,
 
 	openGraph: {
 		siteName: "Lurkr",
@@ -66,8 +56,17 @@ export const metadata: Metadata = {
 		"msapplication-square70x70logo": "/static/mstile-icon-128.png",
 		"msapplication-square150x150logo": "/static/mstile-icon-270.png",
 		"msapplication-square310x310logo": "/static/mstile-icon-558.png",
-		"msapplication-wide310x150logo": "/static/mstile-icon-558-270.png",
 		"msapplication-TileColor": BRAND_COLOR,
+		"msapplication-wide310x150logo": "/static/mstile-icon-558-270.png",
+	},
+
+	title: {
+		default: "Lurkr",
+		template: "%s • Lurkr",
+	},
+
+	verification: {
+		google: process.env.GOOGLE_SITE_VERIFICATION,
 	},
 };
 

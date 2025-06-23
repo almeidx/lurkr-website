@@ -1,12 +1,12 @@
+import type { Metadata } from "next";
+import { cookies } from "next/headers";
 import { getGuildSettings } from "@/app/(dashboard)/guilds/[guildId]/get-guild-data.ts";
-import { Separator } from "@/components/Separator.tsx";
 import { Form } from "@/components/dashboard/Form.tsx";
 import { Section } from "@/components/dashboard/Section.tsx";
 import { Text } from "@/components/dashboard/Text.tsx";
+import { Separator } from "@/components/Separator.tsx";
 import { TOKEN_COOKIE } from "@/utils/constants.ts";
 import type { Snowflake } from "@/utils/discord-cdn.ts";
-import type { Metadata } from "next";
-import { cookies } from "next/headers";
 import { SignInRequired } from "../sign-in-required.tsx";
 import { UnknownGuildOrMissingAccess } from "../unknown-guild.tsx";
 import { MilestonesChannel } from "./01-milestones-channel.tsx";
@@ -36,14 +36,14 @@ export default async function Milestones({ params }: { readonly params: Promise<
 	return (
 		<Form
 			action={action}
-			title="Milestones"
-			description="Configure Lurkr to automatically celebrate a milestone with you!"
 			defaultValue={settings.storeMilestones}
+			description="Configure Lurkr to automatically celebrate a milestone with you!"
 			settingId="storeMilestones"
+			title="Milestones"
 		>
 			<Section
-				name="Member Milestones"
 				docsPath="/guides/automatically-controlled-member-milestones"
+				name="Member Milestones"
 				tooltip="This system celebrates when your server has reached a certain number of members (including Bots)."
 			>
 				<Text
@@ -61,12 +61,7 @@ export default async function Milestones({ params }: { readonly params: Promise<
 
 				<Separator />
 
-				<MilestoneMessage
-					defaultValue={settings.milestonesMessage}
-					emojis={guild.emojis}
-					premium={guild.premium}
-					roles={guild.roles}
-				/>
+				<MilestoneMessage defaultValue={settings.milestonesMessage} emojis={guild.emojis} roles={guild.roles} />
 
 				<Separator />
 
@@ -84,6 +79,6 @@ export default async function Milestones({ params }: { readonly params: Promise<
 }
 
 export const metadata: Metadata = {
-	title: "Milestones Dashboard",
 	description: "Configure Lurkr to automatically celebrate a milestone with you!",
+	title: "Milestones Dashboard",
 };

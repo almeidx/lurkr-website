@@ -1,12 +1,12 @@
-import { ExternalLink } from "@/components/ExternalLink.tsx";
-import { SUPPORT_SERVER_INVITE } from "@/shared-links.js";
 import type { Metadata } from "next";
 import Link from "next/link";
+import { ExternalLink } from "@/components/ExternalLink.tsx";
+import { SUPPORT_SERVER_INVITE } from "@/shared-links.js";
 
 export default function TermsAndConditions() {
 	const lastModified = new Date(2_024, 5, 29).toLocaleDateString("en-GB", {
-		month: "long",
 		day: "numeric",
+		month: "long",
 		year: "numeric",
 	});
 
@@ -152,7 +152,7 @@ export default function TermsAndConditions() {
 }
 
 export const metadata: Metadata = {
-	title: "Terms of Service",
 	description:
 		"See our terms and conditions to learn about the rules and guidelines you must follow when using our services.",
+	title: "Terms of Service",
 };

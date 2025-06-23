@@ -24,24 +24,24 @@ export function PageSelector({ amount, entry, page }: PageSelectorProps) {
 
 				return isDisabled ? (
 					<div
-						key={`${page}-${num}`}
 						className={clsx(
 							"flex size-10 items-center justify-center rounded-lg px-2 py-1 font-semibold opacity-50 transition-colors",
 							page === num ? "bg-light-gray" : "bg-dark-gray",
 						)}
+						key={`${page}-${num}`}
 					>
 						{num}
 					</div>
 				) : (
 					<Link
-						key={`${page}-${num}`}
+						aria-current={page === num ? "page" : undefined}
 						className={clsx(
 							"flex size-10 items-center justify-center rounded-lg px-2 py-1 font-semibold transition-colors",
 							page === num ? "bg-light-gray hover:bg-light-gray/75" : "bg-dark-gray hover:bg-dark-gray/75",
 						)}
 						href={`/levels/${entry}?page=${num}`}
+						key={`${page}-${num}`}
 						prefetch={false}
-						aria-current={page === num ? "page" : undefined}
 					>
 						{num}
 					</Link>

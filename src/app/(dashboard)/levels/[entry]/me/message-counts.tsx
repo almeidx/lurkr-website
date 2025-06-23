@@ -1,6 +1,5 @@
 "use client";
 
-import { formatNumber } from "@/utils/format-number.ts";
 import {
 	Bar,
 	BarChart,
@@ -11,6 +10,7 @@ import {
 	XAxis,
 	YAxis,
 } from "recharts";
+import { formatNumber } from "@/utils/format-number.ts";
 
 const verticalMargin = 30;
 const horizontalMargin = 50;
@@ -23,25 +23,25 @@ export function MessageCounts({ data }: BarsProps) {
 	}));
 
 	return (
-		<ResponsiveContainer width="100%" height="100%" className="max-h-96 w-full rounded-2.5xl bg-black/30">
+		<ResponsiveContainer className="max-h-96 w-full rounded-2.5xl bg-black/30" height="100%" width="100%">
 			<BarChart
 				data={formattedData}
-				margin={{ top: verticalMargin, right: 20, left: horizontalMargin, bottom: verticalMargin }}
+				margin={{ bottom: verticalMargin, left: horizontalMargin, right: 20, top: verticalMargin }}
 			>
-				<CartesianGrid vertical={false} strokeDasharray="3 3" stroke="#2c2c2c" strokeOpacity={0.5} />
+				<CartesianGrid stroke="#2c2c2c" strokeDasharray="3 3" strokeOpacity={0.5} vertical={false} />
 				<XAxis
+					axisLine={{ stroke: "#666" }}
 					dataKey="formattedDate"
 					stroke="#666"
 					tick={{ fill: "#888", fontSize: 11 }}
 					tickLine={{ stroke: "#666" }}
-					axisLine={{ stroke: "#666" }}
 				/>
 				<YAxis
-					tickFormatter={(value) => formatNumber(value)}
+					axisLine={{ stroke: "#666" }}
 					stroke="#666"
 					tick={{ fill: "#888", fontSize: 11 }}
+					tickFormatter={(value) => formatNumber(value)}
 					tickLine={{ stroke: "#666" }}
-					axisLine={{ stroke: "#666" }}
 				/>
 				<Tooltip content={CustomTooltip} cursor={{ fill: "rgba(255, 255, 255, 0.1)" }} />
 				<Bar dataKey="updateCount" fill="#0072f5" radius={[2, 2, 0, 0]} />

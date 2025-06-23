@@ -1,12 +1,12 @@
 "use server";
 
+import { object, safeParse } from "valibot";
 import { action } from "@/app/(dashboard)/guilds/[guildId]/action-base.ts";
 import { MAX_AUTO_PUBLISH_CHANNELS, MAX_AUTO_PUBLISH_CHANNELS_PREMIUM } from "@/lib/guild-config.ts";
 import { formDataToObject } from "@/utils/form-data-to-object.ts";
 import { lazy } from "@/utils/lazy.ts";
 import { createSnowflakesValidator, toggle } from "@/utils/schemas.ts";
 import { ServerActionError } from "@/utils/server-action-error.ts";
-import { object, safeParse } from "valibot";
 
 const regularSchema = createSchema(false);
 const premiumSchema = createSchema(true);

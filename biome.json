@@ -1,7 +1,18 @@
 {
 	"$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+	"assist": {
+		"actions": {
+			"recommended": true,
+			"source": {
+				"useSortedAttributes": "on",
+				"useSortedKeys": "on",
+				"useSortedProperties": "on"
+			}
+		}
+	},
 	"files": {
-		"ignoreUnknown": true
+		"ignoreUnknown": true,
+		"includes": ["**", "!.next/**", "!.source/**", "!node_modules/**", "!next-env.d.ts"]
 	},
 	"formatter": {
 		"lineWidth": 120
@@ -12,37 +23,55 @@
 			"a11y": {
 				"noSvgWithoutTitle": "off"
 			},
+			"complexity": {
+				"noCommaOperator": "off"
+			},
 			"correctness": {
 				"useHookAtTopLevel": "error"
 			},
+			"nursery": {
+				"useSortedClasses": "warn",
+				"useUniqueElementIds": "off"
+			},
 			"recommended": true,
 			"style": {
-				"noCommaOperator": "off",
+				"noInferrableTypes": "error",
 				"noNamespace": "error",
 				"noNegationElse": "error",
 				"noNonNullAssertion": "off",
+				"noParameterAssign": "error",
+				"noUnusedTemplateLiteral": "error",
+				"noUselessElse": "error",
+				"useAsConstAssertion": "error",
 				"useCollapsedElseIf": "error",
-				"useShorthandArrayType": "error",
-				"useShorthandAssign": "error"
+				"useConsistentArrayType": "error",
+				"useDefaultParameterLast": "error",
+				"useEnumInitializers": "error",
+				"useNumberNamespace": "error",
+				"useSelfClosingElements": "error",
+				"useShorthandAssign": "error",
+				"useSingleVarDeclarator": "error"
 			},
 			"suspicious": {
 				"noApproximativeNumericConstant": "error",
 				"noConstEnum": "off",
 				"noExplicitAny": "off",
 				"noMisrefactoredShorthandAssign": "error"
-			},
-			"nursery": {
-				"useSortedClasses": "warn"
 			}
 		}
 	},
-	"organizeImports": {
-		"enabled": true
-	},
+	"overrides": [
+		{
+			"assist": {
+				"enabled": false
+			},
+			"includes": ["package.json"]
+		}
+	],
 	"vcs": {
 		"clientKind": "git",
 		"defaultBranch": "main",
 		"enabled": true,
-		"useIgnoreFile": true
+		"useIgnoreFile": false
 	}
 }

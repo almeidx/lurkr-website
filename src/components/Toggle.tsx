@@ -4,11 +4,11 @@ export function Toggle({ id, disabled, initialValue, ...props }: ToggleProps) {
 	return (
 		<label className="relative flex h-6 w-11 cursor-pointer items-center" htmlFor={id}>
 			<input
+				className="peer sr-only"
 				defaultChecked={initialValue}
 				disabled={disabled}
 				id={id}
 				name={id}
-				className="peer sr-only"
 				type="checkbox"
 				{...props}
 			/>

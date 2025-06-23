@@ -1,5 +1,5 @@
-import { SignInButton } from "@/components/SignIn.tsx";
 import Link from "next/link";
+import { SignInButton } from "@/components/SignIn.tsx";
 
 export function NotViewable({ statusCode, description }: LeaderboardErrorProps) {
 	return (
@@ -7,7 +7,7 @@ export function NotViewable({ statusCode, description }: LeaderboardErrorProps) 
 			<h1 className="font-bold text-9xl tracking-widest">{statusCode}</h1>
 			<p className="flex flex-col items-center gap-2 text-center">
 				{description}
-				<Link href="/levels" className="w-fit rounded-lg bg-blurple px-2 py-1.5 transition-colors hover:bg-blurple/75">
+				<Link className="w-fit rounded-lg bg-blurple px-2 py-1.5 transition-colors hover:bg-blurple/75" href="/levels">
 					Take me back
 				</Link>
 			</p>

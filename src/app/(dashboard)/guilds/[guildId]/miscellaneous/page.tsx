@@ -1,12 +1,12 @@
+import type { Metadata } from "next";
+import { cookies } from "next/headers";
 import { getGuildSettings } from "@/app/(dashboard)/guilds/[guildId]/get-guild-data.ts";
-import { Separator } from "@/components/Separator.tsx";
 import { Form } from "@/components/dashboard/Form.tsx";
 import { Section } from "@/components/dashboard/Section.tsx";
 import { Text } from "@/components/dashboard/Text.tsx";
+import { Separator } from "@/components/Separator.tsx";
 import { TOKEN_COOKIE } from "@/utils/constants.ts";
 import type { Snowflake } from "@/utils/discord-cdn.ts";
-import type { Metadata } from "next";
-import { cookies } from "next/headers";
 import { SignInRequired } from "../sign-in-required.tsx";
 import { UnknownGuildOrMissingAccess } from "../unknown-guild.tsx";
 import { StoreMemberCountData } from "./01-store-member-count-data.tsx";
@@ -33,9 +33,9 @@ export default async function Miscellaneous({ params }: { readonly params: Promi
 
 	return (
 		<Form
-			title="Miscellaneous"
-			description="Configure miscellaneous settings that don't fit anywhere else."
 			action={action}
+			description="Configure miscellaneous settings that don't fit anywhere else."
+			title="Miscellaneous"
 		>
 			<Section>
 				<StoreMemberCountData defaultValue={settings.storeCounts} />
@@ -50,8 +50,8 @@ export default async function Miscellaneous({ params }: { readonly params: Promi
 				</Text>
 
 				<AutomaticallyPublishChannels
-					defaultValues={settings.autoPublishChannels}
 					channels={guild.channels}
+					defaultValues={settings.autoPublishChannels}
 					premium={guild.premium}
 				/>
 			</Section>
@@ -60,6 +60,6 @@ export default async function Miscellaneous({ params }: { readonly params: Promi
 }
 
 export const metadata: Metadata = {
-	title: "Miscellaneous Dashboard",
 	description: "Configure miscellaneous Lurkr settings",
+	title: "Miscellaneous Dashboard",
 };

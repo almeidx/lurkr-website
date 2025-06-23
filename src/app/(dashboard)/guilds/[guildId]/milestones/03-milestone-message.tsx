@@ -1,15 +1,15 @@
 "use client";
 
+import { useState } from "react";
 import { Label } from "@/components/dashboard/Label.tsx";
 import { type PlaceholderValue, Textarea } from "@/components/dashboard/Textarea.tsx";
 import { RestartAlt } from "@/components/icons/mdi/restart-alt.tsx";
+import type { Emoji, Role } from "@/lib/guild.ts";
 import {
 	DEFAULT_MILESTONES_MESSAGE,
 	MAX_MILESTONES_MESSAGE_LENGTH,
 	MIN_MILESTONES_MESSAGE_LENGTH,
 } from "@/lib/guild-config.ts";
-import type { Emoji, Role } from "@/lib/guild.ts";
-import { useState } from "react";
 
 const placeholders = [
 	{ id: "{user}", name: "{user} • @user" },
@@ -22,7 +22,7 @@ const placeholders = [
 	{ id: "{milestone}", name: "{milestone} • 10000" },
 ] satisfies PlaceholderValue[];
 
-export function MilestoneMessage({ defaultValue, emojis, premium, roles }: MilestoneMessageProps) {
+export function MilestoneMessage({ defaultValue, emojis, roles }: MilestoneMessageProps) {
 	const [value, setValue] = useState(defaultValue ?? "");
 
 	function handleReset() {
@@ -32,7 +32,7 @@ export function MilestoneMessage({ defaultValue, emojis, premium, roles }: Miles
 	return (
 		<div className="flex max-w-3xl flex-col gap-2">
 			<div className="flex items-center justify-between">
-				<Label sub={`Max. ${MAX_MILESTONES_MESSAGE_LENGTH} chars`} htmlFor="milestonesMessage">
+				<Label htmlFor="milestonesMessage" sub={`Max. ${MAX_MILESTONES_MESSAGE_LENGTH} chars`}>
 					Set the milestone message to say something custom…
 				</Label>
 
@@ -47,15 +47,15 @@ export function MilestoneMessage({ defaultValue, emojis, premium, roles }: Miles
 			</div>
 
 			<Textarea
-				id="milestonesMessage"
 				emojis={emojis}
-				min={MIN_MILESTONES_MESSAGE_LENGTH}
+				id="milestonesMessage"
 				max={MAX_MILESTONES_MESSAGE_LENGTH}
-				roles={roles}
+				min={MIN_MILESTONES_MESSAGE_LENGTH}
 				placeholder="e.g. {user} is the {milestone}th member!"
 				placeholders={placeholders}
-				value={value}
+				roles={roles}
 				setValue={setValue}
+				value={value}
 			/>
 		</div>
 	);
@@ -64,6 +64,5 @@ export function MilestoneMessage({ defaultValue, emojis, premium, roles }: Miles
 interface MilestoneMessageProps {
 	readonly defaultValue: string | null;
 	readonly emojis: Emoji[];
-	readonly premium: boolean;
 	readonly roles: Role[];
 }

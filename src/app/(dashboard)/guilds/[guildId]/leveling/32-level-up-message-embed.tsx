@@ -1,7 +1,7 @@
+import { Disclosure, DisclosureContent, DisclosureProvider } from "@ariakit/react";
 import { EmbedBuilder } from "@/components/dashboard/embed/EmbedBuilder.tsx";
 import { ExpandMore } from "@/components/icons/mdi/expand-more.tsx";
 import type { Embed, Emoji, Role } from "@/lib/guild.ts";
-import { Disclosure, DisclosureContent, DisclosureProvider } from "@ariakit/react";
 import { levelUpMessagePlaceholders } from "./level-up-message-placeholders.ts";
 
 export function LevelUpMessageEmbed({ defaultValue, emojis, roles }: LevelUpMessageEmbedProps) {
@@ -17,8 +17,8 @@ export function LevelUpMessageEmbed({ defaultValue, emojis, roles }: LevelUpMess
 					<EmbedBuilder
 						defaultValue={defaultValue}
 						emojis={emojis}
-						roles={roles}
 						placeholders={levelUpMessagePlaceholders}
+						roles={roles}
 					/>
 				</DisclosureContent>
 			</DisclosureProvider>

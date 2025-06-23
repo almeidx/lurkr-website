@@ -6,13 +6,13 @@ export function MentionCooldown({ defaultValue, premium }: MentionCooldownProps)
 
 	return (
 		<Slider
-			id="mentionCooldown"
-			min={0}
-			max={getMaximumLimit("mentionCooldown", premium)}
-			step={1}
 			defaultValue={defaultValueInMinutes}
-			steps={["0m", "5m", "10m", "15m", "20m", "25m", "30m"]}
+			id="mentionCooldown"
+			max={getMaximumLimit("mentionCooldown", premium)}
+			min={0}
 			mobileStepsToHide={[1, 2, 4, 5]}
+			step={1}
+			steps={["0m", "5m", "10m", "15m", "20m", "25m", "30m"]}
 		/>
 	);
 }

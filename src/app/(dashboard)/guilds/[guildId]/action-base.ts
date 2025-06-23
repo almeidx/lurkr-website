@@ -1,10 +1,10 @@
 "use server";
 
+import { revalidateTag } from "next/cache";
+import { cookies } from "next/headers";
 import type { GuildSettings } from "@/lib/guild.ts";
 import { TOKEN_COOKIE } from "@/utils/constants.ts";
 import { makeApiRequest } from "@/utils/make-api-request.ts";
-import { revalidateTag } from "next/cache";
-import { cookies } from "next/headers";
 
 export async function action(guildId: string, data: Partial<GuildSettings>, tag: string, premium: boolean) {
 	const token = (await cookies()).get(TOKEN_COOKIE)?.value;
@@ -15,11 +15,11 @@ export async function action(guildId: string, data: Partial<GuildSettings>, tag:
 	const route = premium ? `/guilds/${guildId}/premium` : `/guilds/${guildId}`;
 
 	const response = await makeApiRequest(route, token, {
-		method: "PATCH",
+		body: JSON.stringify(data),
 		headers: {
 			"Content-Type": "application/json",
 		},
-		body: JSON.stringify(data),
+		method: "PATCH",
 	});
 
 	if (!response.ok) {

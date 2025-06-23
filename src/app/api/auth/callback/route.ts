@@ -1,6 +1,6 @@
+import { type NextRequest, NextResponse } from "next/server";
 import { REDIRECT_TO_COOKIE, TOKEN_COOKIE } from "@/utils/constants.ts";
 import { makeApiRequest } from "@/utils/make-api-request.ts";
-import { type NextRequest, NextResponse } from "next/server";
 
 export async function GET(request: NextRequest) {
 	if (!request.nextUrl.searchParams.has("code")) {
@@ -12,12 +12,12 @@ export async function GET(request: NextRequest) {
 	const redirectTo = getRedirectToValue(request.cookies.get(REDIRECT_TO_COOKIE)?.value, request.nextUrl.origin);
 
 	const registerResponse = await makeApiRequest("/auth/register", null, {
-		method: "POST",
+		body: JSON.stringify({ code }),
 		headers: {
 			"Content-Type": "application/json",
 			"X-Environment": process.env.ENVIRONMENT ?? "prod",
 		},
-		body: JSON.stringify({ code }),
+		method: "POST",
 	});
 
 	if (!registerResponse.ok) {

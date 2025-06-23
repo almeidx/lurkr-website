@@ -3,7 +3,7 @@
 "use client";
 
 import * as DropdownMenuPrimitives from "@radix-ui/react-dropdown-menu";
-import { RiArrowRightSLine, RiCheckLine, RiCheckboxBlankCircleLine, RiRadioButtonFill } from "@remixicon/react";
+import { RiArrowRightSLine, RiCheckboxBlankCircleLine, RiCheckLine, RiRadioButtonFill } from "@remixicon/react";
 import * as React from "react";
 
 import { cx } from "@/lib/utils";
@@ -28,7 +28,6 @@ const DropdownMenuSubMenuTrigger = React.forwardRef<
 	Omit<React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitives.SubTrigger>, "asChild">
 >(({ className, children, ...props }, forwardedRef) => (
 	<DropdownMenuPrimitives.SubTrigger
-		ref={forwardedRef}
 		className={cx(
 			// base
 			"relative flex cursor-default select-none items-center rounded-sm py-1.5 pr-1 pl-2 outline-hidden transition-colors data-[state=checked]:font-semibold sm:text-sm",
@@ -43,10 +42,11 @@ const DropdownMenuSubMenuTrigger = React.forwardRef<
 			//
 			className,
 		)}
+		ref={forwardedRef}
 		{...props}
 	>
 		{children}
-		<RiArrowRightSLine className="ml-auto size-4 shrink-0" aria-hidden="true" />
+		<RiArrowRightSLine aria-hidden="true" className="ml-auto size-4 shrink-0" />
 	</DropdownMenuPrimitives.SubTrigger>
 ));
 DropdownMenuSubMenuTrigger.displayName = "DropdownMenuSubMenuTrigger";
@@ -57,8 +57,6 @@ const DropdownMenuSubMenuContent = React.forwardRef<
 >(({ className, collisionPadding = 8, ...props }, forwardedRef) => (
 	<DropdownMenuPrimitives.Portal>
 		<DropdownMenuPrimitives.SubContent
-			ref={forwardedRef}
-			collisionPadding={collisionPadding}
 			className={cx(
 				// base
 				"relative z-50 overflow-hidden rounded-md border p-1 shadow-black/2.5 shadow-xl",
@@ -78,6 +76,8 @@ const DropdownMenuSubMenuContent = React.forwardRef<
 				"data-[side=bottom]:animate-slide-down-and-fade data-[side=left]:animate-slide-left-and-fade data-[side=right]:animate-slide-right-and-fade data-[side=top]:animate-slide-up-and-fade",
 				className,
 			)}
+			collisionPadding={collisionPadding}
+			ref={forwardedRef}
 			{...props}
 		/>
 	</DropdownMenuPrimitives.Portal>
@@ -90,7 +90,7 @@ const DropdownMenuContent = React.forwardRef<
 >(({ className, sideOffset = 8, collisionPadding = 8, align = "center", loop = true, ...props }, forwardedRef) => (
 	<DropdownMenuPrimitives.Portal>
 		<DropdownMenuPrimitives.Content
-			ref={forwardedRef}
+			align={align}
 			className={cx(
 				// base
 				"relative z-50 overflow-hidden rounded-md border p-1 shadow-black/2.5 shadow-xl",
@@ -110,10 +110,10 @@ const DropdownMenuContent = React.forwardRef<
 				"data-[side=bottom]:animate-slide-down-and-fade data-[side=left]:animate-slide-left-and-fade data-[side=right]:animate-slide-right-and-fade data-[side=top]:animate-slide-up-and-fade",
 				className,
 			)}
-			sideOffset={sideOffset}
-			align={align}
 			collisionPadding={collisionPadding}
 			loop={loop}
+			ref={forwardedRef}
+			sideOffset={sideOffset}
 			{...props}
 		/>
 	</DropdownMenuPrimitives.Portal>
@@ -128,7 +128,6 @@ const DropdownMenuItem = React.forwardRef<
 	}
 >(({ className, shortcut, hint, children, ...props }, forwardedRef) => (
 	<DropdownMenuPrimitives.Item
-		ref={forwardedRef}
 		className={cx(
 			// base
 			"group/DropdownMenuItem relative flex cursor-pointer select-none items-center rounded-sm py-1.5 pr-1 pl-2 outline-hidden transition-colors data-[state=checked]:font-semibold sm:text-sm",
@@ -142,6 +141,7 @@ const DropdownMenuItem = React.forwardRef<
 			"hover:bg-gray-100 dark:hover:bg-gray-900",
 			className,
 		)}
+		ref={forwardedRef}
 		tremor-id="tremor-raw"
 		{...props}
 	>
@@ -160,7 +160,7 @@ const DropdownMenuCheckboxItem = React.forwardRef<
 	}
 >(({ className, hint, shortcut, children, checked, ...props }, forwardedRef) => (
 	<DropdownMenuPrimitives.CheckboxItem
-		ref={forwardedRef}
+		checked={checked}
 		className={cx(
 			// base
 			"relative flex cursor-pointer select-none items-center gap-x-2 rounded-sm py-1.5 pr-1 pl-8 outline-hidden transition-colors data-[state=checked]:font-semibold sm:text-sm",
@@ -174,7 +174,7 @@ const DropdownMenuCheckboxItem = React.forwardRef<
 			"hover:bg-gray-100 dark:hover:bg-gray-900",
 			className,
 		)}
-		checked={checked}
+		ref={forwardedRef}
 		{...props}
 	>
 		<span className="absolute left-2 flex size-4 items-center justify-center">
@@ -205,7 +205,6 @@ const DropdownMenuRadioItem = React.forwardRef<
 	}
 >(({ className, hint, shortcut, children, ...props }, forwardedRef) => (
 	<DropdownMenuPrimitives.RadioItem
-		ref={forwardedRef}
 		className={cx(
 			// base
 			"group/DropdownMenuRadioItem relative flex cursor-pointer select-none items-center gap-x-2 rounded-sm py-1.5 pr-1 pl-8 outline-hidden transition-colors data-[state=checked]:font-semibold sm:text-sm",
@@ -219,6 +218,7 @@ const DropdownMenuRadioItem = React.forwardRef<
 			"hover:bg-gray-100 dark:hover:bg-gray-900",
 			className,
 		)}
+		ref={forwardedRef}
 		{...props}
 	>
 		<span className="absolute left-2 flex size-4 items-center justify-center">
@@ -251,7 +251,6 @@ const DropdownMenuLabel = React.forwardRef<
 	React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitives.Label>
 >(({ className, ...props }, forwardedRef) => (
 	<DropdownMenuPrimitives.Label
-		ref={forwardedRef}
 		className={cx(
 			// base
 			"px-2 py-2 font-medium text-xs tracking-wide",
@@ -259,6 +258,7 @@ const DropdownMenuLabel = React.forwardRef<
 			"text-gray-500 dark:text-gray-500",
 			className,
 		)}
+		ref={forwardedRef}
 		{...props}
 	/>
 ));
@@ -269,8 +269,8 @@ const DropdownMenuSeparator = React.forwardRef<
 	React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitives.Separator>
 >(({ className, ...props }, forwardedRef) => (
 	<DropdownMenuPrimitives.Separator
-		ref={forwardedRef}
 		className={cx("-mx-1 my-1 h-px border-gray-200 border-t dark:border-gray-800", className)}
+		ref={forwardedRef}
 		{...props}
 	/>
 ));
