@@ -80,16 +80,14 @@ export function ImportStatus({ formState, importStatus }: ImportStatusProps) {
 	// Import has completed
 	if (importStatus.completedAt) {
 		return (
-			<>
-				<div className="flex items-center gap-2">
-					<Done className="text-green" />
+			<div className="flex items-center gap-2">
+				<Done className="text-green" />
 
-					<p>
-						The leveling import has completed successfully. {importStatus.progress.toLocaleString("en")} users were
-						imported.
-					</p>
-				</div>
-			</>
+				<p>
+					The leveling import has completed successfully. {importStatus.progress.toLocaleString("en")} users were
+					imported.
+				</p>
+			</div>
 		);
 	}
 

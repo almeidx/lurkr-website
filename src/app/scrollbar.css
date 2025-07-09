@@ -43,8 +43,8 @@
 }
 
 .scrollbar-thin {
-	scrollbar-width: thin;
 	scrollbar-color: var(--scrollbar-thumb, initial) var(--scrollbar-track, initial);
+	scrollbar-width: thin;
 }
 
 .scrollbar-thin::-webkit-scrollbar {
@@ -101,8 +101,8 @@
 }
 
 * {
-	scrollbar-width: thin;
 	scrollbar-color: var(--scrollbar-thumb, initial) var(--scrollbar-track, initial);
+	scrollbar-width: thin;
 }
 
 ::-webkit-scrollbar {
