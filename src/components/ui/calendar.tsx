@@ -221,7 +221,7 @@ const Calendar = ({
 					const { selected, today, disabled, range_middle } = activeModifiers;
 
 					if (isHidden) {
-						return <></>;
+						return null;
 					}
 
 					if (!isButton) {
