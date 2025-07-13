@@ -46,7 +46,9 @@ import {
 	MAX_XP_DISALLOWED_PREFIX_LENGTH,
 	MAX_XP_DISALLOWED_PREFIXES,
 	MAX_XP_DISALLOWED_PREFIXES_PREMIUM,
+	MAX_XP_GAIN_INTERVAL,
 	MAX_XP_MESSAGE_LENGTH,
+	MAX_XP_PER_MESSAGE,
 	MAX_XP_ROLE_REWARD_ROLES,
 	MAX_XP_ROLE_REWARD_ROLES_PREMIUM,
 	MAX_XP_ROLE_REWARDS,
@@ -54,7 +56,9 @@ import {
 	MIN_XP_ANNOUNCE_LEVEL,
 	MIN_XP_ANNOUNCE_MINIMUM_LEVEL,
 	MIN_XP_ANNOUNCE_MULTIPLE_OF,
+	MIN_XP_GAIN_INTERVAL,
 	MIN_XP_MESSAGE_LENGTH,
+	MIN_XP_PER_MESSAGE,
 } from "@/lib/guild-config.ts";
 import {
 	EMBED_AUTHOR_NAME_MAX_LENGTH,
@@ -104,7 +108,10 @@ export async function update(guildId: string, premium: boolean, _currentState: u
 	const result = safeParse(schema, rawData);
 
 	if (!result.success) {
-		return { error: ServerActionError.SchemaMismatch, issues: JSON.stringify(result.issues) };
+		return {
+			error: ServerActionError.SchemaMismatch,
+			issues: JSON.stringify(result.issues),
+		};
 	}
 
 	const { autoResetLevelsBan, autoResetLevelsLeave, ...parsed } = result.output;
@@ -122,11 +129,17 @@ export async function update(guildId: string, premium: boolean, _currentState: u
 	} satisfies Partial<GuildSettings>;
 
 	if (settings.accentType === GuildAccentType.Custom && !settings.accentColour) {
-		return { error: ServerActionError.ManualValidationFail, issue: "Missing accent colour" };
+		return {
+			error: ServerActionError.ManualValidationFail,
+			issue: "Missing accent colour",
+		};
 	}
 
 	if (settings.xpAnnounceChannelType === XpAnnouncementChannelType.Custom && !settings.xpAnnounceChannel) {
-		return { error: ServerActionError.ManualValidationFail, issue: "Missing Level Up Message Announcement channel" };
+		return {
+			error: ServerActionError.ManualValidationFail,
+			issue: "Missing Level Up Message Announcement channel",
+		};
 	}
 
 	const maxXpRoleRewards = premium ? MAX_XP_ROLE_REWARDS_PREMIUM : MAX_XP_ROLE_REWARDS;
@@ -134,6 +147,14 @@ export async function update(guildId: string, premium: boolean, _currentState: u
 		return {
 			error: ServerActionError.ManualValidationFail,
 			issue: `Too many XP role rewards (max ${maxXpRoleRewards})`,
+		};
+	}
+
+	// Validate that xpPerMessageMin <= xpPerMessageMax
+	if (settings.xpPerMessageMin > settings.xpPerMessageMax) {
+		return {
+			error: ServerActionError.ManualValidationFail,
+			issue: "Minimum XP per message must be less than or equal to maximum XP per message",
 		};
 	}
 
@@ -184,6 +205,7 @@ function createSchema(premium: boolean) {
 				array(pipe(string(), maxLength(MAX_XP_DISALLOWED_PREFIX_LENGTH))),
 				maxLength(premium ? MAX_XP_DISALLOWED_PREFIXES_PREMIUM : MAX_XP_DISALLOWED_PREFIXES),
 			),
+			xpGainInterval: pipe(coerceToInt, minValue(MIN_XP_GAIN_INTERVAL), maxValue(MAX_XP_GAIN_INTERVAL)),
 			xpInThreads: toggle,
 			xpMessage: union([
 				emptyStringToNull,
@@ -225,13 +247,23 @@ function createSchema(premium: boolean) {
 								text: pipe(string(), minLength(1), maxLength(EMBED_FOOTER_TEXT_MAX_LENGTH)),
 							}),
 						),
-						image: optional(object({ url: pipe(string(), minLength(10), maxLength(EMBED_URL_MAX_LENGTH)) })),
-						thumbnail: optional(object({ url: pipe(string(), minLength(10), maxLength(EMBED_URL_MAX_LENGTH)) })),
+						image: optional(
+							object({
+								url: pipe(string(), minLength(10), maxLength(EMBED_URL_MAX_LENGTH)),
+							}),
+						),
+						thumbnail: optional(
+							object({
+								url: pipe(string(), minLength(10), maxLength(EMBED_URL_MAX_LENGTH)),
+							}),
+						),
 						title: optional(pipe(string(), maxLength(EMBED_TITLE_MAX_LENGTH))),
 						url: optional(pipe(string(), minLength(10), maxLength(EMBED_URL_MAX_LENGTH))),
 					}),
 				),
 			]),
+			xpPerMessageMax: pipe(coerceToInt, minValue(MIN_XP_PER_MESSAGE), maxValue(MAX_XP_PER_MESSAGE)),
+			xpPerMessageMin: pipe(coerceToInt, minValue(MIN_XP_PER_MESSAGE), maxValue(MAX_XP_PER_MESSAGE)),
 		}),
 	);
 }

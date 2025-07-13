@@ -112,8 +112,11 @@ export interface GuildSettings {
 	xpChannelMode: XpChannelMode;
 	xpChannels: Snowflake[];
 	xpDisallowedPrefixes: string[];
+	xpGainInterval: number;
 	xpInThreads: boolean;
 	xpMessage: string | null;
+	xpPerMessageMin: number;
+	xpPerMessageMax: number;
 	xpMessageEmbed: Embed | null;
 	xpMultipliers: XpMultiplier[];
 	xpRoleRewards: XpRoleReward[];
