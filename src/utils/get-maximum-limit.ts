@@ -120,8 +120,11 @@ type LimitedKey =
 			| "xpAnnounceMultipleOf"
 			| "xpAnnounceOnlyXpRoles"
 			| "xpChannelMode"
+			| "xpGainInterval"
 			| "xpMessage"
 			| "xpMessageEmbed"
+			| "xpPerMessageMin"
+			| "xpPerMessageMax"
 			| "xpInThreads"
 	  >
 	| "xpMultiplierTargets"

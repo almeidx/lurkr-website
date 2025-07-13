@@ -75,3 +75,9 @@ export const MIN_XP_ROLE_REWARD_LEVEL = 1;
 export const MAX_XP_ROLE_REWARD_LEVEL = 500;
 export const MAX_XP_ROLE_REWARD_ROLES = 3;
 export const MAX_XP_ROLE_REWARD_ROLES_PREMIUM = 10;
+
+export const MIN_XP_GAIN_INTERVAL = 10 * 1000; // 10 seconds
+export const MAX_XP_GAIN_INTERVAL = 24 * 60 * 60 * 1000; // 24 hours
+
+export const MIN_XP_PER_MESSAGE = 1;
+export const MAX_XP_PER_MESSAGE = 1000;

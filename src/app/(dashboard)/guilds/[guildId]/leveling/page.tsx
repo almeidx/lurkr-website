@@ -15,6 +15,8 @@ import { UnknownGuildOrMissingAccess } from "../unknown-guild.tsx";
 import { LevelingChannelMode } from "./01-leveling-channel-mode.tsx";
 import { LevelingChannels } from "./02-leveling-channels.tsx";
 import { LevelingInThreads } from "./03-leveling-in-threads.tsx";
+import { XpGainInterval } from "./04-xp-gain-interval.tsx";
+import { XpPerMessageRange } from "./05-xp-per-message-range.tsx";
 import { NoLevelingRoles } from "./10-no-leveling-roles.tsx";
 import { DisallowedLevelingPrefixes } from "./11-disallowed-leveling-prefixes.tsx";
 import { TopLevelingRole } from "./20-top-leveling-role.tsx";
@@ -69,6 +71,12 @@ export default async function Leveling({ params }: { readonly params: Promise<{ 
 				<Separator />
 
 				<LevelingInThreads defaultValue={settings.xpInThreads} />
+			</Section>
+
+			<Section name="System Settings" tooltip="Configure how experience points are gained and calculated.">
+				<XpGainInterval defaultValue={settings.xpGainInterval} />
+
+				<XpPerMessageRange defaultMax={settings.xpPerMessageMax} defaultMin={settings.xpPerMessageMin} />
 			</Section>
 
 			<Section name="Leveling Blacklists">
