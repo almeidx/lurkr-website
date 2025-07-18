@@ -88,6 +88,9 @@ importers:
       p-retry:
         specifier: ^6.2.1
         version: 6.2.1(patch_hash=c75e89fd8beb8c000a9db38c7a66f078793315bb5db45f8fe9bfe8f9db0a9900)
+      pretty-ms:
+        specifier: ^9.2.0
+        version: 9.2.0
       react:
         specifier: ^19.1.0
         version: 19.1.0
@@ -2450,6 +2453,10 @@ packages:
     resolution: {integrity: sha512-ayCKvm/phCGxOkYRSCM82iDwct8/EonSEgCSxWxD7ve6jHggsFl4fZVQBPRNgQoKiuV/odhFrGzQXZwbifC8Rg==}
     engines: {node: '>=8'}
 
+  parse-ms@4.0.0:
+    resolution: {integrity: sha512-TXfryirbmq34y8QBwgqCVLi+8oA3oWx2eAnSn62ITyEhEYaWRlVZ2DvMM9eZbMs/RfxPu/PK/aBLyGj4IrqMHw==}
+    engines: {node: '>=18'}
+
   path-parse@1.0.7:
     resolution: {integrity: sha512-LDJzPVEEEPR+y48z93A0Ed0yXb8pAByGWo/k5YYdYgpY2/2EsOsksJrq7lOHxryrVOn1ejG6oAp8ahvOIQD8sw==}
 
@@ -2484,6 +2491,10 @@ packages:
     resolution: {integrity: sha512-I7AIg5boAr5R0FFtJ6rCfD+LFsWHp81dolrFD8S79U9tb8Az2nGrJncnMSnys+bpQJfRUzqs9hnA81OAA3hCuQ==}
     engines: {node: '>=14'}
     hasBin: true
+
+  pretty-ms@9.2.0:
+    resolution: {integrity: sha512-4yf0QO/sllf/1zbZWYnvWw3NxCQwLXKzIj0G849LSufP15BXKM0rbD2Z3wVnkMfjdn/CB0Dpp444gYAACdsplg==}
+    engines: {node: '>=18'}
 
   prism-react-renderer@2.4.1:
     resolution: {integrity: sha512-ey8Ls/+Di31eqzUxC46h8MksNuGx/n0AAC8uKpwFau4RPDYLuE3EXTp8N8G2vX2N7UC/+IXeNUnlWBGGcAG+Ig==}
@@ -5511,6 +5522,8 @@ snapshots:
       json-parse-even-better-errors: 2.3.1
       lines-and-columns: 1.2.4
 
+  parse-ms@4.0.0: {}
+
   path-parse@1.0.7: {}
 
   path-type@4.0.0: {}
@@ -5542,6 +5555,10 @@ snapshots:
       source-map-js: 1.2.1
 
   prettier@3.6.2: {}
+
+  pretty-ms@9.2.0:
+    dependencies:
+      parse-ms: 4.0.0
 
   prism-react-renderer@2.4.1(react@19.1.0):
     dependencies:

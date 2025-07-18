@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { cookies } from "next/headers";
 import Link from "next/link";
 import { RedirectType, redirect } from "next/navigation";
+import prettyMilliseconds from "pretty-ms";
 import { LeaderboardTable } from "@/app/(dashboard)/levels/[entry]/01-leaderboard-table.tsx";
 import {
 	LEADERBOARD_ENTRIES_PER_PAGE,
@@ -54,7 +55,17 @@ export default async function Leaderboard({ params, searchParams }: LeaderboardP
 		}
 	}
 
-	const { guild, isManager, vanity, levels, multipliers, roleRewards } = data;
+	const {
+		guild,
+		isManager,
+		vanity,
+		levels,
+		multipliers,
+		roleRewards,
+		xpGainInterval,
+		xpPerMessageMax,
+		xpPerMessageMin,
+	} = data;
 
 	if (isSnowflake(entry) && vanity) {
 		redirect(`/levels/${vanity}?page=${page}`, RedirectType.replace);
@@ -128,8 +139,15 @@ export default async function Leaderboard({ params, searchParams }: LeaderboardP
 
 					<SidebarSection title="How it works">
 						<div className="space-y-2">
-							<p>Every time you send a message you gain between 15 and 40 experience.</p>
-							<p>To avoid spam, there is a cooldown of 1 minute per message sent.</p>
+							<p>
+								{xpPerMessageMin === xpPerMessageMax
+									? `Every time you send a message you gain ${xpPerMessageMin} experience.`
+									: `Every time you send a message you gain between ${xpPerMessageMin} and ${xpPerMessageMax} experience.`}
+							</p>
+							<p>
+								To avoid spam, there is a cooldown of {prettyMilliseconds(xpGainInterval, { verbose: true })} per
+								message sent.
+							</p>
 						</div>
 					</SidebarSection>
 				</div>
@@ -255,6 +273,9 @@ export interface GetLevelsResponse {
 	levels: Level[];
 	multipliers: Multiplier[];
 	roleRewards: RoleReward[];
+	xpGainInterval: number;
+	xpPerMessageMax: number;
+	xpPerMessageMin: number;
 }
 
 interface Level {
