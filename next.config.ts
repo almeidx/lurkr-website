@@ -8,8 +8,16 @@ import {
 	TOPGG_URL,
 } from "./src/shared-links.js";
 
-const apiDomain = process.env.NEXT_PUBLIC_API_URL!.split("://")[1];
-const backgroundBucketDomain = process.env.BACKGROUNDS_BUCKET_DOMAIN!;
+if (!process.env.NEXT_PUBLIC_API_URL) {
+	throw new Error("NEXT_PUBLIC_API_URL environment variable is not set.");
+}
+
+if (!process.env.BACKGROUNDS_BUCKET_DOMAIN) {
+	throw new Error("BACKGROUNDS_BUCKET_DOMAIN environment variable is not set.");
+}
+
+const apiDomain = process.env.NEXT_PUBLIC_API_URL.split("://")[1];
+const backgroundBucketDomain = process.env.BACKGROUNDS_BUCKET_DOMAIN;
 
 const cspHeader = `
 	default-src 'self';
