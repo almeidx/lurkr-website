@@ -6,7 +6,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { type PropsWithChildren, useEffect, useState } from "react";
 import logoSmallImg from "@/assets/logo-small.webp";
-import { ExternalLink } from "@/components/ExternalLink.tsx";
 import { ArrowBackIos } from "@/components/icons/mdi/arrow-back-ios.tsx";
 import { AutoStories } from "@/components/icons/mdi/auto-stories.tsx";
 import { Calculate } from "@/components/icons/mdi/calculate.tsx";
@@ -24,7 +23,6 @@ import { SmartToy } from "@/components/icons/mdi/smart-toy.tsx";
 import { TrendingUp } from "@/components/icons/mdi/trending-up.tsx";
 import { Warning } from "@/components/icons/mdi/warning.tsx";
 import { WorkspacePremium } from "@/components/icons/mdi/workspace-premium.tsx";
-import { DOCS_URL } from "@/utils/constants.ts";
 import type { Snowflake } from "@/utils/discord-cdn.ts";
 
 export function Navbar({ children }: PropsWithChildren) {
@@ -142,12 +140,12 @@ function NavbarLinks({ hideMobile }: { hideMobile?: boolean }) {
 				</Link>
 			</li>
 			<li className="flex items-center gap-2 text-white hover:text-white/75">
-				<ExternalLink className="flex items-center gap-2" href={DOCS_URL}>
+				<Link className="flex items-center gap-2" href="/docs">
 					<div className="md:hidden">
 						<AutoStories aria-hidden />
 					</div>
 					Docs
-				</ExternalLink>
+				</Link>
 			</li>
 		</ul>
 	);
