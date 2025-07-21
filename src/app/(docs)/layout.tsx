@@ -1,10 +1,8 @@
 import "./docs.css";
 
-import { Banner } from "fumadocs-ui/components/banner";
 import { RootProvider } from "fumadocs-ui/provider";
 import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
-import { ExternalLink } from "@/components/ExternalLink.tsx";
 import { Footer } from "@/components/Footer.tsx";
 import { BRAND_COLOR, DESCRIPTION, PUBLIC_URL } from "@/utils/constants.ts";
 import { openSans } from "../fonts.ts";
@@ -19,12 +17,6 @@ export default function Layout({ children }: { children: ReactNode }) {
 						forcedTheme: "dark",
 					}}
 				>
-					<Banner className="inline place-content-center text-balance" id="alpha-docs-banner">
-						Alpha documentation. To view the full documentation, go to{" "}
-						<ExternalLink className="text-blurple" href="https://docs.lurkr.gg">
-							docs.lurkr.gg
-						</ExternalLink>
-					</Banner>
 					{children}
 				</RootProvider>
 
