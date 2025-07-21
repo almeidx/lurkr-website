@@ -8,8 +8,8 @@ export function DocsBubble({ tooltip, path }: DocsBubblePropos) {
 	}
 
 	const link = (
-		<Link href={`/docs${path}`}>
-			<span className="sr-only">Open documentation</span>
+		<Link href={`/docs${path}`} target="_blank">
+			<span className="sr-only">Open documentation in a new tab</span>
 			<Help aria-hidden className="ml-2 size-5" fill="url(#icon-gradient-tertiary)" />
 		</Link>
 	);
