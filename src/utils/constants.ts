@@ -28,7 +28,5 @@ export const API_URL = process.env.NEXT_PUBLIC_API_URL!;
 export const TOKEN_COOKIE = "token";
 export const REDIRECT_TO_COOKIE = "redirectTo";
 
-export const DOCS_URL = "https://docs.lurkr.gg";
-
 export const COOKIE_NOTICE_COOKIE = "biscuits";
 export const COOKIE_NOTICE_ACK = "aye";

@@ -1,7 +1,6 @@
 import { Tooltip, TooltipAnchor, TooltipProvider } from "@ariakit/react";
-import { ExternalLink } from "@/components/ExternalLink.tsx";
+import Link from "next/link";
 import { Help } from "@/components/icons/mdi/help.tsx";
-import { DOCS_URL } from "@/utils/constants.ts";
 
 export function DocsBubble({ tooltip, path }: DocsBubblePropos) {
 	if (!path.startsWith("/")) {
@@ -9,10 +8,10 @@ export function DocsBubble({ tooltip, path }: DocsBubblePropos) {
 	}
 
 	const link = (
-		<ExternalLink href={`${DOCS_URL}${path}`}>
+		<Link href={`/docs${path}`} target="_blank">
 			<span className="sr-only">Open documentation in a new tab</span>
 			<Help aria-hidden className="ml-2 size-5" fill="url(#icon-gradient-tertiary)" />
-		</ExternalLink>
+		</Link>
 	);
 
 	if (!tooltip) {
