@@ -74,9 +74,9 @@ function getLabel(visibility: LeaderboardVisibility) {
 function getSubtitle(visibility: LeaderboardVisibility) {
 	switch (visibility) {
 		case LeaderboardVisibility.Public:
-			return "Anyone can see it, including non-members. This is the default setting.";
+			return "Anyone can see it, including non-members and search engines.";
 		case LeaderboardVisibility.MembersOnly:
-			return "Only logged-in members of this server can see it.";
+			return "Only logged-in members of this server can see it. This is the default setting.";
 		case LeaderboardVisibility.ManagersOnly:
 			return "Only people with Manage Messages, Manage Server, or Administrator permissions can see it.";
 	}
