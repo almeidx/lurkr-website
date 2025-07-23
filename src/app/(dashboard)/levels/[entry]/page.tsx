@@ -22,10 +22,6 @@ import { type RoleReward, RoleRewardDisplay } from "./03-role-reward.tsx";
 import { type Multiplier, MultiplierDisplay } from "./04-multiplier.tsx";
 import { MustLogIn, NotViewable } from "./leaderboard-errors.tsx";
 
-if (!process.env.LEVELS_METADATA_KEY) {
-	throw new Error("Missing LEVELS_METADATA_KEY environment variable");
-}
-
 export default async function Leaderboard({ params, searchParams }: LeaderboardProps) {
 	const { page: rawPage } = await searchParams;
 	const { entry } = await params;
@@ -164,12 +160,17 @@ export async function generateMetadata({ params, searchParams }: LeaderboardProp
 		title: "Leaderboard",
 	};
 
+	if (!process.env.LEVELS_METADATA_KEY) {
+		console.warn("Missing LEVELS_METADATA_KEY environment variable. Leaderboard metadata will not be available.");
+		return defaultMetadata;
+	}
+
 	let response: Response;
 
 	try {
 		response = await makeApiRequest(`/levels/${entry}/metadata`, null, {
 			headers: {
-				"X-Internal-Key": process.env.LEVELS_METADATA_KEY!,
+				"X-Internal-Key": process.env.LEVELS_METADATA_KEY,
 			},
 			next: {
 				revalidate: 6 * 60 * 60, // 6 hours

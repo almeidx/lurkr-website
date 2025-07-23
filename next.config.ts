@@ -13,11 +13,11 @@ if (!process.env.NEXT_PUBLIC_API_URL) {
 }
 
 if (!process.env.BACKGROUNDS_BUCKET_DOMAIN) {
-	throw new Error("BACKGROUNDS_BUCKET_DOMAIN environment variable is not set.");
+	console.warn("BACKGROUNDS_BUCKET_DOMAIN environment variable is not set. Backgrounds will not be visible.");
 }
 
 const apiDomain = process.env.NEXT_PUBLIC_API_URL.split("://")[1];
-const backgroundBucketDomain = process.env.BACKGROUNDS_BUCKET_DOMAIN;
+const backgroundBucketDomain = process.env.BACKGROUNDS_BUCKET_DOMAIN ?? "";
 
 const cspHeader = `
 	default-src 'self';

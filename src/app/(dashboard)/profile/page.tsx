@@ -149,11 +149,17 @@ function NotLoggedIn() {
 // #region Data fetchers
 
 async function getUserBackground(token: string) {
+	if (!process.env.BACKGROUNDS_KEY_HEADER) {
+		console.warn("Missing BACKGROUNDS_KEY_HEADER environment variable. Backgrounds will not be available.");
+		return null;
+	}
+
 	const response = await makeApiRequest("/users/@me/background", token, {
 		headers: {
-			"X-Api-Key": process.env.BACKGROUNDS_KEY_HEADER!,
+			"X-Api-Key": process.env.BACKGROUNDS_KEY_HEADER,
 		},
 	});
+
 	if (!response.ok) {
 		return null;
 	}

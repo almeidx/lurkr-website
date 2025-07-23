@@ -6,8 +6,8 @@
 	"scripts": {
 		"build": "next build",
 		"dev": "next dev --turbo",
-		"fmt": "pnpm run format",
-		"format": "biome check --write --unsafe",
+		"fmt": "biome check --write --unsafe",
+		"format": "pnpm run fmt",
 		"postinstall": "fumadocs-mdx && node --experimental-strip-types scripts/generate-docs.ts",
 		"lint": "biome check",
 		"prepare": "husky .github/husky",
