@@ -18,9 +18,11 @@ import { guildIcon, type Snowflake } from "@/utils/discord-cdn.ts";
 import { ellipsis } from "@/utils/ellipsis.ts";
 import { isSnowflake } from "@/utils/is-snowflake.ts";
 import { makeApiRequest } from "@/utils/make-api-request.ts";
-import { type RoleReward, RoleRewardDisplay } from "./03-role-reward.tsx";
-import { type Multiplier, MultiplierDisplay } from "./04-multiplier.tsx";
+import type { RoleReward } from "./03-role-reward.tsx";
+import type { Multiplier } from "./04-multiplier.tsx";
 import { MustLogIn, NotViewable } from "./leaderboard-errors.tsx";
+import { SortableMultipliers } from "./sortable-multipliers.tsx";
+import { SortableRoleRewards } from "./sortable-role-rewards.tsx";
 
 export default async function Leaderboard({ params, searchParams }: LeaderboardProps) {
 	const { page: rawPage } = await searchParams;
@@ -113,25 +115,9 @@ export default async function Leaderboard({ params, searchParams }: LeaderboardP
 				</div>
 
 				<div className="flex w-full flex-col gap-5 px-4 sm:w-80 md:w-96 md:px-0">
-					{roleRewards.length ? (
-						<SidebarSection title="Role Rewards">
-							<div className="flex flex-col gap-4">
-								{roleRewards.map((roleReward) => (
-									<RoleRewardDisplay key={roleReward.id} {...roleReward} />
-								))}
-							</div>
-						</SidebarSection>
-					) : null}
+					<SortableRoleRewards roleRewards={roleRewards} />
 
-					{multipliers.length ? (
-						<SidebarSection title="Multipliers">
-							<div className="flex flex-col gap-4">
-								{multipliers.map((multipliers) => (
-									<MultiplierDisplay key={multipliers.id} {...multipliers} />
-								))}
-							</div>
-						</SidebarSection>
-					) : null}
+					<SortableMultipliers multipliers={multipliers} />
 
 					<SidebarSection title="How it works">
 						<div className="space-y-2">
