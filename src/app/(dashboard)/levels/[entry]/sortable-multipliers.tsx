@@ -24,20 +24,20 @@ export function SortableMultipliers({ multipliers }: SortableMultipliersProps) {
 		setSortAscending(!sortAscending);
 	};
 
+	const sortButton = (
+		<button
+			aria-label={`Sort ${sortAscending ? "descending" : "ascending"}`}
+			className="flex items-center gap-1 text-gray-400 text-sm transition-colors hover:text-white"
+			onClick={toggleSort}
+			type="button"
+		>
+			{sortAscending ? <RiArrowUpSLine className="size-4" /> : <RiArrowDownSLine className="size-4" />}
+			{sortAscending ? "Asc" : "Desc"}
+		</button>
+	);
+
 	return (
-		<SidebarSection title="Multipliers">
-			<div className="mb-2 flex items-center justify-between">
-				<span className="text-gray-400 text-sm">Sorted by value</span>
-				<button
-					aria-label={`Sort ${sortAscending ? "descending" : "ascending"}`}
-					className="flex items-center gap-1 text-gray-400 text-sm transition-colors hover:text-white"
-					onClick={toggleSort}
-					type="button"
-				>
-					{sortAscending ? <RiArrowUpSLine className="size-4" /> : <RiArrowDownSLine className="size-4" />}
-					{sortAscending ? "Asc" : "Desc"}
-				</button>
-			</div>
+		<SidebarSection title="Multipliers" titleAction={sortButton}>
 			<div className="flex flex-col gap-4">
 				{sortedMultipliers.map((multiplier) => (
 					<MultiplierDisplay key={multiplier.id} {...multiplier} />
