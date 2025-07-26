@@ -11,7 +11,7 @@ export function SortableSection<T>({ data, title, sortBy, renderItem, keyExtract
 		return null;
 	}
 
-	const sortedData = [...data].sort((a, b) => {
+	const sortedData = data.toSorted((a, b) => {
 		const aValue = sortBy(a);
 		const bValue = sortBy(b);
 		return sortAscending ? aValue - bValue : bValue - aValue;
