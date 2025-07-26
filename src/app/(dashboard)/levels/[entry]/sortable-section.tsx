@@ -4,13 +4,7 @@ import { RiArrowDownSLine, RiArrowUpSLine } from "@remixicon/react";
 import { useState } from "react";
 import { SidebarSection } from "@/components/leaderboard/SidebarSection.tsx";
 
-export function SortableSection<T>({
-	data,
-	title,
-	sortBy,
-	renderItem,
-	keyExtractor,
-}: SortableSectionProps<T>) {
+export function SortableSection<T>({ data, title, sortBy, renderItem, keyExtractor }: SortableSectionProps<T>) {
 	const [sortAscending, setSortAscending] = useState(true);
 
 	if (data.length === 0) {

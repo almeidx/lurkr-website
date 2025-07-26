@@ -5,10 +5,10 @@ export function SortableMultipliers({ multipliers }: SortableMultipliersProps) {
 	return (
 		<SortableSection
 			data={multipliers}
-			title="Multipliers"
-			sortBy={(multiplier) => multiplier.multiplier}
-			renderItem={(multiplier) => <MultiplierDisplay {...multiplier} />}
 			keyExtractor={(multiplier) => multiplier.id}
+			renderItem={(multiplier) => <MultiplierDisplay {...multiplier} />}
+			sortBy={(multiplier) => multiplier.multiplier}
+			title="Multipliers"
 		/>
 	);
 }

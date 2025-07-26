@@ -5,10 +5,10 @@ export function SortableRoleRewards({ roleRewards }: SortableRoleRewardsProps) {
 	return (
 		<SortableSection
 			data={roleRewards}
-			title="Role Rewards"
-			sortBy={(roleReward) => roleReward.level}
-			renderItem={(roleReward) => <RoleRewardDisplay {...roleReward} />}
 			keyExtractor={(roleReward) => roleReward.id}
+			renderItem={(roleReward) => <RoleRewardDisplay {...roleReward} />}
+			sortBy={(roleReward) => roleReward.level}
+			title="Role Rewards"
 		/>
 	);
 }
