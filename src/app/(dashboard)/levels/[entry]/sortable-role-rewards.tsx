@@ -1,3 +1,5 @@
+"use client";
+
 import { type RoleReward, RoleRewardDisplay } from "./03-role-reward.tsx";
 import { SortableSection } from "./sortable-section.tsx";
 
