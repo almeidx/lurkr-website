@@ -5,10 +5,6 @@ import { useState } from "react";
 import { SidebarSection } from "@/components/leaderboard/SidebarSection.tsx";
 import { type RoleReward, RoleRewardDisplay } from "./03-role-reward.tsx";
 
-interface SortableRoleRewardsProps {
-	roleRewards: RoleReward[];
-}
-
 export function SortableRoleRewards({ roleRewards }: SortableRoleRewardsProps) {
 	const [sortAscending, setSortAscending] = useState(true);
 
@@ -20,9 +16,9 @@ export function SortableRoleRewards({ roleRewards }: SortableRoleRewardsProps) {
 		return sortAscending ? a.level - b.level : b.level - a.level;
 	});
 
-	const toggleSort = () => {
-		setSortAscending(!sortAscending);
-	};
+	function toggleSort() {
+		setSortAscending((previousValue) => !previousValue);
+	}
 
 	const sortButton = (
 		<button
@@ -45,4 +41,8 @@ export function SortableRoleRewards({ roleRewards }: SortableRoleRewardsProps) {
 			</div>
 		</SidebarSection>
 	);
+}
+
+interface SortableRoleRewardsProps {
+	roleRewards: RoleReward[];
 }

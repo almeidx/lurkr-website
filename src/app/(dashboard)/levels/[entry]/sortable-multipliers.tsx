@@ -5,10 +5,6 @@ import { useState } from "react";
 import { SidebarSection } from "@/components/leaderboard/SidebarSection.tsx";
 import { type Multiplier, MultiplierDisplay } from "./04-multiplier.tsx";
 
-interface SortableMultipliersProps {
-	multipliers: Multiplier[];
-}
-
 export function SortableMultipliers({ multipliers }: SortableMultipliersProps) {
 	const [sortAscending, setSortAscending] = useState(true);
 
@@ -20,9 +16,9 @@ export function SortableMultipliers({ multipliers }: SortableMultipliersProps) {
 		return sortAscending ? a.multiplier - b.multiplier : b.multiplier - a.multiplier;
 	});
 
-	const toggleSort = () => {
-		setSortAscending(!sortAscending);
-	};
+	function toggleSort() {
+		setSortAscending((previousValue) => !previousValue);
+	}
 
 	const sortButton = (
 		<button
@@ -45,4 +41,8 @@ export function SortableMultipliers({ multipliers }: SortableMultipliersProps) {
 			</div>
 		</SidebarSection>
 	);
+}
+
+interface SortableMultipliersProps {
+	multipliers: Multiplier[];
 }
