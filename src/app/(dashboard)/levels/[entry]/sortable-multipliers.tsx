@@ -1,3 +1,5 @@
+"use client";
+
 import { type Multiplier, MultiplierDisplay } from "./04-multiplier.tsx";
 import { SortableSection } from "./sortable-section.tsx";
 
