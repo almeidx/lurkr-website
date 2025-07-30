@@ -68,7 +68,7 @@ export const metadata: Metadata = {
 	},
 
 	title: {
-		default: "Lurkr",
+		default: "Lurkr • The ultimate Discord leveling bot",
 		template: "%s • Lurkr",
 	},
 
