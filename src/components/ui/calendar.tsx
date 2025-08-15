@@ -1,6 +1,6 @@
 // Tremor Calendar [v1.0.0]
 
-/** biome-ignore-all lint/nursery/noNestedComponentDefinitions: Lib stuff */
+/** biome-ignore-all lint/correctness/noNestedComponentDefinitions: Lib stuff */
 
 "use client";
 
