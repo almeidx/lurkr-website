@@ -6,7 +6,7 @@ import { LevelingImportBot } from "@/lib/guild.ts";
 import { TOKEN_COOKIE } from "@/utils/constants.ts";
 import { formDataToObject } from "@/utils/form-data-to-object.ts";
 import { makeApiRequest } from "@/utils/make-api-request.ts";
-import { coerceToInt, toggle } from "@/utils/schemas.ts";
+import { coerceToInt, requiredSnowflake, toggle } from "@/utils/schemas.ts";
 import type { GetImportStatusResponse } from "./01-leveling-import.tsx";
 import { StartImportError } from "./import-status.tsx";
 
@@ -16,15 +16,16 @@ const importBotDataSchema = object({
 	withRoleRewards: toggle,
 });
 
-export async function importBotData(guildId: string, _currentState: unknown, data: FormData) {
+export async function importBotData(rawGuildId: string, _currentState: unknown, data: FormData) {
 	const token = (await cookies()).get(TOKEN_COOKIE)?.value;
 	if (!token) {
 		throw new Error("Missing token");
 	}
 
+	const guildId = parse(requiredSnowflake, rawGuildId);
 	const options = parse(importBotDataSchema, formDataToObject(data));
 
-	console.log(options);
+	// console.log(options);
 
 	const response = await makeApiRequest(`/levels/${guildId}/import`, token, {
 		body: JSON.stringify(options),
@@ -46,11 +47,13 @@ export async function importBotData(guildId: string, _currentState: unknown, dat
 	return response.json() as Promise<StartLevelingImportResult>;
 }
 
-export async function getOngoingImportStatus(guildId: string) {
+export async function getOngoingImportStatus(rawGuildId: string) {
 	const token = (await cookies()).get(TOKEN_COOKIE)?.value;
 	if (!token) {
 		throw new Error("Missing token");
 	}
+
+	const guildId = parse(requiredSnowflake, rawGuildId);
 
 	const response = await makeApiRequest(`/levels/${guildId}/import`, token, {
 		next: {
