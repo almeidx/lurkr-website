@@ -45,7 +45,8 @@ export const coerceToFloat = pipe(
 	number(),
 );
 
-export const snowflake = union([emptyStringToNull, pipe(string(), SNOWFLAKE_REGEX_SCHEMA)]);
+export const requiredSnowflake = pipe(string(), SNOWFLAKE_REGEX_SCHEMA);
+export const snowflake = union([emptyStringToNull, requiredSnowflake]);
 
 export const toggle = pipe(
 	optional(

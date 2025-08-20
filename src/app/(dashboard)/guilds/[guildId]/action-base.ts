@@ -2,15 +2,19 @@
 
 import { revalidateTag } from "next/cache";
 import { cookies } from "next/headers";
+import { parse } from "valibot";
 import type { GuildSettings } from "@/lib/guild.ts";
 import { TOKEN_COOKIE } from "@/utils/constants.ts";
 import { makeApiRequest } from "@/utils/make-api-request.ts";
+import { requiredSnowflake } from "@/utils/schemas.ts";
 
-export async function action(guildId: string, data: Partial<GuildSettings>, tag: string, premium: boolean) {
+export async function action(rawGuildId: string, data: Partial<GuildSettings>, tag: string, premium: boolean) {
 	const token = (await cookies()).get(TOKEN_COOKIE)?.value;
 	if (!token) {
 		throw new Error("Missing token");
 	}
+
+	const guildId = parse(requiredSnowflake, rawGuildId);
 
 	const route = premium ? `/guilds/${guildId}/premium` : `/guilds/${guildId}`;
 
