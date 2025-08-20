@@ -1,14 +1,15 @@
 ---
 title: Changelog
-description: Tracks all significant changes to the Lurkr API. We maintain backward compatibility within each major version, so you can expect no breaking changes in v2.
+description:
+  Tracks all significant changes to the Lurkr API. We maintain backward compatibility within each major version, so you
+  can expect no breaking changes in v2.
 ---
 
 ## Leveling System Settings on Leaderboard endpoint
 
 Date: 2025-07-18
 
-We've added the newly introduced leveling system settings to the `GET /levels/{guildId}` endpoint.
-These settings are:
+We've added the newly introduced leveling system settings to the `GET /levels/{guildId}` endpoint. These settings are:
 
 - `xpGainInterval` - The interval in seconds at which users gain experience.
 - `xpPerMessageMax` - The maximum experience a user can gain per message.
@@ -18,8 +19,8 @@ These settings are:
 
 Date: 2025-05-04
 
-We're making public an endpoint for retrieving the leaderboard of a server. This endpoint is available to all users,
-and it does not require authentication:
+We're making public an endpoint for retrieving the leaderboard of a server. This endpoint is available to all users, and
+it does not require authentication:
 
 - `GET /levels/{guildId}?page=1` - Get the leaderboard for a server.
 
