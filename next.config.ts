@@ -84,10 +84,6 @@ const nextConfig = {
 				hostname: backgroundBucketDomain,
 				protocol: "https",
 			},
-			{
-				hostname: "i.imgur.com",
-				protocol: "https",
-			},
 		],
 	},
 	logging: {
