@@ -18,7 +18,10 @@ jobs:
           node-version-file: package.json
 
       - name: Install dependencies
-        run: pnpm i --frozen-lockfile
+        run: pnpm install --frozen-lockfile
 
       - name: Lint
         run: pnpm biome ci --reporter=github
+
+      - name: Typecheck
+        run: pnpm run build:typecheck

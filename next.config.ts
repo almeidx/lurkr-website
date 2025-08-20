@@ -9,14 +9,14 @@ import {
 } from "./src/shared-links.js";
 
 if (!process.env.NEXT_PUBLIC_API_URL) {
-	throw new Error("NEXT_PUBLIC_API_URL environment variable is not set.");
+	console.warn("NEXT_PUBLIC_API_URL environment variable is not set. API requests will fail.");
 }
 
 if (!process.env.BACKGROUNDS_BUCKET_DOMAIN) {
 	console.warn("BACKGROUNDS_BUCKET_DOMAIN environment variable is not set. Backgrounds will not be visible.");
 }
 
-const apiDomain = process.env.NEXT_PUBLIC_API_URL.split("://")[1];
+const apiDomain = process.env.NEXT_PUBLIC_API_URL?.split("://")[1] ?? "";
 const backgroundBucketDomain = process.env.BACKGROUNDS_BUCKET_DOMAIN ?? "";
 
 const cspHeader = `
