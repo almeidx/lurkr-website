@@ -9,7 +9,7 @@
 		"dev": "next dev --turbo",
 		"fmt": "biome check --write --unsafe",
 		"format": "pnpm run fmt",
-		"postinstall": "fumadocs-mdx && next typegen && node --experimental-strip-types scripts/generate-docs.ts",
+		"postinstall": "next typegen && fumadocs-mdx && node --experimental-strip-types scripts/generate-docs.ts",
 		"lint": "biome check",
 		"prepare": "husky .github/husky",
 		"start": "next start"
@@ -38,7 +38,7 @@
 		"match-sorter": "^8.1.0",
 		"next": "^15.5.0",
 		"next-nprogress-bar": "^2.4.7",
-		"p-retry": "^6.2.1",
+		"p-retry": "^7.0.0",
 		"pretty-ms": "^9.2.0",
 		"react": "^19.1.1",
 		"react-colorful": "^5.6.1",

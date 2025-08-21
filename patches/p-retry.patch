@@ -1,8 +1,8 @@
 diff --git a/index.d.ts b/index.d.ts
-index 95ebb17f1e78f456f2e634184b794b002132cbc9..7176d87d743498314168e15272d1572938fe6d52 100644
+index aad3b32c11e2429313bf3c7ee400eb0dec6f195a..d47b2ff857240b84a2bb2a45c6a6b54f7c55febb 100644
 --- a/index.d.ts
 +++ b/index.d.ts
-@@ -9,7 +9,7 @@ export class AbortError extends Error {
+@@ -7,7 +7,7 @@ export class AbortError extends Error {
  
  	@param message - An error message or a custom error.
  	*/
@@ -10,13 +10,13 @@ index 95ebb17f1e78f456f2e634184b794b002132cbc9..7176d87d743498314168e15272d15729
 +	constructor(message: string | Error, options?: { cause?: any });
  }
  
- export type FailedAttemptError = {
+ export type RetryContext = {
 diff --git a/index.js b/index.js
-index da2c17f2809504894e322773c83d7ff95f7db556..20a7808a5143e27db20e48619bd9fd4109f9bbfc 100644
+index 1a7deb776667e880c0717e81ddb22a9d81a96590..bbc9937c5b232b7acc9cb92b9357f1bd365cb53c 100644
 --- a/index.js
 +++ b/index.js
-@@ -2,7 +2,7 @@ import retry from 'retry';
- import isNetworkError from 'is-network-error';
+@@ -33,7 +33,7 @@ function validateNumberOption(name, value, {min = 0, allowInfinity = false} = {}
+ }
  
  export class AbortError extends Error {
 -	constructor(message) {
@@ -24,7 +24,7 @@ index da2c17f2809504894e322773c83d7ff95f7db556..20a7808a5143e27db20e48619bd9fd41
  		super();
  
  		if (message instanceof Error) {
-@@ -11,6 +11,7 @@ export class AbortError extends Error {
+@@ -42,6 +42,7 @@ export class AbortError extends Error {
  		} else {
  			this.originalError = new Error(message);
  			this.originalError.stack = this.stack;
