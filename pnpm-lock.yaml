@@ -86,8 +86,8 @@ importers:
         specifier: ^2.4.7
         version: 2.4.7
       p-retry:
-        specifier: ^6.2.1
-        version: 6.2.1(patch_hash=c75e89fd8beb8c000a9db38c7a66f078793315bb5db45f8fe9bfe8f9db0a9900)
+        specifier: ^7.0.0
+        version: 7.0.0(patch_hash=c75e89fd8beb8c000a9db38c7a66f078793315bb5db45f8fe9bfe8f9db0a9900)
       pretty-ms:
         specifier: ^9.2.0
         version: 9.2.0
@@ -1562,9 +1562,6 @@ packages:
   '@types/react@19.1.10':
     resolution: {integrity: sha512-EhBeSYX0Y6ye8pNebpKrwFJq7BoQ8J5SO6NlvNwwHjSj6adXJViPQrKlsyPw7hLBLvckEMO1yxeGdR82YBBlDg==}
 
-  '@types/retry@0.12.2':
-    resolution: {integrity: sha512-XISRgDJ2Tc5q4TRqvgJtzsRkFYNJzZrhTdtMoGVBttwzzQJkPnS3WWTFc7kuDRoPtPakl+T+OfdEUjYJj7Jbow==}
-
   '@types/textarea-caret@3.0.4':
     resolution: {integrity: sha512-epJGYB37/sNrTDbhfyRjHkXsQSAcO6zby0JBDS0QMt6HQ1f1W2E4YpSc7TQkNmWaWmYXv92zOIfN5PHA8CmThg==}
 
@@ -2450,9 +2447,9 @@ packages:
   openapi-sampler@1.6.1:
     resolution: {integrity: sha512-s1cIatOqrrhSj2tmJ4abFYZQK6l5v+V4toO5q1Pa0DyN8mtyqy2I+Qrj5W9vOELEtybIMQs/TBZGVO/DtTFK8w==}
 
-  p-retry@6.2.1:
-    resolution: {integrity: sha512-hEt02O4hUct5wtwg4H4KcWgDdm+l1bOaEy/hWzd8xtXB9BqxTWBBhb+2ImAtH4Cv4rPjV76xN3Zumqk3k3AhhQ==}
-    engines: {node: '>=16.17'}
+  p-retry@7.0.0:
+    resolution: {integrity: sha512-3BgO9rjULJYyr0Y0pcsG7FZ+7JB/hfOODO8kx9ppumiO5jprUF92WK/Y7Q0xppZtq4VhTcPiVq7qWLQfIV5aKQ==}
+    engines: {node: '>=20'}
 
   parent-module@1.0.1:
     resolution: {integrity: sha512-GQ2EWRpQV8/o+Aw8YqtfZZPfNRWZYkbidE9k5rpl/hC3vtHHBfGm2Ifi6qWV+coDGkrUKZAxE3Lot5kcsRlh+g==}
@@ -2697,10 +2694,6 @@ packages:
     resolution: {integrity: sha512-NPRy+/ncIMeDlTAsuqwKIiferiawhefFJtkNSW0qZJEqMEb+qBt/77B/jGeeek+F0uOeN05CDa6HXbbIgtVX4w==}
     engines: {node: '>= 0.4'}
     hasBin: true
-
-  retry@0.13.1:
-    resolution: {integrity: sha512-XQBQ3I8W1Cge0Seh+6gjj03LbmRFWuoszgK9ooCpwYIrhhoO80pfq4cUkU5DkknwfOfFteRwlZ56PYOGYyFWdg==}
-    engines: {node: '>= 4'}
 
   sax@1.4.1:
     resolution: {integrity: sha512-+aWOz7yVScEGoKNd4PA10LZ8sk0A/z5+nXQG5giUO5rprX9jgYsTdov9qCchZiPIZezbZH+jRut8nPodFAX4Jg==}
@@ -4349,8 +4342,6 @@ snapshots:
     dependencies:
       csstype: 3.1.3
 
-  '@types/retry@0.12.2': {}
-
   '@types/textarea-caret@3.0.4': {}
 
   '@types/unist@2.0.11': {}
@@ -5523,11 +5514,9 @@ snapshots:
       fast-xml-parser: 4.5.3
       json-pointer: 0.6.2
 
-  p-retry@6.2.1(patch_hash=c75e89fd8beb8c000a9db38c7a66f078793315bb5db45f8fe9bfe8f9db0a9900):
+  p-retry@7.0.0(patch_hash=c75e89fd8beb8c000a9db38c7a66f078793315bb5db45f8fe9bfe8f9db0a9900):
     dependencies:
-      '@types/retry': 0.12.2
       is-network-error: 1.1.0
-      retry: 0.13.1
 
   parent-module@1.0.1:
     dependencies:
@@ -5835,8 +5824,6 @@ snapshots:
       is-core-module: 2.16.1
       path-parse: 1.0.7
       supports-preserve-symlinks-flag: 1.0.0
-
-  retry@0.13.1: {}
 
   sax@1.4.1: {}
 
