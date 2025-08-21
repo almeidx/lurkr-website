@@ -9,7 +9,7 @@ overrides:
 
 patchedDependencies:
   p-retry:
-    hash: c75e89fd8beb8c000a9db38c7a66f078793315bb5db45f8fe9bfe8f9db0a9900
+    hash: 0c6f6d8001ec71275bedc59774a9278dfbdec1bd21093afc1ec1ebc6c76d6034
     path: patches/p-retry.patch
 
 importers:
@@ -87,7 +87,7 @@ importers:
         version: 2.4.7
       p-retry:
         specifier: ^7.0.0
-        version: 7.0.0(patch_hash=c75e89fd8beb8c000a9db38c7a66f078793315bb5db45f8fe9bfe8f9db0a9900)
+        version: 7.0.0(patch_hash=0c6f6d8001ec71275bedc59774a9278dfbdec1bd21093afc1ec1ebc6c76d6034)
       pretty-ms:
         specifier: ^9.2.0
         version: 9.2.0
@@ -5514,7 +5514,7 @@ snapshots:
       fast-xml-parser: 4.5.3
       json-pointer: 0.6.2
 
-  p-retry@7.0.0(patch_hash=c75e89fd8beb8c000a9db38c7a66f078793315bb5db45f8fe9bfe8f9db0a9900):
+  p-retry@7.0.0(patch_hash=0c6f6d8001ec71275bedc59774a9278dfbdec1bd21093afc1ec1ebc6c76d6034):
     dependencies:
       is-network-error: 1.1.0
 
