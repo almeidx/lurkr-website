@@ -9,7 +9,7 @@
 		"dev": "next dev --turbo",
 		"fmt": "biome check --write --unsafe",
 		"format": "pnpm run fmt",
-		"postinstall": "next typegen && fumadocs-mdx && node --experimental-strip-types scripts/generate-docs.ts",
+		"postinstall": "next typegen && fumadocs-mdx",
 		"lint": "biome check",
 		"prepare": "husky .github/husky",
 		"start": "next start"
