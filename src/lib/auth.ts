@@ -17,7 +17,6 @@ export async function getCurrentUser(token: string) {
 export interface User {
 	avatar: string | null;
 	accentColour: string | null;
-	accentType: UserAccentType | null;
 	discriminator: string;
 	hasBackground: boolean;
 	globalName: string | null;
@@ -36,10 +35,4 @@ export enum PremiumTier {
 	None = "None",
 	Basic = "Basic",
 	Guild = "Guild",
-}
-
-export enum UserAccentType {
-	AvatarAverage = "AvatarAverage",
-	HighestRole = "HighestRole",
-	Custom = "Custom",
 }

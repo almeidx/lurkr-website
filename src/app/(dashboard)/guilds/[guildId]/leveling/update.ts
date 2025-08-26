@@ -24,7 +24,6 @@ import {
 import { action } from "@/app/(dashboard)/guilds/[guildId]/action-base.ts";
 import {
 	AutoResetLevels,
-	GuildAccentType,
 	type GuildSettings,
 	LeaderboardVisibility,
 	XpAnnouncementChannelType,
@@ -128,13 +127,6 @@ export async function update(guildId: string, premium: boolean, _currentState: u
 			})),
 	} satisfies Partial<GuildSettings>;
 
-	if (settings.accentType === GuildAccentType.Custom && !settings.accentColour) {
-		return {
-			error: ServerActionError.ManualValidationFail,
-			issue: "Missing accent colour",
-		};
-	}
-
 	if (settings.xpAnnounceChannelType === XpAnnouncementChannelType.Custom && !settings.xpAnnounceChannel) {
 		return {
 			error: ServerActionError.ManualValidationFail,
@@ -165,7 +157,6 @@ function createSchema(premium: boolean) {
 	return lazy(() =>
 		object({
 			accentColour: optional(pipe(string(), regex(/^#[\da-f]{6}$/i))),
-			accentType: union([emptyStringToNull, pipe(string(), enum_(GuildAccentType))]),
 			autoResetLevelsBan: toggle,
 			autoResetLevelsLeave: toggle,
 			leaderboardVisibility: enum_(LeaderboardVisibility),

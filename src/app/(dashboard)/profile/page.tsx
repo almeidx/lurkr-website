@@ -5,9 +5,9 @@ import { cookies } from "next/headers";
 import { Section } from "@/components/dashboard/Section.tsx";
 import { Text } from "@/components/dashboard/Text.tsx";
 import { ImageWithFallback } from "@/components/ImageWithFallback.tsx";
-import { getCurrentUser, UserAccentType } from "@/lib/auth.ts";
+import { getCurrentUser } from "@/lib/auth.ts";
 import type { UserGuildInfo } from "@/lib/guild.ts";
-import { TOKEN_COOKIE } from "@/utils/constants.ts";
+import { DEFAULT_ACCENT_COLOR, TOKEN_COOKIE } from "@/utils/constants.ts";
 import { userAvatar } from "@/utils/discord-cdn.ts";
 import { greeting } from "@/utils/greeting.ts";
 import { makeApiRequest } from "@/utils/make-api-request.ts";
@@ -116,15 +116,13 @@ export default async function ProfilePage() {
 				<h3 className="font-semibold text-xl">Accent Color</h3>
 
 				<div className="flex flex-col gap-3">
-					{user.accentColour === UserAccentType.HighestRole ? (
-						<Text>The color of your highest role in the server.</Text>
-					) : user.accentType === UserAccentType.Custom ? (
+					{user.accentColour ? (
 						<div className="flex items-center gap-1">
 							<Text>Your accent color is {user.accentColour!}</Text>
 							<div className="h-5 w-5 rounded-full" style={{ backgroundColor: user.accentColour! }} />
 						</div>
 					) : (
-						<Text>Your accent color is calculated from your profile picture.</Text>
+						<Text>You do not have a custom accent color set. The default "{DEFAULT_ACCENT_COLOR}" will be used.</Text>
 					)}
 
 					<p className="text-gray-400 text-sm">This color is used as the progress bar color of your rank card.</p>

@@ -99,7 +99,6 @@ type LimitedKey =
 	| Exclude<
 			keyof GuildSettings,
 			| "accentColour"
-			| "accentType"
 			| "autoResetLevels"
 			| "emojiList"
 			| "emojiListChannel"

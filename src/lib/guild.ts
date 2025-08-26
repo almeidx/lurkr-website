@@ -77,7 +77,6 @@ export interface Embed {
 
 export interface GuildSettings {
 	accentColour: string | null;
-	accentType: GuildAccentType | null;
 	autoPublishChannels: string[];
 	autoResetLevels: AutoResetLevels;
 	autoRole: Snowflake[];
@@ -153,12 +152,6 @@ export enum ChannelType {
 	GuildCategory = 4,
 	GuildAnnouncement = 5,
 	GuildForum = 15,
-}
-
-export enum GuildAccentType {
-	BannerAverage = "BannerAverage",
-	Custom = "Custom",
-	IconAverage = "IconAverage",
 }
 
 export enum LeaderboardVisibility {

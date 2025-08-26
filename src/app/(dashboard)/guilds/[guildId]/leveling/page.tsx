@@ -165,7 +165,7 @@ export default async function Leveling({ params }: { readonly params: Promise<{ 
 			>
 				<Text>Set which colour the rank progress bar should be for your server members…</Text>
 
-				<DefaultRankCardColor defaultAccentColour={settings.accentColour} defaultAccentType={settings.accentType} />
+				<DefaultRankCardColor defaultAccentColour={settings.accentColour} />
 			</Section>
 
 			<Section name="Web Leaderboard">
