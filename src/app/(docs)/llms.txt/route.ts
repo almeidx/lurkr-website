@@ -29,7 +29,7 @@ export async function GET() {
 
 		results.push(`file: ${file}
 meta: ${JSON.stringify(data, null, 2)}
-        
+
 ${processed}`);
 	}
 

@@ -1,5 +1,5 @@
 import { loader } from "fumadocs-core/source";
-import { attachFile, createOpenAPI } from "fumadocs-openapi/server";
+import { transformerOpenAPI } from "fumadocs-openapi/server";
 import { createElement } from "react";
 import { docs } from "../../.source";
 
@@ -10,11 +10,7 @@ export const source = loader({
 		return createElement("span", undefined, icon);
 	},
 	pageTree: {
-		attachFile,
+		transformers: [transformerOpenAPI()],
 	},
 	source: docs.toFumadocsSource(),
-});
-
-export const openapi = createOpenAPI({
-	disablePlayground: true,
 });
