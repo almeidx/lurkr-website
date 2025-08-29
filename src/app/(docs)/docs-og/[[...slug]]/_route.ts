@@ -2,7 +2,9 @@ import { generateOGImage } from "fumadocs-ui/og";
 import { notFound } from "next/navigation";
 import { source } from "@/lib/source";
 
-export async function GET(_req: Request, { params }: RouteContext<"/docs-og/[[...slug]]">) {
+export const runtime = "edge";
+
+export async function GET(_req: Request, { params }: any) {
 	const { slug } = await params;
 	const page = source.getPage(slug?.slice(0, -1) ?? []);
 	if (!page) notFound();
@@ -14,9 +16,9 @@ export async function GET(_req: Request, { params }: RouteContext<"/docs-og/[[..
 	});
 }
 
-export function generateStaticParams() {
-	return source.generateParams().map((page) => ({
-		...page,
-		slug: [...page.slug, "image.png"],
-	}));
-}
+// export function generateStaticParams() {
+// 	return source.generateParams().map((page) => ({
+// 		...page,
+// 		slug: [...page.slug, "image.png"],
+// 	}));
+// }

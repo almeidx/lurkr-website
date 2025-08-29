@@ -6,6 +6,8 @@ import remarkGfm from "remark-gfm";
 import remarkMdx from "remark-mdx";
 import remarkStringify from "remark-stringify";
 
+export const runtime = "edge";
+
 export const revalidate = false;
 
 const processor = remark() //

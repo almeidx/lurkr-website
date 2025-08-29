@@ -7,6 +7,8 @@ import type { ReactNode } from "react";
 import { BRAND_COLOR, DESCRIPTION, PUBLIC_URL } from "@/utils/constants.ts";
 import { openSans } from "../fonts.ts";
 
+export const runtime = "edge";
+
 export default function Layout({ children }: { children: ReactNode }) {
 	return (
 		<html lang="en" suppressHydrationWarning>
