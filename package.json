@@ -85,6 +85,7 @@
 		"node": ">=22.19.0"
 	},
 	"pnpm": {
+		"minimumReleaseAge": 1440,
 		"onlyBuiltDependencies": [
 			"@biomejs/biome",
 			"@tailwindcss/oxide",
