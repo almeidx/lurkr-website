@@ -98,15 +98,17 @@ button[disabled] {
 	-o-user-drag: none;
 }
 
-.rfm-child {
-	@apply mr-4;
-}
-
 .prose-blue-400 {
 	--tw-prose-links: rgba(96 165 250);
 	--tw-prose-invert-links: rgba(96 165 250);
 }
 
+/* react-fast-marquee */
+.rfm-child {
+	@apply mr-4;
+}
+
+/* react-medium-image-zoom */
 div[data-rmiz-modal-content] {
 	@apply bg-darker;
 }
