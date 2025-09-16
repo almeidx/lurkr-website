@@ -20,20 +20,11 @@
 		"noImplicitReturns": true,
 		"noUncheckedIndexedAccess": true,
 		"noUnusedLocals": true,
-		"paths": {
-			"@/*": ["./src/*"]
-		},
-		"plugins": [
-			{
-				"name": "next"
-			}
-		],
 		"resolveJsonModule": true,
 		"skipLibCheck": true,
 		"strict": true,
 		"target": "ES2017",
 		"useUnknownInCatchVariables": true
 	},
-	"exclude": ["node_modules"],
-	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/shared-links.js"]
+	"exclude": ["node_modules"]
 }

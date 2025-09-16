@@ -1,4 +1,4 @@
-<img src="./src/assets/banner.webp" alt="Lurkr bot banner" height="200" />
+<img src="./dash/src/assets/banner.webp" alt="Lurkr bot banner" height="200" />
 
 # Table of Contents
 
