@@ -11,8 +11,7 @@
 		}
 	},
 	"files": {
-		"ignoreUnknown": true,
-		"includes": ["**", "!.next", "!.source", "!.vscode", "!node_modules", "!next-env.d.ts"]
+		"ignoreUnknown": true
 	},
 	"formatter": {
 		"lineWidth": 120
@@ -67,13 +66,13 @@
 			"assist": {
 				"enabled": false
 			},
-			"includes": ["package.json"]
+			"includes": ["package.json", "**/package.json"]
 		}
 	],
 	"vcs": {
 		"clientKind": "git",
 		"defaultBranch": "main",
 		"enabled": true,
-		"useIgnoreFile": false
+		"useIgnoreFile": true
 	}
 }

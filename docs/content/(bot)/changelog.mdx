@@ -1,0 +1,201 @@
+---
+title: Changelog
+description: Stay up to date with the latest changes to Lurkr.
+icon: 📝
+---
+
+import { SUPPORT_SERVER_INVITE, UPDATES_CHANNEL_LINK } from "@/shared-links.ts";
+import { ExternalLink } from "@/components/ExternalLink.tsx";
+
+Here you can find some of the relevant changes we've made to Lurkr over the past few months. We're always working on
+improving the bot and adding new features, so make sure to check back here regularly!
+
+Despite our efforts, this page is not always so up-to-date. For the most recent changes, please check the
+
+<ExternalLink href={UPDATES_CHANNEL_LINK}>#updates</ExternalLink> channel in our
+<ExternalLink href={SUPPORT_SERVER_INVITE}>Discord Server</ExternalLink>.
+
+## Introducing the Lurkr API!
+
+28 April 2025
+
+### Discord Bot [!toc]
+
+- Added a **public API** for other developers to take advantage of Lurkr's deep Leveling System for their own projects!
+  - This can allow you to add leveling requirements for your own bots, add or remove levels\/xp based on other factors,
+    and integrate Lurkr leveling into other games!
+  - You can create and customize your API key on your profile page: [lurkr.gg/profile](/profile)
+  - Please read the API Documentation before creating support requests: [lurkr.gg/docs/api](/docs/api)
+
+- Improved and updated the rank card!
+  - Now applies the name on the rank card in this order: <u>1.</u> Nickname, <u>2.</u> Display name, <u>3.</u> Username
+  - Removed the character limit for names on the rank card.
+  - Removed the dark gray background around the Avatar in the rank card.
+
+- Added the `level_or_milestone` option to the `/test` command.
+  - Useful for checking how the level up message or milestone message will look like for specific levels or milestones.
+
+- Fixed the rank card not showing when any image failed to load.
+- Fixed cyrillic alphabet not appearing in the rank card.
+
+### Dashboard [!toc]
+
+- Added an API key generation section to the profile page! [lurkr.gg/profile](/profile)
+
+## Role Rewards placeholder on Level Up Messages
+
+30 December 2024
+
+### Discord Bot [!toc]
+
+- Added `{roleRewards}` placeholder to Level Up Message!
+  - This now allows you to show which role rewards your members get!
+  - Also added support for showing text conditionally, using `{#var}text here{/var}` and `{^var}text here{/var}` for
+    negative condition.
+  - **For Example**: `{#roleRewards}You gained the {roleRewards} role rewards!{/roleRewards}`, this **only appears if**
+    role rewards were applied.
+
+- Added support for more colour names in the `/colour` command
+
+- Fixed an issue with the handling of Polaris private leaderboard errors.
+- Fixed only one mentioned role working at a time for mentioned role cooldowns.
+- Minor stability improvements.
+
+- Removed `/image`, `/purge`, and `/translate` commands.
+  - They are no longer the focus of the bot, and weren't used by anyone anymore.
+
+### Dashboard [!toc]
+
+- Fixed a 404 error when accepting cookies in the dashboard page.
+- Fixed roles not being saved when updating an existing role multiplier.
+
+## Quality of Life Improvements
+
+29 September 2024
+
+### Discord Bot [!toc]
+
+- Increased the Role Mention Cooldown interval to **6 Hours** for [Lurkr Ultimate](/premium) servers.
+  - The standard limit of 30 minutes has not been changed.
+
+- Added a `user` option to `/background view` command.
+  - This new option is meant to help users find and report (`/background report`) offensive user backgrounds.
+
+- Added named colour options to the `/colour` command.
+  - This means you can now type `red` or `green` instead of a complicated hex code! Give it a try!
+
+- Fixed Polaris Import importing incorrect levels.
+- Reduced probability of getting an "unexpected error" when using `/importxp`.
+- Renamed the `until` option in the `/importxp` command to `min_level` for better clarity on what the option does.
+- Fixed an issue not gaining XP when an active multiplier is too low (ie. x0.01).
+
+- Unfortunately Polaris Import's might still sometimes fail with "unexpected errors". This is because of Polaris'
+  inherent instability and cannot be fixed on our end.
+
+### Dashboard [!toc]
+
+- Added a toggle for **Only Announce Level-Ups Together With Role Rewards** which was previously only available through
+  the config command.
+  - You can find it under **Leveling > Level Up Message**.
+
+- Added showing the non-shortened number when hovering over it in the Leveling Calculator.
+  - Instead of `21.3M`, hovering over the number with your mouse will show `21,303,511` now.
+
+- Fixed level up message conditions not showing/updating correctly.
+- Miscellaneous styling fixes.
+
+## Polaris Leaderboard Import
+
+24 August 2024
+
+### Discord Bot [!toc]
+
+- Added [Polaris](https://gdcolon.com/polaris/) support to the Import Bots section in the dashboard & `/importxp`
+  command!
+  - Polaris has been discontinued by the creator, and we want to help server owners/admins enjoy a smooth transition to
+    our leveling bot
+  - Polaris import supports Role Rewards!
+
+- Changed the `/colour` error message to better communicate hex colour codes.
+- Fixed the very first message a user sends not counting towards their XP but still triggering the XP cooldown.
+
+### Dashboard [!toc]
+
+- Fixed several errors when saving changes on the leveling page of the dashboard.
+
+## Embed Level up Messages
+
+8 July 2024
+
+### Dashboard [!toc]
+
+- Added the ability to create **Embed Messages** as the Level Up Message!
+  - You can now create embed messages _in addition_ to the normal level up message that gets sent!
+  - You can now remove the Level Up Message entirely in order to replace it with an embed message.
+  - <u>Currently this feature is only available on the Dashboard!</u>
+  - Thank you everyone for suggesting this feature!
+
+- Added the abilities to preview **Embed Messages** when using the `/test` command!
+  - Embeds are hard! Preview what your level up message will look like using `/test type:XP Message`
+
+- Added a cookie pop-up box. Just click it away!
+- Updated our Privacy Policy and Terms of Conditions to be more legible and concise. We haven't really touched the
+  contents.
+
+## Background Blacklist and Import Bots
+
+27 June 2024
+
+### Discord Bot [!toc]
+
+- Added a blacklisting system for users who upload innapropriate Backgrounds using `/background set`.
+  - This is tied to the `/background report` command.
+  - After reporting someone, our Team reviews the report and may delete the background & blacklist the reported user if
+    necessary.
+
+- Allowed separate role reward levels to share the same roles
+
+- Fixed a bug with deleted users when importing leveling data from MEE6
+- Fixed emojis not being displayed properly in some commands
+- Fixed `/colour` command showing erroneous responses
+- Fixed duplicate level up messages
+- Fixed emoji-list deleting a very large amount of messages
+- Fixed XP Multipliers showing duplicated roles at times
+- Fixed `/importxp` for AmariBot only importing the first 50 members
+- Stability improvements and other minor bug fixes
+
+### Dashboard [!toc]
+
+- Added the `Import Bots` section to the Dashboard!
+  - Adds the same functionality as the `/importxp` command but in the nice brand new website!
+  - Now shows the progress of the import, useful for large servers!
+  - Currently only supports AmariBot and MEE6, let us know which Bots you want us to support next!
+  - AtlasBot was removed due to them changing the way their API works.
+
+- Fixed a bunch of styling & scaling issues primarily on Mobile
+- Fixed a bug allowing non-selectable roles to be selected in dropdown menus
+
+## New Website
+
+26 June 2024
+
+### Dashboard [!toc]
+
+2 Months ago we announced the launch of our new Beta website we've been crunching out for 2 Years! We're glad and
+
+<u>(slightly)</u> relieved to announce it is, as of right now live and accessible from https://lurkr.gg/ directly!
+
+- **Features!**
+  - With the website now out, we can focus more on new features, both for the brand new and still shiny website and for
+    the actual bot!
+
+- **Feedback!**
+  - We'd still love to hear your feedback and ideas! Drop a suggestion into #suggestions with the Website/Dashboard tag!
+
+- 🐛 **Stragglers**
+  - Thank you for all of your contributions in finding and reporting bugs in the Beta website, though we're sure there
+    are still more bugs to squash!
+  - If you did find one, head over to support, create a forum post as usual detailing every step you took to reproduce
+    the bug (In as much detail as possible!), the operating system you're on (Mac, Windows, Linux, iOS, Android), what
+    device you're on (Mobile, Laptop, Desktop), what browser you're using (Chrome, Firefox, Safari) and lastly, select
+    the Website/Dashboard tag!

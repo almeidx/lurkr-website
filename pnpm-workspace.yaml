@@ -1,0 +1,17 @@
+packages:
+  - dash
+  - docs
+
+minimumReleaseAge: 1440
+
+onlyBuiltDependencies:
+  - "@biomejs/biome"
+  - "@tailwindcss/oxide"
+  - esbuild
+  - sharp
+
+overrides:
+  react-is: ^19.1.1
+
+patchedDependencies:
+  p-retry: patches/p-retry.patch
