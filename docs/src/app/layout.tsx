@@ -10,6 +10,9 @@ import { BRAND_COLOR, DESCRIPTION, PUBLIC_URL } from "@/utils/constants.ts";
 import { openSans } from "./fonts.ts";
 import { baseOptions } from "./layout.config.tsx";
 
+export const dynamic = "force-static";
+export const revalidate = 10800; // 3 hours
+
 export default function Layout({ children }: { children: ReactNode }) {
 	return (
 		<html lang="en" suppressHydrationWarning>

@@ -2,6 +2,8 @@ import { generateOGImage } from "fumadocs-ui/og";
 import { notFound } from "next/navigation";
 import { source } from "@/lib/source";
 
+export const dynamicParams = false;
+
 export async function GET(_req: Request, { params }: RouteContext<"/og/[[...slug]]">) {
 	const { slug } = await params;
 	const page = source.getPage(slug?.slice(0, -1) ?? []);
