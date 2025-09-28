@@ -186,17 +186,17 @@ importers:
   docs:
     dependencies:
       fumadocs-core:
-        specifier: ^15.8.0
-        version: 15.8.0(@types/react@19.1.14)(next@15.5.4(babel-plugin-react-compiler@19.1.0-rc.3)(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+        specifier: ^15.8.1
+        version: 15.8.1(@types/react@19.1.14)(next@15.5.4(babel-plugin-react-compiler@19.1.0-rc.3)(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
       fumadocs-mdx:
         specifier: ^12.0.1
-        version: 12.0.1(fumadocs-core@15.8.0(@types/react@19.1.14)(next@15.5.4(babel-plugin-react-compiler@19.1.0-rc.3)(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(next@15.5.4(babel-plugin-react-compiler@19.1.0-rc.3)(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react@19.1.1)
+        version: 12.0.1(fumadocs-core@15.8.1(@types/react@19.1.14)(next@15.5.4(babel-plugin-react-compiler@19.1.0-rc.3)(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(next@15.5.4(babel-plugin-react-compiler@19.1.0-rc.3)(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react@19.1.1)
       fumadocs-openapi:
-        specifier: ^9.3.12
-        version: 9.3.12(@types/react-dom@19.1.9(@types/react@19.1.14))(@types/react@19.1.14)(next@15.5.4(babel-plugin-react-compiler@19.1.0-rc.3)(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(tailwindcss@4.1.13)(typescript@5.9.2)
+        specifier: ^9.3.13
+        version: 9.3.13(@types/react-dom@19.1.9(@types/react@19.1.14))(@types/react@19.1.14)(next@15.5.4(babel-plugin-react-compiler@19.1.0-rc.3)(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(tailwindcss@4.1.13)
       fumadocs-ui:
-        specifier: ^15.8.0
-        version: 15.8.0(@types/react-dom@19.1.9(@types/react@19.1.14))(@types/react@19.1.14)(next@15.5.4(babel-plugin-react-compiler@19.1.0-rc.3)(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(tailwindcss@4.1.13)
+        specifier: ^15.8.1
+        version: 15.8.1(@types/react-dom@19.1.9(@types/react@19.1.14))(@types/react@19.1.14)(next@15.5.4(babel-plugin-react-compiler@19.1.0-rc.3)(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(tailwindcss@4.1.13)
       next:
         specifier: ^15.5.4
         version: 15.5.4(babel-plugin-react-compiler@19.1.0-rc.3)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
@@ -1414,12 +1414,12 @@ packages:
     resolution: {integrity: sha512-EoAufzG0crQloYJxbCV8F+Y5vPyeeh1HMngGlXPT6oGSJPi6DiNA9wztqK3lvaBmSkJMh4VKIbejVqAXx1a0tg==}
     engines: {node: '>=20'}
 
-  '@scalar/json-magic@0.5.1':
-    resolution: {integrity: sha512-O9EzRWSGVz3BX/dPeDEt3A8wjHl+2yeBlDAjexRXhETjhVxMlWQ/jUnYPqHnEXv0A4tGJ1WWem1mnVi1ziV+6g==}
+  '@scalar/json-magic@0.5.2':
+    resolution: {integrity: sha512-Gf/T/Y3E1NKIy+UAFUBARaWekV1BxNhV910VtVLahnjzyAEK39HWXspC8lnZa7PYaaf6bK3RbqQg1pennzBnpQ==}
     engines: {node: '>=20'}
 
-  '@scalar/openapi-parser@0.21.1':
-    resolution: {integrity: sha512-AtI2gcw/qqzhZenQHSeamN1DiWxaSy51sG1cApUO7G/QPDmEVWnXLdh62H3kzjoh5CynJBoOY6NeBdLeuFJmcA==}
+  '@scalar/openapi-parser@0.21.2':
+    resolution: {integrity: sha512-aKcfS0ZGrC4GPvmAAHo/kKKP7BKl6DXl1PSYHj0YN8Pws7t7mwIogaYV6u2Zuprr8U6ZBpAhpXLtKZAxdduWWw==}
     engines: {node: '>=20'}
 
   '@scalar/openapi-types@0.3.7':
@@ -1662,35 +1662,6 @@ packages:
   '@ungap/structured-clone@1.3.0':
     resolution: {integrity: sha512-WmoN8qaIAo7WTYWbAZuG8PYEhn5fkz7dZrqTBZ7dtt//lL2Gwms1IcnQ5yHqjDfX8Ft5j4YzDM23f87zBfDe9g==}
 
-  '@vue/compiler-core@3.5.21':
-    resolution: {integrity: sha512-8i+LZ0vf6ZgII5Z9XmUvrCyEzocvWT+TeR2VBUVlzIH6Tyv57E20mPZ1bCS+tbejgUgmjrEh7q/0F0bibskAmw==}
-
-  '@vue/compiler-dom@3.5.21':
-    resolution: {integrity: sha512-jNtbu/u97wiyEBJlJ9kmdw7tAr5Vy0Aj5CgQmo+6pxWNQhXZDPsRr1UWPN4v3Zf82s2H3kF51IbzZ4jMWAgPlQ==}
-
-  '@vue/compiler-sfc@3.5.21':
-    resolution: {integrity: sha512-SXlyk6I5eUGBd2v8Ie7tF6ADHE9kCR6mBEuPyH1nUZ0h6Xx6nZI29i12sJKQmzbDyr2tUHMhhTt51Z6blbkTTQ==}
-
-  '@vue/compiler-ssr@3.5.21':
-    resolution: {integrity: sha512-vKQ5olH5edFZdf5ZrlEgSO1j1DMA4u23TVK5XR1uMhvwnYvVdDF0nHXJUblL/GvzlShQbjhZZ2uvYmDlAbgo9w==}
-
-  '@vue/reactivity@3.5.21':
-    resolution: {integrity: sha512-3ah7sa+Cwr9iiYEERt9JfZKPw4A2UlbY8RbbnH2mGCE8NwHkhmlZt2VsH0oDA3P08X3jJd29ohBDtX+TbD9AsA==}
-
-  '@vue/runtime-core@3.5.21':
-    resolution: {integrity: sha512-+DplQlRS4MXfIf9gfD1BOJpk5RSyGgGXD/R+cumhe8jdjUcq/qlxDawQlSI8hCKupBlvM+3eS1se5xW+SuNAwA==}
-
-  '@vue/runtime-dom@3.5.21':
-    resolution: {integrity: sha512-3M2DZsOFwM5qI15wrMmNF5RJe1+ARijt2HM3TbzBbPSuBHOQpoidE+Pa+XEaVN+czbHf81ETRoG1ltztP2em8w==}
-
-  '@vue/server-renderer@3.5.21':
-    resolution: {integrity: sha512-qr8AqgD3DJPJcGvLcJKQo2tAc8OnXRcfxhOJCPF+fcfn5bBGz7VCcO7t+qETOPxpWK1mgysXvVT/j+xWaHeMWA==}
-    peerDependencies:
-      vue: 3.5.21
-
-  '@vue/shared@3.5.21':
-    resolution: {integrity: sha512-+2k1EQpnYuVuu3N7atWyG3/xoFWIVJZq4Mz8XNOdScFI0etES75fbny/oU4lKWk/577P1zmg0ioYvpGEDZ3DLw==}
-
   acorn-jsx@5.3.2:
     resolution: {integrity: sha512-rq9s+JNhf0IChjtDXxllJ7g41oZk5SlXtp0LHwyA5cejwn7vKmKp4pPri6YEePv2PU65sAsegbXtIinmDFDXgQ==}
     peerDependencies:
@@ -1894,10 +1865,6 @@ packages:
     resolution: {integrity: sha512-d4lC8xfavMeBjzGr2vECC3fsGXziXZQyJxD868h2M/mBI3PwAuODxAkLkq5HYuvrPYcUtiLzsTo8U3PgX3Ocww==}
     engines: {node: '>=10.13.0'}
 
-  entities@4.5.0:
-    resolution: {integrity: sha512-V0hjH4dGPh9Ao5p0MoRY6BVqtwCjhz6vI5LT8AJ55H+4g9/4vbHx1I54fS0XuclLhDHArPQCiMjDxjaL8fPxhw==}
-    engines: {node: '>=0.12'}
-
   error-ex@1.3.4:
     resolution: {integrity: sha512-sqQamAnR14VgCr1A618A3sGrygcpK+HEbenA/HiEAkkUwcZIIB/tgWqHFxWgOyDh4nB4JCRimh79dR5Ywc9MDQ==}
 
@@ -1949,9 +1916,6 @@ packages:
   estree-util-visit@2.0.0:
     resolution: {integrity: sha512-m5KgiH85xAhhW8Wta0vShLcUvOsh3LLPI2YVwcbio1l7E09NTLL1EyMZFM1OyWowoH0skScNbhOPl4kcBgzTww==}
 
-  estree-walker@2.0.2:
-    resolution: {integrity: sha512-Rfkk/Mp/DL7JVje3u18FxFujQlTNR2q6QfMSMB7AvCBx91NGj/ba3kCfza0f6dVDbw7YlRf/nDrn7pQrCCyQ/w==}
-
   estree-walker@3.0.3:
     resolution: {integrity: sha512-7RUKfXgSMMkzt6ZuXmqapOurLGPPfgj6l9uRZ7lRGolvk0y2yocc35LdcxKC5PQZdn2DMqioAQ2NoWcrTKmm6g==}
 
@@ -1990,8 +1954,8 @@ packages:
   foreach@2.0.6:
     resolution: {integrity: sha512-k6GAGDyqLe9JaebCsFCoudPPWfihKu8pylYXRlqP1J7ms39iPoTtk2fviNglIeQEwdh0bQeKJ01ZPyuyQvKzwg==}
 
-  fumadocs-core@15.8.0:
-    resolution: {integrity: sha512-59N456t3OlWskWQS1GUXmi7C74WSaXzc+Ym4NsrCMKinPCz9zzTPh4eidcFD1O92xSJdqQV+pdfTyK+w8ppv7A==}
+  fumadocs-core@15.8.1:
+    resolution: {integrity: sha512-3NBM2U3QlnDr4AwfDCLFaNjRGOj52g3geHSnwC9hU2en34xROe7/I8FI1eLkX68ppGnhSQYm/rIuMAPzvepnsg==}
     peerDependencies:
       '@mixedbread/sdk': ^0.19.0
       '@oramacloud/client': 1.x.x || 2.x.x
@@ -2044,8 +2008,8 @@ packages:
       vite:
         optional: true
 
-  fumadocs-openapi@9.3.12:
-    resolution: {integrity: sha512-u4X/+y1ow3Dxdk9yUcEPAPL8uLu7pWfOOmhBC3wYUnTqRUWPcd0JCBRC3Pywsvoh4bfJeSj8/B4pz/fy4PKEAg==}
+  fumadocs-openapi@9.3.13:
+    resolution: {integrity: sha512-c+MovQsmDqhASicv0T9MsatrlRxONzz8Mf02PxNqDSxFlqOKPPB2duexeZ5tw/whRkXdsqvFj8jFTVzF8EqCxw==}
     peerDependencies:
       '@scalar/api-client-react': '*'
       '@types/react': '*'
@@ -2057,8 +2021,8 @@ packages:
       '@types/react':
         optional: true
 
-  fumadocs-ui@15.8.0:
-    resolution: {integrity: sha512-DoHttrOd6gJdyeOg3HGt47hEnH0clVSTFoskF5PJEimXsgMRbX52yyNysXisavHIjsbECy4zjngX0/jxR6QjnQ==}
+  fumadocs-ui@15.8.1:
+    resolution: {integrity: sha512-GFJoKiDPTPefXtfwr4cheeprtAF+rHILeyovta3cODPsurSRvSfxqbGVN8YRDUh1ja9GpExSQFgUFwp1+7qVtQ==}
     peerDependencies:
       '@types/react': '*'
       next: 14.x.x || 15.x.x
@@ -3026,14 +2990,6 @@ packages:
 
   victory-vendor@37.3.6:
     resolution: {integrity: sha512-SbPDPdDBYp+5MJHhBCAyI7wKM3d5ivekigc2Dk2s7pgbZ9wIgIBYGVw4zGHBml/qTFbexrofXW6Gu4noGxrOwQ==}
-
-  vue@3.5.21:
-    resolution: {integrity: sha512-xxf9rum9KtOdwdRkiApWL+9hZEMWE90FHh8yS1+KJAiWYh+iGWV1FquPjoO9VUHQ+VIhsCXNNyZ5Sf4++RVZBA==}
-    peerDependencies:
-      typescript: '*'
-    peerDependenciesMeta:
-      typescript:
-        optional: true
 
   xml-js@1.6.11:
     resolution: {integrity: sha512-7rVi2KMfwfWFl+GpPg6m80IVMWXLRjO+PxTq7V2CDhoGak0wzYzFgUY2m4XJ47OGdXd8eLE8EmwfAmdjw7lC1g==}
@@ -4198,17 +4154,14 @@ snapshots:
 
   '@scalar/helpers@0.0.11': {}
 
-  '@scalar/json-magic@0.5.1(typescript@5.9.2)':
+  '@scalar/json-magic@0.5.2':
     dependencies:
       '@scalar/helpers': 0.0.11
-      vue: 3.5.21(typescript@5.9.2)
       yaml: 2.8.0
-    transitivePeerDependencies:
-      - typescript
 
-  '@scalar/openapi-parser@0.21.1(typescript@5.9.2)':
+  '@scalar/openapi-parser@0.21.2':
     dependencies:
-      '@scalar/json-magic': 0.5.1(typescript@5.9.2)
+      '@scalar/json-magic': 0.5.2
       '@scalar/openapi-types': 0.3.7
       '@scalar/openapi-upgrader': 0.1.0
       ajv: 8.17.1
@@ -4217,8 +4170,6 @@ snapshots:
       jsonpointer: 5.0.1
       leven: 4.1.0
       yaml: 2.8.0
-    transitivePeerDependencies:
-      - typescript
 
   '@scalar/openapi-types@0.3.7':
     dependencies:
@@ -4449,60 +4400,6 @@ snapshots:
 
   '@ungap/structured-clone@1.3.0': {}
 
-  '@vue/compiler-core@3.5.21':
-    dependencies:
-      '@babel/parser': 7.28.4
-      '@vue/shared': 3.5.21
-      entities: 4.5.0
-      estree-walker: 2.0.2
-      source-map-js: 1.2.1
-
-  '@vue/compiler-dom@3.5.21':
-    dependencies:
-      '@vue/compiler-core': 3.5.21
-      '@vue/shared': 3.5.21
-
-  '@vue/compiler-sfc@3.5.21':
-    dependencies:
-      '@babel/parser': 7.28.4
-      '@vue/compiler-core': 3.5.21
-      '@vue/compiler-dom': 3.5.21
-      '@vue/compiler-ssr': 3.5.21
-      '@vue/shared': 3.5.21
-      estree-walker: 2.0.2
-      magic-string: 0.30.19
-      postcss: 8.5.6
-      source-map-js: 1.2.1
-
-  '@vue/compiler-ssr@3.5.21':
-    dependencies:
-      '@vue/compiler-dom': 3.5.21
-      '@vue/shared': 3.5.21
-
-  '@vue/reactivity@3.5.21':
-    dependencies:
-      '@vue/shared': 3.5.21
-
-  '@vue/runtime-core@3.5.21':
-    dependencies:
-      '@vue/reactivity': 3.5.21
-      '@vue/shared': 3.5.21
-
-  '@vue/runtime-dom@3.5.21':
-    dependencies:
-      '@vue/reactivity': 3.5.21
-      '@vue/runtime-core': 3.5.21
-      '@vue/shared': 3.5.21
-      csstype: 3.1.3
-
-  '@vue/server-renderer@3.5.21(vue@3.5.21(typescript@5.9.2))':
-    dependencies:
-      '@vue/compiler-ssr': 3.5.21
-      '@vue/shared': 3.5.21
-      vue: 3.5.21(typescript@5.9.2)
-
-  '@vue/shared@3.5.21': {}
-
   acorn-jsx@5.3.2(acorn@8.15.0):
     dependencies:
       acorn: 8.15.0
@@ -4668,8 +4565,6 @@ snapshots:
       graceful-fs: 4.2.11
       tapable: 2.2.3
 
-  entities@4.5.0: {}
-
   error-ex@1.3.4:
     dependencies:
       is-arrayish: 0.2.1
@@ -4758,8 +4653,6 @@ snapshots:
       '@types/estree-jsx': 1.0.5
       '@types/unist': 3.0.3
 
-  estree-walker@2.0.2: {}
-
   estree-walker@3.0.3:
     dependencies:
       '@types/estree': 1.0.8
@@ -4788,7 +4681,7 @@ snapshots:
 
   foreach@2.0.6: {}
 
-  fumadocs-core@15.8.0(@types/react@19.1.14)(next@15.5.4(babel-plugin-react-compiler@19.1.0-rc.3)(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1):
+  fumadocs-core@15.8.1(@types/react@19.1.14)(next@15.5.4(babel-plugin-react-compiler@19.1.0-rc.3)(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1):
     dependencies:
       '@formatjs/intl-localematcher': 0.6.1
       '@orama/orama': 3.1.14
@@ -4815,14 +4708,14 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  fumadocs-mdx@12.0.1(fumadocs-core@15.8.0(@types/react@19.1.14)(next@15.5.4(babel-plugin-react-compiler@19.1.0-rc.3)(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(next@15.5.4(babel-plugin-react-compiler@19.1.0-rc.3)(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react@19.1.1):
+  fumadocs-mdx@12.0.1(fumadocs-core@15.8.1(@types/react@19.1.14)(next@15.5.4(babel-plugin-react-compiler@19.1.0-rc.3)(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(next@15.5.4(babel-plugin-react-compiler@19.1.0-rc.3)(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react@19.1.1):
     dependencies:
       '@mdx-js/mdx': 3.1.1
       '@standard-schema/spec': 1.0.0
       chokidar: 4.0.3
       esbuild: 0.25.10
       estree-util-value-to-estree: 3.4.0
-      fumadocs-core: 15.8.0(@types/react@19.1.14)(next@15.5.4(babel-plugin-react-compiler@19.1.0-rc.3)(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+      fumadocs-core: 15.8.1(@types/react@19.1.14)(next@15.5.4(babel-plugin-react-compiler@19.1.0-rc.3)(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
       js-yaml: 4.1.0
       lru-cache: 11.2.2
       mdast-util-to-markdown: 2.1.2
@@ -4840,19 +4733,19 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  fumadocs-openapi@9.3.12(@types/react-dom@19.1.9(@types/react@19.1.14))(@types/react@19.1.14)(next@15.5.4(babel-plugin-react-compiler@19.1.0-rc.3)(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(tailwindcss@4.1.13)(typescript@5.9.2):
+  fumadocs-openapi@9.3.13(@types/react-dom@19.1.9(@types/react@19.1.14))(@types/react@19.1.14)(next@15.5.4(babel-plugin-react-compiler@19.1.0-rc.3)(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(tailwindcss@4.1.13):
     dependencies:
       '@fumari/json-schema-to-typescript': 1.1.3
       '@radix-ui/react-accordion': 1.2.12(@types/react-dom@19.1.9(@types/react@19.1.14))(@types/react@19.1.14)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
       '@radix-ui/react-dialog': 1.1.15(@types/react-dom@19.1.9(@types/react@19.1.14))(@types/react@19.1.14)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
       '@radix-ui/react-select': 2.2.6(@types/react-dom@19.1.9(@types/react@19.1.14))(@types/react@19.1.14)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
       '@radix-ui/react-slot': 1.2.3(@types/react@19.1.14)(react@19.1.1)
-      '@scalar/json-magic': 0.5.1(typescript@5.9.2)
-      '@scalar/openapi-parser': 0.21.1(typescript@5.9.2)
+      '@scalar/json-magic': 0.5.2
+      '@scalar/openapi-parser': 0.21.2
       ajv: 8.17.1
       class-variance-authority: 0.7.1
-      fumadocs-core: 15.8.0(@types/react@19.1.14)(next@15.5.4(babel-plugin-react-compiler@19.1.0-rc.3)(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
-      fumadocs-ui: 15.8.0(@types/react-dom@19.1.9(@types/react@19.1.14))(@types/react@19.1.14)(next@15.5.4(babel-plugin-react-compiler@19.1.0-rc.3)(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(tailwindcss@4.1.13)
+      fumadocs-core: 15.8.1(@types/react@19.1.14)(next@15.5.4(babel-plugin-react-compiler@19.1.0-rc.3)(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+      fumadocs-ui: 15.8.1(@types/react-dom@19.1.9(@types/react@19.1.14))(@types/react@19.1.14)(next@15.5.4(babel-plugin-react-compiler@19.1.0-rc.3)(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(tailwindcss@4.1.13)
       github-slugger: 2.0.0
       gray-matter: 4.0.3
       hast-util-to-jsx-runtime: 2.3.6
@@ -4878,10 +4771,9 @@ snapshots:
       - react-router
       - supports-color
       - tailwindcss
-      - typescript
       - waku
 
-  fumadocs-ui@15.8.0(@types/react-dom@19.1.9(@types/react@19.1.14))(@types/react@19.1.14)(next@15.5.4(babel-plugin-react-compiler@19.1.0-rc.3)(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(tailwindcss@4.1.13):
+  fumadocs-ui@15.8.1(@types/react-dom@19.1.9(@types/react@19.1.14))(@types/react@19.1.14)(next@15.5.4(babel-plugin-react-compiler@19.1.0-rc.3)(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(tailwindcss@4.1.13):
     dependencies:
       '@radix-ui/react-accordion': 1.2.12(@types/react-dom@19.1.9(@types/react@19.1.14))(@types/react@19.1.14)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
       '@radix-ui/react-collapsible': 1.1.12(@types/react-dom@19.1.9(@types/react@19.1.14))(@types/react@19.1.14)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
@@ -4894,7 +4786,7 @@ snapshots:
       '@radix-ui/react-slot': 1.2.3(@types/react@19.1.14)(react@19.1.1)
       '@radix-ui/react-tabs': 1.1.13(@types/react-dom@19.1.9(@types/react@19.1.14))(@types/react@19.1.14)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
       class-variance-authority: 0.7.1
-      fumadocs-core: 15.8.0(@types/react@19.1.14)(next@15.5.4(babel-plugin-react-compiler@19.1.0-rc.3)(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+      fumadocs-core: 15.8.1(@types/react@19.1.14)(next@15.5.4(babel-plugin-react-compiler@19.1.0-rc.3)(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
       lodash.merge: 4.6.2
       next-themes: 0.4.6(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
       postcss-selector-parser: 7.1.0
@@ -6205,16 +6097,6 @@ snapshots:
       d3-shape: 3.2.0
       d3-time: 3.1.0
       d3-timer: 3.0.1
-
-  vue@3.5.21(typescript@5.9.2):
-    dependencies:
-      '@vue/compiler-dom': 3.5.21
-      '@vue/compiler-sfc': 3.5.21
-      '@vue/runtime-dom': 3.5.21
-      '@vue/server-renderer': 3.5.21(vue@3.5.21(typescript@5.9.2))
-      '@vue/shared': 3.5.21
-    optionalDependencies:
-      typescript: 5.9.2
 
   xml-js@1.6.11:
     dependencies:
