@@ -3,6 +3,8 @@ packages:
   - docs
 
 minimumReleaseAge: 1440
+minimumReleaseAgeExclude:
+  - "fumadocs-*"
 
 onlyBuiltDependencies:
   - "@biomejs/biome"
