@@ -140,7 +140,7 @@ function NavbarLinks({ hideMobile }: { hideMobile?: boolean }) {
 				</Link>
 			</li>
 			<li className="flex items-center gap-2 text-white hover:text-white/75">
-				<Link className="flex items-center gap-2" href="/docs">
+				<Link className="flex items-center gap-2" href="/docs" prefetch={false}>
 					<div className="md:hidden">
 						<AutoStories aria-hidden />
 					</div>
