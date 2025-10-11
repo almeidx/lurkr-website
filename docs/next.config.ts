@@ -5,8 +5,7 @@ import { getNextConfigHeaders } from "../shared/common.ts";
 const nextConfig = {
 	basePath: "/docs",
 	experimental: {
-		reactCompiler: true,
-		// ppr: true,
+		turbopackFileSystemCacheForDev: true,
 	},
 	async headers() {
 		return getNextConfigHeaders();
@@ -16,6 +15,7 @@ const nextConfig = {
 			fullUrl: true,
 		},
 	},
+	reactCompiler: true,
 	typescript: {
 		ignoreBuildErrors: true,
 	},
