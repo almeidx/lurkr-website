@@ -21,8 +21,7 @@ const backgroundBucketDomain = process.env.BACKGROUNDS_BUCKET_DOMAIN ?? "";
 
 const nextConfig = {
 	experimental: {
-		reactCompiler: true,
-		// ppr: true,
+		turbopackFileSystemCacheForDev: true,
 	},
 	async headers() {
 		return getNextConfigHeaders({
@@ -48,6 +47,7 @@ const nextConfig = {
 			fullUrl: true,
 		},
 	},
+	reactCompiler: true,
 	async redirects() {
 		return [
 			{
