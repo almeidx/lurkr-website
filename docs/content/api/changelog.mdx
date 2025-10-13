@@ -5,11 +5,22 @@ description:
   can expect no breaking changes in v2.
 ---
 
+## Get Role Rewards Changes for a Specific Level
+
+Date: 2025-10-13
+
+The global rate limit has been raised from **60** to **1500 requests per minute**.
+
+Added a new endpoint to fetch the changes in Role Reward roles for a specific level and user:
+
+- [`GET /guilds/{guildId}/role-rewards/level`](endpoints/guilds/get-the-role-rewards-changes-for-a-specific-level)
+
 ## Leveling System Settings on Leaderboard endpoint
 
 Date: 2025-07-18
 
-We've added the newly introduced leveling system settings to the `GET /levels/{guildId}` endpoint. These settings are:
+We've added the newly introduced leveling system settings to the
+[`GET /levels/{guildId}`](endpoints/levels/get-leaderboard) endpoint. These settings are:
 
 - `xpGainInterval` - The interval in seconds at which users gain experience.
 - `xpPerMessageMax` - The maximum experience a user can gain per message.
@@ -22,10 +33,11 @@ Date: 2025-05-04
 We're making public an endpoint for retrieving the leaderboard of a server. This endpoint is available to all users, and
 it does not require authentication:
 
-- `GET /levels/{guildId}?page=1` - Get the leaderboard for a server.
+- [`GET /levels/{guildId}?page=1`](./endpoints/levels/get-leaderboard) - Get the leaderboard for a server.
 
-Additionally, we've removed the `user.locale` property from the body of the `POST /levels/{guildId}/users/{userId}`
-endpoint, and strictened the `user.avatar` schema, to ensure only a valid Discord avatar hash can be passed.
+Additionally, we've removed the `user.locale` property from the body of the
+[`POST /levels/{guildId}/users/{userId}`](endpoints/levels/create-user-level) endpoint, and strictened the `user.avatar`
+schema, to ensure only a valid Discord avatar hash can be passed.
 
 ## Initial release
 
@@ -35,7 +47,7 @@ Introducing the public Lurkr API. Starting with version 2.
 
 Public endpoints included with this release:
 
-- `GET /levels/{guildId}/users/{userId}` - Get a user's experience on a server.
-- `POST /levels/{guildId}/users/{userId}` - Create a new leveling entry for a user on a server.
-- `PATCH /levels/{guildId}/users/{userId}` - Update a user's experience on a server.
-- `DELETE /levels/{guildId}/users/{userId}` - Delete a user's level entry on a server.
+- [`GET /levels/{guildId}/users/{userId}`](endpoints/levels/get-user-level) - Get a user's experience on a server.
+- [`POST /levels/{guildId}/users/{userId}`](endpoints/levels/create-user-level) - Create a new leveling entry for a user on a server.
+- [`PATCH /levels/{guildId}/users/{userId}`](endpoints/levels/update-user-level) - Update a user's experience on a server.
+- [`DELETE /levels/{guildId}/users/{userId}`](endpoints/levels/delete-user-level) - Delete a user's level entry on a server.
