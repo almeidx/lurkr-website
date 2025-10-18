@@ -15,6 +15,51 @@ Despite our efforts, this page is not always so up-to-date. For the most recent 
 <ExternalLink href={UPDATES_CHANNEL_LINK}>#updates</ExternalLink> channel in our
 <ExternalLink href={SUPPORT_SERVER_INVITE}>Discord Server</ExternalLink>.
 
+## Documentation Overhaul & Privacy Improvements
+
+22 July 2025
+
+### Discord Bot [!toc]
+
+- Changed the default setting of the Web Leaderboard visibility to Members-only.
+  - This is to improve privacy by not allowing all leaderboards to be indexed on the web by default.
+
+- To comply with privacy laws, we have reset all visibility settings to Members-only!
+  - If you want your Web Leaderboard to continue to be public, you must set it back to public.
+  - To change the visibility go to your Lurkr Dashboard → Leveling → Web Leaderboard
+
+- Changed the wording under the Web Leaderboard visibility options to be more transparent.
+
+### Dashboard [!toc]
+
+- Overhauled our Documentation to be prettier and more functional!
+  - We'd welcome feedback if you use the documentation a lot, so please feel free to send suggestions!
+  - We're still working on migrating the guides over to primarily use the Web Dashboard as a visual guide.
+
+## Web Leaderboard Visibility & Leveling Speed
+
+18 July 2025
+
+### Discord Bot [!toc]
+
+- Added visibility options for the web leaderboard!
+  - Allows you to change if your leaderboard can be accessed by anyone, by server members or only by managers/administrators.
+  - Allows you to change if your leaderboard will be indexed on the web for search engines.
+
+- Added the ability to change your server's leveling speed!
+  - Change the cooldown after gaining XP on a message (Default 1 minute)
+  - The XP gained is a random number between an interval, you can now change this interval.
+  - Be able to set a fixed XP gain!
+
+- Increased the [Lurkr Ultimate](/premium) Command Leaderboard Limit to 500!
+  - Use `/leaderboard` on a Lurkr Ultimate enabled server to browse through the top 500 members!
+  - Changed from previously 200.
+  - Standard limit still 100.
+
+- Fixed a bug that made users not be able to login to the dashboard sometimes.
+- Embed level up messages are now recognized in the `/check` command.
+- Fixed Lurkr informing users about 20% Leveling Boost when using `/vote` despite the multiplier being disabled on the server.
+
 ## Introducing the Lurkr API!
 
 28 April 2025
@@ -41,6 +86,29 @@ Despite our efforts, this page is not always so up-to-date. For the most recent 
 ### Dashboard [!toc]
 
 - Added an API key generation section to the profile page! [lurkr.gg/profile](/profile)
+
+## Stackable Role Rewards & Profile Page
+
+22 March 2025
+
+### Discord Bot [!toc]
+
+- Added individually stackable role rewards!
+  - This now lets you pick and choose which specific role reward should stick around on the User, and which ones should be removed when another role reward gets unlocked!
+
+- Disabled commands that are linked to Multipliers or Role Rewards; they now redirect you to use our Dashboard! (It's better)
+
+- Minor stability improvements with sharding.
+
+- Removed `/config` command.
+
+### Dashboard [!toc]
+
+- Added a profile page! [lurkr.gg/profile](/profile)
+  - Your profile page right now shows your current Rank Background Image, Accent Colour & miscellaneous information.
+  - In the near future, the profile page will let you set, change and customize your entire Lurkr experience as a User!
+
+- Fixed a bug where the dashboard sometimes displayed more servers than expected.
 
 ## Role Rewards placeholder on Level Up Messages
 
