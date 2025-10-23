@@ -1,11 +1,11 @@
-import { updateTag } from "next/cache";
+import { revalidateTag } from "next/cache";
 import { type NextRequest, NextResponse } from "next/server";
 import { TOKEN_COOKIE } from "@/utils/constants.ts";
 
 export function GET(request: NextRequest) {
 	const redirectUrl = new URL("/", request.url);
 
-	updateTag("user");
+	revalidateTag("user", "max");
 
 	return NextResponse.redirect(redirectUrl, {
 		headers: {
