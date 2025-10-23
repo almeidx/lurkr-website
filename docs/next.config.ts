@@ -4,9 +4,9 @@ import { getNextConfigHeaders } from "../shared/common.ts";
 
 const nextConfig = {
 	basePath: "/docs",
+	// cacheComponents: true,
 	experimental: {
-		reactCompiler: true,
-		// ppr: true,
+		turbopackFileSystemCacheForDev: true,
 	},
 	async headers() {
 		return getNextConfigHeaders();
@@ -16,8 +16,35 @@ const nextConfig = {
 			fullUrl: true,
 		},
 	},
-	typescript: {
-		ignoreBuildErrors: true,
+	reactCompiler: true,
+	async redirects() {
+		return [
+			{
+				destination: "/utility-commands/emoji/create",
+				permanent: true,
+				source: "/utility-commands/emoji/create-emoji",
+			},
+			{
+				destination: "/utility-commands/emoji/delete",
+				permanent: true,
+				source: "/utility-commands/emoji/delete-emoji",
+			},
+			{
+				destination: "/utility-commands/emoji/download",
+				permanent: true,
+				source: "/utility-commands/emoji/download-emoji",
+			},
+			{
+				destination: "/utility-commands/emoji/random",
+				permanent: true,
+				source: "/utility-commands/emoji/random-emoji",
+			},
+			{
+				destination: "/utility-commands/emoji/search",
+				permanent: true,
+				source: "/utility-commands/emoji/search-emoji",
+			},
+		];
 	},
 } as const satisfies NextConfig;
 

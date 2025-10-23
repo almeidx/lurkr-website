@@ -4,14 +4,14 @@
 	"homepage": "https://lurkr.gg",
 	"type": "module",
 	"scripts": {
-		"build": "next build",
+		"build": "next build --experimental-next-config-strip-types",
 		"build:typecheck": "tsc --noEmit",
-		"dev": "next dev --turbo",
+		"dev": "next dev --experimental-next-config-strip-types",
 		"fmt": "biome check --write --unsafe",
 		"format": "pnpm run fmt",
 		"postinstall": "next typegen",
 		"lint": "biome check",
-		"start": "next start"
+		"start": "next start --experimental-next-config-strip-types"
 	},
 	"dependencies": {
 		"@ariakit/react": "^0.4.19",
@@ -31,7 +31,7 @@
 		"isbot": "^5.1.31",
 		"js-cookie": "^3.0.5",
 		"match-sorter": "^8.1.0",
-		"next": "^15.5.6",
+		"next": "^16.0.0",
 		"next-nprogress-bar": "^2.4.7",
 		"p-retry": "^7.1.0",
 		"pretty-ms": "^9.3.0",

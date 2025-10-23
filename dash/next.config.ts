@@ -21,9 +21,9 @@ const backgroundBucketDomain = process.env.BACKGROUNDS_BUCKET_DOMAIN ?? "";
 
 const nextConfig = {
 	experimental: {
-		reactCompiler: true,
-		// ppr: true,
+		turbopackFileSystemCacheForDev: true,
 	},
+	// cacheComponents: true,
 	async headers() {
 		return getNextConfigHeaders({
 			extraConnectSrc: [`${apiDomain}/`],
@@ -48,6 +48,7 @@ const nextConfig = {
 			fullUrl: true,
 		},
 	},
+	reactCompiler: true,
 	async redirects() {
 		return [
 			{
@@ -95,9 +96,6 @@ const nextConfig = {
 				},
 			],
 		};
-	},
-	typescript: {
-		ignoreBuildErrors: true,
 	},
 } as const satisfies NextConfig;
 

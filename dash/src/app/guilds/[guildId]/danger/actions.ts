@@ -1,6 +1,6 @@
 "use server";
 
-import { revalidateTag } from "next/cache";
+import { updateTag } from "next/cache";
 import { cookies } from "next/headers";
 import { parse } from "valibot";
 import { TOKEN_COOKIE } from "@/utils/constants.ts";
@@ -23,5 +23,5 @@ export async function resetGuildDataAction(guildIdInput: string) {
 		throw new Error("Failed to reset guild data");
 	}
 
-	revalidateTag(`settings:${guildId}`);
+	updateTag(`settings:${guildId}`);
 }

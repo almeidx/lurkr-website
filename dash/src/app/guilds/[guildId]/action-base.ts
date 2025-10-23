@@ -1,6 +1,6 @@
 "use server";
 
-import { revalidateTag } from "next/cache";
+import { updateTag } from "next/cache";
 import { cookies } from "next/headers";
 import { parse } from "valibot";
 import type { GuildSettings } from "@/lib/guild.ts";
@@ -36,7 +36,7 @@ export async function action(rawGuildId: string, data: Partial<GuildSettings>, t
 		return false;
 	}
 
-	revalidateTag(tag);
+	updateTag(tag);
 
 	return true;
 }
