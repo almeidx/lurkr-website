@@ -55,6 +55,7 @@ export default async function Homepage() {
 					<Link
 						className="hidden w-72 items-center justify-center gap-5 rounded-lg border border-white px-3 py-2 font-bold text-3xl transition-colors hover:bg-white hover:text-black xl:flex"
 						href="/guilds"
+						prefetch={false} // TODO: Only disable prefetching if user is not logged in
 					>
 						Dashboard
 						<Launch aria-hidden />

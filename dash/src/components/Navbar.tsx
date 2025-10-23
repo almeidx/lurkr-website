@@ -100,7 +100,7 @@ function NavbarLinks({ hideMobile }: { hideMobile?: boolean }) {
 			)}
 		>
 			<li className="text-white hover:text-white/75">
-				<Link className="flex items-center gap-2" href="/guilds">
+				<Link className="flex items-center gap-2" href="/guilds" prefetch={false}>
 					<div className="md:hidden">
 						<Dashboard aria-hidden />
 					</div>
@@ -155,7 +155,7 @@ function DashboardMobileNavbarLinks({ guildId, show }: { guildId: Snowflake; sho
 	return (
 		<ul className={clsx("flex-col gap-5 text-xl md:flex-row md:items-baseline md:text-base", show && "flex md:hidden")}>
 			<li className="text-white hover:text-white/75">
-				<Link className="flex items-center gap-2" href="/guilds">
+				<Link className="flex items-center gap-2" href="/guilds" prefetch={false}>
 					<ArrowBackIos aria-hidden />
 					Back
 				</Link>
