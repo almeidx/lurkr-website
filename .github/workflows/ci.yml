@@ -21,7 +21,9 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Lint
-        run: pnpm biome ci --reporter=github
+        # --css-parse-tailwind-directives=true is already set in the config file,
+        # but for some reason `biome ci` specifically doesn't pick it up
+        run: pnpm biome ci --reporter=github --css-parse-tailwind-directives=true
 
       - name: Typecheck
         run: pnpm run build:typecheck
