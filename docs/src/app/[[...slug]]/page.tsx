@@ -6,7 +6,7 @@ import { getPageImage, source } from "@/lib/source.ts";
 import { getMDXComponents } from "@/mdx-components.tsx";
 import { isValidDate } from "@/utils/is-valid-date.ts";
 
-export const dynamicParams = false;
+// export const dynamicParams = false;
 
 export default async function Page(props: PageProps<"/[[...slug]]">) {
 	const params = await props.params;

@@ -8,7 +8,9 @@ onlyBuiltDependencies:
   - "@biomejs/biome"
   - "@tailwindcss/oxide"
   - esbuild
+  - rclone.js
   - sharp
+  - workerd
 
 overrides:
   react-is: ^19.2.0

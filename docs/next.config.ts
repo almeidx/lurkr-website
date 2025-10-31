@@ -4,10 +4,6 @@ import { getNextConfigHeaders } from "../shared/common.ts";
 
 const nextConfig = {
 	basePath: "/docs",
-	// cacheComponents: true,
-	experimental: {
-		turbopackFileSystemCacheForDev: true,
-	},
 	async headers() {
 		return getNextConfigHeaders();
 	},
