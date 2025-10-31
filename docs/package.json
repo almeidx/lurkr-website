@@ -4,16 +4,20 @@
 	"homepage": "https://lurkr.gg/docs",
 	"type": "module",
 	"scripts": {
-		"build": "next build --experimental-next-config-strip-types",
+		"build": "next build --experimental-next-config-strip-types --webpack",
 		"build:typecheck": "tsc --noEmit",
+		"cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts",
+		"deploy:cf": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
 		"dev": "next dev --experimental-next-config-strip-types",
 		"fmt": "biome check --write --unsafe",
 		"format": "pnpm run fmt",
 		"postinstall": "next typegen && fumadocs-mdx && node scripts/generate-api-endpoint-docs.ts",
 		"lint": "biome check",
+		"preview:cf": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
 		"start": "next start --experimental-next-config-strip-types"
 	},
 	"dependencies": {
+		"@opennextjs/cloudflare": "^1.11.0",
 		"fumadocs-core": "^16.0.5",
 		"fumadocs-mdx": "^13.0.2",
 		"fumadocs-openapi": "^9.7.1",
@@ -42,7 +46,8 @@
 		"slugify": "^1.6.6",
 		"tailwind-scrollbar": "^4.0.2",
 		"tailwindcss": "^4.1.16",
-		"typescript": "~5.9.3"
+		"typescript": "~5.9.3",
+		"wrangler": "^4.45.2"
 	},
 	"engines": {
 		"node": ">=22.21.1"
