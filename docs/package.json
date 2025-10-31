@@ -6,19 +6,24 @@
 	"scripts": {
 		"build": "next build --experimental-next-config-strip-types",
 		"build:typecheck": "tsc --noEmit",
+		"build:cf": "opennextjs-cloudflare build",
+		"cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts",
+		"deploy:cf": "opennextjs-cloudflare deploy",
 		"dev": "next dev --experimental-next-config-strip-types",
 		"fmt": "biome check --write --unsafe",
 		"fmt:content": "pnpm dlx prettier --print-width=120 --use-tabs=true --prose-wrap=always --write \"content/**/*.mdx\"",
 		"format": "pnpm run fmt",
 		"postinstall": "next typegen && fumadocs-mdx && node scripts/generate-api-endpoint-docs.ts",
 		"lint": "biome check",
+		"preview:cf": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
 		"start": "next start --experimental-next-config-strip-types"
 	},
 	"dependencies": {
-		"fumadocs-core": "^16.2.1",
+		"@opennextjs/cloudflare": "^1.14.3",
+		"fumadocs-core": "^16.2.2",
 		"fumadocs-mdx": "^14.0.4",
 		"fumadocs-openapi": "^10.1.0",
-		"fumadocs-ui": "^16.2.1",
+		"fumadocs-ui": "^16.2.2",
 		"next": "^16.0.7",
 		"next-nprogress-bar": "^2.4.7",
 		"react": "^19.2.1",
@@ -43,7 +48,8 @@
 		"slugify": "^1.6.6",
 		"tailwind-scrollbar": "^4.0.2",
 		"tailwindcss": "^4.1.17",
-		"typescript": "~5.9.3"
+		"typescript": "~5.9.3",
+		"wrangler": "^4.51.0"
 	},
 	"engines": {
 		"node": ">=24.11.1"
