@@ -8,6 +8,7 @@
 		"build:typecheck": "tsc --noEmit",
 		"dev": "next dev --experimental-next-config-strip-types",
 		"fmt": "biome check --write --unsafe",
+		"fmt:content": "pnpm dlx prettier --print-width=120 --use-tabs=true --write 'content'",
 		"format": "pnpm run fmt",
 		"postinstall": "next typegen && fumadocs-mdx && node scripts/generate-api-endpoint-docs.ts",
 		"lint": "biome check",
