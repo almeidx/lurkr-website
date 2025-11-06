@@ -120,6 +120,7 @@ type LimitedKey =
 			| "xpAnnounceOnlyXpRoles"
 			| "xpChannelMode"
 			| "xpGainInterval"
+			| "xpGlobalMultiplier"
 			| "xpMessage"
 			| "xpMessageEmbed"
 			| "xpPerMessageMin"

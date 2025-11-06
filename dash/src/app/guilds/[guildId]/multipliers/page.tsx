@@ -34,7 +34,7 @@ export default async function Multipliers({ params }: { readonly params: Promise
 	return (
 		<Form action={action} description="Change who gains how much experience, and where!" title="Multipliers">
 			<Section id="global-multiplier" name="Global Multiplier">
-				<GlobalMultipliers multipliers={settings.xpMultipliers} />
+				<GlobalMultipliers defaultValue={settings.xpGlobalMultiplier} />
 
 				<Separator />
 

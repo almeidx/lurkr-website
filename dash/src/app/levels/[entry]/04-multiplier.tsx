@@ -14,9 +14,8 @@ export function MultiplierDisplay({ multiplier, targets, type }: Multiplier) {
 			</span>
 
 			<div className="flex flex-1 flex-wrap gap-2 overflow-x-hidden">
-				{type === XpMultiplierType.Global ? (
-					<p className="text-sm">Global</p>
-				) : (
+				{/* Global multiplier comes without targets key */}
+				{targets ? (
 					targets.map((target) =>
 						type === XpMultiplierType.Channel ? (
 							<ChannelDisplay key={target.id} {...(target as Channel)} />
@@ -24,6 +23,8 @@ export function MultiplierDisplay({ multiplier, targets, type }: Multiplier) {
 							<RoleDisplay key={target.id} {...(target as Role)} />
 						),
 					)
+				) : (
+					<p className="text-sm">Global</p>
 				)}
 			</div>
 		</div>

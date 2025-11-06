@@ -112,6 +112,7 @@ export interface GuildSettings {
 	xpChannels: Snowflake[];
 	xpDisallowedPrefixes: string[];
 	xpGainInterval: number;
+	xpGlobalMultiplier: number;
 	xpInThreads: boolean;
 	xpMessage: string | null;
 	xpPerMessageMin: number;
@@ -142,7 +143,6 @@ export enum AutoResetLevels {
 
 export enum XpMultiplierType {
 	Channel = "Channel",
-	Global = "Global",
 	Role = "Role",
 }
 
