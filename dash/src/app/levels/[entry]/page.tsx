@@ -61,6 +61,7 @@ export default async function Leaderboard({ params, searchParams }: LeaderboardP
 		multipliers,
 		roleRewards,
 		xpGainInterval,
+		xpGlobalMultiplier,
 		xpPerMessageMax,
 		xpPerMessageMin,
 	} = data;
@@ -117,7 +118,7 @@ export default async function Leaderboard({ params, searchParams }: LeaderboardP
 				<div className="flex w-full flex-col gap-5 px-4 sm:w-80 md:w-96 md:px-0">
 					<SortableRoleRewards roleRewards={roleRewards} />
 
-					<SortableMultipliers multipliers={multipliers} />
+					<SortableMultipliers globalMultiplier={xpGlobalMultiplier} multipliers={multipliers} />
 
 					<SidebarSection title="How it works">
 						<div className="space-y-2">
@@ -261,6 +262,7 @@ export interface GetLevelsResponse {
 	multipliers: Multiplier[];
 	roleRewards: RoleReward[];
 	xpGainInterval: number;
+	xpGlobalMultiplier: number;
 	xpPerMessageMax: number;
 	xpPerMessageMin: number;
 }
