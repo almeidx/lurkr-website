@@ -15,6 +15,46 @@ Despite our efforts, this page is not always so up-to-date. For the most recent 
 <ExternalLink href={UPDATES_CHANNEL_LINK}>#updates</ExternalLink> channel in our
 <ExternalLink href={SUPPORT_SERVER_INVITE}>Discord Server</ExternalLink>.
 
+## Leveling Experience Configuration & User Privacy
+
+6 November 2025
+
+### Discord Bot [!toc]
+
+- Added `/config set` option for **Leveling Experience Gain Interval**.
+  - Allows you to configure how long Lurkr should wait before granting XP again.
+  - This interval is per user.
+
+- Added `/config set` option for **Leveling Experience Per Message**.
+  - Allows you to configure the minimum & maximum XP granted per message.
+  - The actual XP number is randomly selected between these two numbers.
+
+- Added `/config toggle` option for **Gain Leveling Experience from Bot Commands**.
+  - Allows you to choose whether or not slash command messages count as XP.
+
+- Added `/privacy` command.
+  - Setting your leaderboard privacy to true will anonymize you on all public Lurkr leaderboards!
+  - This does not affect Members-only or Managers-only leaderboards!
+  - It might take a few minutes for the effects to become visible!
+
+- The originating server name is now displayed on level up messages sent in DMs.
+- Fixed a bug where premium users with both Max & Ultimate were not assigned correctly.
+- Fixed a bug where slash command messages were not counted as XP.
+- Fixed a bug with the top leveling role assignment (Leaderboard Role).
+- Fixed a bug where the top leveling user was not being updated properly.
+
+### Dashboard [!toc]
+
+- Added the new `/set` and `/toggle` commands into the Dashboard.
+  - You can now change XP gain interval, XP gain per message and XP gain from slash commands.
+
+- Added sorting buttons to the role rewards & multipliers section on the leveling page.
+  - You can switch between ascending and descending order.
+
+- Changed Server-Wide Default Customization to only accept hex colours.
+- Fixed a bug causing selector buttons to not show their correct state.
+- Fixed the global multiplier being counted towards the channel & role multiplier limit.
+
 ## Documentation Overhaul & Privacy Improvements
 
 22 July 2025
