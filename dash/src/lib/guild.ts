@@ -111,6 +111,7 @@ export interface GuildSettings {
 	xpChannelMode: XpChannelMode;
 	xpChannels: Snowflake[];
 	xpDisallowedPrefixes: string[];
+	xpFromCommands: boolean;
 	xpGainInterval: number;
 	xpGlobalMultiplier: number;
 	xpInThreads: boolean;

@@ -17,6 +17,7 @@ import { LevelingChannels } from "./02-leveling-channels.tsx";
 import { LevelingInThreads } from "./03-leveling-in-threads.tsx";
 import { XpGainInterval } from "./04-xp-gain-interval.tsx";
 import { XpPerMessageRange } from "./05-xp-per-message-range.tsx";
+import { XpFromCommands } from "./06-xp-from-commands.tsx";
 import { NoLevelingRoles } from "./10-no-leveling-roles.tsx";
 import { DisallowedLevelingPrefixes } from "./11-disallowed-leveling-prefixes.tsx";
 import { TopLevelingRole } from "./20-top-leveling-role.tsx";
@@ -77,6 +78,10 @@ export default async function Leveling({ params }: { readonly params: Promise<{ 
 				<XpGainInterval defaultValue={settings.xpGainInterval} />
 
 				<XpPerMessageRange defaultMax={settings.xpPerMessageMax} defaultMin={settings.xpPerMessageMin} />
+
+				<Separator />
+
+				<XpFromCommands defaultValue={settings.xpFromCommands} />
 			</Section>
 
 			<Section name="Leveling Blacklists">
