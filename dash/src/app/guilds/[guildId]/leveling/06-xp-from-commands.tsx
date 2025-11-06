@@ -5,7 +5,7 @@ export function XpFromCommands({ defaultValue }: { readonly defaultValue: boolea
 	return (
 		<div className="flex h-6 gap-4 rounded-lg">
 			<Text
-				docsPath="/guides/leveling-automation#xp-from-commands"
+				docsPath="/guides/leveling-automation"
 				htmlFor="xpFromCommands"
 				tooltip="Choose if members can gain experience from bot commands."
 			>
