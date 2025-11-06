@@ -35,7 +35,7 @@ const premiumMultiplierTargetsSchema = lazy(() => createSnowflakesValidator(MAX_
 const xpMultipliersKeySchema = pipe(
 	string("Keys must be strings"),
 	regex(
-		new RegExp(`^xpMultipliers-(${xpMultiplierType.join("|")})-(\\d+\\.?\\d*)-${UUID_REGEX.source}$`),
+		new RegExp(`^xpMultipliers-(${xpMultiplierType.join("|")})-(\\d+(?:\\.\\d+)?)-${UUID_REGEX.source}$`),
 		"Multiplier key doesn't match the expected format",
 	),
 	transform((value) => {
