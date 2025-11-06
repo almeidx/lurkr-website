@@ -196,6 +196,7 @@ function createSchema(premium: boolean) {
 				array(pipe(string(), maxLength(MAX_XP_DISALLOWED_PREFIX_LENGTH))),
 				maxLength(premium ? MAX_XP_DISALLOWED_PREFIXES_PREMIUM : MAX_XP_DISALLOWED_PREFIXES),
 			),
+			xpFromCommands: toggle,
 			xpGainInterval: pipe(coerceToInt, minValue(MIN_XP_GAIN_INTERVAL), maxValue(MAX_XP_GAIN_INTERVAL)),
 			xpInThreads: toggle,
 			xpMessage: union([
