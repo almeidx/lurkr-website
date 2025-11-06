@@ -1,0 +1,27 @@
+---
+title: XP Remove
+description: Remove XP from users.
+---
+
+### Description
+
+This command can be used to remove a users XP on demand.
+
+The user you want to remove XP from **does** need to have prior XP.
+
+The XP you specify in the command will be removed from their current XP.
+
+If you want to add XP to a user that already has some, you can use the [xp add](./add) command
+
+### Command Structure
+
+```
+/xp remove <user:> <amount:> [announce:]
+```
+
+The optional `announce` parameter allows you to control whether a level up announcement should be sent if the user levels up as a result of this command (only applies if level up announcements are enabled on your server).
+
+### **Permission**
+
+- `Manage Server`**(User)**
+- N/A **(Bot)**
