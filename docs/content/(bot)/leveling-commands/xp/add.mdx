@@ -1,0 +1,23 @@
+---
+title: XP Add
+description: Add XP to users.
+---
+
+### Description
+
+This command can be used to give a user XP on demand. The user you want to add XP to does not need to have prior XP. If the user you want to add XP to does however have prior XP, the XP you specify in the command will be added to their current XP.
+
+If you want to set a user to a specific XP amount without adding to what they already have, you can use the [xp set](./set) command
+
+### Command Structure
+
+```
+/xp add <user:> <amount:> [announce:]
+```
+
+The optional `announce` parameter allows you to control whether a level up announcement should be sent if the user levels up as a result of this command (only applies if level up announcements are enabled on your server). By default, this is disabled.
+
+### **Permission**
+
+- `Manage Server`**(User)**
+- N/A **(Bot)**
