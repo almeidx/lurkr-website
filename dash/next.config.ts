@@ -91,6 +91,10 @@ const nextConfig = {
 					source: "/docs",
 				},
 				{
+					destination: `${docsRewriteUrl}/docs.mdx`,
+					source: "/docs.mdx",
+				},
+				{
 					destination: `${docsRewriteUrl}/docs/:match*`,
 					source: "/docs/:match*",
 				},
