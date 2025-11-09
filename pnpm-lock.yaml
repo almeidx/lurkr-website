@@ -192,8 +192,8 @@ importers:
         specifier: ^13.0.5
         version: 13.0.5(fumadocs-core@16.0.8(@types/react@19.2.2)(next@16.0.1(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(next@16.0.1(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(react@19.2.0)
       fumadocs-openapi:
-        specifier: ^10.0.1
-        version: 10.0.1(@types/react-dom@19.2.2(@types/react@19.2.2))(@types/react@19.2.2)(next@16.0.1(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(prettier@3.6.2)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(tailwindcss@4.1.17)
+        specifier: ^10.0.2
+        version: 10.0.2(@types/react-dom@19.2.2(@types/react@19.2.2))(@types/react@19.2.2)(next@16.0.1(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(prettier@3.6.2)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(tailwindcss@4.1.17)
       fumadocs-ui:
         specifier: ^16.0.8
         version: 16.0.8(@types/react-dom@19.2.2(@types/react@19.2.2))(@types/react@19.2.2)(next@16.0.1(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(tailwindcss@4.1.17)
@@ -2042,8 +2042,8 @@ packages:
       vite:
         optional: true
 
-  fumadocs-openapi@10.0.1:
-    resolution: {integrity: sha512-rBNa/2WjDcx0Z8Hf56UaH22BtBn3Hl39n4dpfwtHVEZ+WxkhJONhQ0upoAkyI/NM5q2PxUVHg5NnY/Do591kQw==}
+  fumadocs-openapi@10.0.2:
+    resolution: {integrity: sha512-5IQJdX7xpCYSyCU5bySGKSWZ96N4y9fit8WwpTbPxA7PyZ9d1mqOHHuIpLaBArRvAMHE8cKD+7zPOdom06Z85g==}
     peerDependencies:
       '@scalar/api-client-react': '*'
       '@types/react': '*'
@@ -4768,7 +4768,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  fumadocs-openapi@10.0.1(@types/react-dom@19.2.2(@types/react@19.2.2))(@types/react@19.2.2)(next@16.0.1(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(prettier@3.6.2)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(tailwindcss@4.1.17):
+  fumadocs-openapi@10.0.2(@types/react-dom@19.2.2(@types/react@19.2.2))(@types/react@19.2.2)(next@16.0.1(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(prettier@3.6.2)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(tailwindcss@4.1.17):
     dependencies:
       '@fumari/json-schema-to-typescript': 2.0.0(prettier@3.6.2)
       '@radix-ui/react-accordion': 1.2.12(@types/react-dom@19.2.2(@types/react@19.2.2))(@types/react@19.2.2)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
