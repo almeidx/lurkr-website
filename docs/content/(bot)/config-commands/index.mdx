@@ -27,9 +27,9 @@ channel.
 This command can be used to configure how Lurkr behaves in your server. Most, if not all of the settings you can change
 about Lurkr can be done through the configuration command.
 
-The config command has 6 **methods**, or ways to interact with the command. These are represented as sub-commands.
+The config command has 8 **methods**, or ways to interact with the command. These are represented as sub-commands.
 Within each **method** you have different **options** which correspond to the major features that you can configure in
-Lurkr. Once you've select the method and option, you can then set an option, which is the specific setting you want to
+Lurkr. Once you've selected the method and option, you can then set an option, which is the specific setting you want to
 configure.
 
 ## Command Structure
@@ -38,14 +38,16 @@ configure.
 /config <Method> <options:> [values:]
 ```
 
-| Methods   | Description                                                                         |
-| --------- | ----------------------------------------------------------------------------------- |
-| check     | Displays an embed with all of your configuration options and how they have been set |
-| delete    | Completely removes an entry to a **set** option                                     |
-| deleteall | Completely removes all configuration options you have configured                    |
-| reset     | Resets an entry of a **toggle** option back to its original state                   |
-| set       | Sets an option to a specified value                                                 |
-| toggle    | Toggles an option to true or false                                                  |
+| Methods      | Description                                                                         |
+| ------------ | ----------------------------------------------------------------------------------- |
+| check        | Displays an embed with all of your configuration options and how they have been set |
+| debug        | Shows debug information regarding the guild configuration                           |
+| delete       | Completely removes an entry to a **set** option                                     |
+| deleteall    | Completely removes all configuration options you have configured                    |
+| reset        | Resets an entry of a **toggle** option back to its original state                   |
+| set          | Sets an option to a specified value                                                 |
+| toggle       | Toggles an option to true or false                                                  |
+| troubleshoot | Shows potential problems with the guild configuration                               |
 
 ## Permission
 
