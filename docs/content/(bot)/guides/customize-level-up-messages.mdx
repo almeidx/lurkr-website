@@ -4,8 +4,7 @@ description: Learn how to make Lurkr's level-up messages reflect your server's p
 icon: 🗯️
 ---
 
-import { BASE_URL, SUPPORT_SERVER_INVITE } from "@/shared-links.ts";
-import { ExternalLink } from "@/components/ExternalLink.tsx";
+import { SUPPORT_SERVER_INVITE } from "@/shared-links.ts";
 
 ## Guide
 
@@ -15,8 +14,7 @@ If you find the current Level-Up message to not suit your server style, or you s
 can completely customize it!
 
 <Callout type="info" title="You can also use Embed Messages to congratulate your members!">
-	Currently we only support configuring embed messages in the dashboard:{" "}
-	<ExternalLink href={`${BASE_URL}/guilds`}>https://lurkr.gg/guilds</ExternalLink>
+	Currently we only support configuring embed messages in [the dashboard](/../guilds).
 </Callout>
 
 <center>![The `/config set option:Level Up Message` command](../../_assets/config-set-level-up-message.png)</center>
