@@ -1,3 +1,4 @@
+export const BASE_URL = "https://lurkr.gg";
 export const SUPPORT_SERVER_INVITE = "https://discord.gg/XUQAnkq2vy";
 export const PATREON_URL = "https://patreon.com/lurkrbot";
 export const TOPGG_URL = "https://top.gg/bot/506186003816513538/vote?utm_source=lurkr&utm_medium=dashboard";

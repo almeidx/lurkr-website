@@ -20,6 +20,11 @@ const nextConfig = {
 	async redirects() {
 		return [
 			{
+				destination: "/config-commands/config",
+				permanent: true,
+				source: "/config-commands",
+			},
+			{
 				destination: "/utility-commands/emoji/create",
 				permanent: true,
 				source: "/utility-commands/emoji/create-emoji",
