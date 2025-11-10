@@ -11,8 +11,9 @@ Please follow these guidelines when contributing:
 ### Before Starting Development
 
 To install the dependencies for the project, you need to enable `pnpm` on your environment.
-The simplest way is to use `npm install --global pnpm@latest-10`.
-After that, you can run `pnpm install --frozen-lockfile` on the root of the repository to install the dependencies.
+
+- Install pnpm: `npm install --global pnpm@latest-10`.
+- Install dependencies:  `pnpm install --frozen-lockfile`
 
 ### Required Before Each Commit
 
@@ -32,9 +33,19 @@ If making changes to the content in the documentation site, ensure that you also
 - `docs/`: Contains the source code for the documentation site (Fumadocs).
 - `shared/`: Contains shared utilities used by both websites. It is however not a package itself.
 
+Both the dashboard and the documentation sites are hosted under the same domain, `lurkr.gg`, with the dashboard being
+hosted at the root and the documentation site being hosted under the `/docs` path. The way this works in practice is the
+dashboard app handles all the requests, and rewrites requests to `/docs` to the documentation site. This is configured
+in the next.config.ts file of the dashboard.
+
 ## Key Guidelines
 
 1. Follow the TypeScript coding standards, best practices, and idiomatic patterns.
 2. Use up-to-date, builtin (if available) features, including those introduced in Node.js v24.
 3. Use ESM features.
 4. Maintain existing code structure and organization.
+
+## Changes to the documentation content
+
+When necessary to link to pages in the dashboard from the documentation, use `/../<path>` to avoid hardcoding the domain
+everywhere.
