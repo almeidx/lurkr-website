@@ -4,7 +4,8 @@ description: Discover how to give your members awesome rewards as they engage wi
 icon: ✨
 ---
 
-import { SUPPORT_SERVER_INVITE } from "@/shared-links.ts";
+import { BASE_URL, SUPPORT_SERVER_INVITE } from "@/shared-links.ts";
+import { ExternalLink } from "@/components/ExternalLink.tsx";
 
 ## Guide
 
@@ -102,7 +103,7 @@ Stacking means that each additional role reward will simply be added to the user
 Non-Stacking means the role reward role will be removed when the user gains a new role. This does not affect roles that
 are not specifically marked as role rewards.
 
-This option must be configured on the [Lurkr Dashboard](https://lurkr.gg/guilds).
+This option must be configured on the <ExternalLink href={`${BASE_URL}/guilds`}>Lurkr Dashboard</ExternalLink>.
 
 <center>![](../../_assets/Arc_vdDWlCVNRc.png)</center>
 

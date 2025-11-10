@@ -3,7 +3,7 @@ title: Introduction
 description: Get started with the Lurkr API and build your app with integrated leveling!
 ---
 
-import { SUPPORT_SERVER_INVITE } from "@/shared-links.ts";
+import { BASE_URL, SUPPORT_SERVER_INVITE } from "@/shared-links.ts";
 import { ExternalLink } from "@/components/ExternalLink.tsx";
 
 The Lurkr API is a RESTful API that enables seamless integration with Lurkr's features from your own applications. This
@@ -11,7 +11,8 @@ documentation will help you get started with making requests and handling respon
 
 ## Quick Start
 
-1. Create your API key in your [profile page](../profile). Make sure to allow access to some servers
+1. Create your API key in your <ExternalLink href={`${BASE_URL}/profile`}>profile page</ExternalLink>. Make sure to
+   allow access to some servers
 2. Include the API key in the `X-API-Key` header
 3. Make requests to the base URL: `https://api.lurkr.gg/v2`
 
@@ -44,7 +45,7 @@ API requests are authenticated using API keys. These keys must be included in th
 - Server access must be explicitly granted. Please note that you must either own the server or have Administrator
   permissions to grant access.
 
-To create and manage your API keys, visit your [profile page](/profile).
+To create and manage your API keys, visit your <ExternalLink href={`${BASE_URL}/profile`}>profile page</ExternalLink>.
 
 ## Rate Limiting
 
