@@ -5,6 +5,12 @@ import { GITHUB_REPOSITORY_URL } from "@/shared-links.ts";
 
 export const baseOptions: BaseLayoutProps = {
 	githubUrl: GITHUB_REPOSITORY_URL,
+	links: [
+		{
+			text: "Open Dashboard",
+			url: "/../",
+		},
+	],
 	nav: {
 		title: (
 			<>
