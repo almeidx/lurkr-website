@@ -11,7 +11,7 @@ A clear and concise description of what the bug is.
 **To Reproduce**
 If applicable, steps to reproduce the behavior:
 
-1. Run '...'
+1. Run '…'
 2. See error
 
 **Expected behavior**
