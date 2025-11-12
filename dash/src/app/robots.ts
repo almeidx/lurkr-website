@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { PUBLIC_URL } from "@/utils/constants.ts";
 
 export default function robots(): MetadataRoute.Robots {
 	if (process.env.ENVIRONMENT !== "prod") {
@@ -26,5 +27,6 @@ export default function robots(): MetadataRoute.Robots {
 			],
 			userAgent: "*",
 		},
+		sitemap: `${PUBLIC_URL}sitemap.xml`,
 	};
 }
