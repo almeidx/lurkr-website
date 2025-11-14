@@ -1,7 +1,8 @@
+import { GithubInfo } from "fumadocs-ui/components/github-info";
 import type { BaseLayoutProps } from "fumadocs-ui/layouts/shared";
 import Image from "next/image";
 import logoSmall from "@/assets/logo-small.webp";
-import { GITHUB_REPOSITORY_URL } from "@/shared-links.ts";
+import { GITHUB_REPOSITORY_NAME, GITHUB_REPOSITORY_OWNER, GITHUB_REPOSITORY_URL } from "@/shared-links.ts";
 
 export const baseOptions: BaseLayoutProps = {
 	githubUrl: GITHUB_REPOSITORY_URL,
@@ -9,6 +10,10 @@ export const baseOptions: BaseLayoutProps = {
 		{
 			text: "Open Dashboard",
 			url: "/../",
+		},
+		{
+			children: <GithubInfo owner={GITHUB_REPOSITORY_OWNER} repo={GITHUB_REPOSITORY_NAME} />,
+			type: "custom",
 		},
 	],
 	nav: {
