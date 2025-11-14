@@ -12,7 +12,7 @@ export const baseOptions: BaseLayoutProps = {
 			url: "/../",
 		},
 		{
-			children: <GithubInfo className="lg:-mx-2" owner={GITHUB_REPOSITORY_OWNER} repo={GITHUB_REPOSITORY_NAME} />,
+			children: <GithubInfo owner={GITHUB_REPOSITORY_OWNER} repo={GITHUB_REPOSITORY_NAME} />,
 			type: "custom",
 		},
 	],
