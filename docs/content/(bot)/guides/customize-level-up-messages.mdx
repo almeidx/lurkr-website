@@ -41,6 +41,22 @@ _You must include the `{}` brackets in your message for the tags to show up!_
 | Server Icon Picture (🖼️)       | `{guild.icon}`         |
 | Level Reached (5)              | `{level}`              |
 | Total XP Gained (30,183)       | `{xp}`                 |
+| Role Reward Gained (@Level 10)       | `{roleRewards}`                 |
+
+---
+
+### Conditional Variables
+
+You can toggle whether or not a certain section of your level up message shows up by using conditional variables!
+
+Simply use a variable at the start and end of the message you'd like to conditionally show, and add a `#` and `/` to the start and end of the conditional variables respectfully.
+
+Lurkr will then check if the variable you've select is `true` or `false`, and will only show the message if it's true. 
+
+Example:
+```
+{#roleRewards}You gained the {roleRewards} roles!{/roleRewards}
+```
 
 ---
 
