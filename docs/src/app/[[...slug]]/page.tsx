@@ -2,8 +2,8 @@ import { createRelativeLink } from "fumadocs-ui/mdx";
 import { DocsBody, DocsDescription, DocsPage, DocsTitle } from "fumadocs-ui/page";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { source } from "@/lib/source";
-import { getMDXComponents } from "@/mdx-components";
+import { getPageImage, source } from "@/lib/source.ts";
+import { getMDXComponents } from "@/mdx-components.tsx";
 
 export const dynamicParams = false;
 
@@ -34,12 +34,10 @@ export async function generateMetadata(props: PageProps<"/[[...slug]]">): Promis
 	const page = source.getPage(params.slug);
 	if (!page) notFound();
 
-	const image = ["/og", ...(params.slug ?? []), "image.png"].join("/");
-
 	return {
 		description: page.data.description,
 		openGraph: {
-			images: image,
+			images: getPageImage(page).url,
 		},
 		title: page.data.title,
 	} satisfies Metadata;

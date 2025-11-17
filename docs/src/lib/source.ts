@@ -1,7 +1,7 @@
-import { loader } from "fumadocs-core/source";
+import { docs } from "fumadocs-mdx:collections/server";
+import { type InferPageType, loader } from "fumadocs-core/source";
 import { openapiPlugin } from "fumadocs-openapi/server";
 import { createElement } from "react";
-import { docs } from "../../.source";
 
 export const source = loader({
 	baseUrl: "/",
@@ -12,3 +12,20 @@ export const source = loader({
 	plugins: [openapiPlugin()],
 	source: docs.toFumadocsSource(),
 });
+
+export function getPageImage(page: InferPageType<typeof source>) {
+	const segments = [...page.slugs, "image.png"];
+
+	return {
+		segments,
+		url: `/og/${segments.join("/")}`,
+	};
+}
+
+export async function getLLMText(page: InferPageType<typeof source>) {
+	const processed = await page.data.getText("processed");
+
+	return `# ${page.data.title}
+
+${processed}`;
+}

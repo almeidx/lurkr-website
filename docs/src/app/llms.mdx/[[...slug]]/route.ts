@@ -1,6 +1,5 @@
 import { notFound } from "next/navigation";
-import { getLLMText } from "@/lib/get-llm-text.ts";
-import { source } from "@/lib/source";
+import { getLLMText, source } from "@/lib/source.ts";
 
 export const revalidate = false;
 

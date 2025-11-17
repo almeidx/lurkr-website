@@ -1,7 +1,9 @@
 {
 	"compilerOptions": {
+		"baseUrl": ".",
 		"paths": {
-			"@/*": ["./src/*"]
+			"@/*": ["./src/*"],
+			"fumadocs-mdx:collections/*": [".source/*"]
 		},
 		"plugins": [
 			{
