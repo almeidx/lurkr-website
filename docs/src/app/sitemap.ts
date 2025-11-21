@@ -14,10 +14,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
 			return {
 				changeFrequency: "weekly",
-				lastModified: lastModified ? new Date(lastModified) : undefined,
+				lastModified: isValidDate(lastModified) ? lastModified : undefined,
 				priority: isEntrypoint ? 0.8 : 0.5,
 				url,
 			} satisfies MetadataRoute.Sitemap[number];
 		}),
 	];
+}
+
+function isValidDate(date: Date | undefined): date is Date {
+	return date instanceof Date && !Number.isNaN(date.getTime());
 }
