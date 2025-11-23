@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getPageImage, source } from "@/lib/source.ts";
 import { getMDXComponents } from "@/mdx-components.tsx";
+import { isValidDate } from "@/utils/is-valid-date.ts";
 
 export const dynamicParams = false;
 
@@ -17,7 +18,7 @@ export default async function Page(props: PageProps<"/[[...slug]]">) {
 	return (
 		<DocsPage
 			full={page.data.full}
-			lastUpdate={page.data.lastModified ? new Date(page.data.lastModified) : undefined}
+			lastUpdate={isValidDate(page.data.lastModified) ? new Date(page.data.lastModified) : undefined}
 			toc={page.data.toc}
 		>
 			<DocsTitle>{page.data.title}</DocsTitle>

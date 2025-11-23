@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { source } from "@/lib/source.ts";
 import { PUBLIC_URL } from "@/utils/constants.ts";
+import { isValidDate } from "@/utils/is-valid-date.ts";
 
 export const revalidate = false;
 
@@ -20,8 +21,4 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 			} satisfies MetadataRoute.Sitemap[number];
 		}),
 	];
-}
-
-function isValidDate(date: Date | undefined): date is Date {
-	return date instanceof Date && !Number.isNaN(date.getTime());
 }
