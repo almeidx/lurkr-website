@@ -32,7 +32,7 @@ export interface User {
 }
 
 export enum PremiumTier {
-	None = "None",
-	Basic = "Basic",
-	Guild = "Guild",
+	None = "none",
+	Basic = "basic",
+	Guild = "guild",
 }
