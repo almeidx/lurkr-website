@@ -2,20 +2,20 @@ import type { Snowflake } from "@/utils/discord-cdn.ts";
 import type { UserFlags } from "@/utils/user-flags.ts";
 
 export enum LevelingImportBot {
-	Mee6 = "mee6",
-	Amari = "amari",
-	Polaris = "polaris",
+	Mee6 = "Mee6",
+	Amari = "Amari",
+	Polaris = "Polaris",
 }
 
 export const enum LevelingImportError {
-	LeaderboardNotFound = "leaderboard_not_found",
-	PrivateLeaderboard = "private_leaderboard",
-	RateLimited = "rate_limited",
-	NonJSONResponse = "non_json_response",
-	SchemaMismatch = "schema_mismatch",
-	Exception = "exception",
-	LeaderboardEmpty = "leaderboard_empty",
-	CancelledByJob = "cancelled_by_job",
+	LeaderboardNotFound = "LeaderboardNotFound",
+	PrivateLeaderboard = "PrivateLeaderboard",
+	RateLimited = "RateLimited",
+	NonJSONResponse = "NonJSONResponse",
+	SchemaMismatch = "SchemaMismatch",
+	Exception = "Exception",
+	LeaderboardEmpty = "LeaderboardEmpty",
+	CancelledByJob = "CancelledByJob",
 }
 
 export interface Guild {
@@ -103,7 +103,7 @@ export interface GuildSettings {
 	vanity: string | null;
 	voteBoostedXp: boolean;
 	xpAnnounceChannel: Snowflake | null;
-	xpAnnounceChannelType: XpAnnouncementType;
+	xpAnnounceChannelType: XpAnnouncementChannelType;
 	xpAnnounceLevels: number[];
 	xpAnnounceMinimumLevel: number;
 	xpAnnounceMultipleOf: number | null;
@@ -123,28 +123,28 @@ export interface GuildSettings {
 	xpRoleRewards: XpRoleReward[];
 }
 
-export enum XpAnnouncementType {
-	Custom = "custom",
-	Direct = "direct",
-	None = "none",
-	SameChannel = "same_channel",
+export enum XpAnnouncementChannelType {
+	Custom = "Custom",
+	Direct = "Direct",
+	None = "None",
+	SameChannel = "SameChannel",
 }
 
 export enum XpChannelMode {
-	Blacklist = "blacklist",
-	Whitelist = "whitelist",
+	Blacklist = "Blacklist",
+	Whitelist = "Whitelist",
 }
 
 export enum AutoResetLevels {
-	Ban = "ban",
-	BanAndLeave = "ban_and_leave",
-	Leave = "leave",
-	None = "none",
+	Ban = "Ban",
+	BanAndLeave = "BanAndLeave",
+	Leave = "Leave",
+	None = "None",
 }
 
 export enum XpMultiplierType {
-	Channel = "channel",
-	Role = "role",
+	Channel = "Channel",
+	Role = "Role",
 }
 
 export enum ChannelType {
@@ -156,9 +156,9 @@ export enum ChannelType {
 }
 
 export enum LeaderboardVisibility {
-	Public = "public",
-	MembersOnly = "members_only",
-	ManagersOnly = "managers_only",
+	Public = "Public",
+	MembersOnly = "MembersOnly",
+	ManagersOnly = "ManagersOnly",
 }
 
 export interface AutoRoleFlag {
@@ -189,6 +189,6 @@ export interface UserGuildInfo {
 }
 
 export enum ApiKeyPermission {
-	Read = "read",
-	Write = "write",
+	Read = "Read",
+	Write = "Write",
 }

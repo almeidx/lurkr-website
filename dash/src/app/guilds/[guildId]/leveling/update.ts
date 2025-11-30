@@ -26,7 +26,7 @@ import {
 	AutoResetLevels,
 	type GuildSettings,
 	LeaderboardVisibility,
-	XpAnnouncementType,
+	XpAnnouncementChannelType,
 	XpChannelMode,
 } from "@/lib/guild.ts";
 import {
@@ -127,7 +127,7 @@ export async function update(guildId: string, premium: boolean, _currentState: u
 			})),
 	} satisfies Partial<GuildSettings>;
 
-	if (settings.xpAnnounceChannelType === XpAnnouncementType.Custom && !settings.xpAnnounceChannel) {
+	if (settings.xpAnnounceChannelType === XpAnnouncementChannelType.Custom && !settings.xpAnnounceChannel) {
 		return {
 			error: ServerActionError.ManualValidationFail,
 			issue: "Missing Level Up Message Announcement channel",
@@ -169,7 +169,7 @@ function createSchema(premium: boolean) {
 			topXpRole: snowflake,
 			vanity: union([emptyStringToNull, vanitySchema]),
 			xpAnnounceChannel: snowflake,
-			xpAnnounceChannelType: enum_(XpAnnouncementType),
+			xpAnnounceChannelType: enum_(XpAnnouncementChannelType),
 			xpAnnounceLevels: pipe(
 				string(),
 				transform((value) => JSON.parse(value)),
