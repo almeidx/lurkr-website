@@ -210,7 +210,14 @@ async function getData(entry: string, token: string | undefined, page: number) {
 			return { error: GetLeaderboardError.Generic };
 		}
 
-		return response.json() as Promise<GetLevelsResponse>;
+		const data = (await response.json()) as GetLevelsResponse;
+		// Normalize empty string avatar to null
+		for (const level of data.levels) {
+			if (level.user.avatar === "") {
+				level.user.avatar = null;
+			}
+		}
+		return data;
 	} catch (error) {
 		if (error instanceof Error && error.cause) {
 			const response = error.cause as Response;

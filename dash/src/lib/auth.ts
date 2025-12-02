@@ -8,7 +8,12 @@ export async function getCurrentUser(token: string) {
 			return null;
 		}
 
-		return response.json() as Promise<User>;
+		const user = (await response.json()) as User;
+		// Normalize empty string avatar to null
+		if (user.avatar === "") {
+			user.avatar = null;
+		}
+		return user;
 	} catch {
 		return null;
 	}

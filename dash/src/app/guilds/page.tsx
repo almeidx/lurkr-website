@@ -88,6 +88,10 @@ async function getGuilds(token: string | undefined) {
 	}
 
 	const user = (await getCurrentUserResponse.json()) as User;
+	// Normalize empty string avatar to null
+	if (user.avatar === "") {
+		user.avatar = null;
+	}
 
 	if (!getGuildsResponse.ok) {
 		return {

@@ -103,9 +103,15 @@ async function getData(guildId: Snowflake, token: string | undefined) {
 		return null;
 	}
 
+	const user = (await getCurrentUserResponse.json()) as User;
+	// Normalize empty string avatar to null
+	if (user.avatar === "") {
+		user.avatar = null;
+	}
+
 	return {
 		overview: (await getGuildOverviewResponse.json()) as GetGuildOverviewResult,
-		user: (await getCurrentUserResponse.json()) as User,
+		user,
 	};
 }
 
