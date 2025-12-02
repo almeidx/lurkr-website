@@ -1,4 +1,4 @@
-import type { Snowflake } from "@/utils/discord-cdn.ts";
+import { normalizeAvatar, type Snowflake } from "@/utils/discord-cdn.ts";
 import { makeApiRequest } from "@/utils/make-api-request.ts";
 
 export async function getCurrentUser(token: string) {
@@ -9,10 +9,7 @@ export async function getCurrentUser(token: string) {
 		}
 
 		const user = (await response.json()) as User;
-		// Normalize empty string avatar to null
-		if (user.avatar === "") {
-			user.avatar = null;
-		}
+		user.avatar = normalizeAvatar(user.avatar);
 		return user;
 	} catch {
 		return null;

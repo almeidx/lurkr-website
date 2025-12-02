@@ -12,6 +12,14 @@ export function userAvatar(userId: Snowflake, hash: string | null, { format = "p
 	return `https://cdn.discordapp.com/avatars/${userId}/${hash}.${format}?size=${size}`;
 }
 
+/**
+ * Normalizes an avatar hash by converting empty strings to null.
+ * This is needed because the API may return empty strings instead of null for users without avatars.
+ */
+export function normalizeAvatar(avatar: string | null): string | null {
+	return avatar === "" ? null : avatar;
+}
+
 export type Snowflake = string;
 
 interface ImageOptions {

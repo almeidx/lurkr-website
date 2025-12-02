@@ -14,7 +14,7 @@ import { ImageWithFallback } from "@/components/ImageWithFallback.tsx";
 import { SidebarSection } from "@/components/leaderboard/SidebarSection.tsx";
 import type { Guild } from "@/lib/guild.ts";
 import { MAX_WINDOW_TITLE_LENGTH, TOKEN_COOKIE } from "@/utils/constants.ts";
-import { guildIcon, type Snowflake } from "@/utils/discord-cdn.ts";
+import { guildIcon, normalizeAvatar, type Snowflake } from "@/utils/discord-cdn.ts";
 import { ellipsis } from "@/utils/ellipsis.ts";
 import { isSnowflake } from "@/utils/is-snowflake.ts";
 import { makeApiRequest } from "@/utils/make-api-request.ts";
@@ -211,11 +211,8 @@ async function getData(entry: string, token: string | undefined, page: number) {
 		}
 
 		const data = (await response.json()) as GetLevelsResponse;
-		// Normalize empty string avatar to null
 		for (const level of data.levels) {
-			if (level.user.avatar === "") {
-				level.user.avatar = null;
-			}
+			level.user.avatar = normalizeAvatar(level.user.avatar);
 		}
 		return data;
 	} catch (error) {

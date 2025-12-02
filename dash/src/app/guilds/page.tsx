@@ -6,7 +6,7 @@ import { ImageWithFallback } from "@/components/ImageWithFallback.tsx";
 import { SignInButton } from "@/components/SignIn.tsx";
 import type { User } from "@/lib/auth.ts";
 import { TOKEN_COOKIE } from "@/utils/constants.ts";
-import { type Snowflake, userAvatar } from "@/utils/discord-cdn.ts";
+import { normalizeAvatar, type Snowflake, userAvatar } from "@/utils/discord-cdn.ts";
 import { greeting } from "@/utils/greeting.ts";
 import { makeApiRequest } from "@/utils/make-api-request.ts";
 
@@ -88,10 +88,7 @@ async function getGuilds(token: string | undefined) {
 	}
 
 	const user = (await getCurrentUserResponse.json()) as User;
-	// Normalize empty string avatar to null
-	if (user.avatar === "") {
-		user.avatar = null;
-	}
+	user.avatar = normalizeAvatar(user.avatar);
 
 	if (!getGuildsResponse.ok) {
 		return {
