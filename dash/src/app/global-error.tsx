@@ -2,6 +2,7 @@
 
 import "@/app/globals.css";
 
+import clsx from "clsx";
 import type { Metadata, Viewport } from "next";
 import { openSans } from "@/app/fonts.ts";
 import { BRAND_COLOR, DESCRIPTION, PUBLIC_URL } from "@/utils/constants.ts";
@@ -12,7 +13,10 @@ export default function GlobalError({ error, reset }: GlobalErrorProps) {
 	return (
 		<html lang="en">
 			<body
-				className={`${openSans.variable} scroll-smooth bg-background font-sans text-white antialiased selection:bg-primary selection:text-white`}
+				className={clsx(
+					openSans.variable,
+					"scroll-smooth bg-background font-sans text-white antialiased selection:bg-primary selection:text-white",
+				)}
 			>
 				<div className="flex flex-col">
 					<div className="min-h-[calc(100vh-6.9rem)]">
