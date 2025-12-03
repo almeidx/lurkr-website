@@ -1,5 +1,6 @@
 import "./globals.css";
 
+import clsx from "clsx";
 import type { Metadata, Viewport } from "next";
 import { type PropsWithChildren, Suspense } from "react";
 import { openSans } from "@/app/fonts.ts";
@@ -19,7 +20,10 @@ export default function RootLayout({ children }: PropsWithChildren) {
 	return (
 		<html className="dark" lang="en" style={{ colorScheme: "dark" }}>
 			<body
-				className={`${openSans.variable} flex min-h-screen flex-col scroll-smooth bg-background font-sans text-white antialiased selection:bg-primary selection:text-white`}
+				className={clsx(
+					openSans.variable,
+					"flex min-h-screen flex-col scroll-smooth bg-background font-sans text-white antialiased selection:bg-primary selection:text-white",
+				)}
 			>
 				<Providers>
 					<div className="flex-1">
