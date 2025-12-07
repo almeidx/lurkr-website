@@ -4,12 +4,6 @@ packages:
 
 minimumReleaseAge: 1440
 
-minimumReleaseAgeExclude:
-  - '@next/*'
-  - next
-  - react
-  - react-dom
-
 onlyBuiltDependencies:
   - "@biomejs/biome"
   - "@tailwindcss/oxide"
