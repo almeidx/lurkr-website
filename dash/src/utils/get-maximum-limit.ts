@@ -111,6 +111,7 @@ type LimitedKey =
 			| "prioritiseMultiplierRoleHierarchy"
 			| "storeCounts"
 			| "storeMilestones"
+			| "syncRoleRewardsOnJoin"
 			| "topXpRole"
 			| "voteBoostedXp"
 			| "xpAnnounceChannel"
