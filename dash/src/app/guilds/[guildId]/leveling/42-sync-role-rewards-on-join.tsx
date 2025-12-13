@@ -7,9 +7,9 @@ export function SyncRoleRewardsOnJoin({ defaultValue }: { readonly defaultValue:
 			<Text
 				docsPath="/guides/leveling-role-rewards#syncing-role-rewards-on-join"
 				htmlFor="syncRoleRewardsOnJoin"
-				tooltip="Choose if members should automatically receive their earned role rewards when they join the server."
+				tooltip="Choose if members should automatically receive their earned role rewards when they rejoin the server."
 			>
-				Automatically assign role rewards to members when they join the server?
+				Automatically reassign role rewards to members when they rejoin the server?
 			</Text>
 			<Toggle id="syncRoleRewardsOnJoin" initialValue={defaultValue} />
 		</div>
