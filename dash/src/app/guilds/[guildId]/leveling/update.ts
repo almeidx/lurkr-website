@@ -166,6 +166,7 @@ function createSchema(premium: boolean) {
 			),
 			noTopXpRoles: createSnowflakesValidator(premium ? MAX_NO_TOP_XP_ROLES_PREMIUM : MAX_NO_TOP_XP_ROLES),
 			noXpRoles: createSnowflakesValidator(premium ? MAX_NO_XP_ROLES_PREMIUM : MAX_NO_XP_ROLES),
+			syncRoleRewardsOnJoin: toggle,
 			topXpRole: snowflake,
 			vanity: union([emptyStringToNull, vanitySchema]),
 			xpAnnounceChannel: snowflake,

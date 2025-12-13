@@ -28,6 +28,7 @@ import { LevelUpMessageEmbed } from "./32-level-up-message-embed.tsx";
 import { LevelUpMessageConditions } from "./33-level-up-message-conditions.tsx";
 import { LevelingRoleRewards } from "./40-leveling-role-rewards.tsx";
 import { NoRoleRewardsRoles } from "./41-no-role-rewards-roles.tsx";
+import { SyncRoleRewardsOnJoin } from "./42-sync-role-rewards-on-join.tsx";
 import { AutomaticallyResetLevels } from "./50-automatically-reset-levels.tsx";
 import { DefaultRankCardColor } from "./60-default-rank-card-color.tsx";
 import { LeaderboardVanity } from "./70-leaderboard-vanity.tsx";
@@ -151,6 +152,10 @@ export default async function Leveling({ params }: { readonly params: Promise<{ 
 				<Separator />
 
 				<NoRoleRewardsRoles defaultValues={settings.noRoleRewardRoles} premium={guild.premium} roles={guild.roles} />
+
+				<Separator />
+
+				<SyncRoleRewardsOnJoin defaultValue={settings.syncRoleRewardsOnJoin} />
 			</Section>
 
 			<Section

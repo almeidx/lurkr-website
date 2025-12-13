@@ -121,6 +121,7 @@ export interface GuildSettings {
 	xpMessageEmbed: Embed | null;
 	xpMultipliers: XpMultiplier[];
 	xpRoleRewards: XpRoleReward[];
+	syncRoleRewardsOnJoin: boolean;
 }
 
 export enum XpAnnouncementChannelType {
