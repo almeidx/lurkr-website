@@ -43,10 +43,13 @@ what you want to do with your data!
 
 ```typescript
 interface Level {
-	avatar: string | null;
 	level: number;
 	messageCount: number;
-	tag: string | null;
+	user: {
+		avatar: string | null;
+		discriminator: string;
+		username: string;
+	};
 	userId: string;
 	xp: number;
 }
