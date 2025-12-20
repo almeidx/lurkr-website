@@ -19,17 +19,17 @@ export function ItemStatus({ description, name, type }: ItemStatusProps) {
 			>
 				<PopoverWrapper description={description}>
 					{type === "success" ? (
-						<Check className="-translate-x-1/2 -translate-y-1/2 absolute top-1/2 left-1/2 z-10 size-7 text-[#93e19c]" />
+						<Check className="absolute top-1/2 left-1/2 z-10 size-7 -translate-x-1/2 -translate-y-1/2 text-[#93e19c]" />
 					) : type === "warning" ? (
 						<ShowChart
-							className="-translate-x-1/2 -translate-y-1/2 absolute top-1/2 left-1/2 z-10 size-7 text-[#f6e594]"
+							className="absolute top-1/2 left-1/2 z-10 size-7 -translate-x-1/2 -translate-y-1/2 text-[#f6e594]"
 							key={`warning-${name}`}
 						/>
 					) : type === "error" ? (
-						<Close className="-translate-x-1/2 -translate-y-1/2 absolute top-1/2 left-1/2 z-10 size-7 text-red" />
+						<Close className="absolute top-1/2 left-1/2 z-10 size-7 -translate-x-1/2 -translate-y-1/2 text-red" />
 					) : (
 						<ShowChart
-							className="-translate-x-1/2 -translate-y-1/2 absolute top-1/2 left-1/2 z-10 size-7 text-light-gray"
+							className="absolute top-1/2 left-1/2 z-10 size-7 -translate-x-1/2 -translate-y-1/2 text-light-gray"
 							key={`disabled-${name}`}
 						/>
 					)}

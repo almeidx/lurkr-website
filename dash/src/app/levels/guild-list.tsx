@@ -59,12 +59,12 @@ export function LeaderboardGuildList({ guilds }: { readonly guilds: GuildInfo[] 
 						prefetch={false}
 					>
 						<div
-							className="-left-11 -top-14 invisible absolute z-50 w-40 rounded-lg bg-darker px-3 py-2 text-white shadow-md outline outline-white/25 group-hover:visible"
+							className="invisible absolute -top-14 -left-11 z-50 w-40 rounded-lg bg-darker px-3 py-2 text-white shadow-md outline outline-white/25 group-hover:visible"
 							role="tooltip"
 						>
 							<p className="truncate text-center">{guild.name}</p>
 
-							<div className="-bottom-1.5 -translate-x-1/2 absolute left-1/2 size-3 rotate-45 bg-darker shadow-md [box-shadow:0_-1px_0_rgba(255,255,255,0.25)_inset,-1px_0_0_rgba(255,255,255,0.25)_inset]" />
+							<div className="absolute -bottom-1.5 left-1/2 size-3 -translate-x-1/2 rotate-45 bg-darker shadow-md [box-shadow:0_-1px_0_rgba(255,255,255,0.25)_inset,-1px_0_0_rgba(255,255,255,0.25)_inset]" />
 						</div>
 
 						<ImageWithFallback

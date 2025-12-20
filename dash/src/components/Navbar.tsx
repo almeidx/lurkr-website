@@ -78,7 +78,7 @@ export function Navbar({ children }: PropsWithChildren) {
 			<div
 				className={clsx(
 					"flex-1 md:flex md:flex-row-reverse",
-					menuOpen ? "-translate-x-1/2 fixed bottom-7 left-1/2 z-100000 bg-black/50" : "hidden",
+					menuOpen ? "fixed bottom-7 left-1/2 z-100000 -translate-x-1/2 bg-black/50" : "hidden",
 				)}
 			>
 				{children}
