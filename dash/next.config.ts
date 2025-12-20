@@ -20,9 +20,6 @@ const apiDomain = process.env.NEXT_PUBLIC_API_URL?.split("://")[1] ?? "";
 const backgroundBucketDomain = process.env.BACKGROUNDS_BUCKET_DOMAIN ?? "";
 
 const nextConfig = {
-	experimental: {
-		turbopackFileSystemCacheForDev: true,
-	},
 	// cacheComponents: true,
 	async headers() {
 		return getNextConfigHeaders({
