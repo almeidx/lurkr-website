@@ -1,7 +1,7 @@
 "use client";
 
-import { type ChangeEvent, useState } from "react";
-import { Input } from "@/components/dashboard/Input.tsx";
+import { SearchField } from "@heroui/react";
+import { useState } from "react";
 import { ReportProblem } from "@/components/icons/mdi/report-problem.tsx";
 import { getShardIdForGuildId } from "@/utils/get-shard-id-for-guild-id.ts";
 import { isSnowflake } from "@/utils/is-snowflake.ts";
@@ -12,20 +12,15 @@ export function ShardsContainer({ shards, totalShards }: ShardsContainerProps) {
 
 	const highlightedShard = guildId && isSnowflake(guildId) ? getShardIdForGuildId(guildId, totalShards) : null;
 
-	function handleGuildIdChange(event: ChangeEvent<HTMLInputElement>) {
-		setGuildId(event.target.value);
-	}
-
 	return (
 		<>
-			<Input
-				className="w-full"
-				id="serverId"
-				maxLength={20}
-				onChange={handleGuildIdChange}
-				placeholder="Enter a server id…"
-				value={guildId}
-			/>
+			<SearchField aria-label="Find your shard" className="w-full max-w-md" onChange={setGuildId} value={guildId}>
+				<SearchField.Group>
+					<SearchField.SearchIcon />
+					<SearchField.Input maxLength={19} minLength={16} placeholder="Enter a server id to find your shard…" />
+					<SearchField.ClearButton isDisabled={guildId === ""} />
+				</SearchField.Group>
+			</SearchField>
 
 			<div className="flex w-full flex-wrap items-center justify-center gap-x-7.5 gap-y-5">
 				{shards ? (
@@ -33,10 +28,11 @@ export function ShardsContainer({ shards, totalShards }: ShardsContainerProps) {
 						<ShardDisplay key={`shard-${shard.shardId}`} {...shard} highlight={shard.shardId === highlightedShard} />
 					))
 				) : (
-					<p className="flex items-center gap-2 font-bold text-xl">
-						<ReportProblem className="text-yellow" />
-						The bot is unreachable
-					</p>
+					<div className="flex flex-col items-center justify-center gap-4 py-12 text-center">
+						<ReportProblem className="size-12 text-warning" />
+						<p className="font-bold text-foreground text-xl">The bot is unreachable</p>
+						<p>We are likely performing maintenance. Please check back later.</p>
+					</div>
 				)}
 			</div>
 		</>

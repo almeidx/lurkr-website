@@ -1,0 +1,40 @@
+@layer base {
+	:root,
+	.dark,
+	[data-theme="dark"] {
+		/* Base Colors */
+		--background: #171717;
+		--foreground: #e2e2e2;
+
+		/* Semantic Colors */
+		--accent: #ff7077;
+		--accent-foreground: #1e1f22;
+
+		--secondary: #5865f2;
+		--secondary-foreground: #e2e2e2;
+
+		--success: #3ea25e;
+		--success-foreground: #e2e2e2;
+
+		--warning: #fbb748;
+		--warning-foreground: #1e1f22;
+
+		--danger: #df4444;
+		--danger-foreground: #e2e2e2;
+
+		/* Surface & UI Elements */
+		--surface: #1e1f22;
+		--surface-foreground: #e2e2e2;
+
+		--overlay: #232323;
+		--overlay-foreground: #e2e2e2;
+
+		--field-background: #232323;
+		--field-foreground: #e2e2e2;
+		--field-on-background: #1e1f22;
+
+		/* Default/Neutral */
+		--default: #474747;
+		--default-foreground: #e2e2e2;
+	}
+}
