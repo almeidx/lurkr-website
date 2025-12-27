@@ -118,3 +118,8 @@ button[disabled] {
 div[data-rmiz-modal-content] {
 	@apply bg-darker;
 }
+
+/* hero ui: The accordion content bleeds out of the collapsable title */
+.accordion__panel {
+	@apply px-4;
+}
