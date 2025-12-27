@@ -1,8 +1,9 @@
 "use client";
 
+import { ArrowDown, ArrowRight, ArrowUp, Flag, SquareChartColumn, Stopwatch, Thunderbolt } from "@gravity-ui/icons";
+import { Tooltip } from "@heroui/react";
 import { useState } from "react";
-import { InfoSection } from "@/app/levels/calculator/info-section.tsx";
-import { Input } from "@/components/dashboard/Input.tsx";
+import { Help } from "@/components/icons/mdi/help.tsx";
 import {
 	MAX_XP_GAIN_INTERVAL,
 	MAX_XP_MULTIPLIER_VALUE,
@@ -13,14 +14,23 @@ import {
 } from "@/lib/guild-config.ts";
 import { formatNumber } from "@/utils/format-number.ts";
 import { prettySeconds } from "@/utils/pretty-seconds.ts";
-import { APPROXIMATE_MESSAGES_TOOLTIP, ESTIMATED_TIME_TOOLTIP, EXPERIENCE_REQUIRED_TOOLTIP } from "./tooltips.ts";
+import { CalculatorInput } from "./calculator-input.tsx";
+import { CalculatorResult } from "./calculator-result.tsx";
+import {
+	APPROXIMATE_MESSAGES_TOOLTIP,
+	ESTIMATED_TIME_TOOLTIP,
+	EXPERIENCE_REQUIRED_TOOLTIP,
+	LEVELING_MULTIPLIER_TOOLTIP,
+	XP_GAIN_INTERVAL_TOOLTIP,
+	XP_RANGE_TOOLTIP,
+} from "./tooltips.ts";
 
 const MAX_LEVEL = 6_554;
 
 export function Calculator() {
 	const [desiredLevel, setDesiredLevel] = useState("");
-	const [currentLevel, setCurrentLevel] = useState("");
-	const [multiplier, setMultiplier] = useState("");
+	const [currentLevel, setCurrentLevel] = useState("0");
+	const [multiplier, setMultiplier] = useState("1");
 	const [xpGainInterval, setXpGainInterval] = useState("60");
 	const [xpPerMessageMin, setXpPerMessageMin] = useState("15");
 	const [xpPerMessageMax, setXpPerMessageMax] = useState("40");
@@ -35,118 +45,122 @@ export function Calculator() {
 	);
 
 	return (
-		<>
-			<div className="flex flex-col gap-y-5">
-				<div className="flex flex-col items-center gap-5 md:flex-row">
-					<div className="flex flex-col items-start gap-2">
-						<label className="font-medium text-sm text-white/75" htmlFor="desiredLevel">
-							Desired Level
-						</label>
-						<Input
-							className="h-10 w-64"
-							id="desiredLevel"
-							max={MAX_LEVEL}
-							min={1}
-							onChange={(event) => setDesiredLevel(event.target.value)}
-							placeholder="Enter the desired level…"
-							type="number"
-							value={desiredLevel}
-						/>
-					</div>
-					<div className="flex flex-col items-start gap-2">
-						<label className="font-medium text-sm text-white/75" htmlFor="currentLevel">
-							Current Level
-						</label>
-						<Input
-							className="h-10 w-64"
-							id="currentLevel"
-							max={MAX_LEVEL}
-							min={1}
-							onChange={(event) => setCurrentLevel(event.target.value)}
-							placeholder="Enter the current level…"
-							type="number"
-							value={currentLevel}
-						/>
-					</div>
-					<div className="flex flex-col items-start gap-2">
-						<label className="font-medium text-sm text-white/75" htmlFor="multiplier">
-							Leveling Multiplier
-						</label>
-						<Input
-							className="h-10 w-64"
-							id="multiplier"
-							max={MAX_XP_MULTIPLIER_VALUE}
-							min={MIN_XP_MULTIPLIER_VALUE}
-							onChange={(event) => setMultiplier(event.target.value)}
-							placeholder="Enter a leveling multiplier…"
-							step={MIN_XP_MULTIPLIER_VALUE}
-							type="number"
-							value={multiplier}
-						/>
-					</div>
-				</div>
+		<div className="flex w-full flex-col gap-8">
+			<div className="flex w-full flex-col gap-4 lg:flex-row lg:items-start">
+				<div className="flex flex-1 flex-col gap-4">
+					<div className="rounded-3xl border border-white/5 bg-white/5 p-6 backdrop-blur-md sm:p-8">
+						<div className="flex flex-col gap-6 sm:flex-row">
+							<CalculatorInput
+								className="flex-1"
+								id="currentLevel"
+								label="Current Level"
+								max={MAX_LEVEL}
+								min={0}
+								onValueChange={setCurrentLevel}
+								placeholder="e.g. 5"
+								startContent={<SquareChartColumn />}
+								value={currentLevel}
+							/>
 
-				<div className="flex flex-col items-center gap-5 md:flex-row">
-					<div className="flex flex-col items-start gap-2">
-						<label className="font-medium text-sm text-white/75" htmlFor="xpGainInterval">
-							XP Gain Interval (seconds)
-						</label>
-						<Input
-							className="h-10 w-64"
+							<ArrowRight className="mt-6 hidden text-zinc-400 md:flex" />
+
+							<CalculatorInput
+								autoFocus
+								className="flex-1"
+								id="desiredLevel"
+								label="Desired Level"
+								max={MAX_LEVEL}
+								min={1}
+								onValueChange={setDesiredLevel}
+								placeholder="e.g. 100"
+								startContent={<Flag />}
+								value={desiredLevel}
+							/>
+						</div>
+					</div>
+
+					<div className="grid grid-cols-1 gap-6 rounded-3xl border border-white/5 bg-white/5 p-6 backdrop-blur-md sm:grid-cols-2 sm:p-8">
+						<CalculatorInput
 							id="xpGainInterval"
+							label="XP Gain Interval (sec)"
 							max={MAX_XP_GAIN_INTERVAL / 1000}
 							min={MIN_XP_GAIN_INTERVAL / 1000}
-							onChange={(event) => setXpGainInterval(event.target.value)}
+							onValueChange={setXpGainInterval}
 							placeholder="60"
-							type="number"
+							startContent={<Stopwatch />}
+							tooltip={XP_GAIN_INTERVAL_TOOLTIP}
 							value={xpGainInterval}
 						/>
-					</div>
-					<div className="flex flex-col items-start gap-2">
-						<label className="font-medium text-sm text-white/75" htmlFor="xpPerMessageMin">
-							Min XP per Message
-						</label>
-						<Input
-							className="h-10 w-64"
+
+						<CalculatorInput
+							id="multiplier"
+							label="Leveling Multiplier (x)"
+							max={MAX_XP_MULTIPLIER_VALUE}
+							min={MIN_XP_MULTIPLIER_VALUE}
+							onValueChange={setMultiplier}
+							placeholder="1.0"
+							startContent={<Thunderbolt />}
+							step={MIN_XP_MULTIPLIER_VALUE}
+							tooltip={LEVELING_MULTIPLIER_TOOLTIP}
+							value={multiplier}
+						/>
+
+						<CalculatorInput
 							id="xpPerMessageMin"
+							label="Min XP per Message"
 							max={MAX_XP_PER_MESSAGE}
 							min={MIN_XP_PER_MESSAGE}
-							onChange={(event) => setXpPerMessageMin(event.target.value)}
+							onValueChange={setXpPerMessageMin}
 							placeholder="15"
-							type="number"
+							startContent={<ArrowDown />}
+							tooltip={XP_RANGE_TOOLTIP}
 							value={xpPerMessageMin}
 						/>
-					</div>
-					<div className="flex flex-col items-start gap-2">
-						<label className="font-medium text-sm text-white/75" htmlFor="xpPerMessageMax">
-							Max XP per Message
-						</label>
-						<Input
-							className="h-10 w-64"
+
+						<CalculatorInput
 							id="xpPerMessageMax"
+							label="Max XP per Message"
 							max={MAX_XP_PER_MESSAGE}
 							min={MIN_XP_PER_MESSAGE}
-							onChange={(event) => setXpPerMessageMax(event.target.value)}
+							onValueChange={setXpPerMessageMax}
 							placeholder="40"
-							type="number"
+							startContent={<ArrowUp />}
+							tooltip={XP_RANGE_TOOLTIP}
 							value={xpPerMessageMax}
 						/>
 					</div>
 				</div>
-			</div>
 
-			<div className="flex flex-col items-center gap-5 md:flex-row">
-				<InfoSection raw={approxMessages} title="Approx. Messages" tooltip={APPROXIMATE_MESSAGES_TOOLTIP}>
-					{formatNumber(approxMessages)}
-				</InfoSection>
-				<InfoSection title="Estimated Time" tooltip={ESTIMATED_TIME_TOOLTIP}>
-					{prettySeconds(estimatedTime)}
-				</InfoSection>
-				<InfoSection raw={expRequired} title="Exp. Required" tooltip={EXPERIENCE_REQUIRED_TOOLTIP}>
-					{formatNumber(expRequired)}
-				</InfoSection>
+				<div className="flex w-full flex-col gap-4 lg:sticky lg:top-8 lg:w-96">
+					<div className="rounded-3xl border border-white/5 bg-linear-to-br from-primary/10 to-transparent p-8 backdrop-blur-md">
+						<div className="mb-2 flex items-center gap-2 text-small text-zinc-400 uppercase tracking-wider">
+							Approx. Messages
+							<Tooltip>
+								<Tooltip.Trigger className="cursor-help fill-zinc-400 transition-colors hover:fill-white">
+									<Help className="size-4" />
+								</Tooltip.Trigger>
+								<Tooltip.Content className="max-w-xs rounded-xl border border-white/10 bg-zinc-900 px-3 py-2 text-center text-tiny text-white shadow-xl">
+									{APPROXIMATE_MESSAGES_TOOLTIP}
+								</Tooltip.Content>
+							</Tooltip>
+						</div>
+						<div className="bg-linear-to-br from-white to-white/60 bg-clip-text font-bold text-6xl text-transparent tracking-tighter">
+							{formatNumber(approxMessages)}
+						</div>
+					</div>
+
+					<div className="grid grid-cols-1 xs:grid-cols-2 gap-4">
+						<CalculatorResult label="Time" tooltip={ESTIMATED_TIME_TOOLTIP} value={prettySeconds(estimatedTime)} />
+
+						<CalculatorResult
+							label="XP Needed"
+							tooltip={EXPERIENCE_REQUIRED_TOOLTIP}
+							value={formatNumber(expRequired)}
+						/>
+					</div>
+				</div>
 			</div>
-		</>
+		</div>
 	);
 }
 
@@ -165,21 +179,18 @@ function calculate(
 	const xpPerMessageMin_ = Number.parseInt(xpPerMessageMin, 10) || 15;
 	const xpPerMessageMax_ = Number.parseInt(xpPerMessageMax, 10) || 40;
 
+	function isBetween(value: number, min: number, max: number) {
+		return value >= min && value <= max;
+	}
+
 	if (
 		Number.isNaN(desiredLevel_) ||
-		desiredLevel_ > MAX_LEVEL ||
-		desiredLevel_ <= 0 ||
-		currentLevel_ > MAX_LEVEL ||
-		currentLevel_ < 0 ||
-		multiplier_ < MIN_XP_MULTIPLIER_VALUE ||
-		multiplier_ > MAX_XP_MULTIPLIER_VALUE ||
-		desiredLevel_ <= currentLevel_ ||
-		xpGainInterval_ < MIN_XP_GAIN_INTERVAL / 1000 ||
-		xpGainInterval_ > MAX_XP_GAIN_INTERVAL / 1000 ||
-		xpPerMessageMin_ < MIN_XP_PER_MESSAGE ||
-		xpPerMessageMin_ > MAX_XP_PER_MESSAGE ||
-		xpPerMessageMax_ < MIN_XP_PER_MESSAGE ||
-		xpPerMessageMax_ > MAX_XP_PER_MESSAGE ||
+		!isBetween(desiredLevel_, 1, MAX_LEVEL) ||
+		!isBetween(currentLevel_, 0, MAX_LEVEL) ||
+		!isBetween(multiplier_, MIN_XP_MULTIPLIER_VALUE, MAX_XP_MULTIPLIER_VALUE) ||
+		!isBetween(xpGainInterval_, MIN_XP_GAIN_INTERVAL / 1000, MAX_XP_GAIN_INTERVAL / 1000) ||
+		!isBetween(xpPerMessageMin_, MIN_XP_PER_MESSAGE, MAX_XP_PER_MESSAGE) ||
+		!isBetween(xpPerMessageMax_, MIN_XP_PER_MESSAGE, MAX_XP_PER_MESSAGE) ||
 		xpPerMessageMin_ > xpPerMessageMax_
 	) {
 		return { approxMessages: 0, estimatedTime: 0, expRequired: 0 };
