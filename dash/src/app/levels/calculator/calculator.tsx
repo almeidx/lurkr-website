@@ -1,9 +1,18 @@
 "use client";
 
-import { ArrowDown, ArrowRight, ArrowUp, Flag, SquareChartColumn, Stopwatch, Thunderbolt } from "@gravity-ui/icons";
-import { Tooltip } from "@heroui/react";
+import {
+	ArrowDown,
+	ArrowRight,
+	ArrowUp,
+	CircleQuestionFill,
+	Flag,
+	SquareChartColumn,
+	Stopwatch,
+	Thunderbolt,
+} from "@gravity-ui/icons";
+import { Surface } from "@heroui/react";
 import { useState } from "react";
-import { Help } from "@/components/icons/mdi/help.tsx";
+import { ResponsiveTooltip } from "@/components/ui/responsive-tooltip.tsx";
 import {
 	MAX_XP_GAIN_INTERVAL,
 	MAX_XP_MULTIPLIER_VALUE,
@@ -47,11 +56,11 @@ export function Calculator() {
 	return (
 		<div className="flex w-full flex-col gap-8">
 			<div className="flex w-full flex-col gap-4 lg:flex-row lg:items-start">
-				<div className="flex flex-1 flex-col gap-4">
-					<div className="rounded-3xl border border-white/5 bg-white/5 p-6 backdrop-blur-md sm:p-8">
+				<div className="flex min-w-0 flex-1 flex-col gap-4">
+					<Surface className="rounded-3xl p-6 sm:p-8">
 						<div className="flex flex-col gap-6 sm:flex-row">
 							<CalculatorInput
-								className="flex-1"
+								className="min-w-0 flex-1"
 								id="currentLevel"
 								label="Current Level"
 								max={MAX_LEVEL}
@@ -66,7 +75,7 @@ export function Calculator() {
 
 							<CalculatorInput
 								autoFocus
-								className="flex-1"
+								className="min-w-0 flex-1"
 								id="desiredLevel"
 								label="Desired Level"
 								max={MAX_LEVEL}
@@ -77,16 +86,16 @@ export function Calculator() {
 								value={desiredLevel}
 							/>
 						</div>
-					</div>
+					</Surface>
 
-					<div className="grid grid-cols-1 gap-6 rounded-3xl border border-white/5 bg-white/5 p-6 backdrop-blur-md sm:grid-cols-2 sm:p-8">
+					<Surface className="grid grid-cols-1 gap-6 rounded-3xl p-6 sm:grid-cols-2 sm:p-8">
 						<CalculatorInput
 							id="xpGainInterval"
-							label="XP Gain Interval (sec)"
+							label="Cooldown (sec)"
 							max={MAX_XP_GAIN_INTERVAL / 1000}
 							min={MIN_XP_GAIN_INTERVAL / 1000}
 							onValueChange={setXpGainInterval}
-							placeholder="60"
+							placeholder="e.g. 60"
 							startContent={<Stopwatch />}
 							tooltip={XP_GAIN_INTERVAL_TOOLTIP}
 							value={xpGainInterval}
@@ -94,11 +103,11 @@ export function Calculator() {
 
 						<CalculatorInput
 							id="multiplier"
-							label="Leveling Multiplier (x)"
+							label="Multiplier (x)"
 							max={MAX_XP_MULTIPLIER_VALUE}
 							min={MIN_XP_MULTIPLIER_VALUE}
 							onValueChange={setMultiplier}
-							placeholder="1.0"
+							placeholder="e.g. 1"
 							startContent={<Thunderbolt />}
 							step={MIN_XP_MULTIPLIER_VALUE}
 							tooltip={LEVELING_MULTIPLIER_TOOLTIP}
@@ -107,11 +116,11 @@ export function Calculator() {
 
 						<CalculatorInput
 							id="xpPerMessageMin"
-							label="Min XP per Message"
+							label="Min XP per msg."
 							max={MAX_XP_PER_MESSAGE}
 							min={MIN_XP_PER_MESSAGE}
 							onValueChange={setXpPerMessageMin}
-							placeholder="15"
+							placeholder="e.g. 15"
 							startContent={<ArrowDown />}
 							tooltip={XP_RANGE_TOOLTIP}
 							value={xpPerMessageMin}
@@ -119,35 +128,35 @@ export function Calculator() {
 
 						<CalculatorInput
 							id="xpPerMessageMax"
-							label="Max XP per Message"
+							label="Max XP per msg."
 							max={MAX_XP_PER_MESSAGE}
 							min={MIN_XP_PER_MESSAGE}
 							onValueChange={setXpPerMessageMax}
-							placeholder="40"
+							placeholder="e.g. 40"
 							startContent={<ArrowUp />}
 							tooltip={XP_RANGE_TOOLTIP}
 							value={xpPerMessageMax}
 						/>
-					</div>
+					</Surface>
 				</div>
 
-				<div className="flex w-full flex-col gap-4 lg:sticky lg:top-8 lg:w-96">
-					<div className="rounded-3xl border border-white/5 bg-linear-to-br from-primary/10 to-transparent p-8 backdrop-blur-md">
+				<div className="flex w-full shrink-0 flex-col gap-4 lg:sticky lg:top-8 lg:w-96">
+					<Surface className="rounded-3xl border border-white/5 bg-linear-to-br from-primary/10 to-transparent p-8 backdrop-blur-md">
 						<div className="mb-2 flex items-center gap-2 text-small text-zinc-400 uppercase tracking-wider">
-							Approx. Messages
-							<Tooltip>
-								<Tooltip.Trigger className="cursor-help fill-zinc-400 transition-colors hover:fill-white">
-									<Help className="size-4" />
-								</Tooltip.Trigger>
-								<Tooltip.Content className="max-w-xs rounded-xl border border-white/10 bg-zinc-900 px-3 py-2 text-center text-tiny text-white shadow-xl">
-									{APPROXIMATE_MESSAGES_TOOLTIP}
-								</Tooltip.Content>
-							</Tooltip>
+							Approximate Messages
+							<ResponsiveTooltip
+								content={<div className="max-w-xs text-center">{APPROXIMATE_MESSAGES_TOOLTIP}</div>}
+								delay={100}
+							>
+								<div className="cursor-help transition-colors hover:text-white">
+									<CircleQuestionFill className="size-4 fill-current" />
+								</div>
+							</ResponsiveTooltip>
 						</div>
 						<div className="bg-linear-to-br from-white to-white/60 bg-clip-text font-bold text-6xl text-transparent tracking-tighter">
 							{formatNumber(approxMessages)}
 						</div>
-					</div>
+					</Surface>
 
 					<div className="grid grid-cols-1 xs:grid-cols-2 gap-4">
 						<CalculatorResult label="Time" tooltip={ESTIMATED_TIME_TOOLTIP} value={prettySeconds(estimatedTime)} />

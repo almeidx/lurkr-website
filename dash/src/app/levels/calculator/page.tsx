@@ -43,7 +43,7 @@ export default function CalculatorPage() {
 							<Accordion.Trigger>
 								<div className="flex items-center gap-3">
 									<Thunderbolt className="text-zinc-400" />
-									What does the Leveling Multiplier do?
+									What does the leveling multiplier do?
 								</div>
 								<Accordion.Indicator />
 							</Accordion.Trigger>
@@ -81,9 +81,9 @@ export default function CalculatorPage() {
 							</Accordion.Trigger>
 						</Accordion.Heading>
 						<Accordion.Panel className="text-muted">
-							Required XP for each level increases quadratically. The formula used is: `100 + 50 * (level - 1)^2`. This
-							means higher levels require significantly more XP to reach than lower levels, creating a progressive
-							difficulty curve.
+							Required XP for each level increases quadratically. At this time, the formula used is "100 + 50 * (level -
+							1)^2" and cannot be changed. This means higher levels require significantly more XP to reach than lower
+							levels, creating a progressive difficulty curve.
 						</Accordion.Panel>
 					</Accordion.Item>
 				</Accordion>

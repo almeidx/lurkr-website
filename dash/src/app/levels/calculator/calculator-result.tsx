@@ -1,7 +1,8 @@
 "use client";
 
-import { Tooltip } from "@heroui/react";
-import { Help } from "@/components/icons/mdi/help.tsx";
+import { CircleQuestionFill } from "@gravity-ui/icons";
+import { Surface } from "@heroui/react";
+import { ResponsiveTooltip } from "@/components/ui/responsive-tooltip.tsx";
 
 export function CalculatorResult({
 	label,
@@ -13,19 +14,16 @@ export function CalculatorResult({
 	value: string | number;
 }) {
 	return (
-		<div className="rounded-3xl border border-white/5 bg-white/5 p-6 backdrop-blur-md">
-			<div className="mb-2 flex items-center gap-2 text-tiny text-zinc-400 uppercase tracking-wider">
+		<Surface className="rounded-3xl p-6">
+			<div className="mb-2 flex items-center gap-2 text-zinc-400 uppercase tracking-wider">
 				{label}
-				<Tooltip delay={0}>
-					<Tooltip.Trigger className="cursor-help fill-zinc-400 transition-colors hover:fill-white">
-						<Help className="size-3.5" />
-					</Tooltip.Trigger>
-					<Tooltip.Content className="max-w-xs rounded-xl border border-white/10 bg-zinc-900 px-3 py-2 text-center text-tiny text-white shadow-xl">
-						{tooltip}
-					</Tooltip.Content>
-				</Tooltip>
+				<ResponsiveTooltip content={<div className="max-w-xs text-center">{tooltip}</div>} delay={100}>
+					<div className="cursor-help transition-colors hover:text-white">
+						<CircleQuestionFill className="size-3.5 fill-current" />
+					</div>
+				</ResponsiveTooltip>
 			</div>
 			<div className="font-semibold text-2xl text-white">{value}</div>
-		</div>
+		</Surface>
 	);
 }
