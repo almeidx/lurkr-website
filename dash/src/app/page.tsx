@@ -211,9 +211,9 @@ function StartLevelingButton() {
 function ShowcaseSeparator() {
 	return (
 		<div className="flex w-full items-center justify-center gap-3 py-8">
-			<div className="h-px w-16 bg-gradient-to-r from-transparent to-white/20" />
+			<div className="h-px w-16 bg-linear-to-r from-transparent to-white/20" />
 			<div className="size-2 rounded-full bg-linear-(--lurkr-gradient)" />
-			<div className="h-px w-16 bg-gradient-to-l from-transparent to-white/20" />
+			<div className="h-px w-16 bg-linear-to-l from-transparent to-white/20" />
 		</div>
 	);
 }
