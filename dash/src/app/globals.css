@@ -1,5 +1,9 @@
+@layer theme, base, components, utilities;
+
 @import "tailwindcss";
+@import "@heroui/styles";
 @import "./animations.css";
+@import "./theme.css" layer(theme);
 @import "./scrollbar.css";
 
 @plugin "@tailwindcss/typography";
@@ -113,4 +117,11 @@ button[disabled] {
 /* react-medium-image-zoom */
 div[data-rmiz-modal-content] {
 	@apply bg-darker;
+}
+
+@layer components {
+	/* hero ui: The accordion content bleeds out of the collapsable title */
+	.accordion__panel {
+		@apply px-4;
+	}
 }

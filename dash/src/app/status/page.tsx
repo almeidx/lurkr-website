@@ -8,25 +8,28 @@ export default async function Status() {
 	const data = await getData();
 
 	return (
-		<div className="mx-2 flex flex-col items-center justify-center gap-12 py-4">
-			<header className="flex flex-col items-center justify-center gap-4">
-				<h1 className="font-bold text-4xl text-white">Bot Status</h1>
+		<div className="mx-auto flex w-full max-w-7xl flex-col items-center justify-center gap-12 px-4 py-12">
+			<header className="flex flex-col items-center justify-center gap-4 text-center">
+				<h1 className="bg-linear-to-br from-white to-white/50 bg-clip-text font-bold text-4xl text-transparent">
+					Bot Status
+				</h1>
 
-				<p className="max-w-md text-center text-white/75 text-xl leading-relaxed tracking-tighter">
-					Check if the bot is online in your server or is currently having issues!
+				<p className="text-xl leading-relaxed tracking-tight">
+					Check if the bot is online or having issues in your server!
 				</p>
 			</header>
 
-			<main className="flex w-full max-w-3xl flex-col items-center justify-center gap-8 rounded-lg border border-white/25 bg-dark-gray px-8.5 py-8">
+			<div className="flex w-full flex-col items-center gap-10">
 				{data ? (
 					<ShardsContainer shards={data.shards} totalShards={data.totalShards} />
 				) : (
-					<p className="flex items-center gap-2 font-bold text-xl">
-						<ReportProblem className="text-yellow" />
-						The bot is unreachable
-					</p>
+					<div className="flex flex-col items-center justify-center gap-4 text-center">
+						<ReportProblem className="size-16 animate-pulse text-warning" />
+						<p className="font-bold text-2xl text-foreground">The bot is unreachable</p>
+						<p>We are having trouble connecting to the bot API.</p>
+					</div>
 				)}
-			</main>
+			</div>
 		</div>
 	);
 }

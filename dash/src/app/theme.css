@@ -1,0 +1,40 @@
+@layer base {
+	:root,
+	.dark,
+	[data-theme="dark"] {
+		/* Base Colors */
+		--background: oklch(0.2046 0 0);
+		--foreground: oklch(0.9128 0 0);
+
+		/* Semantic Colors */
+		--accent: oklch(0.7204 0.1746 19.6);
+		--accent-foreground: oklch(0.2395 0.0059 271.17);
+
+		--secondary: oklch(0.5774 0.2091 273.85);
+		--secondary-foreground: oklch(0.9128 0 0);
+
+		--success: oklch(0.6364 0.1376 150.99);
+		--success-foreground: oklch(0.9128 0 0);
+
+		--warning: oklch(0.8239 0.146 76.05);
+		--warning-foreground: oklch(0.2395 0.0059 271.17);
+
+		--danger: oklch(0.6102 0.192 24.88);
+		--danger-foreground: oklch(0.9128 0 0);
+
+		/* Surface & UI Elements */
+		--surface: oklch(0.2395 0.0059 271.17);
+		--surface-foreground: oklch(0.9128 0 0);
+
+		--overlay: oklch(21% 0.006 285.885);
+		--overlay-foreground: oklch(0.9128 0 0);
+
+		--field-background: oklch(0.2562 0 0);
+		--field-foreground: oklch(0.9128 0 0);
+		--field-on-background: oklch(0.2395 0.0059 271.17);
+
+		/* Default/Neutral */
+		--default: oklch(0.3979 0 0);
+		--default-foreground: oklch(0.9128 0 0);
+	}
+}
