@@ -100,8 +100,8 @@ app handles all the requests, and rewrites requests to `/docs` to the documentat
 2. Use up-to-date, builtin (if available) features, including those introduced in Node.js v24.
 3. Use ESM features (this project uses `"type": "module"`).
 4. Maintain existing code structure and organization.
-5. Use TailwindCSS v4 for styling.
-6. Use Radix UI primitives (already installed) when building accessible UI components.
+5. Use TailwindCSS v4 for custom styling.
+6. New UI components should use HeroUI v3 (Beta version).
 
 ## Changes to the Documentation Content
 
@@ -122,3 +122,19 @@ Key external links are centralized in `shared/shared-links.ts`:
 - `SUPPORT_SERVER_INVITE`: Discord support server
 - `GITHUB_REPOSITORY_URL`: This repository
 - `BOT_INVITE`: Discord bot invite link
+
+## UI
+
+The old UI was made using a mixture of custom components, radix UI primitives, and Tremor UI.
+
+The new UI is made using HeroUI v3 (Beta version).
+
+### Tooltips on Mobile
+
+The standard `Tooltip` components in HeroUI v3 do not support tap interaction on mobile. Use the internal
+`ResponsiveTooltip` from `@/components/ui/responsive-tooltip.tsx` instead.
+
+### Styling
+
+Prefer using HeroUI's default component styling and structure. Avoid over-engineering with custom Tailwind classes
+unless necessary.
