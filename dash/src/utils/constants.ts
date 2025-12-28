@@ -35,3 +35,5 @@ export const COOKIE_NOTICE_COOKIE = "biscuits";
 export const COOKIE_NOTICE_ACK = "aye";
 
 export const DEFAULT_ACCENT_COLOR = "#bebebe";
+
+export const WRAPPED_2025_NOTICE_COOKIE = "wrapped-dismissed-2025";

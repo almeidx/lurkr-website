@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { Suspense } from "react";
 import { type FeaturedGuild, FeaturedGuilds } from "@/app/featured-guilds.tsx";
 import logoImg from "@/assets/logo.webp";
 import importImg from "@/assets/showcases/import.webp";
@@ -17,6 +18,7 @@ import { MilitaryTech } from "@/components/icons/mdi/military-tech.tsx";
 import { Speed } from "@/components/icons/mdi/speed.tsx";
 import { TrendingUp } from "@/components/icons/mdi/trending-up.tsx";
 import { Showcase } from "@/components/Showcase.tsx";
+import { WrappedNoticeContainer } from "@/components/wrapped-notice-container.tsx";
 import { BOT_INVITE } from "@/shared-links.ts";
 import { formatNumber } from "@/utils/format-number.ts";
 import { makeApiRequest } from "@/utils/make-api-request.ts";
@@ -33,6 +35,10 @@ export default async function Homepage() {
 
 	return (
 		<div className="mb-8 flex flex-col items-center gap-10 py-4">
+			<Suspense>
+				<WrappedNoticeContainer />
+			</Suspense>
+
 			<div className="flex flex-col items-center gap-4 xl:gap-0">
 				<div className="flex flex-col items-center gap-4 xl:mr-20 xl:flex-row">
 					<p className="font-bold text-3xl text-shadow-regular xl:whitespace-nowrap xl:text-4xl">
