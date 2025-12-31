@@ -18,99 +18,112 @@ export default async function Premium() {
 	const currentPlan = token ? await getData(token) : null;
 
 	return (
-		<div className="container mx-auto flex flex-col justify-center">
-			<div className="mb-6 flex flex-col items-center gap-4 xl:gap-0">
-				<div className="flex flex-col items-center gap-4 xl:flex-row">
-					<p className="font-bold text-lg text-shadow-regular xl:whitespace-nowrap xl:text-2xl">
-						Unlimited Leveling. Limited Investment.
-					</p>
-					<Image
-						alt="Lurkr logo"
-						className="hidden aspect-square size-72 xl:block"
-						height={288}
-						priority
-						src={logoImg}
-						width={288}
-					/>
-					<p className="font-bold text-lg text-shadow-regular xl:whitespace-nowrap xl:text-2xl">
-						Premium Status. Premium Support.
+		<div className="container mx-auto flex flex-col items-center px-4 py-8">
+			{/* Hero Section */}
+			<div className="mb-12 flex flex-col items-center gap-6 text-center">
+				<Image alt="Lurkr logo" className="size-32 md:size-40" height={160} priority src={logoImg} width={160} />
+				<div className="space-y-2">
+					<h1 className="font-bold text-3xl text-shadow-regular md:text-4xl lg:text-5xl">
+						Upgrade Your Lurkr Experience
+					</h1>
+					<p className="max-w-2xl text-lg text-white/60">
+						Unlimited Leveling. Premium Support. Choose the plan that fits your needs.
 					</p>
 				</div>
+			</div>
 
-				<main className="flex w-full flex-col items-center">
-					<div className="flex flex-col gap-4 lg:flex-row lg:gap-10 xl:gap-16">
-						<PremiumPlan
-							buttonText="Turn it to Max!"
-							funny="Buys you groceries…"
-							img={lurkrMaxImg}
-							isCurrent={currentPlan?.plan === "Basic"}
-							name="Lurkr Max"
-							perks={[
-								"Personal Premium Lurkr for you!",
-								"No tips on /level command for you",
-								"Patreon role in Lurkr support server",
-								"Premium support",
-							]}
-							price={1}
-							tier={1}
-						/>
+			{/* Pricing Cards */}
+			<div className="mb-12 grid w-full max-w-5xl grid-cols-1 items-end gap-6 lg:grid-cols-3 lg:gap-8">
+				<PremiumPlan
+					buttonText="Stay Free"
+					funny="Buys you groceries…"
+					img={lurkrFreeImg}
+					isCurrent={currentPlan?.plan === "None"}
+					name="Lurkr Free"
+					perks={["Standard configuration limits", "Access to all core features", "Community support"]}
+					price={0}
+					tier={0}
+				/>
 
-						<PremiumPlan
-							buttonText="Become Ultimate!"
-							funny="Helps you pay taxes…"
-							img={lurkrUltimateImg}
-							isCurrent={currentPlan?.plan === "Guild"}
-							name="Lurkr Ultimate"
-							perks={[
-								"Premium Lurkr for a whole server",
-								"Huge increase in configuration limits",
-								"Everything from Lurkr Max",
-								"Patreon role in Lurkr support server",
-								"Premium support",
-								"Helps developers maintain Lurkr!",
-							]}
-							price={5}
-							tier={2}
-						/>
+				<PremiumPlan
+					buttonText="Become Ultimate"
+					funny="Helps you pay taxes…"
+					img={lurkrUltimateImg}
+					isCurrent={currentPlan?.plan === "Guild"}
+					isPopular
+					name="Lurkr Ultimate"
+					perks={[
+						"Premium Lurkr for a whole server",
+						"Huge increase in configuration limits",
+						"Everything from Lurkr Max",
+						"Patreon role in support server",
+						"Premium support",
+						"Help maintain Lurkr!",
+					]}
+					price={5}
+					tier={2}
+				/>
 
-						<PremiumPlan
-							buttonText="Stay Free!"
-							funny="Kisses you goodnight…"
-							img={lurkrFreeImg}
-							isCurrent={currentPlan?.plan === "None"}
-							name="Lurkr Free"
-							perks={["Standard configuration limits"]}
-							price={0}
-							regular={["Tips on /level command", "No role in Lurkr support server", "Standard support"]}
-							tier={0}
-						/>
-					</div>
+				<PremiumPlan
+					buttonText="Get Max"
+					funny="Kisses you goodnight…"
+					img={lurkrMaxImg}
+					isCurrent={currentPlan?.plan === "Basic"}
+					name="Lurkr Max"
+					perks={[
+						"Personal Premium Lurkr",
+						"No tips on /level command",
+						"Patreon role in support server",
+						"Premium support",
+					]}
+					price={1}
+					tier={1}
+				/>
+			</div>
 
-					<p className="max-w-prose text-balance text-center text-white/75">
-						Purchases are subject to our <Link href="/terms">Terms of Service</Link> &{" "}
-						<Link href="/privacy">Privacy Policy</Link> and to the{" "}
-						<HeroLink href="https://www.patreon.com/policy/legal" rel="external noopener noreferrer" target="_blank">
-							Terms of Service
-						</HeroLink>{" "}
-						and{" "}
-						<HeroLink
-							href="https://support.patreon.com/hc/articles/205032045-Patreon-s-refund-policy"
-							rel="external noopener noreferrer"
-							target="_blank"
-						>
-							Refund Policy
-						</HeroLink>{" "}
-						of Patreon, Inc.
-					</p>
+			{/* Legal Notice */}
+			<p className="mb-16 max-w-prose text-balance text-center text-sm text-white/50">
+				Purchases are subject to our{" "}
+				<Link className="underline hover:text-white/70" href="/terms">
+					Terms of Service
+				</Link>{" "}
+				&{" "}
+				<Link className="underline hover:text-white/70" href="/privacy">
+					Privacy Policy
+				</Link>{" "}
+				and to the{" "}
+				<HeroLink
+					className="underline hover:text-white/70"
+					href="https://www.patreon.com/policy/legal"
+					rel="external noopener noreferrer"
+					target="_blank"
+				>
+					Terms of Service
+				</HeroLink>{" "}
+				and{" "}
+				<HeroLink
+					className="underline hover:text-white/70"
+					href="https://support.patreon.com/hc/articles/205032045-Patreon-s-refund-policy"
+					rel="external noopener noreferrer"
+					target="_blank"
+				>
+					Refund Policy
+				</HeroLink>{" "}
+				of Patreon, Inc.
+			</p>
 
-					<h2 className="mt-8 font-bold text-4xl">Compare Lurkr Plans</h2>
+			{/* Comparison Section */}
+			<div className="flex w-full flex-col items-center gap-8">
+				<div className="text-center">
+					<h2 className="font-bold text-2xl md:text-3xl">Compare Plans</h2>
+					<p className="mt-2 text-white/60">See what's included in each plan</p>
+				</div>
 
-					<div className="mt-6 space-y-6">
-						<ComparisonTable features={levelingFeatures} section="Leveling" />
-						<ComparisonTable features={configLimitFeatures} section="Configuration" />
-						<ComparisonTable features={extraFeatures} section="Extras" />
-					</div>
-				</main>
+				<div className="flex w-full flex-col items-center gap-8">
+					<ComparisonTable features={levelingFeatures} section="Leveling" />
+					<ComparisonTable features={configLimitFeatures} section="Configuration Limits" />
+					<ComparisonTable features={extraFeatures} section="Extras" />
+				</div>
 			</div>
 		</div>
 	);
