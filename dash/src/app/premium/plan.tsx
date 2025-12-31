@@ -1,9 +1,7 @@
-import clsx from "clsx";
+import { Card, Link as HeroLink } from "@heroui/react";
 import type { StaticImageData } from "next/image";
 import Image from "next/image";
 import Link from "next/link";
-import type { ComponentProps } from "react";
-import { ExternalLink } from "@/components/ExternalLink.tsx";
 import { Check } from "@/components/icons/mdi/check.tsx";
 import { Close } from "@/components/icons/mdi/close.tsx";
 import { ShowChart } from "@/components/icons/mdi/show-chart.tsx";
@@ -20,105 +18,104 @@ export function PremiumPlan({
 	tier,
 	isCurrent,
 }: PremiumPlanProps) {
+	const isExternal = tier !== 0;
+	const href = isExternal ? PATREON_URL : "/guilds";
+
+	const buttonClassName =
+		tier === 1
+			? "bg-linear-(--lurkr-max-gradient) font-bold text-black"
+			: tier === 2
+				? "bg-linear-(--lurkr-ultimate-gradient) font-bold text-black"
+				: "bg-linear-(--lurkr-gradient) font-bold text-black";
+
 	return (
-		<div
-			className={clsx(
-				"relative mb-8 flex h-fit flex-1 flex-col rounded-xl bg-dark-gray px-8 py-9",
-				tier !== 0 && "before:absolute before:-inset-px before:-z-1 before:blur-xs",
+		<Card
+			className={
 				tier === 1
-					? "before:bg-gradient-lurkr-max"
+					? "border-2 border-transparent bg-clip-padding [background:linear-gradient(var(--color-dark-gray),var(--color-dark-gray))_padding-box,linear-gradient(90deg,#aad6c6_1%,#fa9079_33%,#fcc953_66%,#74da9c_100%)_border-box]"
 					: tier === 2
-						? "before:bg-gradient-lurkr-ultimate"
-						: "border border-white/25",
-				isCurrent &&
-					"after:absolute after:-top-4 after:left-1/2 after:-translate-x-1/2 after:rounded-lg after:bg-white after:px-4 after:py-1 after:font-bold after:text-black after:text-xl after:content-['Current']",
-			)}
+						? "border-2 border-transparent bg-clip-padding [background:linear-gradient(var(--color-dark-gray),var(--color-dark-gray))_padding-box,linear-gradient(90deg,#a2fbec_1%,#f985ff_33%,#904dff_66%,#4d54fe_100%)_border-box]"
+						: "border border-white/25"
+			}
 		>
-			<h2 className="text-center font-bold text-2xl text-shadow-regular md:text-4xl">{name}</h2>
+			<Card.Header className="flex-col items-center gap-2 pb-0">
+				{isCurrent && <span className="rounded-lg bg-white px-4 py-1 font-bold text-black text-xl">Current</span>}
+				<Card.Title className="text-center font-bold text-2xl text-shadow-regular md:text-4xl">{name}</Card.Title>
+			</Card.Header>
 
-			<Image
-				alt={`${name} premium plan promotional image`}
-				className="mt-2 size-36 self-center md:size-48"
-				height={200}
-				priority
-				src={img}
-				width={200}
-			/>
+			<Card.Content className="flex flex-col items-center gap-4">
+				<Image
+					alt={`${name} premium plan promotional image`}
+					className="size-36 md:size-48"
+					height={200}
+					priority
+					src={img}
+					width={200}
+				/>
 
-			<p className="text-center font-bold text-4xl md:text-6xl">
-				${price}
-				<span className="text-2xl md:text-4xl">/mo</span>
-			</p>
+				<div className="text-center">
+					<p className="font-bold text-4xl md:text-6xl">
+						${price}
+						<span className="text-2xl md:text-4xl">/mo</span>
+					</p>
+					<p className="mt-2 text-white/75">{price === 0 ? "Billed never!" : "Billed recurringly"}</p>
+				</div>
 
-			<p className="mt-2 text-center text-white/75">{price === 0 ? "Billed never!" : "Billed recurringly"}</p>
-
-			<div className="mt-4 space-y-3 whitespace-normal text-sm text-white/75 tracking-tighter md:text-base xl:whitespace-nowrap">
-				<ul className="space-y-3">
-					{perks.map((perk) => (
-						<li className="flex items-center gap-2" key={perk}>
-							<div className="flex size-9 items-center justify-center rounded-lg bg-darker">
-								<Check aria-hidden className="size-8 text-[#93e19c]" />
-							</div>
-
-							{perk}
-						</li>
-					))}
-				</ul>
-
-				{regular && (
+				<div className="w-full space-y-3 text-sm text-white/75 tracking-tighter md:text-base">
 					<ul className="space-y-3">
-						{regular.map((perk) => (
+						{perks.map((perk) => (
 							<li className="flex items-center gap-2" key={perk}>
-								<div className="flex size-9 items-center justify-center rounded-lg bg-darker">
-									<ShowChart aria-hidden className="size-8 text-[#f6e594]" />
+								<div className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-darker">
+									<Check aria-hidden className="size-8 text-[#93e19c]" />
 								</div>
-
-								{perk}
+								<span>{perk}</span>
 							</li>
 						))}
 					</ul>
-				)}
 
-				<div className="flex items-center gap-2">
-					<div className="flex size-9 items-center justify-center rounded-lg bg-darker">
-						<Close aria-hidden className="size-8 text-[#b1b1b2]" />
+					{regular && (
+						<ul className="space-y-3">
+							{regular.map((perk) => (
+								<li className="flex items-center gap-2" key={perk}>
+									<div className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-darker">
+										<ShowChart aria-hidden className="size-8 text-[#f6e594]" />
+									</div>
+									<span>{perk}</span>
+								</li>
+							))}
+						</ul>
+					)}
+
+					<div className="flex items-center gap-2">
+						<div className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-darker">
+							<Close aria-hidden className="size-8 text-[#b1b1b2]" />
+						</div>
+						<span>{funny}</span>
 					</div>
-
-					<p>{funny}</p>
 				</div>
-			</div>
+			</Card.Content>
 
-			<DynamicLink
-				className={clsx(
-					"relative z-1 mt-4 w-fit self-center rounded-lg px-6 py-2 text-center font-bold text-black text-xl before:absolute before:inset-0 before:-z-1 before:rounded-lg before:bg-linear-(--lurkr-gradient-alt) before:opacity-0 before:transition-opacity before:duration-300 hover:before:opacity-100",
-					tier === 1
-						? "bg-linear-(--lurkr-max-gradient)"
-						: tier === 2
-							? "bg-linear-(--lurkr-ultimate-gradient)"
-							: "bg-linear-(--lurkr-gradient)",
-					isCurrent ? "pointer-events-none opacity-50" : "cursor-pointer",
+			<Card.Footer className="justify-center">
+				{isExternal ? (
+					<HeroLink
+						className={`${buttonClassName} inline-flex items-center justify-center rounded-xl px-6 py-3 text-lg ${isCurrent ? "pointer-events-none opacity-50" : ""}`}
+						href={href}
+						rel="external noopener noreferrer"
+						target="_blank"
+					>
+						{buttonText}
+					</HeroLink>
+				) : (
+					<Link
+						className={`${buttonClassName} inline-flex items-center justify-center rounded-xl px-6 py-3 text-lg ${isCurrent ? "pointer-events-none opacity-50" : ""}`}
+						href={href}
+						prefetch={false}
+					>
+						{buttonText}
+					</Link>
 				)}
-				href={tier === 0 ? "/guilds" : PATREON_URL}
-			>
-				{buttonText}
-			</DynamicLink>
-		</div>
-	);
-}
-
-function DynamicLink({ className, href, children, ...props }: ComponentProps<typeof ExternalLink> & { href: string }) {
-	if (href.startsWith("http")) {
-		return (
-			<ExternalLink className={className} href={href} {...props}>
-				{children}
-			</ExternalLink>
-		);
-	}
-
-	return (
-		<Link className={className} href={href} prefetch={false}>
-			{children}
-		</Link>
+			</Card.Footer>
+		</Card>
 	);
 }
 

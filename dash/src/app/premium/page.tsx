@@ -1,3 +1,4 @@
+import { Link as HeroLink } from "@heroui/react";
 import type { Metadata } from "next";
 import { cookies } from "next/headers";
 import Image from "next/image";
@@ -9,7 +10,6 @@ import logoImg from "@/assets/logo.webp";
 import lurkrFreeImg from "@/assets/premium-plans/lurkr-free.webp";
 import lurkrMaxImg from "@/assets/premium-plans/lurkr-max.webp";
 import lurkrUltimateImg from "@/assets/premium-plans/lurkr-ultimate.webp";
-import { ExternalLink } from "@/components/ExternalLink.tsx";
 import { TOKEN_COOKIE } from "@/utils/constants.ts";
 import { makeApiRequest } from "@/utils/make-api-request.ts";
 
@@ -89,10 +89,17 @@ export default async function Premium() {
 					<p className="max-w-prose text-balance text-center text-white/75">
 						Purchases are subject to our <Link href="/terms">Terms of Service</Link> &{" "}
 						<Link href="/privacy">Privacy Policy</Link> and to the{" "}
-						<ExternalLink href="https://www.patreon.com/policy/legal">Terms of Service</ExternalLink> and{" "}
-						<ExternalLink href="https://support.patreon.com/hc/articles/205032045-Patreon-s-refund-policy">
+						<HeroLink href="https://www.patreon.com/policy/legal" rel="external noopener noreferrer" target="_blank">
+							Terms of Service
+						</HeroLink>{" "}
+						and{" "}
+						<HeroLink
+							href="https://support.patreon.com/hc/articles/205032045-Patreon-s-refund-policy"
+							rel="external noopener noreferrer"
+							target="_blank"
+						>
 							Refund Policy
-						</ExternalLink>{" "}
+						</HeroLink>{" "}
 						of Patreon, Inc.
 					</p>
 
