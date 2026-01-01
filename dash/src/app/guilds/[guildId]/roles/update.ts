@@ -20,8 +20,6 @@ import { createMinuteIntervalValidator, createSnowflakesValidator, UUID_REGEX } 
 import { ServerActionError } from "@/utils/server-action-error.ts";
 import { UserFlags } from "@/utils/user-flags.ts";
 
-// TODO: Use `safeParse` instead of `parse`
-
 const regularSchema = createSchema(false);
 const premiumSchema = createSchema(true);
 
