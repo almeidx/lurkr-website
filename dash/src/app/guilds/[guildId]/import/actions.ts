@@ -12,7 +12,7 @@ import { StartImportError } from "./import-status.tsx";
 
 const importBotDataSchema = object({
 	bot: enum_(LevelingImportBot),
-	until: pipe(coerceToInt, minValue(3), maxValue(20)),
+	minLevel: pipe(coerceToInt, minValue(3), maxValue(20)),
 	withRoleRewards: toggle,
 });
 
