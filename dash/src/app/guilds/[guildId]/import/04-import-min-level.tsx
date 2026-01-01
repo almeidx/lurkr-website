@@ -11,7 +11,7 @@ export function ImportMinLevel() {
 				Minimum level to be imported:
 			</Text>
 
-			<Input defaultValue={5} id="until" max={20} min={3} placeholder="Level" required type="number" />
+			<Input defaultValue={5} id="minLevel" max={20} min={3} placeholder="Level" required type="number" />
 		</div>
 	);
 }
