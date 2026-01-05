@@ -15,11 +15,11 @@ export function ComparisonTable({ section, features }: ComparisonTableProps) {
 			</div>
 
 			<div className="relative">
-				{/* Gradient glow behind Ultimate column */}
-				<div className="pointer-events-none absolute top-0 right-0 -z-10 h-full w-32 rounded-2xl bg-gradient-to-br from-[#a2fbec]/30 via-[#f985ff]/30 to-[#4d54fe]/30 opacity-50 blur-xl" />
+				{/* Gradient glow behind Ultimate column - hidden on mobile */}
+				<div className="pointer-events-none absolute top-0 right-0 -z-10 hidden h-full w-32 rounded-2xl bg-gradient-to-br from-[#a2fbec]/30 via-[#f985ff]/30 to-[#4d54fe]/30 opacity-50 blur-xl md:block" />
 
-				{/* Gradient border overlay for Ultimate column */}
-				<div className="pointer-events-none absolute top-0 right-0 z-10 h-full w-32 rounded-2xl bg-[conic-gradient(from_180deg,#a2fbec,#f985ff,#4d54fe,#f985ff,#a2fbec)] p-0.5">
+				{/* Gradient border overlay for Ultimate column - hidden on mobile */}
+				<div className="pointer-events-none absolute top-0 right-0 z-10 hidden h-full w-32 rounded-2xl bg-[conic-gradient(from_180deg,#a2fbec,#f985ff,#4d54fe,#f985ff,#a2fbec)] p-0.5 md:block">
 					<div className="h-full w-full rounded-[14px] bg-[#18181b]" />
 				</div>
 
