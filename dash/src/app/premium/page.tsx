@@ -49,13 +49,7 @@ export default async function Premium() {
 					isCurrent={currentPlan?.plan === "Guild"}
 					isPopular
 					name="Lurkr Ultimate"
-					perks={[
-						"Increased limits for a whole server",
-						"Everything from Lurkr Max",
-						"Patreon role in support server",
-						"Premium support",
-						"Directly support development!",
-					]}
+					perks={["Increased limits for a whole server", "Everything from Lurkr Max", "Directly support development!"]}
 					price={5}
 					tier={2}
 				/>
@@ -66,12 +60,7 @@ export default async function Premium() {
 					img={lurkrMaxImg}
 					isCurrent={currentPlan?.plan === "Basic"}
 					name="Lurkr Max"
-					perks={[
-						"Personal premium Lurkr",
-						"No tips on /level command",
-						"Patreon role in support server",
-						"Premium support",
-					]}
+					perks={["No tips on /level command", "Patreon role in support server", "Premium support"]}
 					price={1}
 					tier={1}
 				/>
