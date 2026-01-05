@@ -22,12 +22,10 @@ export default async function Premium() {
 			{/* Hero Section */}
 			<div className="mb-12 flex flex-col items-center gap-6 text-center">
 				<Image alt="Lurkr logo" className="size-32 md:size-40" height={160} priority src={logoImg} width={160} />
-				<div className="space-y-2">
-					<h1 className="font-bold text-3xl text-shadow-regular md:text-4xl lg:text-5xl">
-						Upgrade Your Lurkr Experience
-					</h1>
+				<div className="space-y-3">
+					<h1 className="font-bold text-3xl text-shadow-regular md:text-4xl lg:text-5xl">Support Lurkr Development</h1>
 					<p className="max-w-2xl text-lg text-white/60">
-						Unlimited Leveling. Premium Support. Choose the plan that fits your needs.
+						All features are free, forever. Supporting us just gets you increased limits and helps keep Lurkr running.
 					</p>
 				</div>
 			</div>
@@ -40,25 +38,24 @@ export default async function Premium() {
 					img={lurkrFreeImg}
 					isCurrent={currentPlan?.plan === "None"}
 					name="Lurkr Free"
-					perks={["Standard configuration limits", "Access to all core features", "Community support"]}
+					perks={["All features included", "Standard configuration limits", "Community support"]}
 					price={0}
 					tier={0}
 				/>
 
 				<PremiumPlan
-					buttonText="Become Ultimate"
+					buttonText="Support Us"
 					funny="Helps you pay taxes…"
 					img={lurkrUltimateImg}
 					isCurrent={currentPlan?.plan === "Guild"}
 					isPopular
 					name="Lurkr Ultimate"
 					perks={[
-						"Premium Lurkr for a whole server",
-						"Huge increase in configuration limits",
+						"Increased limits for a whole server",
 						"Everything from Lurkr Max",
 						"Patreon role in support server",
 						"Premium support",
-						"Help maintain Lurkr!",
+						"Directly support development!",
 					]}
 					price={5}
 					tier={2}
@@ -71,7 +68,7 @@ export default async function Premium() {
 					isCurrent={currentPlan?.plan === "Basic"}
 					name="Lurkr Max"
 					perks={[
-						"Personal Premium Lurkr",
+						"Personal increased limits",
 						"No tips on /level command",
 						"Patreon role in support server",
 						"Premium support",
@@ -116,7 +113,7 @@ export default async function Premium() {
 			<div className="flex w-full flex-col items-center gap-8">
 				<div className="text-center">
 					<h2 className="font-bold text-2xl md:text-3xl">Compare Plans</h2>
-					<p className="mt-2 text-white/60">See what's included in each plan</p>
+					<p className="mt-2 text-white/60">See the increased limits you get for supporting us</p>
 				</div>
 
 				<div className="flex w-full flex-col items-center gap-8">
@@ -131,8 +128,8 @@ export default async function Premium() {
 
 export const metadata: Metadata = {
 	description:
-		"Get the most out of Lurkr with our premium plans. Compare the different plans and choose the one that fits your needs.",
-	title: "Premium Plans",
+		"Support Lurkr development and get increased configuration limits. All features are free - premium just helps keep Lurkr running.",
+	title: "Support Lurkr",
 };
 
 async function getData(token: string) {
