@@ -100,7 +100,7 @@ function CardContent({
 			<Card.Header className="relative flex-col items-center gap-3 pt-6">
 				{isPopular && (
 					<Chip className="absolute -top-3 bg-gradient-to-r from-[#a2fbec] via-[#f985ff] to-[#4d54fe] font-semibold text-black">
-						Most Popular
+						Increased Limits
 					</Chip>
 				)}
 				{isCurrent && <Chip className="bg-white font-semibold text-black">Current Plan</Chip>}
@@ -157,7 +157,7 @@ function CardContent({
 			<Card.Footer className="px-6 pb-6">
 				{isExternal ? (
 					<HeroLink
-						className={`${buttonGradient} flex w-full items-center justify-center rounded-xl px-6 py-3 font-semibold text-black transition-opacity hover:opacity-90 ${isCurrent ? "pointer-events-none opacity-50" : ""}`}
+						className={`${buttonGradient} flex w-full items-center justify-center rounded-xl px-6 py-3 font-bold text-black text-lg transition-opacity hover:opacity-90 ${isCurrent ? "pointer-events-none opacity-50" : ""}`}
 						href={href}
 						rel="external noopener noreferrer"
 						target="_blank"
@@ -166,7 +166,7 @@ function CardContent({
 					</HeroLink>
 				) : (
 					<Link
-						className={`${buttonGradient} flex w-full items-center justify-center rounded-xl px-6 py-3 font-semibold text-black transition-opacity hover:opacity-90 ${isCurrent ? "pointer-events-none opacity-50" : ""}`}
+						className={`${buttonGradient} flex w-full items-center justify-center rounded-xl px-6 py-3 font-bold text-black text-lg transition-opacity hover:opacity-90 ${isCurrent ? "pointer-events-none opacity-50" : ""}`}
 						href={href}
 						prefetch={false}
 					>
