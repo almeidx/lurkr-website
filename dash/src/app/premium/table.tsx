@@ -19,7 +19,7 @@ export function ComparisonTable({ section, features }: ComparisonTableProps) {
 				<div className="pointer-events-none absolute top-0 right-0 -z-10 h-full w-32 rounded-2xl bg-gradient-to-br from-[#a2fbec]/30 via-[#f985ff]/30 to-[#4d54fe]/30 opacity-50 blur-xl" />
 
 				{/* Gradient border overlay for Ultimate column */}
-				<div className="pointer-events-none absolute top-0 right-0 z-10 h-full w-32 rounded-2xl bg-gradient-to-b from-[#a2fbec] via-[#f985ff] to-[#4d54fe] p-0.5">
+				<div className="pointer-events-none absolute top-0 right-0 z-10 h-full w-32 rounded-2xl bg-[length:100%_150px] bg-gradient-to-b from-[#a2fbec] via-[#f985ff] to-[#4d54fe] bg-repeat-y p-0.5">
 					<div className="h-full w-full rounded-[14px] bg-[#18181b]" />
 				</div>
 
