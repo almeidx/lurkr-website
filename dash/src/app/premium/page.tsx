@@ -1,4 +1,3 @@
-import { Link as HeroLink } from "@heroui/react";
 import type { Metadata } from "next";
 import { cookies } from "next/headers";
 import Image from "next/image";
@@ -81,31 +80,31 @@ export default async function Premium() {
 			{/* Legal Notice */}
 			<p className="mb-16 max-w-prose text-balance text-center text-sm text-white/50">
 				Purchases are subject to our{" "}
-				<Link className="underline hover:text-white/70" href="/terms">
+				<Link className="text-white/50 underline decoration-white/30 hover:text-white/70" href="/terms">
 					Terms of Service
 				</Link>{" "}
 				&{" "}
-				<Link className="underline hover:text-white/70" href="/privacy">
+				<Link className="text-white/50 underline decoration-white/30 hover:text-white/70" href="/privacy">
 					Privacy Policy
 				</Link>{" "}
 				and to the{" "}
-				<HeroLink
-					className="underline hover:text-white/70"
+				<a
+					className="text-white/50 underline decoration-white/30 hover:text-white/70"
 					href="https://www.patreon.com/policy/legal"
 					rel="external noopener noreferrer"
 					target="_blank"
 				>
 					Terms of Service
-				</HeroLink>{" "}
+				</a>{" "}
 				and{" "}
-				<HeroLink
-					className="underline hover:text-white/70"
+				<a
+					className="text-white/50 underline decoration-white/30 hover:text-white/70"
 					href="https://support.patreon.com/hc/articles/205032045-Patreon-s-refund-policy"
 					rel="external noopener noreferrer"
 					target="_blank"
 				>
 					Refund Policy
-				</HeroLink>{" "}
+				</a>{" "}
 				of Patreon, Inc.
 			</p>
 
