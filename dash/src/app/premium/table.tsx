@@ -18,6 +18,11 @@ export function ComparisonTable({ section, features }: ComparisonTableProps) {
 				{/* Gradient glow behind Ultimate column */}
 				<div className="pointer-events-none absolute top-0 right-0 -z-10 h-full w-32 rounded-2xl bg-gradient-to-br from-[#a2fbec]/30 via-[#f985ff]/30 to-[#4d54fe]/30 opacity-50 blur-xl" />
 
+				{/* Gradient border overlay for Ultimate column */}
+				<div className="pointer-events-none absolute top-0 right-0 z-10 h-full w-32 rounded-r-2xl bg-gradient-to-b from-[#a2fbec] via-[#f985ff] to-[#4d54fe] p-0.5 pl-0.5">
+					<div className="h-full w-full rounded-r-[14px] bg-[#18181b]" />
+				</div>
+
 				<Surface className="overflow-hidden rounded-2xl">
 					<div className="overflow-x-auto">
 						<table
@@ -37,7 +42,7 @@ export function ComparisonTable({ section, features }: ComparisonTableProps) {
 											Max
 										</span>
 									</th>
-									<th className="w-32 rounded-tr-2xl border-[#f985ff]/50 border-x-2 border-t-2 bg-[#f985ff]/10 px-4 py-4 text-center font-medium text-sm uppercase tracking-wider">
+									<th className="relative z-20 w-32 bg-[#f985ff]/10 px-4 py-4 text-center font-medium text-sm uppercase tracking-wider">
 										<span className="bg-gradient-to-r from-[#a2fbec] via-[#f985ff] to-[#4d54fe] bg-clip-text text-transparent">
 											Ultimate
 										</span>
@@ -97,9 +102,7 @@ export function ComparisonTable({ section, features }: ComparisonTableProps) {
 												</div>
 											)}
 										</td>
-										<td
-											className={`border-[#f985ff]/50 border-x-2 bg-[#f985ff]/10 px-4 py-4 text-center ${index === features.length - 1 ? "rounded-br-2xl border-b-2" : ""}`}
-										>
+										<td className="relative z-20 bg-[#f985ff]/10 px-4 py-4 text-center">
 											{isConfigLimit ? (
 												<span className="font-medium text-sm text-white/80">
 													{(feature as ConfigLimitComparison).ultimate}{" "}
