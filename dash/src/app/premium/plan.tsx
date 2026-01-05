@@ -117,7 +117,7 @@ function CardContent({
 				<Card.Title className="text-center font-bold text-2xl md:text-3xl">{name}</Card.Title>
 			</Card.Header>
 
-			<Card.Content className="flex flex-1 flex-col gap-6 px-6">
+			<Card.Content className="flex flex-1 flex-col gap-8 px-6">
 				<div className="text-center">
 					<div className="flex items-baseline justify-center gap-1">
 						<span className="font-bold text-5xl tracking-tight">${price}</span>
@@ -154,7 +154,7 @@ function CardContent({
 				</div>
 			</Card.Content>
 
-			<Card.Footer className="px-6 pb-6">
+			<Card.Footer className="px-6 pt-4 pb-6">
 				{isExternal ? (
 					<HeroLink
 						className={`${buttonGradient} flex w-full items-center justify-center rounded-xl px-6 py-3 font-bold text-black text-lg transition-opacity hover:opacity-90 ${isCurrent ? "pointer-events-none opacity-50" : ""}`}
