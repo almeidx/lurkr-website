@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { cookies } from "next/headers";
 import Image from "next/image";
 import Link from "next/link";
-import { configLimitFeatures, extraFeatures, levelingFeatures } from "@/app/premium/features.ts";
+import { configLimitFeatures, extraFeatures } from "@/app/premium/features.ts";
 import { PremiumPlan } from "@/app/premium/plan.tsx";
 import { ComparisonTable } from "@/app/premium/table.tsx";
 import logoImg from "@/assets/logo.webp";
@@ -116,7 +116,6 @@ export default async function Premium() {
 				</div>
 
 				<div className="flex w-full flex-col items-center gap-8">
-					<ComparisonTable features={levelingFeatures} section="Leveling" />
 					<ComparisonTable features={configLimitFeatures} section="Configuration Limits" />
 					<ComparisonTable features={extraFeatures} section="Extras" />
 				</div>
