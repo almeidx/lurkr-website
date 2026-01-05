@@ -126,7 +126,7 @@ function CardContent({
 					<p className="mt-1 text-sm text-white/50">{price === 0 ? "Free forever" : "Billed monthly via Patreon"}</p>
 				</div>
 
-				<div className="flex-1 space-y-3">
+				<div className="flex-1 space-y-4">
 					{perks.map((perk) => (
 						<div className="flex items-start gap-3" key={perk}>
 							<div className="flex size-6 shrink-0 items-center justify-center rounded-full bg-[#93e19c]/20">
