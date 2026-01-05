@@ -34,7 +34,7 @@ export function ComparisonTable({ section, features }: ComparisonTableProps) {
 											Max
 										</span>
 									</th>
-									<th className="w-32 px-4 py-4 text-center font-medium text-sm uppercase tracking-wider">
+									<th className="w-32 rounded-t-xl border-[#f985ff]/50 border-x-2 border-t-2 bg-[#f985ff]/5 px-4 py-4 text-center font-medium text-sm uppercase tracking-wider">
 										<span className="bg-gradient-to-r from-[#a2fbec] via-[#f985ff] to-[#4d54fe] bg-clip-text text-transparent">
 											Ultimate
 										</span>
@@ -89,7 +89,9 @@ export function ComparisonTable({ section, features }: ComparisonTableProps) {
 												</div>
 											)}
 										</td>
-										<td className="px-4 py-4 text-center">
+										<td
+											className={`border-[#f985ff]/50 border-x-2 bg-[#f985ff]/5 px-4 py-4 text-center ${index === features.length - 1 ? "rounded-b-xl border-b-2" : ""}`}
+										>
 											{isConfigLimit ? (
 												<span className="font-medium text-sm text-white/80">
 													{(feature as ConfigLimitComparison).ultimate}{" "}
