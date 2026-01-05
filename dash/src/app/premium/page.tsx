@@ -68,7 +68,7 @@ export default async function Premium() {
 					isCurrent={currentPlan?.plan === "Basic"}
 					name="Lurkr Max"
 					perks={[
-						"Personal increased limits",
+						"Personal premium Lurkr",
 						"No tips on /level command",
 						"Patreon role in support server",
 						"Premium support",

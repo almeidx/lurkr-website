@@ -43,8 +43,8 @@ export function PremiumPlan({
 
 			{/* Gradient border wrapper */}
 			{tier !== 0 ? (
-				<div className={`rounded-2xl p-px ${borderGradient}`}>
-					<Card className="h-full rounded-[calc(0.75rem-1px)]">
+				<div className={`overflow-hidden rounded-2xl p-0.5 ${borderGradient}`}>
+					<Card className="h-full rounded-[14px]">
 						<CardContent
 							buttonGradient={buttonGradient}
 							buttonText={buttonText}
