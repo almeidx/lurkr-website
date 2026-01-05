@@ -1,10 +1,8 @@
+import { ChartLine, Check, Xmark } from "@gravity-ui/icons";
 import { Card, Chip, Link as HeroLink } from "@heroui/react";
 import type { StaticImageData } from "next/image";
 import Image from "next/image";
 import Link from "next/link";
-import { Check } from "@/components/icons/mdi/check.tsx";
-import { Close } from "@/components/icons/mdi/close.tsx";
-import { ShowChart } from "@/components/icons/mdi/show-chart.tsx";
 import { PATREON_URL } from "@/shared-links.ts";
 
 export function PremiumPlan({
@@ -141,7 +139,7 @@ function CardContent({
 					{regular?.map((perk) => (
 						<div className="flex items-start gap-3" key={perk}>
 							<div className="flex size-6 shrink-0 items-center justify-center rounded-full bg-[#f6e594]/20">
-								<ShowChart aria-hidden className="size-4 text-[#f6e594]" />
+								<ChartLine aria-hidden className="size-4 text-[#f6e594]" />
 							</div>
 							<span className="text-sm text-white/80">{perk}</span>
 						</div>
@@ -149,7 +147,7 @@ function CardContent({
 
 					<div className="flex items-start gap-3">
 						<div className="flex size-6 shrink-0 items-center justify-center rounded-full bg-white/10">
-							<Close aria-hidden className="size-4 text-white/40" />
+							<Xmark aria-hidden className="size-4 text-white/40" />
 						</div>
 						<span className="text-sm text-white/50">{funny}</span>
 					</div>

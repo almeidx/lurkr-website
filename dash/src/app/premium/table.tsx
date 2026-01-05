@@ -1,7 +1,6 @@
+import { Check, Xmark } from "@gravity-ui/icons";
 import { Chip, Surface } from "@heroui/react";
 import type { ConfigLimitComparison, LevelingFeature } from "@/app/premium/features.ts";
-import { Check } from "@/components/icons/mdi/check.tsx";
-import { Close } from "@/components/icons/mdi/close.tsx";
 
 export function ComparisonTable({ section, features }: ComparisonTableProps) {
 	const isConfigLimit = "suffix" in features[0]!;
@@ -61,7 +60,7 @@ export function ComparisonTable({ section, features }: ComparisonTableProps) {
 										) : (
 											<div className="flex justify-center">
 												<div className="flex size-6 items-center justify-center rounded-full bg-white/10">
-													<Close aria-label="Not included" className="size-4 text-white/30" />
+													<Xmark aria-label="Not included" className="size-4 text-white/30" />
 												</div>
 											</div>
 										)}
@@ -81,7 +80,7 @@ export function ComparisonTable({ section, features }: ComparisonTableProps) {
 										) : (
 											<div className="flex justify-center">
 												<div className="flex size-6 items-center justify-center rounded-full bg-white/10">
-													<Close aria-label="Not included" className="size-4 text-white/30" />
+													<Xmark aria-label="Not included" className="size-4 text-white/30" />
 												</div>
 											</div>
 										)}
@@ -101,7 +100,7 @@ export function ComparisonTable({ section, features }: ComparisonTableProps) {
 										) : (
 											<div className="flex justify-center">
 												<div className="flex size-6 items-center justify-center rounded-full bg-white/10">
-													<Close aria-label="Not included" className="size-4 text-white/30" />
+													<Xmark aria-label="Not included" className="size-4 text-white/30" />
 												</div>
 											</div>
 										)}
