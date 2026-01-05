@@ -6,7 +6,7 @@ export function ComparisonTable({ section, features }: ComparisonTableProps) {
 	const isConfigLimit = "suffix" in features[0]!;
 
 	return (
-		<div className="w-full max-w-5xl">
+		<div className="w-full max-w-7xl">
 			<div className="mb-4 flex items-center gap-3">
 				<Chip className="bg-white/10 font-medium" size="sm">
 					{section}

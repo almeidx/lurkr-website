@@ -17,7 +17,7 @@ export default async function Premium() {
 	const currentPlan = token ? await getData(token) : null;
 
 	return (
-		<div className="container mx-auto flex flex-col items-center px-4 py-8">
+		<div className="mx-4 flex max-w-7xl flex-col items-center py-8 xl:mx-auto">
 			{/* Hero Section */}
 			<div className="mb-12 flex flex-col items-center gap-6 text-center">
 				<Image alt="Lurkr logo" className="size-32 md:size-40" height={160} priority src={logoImg} width={160} />
@@ -30,7 +30,7 @@ export default async function Premium() {
 			</div>
 
 			{/* Pricing Cards */}
-			<div className="mb-12 grid w-full max-w-5xl grid-cols-1 items-end gap-6 lg:grid-cols-3 lg:gap-8">
+			<div className="mb-12 grid w-full max-w-7xl grid-cols-1 items-end gap-6 lg:grid-cols-3 lg:gap-8">
 				<PremiumPlan
 					buttonText="Stay Free"
 					funny="Buys you groceries…"
