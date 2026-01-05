@@ -37,7 +37,7 @@ export function ComparisonTable({ section, features }: ComparisonTableProps) {
 									<th className="w-32 border-white/10 border-b bg-white/5 px-4 py-4 text-center font-medium text-sm text-white/60 uppercase tracking-wider">
 										Free
 									</th>
-									<th className="w-32 border-white/10 border-b bg-white/5 px-4 py-4 text-center font-medium text-sm uppercase tracking-wider">
+									<th className="hidden w-32 border-white/10 border-b bg-white/5 px-4 py-4 text-center font-medium text-sm uppercase tracking-wider md:table-cell">
 										<span className="bg-gradient-to-r from-[#aad6c6] via-[#fa9079] to-[#74da9c] bg-clip-text text-transparent">
 											Max
 										</span>
@@ -81,7 +81,7 @@ export function ComparisonTable({ section, features }: ComparisonTableProps) {
 											)}
 										</td>
 										<td
-											className={`border-white/5 border-b px-4 py-4 text-center ${index % 2 !== 0 ? "bg-white/[0.02]" : ""}`}
+											className={`hidden border-white/5 border-b px-4 py-4 text-center md:table-cell ${index % 2 !== 0 ? "bg-white/[0.02]" : ""}`}
 										>
 											{isConfigLimit ? (
 												<span className="text-sm text-white/60">
