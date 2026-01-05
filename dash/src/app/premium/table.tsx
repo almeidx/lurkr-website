@@ -42,7 +42,7 @@ export function ComparisonTable({ section, features }: ComparisonTableProps) {
 											Max
 										</span>
 									</th>
-									<th className="relative z-20 w-32 px-4 py-4 text-center font-medium text-sm uppercase tracking-wider">
+									<th className="relative z-20 w-32 border-white/10 border-b bg-white/5 px-4 py-4 text-center font-medium text-sm uppercase tracking-wider">
 										<span className="bg-gradient-to-r from-[#a2fbec] via-[#f985ff] to-[#4d54fe] bg-clip-text text-transparent">
 											Ultimate
 										</span>
@@ -102,7 +102,9 @@ export function ComparisonTable({ section, features }: ComparisonTableProps) {
 												</div>
 											)}
 										</td>
-										<td className="relative z-20 px-4 py-4 text-center">
+										<td
+											className={`relative z-20 border-white/5 border-b px-4 py-4 text-center ${index % 2 !== 0 ? "bg-white/[0.02]" : ""}`}
+										>
 											{isConfigLimit ? (
 												<span className="font-medium text-sm text-white/80">
 													{(feature as ConfigLimitComparison).ultimate}{" "}
