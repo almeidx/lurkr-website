@@ -30,7 +30,7 @@ export default async function Premium() {
 			</div>
 
 			{/* Pricing Cards */}
-			<div className="mb-12 grid w-full max-w-7xl grid-cols-1 items-end gap-6 lg:grid-cols-3 lg:gap-8">
+			<div className="mb-12 grid w-full max-w-7xl grid-cols-1 items-end gap-6 sm:grid-cols-2 md:grid-cols-3 md:gap-8">
 				<PremiumPlan
 					buttonText="Stay Free"
 					funny="Buys you groceries…"

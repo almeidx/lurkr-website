@@ -35,7 +35,7 @@ export function PremiumPlan({
 				: "";
 
 	return (
-		<div className={`relative flex-1 ${isPopular ? "lg:-mt-4 lg:mb-4" : ""}`}>
+		<div className={`relative flex-1 ${isPopular ? "md:-mt-4 md:mb-4" : ""}`}>
 			{/* Gradient glow behind card */}
 			{tier !== 0 && <div className={`absolute -inset-1 -z-10 rounded-3xl opacity-50 blur-md ${borderGradient}`} />}
 
