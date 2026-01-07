@@ -2,13 +2,13 @@
 
 import { Check, Xmark } from "@gravity-ui/icons";
 import { Chip, Surface, Tabs } from "@heroui/react";
+import clsx from "clsx";
 import { useState } from "react";
 import type { ConfigLimitComparison, LevelingFeature } from "@/app/premium/features.ts";
-
-type PlanTab = "free" | "max" | "ultimate";
+import { PremiumTier } from "@/lib/auth.ts";
 
 export function ComparisonTable({ section, features }: ComparisonTableProps) {
-	const [selectedTab, setSelectedTab] = useState<PlanTab>("ultimate");
+	const [selectedTab, setSelectedTab] = useState<PremiumTier>(PremiumTier.Guild);
 	const isConfigLimit = "suffix" in features[0]!;
 
 	return (
@@ -22,18 +22,18 @@ export function ComparisonTable({ section, features }: ComparisonTableProps) {
 
 			{/* Mobile tabs */}
 			<div className="mb-4 md:hidden">
-				<Tabs onSelectionChange={(key) => setSelectedTab(key as PlanTab)} selectedKey={selectedTab}>
+				<Tabs onSelectionChange={(key) => setSelectedTab(key as PremiumTier)} selectedKey={selectedTab}>
 					<Tabs.ListContainer>
 						<Tabs.List className="w-full">
-							<Tabs.Tab className="flex-1" id="free">
+							<Tabs.Tab className="flex-1" id={PremiumTier.None}>
 								Free
 							</Tabs.Tab>
-							<Tabs.Tab className="flex-1" id="max">
+							<Tabs.Tab className="flex-1" id={PremiumTier.Basic}>
 								<span className="bg-gradient-to-r from-[#aad6c6] via-[#fa9079] to-[#74da9c] bg-clip-text text-transparent">
 									Max
 								</span>
 							</Tabs.Tab>
-							<Tabs.Tab className="flex-1" id="ultimate">
+							<Tabs.Tab className="flex-1" id={PremiumTier.Guild}>
 								<span className="bg-gradient-to-r from-[#a2fbec] via-[#f985ff] to-[#4d54fe] bg-clip-text text-transparent">
 									Ultimate
 								</span>
@@ -61,13 +61,13 @@ export function ComparisonTable({ section, features }: ComparisonTableProps) {
 								</th>
 								{/* Mobile: show selected tab column */}
 								<th className="w-1/2 border-white/10 border-b bg-white/5 px-3 py-4 text-right font-medium text-sm uppercase tracking-wider md:hidden">
-									{selectedTab === "free" && <span className="text-white/60">Free</span>}
-									{selectedTab === "max" && (
+									{selectedTab === PremiumTier.None && <span className="text-white/60">Free</span>}
+									{selectedTab === PremiumTier.Basic && (
 										<span className="bg-gradient-to-r from-[#aad6c6] via-[#fa9079] to-[#74da9c] bg-clip-text text-transparent">
 											Max
 										</span>
 									)}
-									{selectedTab === "ultimate" && (
+									{selectedTab === PremiumTier.Guild && (
 										<span className="bg-gradient-to-r from-[#a2fbec] via-[#f985ff] to-[#4d54fe] bg-clip-text text-transparent">
 											Ultimate
 										</span>
@@ -94,31 +94,46 @@ export function ComparisonTable({ section, features }: ComparisonTableProps) {
 							{features.map((feature, index) => (
 								<tr className="transition-colors hover:bg-white/5" key={feature.name}>
 									<td
-										className={`w-1/2 border-white/5 border-b px-4 py-4 text-sm text-white/80 md:w-auto md:px-6 ${index % 2 !== 0 ? "bg-white/[0.02]" : ""}`}
+										className={clsx(
+											"w-1/2 border-white/5 border-b px-4 py-4 text-sm text-white/80 md:w-auto md:px-6",
+											index % 2 !== 0 && "bg-white/[0.02]",
+										)}
 									>
 										{feature.name}
 									</td>
 
 									{/* Mobile: show selected tab value */}
 									<td
-										className={`w-1/2 border-white/5 border-b px-3 py-4 text-right md:hidden ${index % 2 !== 0 ? "bg-white/[0.02]" : ""}`}
+										className={clsx(
+											"w-1/2 border-white/5 border-b px-3 py-4 text-right md:hidden",
+											index % 2 !== 0 && "bg-white/[0.02]",
+										)}
 									>
 										<MobileCell feature={feature} isConfigLimit={isConfigLimit} selectedTab={selectedTab} />
 									</td>
 
 									{/* Desktop: show all columns */}
 									<td
-										className={`hidden border-white/5 border-b px-4 py-4 text-center md:table-cell ${index % 2 !== 0 ? "bg-white/[0.02]" : ""}`}
+										className={clsx(
+											"hidden border-white/5 border-b px-4 py-4 text-center md:table-cell",
+											index % 2 !== 0 && "bg-white/[0.02]",
+										)}
 									>
 										<FreeCell feature={feature} isConfigLimit={isConfigLimit} />
 									</td>
 									<td
-										className={`hidden border-white/5 border-b px-4 py-4 text-center md:table-cell ${index % 2 !== 0 ? "bg-white/[0.02]" : ""}`}
+										className={clsx(
+											"hidden border-white/5 border-b px-4 py-4 text-center md:table-cell",
+											index % 2 !== 0 && "bg-white/[0.02]",
+										)}
 									>
 										<MaxCell feature={feature} isConfigLimit={isConfigLimit} />
 									</td>
 									<td
-										className={`relative z-20 hidden border-white/5 border-b px-4 py-4 text-center md:table-cell ${index % 2 !== 0 ? "bg-white/[0.02]" : ""}`}
+										className={clsx(
+											"relative z-20 hidden border-white/5 border-b px-4 py-4 text-center md:table-cell",
+											index % 2 !== 0 && "bg-white/[0.02]",
+										)}
 									>
 										<UltimateCell feature={feature} isConfigLimit={isConfigLimit} />
 									</td>
@@ -139,13 +154,13 @@ function MobileCell({
 }: {
 	feature: ConfigLimitComparison | LevelingFeature;
 	isConfigLimit: boolean;
-	selectedTab: PlanTab;
+	selectedTab: PremiumTier;
 }) {
 	const content = (() => {
-		if (selectedTab === "free") {
+		if (selectedTab === PremiumTier.None) {
 			return <FreeCell feature={feature} isConfigLimit={isConfigLimit} />;
 		}
-		if (selectedTab === "max") {
+		if (selectedTab === PremiumTier.Basic) {
 			return <MaxCell feature={feature} isConfigLimit={isConfigLimit} />;
 		}
 		return <UltimateCell feature={feature} isConfigLimit={isConfigLimit} />;

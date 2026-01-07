@@ -1,5 +1,6 @@
 import { ChartLine, Check, Xmark } from "@gravity-ui/icons";
 import { Card, Chip, Link as HeroLink } from "@heroui/react";
+import clsx from "clsx";
 import type { StaticImageData } from "next/image";
 import Image from "next/image";
 import Link from "next/link";
@@ -35,13 +36,13 @@ export function PremiumPlan({
 				: "";
 
 	return (
-		<div className={`relative flex-1 ${isPopular ? "md:-mt-4 md:mb-4" : ""}`}>
+		<div className={clsx("relative flex-1", isPopular && "md:-mt-4 md:mb-4")}>
 			{/* Gradient glow behind card */}
-			{tier !== 0 && <div className={`absolute -inset-1 -z-10 rounded-3xl opacity-50 blur-md ${borderGradient}`} />}
+			{tier !== 0 && <div className={clsx("absolute -inset-1 -z-10 rounded-3xl opacity-50 blur-md", borderGradient)} />}
 
 			{/* Gradient border wrapper */}
 			{tier !== 0 ? (
-				<div className={`overflow-hidden rounded-2xl p-0.5 ${borderGradient}`}>
+				<div className={clsx("overflow-hidden rounded-2xl p-0.5", borderGradient)}>
 					<Card className="h-full rounded-[14px]">
 						<CardContent
 							buttonGradient={buttonGradient}
@@ -95,6 +96,12 @@ function CardContent({
 	buttonGradient,
 	buttonText,
 }: CardContentProps) {
+	const buttonClasses = clsx(
+		buttonGradient,
+		"flex w-full items-center justify-center rounded-xl px-6 py-3 font-bold text-black text-lg transition-opacity hover:opacity-90",
+		isCurrent && "pointer-events-none opacity-50",
+	);
+
 	return (
 		<>
 			<Card.Header className="relative flex-col items-center gap-3 pt-6">
@@ -156,20 +163,11 @@ function CardContent({
 
 			<Card.Footer className="px-6 pt-4 pb-6">
 				{isExternal ? (
-					<HeroLink
-						className={`${buttonGradient} flex w-full items-center justify-center rounded-xl px-6 py-3 font-bold text-black text-lg transition-opacity hover:opacity-90 ${isCurrent ? "pointer-events-none opacity-50" : ""}`}
-						href={href}
-						rel="external noopener noreferrer"
-						target="_blank"
-					>
+					<HeroLink className={buttonClasses} href={href} rel="external noopener noreferrer" target="_blank">
 						{buttonText}
 					</HeroLink>
 				) : (
-					<Link
-						className={`${buttonGradient} flex w-full items-center justify-center rounded-xl px-6 py-3 font-bold text-black text-lg transition-opacity hover:opacity-90 ${isCurrent ? "pointer-events-none opacity-50" : ""}`}
-						href={href}
-						prefetch={false}
-					>
+					<Link className={buttonClasses} href={href} prefetch={false}>
 						{buttonText}
 					</Link>
 				)}
