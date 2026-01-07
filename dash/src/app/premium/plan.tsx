@@ -21,31 +21,30 @@ export function PremiumPlan({
 	const isExternal = tier !== 0;
 	const href = isExternal ? PATREON_URL : "/guilds";
 
-	const buttonGradient =
-		tier === 1
-			? "bg-gradient-to-r from-[#aad6c6] via-[#fa9079] to-[#74da9c]"
-			: tier === 2
-				? "bg-gradient-to-r from-[#a2fbec] via-[#f985ff] to-[#4d54fe]"
-				: "bg-gradient-to-r from-[#ff7077] to-[#ffe87c]";
-
-	const borderGradient =
-		tier === 1
-			? "bg-gradient-to-br from-[#aad6c6] via-[#fa9079] to-[#74da9c]"
-			: tier === 2
-				? "bg-gradient-to-br from-[#a2fbec] via-[#f985ff] to-[#4d54fe]"
-				: "";
-
 	return (
 		<div className={clsx("relative flex-1", isPopular && "md:-mt-4 md:mb-4")}>
 			{/* Gradient glow behind card */}
-			{tier !== 0 && <div className={clsx("absolute -inset-1 -z-10 rounded-3xl opacity-50 blur-md", borderGradient)} />}
+			{tier !== 0 && (
+				<div
+					className={clsx(
+						"absolute -inset-1 -z-10 rounded-3xl opacity-50 blur-md",
+						tier === 1 && "bg-gradient-to-br from-[#aad6c6] via-[#fa9079] to-[#74da9c]",
+						tier === 2 && "bg-gradient-to-br from-[#a2fbec] via-[#f985ff] to-[#4d54fe]",
+					)}
+				/>
+			)}
 
 			{/* Gradient border wrapper */}
 			{tier !== 0 ? (
-				<div className={clsx("overflow-hidden rounded-2xl p-0.5", borderGradient)}>
+				<div
+					className={clsx(
+						"overflow-hidden rounded-2xl p-0.5",
+						tier === 1 && "bg-gradient-to-br from-[#aad6c6] via-[#fa9079] to-[#74da9c]",
+						tier === 2 && "bg-gradient-to-br from-[#a2fbec] via-[#f985ff] to-[#4d54fe]",
+					)}
+				>
 					<Card className="h-full rounded-[14px]">
 						<CardContent
-							buttonGradient={buttonGradient}
 							buttonText={buttonText}
 							funny={funny}
 							href={href}
@@ -57,13 +56,13 @@ export function PremiumPlan({
 							perks={perks}
 							price={price}
 							regular={regular}
+							tier={tier}
 						/>
 					</Card>
 				</div>
 			) : (
 				<Card className="h-full border border-white/20">
 					<CardContent
-						buttonGradient={buttonGradient}
 						buttonText={buttonText}
 						funny={funny}
 						href={href}
@@ -75,6 +74,7 @@ export function PremiumPlan({
 						perks={perks}
 						price={price}
 						regular={regular}
+						tier={tier}
 					/>
 				</Card>
 			)}
@@ -93,12 +93,14 @@ function CardContent({
 	funny,
 	isExternal,
 	href,
-	buttonGradient,
+	tier,
 	buttonText,
 }: CardContentProps) {
 	const buttonClasses = clsx(
-		buttonGradient,
 		"flex w-full items-center justify-center rounded-xl px-6 py-3 font-bold text-black text-lg transition-opacity hover:opacity-90",
+		tier === 0 && "bg-gradient-to-r from-[#ff7077] to-[#ffe87c]",
+		tier === 1 && "bg-gradient-to-r from-[#aad6c6] via-[#fa9079] to-[#74da9c]",
+		tier === 2 && "bg-gradient-to-r from-[#a2fbec] via-[#f985ff] to-[#4d54fe]",
 		isCurrent && "pointer-events-none opacity-50",
 	);
 
@@ -200,6 +202,6 @@ interface CardContentProps {
 	readonly funny: string;
 	readonly isExternal: boolean;
 	readonly href: string;
-	readonly buttonGradient: string;
+	readonly tier: number;
 	readonly buttonText: string;
 }
