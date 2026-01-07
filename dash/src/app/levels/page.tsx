@@ -15,7 +15,7 @@ export default async function Levels() {
 				<div className="flex flex-col items-center">
 					<h1 className="mb-4 font-semibold text-2xl text-white">Leveling Leaderboard</h1>
 
-					<p className="max-w-xl px-2 text-center text-white/75 text-xl tracking-tight">
+					<p className="max-w-xl px-2 text-center text-xl text-zinc-400 tracking-tight">
 						View the leveling leaderboard of any Lurkr-enabled server including insights and information how best to
 						level up!
 					</p>

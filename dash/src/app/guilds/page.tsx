@@ -17,7 +17,7 @@ export default async function GuildList() {
 	if (!data) {
 		return (
 			<div className="flex flex-col items-center gap-2 py-4">
-				<div className="mt-6 flex flex-col items-center gap-2 text-center text-white/75 text-xl tracking-tight">
+				<div className="mt-6 flex flex-col items-center gap-2 text-center text-xl text-zinc-400 tracking-tight">
 					If you wish to see the servers you have access to, please login.
 					<SignInButton />
 				</div>
@@ -43,12 +43,12 @@ export default async function GuildList() {
 				<div>
 					<h1 className="mb-4 font-semibold text-2xl text-white">{greeting(user.globalName ?? user.username)}</h1>
 
-					<p className="text-white/75 text-xl tracking-tight">
+					<p className="text-xl text-zinc-400 tracking-tight">
 						Which server would like to configure today? Below you can find a list of all of your servers you are able to
 						configure!
 					</p>
 
-					<p className="text-white/75 text-xl tracking-tight">
+					<p className="text-xl text-zinc-400 tracking-tight">
 						Either invite Lurkr to one of them, or select a server with Lurkr already in it!
 					</p>
 				</div>
