@@ -23,22 +23,24 @@ export function ComparisonTable({ section, features }: ComparisonTableProps) {
 			{/* Mobile tabs */}
 			<div className="mb-4 md:hidden">
 				<Tabs onSelectionChange={(key) => setSelectedTab(key as PlanTab)} selectedKey={selectedTab}>
-					<Tabs.List className="w-full">
-						<Tabs.Tab className="flex-1" id="free">
-							Free
-						</Tabs.Tab>
-						<Tabs.Tab className="flex-1" id="max">
-							<span className="bg-gradient-to-r from-[#aad6c6] via-[#fa9079] to-[#74da9c] bg-clip-text text-transparent">
-								Max
-							</span>
-						</Tabs.Tab>
-						<Tabs.Tab className="flex-1" id="ultimate">
-							<span className="bg-gradient-to-r from-[#a2fbec] via-[#f985ff] to-[#4d54fe] bg-clip-text text-transparent">
-								Ultimate
-							</span>
-						</Tabs.Tab>
-						<Tabs.Indicator />
-					</Tabs.List>
+					<Tabs.ListContainer>
+						<Tabs.List className="w-full">
+							<Tabs.Tab className="flex-1" id="free">
+								Free
+							</Tabs.Tab>
+							<Tabs.Tab className="flex-1" id="max">
+								<span className="bg-gradient-to-r from-[#aad6c6] via-[#fa9079] to-[#74da9c] bg-clip-text text-transparent">
+									Max
+								</span>
+							</Tabs.Tab>
+							<Tabs.Tab className="flex-1" id="ultimate">
+								<span className="bg-gradient-to-r from-[#a2fbec] via-[#f985ff] to-[#4d54fe] bg-clip-text text-transparent">
+									Ultimate
+								</span>
+							</Tabs.Tab>
+							<Tabs.Indicator />
+						</Tabs.List>
+					</Tabs.ListContainer>
 				</Tabs>
 			</div>
 
