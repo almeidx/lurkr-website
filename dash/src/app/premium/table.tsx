@@ -56,11 +56,11 @@ export function ComparisonTable({ section, features }: ComparisonTableProps) {
 					<table aria-label={`${section} comparison table`} className="w-full border-separate border-spacing-0">
 						<thead>
 							<tr>
-								<th className="border-white/10 border-b bg-white/5 px-4 py-4 text-left font-medium text-sm text-white/60 uppercase tracking-wider md:px-6">
+								<th className="w-1/2 border-white/10 border-b bg-white/5 px-4 py-4 text-left font-medium text-sm text-white/60 uppercase tracking-wider md:w-auto md:px-6">
 									Feature
 								</th>
 								{/* Mobile: show selected tab column */}
-								<th className="w-24 border-white/10 border-b bg-white/5 px-3 py-4 text-center font-medium text-sm uppercase tracking-wider md:hidden">
+								<th className="w-1/2 border-white/10 border-b bg-white/5 px-3 py-4 text-center font-medium text-sm uppercase tracking-wider md:hidden">
 									{selectedTab === "free" && <span className="text-white/60">Free</span>}
 									{selectedTab === "max" && (
 										<span className="bg-gradient-to-r from-[#aad6c6] via-[#fa9079] to-[#74da9c] bg-clip-text text-transparent">
@@ -94,14 +94,14 @@ export function ComparisonTable({ section, features }: ComparisonTableProps) {
 							{features.map((feature, index) => (
 								<tr className="transition-colors hover:bg-white/5" key={feature.name}>
 									<td
-										className={`border-white/5 border-b px-4 py-4 text-sm text-white/80 md:px-6 ${index % 2 !== 0 ? "bg-white/[0.02]" : ""}`}
+										className={`w-1/2 border-white/5 border-b px-4 py-4 text-sm text-white/80 md:w-auto md:px-6 ${index % 2 !== 0 ? "bg-white/[0.02]" : ""}`}
 									>
 										{feature.name}
 									</td>
 
 									{/* Mobile: show selected tab value */}
 									<td
-										className={`border-white/5 border-b px-3 py-4 text-center md:hidden ${index % 2 !== 0 ? "bg-white/[0.02]" : ""}`}
+										className={`w-1/2 border-white/5 border-b px-3 py-4 text-center md:hidden ${index % 2 !== 0 ? "bg-white/[0.02]" : ""}`}
 									>
 										<MobileCell feature={feature} isConfigLimit={isConfigLimit} selectedTab={selectedTab} />
 									</td>
