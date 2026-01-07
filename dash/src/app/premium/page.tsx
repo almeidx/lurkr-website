@@ -11,6 +11,7 @@ import logoImg from "@/assets/logo.webp";
 import lurkrFreeImg from "@/assets/premium-plans/lurkr-free.webp";
 import lurkrMaxImg from "@/assets/premium-plans/lurkr-max.webp";
 import lurkrUltimateImg from "@/assets/premium-plans/lurkr-ultimate.webp";
+import { PremiumTier } from "@/lib/auth.ts";
 import { SUPPORT_SERVER_INVITE } from "@/shared-links.ts";
 import { TOKEN_COOKIE } from "@/utils/constants.ts";
 import { makeApiRequest } from "@/utils/make-api-request.ts";
@@ -38,7 +39,7 @@ export default async function Premium() {
 					buttonText="Stay Free"
 					funny="Buys you groceries…"
 					img={lurkrFreeImg}
-					isCurrent={currentPlan?.plan === "None"}
+					isCurrent={currentPlan?.plan === PremiumTier.None}
 					name="Lurkr Free"
 					perks={["All features included", "Standard configuration limits", "Community support"]}
 					price={0}
@@ -49,7 +50,7 @@ export default async function Premium() {
 					buttonText="Support Us"
 					funny="Helps you pay taxes…"
 					img={lurkrUltimateImg}
-					isCurrent={currentPlan?.plan === "Guild"}
+					isCurrent={currentPlan?.plan === PremiumTier.Guild}
 					isPopular
 					name="Lurkr Ultimate"
 					perks={["Increased limits for a whole server", "Everything from Lurkr Max", "Directly support development!"]}
@@ -61,7 +62,7 @@ export default async function Premium() {
 					buttonText="Get Max"
 					funny="Kisses you goodnight…"
 					img={lurkrMaxImg}
-					isCurrent={currentPlan?.plan === "Basic"}
+					isCurrent={currentPlan?.plan === PremiumTier.Basic}
 					name="Lurkr Max"
 					perks={["No tips on /level command", "Patreon role in support server", "Premium support"]}
 					price={1}
@@ -217,5 +218,5 @@ async function getData(token: string) {
 }
 
 interface CurrentPlanResponse {
-	plan: "None" | "Basic" | "Guild";
+	plan: PremiumTier;
 }
