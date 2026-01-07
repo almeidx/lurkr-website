@@ -44,7 +44,7 @@ export function ComparisonTable({ section, features }: ComparisonTableProps) {
 
 			<div className="relative">
 				{/* Gradient glow behind Ultimate column - hidden on mobile */}
-				<div className="pointer-events-none absolute top-0 right-0 -z-10 hidden h-full w-32 rounded-2xl bg-gradient-to-br from-[#a2fbec]/30 via-[#f985ff]/30 to-[#4d54fe]/30 opacity-50 blur-xl md:block" />
+				<div className="pointer-events-none absolute top-0 right-0 -z-10 hidden h-full w-32 rounded-2xl bg-linear-to-br from-[#a2fbec]/30 via-[#f985ff]/30 to-[#4d54fe]/30 opacity-50 blur-xl md:block" />
 
 				{/* Gradient border overlay for Ultimate column - hidden on mobile */}
 				<div className="pointer-events-none absolute top-0 right-0 z-10 hidden h-full w-32 rounded-2xl bg-[conic-gradient(from_180deg,#a2fbec,#f985ff,#4d54fe,#f985ff,#a2fbec)] p-px md:block">

@@ -28,8 +28,8 @@ export function PremiumPlan({
 				<div
 					className={clsx(
 						"absolute -inset-1 -z-10 rounded-3xl opacity-50 blur-md",
-						tier === 1 && "bg-gradient-to-br from-[#aad6c6] via-[#fa9079] to-[#74da9c]",
-						tier === 2 && "bg-gradient-to-br from-[#a2fbec] via-[#f985ff] to-[#4d54fe]",
+						tier === 1 && "bg-linear-to-br from-[#aad6c6] via-[#fa9079] to-[#74da9c]",
+						tier === 2 && "bg-linear-to-br from-[#a2fbec] via-[#f985ff] to-[#4d54fe]",
 					)}
 				/>
 			)}
@@ -39,8 +39,8 @@ export function PremiumPlan({
 				<div
 					className={clsx(
 						"overflow-hidden rounded-2xl p-0.5",
-						tier === 1 && "bg-gradient-to-br from-[#aad6c6] via-[#fa9079] to-[#74da9c]",
-						tier === 2 && "bg-gradient-to-br from-[#a2fbec] via-[#f985ff] to-[#4d54fe]",
+						tier === 1 && "bg-linear-to-br from-[#aad6c6] via-[#fa9079] to-[#74da9c]",
+						tier === 2 && "bg-linear-to-br from-[#a2fbec] via-[#f985ff] to-[#4d54fe]",
 					)}
 				>
 					<Card className="h-full rounded-[14px]">
