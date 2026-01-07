@@ -3,6 +3,7 @@
 import { Popover, PopoverDisclosure, PopoverProvider } from "@ariakit/react";
 import { useMemo, useState } from "react";
 import { HexColorInput } from "react-colorful";
+import { toast } from "sonner";
 import { Colorize } from "@/components/icons/mdi/colorize.tsx";
 import { Separator } from "@/components/Separator.tsx";
 import type { Embed, Emoji, Role } from "@/lib/guild.ts";
@@ -120,8 +121,8 @@ export function EmbedBuilder({ defaultValue, emojis, roles, placeholders }: Embe
 	}
 
 	function handleCopyEmbed() {
-		// TODO: Add user feedback
 		navigator.clipboard.writeText(embed);
+		toast.success("Copied to clipboard");
 	}
 
 	function handleOverwriteJson() {

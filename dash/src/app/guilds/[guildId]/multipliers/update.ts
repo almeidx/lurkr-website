@@ -16,8 +16,6 @@ import { lazy } from "@/utils/lazy.ts";
 import { booleanFlag, coerceToFloat, createSnowflakesValidator, toggle, UUID_REGEX } from "@/utils/schemas.ts";
 import { ServerActionError } from "@/utils/server-action-error.ts";
 
-// TODO: Use `safeParse` instead of `parse`
-
 const schema = object({
 	prioritiseMultiplierRoleHierarchy: booleanFlag,
 	voteBoostedXp: toggle,

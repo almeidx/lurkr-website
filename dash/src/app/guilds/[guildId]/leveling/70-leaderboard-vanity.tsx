@@ -1,11 +1,13 @@
 "use client";
 
+import Cookies from "js-cookie";
 import { type ChangeEvent, useRef, useState } from "react";
-import { checkVanityAvailability } from "@/app/guilds/[guildId]/leveling/actions.ts";
 import { Input } from "@/components/dashboard/Input.tsx";
 import { Check } from "@/components/icons/mdi/check.tsx";
 import { Close } from "@/components/icons/mdi/close.tsx";
 import { MAX_VANITY_LENGTH, MIN_VANITY_LENGTH, VANITY_REGEX_SOURCE } from "@/lib/guild-config.ts";
+import { TOKEN_COOKIE } from "@/utils/constants.ts";
+import { makeApiRequest } from "@/utils/make-api-request.ts";
 
 export function LeaderboardVanity({ defaultValue }: { defaultValue: string | null }) {
 	const [vanity, setVanity] = useState(defaultValue ?? "");
@@ -15,8 +17,21 @@ export function LeaderboardVanity({ defaultValue }: { defaultValue: string | nul
 	const vanityRegex = new RegExp(VANITY_REGEX_SOURCE);
 
 	async function verifyAvailability(value: string) {
-		const { available } = await checkVanityAvailability(value);
-		setAvailable(available);
+		const token = Cookies.get(TOKEN_COOKIE);
+		if (!token) {
+			return;
+		}
+
+		const query = new URLSearchParams({ vanity: value });
+		const response = await makeApiRequest(`/vanity/check?${query.toString()}`, token);
+
+		if (!response.ok) {
+			setAvailable(false);
+			return;
+		}
+
+		const data = (await response.json()) as { available: boolean };
+		setAvailable(data.available);
 	}
 
 	async function handleChange(event: ChangeEvent<HTMLInputElement>) {

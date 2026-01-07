@@ -81,8 +81,6 @@ import {
 } from "@/utils/schemas.ts";
 import { ServerActionError } from "@/utils/server-action-error.ts";
 
-// TODO: Use `safeParse` instead of `parse`
-
 const regularSchema = createSchema(false);
 const premiumSchema = createSchema(true);
 
