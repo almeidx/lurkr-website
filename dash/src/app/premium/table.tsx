@@ -38,7 +38,6 @@ export function ComparisonTable({ section, features }: ComparisonTableProps) {
 									Ultimate
 								</span>
 							</Tabs.Tab>
-							<Tabs.Indicator />
 						</Tabs.List>
 					</Tabs.ListContainer>
 				</Tabs>
