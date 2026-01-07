@@ -141,13 +141,17 @@ function MobileCell({
 	isConfigLimit: boolean;
 	selectedTab: PlanTab;
 }) {
-	if (selectedTab === "free") {
-		return <FreeCell feature={feature} isConfigLimit={isConfigLimit} />;
-	}
-	if (selectedTab === "max") {
-		return <MaxCell feature={feature} isConfigLimit={isConfigLimit} />;
-	}
-	return <UltimateCell feature={feature} isConfigLimit={isConfigLimit} />;
+	const content = (() => {
+		if (selectedTab === "free") {
+			return <FreeCell feature={feature} isConfigLimit={isConfigLimit} />;
+		}
+		if (selectedTab === "max") {
+			return <MaxCell feature={feature} isConfigLimit={isConfigLimit} />;
+		}
+		return <UltimateCell feature={feature} isConfigLimit={isConfigLimit} />;
+	})();
+
+	return <div className="flex justify-end">{content}</div>;
 }
 
 function FreeCell({
