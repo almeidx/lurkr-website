@@ -107,10 +107,11 @@ function CardContent({
 	return (
 		<>
 			<Card.Header className="relative flex-col items-center gap-3 pt-6">
-				{isPopular && (
-					<Chip className="absolute -top-3 bg-gradient-lurkr-ultimate font-semibold text-black">Increased Limits</Chip>
-				)}
-				{isCurrent && <Chip className="bg-white font-semibold text-black">Current Plan</Chip>}
+				{isCurrent ? (
+					<Chip className="absolute -top-1 bg-white font-semibold text-black">Current Plan</Chip>
+				) : isPopular ? (
+					<Chip className="absolute -top-1 bg-gradient-lurkr-ultimate font-semibold text-black">Increased Limits</Chip>
+				) : null}
 
 				<Image
 					alt={`${name} premium plan promotional image`}
