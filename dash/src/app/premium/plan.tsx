@@ -98,9 +98,9 @@ function CardContent({
 }: CardContentProps) {
 	const buttonClasses = clsx(
 		"flex w-full items-center justify-center rounded-xl px-6 py-3 font-bold text-black text-lg transition-opacity hover:opacity-90",
-		tier === 0 && "bg-gradient-to-r from-[#ff7077] to-[#ffe87c]",
-		tier === 1 && "bg-gradient-to-r from-[#aad6c6] via-[#fa9079] to-[#74da9c]",
-		tier === 2 && "bg-gradient-to-r from-[#a2fbec] via-[#f985ff] to-[#4d54fe]",
+		tier === 0 && "bg-gradient-lurkr",
+		tier === 1 && "bg-gradient-lurkr-max",
+		tier === 2 && "bg-gradient-lurkr-ultimate",
 		isCurrent && "pointer-events-none opacity-50",
 	);
 
@@ -108,9 +108,7 @@ function CardContent({
 		<>
 			<Card.Header className="relative flex-col items-center gap-3 pt-6">
 				{isPopular && (
-					<Chip className="absolute -top-3 bg-gradient-to-r from-[#a2fbec] via-[#f985ff] to-[#4d54fe] font-semibold text-black">
-						Increased Limits
-					</Chip>
+					<Chip className="absolute -top-3 bg-gradient-lurkr-ultimate font-semibold text-black">Increased Limits</Chip>
 				)}
 				{isCurrent && <Chip className="bg-white font-semibold text-black">Current Plan</Chip>}
 

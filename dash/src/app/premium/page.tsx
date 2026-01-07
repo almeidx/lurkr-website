@@ -119,7 +119,7 @@ export default async function Premium() {
 				<h2 className="font-bold text-2xl md:text-3xl">Frequently Asked Questions</h2>
 
 				<Accordion className="w-full">
-					<Accordion.Item>
+					<Accordion.Item id="subscription-expiry">
 						<Accordion.Heading>
 							<Accordion.Trigger>
 								<div className="flex items-center gap-3">
@@ -135,7 +135,7 @@ export default async function Premium() {
 						</Accordion.Panel>
 					</Accordion.Item>
 
-					<Accordion.Item>
+					<Accordion.Item id="limit-increase">
 						<Accordion.Heading>
 							<Accordion.Trigger>
 								<div className="flex items-center gap-3">
@@ -159,7 +159,7 @@ export default async function Premium() {
 						</Accordion.Panel>
 					</Accordion.Item>
 
-					<Accordion.Item>
+					<Accordion.Item id="paywalling">
 						<Accordion.Heading>
 							<Accordion.Trigger>
 								<div className="flex items-center gap-3">
@@ -175,7 +175,7 @@ export default async function Premium() {
 						</Accordion.Panel>
 					</Accordion.Item>
 
-					<Accordion.Item>
+					<Accordion.Item id="target-audience">
 						<Accordion.Heading>
 							<Accordion.Trigger>
 								<div className="flex items-center gap-3">

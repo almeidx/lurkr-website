@@ -125,3 +125,29 @@ div[data-rmiz-modal-content] {
 		@apply px-4;
 	}
 }
+
+@utility bg-gradient-lurkr {
+	background-image: linear-gradient(to right, #ff7077, #ffe87c);
+}
+
+@utility bg-gradient-lurkr-max {
+	background-image: linear-gradient(to right, #aad6c6, #fa9079, #74da9c);
+}
+
+@utility bg-gradient-lurkr-ultimate {
+	background-image: linear-gradient(to right, #a2fbec, #f985ff, #4d54fe);
+}
+
+@utility text-gradient-lurkr-max {
+	color: transparent;
+	background-image: linear-gradient(to right, #aad6c6, #fa9079, #74da9c);
+	-webkit-background-clip: text;
+	background-clip: text;
+}
+
+@utility text-gradient-lurkr-ultimate {
+	color: transparent;
+	background-image: linear-gradient(to right, #a2fbec, #f985ff, #4d54fe);
+	-webkit-background-clip: text;
+	background-clip: text;
+}

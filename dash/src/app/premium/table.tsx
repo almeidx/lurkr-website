@@ -7,9 +7,12 @@ import { useState } from "react";
 import type { ConfigLimitComparison, LevelingFeature } from "@/app/premium/features.ts";
 import { PremiumTier } from "@/lib/auth.ts";
 
+function isConfigLimitFeature(feature: ConfigLimitComparison | LevelingFeature): feature is ConfigLimitComparison {
+	return "suffix" in feature;
+}
+
 export function ComparisonTable({ section, features }: ComparisonTableProps) {
 	const [selectedTab, setSelectedTab] = useState<PremiumTier>(PremiumTier.Guild);
-	const isConfigLimit = "suffix" in features[0]!;
 
 	return (
 		<div className="w-full max-w-7xl">
@@ -29,14 +32,10 @@ export function ComparisonTable({ section, features }: ComparisonTableProps) {
 								Free
 							</Tabs.Tab>
 							<Tabs.Tab className="flex-1" id={PremiumTier.Basic}>
-								<span className="bg-gradient-to-r from-[#aad6c6] via-[#fa9079] to-[#74da9c] bg-clip-text text-transparent">
-									Max
-								</span>
+								<span className="text-gradient-lurkr-max">Max</span>
 							</Tabs.Tab>
 							<Tabs.Tab className="flex-1" id={PremiumTier.Guild}>
-								<span className="bg-gradient-to-r from-[#a2fbec] via-[#f985ff] to-[#4d54fe] bg-clip-text text-transparent">
-									Ultimate
-								</span>
+								<span className="text-gradient-lurkr-ultimate">Ultimate</span>
 							</Tabs.Tab>
 						</Tabs.List>
 					</Tabs.ListContainer>
@@ -62,30 +61,18 @@ export function ComparisonTable({ section, features }: ComparisonTableProps) {
 								{/* Mobile: show selected tab column */}
 								<th className="w-1/2 border-white/10 border-b bg-white/5 px-3 py-4 text-right font-medium text-sm uppercase tracking-wider md:hidden">
 									{selectedTab === PremiumTier.None && <span className="text-white/60">Free</span>}
-									{selectedTab === PremiumTier.Basic && (
-										<span className="bg-gradient-to-r from-[#aad6c6] via-[#fa9079] to-[#74da9c] bg-clip-text text-transparent">
-											Max
-										</span>
-									)}
-									{selectedTab === PremiumTier.Guild && (
-										<span className="bg-gradient-to-r from-[#a2fbec] via-[#f985ff] to-[#4d54fe] bg-clip-text text-transparent">
-											Ultimate
-										</span>
-									)}
+									{selectedTab === PremiumTier.Basic && <span className="text-gradient-lurkr-max">Max</span>}
+									{selectedTab === PremiumTier.Guild && <span className="text-gradient-lurkr-ultimate">Ultimate</span>}
 								</th>
 								{/* Desktop: show all columns */}
 								<th className="hidden w-32 border-white/10 border-b bg-white/5 px-4 py-4 text-center font-medium text-sm text-white/60 uppercase tracking-wider md:table-cell">
 									Free
 								</th>
 								<th className="hidden w-32 border-white/10 border-b bg-white/5 px-4 py-4 text-center font-medium text-sm uppercase tracking-wider md:table-cell">
-									<span className="bg-gradient-to-r from-[#aad6c6] via-[#fa9079] to-[#74da9c] bg-clip-text text-transparent">
-										Max
-									</span>
+									<span className="text-gradient-lurkr-max">Max</span>
 								</th>
 								<th className="relative z-20 hidden w-32 border-white/10 border-b bg-white/5 px-4 py-4 text-center font-medium text-sm uppercase tracking-wider md:table-cell">
-									<span className="bg-gradient-to-r from-[#a2fbec] via-[#f985ff] to-[#4d54fe] bg-clip-text text-transparent">
-										Ultimate
-									</span>
+									<span className="text-gradient-lurkr-ultimate">Ultimate</span>
 								</th>
 							</tr>
 						</thead>
@@ -109,7 +96,7 @@ export function ComparisonTable({ section, features }: ComparisonTableProps) {
 											index % 2 !== 0 && "bg-white/[0.02]",
 										)}
 									>
-										<MobileCell feature={feature} isConfigLimit={isConfigLimit} selectedTab={selectedTab} />
+										<MobileCell feature={feature} selectedTab={selectedTab} />
 									</td>
 
 									{/* Desktop: show all columns */}
@@ -119,7 +106,7 @@ export function ComparisonTable({ section, features }: ComparisonTableProps) {
 											index % 2 !== 0 && "bg-white/[0.02]",
 										)}
 									>
-										<FreeCell feature={feature} isConfigLimit={isConfigLimit} />
+										<FreeCell feature={feature} />
 									</td>
 									<td
 										className={clsx(
@@ -127,7 +114,7 @@ export function ComparisonTable({ section, features }: ComparisonTableProps) {
 											index % 2 !== 0 && "bg-white/[0.02]",
 										)}
 									>
-										<MaxCell feature={feature} isConfigLimit={isConfigLimit} />
+										<MaxCell feature={feature} />
 									</td>
 									<td
 										className={clsx(
@@ -135,7 +122,7 @@ export function ComparisonTable({ section, features }: ComparisonTableProps) {
 											index % 2 !== 0 && "bg-white/[0.02]",
 										)}
 									>
-										<UltimateCell feature={feature} isConfigLimit={isConfigLimit} />
+										<UltimateCell feature={feature} />
 									</td>
 								</tr>
 							))}
@@ -149,112 +136,72 @@ export function ComparisonTable({ section, features }: ComparisonTableProps) {
 
 function MobileCell({
 	feature,
-	isConfigLimit,
 	selectedTab,
 }: {
 	feature: ConfigLimitComparison | LevelingFeature;
-	isConfigLimit: boolean;
 	selectedTab: PremiumTier;
 }) {
 	const content = (() => {
 		if (selectedTab === PremiumTier.None) {
-			return <FreeCell feature={feature} isConfigLimit={isConfigLimit} />;
+			return <FreeCell feature={feature} />;
 		}
 		if (selectedTab === PremiumTier.Basic) {
-			return <MaxCell feature={feature} isConfigLimit={isConfigLimit} />;
+			return <MaxCell feature={feature} />;
 		}
-		return <UltimateCell feature={feature} isConfigLimit={isConfigLimit} />;
+		return <UltimateCell feature={feature} />;
 	})();
 
 	return <div className="flex justify-end">{content}</div>;
 }
 
-function FreeCell({
-	feature,
-	isConfigLimit,
-}: {
-	feature: ConfigLimitComparison | LevelingFeature;
-	isConfigLimit: boolean;
-}) {
-	if (isConfigLimit) {
+function FreeCell({ feature }: { feature: ConfigLimitComparison | LevelingFeature }) {
+	if (isConfigLimitFeature(feature)) {
 		return (
 			<span className="text-sm text-white/60">
-				{(feature as ConfigLimitComparison).free}{" "}
-				<span className="text-white/40">{(feature as ConfigLimitComparison).suffix}</span>
+				{feature.free} <span className="text-white/40">{feature.suffix}</span>
 			</span>
 		);
 	}
-	return feature.free ? (
-		<div className="flex justify-center">
-			<div className="flex size-6 items-center justify-center rounded-full bg-[#93e19c]/20">
-				<Check aria-label="Included" className="size-4 text-[#93e19c]" />
-			</div>
-		</div>
-	) : (
-		<div className="flex justify-center">
-			<div className="flex size-6 items-center justify-center rounded-full bg-white/10">
-				<Xmark aria-label="Not included" className="size-4 text-white/30" />
-			</div>
-		</div>
-	);
+
+	return <BooleanIcon value={feature.free} />;
 }
 
-function MaxCell({
-	feature,
-	isConfigLimit,
-}: {
-	feature: ConfigLimitComparison | LevelingFeature;
-	isConfigLimit: boolean;
-}) {
-	if (isConfigLimit) {
+function MaxCell({ feature }: { feature: ConfigLimitComparison | LevelingFeature }) {
+	if (isConfigLimitFeature(feature)) {
 		return (
 			<span className="text-sm text-white/60">
-				{(feature as ConfigLimitComparison).max ?? (feature as ConfigLimitComparison).free}{" "}
-				<span className="text-white/40">{(feature as ConfigLimitComparison).suffix}</span>
+				{feature.max ?? feature.free} <span className="text-white/40">{feature.suffix}</span>
 			</span>
 		);
 	}
-	return (feature as LevelingFeature).max ? (
-		<div className="flex justify-center">
-			<div className="flex size-6 items-center justify-center rounded-full bg-[#93e19c]/20">
-				<Check aria-label="Included" className="size-4 text-[#93e19c]" />
-			</div>
-		</div>
-	) : (
-		<div className="flex justify-center">
-			<div className="flex size-6 items-center justify-center rounded-full bg-white/10">
-				<Xmark aria-label="Not included" className="size-4 text-white/30" />
-			</div>
-		</div>
-	);
+
+	return <BooleanIcon value={feature.max} />;
 }
 
-function UltimateCell({
-	feature,
-	isConfigLimit,
-}: {
-	feature: ConfigLimitComparison | LevelingFeature;
-	isConfigLimit: boolean;
-}) {
-	if (isConfigLimit) {
+function UltimateCell({ feature }: { feature: ConfigLimitComparison | LevelingFeature }) {
+	if (isConfigLimitFeature(feature)) {
 		return (
 			<span className="font-medium text-sm text-white/80">
-				{(feature as ConfigLimitComparison).ultimate}{" "}
-				<span className="text-white/40">{(feature as ConfigLimitComparison).suffix}</span>
+				{feature.ultimate} <span className="text-white/40">{feature.suffix}</span>
 			</span>
 		);
 	}
-	return (feature as LevelingFeature).ultimate ? (
+
+	return <BooleanIcon value={feature.ultimate} />;
+}
+
+function BooleanIcon({ value }: { value: boolean }) {
+	return (
 		<div className="flex justify-center">
-			<div className="flex size-6 items-center justify-center rounded-full bg-[#93e19c]/20">
-				<Check aria-label="Included" className="size-4 text-[#93e19c]" />
-			</div>
-		</div>
-	) : (
-		<div className="flex justify-center">
-			<div className="flex size-6 items-center justify-center rounded-full bg-white/10">
-				<Xmark aria-label="Not included" className="size-4 text-white/30" />
-			</div>
+			{value ? (
+				<div className="flex size-6 items-center justify-center rounded-full bg-[#93e19c]/20">
+					<Check aria-label="Included" className="size-4 text-[#93e19c]" />
+				</div>
+			) : (
+				<div className="flex size-6 items-center justify-center rounded-full bg-white/10">
+					<Xmark aria-label="Not included" className="size-4 text-white/30" />
+				</div>
+			)}
 		</div>
 	);
 }
