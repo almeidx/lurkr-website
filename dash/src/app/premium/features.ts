@@ -7,6 +7,8 @@ import {
 	MAX_MENTION_COOLDOWN_PREMIUM,
 	MAX_MILESTONES_ROLES,
 	MAX_MILESTONES_ROLES_PREMIUM,
+	MAX_NO_ROLE_REWARD_ROLES,
+	MAX_NO_ROLE_REWARD_ROLES_PREMIUM,
 	MAX_NO_TOP_XP_ROLES,
 	MAX_NO_TOP_XP_ROLES_PREMIUM,
 	MAX_NO_XP_ROLES,
@@ -41,6 +43,7 @@ export const levelingFeatures: LevelingFeature[] = [
 export const configLimitFeatures: ConfigLimitComparison[] = [
 	{ free: MAX_XP_ROLE_REWARD_ROLES, name: "Leveling Rewards Roles (Per Level)", suffix: "per level", ultimate: MAX_XP_ROLE_REWARD_ROLES_PREMIUM },
 	{ free: MAX_XP_ROLE_REWARDS, name: "Leveling Rewards Roles (Total)", suffix: "roles total", ultimate: MAX_XP_ROLE_REWARDS_PREMIUM },
+	{ free: MAX_NO_ROLE_REWARD_ROLES, name: "No Role Reward Roles", suffix: "roles", ultimate: MAX_NO_ROLE_REWARD_ROLES_PREMIUM },
 	{ free: MAX_XP_MULTIPLIERS, name: "Leveling Multipliers", suffix: "multipliers total", ultimate: MAX_XP_MULTIPLIERS_PREMIUM },
 	{ free: MAX_XP_MULTIPLIER_TARGETS, name: "Multiplier Channels/Roles", suffix: "per multiplier", ultimate: MAX_XP_MULTIPLIER_TARGETS_PREMIUM },
 	{ free: MAX_MENTION_COOLDOWN, name: "Role Mention Cooldown", suffix: "minutes", ultimate: MAX_MENTION_COOLDOWN_PREMIUM },

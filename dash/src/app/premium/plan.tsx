@@ -1,12 +1,9 @@
+import { ChartLine, Check, Xmark } from "@gravity-ui/icons";
+import { Card, Chip, Link as HeroLink } from "@heroui/react";
 import clsx from "clsx";
 import type { StaticImageData } from "next/image";
 import Image from "next/image";
 import Link from "next/link";
-import type { ComponentProps } from "react";
-import { ExternalLink } from "@/components/ExternalLink.tsx";
-import { Check } from "@/components/icons/mdi/check.tsx";
-import { Close } from "@/components/icons/mdi/close.tsx";
-import { ShowChart } from "@/components/icons/mdi/show-chart.tsx";
 import { PATREON_URL } from "@/shared-links.ts";
 
 export function PremiumPlan({
@@ -19,106 +16,164 @@ export function PremiumPlan({
 	regular,
 	tier,
 	isCurrent,
+	isPopular,
 }: PremiumPlanProps) {
+	const isExternal = tier !== 0;
+	const href = isExternal ? PATREON_URL : "/guilds";
+
 	return (
-		<div
-			className={clsx(
-				"relative mb-8 flex h-fit flex-1 flex-col rounded-xl bg-dark-gray px-8 py-9",
-				tier !== 0 && "before:absolute before:-inset-px before:-z-1 before:blur-xs",
-				tier === 1
-					? "before:bg-gradient-lurkr-max"
-					: tier === 2
-						? "before:bg-gradient-lurkr-ultimate"
-						: "border border-white/25",
-				isCurrent &&
-					"after:absolute after:-top-4 after:left-1/2 after:-translate-x-1/2 after:rounded-lg after:bg-white after:px-4 after:py-1 after:font-bold after:text-black after:text-xl after:content-['Current']",
+		<div className={clsx("relative flex-1", isPopular && "md:-mt-4 md:mb-4")}>
+			{/* Gradient glow behind card */}
+			{tier !== 0 && (
+				<div
+					className={clsx(
+						"absolute -inset-1 -z-10 rounded-3xl opacity-50 blur-md",
+						tier === 1 && "bg-gradient-to-br from-[#aad6c6] via-[#fa9079] to-[#74da9c]",
+						tier === 2 && "bg-gradient-to-br from-[#a2fbec] via-[#f985ff] to-[#4d54fe]",
+					)}
+				/>
 			)}
-		>
-			<h2 className="text-center font-bold text-2xl text-shadow-regular md:text-4xl">{name}</h2>
 
-			<Image
-				alt={`${name} premium plan promotional image`}
-				className="mt-2 size-36 self-center md:size-48"
-				height={200}
-				priority
-				src={img}
-				width={200}
-			/>
-
-			<p className="text-center font-bold text-4xl md:text-6xl">
-				${price}
-				<span className="text-2xl md:text-4xl">/mo</span>
-			</p>
-
-			<p className="mt-2 text-center text-white/75">{price === 0 ? "Billed never!" : "Billed recurringly"}</p>
-
-			<div className="mt-4 space-y-3 whitespace-normal text-sm text-white/75 tracking-tighter md:text-base xl:whitespace-nowrap">
-				<ul className="space-y-3">
-					{perks.map((perk) => (
-						<li className="flex items-center gap-2" key={perk}>
-							<div className="flex size-9 items-center justify-center rounded-lg bg-darker">
-								<Check aria-hidden className="size-8 text-[#93e19c]" />
-							</div>
-
-							{perk}
-						</li>
-					))}
-				</ul>
-
-				{regular && (
-					<ul className="space-y-3">
-						{regular.map((perk) => (
-							<li className="flex items-center gap-2" key={perk}>
-								<div className="flex size-9 items-center justify-center rounded-lg bg-darker">
-									<ShowChart aria-hidden className="size-8 text-[#f6e594]" />
-								</div>
-
-								{perk}
-							</li>
-						))}
-					</ul>
-				)}
-
-				<div className="flex items-center gap-2">
-					<div className="flex size-9 items-center justify-center rounded-lg bg-darker">
-						<Close aria-hidden className="size-8 text-[#b1b1b2]" />
-					</div>
-
-					<p>{funny}</p>
+			{/* Gradient border wrapper */}
+			{tier !== 0 ? (
+				<div
+					className={clsx(
+						"overflow-hidden rounded-2xl p-0.5",
+						tier === 1 && "bg-gradient-to-br from-[#aad6c6] via-[#fa9079] to-[#74da9c]",
+						tier === 2 && "bg-gradient-to-br from-[#a2fbec] via-[#f985ff] to-[#4d54fe]",
+					)}
+				>
+					<Card className="h-full rounded-[14px]">
+						<CardContent
+							buttonText={buttonText}
+							funny={funny}
+							href={href}
+							img={img}
+							isCurrent={isCurrent}
+							isExternal={isExternal}
+							isPopular={isPopular}
+							name={name}
+							perks={perks}
+							price={price}
+							regular={regular}
+							tier={tier}
+						/>
+					</Card>
 				</div>
-			</div>
-
-			<DynamicLink
-				className={clsx(
-					"relative z-1 mt-4 w-fit self-center rounded-lg px-6 py-2 text-center font-bold text-black text-xl before:absolute before:inset-0 before:-z-1 before:rounded-lg before:bg-linear-(--lurkr-gradient-alt) before:opacity-0 before:transition-opacity before:duration-300 hover:before:opacity-100",
-					tier === 1
-						? "bg-linear-(--lurkr-max-gradient)"
-						: tier === 2
-							? "bg-linear-(--lurkr-ultimate-gradient)"
-							: "bg-linear-(--lurkr-gradient)",
-					isCurrent ? "pointer-events-none opacity-50" : "cursor-pointer",
-				)}
-				href={tier === 0 ? "/guilds" : PATREON_URL}
-			>
-				{buttonText}
-			</DynamicLink>
+			) : (
+				<Card className="h-full border border-white/20">
+					<CardContent
+						buttonText={buttonText}
+						funny={funny}
+						href={href}
+						img={img}
+						isCurrent={isCurrent}
+						isExternal={isExternal}
+						isPopular={isPopular}
+						name={name}
+						perks={perks}
+						price={price}
+						regular={regular}
+						tier={tier}
+					/>
+				</Card>
+			)}
 		</div>
 	);
 }
 
-function DynamicLink({ className, href, children, ...props }: ComponentProps<typeof ExternalLink> & { href: string }) {
-	if (href.startsWith("http")) {
-		return (
-			<ExternalLink className={className} href={href} {...props}>
-				{children}
-			</ExternalLink>
-		);
-	}
+function CardContent({
+	isPopular,
+	isCurrent,
+	img,
+	name,
+	price,
+	perks,
+	regular,
+	funny,
+	isExternal,
+	href,
+	tier,
+	buttonText,
+}: CardContentProps) {
+	const buttonClasses = clsx(
+		"flex w-full items-center justify-center rounded-xl px-6 py-3 font-bold text-black text-lg transition-opacity hover:opacity-90",
+		tier === 0 && "bg-gradient-lurkr",
+		tier === 1 && "bg-gradient-lurkr-max",
+		tier === 2 && "bg-gradient-lurkr-ultimate",
+		isCurrent && "pointer-events-none opacity-50",
+	);
 
 	return (
-		<Link className={className} href={href} prefetch={false}>
-			{children}
-		</Link>
+		<>
+			<Card.Header className="relative flex-col items-center gap-3 pt-6">
+				{isCurrent ? (
+					<Chip className="absolute -top-1 bg-white font-semibold text-black">Current Plan</Chip>
+				) : isPopular ? (
+					<Chip className="absolute -top-1 bg-gradient-lurkr-ultimate font-semibold text-black">Increased Limits</Chip>
+				) : null}
+
+				<Image
+					alt={`${name} premium plan promotional image`}
+					className="size-28 md:size-32"
+					height={128}
+					priority
+					src={img}
+					width={128}
+				/>
+
+				<Card.Title className="text-center font-bold text-2xl md:text-3xl">{name}</Card.Title>
+			</Card.Header>
+
+			<Card.Content className="flex flex-1 flex-col gap-8 px-6">
+				<div className="text-center">
+					<div className="flex items-baseline justify-center gap-1">
+						<span className="font-bold text-5xl tracking-tight">${price}</span>
+						<span className="text-lg text-white/60">/month</span>
+					</div>
+					<p className="mt-1 text-sm text-white/50">{price === 0 ? "Free forever" : "Billed monthly via Patreon"}</p>
+				</div>
+
+				<div className="flex-1 space-y-4">
+					{perks.map((perk) => (
+						<div className="flex items-start gap-3" key={perk}>
+							<div className="flex size-6 shrink-0 items-center justify-center rounded-full bg-[#93e19c]/20">
+								<Check aria-hidden className="size-4 text-[#93e19c]" />
+							</div>
+							<span className="text-sm text-white/80">{perk}</span>
+						</div>
+					))}
+
+					{regular?.map((perk) => (
+						<div className="flex items-start gap-3" key={perk}>
+							<div className="flex size-6 shrink-0 items-center justify-center rounded-full bg-[#f6e594]/20">
+								<ChartLine aria-hidden className="size-4 text-[#f6e594]" />
+							</div>
+							<span className="text-sm text-white/80">{perk}</span>
+						</div>
+					))}
+
+					<div className="flex items-start gap-3">
+						<div className="flex size-6 shrink-0 items-center justify-center rounded-full bg-white/10">
+							<Xmark aria-hidden className="size-4 text-white/40" />
+						</div>
+						<span className="text-sm text-white/50">{funny}</span>
+					</div>
+				</div>
+			</Card.Content>
+
+			<Card.Footer className="px-6 pt-4 pb-6">
+				{isExternal ? (
+					<HeroLink className={buttonClasses} href={href} rel="external noopener noreferrer" target="_blank">
+						{buttonText}
+					</HeroLink>
+				) : (
+					<Link className={buttonClasses} href={href} prefetch={false}>
+						{buttonText}
+					</Link>
+				)}
+			</Card.Footer>
+		</>
 	);
 }
 
@@ -132,4 +187,20 @@ interface PremiumPlanProps {
 	readonly buttonText: string;
 	readonly tier: number;
 	readonly isCurrent: boolean;
+	readonly isPopular?: boolean;
+}
+
+interface CardContentProps {
+	readonly isPopular?: boolean;
+	readonly isCurrent: boolean;
+	readonly img: StaticImageData;
+	readonly name: string;
+	readonly price: number;
+	readonly perks: string[];
+	readonly regular?: string[];
+	readonly funny: string;
+	readonly isExternal: boolean;
+	readonly href: string;
+	readonly tier: number;
+	readonly buttonText: string;
 }
