@@ -1,3 +1,5 @@
+import { ArrowsExpand, Clock, LockOpen, Person } from "@gravity-ui/icons";
+import { Accordion } from "@heroui/react";
 import type { Metadata } from "next";
 import { cookies } from "next/headers";
 import Image from "next/image";
@@ -9,6 +11,7 @@ import logoImg from "@/assets/logo.webp";
 import lurkrFreeImg from "@/assets/premium-plans/lurkr-free.webp";
 import lurkrMaxImg from "@/assets/premium-plans/lurkr-max.webp";
 import lurkrUltimateImg from "@/assets/premium-plans/lurkr-ultimate.webp";
+import { SUPPORT_SERVER_INVITE } from "@/shared-links.ts";
 import { TOKEN_COOKIE } from "@/utils/constants.ts";
 import { makeApiRequest } from "@/utils/make-api-request.ts";
 
@@ -17,11 +20,11 @@ export default async function Premium() {
 	const currentPlan = token ? await getData(token) : null;
 
 	return (
-		<div className="mx-4 flex max-w-7xl flex-col items-center py-8 xl:mx-auto">
+		<div className="mx-4 flex max-w-7xl flex-col items-center py-12 xl:mx-auto">
 			{/* Hero Section */}
-			<div className="mb-12 flex flex-col items-center gap-6 text-center">
+			<div className="mb-16 flex flex-col items-center gap-8 text-center">
 				<Image alt="Lurkr logo" className="size-32 md:size-40" height={160} priority src={logoImg} width={160} />
-				<div className="space-y-3">
+				<div className="space-y-4">
 					<h1 className="font-bold text-3xl text-shadow-regular md:text-4xl lg:text-5xl">Support Lurkr Development</h1>
 					<p className="max-w-2xl text-lg text-white/60">
 						All features are free, forever. Supporting us just gets you increased limits and helps keep Lurkr running.
@@ -108,6 +111,86 @@ export default async function Premium() {
 					<ComparisonTable features={configLimitFeatures} section="Configuration Limits" />
 					<ComparisonTable features={extraFeatures} section="Extras" />
 				</div>
+			</div>
+
+			{/* FAQ Section */}
+			<div className="mt-16 flex w-full max-w-3xl flex-col items-center gap-6">
+				<h2 className="font-bold text-2xl md:text-3xl">Frequently Asked Questions</h2>
+
+				<Accordion className="w-full">
+					<Accordion.Item>
+						<Accordion.Heading>
+							<Accordion.Trigger>
+								<div className="flex items-center gap-3">
+									<Clock className="text-zinc-400" />
+									What happens if my subscription runs out?
+								</div>
+								<Accordion.Indicator />
+							</Accordion.Trigger>
+						</Accordion.Heading>
+						<Accordion.Panel className="text-muted">
+							Currently, your server configured with premium limits will retain those settings (even if they exceed free
+							limits) and continue to work. This may change in the future, but for now your configuration stays intact.
+						</Accordion.Panel>
+					</Accordion.Item>
+
+					<Accordion.Item>
+						<Accordion.Heading>
+							<Accordion.Trigger>
+								<div className="flex items-center gap-3">
+									<ArrowsExpand className="text-zinc-400" />
+									The premium limits are not enough!
+								</div>
+								<Accordion.Indicator />
+							</Accordion.Trigger>
+						</Accordion.Heading>
+						<Accordion.Panel className="text-muted">
+							You can join the{" "}
+							<a
+								className="text-white/70 underline decoration-white/30 hover:text-white"
+								href={SUPPORT_SERVER_INVITE}
+								rel="external noopener noreferrer"
+								target="_blank"
+							>
+								support server
+							</a>
+							, explain your use case, and mention @almeida or @cmddata to request a bigger limit increase.
+						</Accordion.Panel>
+					</Accordion.Item>
+
+					<Accordion.Item>
+						<Accordion.Heading>
+							<Accordion.Trigger>
+								<div className="flex items-center gap-3">
+									<LockOpen className="text-zinc-400" />
+									Will features become paywalled?
+								</div>
+								<Accordion.Indicator />
+							</Accordion.Trigger>
+						</Accordion.Heading>
+						<Accordion.Panel className="text-muted">
+							No. This would go against the philosophy of Lurkr. We created premium tiers because running the bot still
+							has costs for us, but all features will always remain free.
+						</Accordion.Panel>
+					</Accordion.Item>
+
+					<Accordion.Item>
+						<Accordion.Heading>
+							<Accordion.Trigger>
+								<div className="flex items-center gap-3">
+									<Person className="text-zinc-400" />
+									Who is this for?
+								</div>
+								<Accordion.Indicator />
+							</Accordion.Trigger>
+						</Accordion.Heading>
+						<Accordion.Panel className="text-muted">
+							The Max plan is for users who want to support the development of Lurkr while gaining some benefits
+							compared to the free plan. The Ultimate plan is primarily made for larger servers that need higher
+							configuration limits.
+						</Accordion.Panel>
+					</Accordion.Item>
+				</Accordion>
 			</div>
 		</div>
 	);
