@@ -36,6 +36,8 @@ For local development, you may need to set up environment variables:
 
 Development and production environment files (`.env.development`, `.env.production`) are already configured.
 
+Note: Features requiring sign-in will not work locally without a local API instance, which is not publicly available.
+
 ### Running Development Servers
 
 - **Dashboard**: `cd dash && pnpm run dev` (runs on default Next.js port)
@@ -94,6 +96,11 @@ the root and the documentation site being hosted under the `/docs` path. The way
 app handles all the requests, and rewrites requests to `/docs` to the documentation site. This is configured in the
 `next.config.ts` file of the dashboard.
 
+### Dashboard Routes
+
+Guild configuration pages follow the pattern `dash/src/app/guilds/[guildId]/<feature>/page.tsx` for features like
+leveling, roles, multipliers, milestones, emojis, etc.
+
 ## Key Guidelines
 
 1. Follow the TypeScript coding standards, best practices, and idiomatic patterns.
@@ -125,7 +132,7 @@ Key external links are centralized in `shared/shared-links.ts`:
 
 ## UI
 
-The old UI was made using a mixture of custom components, radix UI primitives, and Tremor UI.
+The old UI was made using a mixture of custom components, Radix UI primitives, and Tremor UI. Legacy components are located in `dash/src/components/ui/`.
 
 The new UI is made using HeroUI v3 (Beta version).
 
