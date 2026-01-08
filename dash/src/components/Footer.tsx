@@ -62,58 +62,58 @@ export function Footer() {
 					</div>
 
 					<div className="flex w-full items-center justify-start gap-3 md:w-auto">
-							<Tooltip>
-								<Tooltip.Trigger>
-									<HeroLink
-										className="flex size-10 items-center justify-center rounded-lg bg-white/5 text-white/60 transition-all hover:bg-[#5865F2]/20 hover:text-[#5865F2]"
-										href={SUPPORT_SERVER_INVITE}
-										rel="external noopener noreferrer"
-										target="_blank"
-									>
-										<Discord aria-label="Discord" className="size-5" />
-									</HeroLink>
-								</Tooltip.Trigger>
-								<Tooltip.Content>Discord</Tooltip.Content>
-							</Tooltip>
-							<Tooltip>
-								<Tooltip.Trigger>
-									<HeroLink
-										className="flex size-10 items-center justify-center rounded-lg bg-white/5 text-white/60 transition-all hover:bg-white/10 hover:text-white"
-										href={GITHUB_REPOSITORY_URL}
-										rel="external noopener noreferrer"
-										target="_blank"
-									>
-										<GitHub aria-label="GitHub" className="size-5" />
-									</HeroLink>
-								</Tooltip.Trigger>
-								<Tooltip.Content>GitHub</Tooltip.Content>
-							</Tooltip>
-							<Tooltip>
-								<Tooltip.Trigger>
-									<HeroLink
-										className="flex size-10 items-center justify-center rounded-lg bg-white/5 text-white/60 transition-all hover:bg-[#FF3366]/20 hover:text-[#FF3366]"
-										href={`${TOPGG_URL}&utm_campaign=footer`}
-										rel="external noopener noreferrer"
-										target="_blank"
-									>
-										<ThumbsUp aria-label="Vote on Top.gg" className="size-5" />
-									</HeroLink>
-								</Tooltip.Trigger>
-								<Tooltip.Content>Vote on Top.gg</Tooltip.Content>
-							</Tooltip>
-							<Tooltip>
-								<Tooltip.Trigger>
-									<HeroLink
-										className="flex size-10 items-center justify-center rounded-lg bg-white/5 text-white/60 transition-all hover:bg-white/10 hover:text-white"
-										href="https://forms.gle/CMBktm14LfnyekbQ9"
-										rel="external noopener noreferrer"
-										target="_blank"
-									>
-										<Briefcase aria-label="Backend developer application" className="size-5" />
-									</HeroLink>
-								</Tooltip.Trigger>
-								<Tooltip.Content>Backend developer application</Tooltip.Content>
-							</Tooltip>
+						<Tooltip>
+							<Tooltip.Trigger>
+								<HeroLink
+									className="flex size-10 items-center justify-center rounded-lg bg-white/5 text-white/60 transition-all hover:bg-[#5865F2]/20 hover:text-[#5865F2]"
+									href={SUPPORT_SERVER_INVITE}
+									rel="external noopener noreferrer"
+									target="_blank"
+								>
+									<Discord aria-label="Discord" className="size-5" />
+								</HeroLink>
+							</Tooltip.Trigger>
+							<Tooltip.Content>Discord</Tooltip.Content>
+						</Tooltip>
+						<Tooltip>
+							<Tooltip.Trigger>
+								<HeroLink
+									className="flex size-10 items-center justify-center rounded-lg bg-white/5 text-white/60 transition-all hover:bg-white/10 hover:text-white"
+									href={GITHUB_REPOSITORY_URL}
+									rel="external noopener noreferrer"
+									target="_blank"
+								>
+									<GitHub aria-label="GitHub" className="size-5" />
+								</HeroLink>
+							</Tooltip.Trigger>
+							<Tooltip.Content>GitHub</Tooltip.Content>
+						</Tooltip>
+						<Tooltip>
+							<Tooltip.Trigger>
+								<HeroLink
+									className="flex size-10 items-center justify-center rounded-lg bg-white/5 text-white/60 transition-all hover:bg-[#FF3366]/20 hover:text-[#FF3366]"
+									href={`${TOPGG_URL}&utm_campaign=footer`}
+									rel="external noopener noreferrer"
+									target="_blank"
+								>
+									<ThumbsUp aria-label="Vote on Top.gg" className="size-5" />
+								</HeroLink>
+							</Tooltip.Trigger>
+							<Tooltip.Content>Vote on Top.gg</Tooltip.Content>
+						</Tooltip>
+						<Tooltip>
+							<Tooltip.Trigger>
+								<HeroLink
+									className="flex size-10 items-center justify-center rounded-lg bg-white/5 text-white/60 transition-all hover:bg-white/10 hover:text-white"
+									href="https://forms.gle/CMBktm14LfnyekbQ9"
+									rel="external noopener noreferrer"
+									target="_blank"
+								>
+									<Briefcase aria-label="Backend developer application" className="size-5" />
+								</HeroLink>
+							</Tooltip.Trigger>
+							<Tooltip.Content>Backend developer application</Tooltip.Content>
+						</Tooltip>
 					</div>
 				</div>
 
