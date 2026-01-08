@@ -1,63 +1,77 @@
+"use client";
+
+import { ThumbsUp } from "@gravity-ui/icons";
+import { Link as HeroLink } from "@heroui/react";
+import Image from "next/image";
 import Link from "next/link";
-import { BackToTheTop } from "@/components/BackToTheTop.tsx";
-import { ExternalLink } from "@/components/ExternalLink.tsx";
+import logoImg from "@/assets/logo.webp";
+import { Discord } from "@/components/icons/Discord.tsx";
+import { GitHub } from "@/components/icons/GitHub.tsx";
 import { GITHUB_REPOSITORY_URL, SUPPORT_SERVER_INVITE, TOPGG_URL } from "@/shared-links.ts";
 
 export function Footer() {
 	return (
-		<div className="mx-4 flex justify-center border-white/25 border-t bg-transparent py-8">
-			<footer className="flex w-full max-w-7xl flex-col items-center justify-between gap-6 md:flex-row md:gap-0">
-				<div>
-					<p className="text-sm text-white/75 sm:text-end">
-						Copyright ©️ {new Date().getFullYear()} Lurkr Team. All rights reserved.
-					</p>
-				</div>
-
-				<div className="flex xs:flex-row flex-col justify-center gap-10 whitespace-nowrap">
-					<div>
-						<p className="mb-2 font-bold">About Us</p>
-
-						<ul className="text-sm text-white/75">
-							<li>
-								<ExternalLink className="block py-0.5" href={SUPPORT_SERVER_INVITE}>
-									Discord
-								</ExternalLink>
-							</li>
-							<li>
-								<ExternalLink className="block py-0.5" href={GITHUB_REPOSITORY_URL}>
-									GitHub
-								</ExternalLink>
-							</li>
-							<li>
-								<ExternalLink className="block py-0.5" href={`${TOPGG_URL}&utm_campaign=footer`}>
-									Vote on Us!
-								</ExternalLink>
-							</li>
-						</ul>
+		<footer className="border-white/10 border-t bg-black/20">
+			<div className="mx-auto flex w-full max-w-7xl flex-col gap-8 px-4 py-10">
+				<div className="flex flex-col items-center justify-between gap-8 md:flex-row">
+					<div className="flex flex-col items-center gap-4 md:items-start">
+						<Link className="flex items-center gap-3 transition-opacity hover:opacity-80" href="/">
+							<Image alt="Lurkr logo" className="size-10" height={40} src={logoImg} width={40} />
+							<span className="font-bold text-xl">Lurkr</span>
+						</Link>
+						<p className="max-w-xs text-center text-sm text-white/50 md:text-left">
+							The ultimate Discord leveling bot. Track activity, reward engagement, and build thriving communities.
+						</p>
 					</div>
 
-					<div>
-						<p className="mb-2 font-bold">Legal</p>
+					<div className="flex flex-col items-center gap-6 md:flex-row md:gap-12">
+						<div className="flex flex-col items-center gap-3 md:items-start">
+							<p className="font-semibold text-sm text-white/70">Legal</p>
+							<div className="flex gap-4">
+								<Link className="text-sm text-white/50 transition-colors hover:text-white" href="/privacy">
+									Privacy
+								</Link>
+								<Link className="text-sm text-white/50 transition-colors hover:text-white" href="/terms">
+									Terms
+								</Link>
+							</div>
+						</div>
 
-						<ul className="text-sm text-white/75">
-							<li>
-								<Link className="block py-0.5" href="/privacy">
-									Privacy Policy
-								</Link>
-							</li>
-							<li>
-								<Link className="block py-0.5" href="/terms">
-									Terms of Service
-								</Link>
-							</li>
-						</ul>
+						<div className="flex items-center gap-3">
+							<HeroLink
+								className="flex size-10 items-center justify-center rounded-lg bg-white/5 text-white/60 transition-all hover:bg-[#5865F2]/20 hover:text-[#5865F2]"
+								href={SUPPORT_SERVER_INVITE}
+								rel="external noopener noreferrer"
+								target="_blank"
+							>
+								<Discord aria-label="Discord" className="size-5" />
+							</HeroLink>
+							<HeroLink
+								className="flex size-10 items-center justify-center rounded-lg bg-white/5 text-white/60 transition-all hover:bg-white/10 hover:text-white"
+								href={GITHUB_REPOSITORY_URL}
+								rel="external noopener noreferrer"
+								target="_blank"
+							>
+								<GitHub aria-label="GitHub" className="size-5" />
+							</HeroLink>
+							<HeroLink
+								className="flex size-10 items-center justify-center rounded-lg bg-white/5 text-white/60 transition-all hover:bg-[#FF3366]/20 hover:text-[#FF3366]"
+								href={`${TOPGG_URL}&utm_campaign=footer`}
+								rel="external noopener noreferrer"
+								target="_blank"
+							>
+								<ThumbsUp aria-label="Vote on Top.gg" className="size-5" />
+							</HeroLink>
+						</div>
 					</div>
 				</div>
 
-				<div>
-					<BackToTheTop />
-				</div>
-			</footer>
-		</div>
+				<div className="h-px w-full bg-white/10" />
+
+				<p className="text-center text-white/40 text-xs">
+					© {new Date().getFullYear()} Lurkr Team. All rights reserved.
+				</p>
+			</div>
+		</footer>
 	);
 }
