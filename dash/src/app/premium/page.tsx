@@ -2,12 +2,10 @@ import { ArrowsExpand, Clock, LockOpen, Person } from "@gravity-ui/icons";
 import { Accordion } from "@heroui/react";
 import type { Metadata } from "next";
 import { cookies } from "next/headers";
-import Image from "next/image";
 import Link from "next/link";
 import { configLimitFeatures, extraFeatures } from "@/app/premium/features.ts";
 import { PremiumPlan } from "@/app/premium/plan.tsx";
 import { ComparisonTable } from "@/app/premium/table.tsx";
-import logoImg from "@/assets/logo.webp";
 import lurkrFreeImg from "@/assets/premium-plans/lurkr-free.webp";
 import lurkrMaxImg from "@/assets/premium-plans/lurkr-max.webp";
 import lurkrUltimateImg from "@/assets/premium-plans/lurkr-ultimate.webp";
@@ -21,20 +19,18 @@ export default async function Premium() {
 	const currentPlan = token ? await getData(token) : null;
 
 	return (
-		<div className="mx-4 flex max-w-7xl flex-col items-center py-12 xl:mx-auto">
-			{/* Hero Section */}
-			<div className="mb-16 flex flex-col items-center gap-8 text-center">
-				<Image alt="Lurkr logo" className="size-32 md:size-40" height={160} priority src={logoImg} width={160} />
-				<div className="space-y-4">
-					<h1 className="font-bold text-3xl text-shadow-regular md:text-4xl lg:text-5xl">Support Lurkr Development</h1>
-					<p className="max-w-2xl text-lg text-white/60">
-						All features are free, forever. Supporting us just gets you increased limits and helps keep Lurkr running.
-					</p>
-				</div>
-			</div>
+		<div className="mx-auto flex w-full max-w-7xl flex-col items-center justify-center gap-12 px-4 py-12">
+			<header className="flex flex-col items-center justify-center gap-4 text-center">
+				<h1 className="bg-linear-to-br from-white to-white/50 bg-clip-text font-bold text-4xl text-transparent">
+					Support Lurkr Development
+				</h1>
 
-			{/* Pricing Cards */}
-			<div className="mb-12 grid w-full max-w-7xl grid-cols-1 items-end gap-6 sm:grid-cols-2 md:grid-cols-3 md:gap-8">
+				<p className="max-w-lg text-center text-white/80 text-xl leading-relaxed tracking-tight">
+					All features are free, forever. Supporting us just gets you increased limits and helps keep Lurkr running.
+				</p>
+			</header>
+
+			<div className="grid w-full max-w-7xl grid-cols-1 items-end gap-6 sm:grid-cols-2 md:grid-cols-3 md:gap-8">
 				<PremiumPlan
 					buttonText="Stay Free"
 					funny="Buys you groceries…"
@@ -70,8 +66,7 @@ export default async function Premium() {
 				/>
 			</div>
 
-			{/* Legal Notice */}
-			<p className="mb-16 max-w-prose text-balance text-center text-sm text-white/50">
+			<p className="max-w-prose text-balance text-center text-sm text-white/50">
 				Purchases are subject to our{" "}
 				<Link className="text-white/50 underline decoration-white/30 hover:text-white/70" href="/terms">
 					Terms of Service
@@ -101,7 +96,6 @@ export default async function Premium() {
 				of Patreon, Inc.
 			</p>
 
-			{/* Comparison Section */}
 			<div className="flex w-full flex-col items-center gap-8">
 				<div className="text-center">
 					<h2 className="font-bold text-2xl md:text-3xl">Compare Plans</h2>
@@ -114,8 +108,7 @@ export default async function Premium() {
 				</div>
 			</div>
 
-			{/* FAQ Section */}
-			<div className="mt-16 flex w-full max-w-3xl flex-col items-center gap-6">
+			<div className="flex w-full max-w-3xl flex-col items-center gap-6">
 				<h2 className="font-bold text-2xl md:text-3xl">Frequently Asked Questions</h2>
 
 				<Accordion className="w-full">

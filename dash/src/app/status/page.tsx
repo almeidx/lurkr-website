@@ -14,7 +14,7 @@ export default async function Status() {
 					Bot Status
 				</h1>
 
-				<p className="text-xl leading-relaxed tracking-tight">
+				<p className="max-w-lg text-center text-white/80 text-xl leading-relaxed tracking-tight">
 					Check if the bot is online or having issues in your server!
 				</p>
 			</header>

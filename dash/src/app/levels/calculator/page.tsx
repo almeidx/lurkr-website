@@ -18,10 +18,12 @@ export default function CalculatorPage() {
 
 			<main className="flex w-full max-w-3xl flex-col items-center justify-center gap-4">
 				<Calculator />
+			</main>
 
-				<h2 className="mt-8 font-bold text-2xl">Frequently Asked Questions</h2>
+			<div className="flex w-full max-w-3xl flex-col items-center gap-6">
+				<h2 className="font-bold text-2xl md:text-3xl">Frequently Asked Questions</h2>
 
-				<Accordion>
+				<Accordion className="w-full">
 					<Accordion.Item>
 						<Accordion.Heading>
 							<Accordion.Trigger>
@@ -87,7 +89,7 @@ export default function CalculatorPage() {
 						</Accordion.Panel>
 					</Accordion.Item>
 				</Accordion>
-			</main>
+			</div>
 		</div>
 	);
 }
