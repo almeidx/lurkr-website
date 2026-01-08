@@ -7,7 +7,7 @@ import Link from "next/link";
 import logoImg from "@/assets/logo.webp";
 import { Discord } from "@/components/icons/Discord.tsx";
 import { GitHub } from "@/components/icons/GitHub.tsx";
-import { GITHUB_REPOSITORY_URL, SUPPORT_SERVER_INVITE, TOPGG_URL } from "@/shared-links.ts";
+import { BOT_INVITE, GITHUB_REPOSITORY_URL, SUPPORT_SERVER_INVITE, TOPGG_URL } from "@/shared-links.ts";
 
 export function Footer() {
 	return (
@@ -26,8 +26,31 @@ export function Footer() {
 
 					<div className="flex flex-col items-center gap-6 md:flex-row md:gap-12">
 						<div className="flex flex-col items-center gap-3 md:items-start">
+							<p className="font-semibold text-sm text-white/70">Product</p>
+							<div className="grid grid-cols-2 gap-x-6 gap-y-2 text-center md:text-left">
+								<HeroLink
+									className="text-sm text-white/50 transition-colors hover:text-white"
+									href={BOT_INVITE}
+									rel="external noopener noreferrer"
+									target="_blank"
+								>
+									Invite
+								</HeroLink>
+								<Link className="text-sm text-white/50 transition-colors hover:text-white" href="/docs/changelog">
+									Changelog
+								</Link>
+								<Link className="text-sm text-white/50 transition-colors hover:text-white" href="/docs">
+									Docs
+								</Link>
+								<Link className="text-sm text-white/50 transition-colors hover:text-white" href="/status">
+									Status
+								</Link>
+							</div>
+						</div>
+
+						<div className="flex flex-col items-center gap-3 md:items-start">
 							<p className="font-semibold text-sm text-white/70">Legal</p>
-							<div className="flex gap-4">
+							<div className="flex flex-col gap-2 text-center md:text-left">
 								<Link className="text-sm text-white/50 transition-colors hover:text-white" href="/privacy">
 									Privacy
 								</Link>
