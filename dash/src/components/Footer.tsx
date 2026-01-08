@@ -13,21 +13,21 @@ export function Footer() {
 	return (
 		<footer className="border-white/10 border-t bg-black/20">
 			<div className="mx-auto flex w-full max-w-7xl flex-col gap-8 px-4 py-10">
-				<div className="flex flex-col items-center justify-between gap-8 md:flex-row">
-					<div className="flex flex-col items-center gap-4 md:items-start">
+				<div className="flex flex-col items-start justify-between gap-8 md:flex-row md:items-center">
+					<div className="flex w-full flex-col items-start gap-4 md:w-auto">
 						<Link className="flex items-center gap-3 transition-opacity hover:opacity-80" href="/">
 							<Image alt="Lurkr logo" className="size-10" height={40} src={logoImg} width={40} />
 							<span className="font-bold text-xl">Lurkr</span>
 						</Link>
-						<p className="max-w-xs text-center text-sm text-white/50 md:text-left">
+						<p className="max-w-xs text-left text-sm text-white/50">
 							The ultimate Discord leveling bot. Track activity, reward engagement, and build thriving communities.
 						</p>
 					</div>
 
-					<div className="flex flex-col items-center gap-6 md:flex-row md:gap-12">
-						<div className="flex flex-col items-center gap-3 md:items-start">
+					<div className="grid w-full grid-cols-2 gap-6 md:flex md:w-auto md:flex-row md:gap-12">
+						<div className="flex flex-col items-start gap-3">
 							<p className="font-semibold text-sm text-white/70">Product</p>
-							<div className="grid grid-cols-2 gap-x-6 gap-y-2 text-center md:text-left">
+							<div className="flex flex-col gap-2 text-left md:grid md:grid-cols-2 md:gap-x-6 md:gap-y-2">
 								<HeroLink
 									className="text-sm text-white/50 transition-colors hover:text-white"
 									href={BOT_INVITE}
@@ -48,9 +48,9 @@ export function Footer() {
 							</div>
 						</div>
 
-						<div className="flex flex-col items-center gap-3 md:items-start">
+						<div className="flex flex-col items-start gap-3">
 							<p className="font-semibold text-sm text-white/70">Legal</p>
-							<div className="flex flex-col gap-2 text-center md:text-left">
+							<div className="flex flex-col gap-2 text-left">
 								<Link className="text-sm text-white/50 transition-colors hover:text-white" href="/privacy">
 									Privacy
 								</Link>
@@ -59,8 +59,9 @@ export function Footer() {
 								</Link>
 							</div>
 						</div>
+					</div>
 
-						<div className="flex items-center gap-3">
+					<div className="flex w-full items-center justify-start gap-3 md:w-auto">
 							<Tooltip>
 								<Tooltip.Trigger>
 									<HeroLink
@@ -113,7 +114,6 @@ export function Footer() {
 								</Tooltip.Trigger>
 								<Tooltip.Content>Backend developer application</Tooltip.Content>
 							</Tooltip>
-						</div>
 					</div>
 				</div>
 
