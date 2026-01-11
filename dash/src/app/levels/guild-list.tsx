@@ -1,126 +1,133 @@
 "use client";
 
-import clsx from "clsx";
+import { ArrowRight, Person } from "@gravity-ui/icons";
+import { SearchField } from "@heroui/react";
 import { matchSorter } from "match-sorter";
-import Link from "next/link";
-import { type ChangeEvent, useState } from "react";
+import { useRouter } from "next/navigation";
+import { type KeyboardEvent, useState } from "react";
 import type { GuildInfo } from "@/app/levels/page.tsx";
-import fallbackAvatarImg from "@/assets/fallback-avatar.webp";
-import { ImageWithFallback } from "@/components/ImageWithFallback.tsx";
-import { Send } from "@/components/icons/mdi/send.tsx";
+import { GuildCard, GuildGrid, GuildSectionHeader } from "@/components/guild-list";
 import { SignInButton } from "@/components/SignIn.tsx";
-import { guildIcon } from "@/utils/discord-cdn.ts";
 import { isSnowflake } from "@/utils/is-snowflake.ts";
 
 export function LeaderboardGuildList({ guilds }: { readonly guilds: GuildInfo[] }) {
+	const router = useRouter();
 	const [term, setTerm] = useState("");
 
-	const filteredGuilds = matchSorter(guilds, term, { keys: ["name", "id"] });
-	const termGuild = term.length && isSnowflake(term) ? filteredGuilds.find((guild) => guild.id === term) : null;
+	const filteredGuilds = matchSorter(guilds, term, { keys: ["name", "id", "vanity"] });
 
-	const filteredGuildHref = filteredGuilds.length === 1 ? `/levels/${filteredGuilds[0]!.id}` : null;
-	const termGuildHref = termGuild ? `/levels/${termGuild.id}` : null;
-	const targetGuildHref = filteredGuildHref ?? termGuildHref ?? (isSnowflake(term) ? `/levels/${term}` : null);
-
-	function handleTermChange(event: ChangeEvent<HTMLInputElement>) {
-		setTerm(event.target.value);
+	function handleKeyDown(event: KeyboardEvent<HTMLInputElement>) {
+		if (event.key === "Enter" && term.trim()) {
+			const match = filteredGuilds[0];
+			if (match) {
+				router.push(`/levels/${match.vanity ?? match.id}`);
+			} else if (isSnowflake(term.trim())) {
+				router.push(`/levels/${term.trim()}`);
+			}
+		}
 	}
 
 	return (
-		<>
-			<div className="mt-12 flex items-center gap-4">
-				<input
-					className="h-10 w-72 rounded-lg bg-light-gray px-4 py-3 shadow-xs md:w-96"
-					onChange={handleTermChange}
-					placeholder="Enter a server name or id…"
-					type="text"
-					value={term}
-				/>
+		<div className="flex flex-col gap-6">
+			<SearchField aria-label="Search servers" className="w-full sm:max-w-md" onChange={setTerm} value={term}>
+				<SearchField.Group className="border-white/10 bg-surface/50">
+					<SearchField.SearchIcon />
+					<SearchField.Input onKeyDown={handleKeyDown} placeholder="Search your servers or enter any server ID..." />
+					<SearchField.ClearButton isDisabled={term === ""} />
+				</SearchField.Group>
+			</SearchField>
 
-				<Link
-					className={clsx(
-						"flex size-9 items-center justify-center rounded-lg bg-green",
-						!targetGuildHref && "cursor-not-allowed bg-green-400/50",
-					)}
-					href={targetGuildHref ?? "/levels"}
-					prefetch={false}
-				>
-					<span className="sr-only">{targetGuildHref?.startsWith("https:") ? "Go to the searched server" : null}</span>
-					<Send className="size-7" />
-				</Link>
-			</div>
+			{filteredGuilds.length > 0 && (
+				<section className="flex flex-col gap-4">
+					<GuildSectionHeader
+						chipClassName="bg-white/10 text-white/60"
+						chipContent="Leveling Enabled"
+						count={filteredGuilds.length}
+					/>
+					<GuildGrid>
+						{filteredGuilds.map((guild) => (
+							<GuildCard guild={guild} href={`/levels/${guild.vanity ?? guild.id}`} key={guild.id} />
+						))}
+					</GuildGrid>
+				</section>
+			)}
 
-			<div className="my-7 flex max-w-2xl flex-wrap justify-center gap-12">
-				{filteredGuilds.map((guild, idx) => (
-					<Link
-						className="group relative flex size-20 items-center justify-center rounded-lg border border-white/25 bg-darker"
-						href={`/levels/${guild.vanity ?? guild.id}`}
-						key={guild.id}
-						prefetch={false}
-					>
-						<div
-							className="invisible absolute -top-14 -left-11 z-50 w-40 rounded-lg bg-darker px-3 py-2 text-white shadow-md outline outline-white/25 group-hover:visible"
-							role="tooltip"
-						>
-							<p className="truncate text-center">{guild.name}</p>
+			{guilds.length === 0 && (
+				<div className="rounded-xl border border-white/10 bg-surface/30 p-6 text-center">
+					<p className="text-white/60">None of your servers have leveling enabled yet.</p>
+					<p className="mt-1 text-sm text-white/40">You can still enter any server ID above to view its leaderboard.</p>
+				</div>
+			)}
 
-							<div className="absolute -bottom-1.5 left-1/2 size-3 -translate-x-1/2 rotate-45 bg-darker shadow-md [box-shadow:0_-1px_0_rgba(255,255,255,0.25)_inset,-1px_0_0_rgba(255,255,255,0.25)_inset]" />
-						</div>
-
-						<ImageWithFallback
-							alt={`${guild.name} server icon`}
-							className="size-19 rounded-full"
-							fallback={fallbackAvatarImg}
-							height={76}
-							priority={idx < 25}
-							src={guildIcon(guild.id, guild.icon)}
-							unoptimized={Boolean(guild.icon)}
-							width={76}
-						/>
-					</Link>
-				))}
-			</div>
-		</>
+			{filteredGuilds.length === 0 && guilds.length > 0 && term && !isSnowflake(term.trim()) && (
+				<div className="rounded-xl border border-white/10 bg-surface/30 p-6 text-center">
+					<p className="text-white/60">No matching servers found.</p>
+					<p className="mt-1 text-sm text-white/40">Try a server ID instead if you know it.</p>
+				</div>
+			)}
+		</div>
 	);
 }
 
 export function LeaderboardGuildInput() {
-	const [guildId, setGuildId] = useState("");
+	const router = useRouter();
+	const [term, setTerm] = useState("");
 
-	const guildHref = isSnowflake(guildId) ? `/levels/${guildId}?page=1` : null;
+	const canNavigate = term.trim() && isSnowflake(term.trim());
 
-	function handleGuildIdChange(event: ChangeEvent<HTMLInputElement>) {
-		setGuildId(event.target.value);
+	function handleKeyDown(event: KeyboardEvent<HTMLInputElement>) {
+		if (event.key === "Enter" && canNavigate) {
+			router.push(`/levels/${term.trim()}`);
+		}
+	}
+
+	function handleGoClick() {
+		if (canNavigate) {
+			router.push(`/levels/${term.trim()}`);
+		}
 	}
 
 	return (
-		<>
-			<div className="mt-12 flex items-center gap-4">
-				<input
-					className="h-10 w-72 rounded-lg bg-light-gray px-4 py-3 shadow-xs md:w-96"
-					onChange={handleGuildIdChange}
-					placeholder="Enter a server id…"
-					type="text"
-					value={guildId}
-				/>
+		<div className="flex flex-col gap-6">
+			<div className="flex gap-2">
+				<SearchField aria-label="Enter server ID" className="flex-1" onChange={setTerm} value={term}>
+					<SearchField.Group className="border-white/10 bg-surface/50">
+						<SearchField.SearchIcon />
+						<SearchField.Input
+							maxLength={19}
+							onKeyDown={handleKeyDown}
+							placeholder="Enter a server ID to view its leaderboard..."
+						/>
+						<SearchField.ClearButton isDisabled={term === ""} />
+					</SearchField.Group>
+				</SearchField>
 
-				<Link
-					className={clsx(
-						"flex size-9 items-center justify-center rounded-lg bg-green-400",
-						!guildHref && "cursor-not-allowed bg-green-400/50",
-					)}
-					href={guildHref ?? "/levels"}
-					prefetch={false}
+				<button
+					className="flex items-center justify-center rounded-xl bg-gradient-lurkr px-4 font-medium text-black transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
+					disabled={!canNavigate}
+					onClick={handleGoClick}
+					type="button"
 				>
-					<span className="sr-only">Go to the searched server</span>
-					<Send className="size-7" />
-				</Link>
+					<ArrowRight className="size-5" />
+				</button>
 			</div>
 
-			<div className="mt-6 flex flex-col items-center gap-2 text-center text-white/75 text-xl tracking-tight">
-				If you wish to see the servers you have access to, please login.
-				<SignInButton />
+			<div className="rounded-xl border border-white/10 bg-surface/30 p-6">
+				<div className="flex items-start gap-4">
+					<div className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-blurple/20">
+						<Person className="size-5 text-blurple" />
+					</div>
+					<div className="flex-1">
+						<p className="font-medium text-white">Sign in to see your servers</p>
+						<p className="mt-1 text-sm text-white/60">
+							Connect with Discord to quickly access leaderboards for servers where you have leveling enabled.
+						</p>
+						<div className="mt-3">
+							<SignInButton />
+						</div>
+					</div>
+				</div>
 			</div>
-		</>
+		</div>
 	);
 }
