@@ -30,11 +30,11 @@ export default async function GuildList() {
 	const { guilds, user } = data;
 
 	return (
-		<div className="flex flex-col items-center gap-2 py-4">
-			<header className="mt-3 flex gap-8 px-4 md:px-0">
+		<div className="container mx-auto flex flex-col gap-8 px-4 py-8">
+			<header className="flex flex-col items-center gap-6 text-center md:flex-row md:items-start md:gap-8 md:text-left">
 				<ImageWithFallback
 					alt="Your profile picture"
-					className="hidden size-28 rounded-full md:block"
+					className="hidden shrink-0 rounded-full ring-2 ring-white/20 md:block md:size-28"
 					fallback={fallbackAvatarImg}
 					height={112}
 					src={userAvatar(user.id, user.avatar)}
@@ -42,16 +42,12 @@ export default async function GuildList() {
 					width={112}
 				/>
 
-				<div>
-					<h1 className="mb-4 font-semibold text-2xl text-white">{greeting(user.globalName ?? user.username)}</h1>
-
-					<p className="text-white/75 text-xl tracking-tight">
-						Which server would like to configure today? Below you can find a list of all of your servers you are able to
-						configure!
-					</p>
-
-					<p className="text-white/75 text-xl tracking-tight">
-						Either invite Lurkr to one of them, or select a server with Lurkr already in it!
+				<div className="flex min-w-0 flex-col gap-3">
+					<h1 className="bg-linear-to-br from-white to-white/50 bg-clip-text pb-1 font-bold text-4xl text-transparent">
+						{greeting(user.globalName ?? user.username)}
+					</h1>
+					<p className="max-w-xl text-lg text-white/70">
+						Select a server to configure, or invite Lurkr to a new one. Servers with Lurkr installed are highlighted.
 					</p>
 				</div>
 			</header>
@@ -74,12 +70,12 @@ async function getGuilds(token: string | undefined) {
 	const [getGuildsResponse, getCurrentUserResponse] = await Promise.all([
 		makeApiRequest("/users/@me/guilds", token, {
 			next: {
-				revalidate: 60, // 1 minute
+				revalidate: 60,
 			},
 		}),
 		makeApiRequest("/users/@me", token, {
 			next: {
-				revalidate: 60 * 60, // 1 hour
+				revalidate: 60 * 60,
 				tags: ["user"],
 			},
 		}),
