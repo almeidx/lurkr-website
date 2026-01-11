@@ -1,15 +1,13 @@
 "use client";
 
-import clsx from "clsx";
+import { Check, Magnifier } from "@gravity-ui/icons";
+import { SearchField } from "@heroui/react";
 import { matchSorter } from "match-sorter";
 import Link from "next/link";
-import { type ChangeEvent, useState } from "react";
+import { useState } from "react";
 import type { GuildInfo } from "@/app/guilds/page.tsx";
-import fallbackAvatarImg from "@/assets/fallback-avatar.webp";
-import { ImageWithFallback } from "@/components/ImageWithFallback.tsx";
-import { Send } from "@/components/icons/mdi/send.tsx";
+import { GuildCard, GuildGrid, GuildSectionHeader } from "@/components/guild-list";
 import { BOT_INVITE } from "@/shared-links.ts";
-import { guildIcon } from "@/utils/discord-cdn.ts";
 import { isSnowflake } from "@/utils/is-snowflake.ts";
 
 export function DashboardGuildList({ guilds }: { readonly guilds: GuildInfo[] }) {
@@ -22,67 +20,89 @@ export function DashboardGuildList({ guilds }: { readonly guilds: GuildInfo[] })
 	const termGuildHref = termGuild ? guildHref(termGuild) : null;
 	const targetGuildHref = filteredGuildHref ?? termGuildHref;
 
-	function handleTermChange(event: ChangeEvent<HTMLInputElement>) {
-		setTerm(event.target.value);
-	}
+	const guildsWithBot = filteredGuilds.filter((g) => g.botIn);
+	const guildsWithoutBot = filteredGuilds.filter((g) => !g.botIn);
 
 	return (
-		<>
-			<div className="mt-12 flex items-center gap-4">
-				<input
-					className="h-10 w-72 rounded-lg bg-light-gray px-4 py-3 shadow-xs md:w-96"
-					onChange={handleTermChange}
-					placeholder="Enter a server name or id…"
-					type="text"
-					value={term}
-				/>
+		<div className="flex flex-col gap-8">
+			<div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+				<SearchField aria-label="Search servers" className="w-full sm:max-w-md" onChange={setTerm} value={term}>
+					<SearchField.Group className="border-white/10 bg-surface/50">
+						<SearchField.SearchIcon />
+						<SearchField.Input placeholder="Search by name or ID..." />
+						<SearchField.ClearButton isDisabled={term === ""} />
+					</SearchField.Group>
+				</SearchField>
 
-				<Link
-					className={clsx(
-						"flex size-9 items-center justify-center rounded-lg bg-green",
-						!targetGuildHref && "cursor-not-allowed bg-green-400/50",
-					)}
-					href={targetGuildHref ?? "/guilds"}
-					prefetch={false}
-				>
-					<span className="sr-only">
-						{targetGuildHref?.startsWith("https:") ? "Add Lurkr to the searched guild" : "Go to the searched guild"}
-					</span>
-					<Send className="size-7" />
-				</Link>
-			</div>
-
-			<div className="my-7 flex max-w-2xl flex-wrap justify-center gap-12">
-				{filteredGuilds.map((guild, idx) => (
+				{targetGuildHref && (
 					<Link
-						className="group relative flex size-20 items-center justify-center rounded-lg border border-white/25 bg-darker"
-						href={guildHref(guild)}
-						key={guild.id}
+						className="flex items-center gap-2 rounded-xl bg-gradient-lurkr px-4 py-2.5 font-medium text-black transition-opacity hover:opacity-90"
+						href={targetGuildHref}
 						prefetch={false}
 					>
-						<div
-							className="invisible absolute -top-14 -left-11 z-50 w-40 rounded-lg bg-darker px-3 py-2 text-white shadow-md outline outline-white/25 group-focus-within:visible group-hover:visible"
-							role="tooltip"
-						>
-							<p className="truncate text-center">{guild.name}</p>
-
-							<div className="absolute -bottom-1.5 left-1/2 size-3 -translate-x-1/2 rotate-45 bg-darker shadow-md [box-shadow:0_-1px_0_rgba(255,255,255,0.25)_inset,-1px_0_0_rgba(255,255,255,0.25)_inset]" />
-						</div>
-
-						<ImageWithFallback
-							alt={`${guild.name} server icon`}
-							className="size-19 rounded-full"
-							fallback={fallbackAvatarImg}
-							height={76}
-							priority={idx < 25}
-							src={guildIcon(guild.id, guild.icon)}
-							unoptimized={Boolean(guild.icon)}
-							width={76}
-						/>
+						<Magnifier className="size-4" />
+						{targetGuildHref.startsWith("https:") ? "Invite to server" : "Go to server"}
 					</Link>
-				))}
+				)}
 			</div>
-		</>
+
+			{guildsWithBot.length > 0 && (
+				<section className="flex flex-col gap-4">
+					<GuildSectionHeader
+						chipClassName="flex items-center gap-1 bg-green/20 text-green"
+						chipContent={
+							<>
+								<Check className="size-3" />
+								<span>Lurkr Installed</span>
+							</>
+						}
+						count={guildsWithBot.length}
+					/>
+
+					<GuildGrid>
+						{guildsWithBot.map((guild) => (
+							<GuildCard badge={<BotInstalledBadge />} guild={guild} href={guildHref(guild)} key={guild.id} />
+						))}
+					</GuildGrid>
+				</section>
+			)}
+
+			{guildsWithoutBot.length > 0 && (
+				<section className="flex flex-col gap-4">
+					<GuildSectionHeader
+						chipClassName="bg-white/10 text-white/60"
+						chipContent="Available to Add"
+						count={guildsWithoutBot.length}
+					/>
+
+					<GuildGrid>
+						{guildsWithoutBot.map((guild) => (
+							<GuildCard guild={guild} href={guildHref(guild)} key={guild.id} />
+						))}
+					</GuildGrid>
+				</section>
+			)}
+
+			{filteredGuilds.length === 0 && term && (
+				<div className="flex flex-col items-center gap-4 py-12 text-center">
+					<div className="flex size-16 items-center justify-center rounded-full bg-white/5">
+						<Magnifier className="size-8 text-white/40" />
+					</div>
+					<div>
+						<p className="font-medium text-lg text-white">No servers found</p>
+						<p className="text-white/50">Try a different search term</p>
+					</div>
+				</div>
+			)}
+		</div>
+	);
+}
+
+function BotInstalledBadge() {
+	return (
+		<div className="absolute -right-0.5 -bottom-0.5 z-10 flex size-4 items-center justify-center rounded-full bg-green ring-2 ring-surface">
+			<Check className="size-2.5 text-white" />
+		</div>
 	);
 }
 

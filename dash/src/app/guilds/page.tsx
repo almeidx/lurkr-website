@@ -16,10 +16,32 @@ export default async function GuildList() {
 
 	if (!data) {
 		return (
-			<div className="flex flex-col items-center gap-2 py-4">
-				<div className="mt-6 flex flex-col items-center gap-2 text-center text-white/75 text-xl tracking-tight">
-					If you wish to see the servers you have access to, please login.
-					<SignInButton />
+			<div className="flex min-h-[60vh] flex-col items-center justify-center px-4">
+				<div className="relative">
+					<div className="absolute -inset-4 rounded-3xl bg-linear-to-br from-primary/20 via-transparent to-yellow-500/20 opacity-50 blur-2xl" />
+					<div className="relative rounded-2xl border border-white/10 bg-surface/80 px-8 py-12 text-center backdrop-blur-sm">
+						<div className="mx-auto mb-6 flex size-20 items-center justify-center rounded-full bg-linear-to-br from-primary/20 to-yellow-500/20">
+							<svg
+								aria-hidden="true"
+								className="size-10 text-primary"
+								fill="none"
+								stroke="currentColor"
+								strokeWidth="1.5"
+								viewBox="0 0 24 24"
+							>
+								<path
+									d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z"
+									strokeLinecap="round"
+									strokeLinejoin="round"
+								/>
+							</svg>
+						</div>
+						<h2 className="mb-3 font-semibold text-2xl text-white">Sign in to view your servers</h2>
+						<p className="mx-auto mb-8 max-w-sm text-white/60">
+							Connect with Discord to see all the servers you can configure with Lurkr.
+						</p>
+						<SignInButton />
+					</div>
 				</div>
 			</div>
 		);
@@ -28,11 +50,11 @@ export default async function GuildList() {
 	const { guilds, user } = data;
 
 	return (
-		<div className="flex flex-col items-center gap-2 py-4">
-			<header className="mt-3 flex gap-8 px-4 md:px-0">
+		<div className="container mx-auto flex flex-col gap-8 px-4 py-8">
+			<header className="flex flex-col items-center gap-6 text-center md:flex-row md:items-start md:gap-8 md:text-left">
 				<ImageWithFallback
 					alt="Your profile picture"
-					className="hidden size-28 rounded-full md:block"
+					className="size-24 shrink-0 rounded-full ring-2 ring-white/20 md:size-28"
 					fallback={fallbackAvatarImg}
 					height={112}
 					src={userAvatar(user.id, user.avatar)}
@@ -40,16 +62,12 @@ export default async function GuildList() {
 					width={112}
 				/>
 
-				<div>
-					<h1 className="mb-4 font-semibold text-2xl text-white">{greeting(user.globalName ?? user.username)}</h1>
-
-					<p className="text-white/75 text-xl tracking-tight">
-						Which server would like to configure today? Below you can find a list of all of your servers you are able to
-						configure!
-					</p>
-
-					<p className="text-white/75 text-xl tracking-tight">
-						Either invite Lurkr to one of them, or select a server with Lurkr already in it!
+				<div className="flex flex-col gap-3">
+					<h1 className="bg-linear-to-br from-white to-white/50 bg-clip-text font-bold text-4xl text-transparent">
+						{greeting(user.globalName ?? user.username)}
+					</h1>
+					<p className="max-w-xl text-lg text-white/70">
+						Select a server to configure, or invite Lurkr to a new one. Servers with Lurkr installed are highlighted.
 					</p>
 				</div>
 			</header>
@@ -72,12 +90,12 @@ async function getGuilds(token: string | undefined) {
 	const [getGuildsResponse, getCurrentUserResponse] = await Promise.all([
 		makeApiRequest("/users/@me/guilds", token, {
 			next: {
-				revalidate: 60, // 1 minute
+				revalidate: 60,
 			},
 		}),
 		makeApiRequest("/users/@me", token, {
 			next: {
-				revalidate: 60 * 60, // 1 hour
+				revalidate: 60 * 60,
 				tags: ["user"],
 			},
 		}),
