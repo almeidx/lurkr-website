@@ -1,3 +1,4 @@
+import { Medal } from "@gravity-ui/icons";
 import type { Metadata } from "next";
 import { cookies } from "next/headers";
 import { TOKEN_COOKIE } from "@/utils/constants.ts";
@@ -10,15 +11,16 @@ export default async function Levels() {
 	const data = token ? await getGuilds(token) : null;
 
 	return (
-		<div className="flex flex-col items-center gap-2 py-4">
-			<header className="mt-3 flex gap-8">
-				<div className="flex flex-col items-center">
-					<h1 className="mb-4 font-semibold text-2xl text-white">Leveling Leaderboard</h1>
-
-					<p className="max-w-xl px-2 text-center text-white/75 text-xl tracking-tight">
-						View the leveling leaderboard of any Lurkr-enabled server including insights and information how best to
-						level up!
-					</p>
+		<div className="container mx-auto flex flex-col gap-6 px-4 py-8">
+			<header className="flex items-center gap-4">
+				<div className="hidden size-12 shrink-0 items-center justify-center rounded-xl bg-linear-to-br from-primary/20 to-yellow-500/20 ring-1 ring-white/10 md:flex">
+					<Medal className="size-6 text-primary" />
+				</div>
+				<div className="flex flex-col gap-0.5">
+					<h1 className="bg-linear-to-br from-white to-white/50 bg-clip-text font-bold text-4xl text-transparent">
+						Leveling Leaderboards
+					</h1>
+					<p className="text-white/60">View any server's leaderboard by searching below or entering its ID.</p>
 				</div>
 			</header>
 
