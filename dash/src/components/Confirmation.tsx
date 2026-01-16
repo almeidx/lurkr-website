@@ -33,7 +33,7 @@ export function Confirmation({
 				portal={!useSubmitButton}
 				store={dialog}
 			>
-				<DialogHeading className="mb-4 font-bold text-xl">{buttonText}</DialogHeading>
+				<DialogHeading className="mb-4 flex items-center gap-2 font-bold text-xl">{buttonText}</DialogHeading>
 
 				<DialogDescription className="mb-4 text-white/75">{children}</DialogDescription>
 
