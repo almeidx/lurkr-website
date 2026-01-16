@@ -62,51 +62,42 @@ export function ImportForm({ guildId, data }: { guildId: Snowflake; data: GetImp
 	}, []);
 
 	return (
-		// The form container must be kept in sync with the @/components/dashboard/Form.tsx component
-		// The component itself is not being used here because it wraps the action in `useActionState`,
-		// But the action is already being wrapped in this component
-		<div className="flex w-full flex-col gap-5 px-4 py-4">
-			<div className="space-y-2">
-				<h2 className="font-semibold text-2xl">Import Bots</h2>
-			</div>
+		<form action={formAction} className="flex flex-col gap-4">
+			<Section
+				docsPath="/guides/importing-levels-from-other-bots"
+				name="Import your servers leveling data from a different bot"
+				tooltip="Import leveling data from other bots"
+			>
+				<Label sub="Limited to 1 use per hour">Lets get the import started…</Label>
 
-			<form action={formAction} className="mb-12 flex flex-col gap-4">
-				<Section
-					docsPath="/guides/importing-levels-from-other-bots"
-					name="Import your servers leveling data from a different bot"
-					tooltip="Import leveling data from other bots"
-				>
-					<Label sub="Limited to 1 use per hour">Lets get the import started…</Label>
+				<div className="mt-2 flex flex-col flex-wrap gap-4">
+					<BotSelector />
 
-					<div className="mt-2 flex flex-col flex-wrap gap-4">
-						<BotSelector />
+					<IncludeRoleRewards />
 
-						<IncludeRoleRewards />
+					<ImportMinLevel />
+				</div>
 
-						<ImportMinLevel />
+				<BeginImportButton importOngoing={importOngoing} isRateLimited={isRateLimited || lastImportIsWithinHour} />
+			</Section>
+
+			{formState && "error" in formState ? null : formState !== null || importStatus ? (
+				<Section>
+					<div className="flex flex-wrap items-center gap-4">
+						<h3 className="flex items-center font-semibold text-xl md:text-[1.4rem]">Import Status</h3>
+
+						{importStatus && (
+							<ImportStatusTitle
+								completedAt={importStatus.completedAt ? new Date(importStatus.completedAt) : null}
+								createdAt={new Date(importStatus.createdAt)}
+							/>
+						)}
 					</div>
 
-					<BeginImportButton importOngoing={importOngoing} isRateLimited={isRateLimited || lastImportIsWithinHour} />
+					<ImportStatus formState={formState} importStatus={importStatus} />
 				</Section>
-
-				{formState && "error" in formState ? null : formState !== null || importStatus ? (
-					<Section>
-						<div className="flex flex-wrap items-center gap-4">
-							<h3 className="flex items-center font-semibold text-xl md:text-[1.4rem]">Import Status</h3>
-
-							{importStatus && (
-								<ImportStatusTitle
-									completedAt={importStatus.completedAt ? new Date(importStatus.completedAt) : null}
-									createdAt={new Date(importStatus.createdAt)}
-								/>
-							)}
-						</div>
-
-						<ImportStatus formState={formState} importStatus={importStatus} />
-					</Section>
-				) : null}
-			</form>
-		</div>
+			) : null}
+		</form>
 	);
 }
 
