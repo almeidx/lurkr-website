@@ -26,6 +26,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
 				)}
 			>
 				<Providers>
+					{isPreview && <PreviewWarning />}
 					<div className="flex-1">
 						<Navbar>
 							<Suspense fallback={<SignInButton />}>
@@ -39,8 +40,6 @@ export default function RootLayout({ children }: PropsWithChildren) {
 
 					<CookieNoticeHandler />
 				</Providers>
-
-				{isPreview && <PreviewWarning />}
 
 				<SvgGradients />
 			</body>
