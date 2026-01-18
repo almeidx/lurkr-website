@@ -22,7 +22,7 @@ export function PreviewWarning() {
 		return null;
 	}
 
-	const isBeta = process.env.ENVIRONMENT === "beta";
+	const isBeta = process.env.PUBLIC_ENVIRONMENT === "beta";
 	const isPtb = process.env.ENVIROMENT === "ptb";
 
 	const versionName = isBeta ? "Beta Preview" : isPtb ? "Public Test Build" : "Unstable Preview";

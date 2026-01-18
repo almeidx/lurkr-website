@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 import { PUBLIC_URL } from "@/utils/constants.ts";
 
 export default function robots(): MetadataRoute.Robots {
-	if (process.env.ENVIRONMENT !== "prod") {
+	if (process.env.PUBLIC_ENVIRONMENT !== "prod") {
 		return {
 			rules: {
 				disallow: "/",

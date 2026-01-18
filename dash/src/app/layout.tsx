@@ -14,7 +14,7 @@ import { SignInButton } from "@/components/SignIn.tsx";
 import { SvgGradients } from "@/components/svg-gradients.tsx";
 import { BRAND_COLOR, DESCRIPTION, PUBLIC_URL } from "@/utils/constants.ts";
 
-const isPreview = process.env.ENVIRONMENT !== "prod" && process.env.NODE_ENV !== "development";
+const isPreview = process.env.PUBLIC_ENVIRONMENT !== "prod" && process.env.NODE_ENV !== "development";
 
 export default function RootLayout({ children }: PropsWithChildren) {
 	return (
