@@ -22,10 +22,17 @@ const backgroundBucketDomain = process.env.BACKGROUNDS_BUCKET_DOMAIN ?? "";
 const nextConfig = {
 	// cacheComponents: true,
 	async headers() {
-		return getNextConfigHeaders({
-			extraConnectSrc: [`${apiDomain}/`],
-			extraImgSrc: ["cdn.discordapp.com", backgroundBucketDomain],
-		});
+		const extraConnectSrc: string[] = [];
+		if (apiDomain) {
+			extraConnectSrc.push(`https://${apiDomain}/`);
+		}
+
+		const extraImgSrc: string[] = ["https://cdn.discordapp.com"];
+		if (backgroundBucketDomain) {
+			extraImgSrc.push(`https://${backgroundBucketDomain}`);
+		}
+
+		return getNextConfigHeaders({ extraConnectSrc, extraImgSrc });
 	},
 	images: {
 		qualities: [80, 100],

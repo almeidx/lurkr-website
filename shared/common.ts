@@ -9,7 +9,7 @@ export function getNextConfigHeaders({
 
 	const cspHeader = `
 		default-src 'self';
-		script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' ${isProduction ? "" : "'unsafe-eval'"} static.cloudflareinsights.com;
+		script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' ${isProduction ? "" : "'unsafe-eval'"} https://static.cloudflareinsights.com;
 		style-src 'self' 'unsafe-inline';
 		img-src 'self' ${extraImgSrc.join(" ")} blob: data:;
 		font-src 'self';
