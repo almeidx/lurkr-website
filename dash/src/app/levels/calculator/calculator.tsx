@@ -53,6 +53,8 @@ export function Calculator() {
 		xpPerMessageMax,
 	);
 
+	const formattedEstimatedTime = prettySeconds(estimatedTime);
+
 	return (
 		<div className="flex w-full flex-col gap-8">
 			<div className="flex w-full flex-col gap-4 lg:flex-row lg:items-start">
@@ -153,16 +155,25 @@ export function Calculator() {
 								</div>
 							</ResponsiveTooltip>
 						</div>
-						<div className="bg-linear-to-br from-white to-white/60 bg-clip-text font-bold text-6xl text-transparent tracking-tighter">
+						<div
+							className="bg-linear-to-br from-white to-white/60 bg-clip-text font-bold text-6xl text-transparent tracking-tighter"
+							title={approxMessages.toString()}
+						>
 							{formatNumber(approxMessages)}
 						</div>
 					</Surface>
 
 					<div className="grid grid-cols-1 xs:grid-cols-2 gap-4">
-						<CalculatorResult label="Time" tooltip={ESTIMATED_TIME_TOOLTIP} value={prettySeconds(estimatedTime)} />
+						<CalculatorResult
+							label="Time"
+							title={formattedEstimatedTime}
+							tooltip={ESTIMATED_TIME_TOOLTIP}
+							value={formattedEstimatedTime}
+						/>
 
 						<CalculatorResult
 							label="XP Needed"
+							title={expRequired.toString()}
 							tooltip={EXPERIENCE_REQUIRED_TOOLTIP}
 							value={formatNumber(expRequired)}
 						/>
