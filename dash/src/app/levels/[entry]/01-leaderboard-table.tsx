@@ -4,18 +4,20 @@ import type { Snowflake } from "@/utils/discord-cdn.ts";
 
 export function LeaderboardTable({ data, guildId, isManager }: LeaderboardTableProps) {
 	return (
-		<div className="flex flex-1 flex-col gap-y-4">
-			<div className="flex gap-2 text-sm">
-				<div className="min-w-14 max-w-[15%]">Rank</div>
-				<div className="w-full">User</div>
-				<div className="xs:block hidden min-w-14 max-w-[15%]">Msgs</div>
-				<div className="hidden min-w-14 max-w-[15%] sm:block">Exp</div>
-				<div className="min-w-14 max-w-[15%]">Level</div>
+		<div className="flex flex-1 flex-col gap-3">
+			<div className="grid grid-cols-[80px_1fr_100px_100px_100px] gap-4 px-4 py-2 text-xs font-semibold uppercase tracking-wider text-white/60">
+				<div className="text-center">Rank</div>
+				<div>User</div>
+				<div className="hidden text-center xs:block">Msgs</div>
+				<div className="hidden text-center sm:block">Exp</div>
+				<div className="text-center">Level</div>
 			</div>
 
-			{data.map((row) => (
-				<LeaderboardTableRow guildId={guildId} isManager={isManager} key={row.userId} row={row} />
-			))}
+			<div className="flex flex-col gap-2">
+				{data.map((row) => (
+					<LeaderboardTableRow guildId={guildId} isManager={isManager} key={row.userId} row={row} />
+				))}
+			</div>
 		</div>
 	);
 }

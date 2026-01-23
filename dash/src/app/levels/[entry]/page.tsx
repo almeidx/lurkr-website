@@ -3,6 +3,7 @@ import { cookies } from "next/headers";
 import Link from "next/link";
 import { RedirectType, redirect } from "next/navigation";
 import prettyMilliseconds from "pretty-ms";
+import { Card, Surface } from "@heroui/react";
 import { LeaderboardTable } from "@/app/levels/[entry]/01-leaderboard-table.tsx";
 import {
 	LEADERBOARD_ENTRIES_PER_PAGE,
@@ -11,7 +12,6 @@ import {
 } from "@/app/levels/[entry]/page-selector.tsx";
 import fallbackAvatarImg from "@/assets/fallback-avatar.webp";
 import { ImageWithFallback } from "@/components/ImageWithFallback.tsx";
-import { SidebarSection } from "@/components/leaderboard/SidebarSection.tsx";
 import type { Guild } from "@/lib/guild.ts";
 import { MAX_WINDOW_TITLE_LENGTH, TOKEN_COOKIE } from "@/utils/constants.ts";
 import { guildIcon, type Snowflake } from "@/utils/discord-cdn.ts";
@@ -71,69 +71,87 @@ export default async function Leaderboard({ params, searchParams }: LeaderboardP
 	}
 
 	return (
-		<div className="container mx-auto flex flex-col py-4">
-			<header className="flex flex-col items-center justify-center gap-6">
-				<div className="flex gap-4">
-					<ImageWithFallback
-						alt={`${guild.name} guild icon`}
-						className="size-9 rounded-lg border"
-						fallback={fallbackAvatarImg}
-						height={36}
-						src={guildIcon(guild.id, guild.icon, { size: 64 })}
-						unoptimized={Boolean(guild.icon)}
-						width={36}
-					/>
-
-					<h1 className="font-bold text-2xl text-white md:text-3xl">{guild.name}</h1>
-				</div>
-
-				<p className="px-8 md:px-0">
-					View the leveling leaderboard of {guild.name}, including rewards and multipliers!
-				</p>
+		<div className="container mx-auto flex flex-col gap-8 py-6 px-4 md:px-6">
+			<header className="flex flex-col items-center justify-center gap-4">
+				<Card className="w-full max-w-2xl border border-white/10 bg-white/5 backdrop-blur-sm">
+					<Card.Header className="flex flex-col items-center gap-4 pb-4">
+						<ImageWithFallback
+							alt={`${guild.name} guild icon`}
+							className="size-16 rounded-full"
+							fallback={fallbackAvatarImg}
+							height={64}
+							src={guildIcon(guild.id, guild.icon, { size: 128 })}
+							unoptimized={Boolean(guild.icon)}
+							width={64}
+						/>
+						<Card.Title className="text-center text-2xl font-bold md:text-3xl">{guild.name}</Card.Title>
+					</Card.Header>
+					<Card.Content className="px-6 pb-6">
+						<p className="text-center text-white/70">
+							View the leveling leaderboard of {guild.name}, including rewards and multipliers!
+						</p>
+					</Card.Content>
+				</Card>
 			</header>
 
-			<main className="mx-auto mt-8 flex flex-col gap-12 lg:flex-row">
-				<div className="w-full space-y-4 px-4 md:px-0">
-					<LeaderboardTable data={levels} guildId={guild.id} isManager={isManager} />
+			<main className="mx-auto flex w-full max-w-7xl flex-col gap-8 lg:flex-row">
+				<div className="flex-1 space-y-6">
+					<Surface className="rounded-2xl p-6">
+						<LeaderboardTable data={levels} guildId={guild.id} isManager={isManager} />
+					</Surface>
 
 					{levels.length === 0 ? (
-						page > 2 ? (
-							<p className="mb-4 text-balance text-center">
-								There are no users in this page. Try going back to{" "}
-								<Link className="text-blurple underline" href={`/levels/${vanity ?? guild.id}?page=1`}>
-									page 1
-								</Link>
-								?
-							</p>
-						) : page > 1 ? (
-							<p className="mb-4 text-balance text-center">There are no users in this page. Try going back</p>
-						) : (
-							<p className="mb-4 text-center">There are no users with experience yet</p>
-						)
+						<Card className="border border-white/10 bg-white/5">
+							<Card.Content className="px-6 py-4">
+								{page > 2 ? (
+									<p className="text-balance text-center text-white/80">
+										There are no users in this page. Try going back to{" "}
+										<Link
+											className="font-semibold text-primary underline transition-colors hover:text-primary/80"
+											href={`/levels/${vanity ?? guild.id}?page=1`}
+										>
+											page 1
+										</Link>
+										?
+									</p>
+								) : page > 1 ? (
+									<p className="text-balance text-center text-white/80">
+										There are no users in this page. Try going back
+									</p>
+								) : (
+									<p className="text-center text-white/80">There are no users with experience yet</p>
+								)}
+							</Card.Content>
+						</Card>
 					) : null}
 
 					<PageSelector amount={levels.length} entry={entry} page={page} />
 				</div>
 
-				<div className="flex w-full flex-col gap-5 px-4 sm:w-80 md:w-96 md:px-0">
+				<aside className="flex w-full flex-col gap-6 lg:w-80">
 					<SortableRoleRewards roleRewards={roleRewards} />
 
 					<SortableMultipliers globalMultiplier={xpGlobalMultiplier} multipliers={multipliers} />
 
-					<SidebarSection title="How it works">
-						<div className="space-y-2">
-							<p>
-								{xpPerMessageMin === xpPerMessageMax
-									? `Every time you send a message you gain ${xpPerMessageMin} experience.`
-									: `Every time you send a message you gain between ${xpPerMessageMin} and ${xpPerMessageMax} experience.`}
-							</p>
-							<p>
-								To avoid spam, there is a cooldown of {prettyMilliseconds(xpGainInterval, { verbose: true })} per
-								message sent.
-							</p>
-						</div>
-					</SidebarSection>
-				</div>
+					<Card className="border border-white/10 bg-white/5">
+						<Card.Header className="border-b border-white/10 pb-4">
+							<Card.Title className="text-lg font-semibold">How it works</Card.Title>
+						</Card.Header>
+						<Card.Content className="px-6 py-4">
+							<div className="space-y-3 text-sm text-white/80">
+								<p>
+									{xpPerMessageMin === xpPerMessageMax
+										? `Every time you send a message you gain ${xpPerMessageMin} experience.`
+										: `Every time you send a message you gain between ${xpPerMessageMin} and ${xpPerMessageMax} experience.`}
+								</p>
+								<p>
+									To avoid spam, there is a cooldown of {prettyMilliseconds(xpGainInterval, { verbose: true })} per
+									message sent.
+								</p>
+							</div>
+						</Card.Content>
+					</Card>
+				</aside>
 			</main>
 		</div>
 	);

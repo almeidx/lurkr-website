@@ -1,14 +1,15 @@
+import { Chip } from "@heroui/react";
 import type { Role } from "@/lib/guild.ts";
 import { decimalRoleColorToHex } from "@/utils/decimal-to-hex-color.ts";
 
 export function RoleRewardDisplay({ level, roles }: RoleReward) {
 	return (
 		<div className="flex items-center gap-4">
-			<span className="flex size-9 items-center justify-center rounded-lg border border-white/25 bg-darker text-[#fff]">
-				{level}
-			</span>
+			<Chip className="shrink-0 font-semibold" size="sm" variant="flat">
+				Level {level}
+			</Chip>
 
-			<div className="flex flex-1 flex-wrap gap-2 overflow-x-hidden">
+			<div className="flex flex-1 flex-wrap gap-2">
 				{roles.map((role) => (
 					<RoleDisplay key={role.id} {...role} />
 				))}
@@ -21,10 +22,14 @@ export function RoleDisplay({ name, color }: Role) {
 	const hex = decimalRoleColorToHex(color);
 
 	return (
-		<div className="flex items-center gap-1.5 rounded-md border border-white/25 px-1.5">
-			<div aria-hidden className="size-3.5 rounded-full" style={{ backgroundColor: hex }} />
-			<p className="truncate text-sm">{name}</p>
-		</div>
+		<Chip
+			className="border border-white/20"
+			size="sm"
+			startContent={<div aria-hidden className="size-2.5 rounded-full" style={{ backgroundColor: hex }} />}
+			variant="flat"
+		>
+			{name}
+		</Chip>
 	);
 }
 
