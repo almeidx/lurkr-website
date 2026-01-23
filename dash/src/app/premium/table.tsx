@@ -83,7 +83,7 @@ export function ComparisonTable({ section, features }: ComparisonTableProps) {
 									<td
 										className={clsx(
 											"w-1/2 border-white/5 border-b px-4 py-4 text-sm text-white/80 md:w-auto md:px-6",
-											index % 2 !== 0 && "bg-white/[0.02]",
+											index % 2 !== 0 && "bg-white/2",
 										)}
 									>
 										{feature.name}
@@ -93,7 +93,7 @@ export function ComparisonTable({ section, features }: ComparisonTableProps) {
 									<td
 										className={clsx(
 											"w-1/2 border-white/5 border-b px-3 py-4 text-right md:hidden",
-											index % 2 !== 0 && "bg-white/[0.02]",
+											index % 2 !== 0 && "bg-white/2",
 										)}
 									>
 										<MobileCell feature={feature} selectedTab={selectedTab} />
@@ -103,7 +103,7 @@ export function ComparisonTable({ section, features }: ComparisonTableProps) {
 									<td
 										className={clsx(
 											"hidden border-white/5 border-b px-4 py-4 text-center md:table-cell",
-											index % 2 !== 0 && "bg-white/[0.02]",
+											index % 2 !== 0 && "bg-white/2",
 										)}
 									>
 										<FreeCell feature={feature} />
@@ -111,7 +111,7 @@ export function ComparisonTable({ section, features }: ComparisonTableProps) {
 									<td
 										className={clsx(
 											"hidden border-white/5 border-b px-4 py-4 text-center md:table-cell",
-											index % 2 !== 0 && "bg-white/[0.02]",
+											index % 2 !== 0 && "bg-white/2",
 										)}
 									>
 										<MaxCell feature={feature} />
@@ -119,7 +119,7 @@ export function ComparisonTable({ section, features }: ComparisonTableProps) {
 									<td
 										className={clsx(
 											"relative z-20 hidden border-white/5 border-b px-4 py-4 text-center md:table-cell",
-											index % 2 !== 0 && "bg-white/[0.02]",
+											index % 2 !== 0 && "bg-white/2",
 										)}
 									>
 										<UltimateCell feature={feature} />

@@ -14,7 +14,7 @@ export function CalculatorInput({
 	...props
 }: CalculatorInputProps) {
 	return (
-		<TextField className={className} type="number">
+		<TextField className={className} type="number" variant="secondary">
 			<Label className="flex items-center gap-1.5 text-small text-zinc-400">
 				{label}
 				{tooltip && (
@@ -26,7 +26,7 @@ export function CalculatorInput({
 				)}
 			</Label>
 
-			<InputGroup variant="secondary">
+			<InputGroup>
 				<InputGroup.Prefix>{startContent}</InputGroup.Prefix>
 				<InputGroup.Input onChange={(e) => onValueChange(e.target.value)} {...props} />
 			</InputGroup>
