@@ -24,7 +24,7 @@ const nextConfig = {
 	async headers() {
 		const extraConnectSrc: string[] = [];
 		if (apiDomain) {
-			extraConnectSrc.push(`https://${apiDomain}/`);
+			extraConnectSrc.push(process.env.NODE_ENV === "development" ? `http://${apiDomain}/` : `https://${apiDomain}/`);
 		}
 
 		const extraImgSrc: string[] = ["https://cdn.discordapp.com"];
