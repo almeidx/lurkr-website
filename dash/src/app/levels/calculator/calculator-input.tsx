@@ -26,7 +26,7 @@ export function CalculatorInput({
 				)}
 			</Label>
 
-			<InputGroup>
+			<InputGroup variant="secondary">
 				<InputGroup.Prefix>{startContent}</InputGroup.Prefix>
 				<InputGroup.Input onChange={(e) => onValueChange(e.target.value)} {...props} />
 			</InputGroup>
