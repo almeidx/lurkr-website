@@ -22,13 +22,11 @@ export function RoleDisplay({ name, color }: Role) {
 	const hex = decimalRoleColorToHex(color);
 
 	return (
-		<Chip
-			className="border border-white/20"
-			size="sm"
-			startContent={<div aria-hidden className="size-2.5 rounded-full" style={{ backgroundColor: hex }} />}
-			variant="soft"
-		>
-			{name}
+		<Chip className="border border-white/20" size="sm" variant="soft">
+			<div className="flex items-center gap-1.5">
+				<div aria-hidden className="size-2.5 rounded-full" style={{ backgroundColor: hex }} />
+				{name}
+			</div>
 		</Chip>
 	);
 }

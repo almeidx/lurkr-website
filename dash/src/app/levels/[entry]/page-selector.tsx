@@ -1,4 +1,4 @@
-import { Button } from "@heroui/react";
+import clsx from "clsx";
 import Link from "next/link";
 
 export const LEADERBOARD_ENTRIES_PER_PAGE = 100;
@@ -21,30 +21,24 @@ export function PageSelector({ amount, entry, page }: PageSelectorProps) {
 		<div className="flex items-center justify-center gap-2">
 			{pages.map((num) => {
 				const isDisabled = isPossiblyLastPage && num > page;
+				const isActive = page === num;
+
+				const buttonClasses = clsx(
+					"min-w-12 flex items-center justify-center rounded-lg px-2 py-1 text-sm font-medium transition-colors",
+					isActive
+						? "bg-primary text-primary-foreground hover:bg-primary/90"
+						: "bg-white/5 text-white/70 hover:bg-white/10 hover:text-white",
+					isDisabled && "pointer-events-none opacity-50",
+				);
 
 				return isDisabled ? (
-					<Button
-						className="min-w-12"
-						disabled
-						isIconOnly
-						key={`${page}-${num}`}
-						size="sm"
-						variant={page === num ? "primary" : "ghost"}
-					>
+					<div className={buttonClasses} key={`${page}-${num}`}>
 						{num}
-					</Button>
+					</div>
 				) : (
-					<Button
-						as={Link}
-						className="min-w-12"
-						href={`/levels/${entry}?page=${num}`}
-						isIconOnly
-						key={`${page}-${num}`}
-						size="sm"
-						variant={page === num ? "primary" : "ghost"}
-					>
+					<Link className={buttonClasses} href={`/levels/${entry}?page=${num}`} key={`${page}-${num}`} prefetch={false}>
 						{num}
-					</Button>
+					</Link>
 				);
 			})}
 		</div>

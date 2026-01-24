@@ -53,13 +53,11 @@ function ChannelDisplay({ name, type }: Channel) {
 	}
 
 	return (
-		<Chip
-			className="border border-white/20"
-			size="sm"
-			startContent={<Image alt="Channel icon" className="size-3" height={12} src={channelIcon} width={12} />}
-			variant="soft"
-		>
-			{name}
+		<Chip className="border border-white/20" size="sm" variant="soft">
+			<div className="flex items-center gap-1">
+				<Image alt="Channel icon" className="size-3" height={12} src={channelIcon} width={12} />
+				{name}
+			</div>
 		</Chip>
 	);
 }
