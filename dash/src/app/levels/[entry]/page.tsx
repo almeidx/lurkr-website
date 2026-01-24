@@ -71,30 +71,36 @@ export default async function Leaderboard({ params, searchParams }: LeaderboardP
 	}
 
 	return (
-		<div className="min-h-screen">
-			<main className="container mx-auto px-4 py-6 md:px-6">
-				<div className="mx-auto flex max-w-7xl flex-col gap-6 lg:flex-row">
-					{/* Main Leaderboard */}
-					<div className="flex-1 space-y-4">
-						{/* Header with guild info */}
-						<div className="flex items-center gap-3">
+		<div className="min-h-screen bg-gradient-to-b from-background via-background to-background/98">
+			{/* Header Bar */}
+			<div className="border-white/10 border-b bg-white/5">
+				<div className="container mx-auto px-4 py-4 md:px-6">
+					<div className="flex items-center justify-between">
+						<div className="flex items-center gap-4">
 							<ImageWithFallback
 								alt={`${guild.name} guild icon`}
-								className="size-10 shrink-0 rounded-lg border border-white/20"
+								className="size-12 shrink-0 rounded-xl border-2 border-white/20"
 								fallback={fallbackAvatarImg}
-								height={40}
+								height={48}
 								src={guildIcon(guild.id, guild.icon, { size: 128 })}
 								unoptimized={Boolean(guild.icon)}
-								width={40}
+								width={48}
 							/>
 							<div>
-								<h1 className="font-bold text-xl">{guild.name}</h1>
-								<p className="text-white/50 text-xs">
-									{levels.length} {levels.length === 1 ? "player" : "players"}
+								<h1 className="font-bold text-2xl">{guild.name}</h1>
+								<p className="mt-0.5 text-sm text-white/50">
+									{levels.length} {levels.length === 1 ? "player" : "players"} on this page
 								</p>
 							</div>
 						</div>
+					</div>
+				</div>
+			</div>
 
+			<main className="container mx-auto px-4 py-8 md:px-6">
+				<div className="mx-auto flex max-w-7xl flex-col gap-8 lg:flex-row">
+					{/* Main Leaderboard */}
+					<div className="flex-1 space-y-6">
 						{levels.length === 0 ? (
 							<Card className="border border-white/10 bg-white/5">
 								<Card.Content className="px-6 py-12 text-center">
