@@ -76,26 +76,23 @@ export default async function Leaderboard({ params, searchParams }: LeaderboardP
 				<div className="mx-auto flex max-w-7xl flex-col gap-6 lg:flex-row">
 					{/* Main Leaderboard */}
 					<div className="flex-1 space-y-4">
-						{/* Header with guild info and pagination */}
-						<div className="flex flex-wrap items-center justify-between gap-4">
-							<div className="flex items-center gap-3">
-								<ImageWithFallback
-									alt={`${guild.name} guild icon`}
-									className="size-10 shrink-0 rounded-lg border border-white/20"
-									fallback={fallbackAvatarImg}
-									height={40}
-									src={guildIcon(guild.id, guild.icon, { size: 128 })}
-									unoptimized={Boolean(guild.icon)}
-									width={40}
-								/>
-								<div>
-									<h1 className="font-bold text-xl">{guild.name}</h1>
-									<p className="text-white/50 text-xs">
-										{levels.length} {levels.length === 1 ? "player" : "players"}
-									</p>
-								</div>
+						{/* Header with guild info */}
+						<div className="flex items-center gap-3">
+							<ImageWithFallback
+								alt={`${guild.name} guild icon`}
+								className="size-10 shrink-0 rounded-lg border border-white/20"
+								fallback={fallbackAvatarImg}
+								height={40}
+								src={guildIcon(guild.id, guild.icon, { size: 128 })}
+								unoptimized={Boolean(guild.icon)}
+								width={40}
+							/>
+							<div>
+								<h1 className="font-bold text-xl">{guild.name}</h1>
+								<p className="text-white/50 text-xs">
+									{levels.length} {levels.length === 1 ? "player" : "players"}
+								</p>
 							</div>
-							{levels.length > 0 && <PageSelector amount={levels.length} entry={entry} page={page} />}
 						</div>
 
 						{levels.length === 0 ? (
@@ -120,9 +117,12 @@ export default async function Leaderboard({ params, searchParams }: LeaderboardP
 								</Card.Content>
 							</Card>
 						) : (
-							<div className="space-y-2">
-								<LeaderboardTable data={levels} guildId={guild.id} isManager={isManager} />
-							</div>
+							<>
+								<div className="space-y-2">
+									<LeaderboardTable data={levels} guildId={guild.id} isManager={isManager} />
+								</div>
+								<PageSelector amount={levels.length} entry={entry} page={page} />
+							</>
 						)}
 					</div>
 
