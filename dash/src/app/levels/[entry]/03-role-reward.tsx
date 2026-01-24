@@ -5,7 +5,7 @@ import { decimalRoleColorToHex } from "@/utils/decimal-to-hex-color.ts";
 export function RoleRewardDisplay({ level, roles }: RoleReward) {
 	return (
 		<div className="flex items-center gap-4">
-			<Chip className="shrink-0 font-semibold" size="sm" variant="flat">
+			<Chip className="shrink-0 font-semibold" size="sm" variant="soft">
 				Level {level}
 			</Chip>
 
@@ -26,7 +26,7 @@ export function RoleDisplay({ name, color }: Role) {
 			className="border border-white/20"
 			size="sm"
 			startContent={<div aria-hidden className="size-2.5 rounded-full" style={{ backgroundColor: hex }} />}
-			variant="flat"
+			variant="soft"
 		>
 			{name}
 		</Chip>

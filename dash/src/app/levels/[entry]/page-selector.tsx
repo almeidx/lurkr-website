@@ -29,7 +29,7 @@ export function PageSelector({ amount, entry, page }: PageSelectorProps) {
 						isIconOnly
 						key={`${page}-${num}`}
 						size="sm"
-						variant={page === num ? "solid" : "flat"}
+						variant={page === num ? "primary" : "ghost"}
 					>
 						{num}
 					</Button>
@@ -41,7 +41,7 @@ export function PageSelector({ amount, entry, page }: PageSelectorProps) {
 						isIconOnly
 						key={`${page}-${num}`}
 						size="sm"
-						variant={page === num ? "solid" : "flat"}
+						variant={page === num ? "primary" : "ghost"}
 					>
 						{num}
 					</Button>

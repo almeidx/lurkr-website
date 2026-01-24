@@ -36,7 +36,7 @@ export function SortableSection<T>({
 				isIconOnly
 				onPress={toggleSort}
 				size="sm"
-				variant="light"
+				variant="ghost"
 			>
 				{sortAscending ? <RiArrowUpSLine className="size-4" /> : <RiArrowDownSLine className="size-4" />}
 			</Button>

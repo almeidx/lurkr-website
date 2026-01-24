@@ -30,7 +30,7 @@ export function LeaderboardTableRow({ guildId, row, isManager }: LeaderboardTabl
 							color={getRankChipColor(row.rank)}
 							size="sm"
 							style={{ backgroundColor: getRankColor(row.rank) }}
-							variant="flat"
+							variant="soft"
 						>
 							{row.rank > 999 ? ":D" : row.rank}
 						</Chip>

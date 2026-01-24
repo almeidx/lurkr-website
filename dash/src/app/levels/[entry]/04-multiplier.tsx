@@ -10,7 +10,7 @@ import { RoleDisplay } from "./03-role-reward.tsx";
 export function MultiplierDisplay({ multiplier, targets, type }: Multiplier) {
 	return (
 		<div className="flex items-center gap-4">
-			<Chip className="shrink-0 font-semibold" size="sm" variant="flat">
+			<Chip className="shrink-0 font-semibold" size="sm" variant="soft">
 				{multiplier}x
 			</Chip>
 
@@ -25,7 +25,7 @@ export function MultiplierDisplay({ multiplier, targets, type }: Multiplier) {
 						),
 					)
 				) : (
-					<Chip size="sm" variant="flat">
+					<Chip size="sm" variant="soft">
 						Global
 					</Chip>
 				)}
@@ -57,7 +57,7 @@ function ChannelDisplay({ name, type }: Channel) {
 			className="border border-white/20"
 			size="sm"
 			startContent={<Image alt="Channel icon" className="size-3" height={12} src={channelIcon} width={12} />}
-			variant="flat"
+			variant="soft"
 		>
 			{name}
 		</Chip>

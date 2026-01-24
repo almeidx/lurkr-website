@@ -8,10 +8,10 @@ export function SortableMultipliers({ globalMultiplier, multipliers }: SortableM
 	const headerContent =
 		globalMultiplier !== 1 ? (
 			<div className="flex items-center gap-4">
-				<Chip className="shrink-0 font-semibold" size="sm" variant="flat">
+				<Chip className="shrink-0 font-semibold" size="sm" variant="soft">
 					{globalMultiplier}x
 				</Chip>
-				<Chip size="sm" variant="flat">
+				<Chip size="sm" variant="soft">
 					Global
 				</Chip>
 			</div>
