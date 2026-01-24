@@ -84,8 +84,8 @@ export function LeaderboardTableRow({ guildId, row, isManager }: LeaderboardTabl
 				</div>
 
 				<DisclosureContent className="rounded-xl border border-white/10 bg-white/5 p-4">
-					<div className="grid gap-4 sm:grid-cols-2">
-						<div className="grid grid-cols-2 gap-2">
+					<div className="flex flex-wrap items-center justify-between gap-4">
+						<div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
 							<div className="rounded-lg border border-white/10 bg-white/5 p-2.5">
 								<div className="text-white/50 text-xs">Total XP</div>
 								<div className="mt-0.5 font-semibold">{formatNumber(row.xp)}</div>
@@ -105,7 +105,7 @@ export function LeaderboardTableRow({ guildId, row, isManager }: LeaderboardTabl
 						</div>
 
 						{isManager && (
-							<div className="flex flex-col justify-center gap-2 border-white/10 sm:border-l sm:pl-4">
+							<div className="flex flex-col gap-2">
 								<p className="font-semibold text-white/60 text-xs uppercase tracking-wider">Admin</p>
 								<Confirmation
 									buttonText="Reset Level"
