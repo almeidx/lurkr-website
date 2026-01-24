@@ -18,14 +18,14 @@ export function PageSelector({ amount, entry, page }: PageSelectorProps) {
 	}
 
 	return (
-		<div className="flex items-center justify-center gap-1.5">
+		<div className="flex items-center gap-1 rounded-lg border border-white/10 bg-white/5 p-1">
 			{pages.map((num) => {
 				const isDisabled = isPossiblyLastPage && num > page;
 				const isActive = page === num;
 
 				const buttonClasses = clsx(
-					"min-w-10 flex items-center justify-center rounded-lg px-3 py-1.5 text-sm font-medium transition-colors",
-					isActive ? "bg-primary text-white" : "text-white/60 hover:bg-white/5 hover:text-white",
+					"min-w-8 flex items-center justify-center rounded-md px-2.5 py-1 text-xs font-medium transition-all",
+					isActive ? "bg-primary text-white shadow-sm" : "text-white/60 hover:bg-white/5 hover:text-white",
 					isDisabled && "pointer-events-none opacity-30",
 				);
 
