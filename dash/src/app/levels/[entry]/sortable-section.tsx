@@ -44,8 +44,8 @@ export function SortableSection<T>({
 
 	return (
 		<Card className="border border-white/10 bg-white/5">
-			<Card.Header className="flex items-center justify-between border-white/10 border-b px-4 py-3">
-				<Card.Title className="font-semibold text-lg">{title}</Card.Title>
+			<Card.Header className="flex flex-row items-center justify-between border-white/10 border-b px-4 py-3">
+				<Card.Title className="flex-shrink-0 font-semibold text-lg">{title}</Card.Title>
 				{sortButton}
 			</Card.Header>
 			<Card.Content className="px-4 py-3">

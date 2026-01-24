@@ -132,7 +132,7 @@ export default async function Leaderboard({ params, searchParams }: LeaderboardP
 					<SortableMultipliers globalMultiplier={xpGlobalMultiplier} multipliers={multipliers} />
 
 					<Card className="border border-white/10 bg-white/5">
-						<Card.Header className="border-white/10 border-b px-4 py-3">
+						<Card.Header className="flex flex-row items-center border-white/10 border-b px-4 py-3">
 							<Card.Title className="font-semibold text-lg">How it works</Card.Title>
 						</Card.Header>
 						<Card.Content className="px-4 py-3">
