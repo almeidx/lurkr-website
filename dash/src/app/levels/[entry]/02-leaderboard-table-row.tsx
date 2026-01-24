@@ -42,7 +42,7 @@ export function LeaderboardTableRow({ guildId, row, isManager }: LeaderboardTabl
 		<DisclosureProvider>
 			<Card className="group border border-white/10 bg-gradient-to-br from-white/5 to-white/[0.02] transition-all hover:border-white/20 hover:shadow-lg hover:shadow-primary/5">
 				<Disclosure className="w-full">
-					<Card.Body className="p-5">
+					<Card.Content className="p-5">
 						<div className="flex items-center gap-4">
 							{rankBadge}
 
@@ -80,11 +80,11 @@ export function LeaderboardTableRow({ guildId, row, isManager }: LeaderboardTabl
 								</div>
 							</div>
 						</div>
-					</Card.Body>
+					</Card.Content>
 				</Disclosure>
 
 				<DisclosureContent>
-					<Card.Body className="border-white/10 border-t pt-4">
+					<Card.Content className="border-white/10 border-t pt-4">
 						<div className="grid gap-6 md:grid-cols-2">
 							<div className="grid grid-cols-2 gap-4">
 								<div className="rounded-lg border border-white/10 bg-white/5 p-3">
@@ -118,7 +118,7 @@ export function LeaderboardTableRow({ guildId, row, isManager }: LeaderboardTabl
 								</div>
 							)}
 						</div>
-					</Card.Body>
+					</Card.Content>
 				</DisclosureContent>
 			</Card>
 		</DisclosureProvider>
