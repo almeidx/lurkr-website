@@ -4,14 +4,12 @@ import { decimalRoleColorToHex } from "@/utils/decimal-to-hex-color.ts";
 
 export function RoleRewardDisplay({ level, roles }: RoleReward) {
 	return (
-		<div className="rounded-lg border border-white/10 bg-white/5 p-3">
+		<div className="rounded-lg border border-white/10 bg-white/5 p-2.5">
 			<div className="mb-2 flex items-center gap-2">
-				<div className="flex size-6 items-center justify-center rounded-md bg-primary/20 font-semibold text-primary text-xs">
-					{level}
-				</div>
-				<span className="font-medium text-white/60 text-xs">Level {level} Rewards</span>
+				<span className="font-semibold text-white/90 text-xs">Lv.{level}</span>
+				<span className="text-white/40 text-xs">→</span>
 			</div>
-			<div className="flex flex-wrap gap-2">
+			<div className="flex flex-wrap gap-1.5">
 				{roles.map((role) => (
 					<RoleDisplay key={role.id} {...role} />
 				))}

@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, Card } from "@heroui/react";
+import { Button } from "@heroui/react";
 import { RiArrowDownSLine, RiArrowUpSLine } from "@remixicon/react";
 import { useState } from "react";
 
@@ -43,20 +43,20 @@ export function SortableSection<T>({
 		) : null;
 
 	return (
-		<Card className="border border-white/10 bg-gradient-to-br from-white/5 to-white/[0.02]">
-			<Card.Header className="flex flex-row items-center justify-between border-white/10 border-b px-5 py-4">
-				<Card.Title className="flex-shrink-0 font-semibold text-lg">{title}</Card.Title>
+		<div className="rounded-xl border border-white/10 bg-white/5">
+			<div className="flex items-center justify-between border-white/10 border-b px-4 py-3">
+				<h3 className="font-semibold text-sm text-white/60 uppercase tracking-wider">{title}</h3>
 				{sortButton}
-			</Card.Header>
-			<Card.Content className="px-5 py-4">
-				<div className="flex flex-col gap-3">
+			</div>
+			<div className="p-4">
+				<div className="flex flex-col gap-2.5">
 					{headerContent}
 					{sortedData.map((item) => (
 						<div key={keyExtractor(item)}>{renderItem(item)}</div>
 					))}
 				</div>
-			</Card.Content>
-		</Card>
+			</div>
+		</div>
 	);
 }
 

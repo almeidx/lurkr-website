@@ -6,12 +6,10 @@ import { SortableSection } from "./sortable-section.tsx";
 export function SortableMultipliers({ globalMultiplier, multipliers }: SortableMultipliersProps) {
 	const headerContent =
 		globalMultiplier !== 1 ? (
-			<div className="rounded-lg border border-white/10 bg-gradient-to-br from-warning/10 to-warning/5 p-3">
+			<div className="rounded-lg border border-warning/20 bg-warning/10 p-2.5">
 				<div className="flex items-center gap-2">
-					<div className="flex size-6 items-center justify-center rounded-md bg-warning/20 font-semibold text-warning text-xs">
-						{globalMultiplier}x
-					</div>
-					<span className="font-medium text-sm">Global Multiplier</span>
+					<span className="font-semibold text-sm text-warning">{globalMultiplier}x</span>
+					<span className="text-white/60 text-xs">Global</span>
 				</div>
 			</div>
 		) : null;
