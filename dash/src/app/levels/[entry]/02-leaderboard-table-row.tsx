@@ -83,7 +83,10 @@ export function LeaderboardTableRow({ guildId, row, isManager }: LeaderboardTabl
 					</div>
 				</div>
 
-				<DisclosureContent className="rounded-xl border border-white/10 bg-white/5 p-4">
+				<DisclosureContent
+					className="rounded-xl border border-white/10 bg-white/5 p-4"
+					onClick={(e) => e.stopPropagation()}
+				>
 					<div className="flex flex-wrap items-center justify-between gap-4">
 						<div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
 							<div className="rounded-lg border border-white/10 bg-white/5 p-2.5">
