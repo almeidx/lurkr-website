@@ -43,12 +43,12 @@ export function SortableSection<T>({
 		) : null;
 
 	return (
-		<Card className="border border-white/10 bg-white/5">
-			<Card.Header className="flex flex-row items-center justify-between border-white/10 border-b px-4 py-3">
+		<Card className="border border-white/10 bg-gradient-to-br from-white/5 to-white/[0.02]">
+			<Card.Header className="flex flex-row items-center justify-between border-white/10 border-b px-5 py-4">
 				<Card.Title className="flex-shrink-0 font-semibold text-lg">{title}</Card.Title>
 				{sortButton}
 			</Card.Header>
-			<Card.Content className="px-4 py-3">
+			<Card.Content className="px-5 py-4">
 				<div className="flex flex-col gap-3">
 					{headerContent}
 					{sortedData.map((item) => (

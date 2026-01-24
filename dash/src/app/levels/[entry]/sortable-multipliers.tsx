@@ -1,19 +1,18 @@
 "use client";
 
-import { Chip } from "@heroui/react";
 import { type Multiplier, MultiplierDisplay } from "./04-multiplier.tsx";
 import { SortableSection } from "./sortable-section.tsx";
 
 export function SortableMultipliers({ globalMultiplier, multipliers }: SortableMultipliersProps) {
 	const headerContent =
 		globalMultiplier !== 1 ? (
-			<div className="flex items-center gap-4">
-				<Chip className="shrink-0 font-semibold" size="sm" variant="soft">
-					{globalMultiplier}x
-				</Chip>
-				<Chip size="sm" variant="soft">
-					Global
-				</Chip>
+			<div className="rounded-lg border border-white/10 bg-gradient-to-br from-warning/10 to-warning/5 p-3">
+				<div className="flex items-center gap-2">
+					<div className="flex size-6 items-center justify-center rounded-md bg-warning/20 font-semibold text-warning text-xs">
+						{globalMultiplier}x
+					</div>
+					<span className="font-medium text-sm">Global Multiplier</span>
+				</div>
 			</div>
 		) : null;
 

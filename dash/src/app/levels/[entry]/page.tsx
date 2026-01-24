@@ -71,85 +71,113 @@ export default async function Leaderboard({ params, searchParams }: LeaderboardP
 	}
 
 	return (
-		<div className="container mx-auto flex flex-col gap-8 px-4 py-6 md:px-6">
-			<header className="flex flex-col items-center justify-center gap-4">
-				<Card className="w-full max-w-2xl border border-white/10 bg-white/5 backdrop-blur-sm">
-					<Card.Header className="flex flex-col items-center gap-4 pb-4">
-						<ImageWithFallback
-							alt={`${guild.name} guild icon`}
-							className="size-16 rounded-full"
-							fallback={fallbackAvatarImg}
-							height={64}
-							src={guildIcon(guild.id, guild.icon, { size: 128 })}
-							unoptimized={Boolean(guild.icon)}
-							width={64}
-						/>
-						<Card.Title className="text-center font-bold text-2xl md:text-3xl">{guild.name}</Card.Title>
-					</Card.Header>
-					<Card.Content className="px-6 pb-6">
-						<p className="text-center text-white/70">
-							View the leveling leaderboard of {guild.name}, including rewards and multipliers!
-						</p>
-					</Card.Content>
-				</Card>
-			</header>
+		<div className="min-h-screen bg-gradient-to-b from-background via-background to-background/95">
+			{/* Hero Header */}
+			<div className="relative overflow-hidden border-white/10 border-b bg-gradient-to-br from-primary/20 via-primary/10 to-transparent">
+				<div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(120,119,198,0.1),transparent_70%)]" />
+				<div className="container relative mx-auto px-4 py-12 md:px-6">
+					<div className="mx-auto flex max-w-4xl flex-col items-center gap-6 text-center">
+						<div className="relative">
+							<div className="absolute -inset-4 rounded-full bg-primary/20 blur-2xl" />
+							<ImageWithFallback
+								alt={`${guild.name} guild icon`}
+								className="relative size-24 rounded-full border-4 border-white/20 shadow-2xl"
+								fallback={fallbackAvatarImg}
+								height={96}
+								src={guildIcon(guild.id, guild.icon, { size: 256 })}
+								unoptimized={Boolean(guild.icon)}
+								width={96}
+							/>
+						</div>
+						<div className="space-y-2">
+							<h1 className="bg-gradient-to-r from-white via-white to-white/80 bg-clip-text font-bold text-4xl text-transparent md:text-5xl">
+								{guild.name}
+							</h1>
+							<p className="text-lg text-white/60">
+								Leveling Leaderboard • {levels.length > 0 ? `${levels.length} players` : "No players yet"}
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
 
-			<main className="mx-auto flex w-full max-w-7xl flex-col gap-8 lg:flex-row">
-				<div className="flex-1 space-y-6">
-					<LeaderboardTable data={levels} guildId={guild.id} isManager={isManager} />
+			<main className="container mx-auto px-4 py-8 md:px-6">
+				<div className="mx-auto flex max-w-7xl flex-col gap-8 lg:flex-row">
+					{/* Main Leaderboard */}
+					<div className="flex-1 space-y-6">
+						<div className="space-y-4">
+							<div className="flex items-center justify-between">
+								<h2 className="font-semibold text-xl">Top Players</h2>
+								<div className="text-sm text-white/50">
+									Page {page} • {levels.length} {levels.length === 1 ? "player" : "players"}
+								</div>
+							</div>
 
-					{levels.length === 0 ? (
-						<Card className="border border-white/10 bg-white/5">
-							<Card.Content className="px-6 py-4">
-								{page > 2 ? (
-									<p className="text-balance text-center text-white/80">
-										There are no users in this page. Try going back to{" "}
-										<Link
-											className="font-semibold text-primary underline transition-colors hover:text-primary/80"
-											href={`/levels/${vanity ?? guild.id}?page=1`}
-										>
-											page 1
-										</Link>
-										?
-									</p>
-								) : page > 1 ? (
-									<p className="text-balance text-center text-white/80">
-										There are no users in this page. Try going back
-									</p>
-								) : (
-									<p className="text-center text-white/80">There are no users with experience yet</p>
-								)}
+							{levels.length === 0 ? (
+								<Card className="border border-white/10 bg-white/5">
+									<Card.Content className="px-6 py-8">
+										{page > 2 ? (
+											<p className="text-balance text-center text-white/80">
+												There are no users in this page. Try going back to{" "}
+												<Link
+													className="font-semibold text-primary underline transition-colors hover:text-primary/80"
+													href={`/levels/${vanity ?? guild.id}?page=1`}
+												>
+													page 1
+												</Link>
+												?
+											</p>
+										) : page > 1 ? (
+											<p className="text-balance text-center text-white/80">
+												There are no users in this page. Try going back
+											</p>
+										) : (
+											<p className="text-center text-white/80">There are no users with experience yet</p>
+										)}
+									</Card.Content>
+								</Card>
+							) : (
+								<div className="space-y-3">
+									<LeaderboardTable data={levels} guildId={guild.id} isManager={isManager} />
+								</div>
+							)}
+						</div>
+
+						<PageSelector amount={levels.length} entry={entry} page={page} />
+					</div>
+
+					{/* Sidebar */}
+					<aside className="flex w-full flex-col gap-4 lg:w-80">
+						<SortableRoleRewards roleRewards={roleRewards} />
+
+						<SortableMultipliers globalMultiplier={xpGlobalMultiplier} multipliers={multipliers} />
+
+						<Card className="border border-white/10 bg-gradient-to-br from-white/5 to-white/[0.02]">
+							<Card.Header className="border-white/10 border-b px-5 py-4">
+								<Card.Title className="flex items-center gap-2 font-semibold text-lg">
+									<span className="text-2xl">💡</span>
+									How it works
+								</Card.Title>
+							</Card.Header>
+							<Card.Content className="px-5 py-4">
+								<div className="space-y-4 text-sm text-white/70">
+									<div className="flex items-start gap-3">
+										<span className="mt-0.5 text-lg">✨</span>
+										<p>
+											{xpPerMessageMin === xpPerMessageMax
+												? `Every message gives you ${xpPerMessageMin} experience.`
+												: `Every message gives you ${xpPerMessageMin}-${xpPerMessageMax} experience.`}
+										</p>
+									</div>
+									<div className="flex items-start gap-3">
+										<span className="mt-0.5 text-lg">⏱️</span>
+										<p>Cooldown: {prettyMilliseconds(xpGainInterval, { verbose: true })} between messages</p>
+									</div>
+								</div>
 							</Card.Content>
 						</Card>
-					) : null}
-
-					<PageSelector amount={levels.length} entry={entry} page={page} />
+					</aside>
 				</div>
-
-				<aside className="flex w-full flex-col gap-6 lg:w-80">
-					<SortableRoleRewards roleRewards={roleRewards} />
-
-					<SortableMultipliers globalMultiplier={xpGlobalMultiplier} multipliers={multipliers} />
-
-					<Card className="border border-white/10 bg-white/5">
-						<Card.Header className="flex flex-row items-center border-white/10 border-b px-4 py-3">
-							<Card.Title className="font-semibold text-lg">How it works</Card.Title>
-						</Card.Header>
-						<Card.Content className="px-4 py-3">
-							<div className="space-y-3 text-sm text-white/80">
-								<p>
-									{xpPerMessageMin === xpPerMessageMax
-										? `Every time you send a message you gain ${xpPerMessageMin} experience.`
-										: `Every time you send a message you gain between ${xpPerMessageMin} and ${xpPerMessageMax} experience.`}
-								</p>
-								<p>
-									To avoid spam, there is a cooldown of {prettyMilliseconds(xpGainInterval, { verbose: true })} per
-									message sent.
-								</p>
-							</div>
-						</Card.Content>
-					</Card>
-				</aside>
 			</main>
 		</div>
 	);

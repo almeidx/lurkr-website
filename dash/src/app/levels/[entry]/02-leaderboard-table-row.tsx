@@ -1,7 +1,7 @@
 "use client";
 
 import { Disclosure, DisclosureContent, DisclosureProvider } from "@ariakit/react";
-import { Chip } from "@heroui/react";
+import { Card } from "@heroui/react";
 import dynamic from "next/dynamic";
 import { userLevelResetAction } from "@/app/levels/[entry]/actions.ts";
 import type { GetLevelsResponse } from "@/app/levels/[entry]/page.tsx";
@@ -20,93 +20,109 @@ export function LeaderboardTableRow({ guildId, row, isManager }: LeaderboardTabl
 		await userLevelResetAction(guildId, row.userId);
 	}
 
+	const rankBadge = (
+		<div
+			className="flex size-12 shrink-0 items-center justify-center rounded-xl font-bold text-sm shadow-lg"
+			style={{
+				background:
+					row.rank === 1
+						? "linear-gradient(135deg, #faa61a 0%, #ff8c00 100%)"
+						: row.rank === 2
+							? "linear-gradient(135deg, #cad5db 0%, #a8b8c8 100%)"
+							: row.rank === 3
+								? "linear-gradient(135deg, #a54e00 0%, #8b3d00 100%)"
+								: "linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%)",
+			}}
+		>
+			{row.rank > 999 ? ":D" : `#${row.rank}`}
+		</div>
+	);
+
 	return (
 		<DisclosureProvider>
-			<div className="group">
-				<Disclosure className="grid w-full grid-cols-[80px_1fr_100px_100px_100px] items-center gap-4 rounded-xl border border-white/10 bg-white/5 px-4 py-3 transition-all hover:border-white/20 hover:bg-white/10">
-					<div className="flex justify-center">
-						<Chip
-							className="font-bold"
-							color={getRankChipColor(row.rank)}
-							size="sm"
-							style={{ backgroundColor: getRankColor(row.rank) }}
-							variant="soft"
-						>
-							{row.rank > 999 ? ":D" : row.rank}
-						</Chip>
-					</div>
+			<Card className="group border border-white/10 bg-gradient-to-br from-white/5 to-white/[0.02] transition-all hover:border-white/20 hover:shadow-lg hover:shadow-primary/5">
+				<Disclosure className="w-full">
+					<Card.Body className="p-5">
+						<div className="flex items-center gap-4">
+							{rankBadge}
 
-					<div className="flex min-w-0 items-center gap-3">
-						<ImageWithFallback
-							alt={`${row.user.username} avatar`}
-							className="size-8 shrink-0 rounded-full"
-							fallback={fallbackAvatarImg}
-							height={32}
-							src={userAvatar(row.userId, row.user.avatar, { format: "webp", size: 32 })}
-							unoptimized={Boolean(row.user.avatar)}
-							width={32}
-						/>
-						<p className="truncate font-medium">{row.user.username}</p>
-					</div>
+							<div className="flex min-w-0 flex-1 items-center gap-4">
+								<ImageWithFallback
+									alt={`${row.user.username} avatar`}
+									className="size-12 shrink-0 rounded-full border-2 border-white/20 ring-2 ring-white/10"
+									fallback={fallbackAvatarImg}
+									height={48}
+									src={userAvatar(row.userId, row.user.avatar, { format: "webp", size: 64 })}
+									unoptimized={Boolean(row.user.avatar)}
+									width={48}
+								/>
 
-					<div className="xs:block hidden text-center text-sm text-white/70">{formatNumber(row.messageCount)}</div>
-
-					<div className="hidden text-center text-sm text-white/70 sm:block">{formatNumber(row.xp)}</div>
-
-					<div className="flex items-center justify-center">
-						<RadialProgressBar color={row.user.accentColour} num={row.level} percentage={row.progress} />
-					</div>
-				</Disclosure>
-
-				<DisclosureContent className="mt-2 rounded-xl border border-white/10 bg-white/5 p-4">
-					<div className="grid gap-4 md:grid-cols-2">
-						<div className="space-y-2">
-							<div className="flex items-center justify-between text-sm">
-								<span className="text-white/60">Experience</span>
-								<span className="font-medium">{row.xp.toLocaleString("en")}</span>
+								<div className="min-w-0 flex-1">
+									<p className="truncate font-semibold text-lg">{row.user.username}</p>
+									<div className="mt-1 flex items-center gap-4 text-sm text-white/60">
+										<span className="xs:inline hidden">
+											{formatNumber(row.messageCount)} <span className="text-white/40">msgs</span>
+										</span>
+										<span className="hidden sm:inline">
+											{formatNumber(row.xp)} <span className="text-white/40">XP</span>
+										</span>
+									</div>
+								</div>
 							</div>
-							<div className="flex items-center justify-between text-sm">
-								<span className="text-white/60">Experience until next level</span>
-								<span className="font-medium">{(row.nextLevelXp - row.xp).toLocaleString("en")}</span>
-							</div>
-							<div className="flex items-center justify-between text-sm">
-								<span className="text-white/60">Progress</span>
-								<span className="font-medium">{row.progress.toFixed(1)}%</span>
-							</div>
-							<div className="flex items-center justify-between text-sm">
-								<span className="text-white/60">Messages</span>
-								<span className="font-medium">{row.messageCount.toLocaleString("en")}</span>
+
+							<div className="flex items-center gap-4">
+								<div className="hidden flex-col items-end sm:flex">
+									<div className="font-semibold text-sm">Level {row.level}</div>
+									<div className="text-white/50 text-xs">{row.progress.toFixed(1)}% to next</div>
+								</div>
+								<div className="shrink-0">
+									<RadialProgressBar color={row.user.accentColour} num={row.level} percentage={row.progress} />
+								</div>
 							</div>
 						</div>
+					</Card.Body>
+				</Disclosure>
 
-						{isManager && (
-							<div className="flex flex-col items-start justify-center gap-3 border-white/10 border-t pt-4 md:border-t-0 md:border-l md:pt-0 md:pl-4">
-								<p className="font-semibold text-sm text-white/80">Admin Actions</p>
-								<Confirmation
-									buttonText="Reset level"
-									className="rounded-lg bg-danger px-4 py-2 font-medium text-sm text-white transition-colors hover:bg-danger/80"
-									onConfirm={handleResetLevelConfirm}
-								>
-									Are you sure you want to reset {row.user.username}'s level?
-								</Confirmation>
+				<DisclosureContent>
+					<Card.Body className="border-white/10 border-t pt-4">
+						<div className="grid gap-6 md:grid-cols-2">
+							<div className="grid grid-cols-2 gap-4">
+								<div className="rounded-lg border border-white/10 bg-white/5 p-3">
+									<div className="text-white/50 text-xs">Total XP</div>
+									<div className="mt-1 font-semibold text-lg">{formatNumber(row.xp)}</div>
+								</div>
+								<div className="rounded-lg border border-white/10 bg-white/5 p-3">
+									<div className="text-white/50 text-xs">Messages</div>
+									<div className="mt-1 font-semibold text-lg">{formatNumber(row.messageCount)}</div>
+								</div>
+								<div className="rounded-lg border border-white/10 bg-white/5 p-3">
+									<div className="text-white/50 text-xs">XP to Next</div>
+									<div className="mt-1 font-semibold text-lg">{formatNumber(row.nextLevelXp - row.xp)}</div>
+								</div>
+								<div className="rounded-lg border border-white/10 bg-white/5 p-3">
+									<div className="text-white/50 text-xs">Progress</div>
+									<div className="mt-1 font-semibold text-lg">{row.progress.toFixed(1)}%</div>
+								</div>
 							</div>
-						)}
-					</div>
+
+							{isManager && (
+								<div className="flex flex-col gap-3 border-white/10 md:border-l md:pl-6">
+									<p className="font-semibold text-sm text-white/80">Admin Actions</p>
+									<Confirmation
+										buttonText="Reset Level"
+										className="w-fit rounded-lg bg-danger px-4 py-2 font-medium text-sm text-white transition-colors hover:bg-danger/80"
+										onConfirm={handleResetLevelConfirm}
+									>
+										Are you sure you want to reset {row.user.username}'s level?
+									</Confirmation>
+								</div>
+							)}
+						</div>
+					</Card.Body>
 				</DisclosureContent>
-			</div>
+			</Card>
 		</DisclosureProvider>
 	);
-}
-
-function getRankColor(rank: number) {
-	return rank === 1 ? "#faa61a" : rank === 2 ? "#cad5db" : rank === 3 ? "#a54e00" : "#171717";
-}
-
-function getRankChipColor(rank: number): "default" | "success" | "warning" | "danger" | "accent" | undefined {
-	if (rank === 1) return "warning";
-	if (rank === 2) return "default";
-	if (rank === 3) return "danger";
-	return "default";
 }
 
 interface LeaderboardTableRowProps {
