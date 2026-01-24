@@ -26,15 +26,21 @@ export function PodiumRow({ data, guildId, isManager }: PodiumRowProps) {
 	}
 
 	return (
-		<div className="mb-6 grid grid-cols-3 gap-3">
-			{/* 2nd Place */}
-			<PodiumCard guildId={guildId} isManager={isManager} position={2} row={second} />
+		<div className="mb-6 grid grid-cols-3 items-end gap-4">
+			{/* 2nd Place - Left, Medium Height */}
+			<div className="flex flex-col">
+				<PodiumCard guildId={guildId} isManager={isManager} position={2} row={second} />
+			</div>
 
 			{/* 1st Place - Center, Tallest */}
-			<PodiumCard guildId={guildId} isManager={isManager} position={1} row={first} />
+			<div className="flex flex-col">
+				<PodiumCard guildId={guildId} isManager={isManager} position={1} row={first} />
+			</div>
 
-			{/* 3rd Place */}
-			<PodiumCard guildId={guildId} isManager={isManager} position={3} row={third} />
+			{/* 3rd Place - Right, Shortest */}
+			<div className="flex flex-col">
+				<PodiumCard guildId={guildId} isManager={isManager} position={3} row={third} />
+			</div>
 		</div>
 	);
 }
@@ -53,52 +59,71 @@ function PodiumCard({ row, position, guildId, isManager }: PodiumCardProps) {
 
 	const rankIcon = getRankIcon(row.rank);
 	const isFirst = position === 1;
+	const isSecond = position === 2;
 
 	return (
 		<DisclosureProvider>
 			<Disclosure className="group flex h-full flex-col">
 				<div
-					className={`relative flex flex-1 flex-col overflow-hidden rounded-2xl border transition-all ${
+					className={`relative flex flex-col overflow-hidden rounded-2xl border transition-all ${
 						isFirst
-							? "border-primary/30 bg-gradient-to-b from-primary/20 via-primary/10 to-white/5 shadow-2xl shadow-primary/20"
-							: position === 2
-								? "border-white/20 bg-gradient-to-b from-white/10 to-white/5 shadow-lg"
-								: "border-white/15 bg-gradient-to-b from-white/8 to-white/5 shadow-md"
-					} hover:border-white/30 hover:shadow-xl`}
+							? "min-h-[420px] border-primary/40 bg-gradient-to-b from-primary/30 via-primary/15 to-white/5 shadow-2xl shadow-primary/30"
+							: isSecond
+								? "min-h-[360px] border-white/25 bg-gradient-to-b from-white/15 via-white/8 to-white/5 shadow-xl"
+								: "min-h-[320px] border-white/15 bg-gradient-to-b from-white/10 via-white/5 to-white/5 shadow-lg"
+					} hover:border-white/40 hover:shadow-2xl`}
 				>
 					{isFirst && (
-						<div className="absolute inset-0 bg-gradient-to-b from-primary/10 via-transparent to-transparent" />
+						<>
+							<div className="absolute inset-0 bg-gradient-to-b from-primary/15 via-transparent to-transparent" />
+							<div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(120,119,198,0.2),transparent_70%)]" />
+						</>
 					)}
-					<div className={`relative flex flex-1 flex-col items-center ${isFirst ? "p-6" : "p-4"} gap-3`}>
+					{isSecond && (
+						<div className="absolute inset-0 bg-gradient-to-b from-white/10 via-transparent to-transparent" />
+					)}
+					<div
+						className={`relative flex flex-1 flex-col items-center ${isFirst ? "p-8" : isSecond ? "p-6" : "p-5"} gap-4`}
+					>
 						{/* Rank Icon */}
-						<div className="text-5xl drop-shadow-lg">{rankIcon}</div>
+						<div className={`drop-shadow-lg ${isFirst ? "text-6xl" : isSecond ? "text-5xl" : "text-4xl"}`}>
+							{rankIcon}
+						</div>
 
 						{/* Avatar */}
 						<ImageWithFallback
 							alt={`${row.user.username} avatar`}
-							className={`shrink-0 rounded-2xl border-2 border-white/20 shadow-lg ring-2 ring-white/10 ${
-								isFirst ? "size-20" : "size-16"
+							className={`shrink-0 rounded-2xl border-2 border-white/20 shadow-xl ring-2 ring-white/10 ${
+								isFirst ? "size-24" : isSecond ? "size-20" : "size-16"
 							}`}
 							fallback={fallbackAvatarImg}
-							height={isFirst ? 80 : 64}
+							height={isFirst ? 96 : isSecond ? 80 : 64}
 							src={userAvatar(row.userId, row.user.avatar, { format: "webp", size: 128 })}
 							unoptimized={Boolean(row.user.avatar)}
-							width={isFirst ? 80 : 64}
+							width={isFirst ? 96 : isSecond ? 80 : 64}
 						/>
 
 						{/* User Info */}
 						<div className="flex min-w-0 flex-col items-center text-center">
-							<p className={`truncate font-bold ${isFirst ? "text-lg" : "text-base"}`}>{row.user.username}</p>
-							<span className="mt-1 rounded-md bg-white/10 px-2 py-0.5 font-semibold text-white/80 text-xs">
+							<p className={`truncate font-bold ${isFirst ? "text-xl" : isSecond ? "text-lg" : "text-base"}`}>
+								{row.user.username}
+							</p>
+							<span
+								className={`mt-1.5 rounded-lg px-3 py-1 font-semibold text-white/90 ${
+									isFirst ? "bg-primary/20 text-sm" : isSecond ? "bg-white/15 text-xs" : "bg-white/10 text-xs"
+								}`}
+							>
 								Level {row.level}
 							</span>
 						</div>
 
 						{/* Stats */}
 						<div
-							className={`mt-auto flex flex-col items-center gap-1 ${isFirst ? "text-sm" : "text-xs"} text-white/60`}
+							className={`mt-auto flex flex-col items-center gap-1.5 ${
+								isFirst ? "text-base" : isSecond ? "text-sm" : "text-xs"
+							} text-white/60`}
 						>
-							<span className="font-semibold">{formatNumber(row.xp)} XP</span>
+							<span className="font-bold">{formatNumber(row.xp)} XP</span>
 							<span>{formatNumber(row.messageCount)} msgs</span>
 						</div>
 
