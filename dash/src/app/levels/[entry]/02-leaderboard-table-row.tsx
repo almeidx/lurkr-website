@@ -1,7 +1,7 @@
 "use client";
 
-import { Chip } from "@heroui/react";
 import { Disclosure, DisclosureContent, DisclosureProvider } from "@ariakit/react";
+import { Chip } from "@heroui/react";
 import dynamic from "next/dynamic";
 import { userLevelResetAction } from "@/app/levels/[entry]/actions.ts";
 import type { GetLevelsResponse } from "@/app/levels/[entry]/page.tsx";
@@ -49,9 +49,7 @@ export function LeaderboardTableRow({ guildId, row, isManager }: LeaderboardTabl
 						<p className="truncate font-medium">{row.user.username}</p>
 					</div>
 
-					<div className="hidden text-center text-sm text-white/70 xs:block">
-						{formatNumber(row.messageCount)}
-					</div>
+					<div className="xs:block hidden text-center text-sm text-white/70">{formatNumber(row.messageCount)}</div>
 
 					<div className="hidden text-center text-sm text-white/70 sm:block">{formatNumber(row.xp)}</div>
 
@@ -82,11 +80,11 @@ export function LeaderboardTableRow({ guildId, row, isManager }: LeaderboardTabl
 						</div>
 
 						{isManager && (
-							<div className="flex flex-col items-start justify-center gap-3 border-t border-white/10 pt-4 md:border-t-0 md:border-l md:pl-4 md:pt-0">
-								<p className="text-sm font-semibold text-white/80">Admin Actions</p>
+							<div className="flex flex-col items-start justify-center gap-3 border-white/10 border-t pt-4 md:border-t-0 md:border-l md:pt-0 md:pl-4">
+								<p className="font-semibold text-sm text-white/80">Admin Actions</p>
 								<Confirmation
 									buttonText="Reset level"
-									className="rounded-lg bg-danger px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-danger/80"
+									className="rounded-lg bg-danger px-4 py-2 font-medium text-sm text-white transition-colors hover:bg-danger/80"
 									onConfirm={handleResetLevelConfirm}
 								>
 									Are you sure you want to reset {row.user.username}'s level?

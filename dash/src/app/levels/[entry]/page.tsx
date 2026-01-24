@@ -1,9 +1,9 @@
+import { Card, Surface } from "@heroui/react";
 import type { Metadata } from "next";
 import { cookies } from "next/headers";
 import Link from "next/link";
 import { RedirectType, redirect } from "next/navigation";
 import prettyMilliseconds from "pretty-ms";
-import { Card, Surface } from "@heroui/react";
 import { LeaderboardTable } from "@/app/levels/[entry]/01-leaderboard-table.tsx";
 import {
 	LEADERBOARD_ENTRIES_PER_PAGE,
@@ -71,7 +71,7 @@ export default async function Leaderboard({ params, searchParams }: LeaderboardP
 	}
 
 	return (
-		<div className="container mx-auto flex flex-col gap-8 py-6 px-4 md:px-6">
+		<div className="container mx-auto flex flex-col gap-8 px-4 py-6 md:px-6">
 			<header className="flex flex-col items-center justify-center gap-4">
 				<Card className="w-full max-w-2xl border border-white/10 bg-white/5 backdrop-blur-sm">
 					<Card.Header className="flex flex-col items-center gap-4 pb-4">
@@ -84,7 +84,7 @@ export default async function Leaderboard({ params, searchParams }: LeaderboardP
 							unoptimized={Boolean(guild.icon)}
 							width={64}
 						/>
-						<Card.Title className="text-center text-2xl font-bold md:text-3xl">{guild.name}</Card.Title>
+						<Card.Title className="text-center font-bold text-2xl md:text-3xl">{guild.name}</Card.Title>
 					</Card.Header>
 					<Card.Content className="px-6 pb-6">
 						<p className="text-center text-white/70">
@@ -134,8 +134,8 @@ export default async function Leaderboard({ params, searchParams }: LeaderboardP
 					<SortableMultipliers globalMultiplier={xpGlobalMultiplier} multipliers={multipliers} />
 
 					<Card className="border border-white/10 bg-white/5">
-						<Card.Header className="border-b border-white/10 pb-4">
-							<Card.Title className="text-lg font-semibold">How it works</Card.Title>
+						<Card.Header className="border-white/10 border-b pb-4">
+							<Card.Title className="font-semibold text-lg">How it works</Card.Title>
 						</Card.Header>
 						<Card.Content className="px-6 py-4">
 							<div className="space-y-3 text-sm text-white/80">

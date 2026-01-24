@@ -56,9 +56,7 @@ function ChannelDisplay({ name, type }: Channel) {
 		<Chip
 			className="border border-white/20"
 			size="sm"
-			startContent={
-				<Image alt="Channel icon" className="size-3" height={12} src={channelIcon} width={12} />
-			}
+			startContent={<Image alt="Channel icon" className="size-3" height={12} src={channelIcon} width={12} />}
 			variant="flat"
 		>
 			{name}

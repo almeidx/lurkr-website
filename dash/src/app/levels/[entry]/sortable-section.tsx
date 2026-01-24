@@ -34,9 +34,9 @@ export function SortableSection<T>({
 				aria-label={`Sort ${sortAscending ? "descending" : "ascending"}`}
 				className="min-w-0"
 				isIconOnly
+				onPress={toggleSort}
 				size="sm"
 				variant="light"
-				onPress={toggleSort}
 			>
 				{sortAscending ? <RiArrowUpSLine className="size-4" /> : <RiArrowDownSLine className="size-4" />}
 			</Button>
@@ -44,8 +44,8 @@ export function SortableSection<T>({
 
 	return (
 		<Card className="border border-white/10 bg-white/5">
-			<Card.Header className="flex items-center justify-between border-b border-white/10 pb-4">
-				<Card.Title className="text-lg font-semibold">{title}</Card.Title>
+			<Card.Header className="flex items-center justify-between border-white/10 border-b pb-4">
+				<Card.Title className="font-semibold text-lg">{title}</Card.Title>
 				{sortButton}
 			</Card.Header>
 			<Card.Content className="px-6 py-4">
