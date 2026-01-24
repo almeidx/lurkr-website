@@ -104,7 +104,7 @@ function getRankColor(rank: number) {
 	return rank === 1 ? "#faa61a" : rank === 2 ? "#cad5db" : rank === 3 ? "#a54e00" : "#171717";
 }
 
-function getRankChipColor(rank: number): "default" | "primary" | "secondary" | "success" | "warning" | "danger" {
+function getRankChipColor(rank: number): "default" | "success" | "warning" | "danger" | "accent" | undefined {
 	if (rank === 1) return "warning";
 	if (rank === 2) return "default";
 	if (rank === 3) return "danger";
