@@ -125,7 +125,7 @@ export default async function Leaderboard({ params, searchParams }: LeaderboardP
 						) : (
 							<>
 								<div className="space-y-2">
-									<LeaderboardTable data={levels} guildId={guild.id} isManager={isManager} />
+									<LeaderboardTable data={levels} guildId={guild.id} isManager={isManager} page={page} />
 								</div>
 								<PageSelector amount={levels.length} entry={entry} page={page} />
 							</>
