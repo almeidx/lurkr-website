@@ -32,7 +32,7 @@ export function SortableSection<T>({
 		data.length > 0 ? (
 			<Button
 				aria-label={`Sort ${sortAscending ? "descending" : "ascending"}`}
-				className="min-w-0"
+				className="-mr-1 min-w-0"
 				isIconOnly
 				onPress={toggleSort}
 				size="sm"
@@ -44,12 +44,12 @@ export function SortableSection<T>({
 
 	return (
 		<Card className="border border-white/10 bg-white/5">
-			<Card.Header className="flex items-center justify-between border-white/10 border-b pb-4">
+			<Card.Header className="flex items-center justify-between border-white/10 border-b px-4 py-3">
 				<Card.Title className="font-semibold text-lg">{title}</Card.Title>
 				{sortButton}
 			</Card.Header>
-			<Card.Content className="px-6 py-4">
-				<div className="flex flex-col gap-4">
+			<Card.Content className="px-4 py-3">
+				<div className="flex flex-col gap-3">
 					{headerContent}
 					{sortedData.map((item) => (
 						<div key={keyExtractor(item)}>{renderItem(item)}</div>

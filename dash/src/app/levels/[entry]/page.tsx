@@ -1,4 +1,4 @@
-import { Card, Surface } from "@heroui/react";
+import { Card } from "@heroui/react";
 import type { Metadata } from "next";
 import { cookies } from "next/headers";
 import Link from "next/link";
@@ -96,9 +96,7 @@ export default async function Leaderboard({ params, searchParams }: LeaderboardP
 
 			<main className="mx-auto flex w-full max-w-7xl flex-col gap-8 lg:flex-row">
 				<div className="flex-1 space-y-6">
-					<Surface className="rounded-2xl p-6">
-						<LeaderboardTable data={levels} guildId={guild.id} isManager={isManager} />
-					</Surface>
+					<LeaderboardTable data={levels} guildId={guild.id} isManager={isManager} />
 
 					{levels.length === 0 ? (
 						<Card className="border border-white/10 bg-white/5">
@@ -134,10 +132,10 @@ export default async function Leaderboard({ params, searchParams }: LeaderboardP
 					<SortableMultipliers globalMultiplier={xpGlobalMultiplier} multipliers={multipliers} />
 
 					<Card className="border border-white/10 bg-white/5">
-						<Card.Header className="border-white/10 border-b pb-4">
+						<Card.Header className="border-white/10 border-b px-4 py-3">
 							<Card.Title className="font-semibold text-lg">How it works</Card.Title>
 						</Card.Header>
-						<Card.Content className="px-6 py-4">
+						<Card.Content className="px-4 py-3">
 							<div className="space-y-3 text-sm text-white/80">
 								<p>
 									{xpPerMessageMin === xpPerMessageMax
