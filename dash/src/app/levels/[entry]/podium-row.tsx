@@ -15,7 +15,15 @@ const Confirmation = dynamic(() =>
 );
 
 export function PodiumRow({ data, guildId, isManager }: PodiumRowProps) {
-	const [second, first, third] = data; // Reorder: 2nd, 1st, 3rd for podium layout
+	// Reorder: 2nd, 1st, 3rd for podium layout
+	const second = data[1];
+	const first = data[0];
+	const third = data[2];
+
+	// Type guard - should never happen but TypeScript needs it
+	if (!second || !first || !third) {
+		return null;
+	}
 
 	return (
 		<div className="mb-6 grid grid-cols-3 gap-3">
