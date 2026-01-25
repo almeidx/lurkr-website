@@ -9,14 +9,14 @@ import { RoleDisplay } from "./03-role-reward.tsx";
 
 export function MultiplierDisplay({ multiplier, targets, type }: Multiplier) {
 	return (
-		<div className="rounded-2xl border-2 border-white/10 bg-gradient-to-br from-white/5 to-white/[0.02] p-4 backdrop-blur-sm">
-			<div className="mb-3 flex items-center gap-3">
-				<span className="rounded-lg border-2 border-warning/30 bg-warning/20 px-3 py-1 font-black text-warning text-xs uppercase tracking-wider">
+		<div className="rounded-lg border border-white/10 bg-white/5 p-3">
+			<div className="mb-2 flex items-center gap-2">
+				<span className="rounded border border-warning/30 bg-warning/10 px-2 py-0.5 font-semibold text-warning text-xs">
 					{multiplier}x
 				</span>
-				<span className="text-2xl text-white/20">→</span>
+				<span className="text-white/30">→</span>
 			</div>
-			<div className="flex flex-wrap gap-2">
+			<div className="flex flex-wrap gap-1.5">
 				{/* Global multiplier comes without targets key */}
 				{targets ? (
 					targets.map((target) =>

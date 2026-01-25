@@ -35,39 +35,37 @@ export function PageSelector({ amount, entry, page }: PageSelectorProps) {
 	}
 
 	return (
-		<div className="flex items-center justify-center gap-3 rounded-2xl border-2 border-white/10 bg-white/5 p-2 backdrop-blur-sm">
+		<div className="flex items-center justify-center gap-2">
 			{hasPrevious ? (
 				<Link
-					className="flex items-center justify-center rounded-xl border-2 border-white/10 bg-white/5 px-3 py-2 font-bold text-white/60 transition-all hover:border-white/20 hover:bg-white/10 hover:text-white hover:shadow-lg"
+					className="flex items-center justify-center rounded border border-white/10 bg-white/5 px-2 py-1.5 text-white/60 transition-colors hover:border-white/20 hover:bg-white/10 hover:text-white"
 					href={`/levels/${entry}?page=${page - 1}`}
 					prefetch={false}
 				>
-					<RiArrowLeftSLine className="size-5" />
+					<RiArrowLeftSLine className="size-4" />
 				</Link>
 			) : (
-				<div className="pointer-events-none flex items-center justify-center rounded-xl border-2 border-white/10 bg-white/5 px-3 py-2 text-white/40 opacity-30">
-					<RiArrowLeftSLine className="size-5" />
+				<div className="pointer-events-none flex items-center justify-center rounded border border-white/10 bg-white/5 px-2 py-1.5 text-white/40 opacity-30">
+					<RiArrowLeftSLine className="size-4" />
 				</div>
 			)}
 
-			<div className="flex items-center gap-1.5">
+			<div className="flex items-center gap-1">
 				{pages.map((num) => {
 					const isDisabled = isPossiblyLastPage && num > page;
 					const isActive = page === num;
 
 					return isDisabled ? (
 						<div
-							className="pointer-events-none flex items-center justify-center rounded-xl px-4 py-2 text-white/40 opacity-30"
+							className="pointer-events-none flex items-center justify-center rounded px-3 py-1.5 text-white/40 opacity-30"
 							key={`${page}-${num}`}
 						>
 							{num}
 						</div>
 					) : (
 						<Link
-							className={`flex items-center justify-center rounded-xl px-4 py-2 font-bold transition-all ${
-								isActive
-									? "bg-primary text-white shadow-lg shadow-primary/20"
-									: "text-white/60 hover:bg-white/5 hover:text-white"
+							className={`flex items-center justify-center rounded px-3 py-1.5 font-medium text-sm transition-colors ${
+								isActive ? "bg-primary text-white" : "text-white/60 hover:bg-white/5 hover:text-white"
 							}`}
 							href={`/levels/${entry}?page=${num}`}
 							key={`${page}-${num}`}
@@ -81,15 +79,15 @@ export function PageSelector({ amount, entry, page }: PageSelectorProps) {
 
 			{hasNext ? (
 				<Link
-					className="flex items-center justify-center rounded-xl border-2 border-white/10 bg-white/5 px-3 py-2 font-bold text-white/60 transition-all hover:border-white/20 hover:bg-white/10 hover:text-white hover:shadow-lg"
+					className="flex items-center justify-center rounded border border-white/10 bg-white/5 px-2 py-1.5 text-white/60 transition-colors hover:border-white/20 hover:bg-white/10 hover:text-white"
 					href={`/levels/${entry}?page=${page + 1}`}
 					prefetch={false}
 				>
-					<RiArrowRightSLine className="size-5" />
+					<RiArrowRightSLine className="size-4" />
 				</Link>
 			) : (
-				<div className="pointer-events-none flex items-center justify-center rounded-xl border-2 border-white/10 bg-white/5 px-3 py-2 text-white/40 opacity-30">
-					<RiArrowRightSLine className="size-5" />
+				<div className="pointer-events-none flex items-center justify-center rounded border border-white/10 bg-white/5 px-2 py-1.5 text-white/40 opacity-30">
+					<RiArrowRightSLine className="size-4" />
 				</div>
 			)}
 		</div>

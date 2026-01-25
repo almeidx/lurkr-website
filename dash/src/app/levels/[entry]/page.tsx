@@ -65,70 +65,73 @@ export default async function Leaderboard({ params, searchParams }: LeaderboardP
 		xpPerMessageMin,
 	} = data;
 
+	// Calculate server statistics
+	const _totalXp = levels.reduce((sum, level) => sum + level.xp, 0);
+	const _totalMessages = levels.reduce((sum, level) => sum + level.messageCount, 0);
+	const _averageLevel = levels.length > 0 ? levels.reduce((sum, level) => sum + level.level, 0) / levels.length : 0;
+	const _highestLevel = levels.length > 0 ? Math.max(...levels.map((level) => level.level)) : 0;
+
 	if (isSnowflake(entry) && vanity) {
 		redirect(`/levels/${vanity}?page=${page}`, RedirectType.replace);
 	}
 
 	return (
-		<div className="relative min-h-screen overflow-hidden">
-			{/* Atmospheric Background Layers */}
-			<div className="fixed inset-0 -z-10">
-				<div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(120,119,198,0.15),transparent_50%)]" />
-				<div className="absolute inset-0 bg-[linear-gradient(180deg,transparent_0%,rgba(0,0,0,0.3)_100%)]" />
-				<div
-					className="absolute inset-0 opacity-[0.015]"
-					style={{
-						backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-					}}
-				/>
-			</div>
-
-			<main className="container relative mx-auto px-4 py-12 md:px-6">
-				{/* Editorial-Style Header with Asymmetry */}
-				<div className="mb-12">
-					<div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-						<div className="flex items-end gap-6">
-							<div className="relative">
-								<div className="absolute -inset-2 rounded-2xl bg-primary/20 blur-xl" />
-								<ImageWithFallback
-									alt={`${guild.name} guild icon`}
-									className="relative size-20 shrink-0 rounded-2xl border-2 border-white/30 shadow-2xl"
-									fallback={fallbackAvatarImg}
-									height={80}
-									src={guildIcon(guild.id, guild.icon, { size: 256 })}
-									unoptimized={Boolean(guild.icon)}
-									width={80}
-								/>
-							</div>
-							<div className="pb-2">
-								<h1 className="mb-2 font-black text-4xl tracking-tight md:text-5xl">{guild.name}</h1>
-								<div className="flex items-baseline gap-3">
-									<span className="font-bold text-lg text-white/40">LEADERBOARD</span>
-									<span className="h-1 w-1 rounded-full bg-white/30" />
-									<span className="font-medium text-sm text-white/50">
-										{levels.length} {levels.length === 1 ? "player" : "players"}
-									</span>
-								</div>
-							</div>
+		<div className="min-h-screen">
+			<main className="container mx-auto px-4 py-8 md:px-6">
+				{/* Minimal Header */}
+				<div className="mb-8 flex items-center justify-between border-white/10 border-b pb-6">
+					<div className="flex items-center gap-4">
+						<ImageWithFallback
+							alt={`${guild.name} guild icon`}
+							className="size-12 rounded-lg border border-white/20"
+							fallback={fallbackAvatarImg}
+							height={48}
+							src={guildIcon(guild.id, guild.icon, { size: 128 })}
+							unoptimized={Boolean(guild.icon)}
+							width={48}
+						/>
+						<div>
+							<h1 className="font-bold text-2xl">{guild.name}</h1>
+							<p className="mt-0.5 text-white/50 text-xs">
+								{levels.length} {levels.length === 1 ? "player" : "players"} • Page {page}
+							</p>
 						</div>
-						{levels.length > 0 && (
-							<div className="md:pb-2">
-								<PageSelector amount={levels.length} entry={entry} page={page} />
-							</div>
-						)}
 					</div>
+					{levels.length > 0 && <PageSelector amount={levels.length} entry={entry} page={page} />}
 				</div>
 
-				<div className="mx-auto flex max-w-[1400px] flex-col gap-12 lg:flex-row lg:items-start">
-					{/* Main Leaderboard - Wider Layout */}
+				<div className="mx-auto flex max-w-7xl flex-col gap-8 lg:flex-row">
+					{/* Main Content */}
 					<div className="flex-1 space-y-6">
+						{/* Server Statistics */}
+						{levels.length > 0 && (
+							<div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+								<div className="rounded-lg border border-white/10 bg-white/5 p-3">
+									<div className="text-white/50 text-xs">Total XP</div>
+									<div className="mt-1 font-bold">{formatNumber(totalXp)}</div>
+								</div>
+								<div className="rounded-lg border border-white/10 bg-white/5 p-3">
+									<div className="text-white/50 text-xs">Total Messages</div>
+									<div className="mt-1 font-bold">{formatNumber(totalMessages)}</div>
+								</div>
+								<div className="rounded-lg border border-white/10 bg-white/5 p-3">
+									<div className="text-white/50 text-xs">Average Level</div>
+									<div className="mt-1 font-bold">{averageLevel.toFixed(1)}</div>
+								</div>
+								<div className="rounded-lg border border-white/10 bg-white/5 p-3">
+									<div className="text-white/50 text-xs">Highest Level</div>
+									<div className="mt-1 font-bold">{highestLevel}</div>
+								</div>
+							</div>
+						)}
+
 						{levels.length === 0 ? (
-							<div className="rounded-3xl border-2 border-white/10 bg-white/5 p-16 text-center backdrop-blur-sm">
+							<div className="rounded-lg border border-white/10 bg-white/5 p-12 text-center">
 								{page > 2 ? (
-									<p className="text-balance text-lg text-white/70">
+									<p className="text-white/70">
 										No players on this page.{" "}
 										<Link
-											className="font-bold text-primary underline decoration-2 underline-offset-4 transition-colors hover:text-primary/80"
+											className="font-semibold text-primary underline transition-colors hover:text-primary/80"
 											href={`/levels/${vanity ?? guild.id}?page=1`}
 										>
 											Return to page 1
@@ -136,43 +139,38 @@ export default async function Leaderboard({ params, searchParams }: LeaderboardP
 										?
 									</p>
 								) : page > 1 ? (
-									<p className="text-lg text-white/70">No players on this page. Try going back.</p>
+									<p className="text-white/70">No players on this page. Try going back.</p>
 								) : (
-									<p className="text-lg text-white/70">No players with experience yet.</p>
+									<p className="text-white/70">No players with experience yet.</p>
 								)}
 							</div>
 						) : (
-							<div className="space-y-3">
+							<div className="space-y-2">
 								<LeaderboardTable data={levels} guildId={guild.id} isManager={isManager} page={page} />
 							</div>
 						)}
 					</div>
 
-					{/* Sidebar - Sticky with Creative Layout */}
-					<aside className="flex w-full flex-col gap-4 lg:sticky lg:top-8 lg:w-80">
+					{/* Sidebar */}
+					<aside className="flex w-full flex-col gap-4 lg:w-72">
 						<SortableRoleRewards roleRewards={roleRewards} />
 						<SortableMultipliers globalMultiplier={xpGlobalMultiplier} multipliers={multipliers} />
-						<div className="relative overflow-hidden rounded-3xl border-2 border-white/10 bg-gradient-to-br from-white/5 via-white/5 to-white/[0.02] p-6 backdrop-blur-sm">
-							<div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,rgba(120,119,198,0.1),transparent_70%)]" />
-							<div className="relative">
-								<h3 className="mb-4 font-black text-sm text-white/50 uppercase tracking-[0.2em]">How It Works</h3>
-								<div className="space-y-4">
-									<div className="rounded-xl border border-white/10 bg-white/5 p-4">
-										<div className="mb-1 font-bold text-white/40 text-xs uppercase tracking-wider">XP Per Message</div>
-										<div className="font-black text-2xl">
-											{xpPerMessageMin === xpPerMessageMax ? (
-												<span>{xpPerMessageMin}</span>
-											) : (
-												<span>
-													{xpPerMessageMin} → {xpPerMessageMax}
-												</span>
-											)}
-										</div>
-									</div>
-									<div className="rounded-xl border border-white/10 bg-white/5 p-4">
-										<div className="mb-1 font-bold text-white/40 text-xs uppercase tracking-wider">Cooldown</div>
-										<div className="font-black text-2xl">{prettyMilliseconds(xpGainInterval, { verbose: true })}</div>
-									</div>
+						<div className="rounded-lg border border-white/10 bg-white/5 p-4">
+							<h3 className="mb-3 font-semibold text-sm text-white/60 uppercase tracking-wider">How it works</h3>
+							<div className="space-y-3 text-sm text-white/70">
+								<div>
+									<span className="font-medium text-white/90">XP per message:</span>{" "}
+									{xpPerMessageMin === xpPerMessageMax ? (
+										<span>{xpPerMessageMin}</span>
+									) : (
+										<span>
+											{xpPerMessageMin}-{xpPerMessageMax}
+										</span>
+									)}
+								</div>
+								<div>
+									<span className="font-medium text-white/90">Cooldown:</span>{" "}
+									{prettyMilliseconds(xpGainInterval, { verbose: true })}
 								</div>
 							</div>
 						</div>
