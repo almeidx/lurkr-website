@@ -1,5 +1,4 @@
 import { RiArrowLeftSLine, RiArrowRightSLine } from "@remixicon/react";
-import clsx from "clsx";
 import Link from "next/link";
 
 export const LEADERBOARD_ENTRIES_PER_PAGE = 100;
@@ -34,16 +33,6 @@ export function PageSelector({ amount, entry, page }: PageSelectorProps) {
 			}
 		}
 	}
-
-	const _buttonClasses = (isActive: boolean, isDisabled: boolean) =>
-		clsx(
-			"flex items-center justify-center rounded-lg px-3 py-1.5 text-sm font-medium transition-colors",
-			isActive
-				? "bg-primary text-white"
-				: isDisabled
-					? "pointer-events-none opacity-30 text-white/40"
-					: "text-white/60 hover:bg-white/5 hover:text-white",
-		);
 
 	return (
 		<div className="flex items-center justify-center gap-3 rounded-2xl border-2 border-white/10 bg-white/5 p-2 backdrop-blur-sm">
