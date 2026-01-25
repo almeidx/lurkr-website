@@ -30,21 +30,22 @@ export function SortableSection<T>({
 		data.length > 0 ? (
 			<button
 				aria-label={`Sort ${sortAscending ? "descending" : "ascending"}`}
-				className="rounded-md border border-white/10 bg-white/5 px-2 py-1 font-medium text-white/60 text-xs transition-colors hover:border-white/20 hover:bg-white/10 hover:text-white"
+				className="rounded-xl border-2 border-white/10 bg-white/5 px-3 py-1.5 font-bold text-white/60 text-xs uppercase tracking-wider transition-all hover:border-white/20 hover:bg-white/10 hover:text-white hover:shadow-lg"
 				onClick={toggleSort}
 				type="button"
 			>
-				{sortAscending ? "↑ Low to High" : "↓ High to Low"}
+				{sortAscending ? "↑ ASC" : "↓ DESC"}
 			</button>
 		) : null;
 
 	return (
-		<div className="rounded-2xl border border-white/10 bg-white/5">
-			<div className="flex items-center justify-between border-white/10 border-b px-5 py-4">
-				<h3 className="font-bold text-sm text-white/70 uppercase tracking-wider">{title}</h3>
+		<div className="relative overflow-hidden rounded-3xl border-2 border-white/10 bg-gradient-to-br from-white/5 via-white/5 to-white/[0.02] backdrop-blur-sm">
+			<div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,rgba(120,119,198,0.08),transparent_70%)]" />
+			<div className="relative flex items-center justify-between border-white/10 border-b-2 px-6 py-5">
+				<h3 className="font-black text-sm text-white/70 uppercase tracking-[0.2em]">{title}</h3>
 				{sortButton}
 			</div>
-			<div className="p-5">
+			<div className="relative p-6">
 				<div className="flex flex-col gap-3">
 					{headerContent}
 					{sortedData.map((item) => (

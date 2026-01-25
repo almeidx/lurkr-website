@@ -33,90 +33,122 @@ export function LeaderboardTableRow({ guildId, row, isManager }: LeaderboardTabl
 		<DisclosureProvider>
 			<Disclosure className="group">
 				<div
-					className={`relative overflow-hidden rounded-2xl border transition-all ${
+					className={`relative overflow-hidden rounded-3xl border-2 transition-all ${
 						isTopThree
-							? "border-white/20 bg-gradient-to-br from-white/10 via-white/5 to-white/5 shadow-lg shadow-primary/5"
-							: "border-white/10 bg-white/5"
-					} hover:border-white/30 hover:shadow-xl`}
+							? "border-white/25 bg-gradient-to-br from-white/10 via-white/5 to-white/5 shadow-2xl shadow-primary/10 backdrop-blur-sm"
+							: "border-white/10 bg-white/5 backdrop-blur-sm"
+					} hover:border-white/30 hover:shadow-2xl hover:shadow-primary/5`}
+					style={{
+						animationDelay: `${row.rank * 50}ms`,
+					}}
 				>
+					{/* Atmospheric Overlays */}
 					{isTopThree && (
-						<div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-transparent" />
+						<>
+							<div className="absolute inset-0 bg-gradient-to-br from-primary/15 via-transparent to-transparent" />
+							<div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(120,119,198,0.1),transparent_60%)]" />
+						</>
 					)}
-					<div className="relative flex items-center gap-4 p-5">
-						{/* Rank */}
+					<div className="absolute inset-0 bg-[linear-gradient(135deg,transparent_0%,rgba(255,255,255,0.02)_50%,transparent_100%)]" />
+
+					<div className="relative flex items-center gap-5 p-6">
+						{/* Rank - Larger, More Prominent */}
 						<div className="flex shrink-0 items-center justify-center">
 							{rankIcon ? (
-								<div className="text-4xl drop-shadow-lg">{rankIcon}</div>
+								<div className="text-5xl drop-shadow-2xl filter">{rankIcon}</div>
 							) : (
-								<div className="flex size-12 items-center justify-center rounded-xl border-2 border-white/20 bg-white/10 font-bold text-base shadow-sm">
+								<div className="flex size-14 items-center justify-center rounded-2xl border-2 border-white/25 bg-gradient-to-br from-white/10 to-white/5 font-black text-lg shadow-lg">
 									#{row.rank}
 								</div>
 							)}
 						</div>
 
-						{/* Avatar */}
-						<ImageWithFallback
-							alt={`${row.user.username} avatar`}
-							className="size-14 shrink-0 rounded-2xl border-2 border-white/20 shadow-md ring-2 ring-white/10"
-							fallback={fallbackAvatarImg}
-							height={56}
-							src={userAvatar(row.userId, row.user.avatar, { format: "webp", size: 128 })}
-							unoptimized={Boolean(row.user.avatar)}
-							width={56}
-						/>
+						{/* Avatar with Enhanced Styling */}
+						<div className="relative shrink-0">
+							<div className="absolute -inset-1 rounded-2xl bg-white/10 blur-md" />
+							<ImageWithFallback
+								alt={`${row.user.username} avatar`}
+								className="relative size-16 rounded-2xl border-2 border-white/30 shadow-xl ring-2 ring-white/10"
+								fallback={fallbackAvatarImg}
+								height={64}
+								src={userAvatar(row.userId, row.user.avatar, { format: "webp", size: 128 })}
+								unoptimized={Boolean(row.user.avatar)}
+								width={64}
+							/>
+						</div>
 
-						{/* User Info */}
+						{/* User Info - Editorial Style */}
 						<div className="min-w-0 flex-1">
-							<div className="flex items-baseline gap-3">
-								<p className="truncate font-bold text-lg">{row.user.username}</p>
-								<span className="shrink-0 rounded-md bg-white/10 px-2 py-0.5 font-semibold text-white/80 text-xs">
-									Level {row.level}
+							<div className="flex items-baseline gap-4">
+								<p className="truncate font-black text-xl tracking-tight">{row.user.username}</p>
+								<span className="shrink-0 rounded-lg border border-white/20 bg-white/10 px-3 py-1 font-bold text-white/90 text-xs uppercase tracking-wider">
+									Lv.{row.level}
 								</span>
 							</div>
-							<div className="mt-2 flex items-center gap-4 text-sm text-white/60">
-								<span className="font-medium">{formatNumber(row.xp)} XP</span>
-								<span className="hidden sm:inline">•</span>
-								<span className="hidden sm:inline">{formatNumber(row.messageCount)} messages</span>
+							<div className="mt-2.5 flex items-center gap-5 text-sm">
+								<div className="flex items-center gap-2">
+									<span className="font-black text-white/90">{formatNumber(row.xp)}</span>
+									<span className="font-medium text-white/40 text-xs uppercase tracking-wider">XP</span>
+								</div>
+								<span className="h-1 w-1 rounded-full bg-white/30" />
+								<div className="hidden items-center gap-2 sm:flex">
+									<span className="font-black text-white/90">{formatNumber(row.messageCount)}</span>
+									<span className="font-medium text-white/40 text-xs uppercase tracking-wider">MSGS</span>
+								</div>
 							</div>
 						</div>
 
-						{/* Progress Circle */}
+						{/* Progress Circle - Enhanced */}
 						<div className="shrink-0">
-							<RadialProgressBar color={row.user.accentColour} num={row.level} percentage={row.progress} />
+							<div className="rounded-2xl border border-white/10 bg-white/5 p-2 shadow-lg">
+								<RadialProgressBar color={row.user.accentColour} num={row.level} percentage={row.progress} />
+							</div>
 						</div>
 					</div>
 				</div>
 
 				<DisclosureContent
-					className="rounded-2xl border border-white/10 bg-white/5 p-6"
+					className="mt-4 rounded-3xl border-2 border-white/10 bg-gradient-to-br from-white/5 to-white/[0.02] p-6 backdrop-blur-sm"
 					onClick={(e) => e.stopPropagation()}
 				>
-					<div className="flex flex-wrap items-start justify-between gap-6">
-						<div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-							<div className="rounded-xl border border-white/10 bg-white/5 p-4">
-								<div className="mb-1 font-medium text-white/40 text-xs uppercase tracking-wider">Total XP</div>
-								<div className="font-bold text-xl">{formatNumber(row.xp)}</div>
+					<div className="flex flex-wrap items-start justify-between gap-8">
+						<div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
+							<div className="relative overflow-hidden rounded-2xl border-2 border-white/10 bg-white/5 p-5">
+								<div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent" />
+								<div className="relative mb-2 font-black text-white/40 text-xs uppercase tracking-[0.15em]">
+									Total XP
+								</div>
+								<div className="relative font-black text-2xl">{formatNumber(row.xp)}</div>
 							</div>
-							<div className="rounded-xl border border-white/10 bg-white/5 p-4">
-								<div className="mb-1 font-medium text-white/40 text-xs uppercase tracking-wider">Messages</div>
-								<div className="font-bold text-xl">{formatNumber(row.messageCount)}</div>
+							<div className="relative overflow-hidden rounded-2xl border-2 border-white/10 bg-white/5 p-5">
+								<div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent" />
+								<div className="relative mb-2 font-black text-white/40 text-xs uppercase tracking-[0.15em]">
+									Messages
+								</div>
+								<div className="relative font-black text-2xl">{formatNumber(row.messageCount)}</div>
 							</div>
-							<div className="rounded-xl border border-white/10 bg-white/5 p-4">
-								<div className="mb-1 font-medium text-white/40 text-xs uppercase tracking-wider">XP to Next</div>
-								<div className="font-bold text-xl">{formatNumber(row.nextLevelXp - row.xp)}</div>
+							<div className="relative overflow-hidden rounded-2xl border-2 border-white/10 bg-white/5 p-5">
+								<div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent" />
+								<div className="relative mb-2 font-black text-white/40 text-xs uppercase tracking-[0.15em]">
+									XP to Next
+								</div>
+								<div className="relative font-black text-2xl">{formatNumber(row.nextLevelXp - row.xp)}</div>
 							</div>
-							<div className="rounded-xl border border-white/10 bg-white/5 p-4">
-								<div className="mb-1 font-medium text-white/40 text-xs uppercase tracking-wider">Progress</div>
-								<div className="font-bold text-xl">{row.progress.toFixed(1)}%</div>
+							<div className="relative overflow-hidden rounded-2xl border-2 border-white/10 bg-white/5 p-5">
+								<div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent" />
+								<div className="relative mb-2 font-black text-white/40 text-xs uppercase tracking-[0.15em]">
+									Progress
+								</div>
+								<div className="relative font-black text-2xl">{row.progress.toFixed(1)}%</div>
 							</div>
 						</div>
 
 						{isManager && (
-							<div className="flex flex-col gap-3 rounded-xl border border-danger/20 bg-danger/10 p-4">
-								<p className="font-semibold text-danger text-sm uppercase tracking-wider">Admin Actions</p>
+							<div className="flex flex-col gap-3 rounded-2xl border-2 border-danger/30 bg-gradient-to-br from-danger/20 to-danger/10 p-5">
+								<p className="font-black text-danger text-xs uppercase tracking-[0.2em]">Admin Actions</p>
 								<Confirmation
 									buttonText="Reset Level"
-									className="w-fit rounded-lg bg-danger px-4 py-2 font-medium text-sm text-white transition-colors hover:bg-danger/80"
+									className="w-fit rounded-xl border-2 border-danger bg-danger px-4 py-2 font-bold text-sm text-white transition-all hover:bg-danger/80 hover:shadow-lg"
 									onConfirm={handleResetLevelConfirm}
 								>
 									Are you sure you want to reset {row.user.username}'s level?
