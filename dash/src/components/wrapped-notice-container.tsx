@@ -16,5 +16,10 @@ export async function WrappedNoticeContainer() {
 		return null;
 	}
 
+	const day = date.getDate();
+	if (currentMonth === 0 && day > 23) {
+		return null;
+	}
+
 	return <WrappedNotice />;
 }
