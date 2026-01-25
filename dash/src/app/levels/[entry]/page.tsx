@@ -15,6 +15,7 @@ import type { Guild } from "@/lib/guild.ts";
 import { MAX_WINDOW_TITLE_LENGTH, TOKEN_COOKIE } from "@/utils/constants.ts";
 import { guildIcon, type Snowflake } from "@/utils/discord-cdn.ts";
 import { ellipsis } from "@/utils/ellipsis.ts";
+import { formatNumber } from "@/utils/format-number.ts";
 import { isSnowflake } from "@/utils/is-snowflake.ts";
 import { makeApiRequest } from "@/utils/make-api-request.ts";
 import type { RoleReward } from "./03-role-reward.tsx";
