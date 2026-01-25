@@ -66,10 +66,10 @@ export default async function Leaderboard({ params, searchParams }: LeaderboardP
 	} = data;
 
 	// Calculate server statistics
-	const _totalXp = levels.reduce((sum, level) => sum + level.xp, 0);
-	const _totalMessages = levels.reduce((sum, level) => sum + level.messageCount, 0);
-	const _averageLevel = levels.length > 0 ? levels.reduce((sum, level) => sum + level.level, 0) / levels.length : 0;
-	const _highestLevel = levels.length > 0 ? Math.max(...levels.map((level) => level.level)) : 0;
+	const totalXp = levels.reduce((sum, level) => sum + level.xp, 0);
+	const totalMessages = levels.reduce((sum, level) => sum + level.messageCount, 0);
+	const averageLevel = levels.length > 0 ? levels.reduce((sum, level) => sum + level.level, 0) / levels.length : 0;
+	const highestLevel = levels.length > 0 ? Math.max(...levels.map((level) => level.level)) : 0;
 
 	if (isSnowflake(entry) && vanity) {
 		redirect(`/levels/${vanity}?page=${page}`, RedirectType.replace);
