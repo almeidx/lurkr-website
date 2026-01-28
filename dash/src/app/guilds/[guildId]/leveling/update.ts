@@ -42,6 +42,7 @@ import {
 	MAX_XP_ANNOUNCE_MULTIPLE_OF,
 	MAX_XP_CHANNELS,
 	MAX_XP_CHANNELS_PREMIUM,
+	MAX_XP_CURVE_COEFFICIENTS,
 	MAX_XP_DISALLOWED_PREFIX_LENGTH,
 	MAX_XP_DISALLOWED_PREFIXES,
 	MAX_XP_DISALLOWED_PREFIXES_PREMIUM,
@@ -55,6 +56,7 @@ import {
 	MIN_XP_ANNOUNCE_LEVEL,
 	MIN_XP_ANNOUNCE_MINIMUM_LEVEL,
 	MIN_XP_ANNOUNCE_MULTIPLE_OF,
+	MIN_XP_CURVE_COEFFICIENTS,
 	MIN_XP_GAIN_INTERVAL,
 	MIN_XP_MESSAGE_LENGTH,
 	MIN_XP_PER_MESSAGE,
@@ -148,6 +150,15 @@ export async function update(guildId: string, premium: boolean, _currentState: u
 		};
 	}
 
+	// Validate XP curve
+	const xpCurveValidation = validateXpCurve(settings.xpCurve);
+	if (!xpCurveValidation.valid) {
+		return {
+			error: ServerActionError.ManualValidationFail,
+			issue: xpCurveValidation.error,
+		};
+	}
+
 	return action(guildId, settings, `settings:${guildId}:leveling`, premium);
 }
 
@@ -189,6 +200,13 @@ function createSchema(premium: boolean) {
 			xpAnnounceOnlyXpRoles: toggle,
 			xpChannelMode: enum_(XpChannelMode),
 			xpChannels: createSnowflakesValidator(premium ? MAX_XP_CHANNELS_PREMIUM : MAX_XP_CHANNELS),
+			xpCurve: pipe(
+				string(),
+				transform((value) => JSON.parse(value) as number[]),
+				array(number()),
+				minLength(MIN_XP_CURVE_COEFFICIENTS),
+				maxLength(MAX_XP_CURVE_COEFFICIENTS),
+			),
 			xpDisallowedPrefixes: pipe(
 				string(),
 				transform((value) => JSON.parse(value)),
@@ -273,4 +291,84 @@ function transformAutoResetLevels(leave: boolean | undefined, ban: boolean | und
 	}
 
 	return AutoResetLevels.None;
+}
+
+const XP_CURVE_SAMPLE_LEVELS = [0, 1, 2, 5, 10, 25, 50, 100, 250, 500, 750, 1000];
+
+/**
+ * Validates that an XP curve is monotonically increasing
+ */
+function validateXpCurve(coefficients: readonly number[]): { valid: boolean; error?: string } {
+	if (coefficients.length < MIN_XP_CURVE_COEFFICIENTS || coefficients.length > MAX_XP_CURVE_COEFFICIENTS) {
+		return {
+			error: `Number of coefficients must be between ${MIN_XP_CURVE_COEFFICIENTS} and ${MAX_XP_CURVE_COEFFICIENTS}`,
+			valid: false,
+		};
+	}
+
+	// Check that all coefficients are finite numbers and not all are zero
+	let hasNonZero = false;
+	for (let i = 0; i < coefficients.length; i++) {
+		const coeff = coefficients[i]!;
+		if (!Number.isFinite(coeff)) {
+			return {
+				error: `Coefficient at index ${i} is not a finite number.`,
+				valid: false,
+			};
+		}
+
+		if (coeff !== 0) {
+			hasNonZero = true;
+		}
+	}
+
+	if (!hasNonZero) {
+		return {
+			error: "All coefficients cannot be zero. At least one non-zero coefficient is required.",
+			valid: false,
+		};
+	}
+
+	// Validate that the curve is monotonically increasing
+	let previousRawXp = 0;
+	let previousLevel = 0;
+
+	for (const level of XP_CURVE_SAMPLE_LEVELS) {
+		const rawXp = level <= 0 ? 0 : Math.round(coefficients.reduce((sum, coeff, exp) => sum + coeff * level ** exp, 0));
+
+		if (rawXp < 0) {
+			return {
+				error: `XP cannot be negative. At level ${level}, XP would be ${rawXp}.`,
+				valid: false,
+			};
+		}
+
+		// For levels > 0, XP must strictly increase (no flat regions)
+		if (level > 0 && rawXp <= previousRawXp) {
+			return {
+				error: `XP must strictly increase with each level. Level ${level} requires ${rawXp} XP, same as or less than level ${previousLevel} (${previousRawXp} XP).`,
+				valid: false,
+			};
+		}
+
+		previousRawXp = rawXp;
+		previousLevel = level;
+
+		// Check derivative to ensure the curve is increasing
+		if (level > 0) {
+			const derivative = coefficients.slice(1).reduce((sum, coeff, exp) => {
+				const power = exp + 1;
+				return sum + power * coeff * level ** exp;
+			}, 0);
+
+			if (derivative < 0) {
+				return {
+					error: `The curve decreases at level ${level}. XP must increase with each level.`,
+					valid: false,
+				};
+			}
+		}
+	}
+
+	return { valid: true };
 }

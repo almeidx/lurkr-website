@@ -81,3 +81,22 @@ export const MAX_XP_GAIN_INTERVAL = 24 * 60 * 60 * 1000; // 24 hours
 
 export const MIN_XP_PER_MESSAGE = 1;
 export const MAX_XP_PER_MESSAGE = 1000;
+
+export const MIN_XP_CURVE_COEFFICIENTS = 2;
+export const MAX_XP_CURVE_COEFFICIENTS = 5;
+
+/**
+ * Default XP curve coefficients where index = exponent
+ * Represents the formula: 100 + 50*(n-1)² = 50n² - 100n + 150
+ */
+export const DEFAULT_XP_CURVE: readonly number[] = [150, -100, 50];
+
+/**
+ * Well-known XP curve presets from popular Discord bots
+ * Coefficients are stored as [c₀, c₁, c₂, ...] for the formula: c₀ + c₁n + c₂n² + ...
+ */
+export const XP_CURVE_PRESETS = {
+	amari: [55, -40, 20], // 20n² - 40n + 55
+	lurkr: [...DEFAULT_XP_CURVE], // 50n² - 100n + 150
+	mee6: [0, 455 / 6, 45 / 2, 5 / 3], // (5/3)n³ + (45/2)n² + (455/6)n
+} as const satisfies Record<string, number[]>;
