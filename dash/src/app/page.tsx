@@ -50,6 +50,7 @@ export default async function Homepage() {
 						height={288}
 						priority
 						src={logoImg}
+						unoptimized
 						width={288}
 					/>
 					<p className="font-bold text-3xl text-shadow-regular xl:whitespace-nowrap xl:text-4xl">Finally, for Free.</p>
