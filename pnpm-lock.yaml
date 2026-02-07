@@ -38,11 +38,11 @@ importers:
         specifier: ^2.17.0
         version: 2.17.0(react@19.2.4)
       '@heroui/react':
-        specifier: 3.0.0-beta.5
-        version: 3.0.0-beta.5(@types/react-dom@19.2.3(@types/react@19.2.13))(@types/react@19.2.13)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(tailwindcss@4.1.18)
+        specifier: 3.0.0-beta.6
+        version: 3.0.0-beta.6(@types/react-dom@19.2.3(@types/react@19.2.13))(@types/react@19.2.13)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(tailwindcss@4.1.18)
       '@heroui/styles':
-        specifier: 3.0.0-beta.5
-        version: 3.0.0-beta.5(tailwind-merge@3.4.0)(tailwindcss@4.1.18)
+        specifier: 3.0.0-beta.6
+        version: 3.0.0-beta.6(tailwind-merge@3.4.0)(tailwindcss@4.1.18)
       '@internationalized/date':
         specifier: ^3.11.0
         version: 3.11.0
@@ -674,15 +674,15 @@ packages:
       react:
         optional: true
 
-  '@heroui/react@3.0.0-beta.5':
-    resolution: {integrity: sha512-ghwhlQWE0f03kv1Gy8yZCLgEIHfMFlPqbfCwpO1VU+UR7WNp6V4SZkmkMlUttVXgKJfoRzresXbFhb9j9EBfaQ==}
+  '@heroui/react@3.0.0-beta.6':
+    resolution: {integrity: sha512-DKQAfaz4c8JSfziPhmsyaiD/AU6U8faUKRxNVATkt1DgLiS9yXgM+J8rycAJOm1IEXAQh+LN/JOf7FJ2P4voiA==}
     peerDependencies:
       react: '>=19.0.0'
       react-dom: '>=19.0.0'
       tailwindcss: '>=4.0.0'
 
-  '@heroui/styles@3.0.0-beta.5':
-    resolution: {integrity: sha512-RjtITtR6j/OgdAr92ogGldH3Vv2vl4YQjTEicj4AggkxTpurjD4Ruc11VK/VodYydKlyyFgpgA8+dzRDzrVKsA==}
+  '@heroui/styles@3.0.0-beta.6':
+    resolution: {integrity: sha512-lO0eRwB4CNZGcsNpX33v8RRmadOFOYxzEj9ACczAMhoFg0rMavREvsuT4+lZFs0HkB5DsSbUzgAuGfaqyXjdQQ==}
     peerDependencies:
       tailwindcss: '>=4.0.0'
 
@@ -4035,13 +4035,14 @@ snapshots:
     optionalDependencies:
       react: 19.2.4
 
-  '@heroui/react@3.0.0-beta.5(@types/react-dom@19.2.3(@types/react@19.2.13))(@types/react@19.2.13)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(tailwindcss@4.1.18)':
+  '@heroui/react@3.0.0-beta.6(@types/react-dom@19.2.3(@types/react@19.2.13))(@types/react@19.2.13)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(tailwindcss@4.1.18)':
     dependencies:
-      '@heroui/styles': 3.0.0-beta.5(tailwind-merge@3.4.0)(tailwindcss@4.1.18)
+      '@heroui/styles': 3.0.0-beta.6(tailwind-merge@3.4.0)(tailwindcss@4.1.18)
       '@internationalized/date': 3.10.1
       '@radix-ui/react-avatar': 1.1.11(@types/react-dom@19.2.3(@types/react@19.2.13))(@types/react@19.2.13)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       '@react-aria/ssr': 3.9.10(react@19.2.4)
       '@react-aria/utils': 3.32.0(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+      '@react-types/color': 3.1.2(react@19.2.4)
       '@react-types/shared': 3.32.1(react@19.2.4)
       input-otp: 1.4.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       react: 19.2.4
@@ -4054,7 +4055,7 @@ snapshots:
       - '@types/react'
       - '@types/react-dom'
 
-  '@heroui/styles@3.0.0-beta.5(tailwind-merge@3.4.0)(tailwindcss@4.1.18)':
+  '@heroui/styles@3.0.0-beta.6(tailwind-merge@3.4.0)(tailwindcss@4.1.18)':
     dependencies:
       tailwind-variants: 3.2.2(tailwind-merge@3.4.0)(tailwindcss@4.1.18)
       tailwindcss: 4.1.18
