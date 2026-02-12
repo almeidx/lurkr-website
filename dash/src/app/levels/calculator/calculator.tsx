@@ -207,6 +207,7 @@ function calculate(
 		Number.isNaN(desiredLevel_) ||
 		!isBetween(desiredLevel_, 1, MAX_LEVEL) ||
 		!isBetween(currentLevel_, 0, MAX_LEVEL) ||
+		desiredLevel_ <= currentLevel_ ||
 		!isBetween(multiplier_, MIN_XP_MULTIPLIER_VALUE, MAX_XP_MULTIPLIER_VALUE) ||
 		!isBetween(xpGainInterval_, MIN_XP_GAIN_INTERVAL / 1000, MAX_XP_GAIN_INTERVAL / 1000) ||
 		!isBetween(xpPerMessageMin_, MIN_XP_PER_MESSAGE, MAX_XP_PER_MESSAGE) ||
