@@ -41,7 +41,8 @@ _You must include the `{}` brackets in your message for the tags to show up!_
 | Server Icon Picture (🖼️)       | `{guild.icon}`         |
 | Level Reached (5)              | `{level}`              |
 | Total XP Gained (30,183)       | `{xp}`                 |
-| Role Reward Gained (@Level 10) | `{roleRewards}`        |
+| Role Reward Gained (Level 10)  | `{roleRewardNames}`    |
+| Role Reward Gained (@Level 10) | `{roleRewardMentions}` |
 
 ---
 
@@ -57,7 +58,7 @@ Lurkr will then check if the variable you've select is `true` or `false`, and wi
 Example:
 
 ```
-{#roleRewards}You gained the {roleRewards} roles!{/roleRewards}
+{#roleRewardNames}You gained the {roleRewardNames} roles!{/roleRewardNames}
 ```
 
 ---
