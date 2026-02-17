@@ -48,9 +48,11 @@ export function ProfileButton({ avatar, globalName, id, username }: User) {
 				</MenuItem>
 
 				<MenuItem className="rounded-lg px-2 py-1 hover:bg-light-gray/30">
-					<a className="block w-full" href="/api/auth/logout">
-						Logout
-					</a>
+					<form action="/api/auth/logout" method="post">
+						<button className="block w-full text-left" type="submit">
+							Logout
+						</button>
+					</form>
 				</MenuItem>
 			</Menu>
 		</MenuProvider>
