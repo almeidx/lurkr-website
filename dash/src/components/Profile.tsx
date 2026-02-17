@@ -3,6 +3,7 @@ import Link from "next/link";
 import fallbackAvatarImg from "@/assets/fallback-avatar.webp";
 import { ImageWithFallback } from "@/components/ImageWithFallback.tsx";
 import type { User } from "@/lib/auth.ts";
+import { logout } from "@/lib/logout.ts";
 import { SUPPORT_SERVER_INVITE } from "@/shared-links.ts";
 import { userAvatar } from "@/utils/discord-cdn.ts";
 
@@ -48,9 +49,11 @@ export function ProfileButton({ avatar, globalName, id, username }: User) {
 				</MenuItem>
 
 				<MenuItem className="rounded-lg px-2 py-1 hover:bg-light-gray/30">
-					<a className="block w-full" href="/api/auth/logout">
-						Logout
-					</a>
+					<form action={logout}>
+						<button className="block w-full text-left" type="submit">
+							Logout
+						</button>
+					</form>
 				</MenuItem>
 			</Menu>
 		</MenuProvider>
