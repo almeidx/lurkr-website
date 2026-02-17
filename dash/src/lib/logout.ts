@@ -10,7 +10,6 @@ export async function logout() {
 	cookieJar.delete(TOKEN_COOKIE);
 
 	updateTag("user");
-	updateTag("max");
 
 	redirect("/");
 }
