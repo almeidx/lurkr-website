@@ -1,4 +1,4 @@
-import { source } from "@/lib/source.ts";
+import { resolvePageUrl, source } from "@/lib/source.ts";
 
 export const revalidate = false;
 
@@ -10,7 +10,9 @@ export async function GET() {
 	for (const page of source.getPages()) {
 		const dir = page.slugs[0]!;
 		const list = map.get(dir) ?? [];
-		list.push(`- [${page.data.title}](${page.url}): ${page.data.description}`);
+		list.push(
+			`- [${page.data.title}](${resolvePageUrl(page.url)})${page.data.description ? `: ${page.data.description}` : ""}`,
+		);
 		map.set(dir, list);
 	}
 

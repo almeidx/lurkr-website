@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { source } from "@/lib/source.ts";
+import { resolvePageUrl, source } from "@/lib/source.ts";
 import { PUBLIC_URL } from "@/utils/constants.ts";
 import { isValidDate } from "@/utils/is-valid-date.ts";
 
@@ -11,7 +11,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 			const { lastModified } = page.data;
 
 			const isEntrypoint = page.url === "/" || page.url === "/api";
-			const url = new URL(`docs${page.url}`, PUBLIC_URL).toString();
+			const url = new URL(resolvePageUrl(page.url), PUBLIC_URL).toString();
 
 			return {
 				changeFrequency: "weekly",
