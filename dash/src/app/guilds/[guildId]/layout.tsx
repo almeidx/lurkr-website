@@ -25,13 +25,13 @@ export default async function DashboardLayout({
 	}
 
 	return (
-		<div className="flex justify-center">
-			<div className="container relative mt-5 flex">
-				<div className="hidden flex-col py-4 md:mr-8 md:flex md:border-white/25 md:border-r">
+		<div className="px-4 lg:px-6">
+			<div className="relative mt-5 flex w-full">
+				<div className="hidden md:flex md:border-white/20 md:border-r md:pr-6">
 					<DashboardMenu guild={guild} guilds={guilds} />
 				</div>
 
-				{children}
+				<div className="min-w-0 flex-1 md:pl-6">{children}</div>
 			</div>
 		</div>
 	);
