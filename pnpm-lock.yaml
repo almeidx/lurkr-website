@@ -207,8 +207,8 @@ importers:
         specifier: ^14.2.8
         version: 14.2.8(@types/mdast@4.0.4)(@types/mdx@2.0.13)(@types/react@19.2.14)(fumadocs-core@16.6.5(@mdx-js/mdx@3.1.1)(@types/estree-jsx@1.0.5)(@types/hast@3.0.4)(@types/mdast@4.0.4)(@types/react@19.2.14)(lucide-react@0.575.0(react@19.2.4))(next@16.1.6(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(zod@4.3.6))(next@16.1.6(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(react@19.2.4)
       fumadocs-openapi:
-        specifier: ^10.3.8
-        version: 10.3.8(a3afc104499390ae3615329262c2e39e)
+        specifier: ^10.3.9
+        version: 10.3.9(a3afc104499390ae3615329262c2e39e)
       fumadocs-ui:
         specifier: ^16.6.5
         version: 16.6.5(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(fumadocs-core@16.6.5(@mdx-js/mdx@3.1.1)(@types/estree-jsx@1.0.5)(@types/hast@3.0.4)(@types/mdast@4.0.4)(@types/react@19.2.14)(lucide-react@0.575.0(react@19.2.4))(next@16.1.6(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(zod@4.3.6))(next@16.1.6(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(tailwindcss@4.2.0)
@@ -2666,8 +2666,8 @@ packages:
       vite:
         optional: true
 
-  fumadocs-openapi@10.3.8:
-    resolution: {integrity: sha512-rD7X+KM1JYxEaGWmdCcERjrMXo3ooGdXTyJTvYLsP/jai2MGGaXAdk/w63whimKvQ4tGFFc+QSiei44ckPzc/w==}
+  fumadocs-openapi@10.3.9:
+    resolution: {integrity: sha512-YiA5UeSD8a1uWIs4/KLhuj85ODRT4gInRIkHm+E2jFh01eiEwntez2gtrxdzhzgT7fpEiePFx13iVAgK8h35DA==}
     peerDependencies:
       '@scalar/api-client-react': '*'
       '@types/react': '*'
@@ -6466,7 +6466,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  fumadocs-openapi@10.3.8(a3afc104499390ae3615329262c2e39e):
+  fumadocs-openapi@10.3.9(a3afc104499390ae3615329262c2e39e):
     dependencies:
       '@fumari/json-schema-to-typescript': 2.0.0(prettier@3.8.1)
       '@fumari/stf': 0.0.3(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
