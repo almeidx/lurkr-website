@@ -3,6 +3,7 @@ import { DocsBody, DocsDescription, DocsPage, DocsTitle } from "fumadocs-ui/page
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { LLMCopyButton, ViewOptions } from "@/components/page-actions";
+import { cn } from "@/lib/cn.ts";
 import { getPageImage, resolvePageUrl, source } from "@/lib/source.ts";
 import { getMDXComponents } from "@/mdx-components.tsx";
 import { GITHUB_REPOSITORY_URL } from "@/shared-links";
@@ -28,7 +29,7 @@ export default async function Page(props: PageProps<"/[[...slug]]">) {
 			<DocsTitle>{page.data.title}</DocsTitle>
 			<DocsDescription>{page.data.description}</DocsDescription>
 
-			<div className="-mt-8 flex flex-row items-center gap-2 border-b pb-6">
+			<div className={cn("flex flex-row items-center gap-2 border-b pb-6", page.data.description ? "-mt-8" : "")}>
 				<LLMCopyButton markdownUrl={`${pageUrl}.mdx`} />
 				<ViewOptions
 					githubUrl={`${GITHUB_REPOSITORY_URL}/blob/main/docs/content/${page.path}`}
