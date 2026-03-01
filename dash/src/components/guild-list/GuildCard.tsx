@@ -5,10 +5,10 @@ import { ImageWithFallback } from "@/components/ImageWithFallback.tsx";
 import type { Snowflake } from "@/utils/discord-cdn.ts";
 import { guildIcon } from "@/utils/discord-cdn.ts";
 
-export function GuildCard({ guild, href, badge }: GuildCardProps) {
+export function GuildCard({ guild, href, badge, variant = "default" }: GuildCardProps) {
 	return (
 		<Link
-			className="group flex items-center gap-3 rounded-xl border border-white/10 bg-surface/50 p-2.5 transition-colors hover:border-white/20 hover:bg-white/5"
+			className={`group flex items-center gap-3 rounded-xl border border-white/10 bg-surface/50 p-3 transition-all duration-150 hover:scale-[1.02] hover:border-white/20 hover:bg-white/5 ${variant === "muted" ? "opacity-60 hover:opacity-100" : ""}`}
 			href={href}
 			prefetch={false}
 		>
@@ -16,12 +16,12 @@ export function GuildCard({ guild, href, badge }: GuildCardProps) {
 				{badge}
 				<ImageWithFallback
 					alt={`${guild.name} icon`}
-					className="size-9 rounded-lg"
+					className="size-11 rounded-lg"
 					fallback={fallbackAvatarImg}
-					height={36}
+					height={44}
 					src={guildIcon(guild.id, guild.icon)}
 					unoptimized={Boolean(guild.icon)}
-					width={36}
+					width={44}
 				/>
 			</div>
 
@@ -40,4 +40,5 @@ interface GuildCardProps {
 	badge?: ReactNode;
 	guild: BaseGuildInfo;
 	href: string;
+	variant?: "default" | "muted";
 }

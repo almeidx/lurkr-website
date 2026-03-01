@@ -30,7 +30,7 @@ export function LeaderboardGuildList({ guilds }: { readonly guilds: GuildInfo[] 
 	return (
 		<div className="flex flex-col gap-6">
 			<SearchField aria-label="Search servers" className="w-full sm:max-w-md" onChange={setTerm} value={term}>
-				<SearchField.Group className="border-white/10 bg-surface/50">
+				<SearchField.Group>
 					<SearchField.SearchIcon />
 					<SearchField.Input onKeyDown={handleKeyDown} placeholder="Search your servers or enter any server ID..." />
 					<SearchField.ClearButton isDisabled={term === ""} />
@@ -91,7 +91,7 @@ export function LeaderboardGuildInput() {
 		<div className="flex flex-col gap-6">
 			<div className="flex gap-2">
 				<SearchField aria-label="Enter server ID" className="flex-1" onChange={setTerm} value={term}>
-					<SearchField.Group className="border-white/10 bg-surface/50">
+					<SearchField.Group>
 						<SearchField.SearchIcon />
 						<SearchField.Input
 							maxLength={19}

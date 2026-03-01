@@ -54,7 +54,7 @@ export default async function GuildList() {
 			<header className="flex flex-col items-center gap-6 text-center md:flex-row md:items-start md:gap-8 md:text-left">
 				<ImageWithFallback
 					alt="Your profile picture"
-					className="size-24 shrink-0 rounded-full ring-2 ring-white/20 md:size-28"
+					className="hidden shrink-0 rounded-full ring-2 ring-white/20 md:block md:size-28"
 					fallback={fallbackAvatarImg}
 					height={112}
 					src={userAvatar(user.id, user.avatar)}
@@ -62,8 +62,8 @@ export default async function GuildList() {
 					width={112}
 				/>
 
-				<div className="flex flex-col gap-3">
-					<h1 className="bg-linear-to-br from-white to-white/50 bg-clip-text font-bold text-4xl text-transparent">
+				<div className="flex min-w-0 flex-col gap-3">
+					<h1 className="bg-linear-to-br from-white to-white/50 bg-clip-text pb-1 font-bold text-4xl text-transparent">
 						{greeting(user.globalName ?? user.username)}
 					</h1>
 					<p className="max-w-xl text-lg text-white/70">

@@ -27,7 +27,7 @@ export function DashboardGuildList({ guilds }: { readonly guilds: GuildInfo[] })
 		<div className="flex flex-col gap-8">
 			<div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
 				<SearchField aria-label="Search servers" className="w-full sm:max-w-md" onChange={setTerm} value={term}>
-					<SearchField.Group className="border-white/10 bg-surface/50">
+					<SearchField.Group>
 						<SearchField.SearchIcon />
 						<SearchField.Input placeholder="Search by name or ID..." />
 						<SearchField.ClearButton isDisabled={term === ""} />
@@ -77,7 +77,7 @@ export function DashboardGuildList({ guilds }: { readonly guilds: GuildInfo[] })
 
 					<GuildGrid>
 						{guildsWithoutBot.map((guild) => (
-							<GuildCard guild={guild} href={guildHref(guild)} key={guild.id} />
+							<GuildCard guild={guild} href={guildHref(guild)} key={guild.id} variant="muted" />
 						))}
 					</GuildGrid>
 				</section>
