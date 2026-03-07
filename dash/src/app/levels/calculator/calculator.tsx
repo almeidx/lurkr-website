@@ -12,7 +12,7 @@ import {
 } from "@gravity-ui/icons";
 import { Surface } from "@heroui/react";
 import { useState } from "react";
-import { ResponsiveTooltip } from "@/components/ui/responsive-tooltip.tsx";
+import { ResponsiveTooltip } from "@/components/responsive-tooltip.tsx";
 import {
 	MAX_XP_GAIN_INTERVAL,
 	MAX_XP_MULTIPLIER_VALUE,

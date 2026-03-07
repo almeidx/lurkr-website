@@ -3,7 +3,7 @@
 import { CircleQuestionFill } from "@gravity-ui/icons";
 import { type Input, InputGroup, Label, TextField } from "@heroui/react";
 import type { ComponentProps, ReactNode } from "react";
-import { ResponsiveTooltip } from "@/components/ui/responsive-tooltip.tsx";
+import { ResponsiveTooltip } from "@/components/responsive-tooltip.tsx";
 
 export function CalculatorInput({
 	label,

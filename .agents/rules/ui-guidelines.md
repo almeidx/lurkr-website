@@ -4,13 +4,12 @@
 
 | Library | Usage |
 |---------|-------|
-| HeroUI v3 (Beta) | New components |
-| Legacy (`dash/src/components/ui/`) | Old components (Radix UI, Tremor UI mix) |
+| HeroUI v3 (Beta) | All components |
 
 ## Tooltips on Mobile
 
 Standard HeroUI `Tooltip` doesn't support tap interaction on mobile. Use:
 
 ```typescript
-import { ResponsiveTooltip } from "@/components/ui/responsive-tooltip";
+import { ResponsiveTooltip } from "@/components/responsive-tooltip.tsx";
 ```

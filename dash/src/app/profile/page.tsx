@@ -1,19 +1,18 @@
-import "react-medium-image-zoom/dist/styles.css";
-
-import dynamic from "next/dynamic";
+import { Fingerprint, Globe, Person } from "@gravity-ui/icons";
+import { Card, Chip } from "@heroui/react";
 import { cookies } from "next/headers";
-import { Section } from "@/components/dashboard/Section.tsx";
-import { Text } from "@/components/dashboard/Text.tsx";
 import { ImageWithFallback } from "@/components/ImageWithFallback.tsx";
-import { getCurrentUser } from "@/lib/auth.ts";
+import { getCurrentUser, PremiumTier } from "@/lib/auth.ts";
 import type { UserGuildInfo } from "@/lib/guild.ts";
-import { DEFAULT_ACCENT_COLOR, TOKEN_COOKIE } from "@/utils/constants.ts";
+import { TOKEN_COOKIE } from "@/utils/constants.ts";
 import { userAvatar } from "@/utils/discord-cdn.ts";
 import { greeting } from "@/utils/greeting.ts";
 import { makeApiRequest } from "@/utils/make-api-request.ts";
+import { AccentColorPicker } from "./accent-color-picker.tsx";
 import { ApiKeys } from "./api-keys.tsx";
-
-const Zoom = dynamic(() => import("react-medium-image-zoom"));
+import { BackgroundManager } from "./background-manager.tsx";
+import { getUserBackground } from "./get-user-background.ts";
+import { PremiumGuildManager } from "./premium-guild-manager.tsx";
 
 export default async function ProfilePage() {
 	const cookieJar = await cookies();
@@ -33,105 +32,91 @@ export default async function ProfilePage() {
 	}
 
 	const user = userResult.value;
-	const background = backgroundResult.status === "fulfilled" ? backgroundResult.value : null;
-
-	const locale = user.locale ? new Intl.DisplayNames([user.locale], { type: "language" }).of(user.locale) : null;
-
+	const backgroundUrl = backgroundResult.status === "fulfilled" ? backgroundResult.value : null;
 	const guilds = guildsResult.status === "fulfilled" ? guildsResult.value : [];
+	const locale = user.locale ? new Intl.DisplayNames([user.locale], { type: "language" }).of(user.locale) : null;
+	const avatarUrl = userAvatar(user.id, user.avatar, { size: 256 });
 
 	return (
-		<div className="container mx-auto w-full max-w-5xl space-y-8 px-4 py-6">
-			<div className="flex h-fit items-center gap-5">
-				<ImageWithFallback
-					alt="Your profile picture"
-					className="hidden size-28 rounded-full md:block"
-					height={100}
-					src={userAvatar(user.id, user.avatar)}
-					unoptimized={Boolean(user.avatar)}
-					width={100}
-				/>
-
-				<div>
-					<h1 className="mb-4 font-semibold text-2xl">{greeting(user.globalName ?? user.username)}</h1>
-
-					<p className="whitespace-pre-wrap text-white/75 text-xl tracking-tighter">
-						Here you can view and manage your profile settings.
-					</p>
-				</div>
-			</div>
-
-			<Section>
-				<div className="flex flex-col justify-between gap-2 md:flex-row">
-					<div>
-						<h2 className="font-bold text-2xl">{user.globalName ?? user.username}</h2>
-						<div className="flex items-center gap-1 text-gray-400">
-							<span>@{user.username}</span>
-							{user.discriminator !== "0" && <span>#{user.discriminator}</span>}
-						</div>
-					</div>
-
-					<span aria-hidden className="font-mono text-sm">
-						{user.id}
-					</span>
-				</div>
-
-				{locale ? (
-					<div className="flex items-center gap-1">
-						<Text>Your locale is set to {locale}.</Text>
-					</div>
-				) : null}
-			</Section>
-
-			<Section>
-				<div className="flex items-center justify-between">
-					<h3 className="font-semibold text-xl">Background Image</h3>
-
-					{/* TODO: Add a button for uploading a new background image */}
-				</div>
-
-				{background ? (
-					<div className="rounded-lg border border-zinc-800">
-						<Zoom zoomImg={{ src: background.url }} zoomMargin={20}>
+		<div className="container mx-auto w-full max-w-4xl space-y-6 px-4 py-8">
+			<Card className="border border-white/10">
+				<Card.Content className="px-6 py-6 sm:px-8">
+					<div className="flex flex-col items-center gap-4 sm:flex-row sm:items-center">
+						<div className="shrink-0 overflow-hidden rounded-full">
 							<ImageWithFallback
-								alt="Your background"
-								className="aspect-4/1 w-full object-cover"
-								height={260}
-								src={background.url || "/placeholder.svg"}
-								width={950}
+								alt={`${user.globalName ?? user.username}'s avatar`}
+								className="size-24 rounded-full sm:size-28"
+								height={112}
+								src={avatarUrl}
+								unoptimized={Boolean(user.avatar)}
+								width={112}
 							/>
-						</Zoom>
-					</div>
-				) : (
-					<div className="flex h-56 items-center justify-center rounded-lg border border-zinc-800 border-dashed bg-darker">
-						<div className="flex flex-col items-center gap-1 text-center">
-							<p className="text-gray-400 text-sm">No background image set</p>
+						</div>
+
+						<div className="flex flex-1 flex-col items-center gap-3 pb-1 sm:items-start">
+							<div className="text-center sm:text-left">
+								<h1 className="font-bold text-2xl leading-tight">{greeting(user.globalName ?? user.username)}</h1>
+								<p className="text-sm text-white/50">Manage your profile settings and rank card customization.</p>
+							</div>
+
+							<div className="flex flex-wrap items-center justify-center gap-2 sm:justify-start">
+								<Chip size="sm" variant="soft">
+									<span className="flex items-center gap-1.5">
+										<Person className="size-3.5" />@{user.username}
+										{user.discriminator !== "0" && `#${user.discriminator}`}
+									</span>
+								</Chip>
+
+								<Chip className="font-mono" size="sm" variant="soft">
+									<span className="flex items-center gap-1.5">
+										<Fingerprint className="size-3.5" />
+										{user.id}
+									</span>
+								</Chip>
+
+								{locale && (
+									<Chip size="sm" variant="soft">
+										<span className="flex items-center gap-1.5">
+											<Globe className="size-3.5" />
+											{locale}
+										</span>
+									</Chip>
+								)}
+
+								{user.premium !== PremiumTier.None && (
+									<Chip className="bg-gradient-lurkr font-semibold text-black" size="sm">
+										{user.premium}
+									</Chip>
+								)}
+							</div>
 						</div>
 					</div>
-				)}
+				</Card.Content>
+			</Card>
 
-				<p className="text-gray-400 text-sm">This image is used as the background of your rank card.</p>
-			</Section>
+			<Card className="border border-white/10">
+				<Card.Content className="space-y-4 p-6">
+					<BackgroundManager initialUrl={backgroundUrl} />
+				</Card.Content>
+			</Card>
 
-			<Section>
-				<h3 className="font-semibold text-xl">Accent Color</h3>
+			<Card className="border border-white/10">
+				<Card.Content className="space-y-4 p-6">
+					<AccentColorPicker initialColor={user.accentColour} />
+				</Card.Content>
+			</Card>
 
-				<div className="flex flex-col gap-3">
-					{user.accentColour ? (
-						<div className="flex items-center gap-1">
-							<Text>Your accent color is {user.accentColour!}</Text>
-							<div className="h-5 w-5 rounded-full" style={{ backgroundColor: user.accentColour! }} />
-						</div>
-					) : (
-						<Text>You do not have a custom accent color set. The default "{DEFAULT_ACCENT_COLOR}" will be used.</Text>
-					)}
+			<Card className="border border-white/10">
+				<Card.Content className="space-y-4 p-6">
+					<PremiumGuildManager guilds={guilds} premium={user.premium} premiumGuild={user.premiumGuild} />
+				</Card.Content>
+			</Card>
 
-					<p className="text-gray-400 text-sm">This color is used as the progress bar color of your rank card.</p>
-				</div>
-			</Section>
-
-			<Section>
-				<ApiKeys guilds={guilds} />
-			</Section>
+			<Card className="border border-white/10">
+				<Card.Content className="space-y-4 p-6">
+					<ApiKeys guilds={guilds} />
+				</Card.Content>
+			</Card>
 		</div>
 	);
 }
@@ -144,31 +129,10 @@ function NotLoggedIn() {
 	);
 }
 
-// #region Data fetchers
-
-async function getUserBackground(token: string) {
-	if (!process.env.BACKGROUNDS_KEY_HEADER) {
-		console.warn("Missing BACKGROUNDS_KEY_HEADER environment variable. Backgrounds will not be available.");
-		return null;
-	}
-
-	const response = await makeApiRequest("/users/@me/background", token, {
-		headers: {
-			"X-Api-Key": process.env.BACKGROUNDS_KEY_HEADER,
-		},
-	});
-
-	if (!response.ok) {
-		return null;
-	}
-
-	return response.json() as Promise<UserBackgroundResult>;
-}
-
 async function getUserGuilds(token: string) {
 	const response = await makeApiRequest("/users/@me/guilds?isAdmin=true&botIn=true", token, {
 		next: {
-			revalidate: 60, // 1 minute
+			revalidate: 60,
 		},
 	});
 	if (!response.ok) {
@@ -178,10 +142,4 @@ async function getUserGuilds(token: string) {
 	const guilds = (await response.json()) as UserGuildInfo[];
 
 	return guilds.filter((guild) => guild.botIn);
-}
-
-// #endregion
-
-interface UserBackgroundResult {
-	url: string;
 }

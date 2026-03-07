@@ -2,7 +2,6 @@
 
 @import "tailwindcss";
 @import "@heroui/styles";
-@import "./animations.css";
 @import "./theme.css" layer(theme);
 @import "./scrollbar.css";
 
@@ -43,6 +42,8 @@
 
 	--color-brand: #ff7077;
 
+	--animate-pulse-success: pulse-success 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+
 	--radius-2\.5xl: 1.25rem;
 
 	--drop-shadow-regular: 1.5px 1.5px 0px rgba(0, 33, 66, 0.95);
@@ -52,6 +53,16 @@
 	--lurkr-max-gradient: 90deg, #aad6c6 1%, #fa9079 33%, #fcc953 66%, #74da9c 100%;
 	--lurkr-ultimate-gradient: 90deg, #a2fbec 1%, #f985ff 33%, #904dff 66%, #4d54fe 100%;
 	--patreon-gradient: 93.24deg, #ff424d 0%, #ff7077 100%;
+
+	@keyframes pulse-success {
+		0%,
+		100% {
+			background-color: rgba(62, 162, 94, 1);
+		}
+		50% {
+			background-color: rgba(62, 162, 94, 0.6);
+		}
+	}
 }
 
 .text-shadow-regular {
@@ -112,11 +123,6 @@ button[disabled] {
 /* react-fast-marquee */
 .rfm-child {
 	@apply mr-4;
-}
-
-/* react-medium-image-zoom */
-div[data-rmiz-modal-content] {
-	@apply bg-darker;
 }
 
 @layer components {

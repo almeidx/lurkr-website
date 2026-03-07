@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { ResponsiveTooltip } from "@/components/ui/responsive-tooltip";
+import { ResponsiveTooltip } from "@/components/responsive-tooltip.tsx";
 import { prettySeconds } from "@/utils/pretty-seconds.ts";
 
 export function ShardDisplay({ guilds, members, ping, shardId, uptime, highlight }: ShardDisplayProps) {

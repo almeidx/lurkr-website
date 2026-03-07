@@ -1,84 +1,48 @@
-import { RiClipboardLine } from "@remixicon/react";
+"use client";
+
+import { Copy } from "@gravity-ui/icons";
+import { Button, Input, Label, ListBox, Modal, Select, TextField } from "@heroui/react";
+import { addDays } from "date-fns";
 import Cookies from "js-cookie";
-import { type FormEvent, useState } from "react";
+import { type SubmitEvent, useState } from "react";
 import { toast } from "sonner";
-import { Button } from "@/components/ui/button.tsx";
-import { DatePicker } from "@/components/ui/date-picker.tsx";
-import {
-	Dialog,
-	DialogClose,
-	DialogContent,
-	DialogDescription,
-	DialogFooter,
-	DialogHeader,
-	DialogTitle,
-	DialogTrigger,
-} from "@/components/ui/dialog.tsx";
-import { Input } from "@/components/ui/input.tsx";
-import { Label } from "@/components/ui/label.tsx";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select.tsx";
-import { ApiKeyPermission } from "@/lib/guild";
+import { ApiKeyPermission } from "@/lib/guild.ts";
 import { TOKEN_COOKIE } from "@/utils/constants.ts";
 import { extractErrorMessage } from "@/utils/extract-error-message.ts";
 import { makeApiRequest } from "@/utils/make-api-request.ts";
 
+const EXPIRATION_OPTIONS = [
+	{ days: 7, id: "7d", label: "7 days" },
+	{ days: 30, id: "30d", label: "30 days" },
+	{ days: 90, id: "90d", label: "90 days" },
+	{ days: 365, id: "1y", label: "1 year" },
+	{ days: undefined, id: "never", label: "Never" },
+] as const;
+
 export function CreateApiKeyDialog({ revalidateApiKeys }: { revalidateApiKeys: () => void }) {
 	const [isOpen, setIsOpen] = useState(false);
 	const [apiKey, setApiKey] = useState<string | null>(null);
+	const [permission, setPermission] = useState<ApiKeyPermission>(ApiKeyPermission.Read);
+	const [expiration, setExpiration] = useState<string>("never");
 
-	const presets = [
-		{
-			date: new Date(new Date().setDate(new Date().getDate() + 1)),
-			label: "Tomorrow",
-		},
-		{
-			date: new Date(new Date().setDate(new Date().getDate() + 7)),
-			label: "In a week",
-		},
-		{
-			date: new Date(new Date().setMonth(new Date().getMonth() + 1)),
-			label: "In a month",
-		},
-		{
-			date: new Date(new Date().setMonth(new Date().getMonth() + 6)),
-			label: "In 6 months",
-		},
-		{
-			date: new Date(new Date().setFullYear(new Date().getFullYear() + 1)),
-			label: "In a year",
-		},
-		{
-			date: new Date(new Date().setFullYear(new Date().getFullYear() + 2)),
-			label: "In 2 years",
-		},
-		{
-			date: new Date(new Date().setFullYear(new Date().getFullYear() + 5)),
-			label: "In 5 years",
-		},
-	];
-
-	async function handleCreateApiKey(event: FormEvent<HTMLFormElement>) {
+	async function handleCreateApiKey(event: SubmitEvent<HTMLFormElement>) {
 		event.preventDefault();
 
 		const data = new FormData(event.currentTarget);
-
 		const name = data.get("name") as string;
-		const permission = data.get("permission") as ApiKeyPermission;
-		const expiresAt = (data.get("expiresAt") as string) || undefined;
+		const days = EXPIRATION_OPTIONS.find((o) => o.id === expiration)?.days;
+		const expiresAt = days ? addDays(new Date(), days).toISOString() : undefined;
 
 		const token = Cookies.get(TOKEN_COOKIE)!;
 
 		try {
 			const response = await makeApiRequest("/users/@me/keys", token, {
 				body: JSON.stringify({ expiresAt, name, permission }),
-				headers: {
-					"Content-Type": "application/json",
-				},
+				headers: { "Content-Type": "application/json" },
 				method: "POST",
 			});
 
 			const result = (await response.json()) as CreateApiKeyResult;
-
 			setApiKey(result.key);
 		} catch (error) {
 			console.error("Failed to create API key", error);
@@ -88,10 +52,12 @@ export function CreateApiKeyDialog({ revalidateApiKeys }: { revalidateApiKeys: (
 
 	function handleCloseDialog(open: boolean) {
 		setIsOpen(open);
-
 		if (!open) {
+			const didCreate = apiKey !== null;
 			setApiKey(null);
-			revalidateApiKeys();
+			setPermission(ApiKeyPermission.Read);
+			setExpiration("never");
+			if (didCreate) revalidateApiKeys();
 		}
 	}
 
@@ -101,97 +67,129 @@ export function CreateApiKeyDialog({ revalidateApiKeys }: { revalidateApiKeys: (
 	}
 
 	return (
-		<Dialog onOpenChange={handleCloseDialog} open={isOpen}>
-			<DialogTrigger asChild>
-				<Button>Create API Key</Button>
-			</DialogTrigger>
+		<>
+			<Button onPress={() => setIsOpen(true)} size="sm" variant="primary">
+				Create API Key
+			</Button>
 
-			<DialogContent>
-				<DialogHeader>
-					<DialogTitle>Create API Key</DialogTitle>
-					<DialogDescription>
+			<Modal.Backdrop isOpen={isOpen} onOpenChange={handleCloseDialog}>
+				<Modal.Container placement="center">
+					<Modal.Dialog className="sm:max-w-md">
+						<Modal.CloseTrigger />
+						<Modal.Header>
+							<Modal.Heading>Create API Key</Modal.Heading>
+							<p className="text-sm text-white/60">
+								{apiKey
+									? "Copy your API Key and save it securely. It will not be shown again."
+									: "Create a key to access Lurkr's API."}
+							</p>
+						</Modal.Header>
+
 						{apiKey ? (
 							<>
-								{/* Can't use a <p> here because <DialogDescription> is a <p> */}
-								<span>Please, copy your API Key and save it in a secure place.</span>
-								<br />
-								<span className="font-bold">It will not be shown again.</span>
+								<Modal.Body className="pt-4">
+									<div className="space-y-3">
+										<div className="flex items-center gap-2">
+											<input
+												className="flex-1 rounded-lg border border-white/10 bg-white/5 px-3 py-2 font-mono text-sm"
+												readOnly
+												value={apiKey}
+											/>
+											<Button
+												aria-label="Copy API Key to clipboard"
+												onPress={() => handleCopyApiKey(apiKey)}
+												variant="secondary"
+											>
+												<Copy className="size-4" />
+											</Button>
+										</div>
+
+										<p className="text-sm text-white/50">
+											After securing your API Key, grant it access to guilds using the actions menu.
+										</p>
+									</div>
+								</Modal.Body>
+								<Modal.Footer>
+									<Button onPress={() => handleCloseDialog(false)} variant="secondary">
+										Close
+									</Button>
+								</Modal.Footer>
 							</>
 						) : (
-							"Create a key to access Lurkr's API."
+							<form onSubmit={handleCreateApiKey}>
+								<Modal.Body className="overflow-visible pt-4">
+									<div className="space-y-4">
+										<TextField isRequired name="name">
+											<Label>Name</Label>
+											<Input placeholder="Enter a name" />
+										</TextField>
+
+										<Select
+											className="w-full"
+											onSelectionChange={(key) => {
+												if (key) setPermission(key as ApiKeyPermission);
+											}}
+											placeholder="Select permission"
+											selectedKey={permission}
+										>
+											<Label>Permission</Label>
+											<Select.Trigger>
+												<Select.Value />
+												<Select.Indicator />
+											</Select.Trigger>
+											<Select.Popover>
+												<ListBox>
+													<ListBox.Item id={ApiKeyPermission.Read} textValue="Read">
+														Read
+														<ListBox.ItemIndicator />
+													</ListBox.Item>
+													<ListBox.Item id={ApiKeyPermission.Write} textValue="Read/Write">
+														Read/Write
+														<ListBox.ItemIndicator />
+													</ListBox.Item>
+												</ListBox>
+											</Select.Popover>
+										</Select>
+
+										<Select
+											className="w-full"
+											onSelectionChange={(key) => {
+												if (key) setExpiration(key as string);
+											}}
+											selectedKey={expiration}
+										>
+											<Label>Expiration</Label>
+											<Select.Trigger>
+												<Select.Value />
+												<Select.Indicator />
+											</Select.Trigger>
+											<Select.Popover>
+												<ListBox>
+													{EXPIRATION_OPTIONS.map((option) => (
+														<ListBox.Item id={option.id} key={option.id} textValue={option.label}>
+															{option.label}
+															<ListBox.ItemIndicator />
+														</ListBox.Item>
+													))}
+												</ListBox>
+											</Select.Popover>
+										</Select>
+									</div>
+								</Modal.Body>
+								<Modal.Footer>
+									<Button onPress={() => handleCloseDialog(false)} variant="secondary">
+										Cancel
+									</Button>
+									<Button type="submit" variant="primary">
+										Create
+									</Button>
+								</Modal.Footer>
+							</form>
 						)}
-					</DialogDescription>
-				</DialogHeader>
-
-				{apiKey ? (
-					<div className="mt-2 space-y-2">
-						<div className="flex items-center gap-2">
-							<Input id="apiKey" readOnly value={apiKey} />
-
-							<Button className="p-2.5" onClick={() => handleCopyApiKey(apiKey)} variant="secondary">
-								<span className="sr-only">Copy API Key to clipboard</span>
-								<RiClipboardLine aria-hidden className="size-4" />
-							</Button>
-						</div>
-
-						<p className="text-gray-500 text-sm">
-							After securing your API Key, you will have to grant it access to the guilds you want to use it in. By
-							default, it will not have any access.
-						</p>
-
-						<p className="text-gray-500 text-sm">You can do this by using the actions button.</p>
-
-						<DialogFooter className="mt-4">
-							<DialogClose asChild>
-								<Button type="button" variant="light">
-									Close
-								</Button>
-							</DialogClose>
-						</DialogFooter>
-					</div>
-				) : (
-					<form className="mt-2 space-y-2" onSubmit={handleCreateApiKey}>
-						<div>
-							<Label htmlFor="name" required>
-								Name
-							</Label>
-							<Input id="name" name="name" placeholder="Enter a name" required />
-						</div>
-
-						<div>
-							<Label htmlFor="permission" required>
-								Permission
-							</Label>
-							<Select defaultValue={ApiKeyPermission.Read} name="permission">
-								<SelectTrigger id="permission">
-									<SelectValue placeholder="Select a permission" />
-								</SelectTrigger>
-
-								<SelectContent>
-									<SelectItem value={ApiKeyPermission.Read}>Read</SelectItem>
-									<SelectItem value={ApiKeyPermission.Write}>Read/Write</SelectItem>
-								</SelectContent>
-							</Select>
-						</div>
-
-						<div>
-							<Label htmlFor="expiresAt">Expiration date</Label>
-							<DatePicker name="expiresAt" presets={presets} />
-						</div>
-
-						<DialogFooter className="mt-4">
-							<DialogClose asChild>
-								<Button type="button" variant="light">
-									Go back
-								</Button>
-							</DialogClose>
-
-							{apiKey ? null : <Button type="submit">Create</Button>}
-						</DialogFooter>
-					</form>
-				)}
-			</DialogContent>
-		</Dialog>
+					</Modal.Dialog>
+				</Modal.Container>
+			</Modal.Backdrop>
+		</>
 	);
 }
 

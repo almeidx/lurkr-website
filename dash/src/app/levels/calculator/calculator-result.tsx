@@ -2,7 +2,7 @@
 
 import { CircleQuestionFill } from "@gravity-ui/icons";
 import { Surface } from "@heroui/react";
-import { ResponsiveTooltip } from "@/components/ui/responsive-tooltip.tsx";
+import { ResponsiveTooltip } from "@/components/responsive-tooltip.tsx";
 
 export function CalculatorResult({ label, tooltip, value, title }: CalculatorResultProps) {
 	return (

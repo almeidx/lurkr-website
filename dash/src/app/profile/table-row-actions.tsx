@@ -1,35 +1,32 @@
-import { RiMoreFill } from "@remixicon/react";
-import { Button } from "@/components/ui/button.tsx";
-import {
-	DropdownMenu,
-	DropdownMenuContent,
-	DropdownMenuItem,
-	DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu.tsx";
+"use client";
+
+import { Ellipsis } from "@gravity-ui/icons";
+import { Button, Dropdown, Label } from "@heroui/react";
 
 export function TableRowActions({ openDeleteDialog, openGuildAccessDialog }: TableRowActionsProps) {
-	return (
-		<DropdownMenu>
-			<DropdownMenuTrigger asChild>
-				<Button
-					className="group aspect-square p-1.5 hover:border hover:border-gray-300 data-state=open:border-gray-300 data-state=open:bg-gray-50 data-state=open:dark:border-gray-700 data-state=open:dark:bg-gray-900 hover:dark:border-gray-700"
-					type="button"
-					variant="ghost"
-				>
-					<RiMoreFill
-						aria-hidden
-						className="size-4 shrink-0 text-gray-500 group-hover:text-gray-700 group-data-state=open:text-gray-700 group-data-state=open:dark:text-gray-300 group-hover:dark:text-gray-300"
-					/>
-				</Button>
-			</DropdownMenuTrigger>
+	function handleAction(key: string | number) {
+		setTimeout(() => {
+			if (key === "guild-access") openGuildAccessDialog();
+			if (key === "delete") openDeleteDialog();
+		}, 150);
+	}
 
-			<DropdownMenuContent align="end" className="min-w-40">
-				<DropdownMenuItem onClick={openGuildAccessDialog}>Guild access</DropdownMenuItem>
-				<DropdownMenuItem className="text-red-600 dark:text-red-500" onClick={() => openDeleteDialog()}>
-					Delete
-				</DropdownMenuItem>
-			</DropdownMenuContent>
-		</DropdownMenu>
+	return (
+		<Dropdown>
+			<Button aria-label="Actions" className="size-8 min-w-0 p-0" variant="ghost">
+				<Ellipsis className="size-4" />
+			</Button>
+			<Dropdown.Popover>
+				<Dropdown.Menu onAction={handleAction}>
+					<Dropdown.Item id="guild-access" textValue="Guild access">
+						<Label>Guild access</Label>
+					</Dropdown.Item>
+					<Dropdown.Item id="delete" textValue="Delete" variant="danger">
+						<Label>Delete</Label>
+					</Dropdown.Item>
+				</Dropdown.Menu>
+			</Dropdown.Popover>
+		</Dropdown>
 	);
 }
 

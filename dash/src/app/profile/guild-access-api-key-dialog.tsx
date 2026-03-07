@@ -1,20 +1,14 @@
+"use client";
+
+import { Button, Checkbox, Label, Modal } from "@heroui/react";
 import Cookies from "js-cookie";
+import { useRef, useState } from "react";
 import { toast } from "sonner";
-import { Button } from "@/components/ui/button.tsx";
-import { Checkbox } from "@/components/ui/checkbox.tsx";
-import {
-	Dialog,
-	DialogClose,
-	DialogContent,
-	DialogDescription,
-	DialogFooter,
-	DialogHeader,
-	DialogTitle,
-} from "@/components/ui/dialog.tsx";
-import { Label } from "@/components/ui/label.tsx";
+import { ImageWithFallback } from "@/components/ImageWithFallback.tsx";
 import type { UserGuildInfo } from "@/lib/guild.ts";
 import { TOKEN_COOKIE } from "@/utils/constants.ts";
 import type { Snowflake } from "@/utils/discord-cdn.ts";
+import { guildIcon } from "@/utils/discord-cdn.ts";
 import { extractErrorMessage } from "@/utils/extract-error-message.ts";
 import { makeApiRequest } from "@/utils/make-api-request.ts";
 import type { GetUserApiKeysResult } from "./api-keys.tsx";
@@ -26,87 +20,116 @@ export function GuildAccessApiKeyDialog({
 	guildAccess,
 	open,
 	onOpenChange,
+	onDirtyClose,
 }: GuildAccessApiKeyDialogProps) {
 	const token = Cookies.get(TOKEN_COOKIE)!;
-
-	async function handleAddGuildAccess(guildId: Snowflake) {
-		if (!guilds.some((guild) => guild.id === guildId)) {
-			console.debug("[handleAddGuildAccess] Guild not found", guildId);
-			return;
-		}
-
-		await makeApiRequest(`/users/@me/keys/${keyId}/guilds/${guildId}`, token, { method: "POST" });
-	}
-
-	async function handleRemoveGuildAccess(guildId: Snowflake) {
-		if (!guilds.some((guild) => guild.id === guildId)) {
-			console.debug("[handleRemoveGuildAccess] Guild not found", guildId);
-			return;
-		}
-
-		await makeApiRequest(`/users/@me/keys/${keyId}/guilds/${guildId}`, token, { method: "DELETE" });
-	}
+	const dirtyRef = useRef(false);
+	const [enabledGuilds, setEnabledGuilds] = useState(() => new Set(guildAccess.map((ga) => ga.guildId)));
+	const [pendingGuilds, setPendingGuilds] = useState<Set<Snowflake>>(() => new Set());
 
 	async function handleCheckedChange(guildId: Snowflake, checked: boolean) {
+		setPendingGuilds((prev) => new Set(prev).add(guildId));
+		setEnabledGuilds((prev) => {
+			const next = new Set(prev);
+			if (checked) next.add(guildId);
+			else next.delete(guildId);
+			return next;
+		});
+
 		try {
-			if (checked) {
-				await handleAddGuildAccess(guildId);
-			} else {
-				await handleRemoveGuildAccess(guildId);
-			}
+			await makeApiRequest(`/users/@me/keys/${keyId}/guilds/${guildId}`, token, {
+				method: checked ? "POST" : "DELETE",
+			});
+			dirtyRef.current = true;
 		} catch (error) {
+			setEnabledGuilds((prev) => {
+				const next = new Set(prev);
+				if (checked) next.delete(guildId);
+				else next.add(guildId);
+				return next;
+			});
 			toast.error(extractErrorMessage(error, "Failed to update guild access"));
+		} finally {
+			setPendingGuilds((prev) => {
+				const next = new Set(prev);
+				next.delete(guildId);
+				return next;
+			});
 		}
+	}
+
+	function handleClose(isOpen: boolean) {
+		if (!isOpen && dirtyRef.current) onDirtyClose();
+		onOpenChange(isOpen);
 	}
 
 	return (
-		<Dialog onOpenChange={onOpenChange} open={open}>
-			<DialogContent className="sm:max-w-lg">
-				<DialogHeader>
-					<DialogTitle>Edit {keyName} Guild Access</DialogTitle>
-					<DialogDescription className="mt-1 text-sm leading-6">
-						Change the guilds that this API key has access to.
-					</DialogDescription>
-				</DialogHeader>
+		<Modal.Backdrop isOpen={open} onOpenChange={handleClose}>
+			<Modal.Container placement="center">
+				<Modal.Dialog className="sm:max-w-lg">
+					<Modal.CloseTrigger />
+					<Modal.Header>
+						<Modal.Heading>Edit {keyName} Guild Access</Modal.Heading>
+						<p className="text-sm text-white/60">Toggle the guilds this API key can access.</p>
+					</Modal.Header>
+					<Modal.Body>
+						<div className="flex max-h-96 flex-col gap-1 overflow-y-auto px-1">
+							{guilds.map((guild) => {
+								const isPending = pendingGuilds.has(guild.id);
+								const isChecked = enabledGuilds.has(guild.id);
+								const iconUrl = guildIcon(guild.id, guild.icon, { size: 64 });
 
-				<div className="mt-2 flex max-h-96 flex-col gap-2 overflow-y-auto">
-					{guilds.map((guild) => (
-						<div className="flex items-center gap-2" key={guild.id}>
-							<Checkbox
-								defaultChecked={guildAccess.some((guildAccess) => guildAccess.guildId === guild.id)}
-								id={`guild-${guild.id}`}
-								name={`guild-${guild.id}`}
-								onCheckedChange={(checked) =>
-									handleCheckedChange(guild.id, typeof checked === "boolean" ? checked : false)
-								}
-							/>
-
-							<Label className="truncate text-nowrap" htmlFor={`guild-${guild.id}`} title={guild.name}>
-								{guild.name}
-							</Label>
+								return (
+									<Checkbox
+										isDisabled={isPending}
+										isSelected={isChecked}
+										key={guild.id}
+										onChange={(checked) => handleCheckedChange(guild.id, checked)}
+									>
+										<Checkbox.Control>
+											<Checkbox.Indicator />
+										</Checkbox.Control>
+										<Checkbox.Content>
+											<Label className="flex items-center gap-2">
+												{iconUrl ? (
+													<ImageWithFallback
+														alt=""
+														className="size-6 rounded-full"
+														height={24}
+														src={iconUrl}
+														unoptimized
+														width={24}
+													/>
+												) : (
+													<span className="flex size-6 items-center justify-center rounded-full bg-white/10 font-medium text-[10px]">
+														{guild.name.charAt(0)}
+													</span>
+												)}
+												<span className="truncate">{guild.name}</span>
+											</Label>
+										</Checkbox.Content>
+									</Checkbox>
+								);
+							})}
 						</div>
-					))}
-				</div>
-
-				<DialogFooter className="mt-6">
-					<DialogClose asChild>
-						<Button className="mt-2 w-full sm:mt-0 sm:w-fit" variant="secondary">
-							Go back
+					</Modal.Body>
+					<Modal.Footer>
+						<Button onPress={() => handleClose(false)} variant="secondary">
+							Done
 						</Button>
-					</DialogClose>
-				</DialogFooter>
-			</DialogContent>
-		</Dialog>
+					</Modal.Footer>
+				</Modal.Dialog>
+			</Modal.Container>
+		</Modal.Backdrop>
 	);
 }
 
 interface GuildAccessApiKeyDialogProps {
 	keyId: string;
 	keyName: string;
-
 	guilds: UserGuildInfo[];
 	guildAccess: GetUserApiKeysResult["keys"][number]["guildAccess"];
-
 	open: boolean;
 	onOpenChange: (open: boolean) => void;
+	onDirtyClose: () => void;
 }
