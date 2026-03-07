@@ -29,7 +29,7 @@ export function Footer() {
 							<p className="font-semibold text-sm text-white/70">Product</p>
 							<div className="flex flex-col gap-2 text-left md:grid md:grid-cols-2 md:gap-x-6 md:gap-y-2">
 								<HeroLink
-									className="text-sm text-white/50 transition-colors hover:text-white"
+									className="text-sm text-white/50 no-underline transition-colors hover:text-white"
 									href={BOT_INVITE}
 									rel="external noopener noreferrer"
 									target="_blank"
@@ -65,7 +65,7 @@ export function Footer() {
 						<Tooltip>
 							<Tooltip.Trigger>
 								<HeroLink
-									className="flex size-10 items-center justify-center rounded-lg bg-white/5 text-white/60 transition-all hover:bg-[#5865F2]/20 hover:text-[#5865F2]"
+									className="flex size-10 items-center justify-center rounded-lg bg-white/5 text-white/60 no-underline transition-all hover:bg-[#5865F2]/20 hover:text-[#5865F2]"
 									href={SUPPORT_SERVER_INVITE}
 									rel="external noopener noreferrer"
 									target="_blank"
@@ -78,7 +78,7 @@ export function Footer() {
 						<Tooltip>
 							<Tooltip.Trigger>
 								<HeroLink
-									className="flex size-10 items-center justify-center rounded-lg bg-white/5 text-white/60 transition-all hover:bg-white/10 hover:text-white"
+									className="flex size-10 items-center justify-center rounded-lg bg-white/5 text-white/60 no-underline transition-all hover:bg-white/10 hover:text-white"
 									href={GITHUB_REPOSITORY_URL}
 									rel="external noopener noreferrer"
 									target="_blank"
@@ -91,7 +91,7 @@ export function Footer() {
 						<Tooltip>
 							<Tooltip.Trigger>
 								<HeroLink
-									className="flex size-10 items-center justify-center rounded-lg bg-white/5 text-white/60 transition-all hover:bg-[#FF3366]/20 hover:text-[#FF3366]"
+									className="flex size-10 items-center justify-center rounded-lg bg-white/5 text-white/60 no-underline transition-all hover:bg-[#FF3366]/20 hover:text-[#FF3366]"
 									href={`${TOPGG_URL}&utm_campaign=footer`}
 									rel="external noopener noreferrer"
 									target="_blank"
@@ -104,7 +104,7 @@ export function Footer() {
 						<Tooltip>
 							<Tooltip.Trigger>
 								<HeroLink
-									className="flex size-10 items-center justify-center rounded-lg bg-white/5 text-white/60 transition-all hover:bg-white/10 hover:text-white"
+									className="flex size-10 items-center justify-center rounded-lg bg-white/5 text-white/60 no-underline transition-all hover:bg-white/10 hover:text-white"
 									href="https://forms.gle/CMBktm14LfnyekbQ9"
 									rel="external noopener noreferrer"
 									target="_blank"
