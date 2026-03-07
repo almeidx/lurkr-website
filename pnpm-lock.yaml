@@ -20,8 +20,8 @@ importers:
         specifier: ^2.4.6
         version: 2.4.6
       '@types/node':
-        specifier: ^24.11.0
-        version: 24.11.0
+        specifier: ^24.12.0
+        version: 24.12.0
       husky:
         specifier: ^9.1.7
         version: 9.1.7
@@ -35,8 +35,8 @@ importers:
         specifier: ^0.4.22
         version: 0.4.22(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       '@gravity-ui/icons':
-        specifier: ^2.17.0
-        version: 2.17.0(react@19.2.4)
+        specifier: ^2.18.0
+        version: 2.18.0(react@19.2.4)
       '@heroui/react':
         specifier: 3.0.0-beta.8
         version: 3.0.0-beta.8(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(tailwindcss@4.2.1)
@@ -162,8 +162,8 @@ importers:
         specifier: ^2.0.13
         version: 2.0.13
       '@types/node':
-        specifier: ^24.11.0
-        version: 24.11.0
+        specifier: ^24.12.0
+        version: 24.12.0
       '@types/react':
         specifier: ^19.2.14
         version: 19.2.14
@@ -244,8 +244,8 @@ importers:
         specifier: ^2.0.13
         version: 2.0.13
       '@types/node':
-        specifier: ^24.11.0
-        version: 24.11.0
+        specifier: ^24.12.0
+        version: 24.12.0
       '@types/react':
         specifier: ^19.2.14
         version: 19.2.14
@@ -675,8 +675,8 @@ packages:
       '@types/react':
         optional: true
 
-  '@gravity-ui/icons@2.17.0':
-    resolution: {integrity: sha512-13VYJuualglo+aUppHS2B7X0AygxLcGNOVwnD15ehu+xGhgjzsaSjmZX8A7gNMhEXp3QXJvfOi6xe2RDGk+FPg==}
+  '@gravity-ui/icons@2.18.0':
+    resolution: {integrity: sha512-JoRc/4Ch9GLaufZfpGd2ePRRisMXEjMI+r3y8kPKyYIAdQZz07jpIXEgsft1gvBxjSht2MS2uu5+vfhe1WP0ow==}
     peerDependencies:
       react: '*'
     peerDependenciesMeta:
@@ -2282,8 +2282,8 @@ packages:
   '@types/ms@2.1.0':
     resolution: {integrity: sha512-GsCCIZDE/p3i96vtEqx+7dBUGXrc7zeSK3wwPHIaRThS+9OhWIXRqzs4d6k1SVU8g91DrNRWxWUGhp5KXQb2VA==}
 
-  '@types/node@24.11.0':
-    resolution: {integrity: sha512-fPxQqz4VTgPI/IQ+lj9r0h+fDR66bzoeMGHp8ASee+32OSGIkeASsoZuJixsQoVef1QJbeubcPBxKk22QVoWdw==}
+  '@types/node@24.12.0':
+    resolution: {integrity: sha512-GYDxsZi3ChgmckRT9HPU0WEhKLP08ev/Yfcq2AstjrDASOYCSXeyjDsHg4v5t4jOj7cyDX3vmprafKlWIG9MXQ==}
 
   '@types/parse-json@4.0.2':
     resolution: {integrity: sha512-dISoDXWWQwUquiKsyZ4Ng+HX2KsPL7LyHKHQwgGFEA3IaKac4Obd+h2a/a6waisAoepJlBcx9paWqjA8/HVjCw==}
@@ -4117,7 +4117,7 @@ snapshots:
     optionalDependencies:
       '@types/react': 19.2.14
 
-  '@gravity-ui/icons@2.17.0(react@19.2.4)':
+  '@gravity-ui/icons@2.18.0(react@19.2.4)':
     dependencies:
       tslib: 2.8.1
     optionalDependencies:
@@ -6172,7 +6172,7 @@ snapshots:
 
   '@types/ms@2.1.0': {}
 
-  '@types/node@24.11.0':
+  '@types/node@24.12.0':
     dependencies:
       undici-types: 7.16.0
 
