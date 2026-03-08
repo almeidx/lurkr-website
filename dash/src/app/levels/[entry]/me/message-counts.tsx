@@ -51,7 +51,7 @@ export function MessageCounts({ data }: BarsProps) {
 	);
 }
 
-function CustomTooltip({ active, payload }: TooltipContentProps<number, string>) {
+function CustomTooltip({ active, payload }: TooltipContentProps) {
 	if (active && payload && payload.length) {
 		const data = payload[0]!.payload;
 		return (
