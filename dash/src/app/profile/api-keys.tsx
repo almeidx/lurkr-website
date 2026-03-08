@@ -2,13 +2,11 @@
 
 import { Key } from "@gravity-ui/icons";
 import { Chip, Spinner, Table } from "@heroui/react";
-import Cookies from "js-cookie";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { api } from "@/lib/api.ts";
 import { ApiKeyPermission, type UserGuildInfo } from "@/lib/guild.ts";
-import { TOKEN_COOKIE } from "@/utils/constants.ts";
 import type { Snowflake } from "@/utils/discord-cdn.ts";
-import { makeApiRequest } from "@/utils/make-api-request.ts";
 import { CreateApiKeyDialog } from "./create-api-key-dialog.tsx";
 import { DeleteApiKeyDialog } from "./delete-api-key-dialog.tsx";
 import { GuildAccessApiKeyDialog } from "./guild-access-api-key-dialog.tsx";
@@ -30,9 +28,7 @@ export function ApiKeys({ guilds }: ApiKeysProps) {
 	}, []);
 
 	function fetchKeys() {
-		const token = Cookies.get(TOKEN_COOKIE)!;
-
-		getUserApiKeys(token)
+		getUserApiKeys()
 			.then((keys) => setKeys(keys))
 			.finally(() => setIsInitialLoad(false));
 	}
@@ -161,14 +157,13 @@ export function ApiKeys({ guilds }: ApiKeysProps) {
 	);
 }
 
-async function getUserApiKeys(token: string) {
-	const response = await makeApiRequest("/users/@me/keys", token);
-	if (!response.ok) {
+async function getUserApiKeys() {
+	try {
+		const { keys } = await api.get("users/@me/keys").json<GetUserApiKeysResult>();
+		return keys;
+	} catch {
 		return [];
 	}
-
-	const { keys } = (await response.json()) as GetUserApiKeysResult;
-	return keys;
 }
 
 interface ApiKeysProps {

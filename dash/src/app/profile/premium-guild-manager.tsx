@@ -2,14 +2,12 @@
 
 import { Star } from "@gravity-ui/icons";
 import { Button, ListBox, Select } from "@heroui/react";
-import Cookies from "js-cookie";
 import Link from "next/link";
 import { useState } from "react";
+import { api } from "@/lib/api.ts";
 import { PremiumTier } from "@/lib/auth.ts";
 import type { UserGuildInfo } from "@/lib/guild.ts";
-import { TOKEN_COOKIE } from "@/utils/constants.ts";
 import { extractErrorMessage } from "@/utils/extract-error-message.ts";
-import { makeApiRequest } from "@/utils/make-api-request.ts";
 
 interface PremiumGuild {
 	id: string;
@@ -39,14 +37,11 @@ export function PremiumGuildManager({ guilds, premium, premiumGuild }: PremiumGu
 		setIsSaving(true);
 
 		try {
-			const token = Cookies.get(TOKEN_COOKIE)!;
-			const response = await makeApiRequest("/users/@me/premium-guild", token, {
-				body: JSON.stringify({ guildId: selectedGuildId }),
-				headers: { "Content-Type": "application/json" },
-				method: "POST",
-			});
-
-			const guild = (await response.json()) as PremiumGuild;
+			const guild = await api
+				.post("users/@me/premium-guild", {
+					json: { guildId: selectedGuildId },
+				})
+				.json<PremiumGuild>();
 			setCurrentGuild(guild);
 		} catch (error) {
 			setError(extractErrorMessage(error, "Failed to assign premium guild."));
@@ -60,10 +55,7 @@ export function PremiumGuildManager({ guilds, premium, premiumGuild }: PremiumGu
 		setIsRemoving(true);
 
 		try {
-			const token = Cookies.get(TOKEN_COOKIE)!;
-			await makeApiRequest("/users/@me/premium-guild", token, {
-				method: "DELETE",
-			});
+			await api.delete("users/@me/premium-guild");
 
 			setCurrentGuild(null);
 			setSelectedGuildId(null);

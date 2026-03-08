@@ -1,14 +1,9 @@
 import type { Snowflake } from "@/utils/discord-cdn.ts";
-import { makeApiRequest } from "@/utils/make-api-request.ts";
+import { api } from "./api.ts";
 
-export async function getCurrentUser(token: string) {
+export async function getCurrentUser() {
 	try {
-		const response = await makeApiRequest("/users/@me", token);
-		if (!response.ok) {
-			return null;
-		}
-
-		return response.json() as Promise<User>;
+		return await api.get("users/@me").json<User>();
 	} catch {
 		return null;
 	}

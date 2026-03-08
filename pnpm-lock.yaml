@@ -58,6 +58,9 @@ importers:
       js-cookie:
         specifier: ^3.0.5
         version: 3.0.5
+      ky:
+        specifier: ^1.14.3
+        version: 1.14.3
       match-sorter:
         specifier: ^8.2.0
         version: 8.2.0
@@ -2787,6 +2790,10 @@ packages:
   kind-of@6.0.3:
     resolution: {integrity: sha512-dcS1ul+9tmeD95T+x28/ehLgd9mENa3LsvDTtzm3vyBEO7RPptvAD+t44WVXaUjTBRcrpFeFlC8WCruUR456hw==}
     engines: {node: '>=0.10.0'}
+
+  ky@1.14.3:
+    resolution: {integrity: sha512-9zy9lkjac+TR1c2tG+mkNSVlyOpInnWdSMiue4F+kq8TwJSgv6o8jhLRg8Ho6SnZ9wOYUq/yozts9qQCfk7bIw==}
+    engines: {node: '>=18'}
 
   lightningcss-android-arm64@1.31.1:
     resolution: {integrity: sha512-HXJF3x8w9nQ4jbXRiNppBCqeZPIAfUo8zE/kOEGbW5NZvGc/K7nMxbhIr+YlFlHW5mpbg/YFPdbnCh1wAXCKFg==}
@@ -6613,6 +6620,8 @@ snapshots:
   json-schema-traverse@1.0.0: {}
 
   kind-of@6.0.3: {}
+
+  ky@1.14.3: {}
 
   lightningcss-android-arm64@1.31.1:
     optional: true

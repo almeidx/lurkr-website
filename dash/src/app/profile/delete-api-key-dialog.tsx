@@ -1,18 +1,14 @@
 "use client";
 
 import { Button, Modal } from "@heroui/react";
-import Cookies from "js-cookie";
 import { toast } from "sonner";
-import { TOKEN_COOKIE } from "@/utils/constants.ts";
+import { api } from "@/lib/api.ts";
 import { extractErrorMessage } from "@/utils/extract-error-message.ts";
-import { makeApiRequest } from "@/utils/make-api-request.ts";
 
 export function DeleteApiKeyDialog({ keyId, keyName, open, onOpenChange, onDeleted }: DeleteApiKeyDialogProps) {
-	const token = Cookies.get(TOKEN_COOKIE)!;
-
 	async function handleDelete() {
 		try {
-			await makeApiRequest(`/users/@me/keys/${keyId}`, token, { method: "DELETE" });
+			await api.delete(`users/@me/keys/${keyId}`);
 			onDeleted();
 			onOpenChange(false);
 		} catch (error) {

@@ -1,13 +1,11 @@
 import { Fingerprint, Globe, Person } from "@gravity-ui/icons";
 import { Card, Chip } from "@heroui/react";
-import { cookies } from "next/headers";
 import { ImageWithFallback } from "@/components/ImageWithFallback.tsx";
+import { api } from "@/lib/api.ts";
 import { getCurrentUser, PremiumTier } from "@/lib/auth.ts";
 import type { UserGuildInfo } from "@/lib/guild.ts";
-import { TOKEN_COOKIE } from "@/utils/constants.ts";
 import { userAvatar } from "@/utils/discord-cdn.ts";
 import { greeting } from "@/utils/greeting.ts";
-import { makeApiRequest } from "@/utils/make-api-request.ts";
 import { AccentColorPicker } from "./accent-color-picker.tsx";
 import { ApiKeys } from "./api-keys.tsx";
 import { BackgroundManager } from "./background-manager.tsx";
@@ -15,16 +13,10 @@ import { getUserBackground } from "./get-user-background.ts";
 import { PremiumGuildManager } from "./premium-guild-manager.tsx";
 
 export default async function ProfilePage() {
-	const cookieJar = await cookies();
-	const token = cookieJar.get(TOKEN_COOKIE)?.value;
-	if (!token) {
-		return <NotLoggedIn />;
-	}
-
 	const [userResult, backgroundResult, guildsResult] = await Promise.allSettled([
-		getCurrentUser(token),
-		getUserBackground(token),
-		getUserGuilds(token),
+		getCurrentUser(),
+		getUserBackground(),
+		getUserGuilds(),
 	]);
 
 	if (userResult.status !== "fulfilled" || !userResult.value) {
@@ -129,17 +121,17 @@ function NotLoggedIn() {
 	);
 }
 
-async function getUserGuilds(token: string) {
-	const response = await makeApiRequest("/users/@me/guilds?isAdmin=true&botIn=true", token, {
-		next: {
-			revalidate: 60,
-		},
-	});
-	if (!response.ok) {
+async function getUserGuilds() {
+	try {
+		const guilds = await api
+			.get("users/@me/guilds", {
+				next: { revalidate: 60 },
+				searchParams: { botIn: "true", isAdmin: "true" },
+			})
+			.json<UserGuildInfo[]>();
+
+		return guilds.filter((guild) => guild.botIn);
+	} catch {
 		return [];
 	}
-
-	const guilds = (await response.json()) as UserGuildInfo[];
-
-	return guilds.filter((guild) => guild.botIn);
 }

@@ -2,11 +2,10 @@
 
 import { Palette } from "@gravity-ui/icons";
 import { Button, ColorArea, ColorField, ColorPicker, ColorSlider, ColorSwatch, Label, parseColor } from "@heroui/react";
-import Cookies from "js-cookie";
 import { useState } from "react";
-import { DEFAULT_ACCENT_COLOR, TOKEN_COOKIE } from "@/utils/constants.ts";
+import { api } from "@/lib/api.ts";
+import { DEFAULT_ACCENT_COLOR } from "@/utils/constants.ts";
 import { extractErrorMessage } from "@/utils/extract-error-message.ts";
-import { makeApiRequest } from "@/utils/make-api-request.ts";
 
 interface AccentColorPickerProps {
 	readonly initialColor: string | null;
@@ -27,11 +26,8 @@ export function AccentColorPicker({ initialColor }: AccentColorPickerProps) {
 		setIsSaving(true);
 
 		try {
-			const token = Cookies.get(TOKEN_COOKIE)!;
-			await makeApiRequest("/users/@me", token, {
-				body: JSON.stringify({ accentColour: currentHex }),
-				headers: { "Content-Type": "application/json" },
-				method: "PATCH",
+			await api.patch("users/@me", {
+				json: { accentColour: currentHex },
 			});
 
 			setSavedColor(currentHex);
@@ -47,11 +43,8 @@ export function AccentColorPicker({ initialColor }: AccentColorPickerProps) {
 		setIsResetting(true);
 
 		try {
-			const token = Cookies.get(TOKEN_COOKIE)!;
-			await makeApiRequest("/users/@me", token, {
-				body: JSON.stringify({ accentColour: null }),
-				headers: { "Content-Type": "application/json" },
-				method: "PATCH",
+			await api.patch("users/@me", {
+				json: { accentColour: null },
 			});
 
 			setSavedColor(null);

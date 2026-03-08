@@ -2,11 +2,9 @@
 
 import { ArrowUpFromLine, Picture, TrashBin } from "@gravity-ui/icons";
 import { Button, Modal } from "@heroui/react";
-import Cookies from "js-cookie";
 import Image from "next/image";
 import { type ChangeEvent, type DragEvent, useRef, useState } from "react";
-import { TOKEN_COOKIE } from "@/utils/constants.ts";
-import { makeApiRequest } from "@/utils/make-api-request.ts";
+import { api } from "@/lib/api.ts";
 import { getUserBackground } from "./get-user-background.ts";
 
 const MAX_FILE_SIZE = 5 * 1024 * 1024;
@@ -62,22 +60,12 @@ export function BackgroundManager({ initialUrl }: { readonly initialUrl: string 
 		setIsUploading(true);
 
 		try {
-			const token = Cookies.get(TOKEN_COOKIE)!;
 			const formData = new FormData();
 			formData.append("file", file);
 
-			const response = await makeApiRequest("/users/@me/background", token, {
-				body: formData,
-				method: "POST",
-			});
+			await api.post("users/@me/background", { body: formData });
 
-			if (!response.ok) {
-				const text = await response.text().catch(() => "Upload failed.");
-				setError(text);
-				return;
-			}
-
-			const url = await getUserBackground(token);
+			const url = await getUserBackground();
 			if (url) {
 				setBackgroundUrl(url);
 			}
@@ -96,16 +84,7 @@ export function BackgroundManager({ initialUrl }: { readonly initialUrl: string 
 		setIsDeleting(true);
 
 		try {
-			const token = Cookies.get(TOKEN_COOKIE)!;
-			const response = await makeApiRequest("/users/@me/background", token, {
-				method: "DELETE",
-			});
-
-			if (!response.ok) {
-				setError("Failed to delete background.");
-				return;
-			}
-
+			await api.delete("users/@me/background");
 			setBackgroundUrl(null);
 		} catch {
 			setError("Failed to delete background.");

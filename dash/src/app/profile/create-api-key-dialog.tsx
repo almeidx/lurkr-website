@@ -3,13 +3,11 @@
 import { Copy } from "@gravity-ui/icons";
 import { Button, Input, Label, ListBox, Modal, Select, TextField } from "@heroui/react";
 import { addDays } from "date-fns";
-import Cookies from "js-cookie";
 import { type SubmitEvent, useState } from "react";
 import { toast } from "sonner";
+import { api } from "@/lib/api.ts";
 import { ApiKeyPermission } from "@/lib/guild.ts";
-import { TOKEN_COOKIE } from "@/utils/constants.ts";
 import { extractErrorMessage } from "@/utils/extract-error-message.ts";
-import { makeApiRequest } from "@/utils/make-api-request.ts";
 
 const EXPIRATION_OPTIONS = [
 	{ days: 7, id: "7d", label: "7 days" },
@@ -33,16 +31,12 @@ export function CreateApiKeyDialog({ revalidateApiKeys }: { revalidateApiKeys: (
 		const days = EXPIRATION_OPTIONS.find((o) => o.id === expiration)?.days;
 		const expiresAt = days ? addDays(new Date(), days).toISOString() : undefined;
 
-		const token = Cookies.get(TOKEN_COOKIE)!;
-
 		try {
-			const response = await makeApiRequest("/users/@me/keys", token, {
-				body: JSON.stringify({ expiresAt, name, permission }),
-				headers: { "Content-Type": "application/json" },
-				method: "POST",
-			});
-
-			const result = (await response.json()) as CreateApiKeyResult;
+			const result = await api
+				.post("users/@me/keys", {
+					json: { expiresAt, name, permission },
+				})
+				.json<CreateApiKeyResult>();
 			setApiKey(result.key);
 		} catch (error) {
 			console.error("Failed to create API key", error);

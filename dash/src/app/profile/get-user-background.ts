@@ -1,13 +1,12 @@
-import { makeApiRequest } from "@/utils/make-api-request.ts";
+import { api } from "@/lib/api.ts";
 
-export async function getUserBackground(token: string): Promise<string | null> {
-	const response = await makeApiRequest("/users/@me/background", token);
-	if (!response.ok) {
+export async function getUserBackground(): Promise<string | null> {
+	try {
+		const { url } = await api.get("users/@me/background").json<GetCurrentUserBackgroundResponse>();
+		return url;
+	} catch {
 		return null;
 	}
-
-	const { url } = (await response.json()) as GetCurrentUserBackgroundResponse;
-	return url;
 }
 
 interface GetCurrentUserBackgroundResponse {

@@ -1,16 +1,14 @@
 "use client";
 
 import { Button, Checkbox, Label, Modal } from "@heroui/react";
-import Cookies from "js-cookie";
 import { useRef, useState } from "react";
 import { toast } from "sonner";
 import { ImageWithFallback } from "@/components/ImageWithFallback.tsx";
+import { api } from "@/lib/api.ts";
 import type { UserGuildInfo } from "@/lib/guild.ts";
-import { TOKEN_COOKIE } from "@/utils/constants.ts";
 import type { Snowflake } from "@/utils/discord-cdn.ts";
 import { guildIcon } from "@/utils/discord-cdn.ts";
 import { extractErrorMessage } from "@/utils/extract-error-message.ts";
-import { makeApiRequest } from "@/utils/make-api-request.ts";
 import type { GetUserApiKeysResult } from "./api-keys.tsx";
 
 export function GuildAccessApiKeyDialog({
@@ -22,7 +20,6 @@ export function GuildAccessApiKeyDialog({
 	onOpenChange,
 	onDirtyClose,
 }: GuildAccessApiKeyDialogProps) {
-	const token = Cookies.get(TOKEN_COOKIE)!;
 	const dirtyRef = useRef(false);
 	const [enabledGuilds, setEnabledGuilds] = useState(() => new Set(guildAccess.map((ga) => ga.guildId)));
 	const [pendingGuilds, setPendingGuilds] = useState<Set<Snowflake>>(() => new Set());
@@ -37,7 +34,7 @@ export function GuildAccessApiKeyDialog({
 		});
 
 		try {
-			await makeApiRequest(`/users/@me/keys/${keyId}/guilds/${guildId}`, token, {
+			await api(`users/@me/keys/${keyId}/guilds/${guildId}`, {
 				method: checked ? "POST" : "DELETE",
 			});
 			dirtyRef.current = true;
