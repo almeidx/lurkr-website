@@ -1,7 +1,7 @@
-import { docs } from "fumadocs-mdx:collections/server";
 import { type InferPageType, loader } from "fumadocs-core/source";
 import { openapiPlugin } from "fumadocs-openapi/server";
 import { createElement } from "react";
+import { docs } from "../../.source/server";
 
 export const source = loader({
 	baseUrl: "/",

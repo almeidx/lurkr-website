@@ -6,15 +6,20 @@
 	"scripts": {
 		"build": "next build",
 		"build:typecheck": "tsc --noEmit",
+		"build:cf": "opennextjs-cloudflare build",
+		"cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts",
+		"deploy:cf": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
 		"dev": "next dev",
 		"fmt": "biome check --write --unsafe",
 		"fmt:content": "oxfmt --write content",
 		"format": "pnpm run fmt",
 		"postinstall": "next typegen && fumadocs-mdx && node scripts/generate-api-endpoint-docs.ts",
 		"lint": "biome check",
+		"preview:cf": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
 		"start": "next start"
 	},
 	"dependencies": {
+		"@opennextjs/cloudflare": "^1.19.1",
 		"@radix-ui/react-popover": "^1.1.15",
 		"class-variance-authority": "^0.7.1",
 		"fumadocs-core": "^16.7.16",
@@ -47,7 +52,8 @@
 		"slugify": "^1.6.9",
 		"tailwind-scrollbar": "^4.0.2",
 		"tailwindcss": "^4.2.2",
-		"typescript": "~6.0.3"
+		"typescript": "~6.0.3",
+		"wrangler": "^4.83.0"
 	},
 	"engines": {
 		"node": ">=24.15.0"
