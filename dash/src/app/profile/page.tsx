@@ -10,13 +10,15 @@ import { BackgroundManager } from "./10-background-manager.tsx";
 import { AccentColorPicker } from "./20-accent-color-picker.tsx";
 import { PremiumGuildManager } from "./30-premium-guild-manager.tsx";
 import { ApiKeys } from "./40-api-keys.tsx";
+import { getUserApiKeys } from "./get-user-api-keys.ts";
 import { getUserBackground } from "./get-user-background.ts";
 
 export default async function ProfilePage() {
-	const [userResult, backgroundResult, guildsResult] = await Promise.allSettled([
+	const [userResult, backgroundResult, guildsResult, apiKeysResult] = await Promise.allSettled([
 		getCurrentUser(),
 		getUserBackground(),
 		getUserGuilds(),
+		getUserApiKeys(),
 	]);
 
 	if (userResult.status !== "fulfilled" || !userResult.value) {
@@ -26,6 +28,8 @@ export default async function ProfilePage() {
 	const user = userResult.value;
 	const backgroundUrl = backgroundResult.status === "fulfilled" ? backgroundResult.value : null;
 	const guilds = guildsResult.status === "fulfilled" ? guildsResult.value : [];
+	const apiKeys = apiKeysResult.status === "fulfilled" ? apiKeysResult.value : [];
+
 	const locale = user.locale ? new Intl.DisplayNames([user.locale], { type: "language" }).of(user.locale) : null;
 	const avatarUrl = userAvatar(user.id, user.avatar, { size: 256 });
 
@@ -106,7 +110,7 @@ export default async function ProfilePage() {
 
 			<Card className="border border-white/10">
 				<Card.Content className="space-y-4 p-6">
-					<ApiKeys guilds={guilds} />
+					<ApiKeys guilds={guilds} initialKeys={apiKeys} />
 				</Card.Content>
 			</Card>
 		</div>

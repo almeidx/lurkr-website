@@ -1,35 +1,26 @@
 "use client";
 
 import { Key } from "@gravity-ui/icons";
-import { Chip, Spinner, Table } from "@heroui/react";
+import { Chip, Table } from "@heroui/react";
 import Link from "next/link";
-import { useEffect, useState } from "react";
-import { api } from "@/lib/api.ts";
+import { useState } from "react";
 import { ApiKeyPermission, type UserGuildInfo } from "@/lib/guild.ts";
-import type { Snowflake } from "@/utils/discord-cdn.ts";
 import { CreateApiKeyDialog } from "./create-api-key-dialog.tsx";
 import { DeleteApiKeyDialog } from "./delete-api-key-dialog.tsx";
+import { type GetUserApiKeysResult, getUserApiKeys } from "./get-user-api-keys.ts";
 import { GuildAccessApiKeyDialog } from "./guild-access-api-key-dialog.tsx";
 import { TableRowActions } from "./table-row-actions.tsx";
 
 const MAX_API_KEYS = 5;
 
-export function ApiKeys({ guilds }: ApiKeysProps) {
-	const [keys, setKeys] = useState<GetUserApiKeysResult["keys"]>([]);
-	const [isInitialLoad, setIsInitialLoad] = useState(true);
+export function ApiKeys({ guilds, initialKeys }: ApiKeysProps) {
+	const [keys, setKeys] = useState<GetUserApiKeysResult["keys"]>(initialKeys);
 
 	const [focusedKeyId, setFocusedKeyId] = useState<string | null>(null);
 	const [openDialog, setOpenDialog] = useState<"guild-access" | "delete" | null>(null);
 
-	// biome-ignore lint/correctness/useExhaustiveDependencies: Only want to run this once on mount
-	useEffect(() => {
-		fetchKeys();
-	}, []);
-
 	function fetchKeys() {
-		getUserApiKeys()
-			.then((keys) => setKeys(keys))
-			.finally(() => setIsInitialLoad(false));
+		getUserApiKeys().then((keys) => setKeys(keys));
 	}
 
 	function handleOpenDialog(keyId: string, dialog: "guild-access" | "delete") {
@@ -66,62 +57,56 @@ export function ApiKeys({ guilds }: ApiKeysProps) {
 				</p>
 			</div>
 
-			{isInitialLoad ? (
-				<div className="flex justify-center py-4">
-					<Spinner />
-				</div>
-			) : (
-				<Table>
-					<Table.ScrollContainer>
-						<Table.Content aria-label="API Keys">
-							<Table.Header>
-								<Table.Column isRowHeader>Name</Table.Column>
-								<Table.Column>Permission</Table.Column>
-								<Table.Column className="xs:table-cell hidden">Guilds</Table.Column>
-								<Table.Column className="hidden md:table-cell">Created</Table.Column>
-								<Table.Column className="hidden md:table-cell">Expires</Table.Column>
-								<Table.Column className="hidden sm:table-cell">Last Used</Table.Column>
-								<Table.Column className="text-right">Actions</Table.Column>
-							</Table.Header>
-							<Table.Body>
-								{keys.map((item) => (
-									<Table.Row key={item.id}>
-										<Table.Cell className="font-medium">{item.name}</Table.Cell>
-										<Table.Cell>
-											<Chip
-												className={
-													item.permission === ApiKeyPermission.Read
-														? "bg-green/20 text-green"
-														: "bg-yellow/20 text-yellow"
-												}
-												size="sm"
-											>
-												{item.permission === ApiKeyPermission.Read ? "Read" : "Read/Write"}
-											</Chip>
-										</Table.Cell>
-										<Table.Cell className="xs:table-cell hidden">{item.guildAccess.length}</Table.Cell>
-										<Table.Cell className="hidden md:table-cell">
-											{new Date(item.createdAt).toLocaleDateString()}
-										</Table.Cell>
-										<Table.Cell className="hidden md:table-cell">
-											{item.expiresAt ? new Date(item.expiresAt).toLocaleDateString() : "Never"}
-										</Table.Cell>
-										<Table.Cell className="hidden sm:table-cell">
-											{item.lastUsedAt ? new Date(item.lastUsedAt).toLocaleDateString() : "Never"}
-										</Table.Cell>
-										<Table.Cell className="text-right">
-											<TableRowActions
-												openDeleteDialog={() => handleOpenDialog(item.id, "delete")}
-												openGuildAccessDialog={() => handleOpenDialog(item.id, "guild-access")}
-											/>
-										</Table.Cell>
-									</Table.Row>
-								))}
-							</Table.Body>
-						</Table.Content>
-					</Table.ScrollContainer>
-				</Table>
-			)}
+			<Table>
+				<Table.ScrollContainer>
+					<Table.Content aria-label="API Keys">
+						<Table.Header>
+							<Table.Column isRowHeader>Name</Table.Column>
+							<Table.Column>Permission</Table.Column>
+							<Table.Column className="xs:table-cell hidden">Guilds</Table.Column>
+							<Table.Column className="hidden md:table-cell">Created</Table.Column>
+							<Table.Column className="hidden md:table-cell">Expires</Table.Column>
+							<Table.Column className="hidden sm:table-cell">Last Used</Table.Column>
+							<Table.Column className="text-right">Actions</Table.Column>
+						</Table.Header>
+						<Table.Body>
+							{keys.map((item) => (
+								<Table.Row key={item.id}>
+									<Table.Cell className="font-medium">{item.name}</Table.Cell>
+									<Table.Cell>
+										<Chip
+											className={
+												item.permission === ApiKeyPermission.Read
+													? "bg-green/20 text-green"
+													: "bg-yellow/20 text-yellow"
+											}
+											size="sm"
+										>
+											{item.permission === ApiKeyPermission.Read ? "Read" : "Read/Write"}
+										</Chip>
+									</Table.Cell>
+									<Table.Cell className="xs:table-cell hidden">{item.guildAccess.length}</Table.Cell>
+									<Table.Cell className="hidden md:table-cell">
+										{new Date(item.createdAt).toLocaleDateString()}
+									</Table.Cell>
+									<Table.Cell className="hidden md:table-cell">
+										{item.expiresAt ? new Date(item.expiresAt).toLocaleDateString() : "Never"}
+									</Table.Cell>
+									<Table.Cell className="hidden sm:table-cell">
+										{item.lastUsedAt ? new Date(item.lastUsedAt).toLocaleDateString() : "Never"}
+									</Table.Cell>
+									<Table.Cell className="text-right">
+										<TableRowActions
+											openDeleteDialog={() => handleOpenDialog(item.id, "delete")}
+											openGuildAccessDialog={() => handleOpenDialog(item.id, "guild-access")}
+										/>
+									</Table.Cell>
+								</Table.Row>
+							))}
+						</Table.Body>
+					</Table.Content>
+				</Table.ScrollContainer>
+			</Table>
 
 			{focusedKey && openDialog === "guild-access" && (
 				<GuildAccessApiKeyDialog
@@ -148,30 +133,7 @@ export function ApiKeys({ guilds }: ApiKeysProps) {
 	);
 }
 
-async function getUserApiKeys() {
-	try {
-		const { keys } = await api.get("users/@me/keys").json<GetUserApiKeysResult>();
-		return keys;
-	} catch {
-		return [];
-	}
-}
-
 interface ApiKeysProps {
 	guilds: UserGuildInfo[];
-}
-
-export interface GetUserApiKeysResult {
-	keys: {
-		id: string;
-		name: string;
-		createdAt: string;
-		expiresAt: string | null;
-		permission: ApiKeyPermission;
-		lastUsedAt: string | null;
-		guildAccess: {
-			createdAt: string;
-			guildId: Snowflake;
-		}[];
-	}[];
+	initialKeys: GetUserApiKeysResult["keys"];
 }

@@ -9,7 +9,7 @@ import type { UserGuildInfo } from "@/lib/guild.ts";
 import type { Snowflake } from "@/utils/discord-cdn.ts";
 import { guildIcon } from "@/utils/discord-cdn.ts";
 import { extractErrorMessage } from "@/utils/extract-error-message.ts";
-import type { GetUserApiKeysResult } from "./40-api-keys.tsx";
+import type { GetUserApiKeysResult } from "./get-user-api-keys.ts";
 
 export function GuildAccessApiKeyDialog({
 	keyId,
