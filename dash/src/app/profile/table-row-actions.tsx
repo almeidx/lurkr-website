@@ -5,9 +5,11 @@ import { Button, Dropdown, Label } from "@heroui/react";
 
 export function TableRowActions({ openDeleteDialog, openGuildAccessDialog }: TableRowActionsProps) {
 	function handleAction(key: string | number) {
+		// Delay opening the dialog so the dropdown popover's CSS exit transition
+		// completes first — otherwise both overlays coexist in the DOM.
 		setTimeout(() => {
 			if (key === "guild-access") openGuildAccessDialog();
-			if (key === "delete") openDeleteDialog();
+			else if (key === "delete") openDeleteDialog();
 		}, 150);
 	}
 

@@ -66,123 +66,125 @@ export function CreateApiKeyDialog({ revalidateApiKeys }: { revalidateApiKeys: (
 				Create API Key
 			</Button>
 
-			<Modal.Backdrop isOpen={isOpen} onOpenChange={handleCloseDialog}>
-				<Modal.Container placement="center">
-					<Modal.Dialog className="sm:max-w-md">
-						<Modal.CloseTrigger />
-						<Modal.Header>
-							<Modal.Heading>Create API Key</Modal.Heading>
-							<p className="text-sm text-white/60">
-								{apiKey
-									? "Copy your API Key and save it securely. It will not be shown again."
-									: "Create a key to access Lurkr's API."}
-							</p>
-						</Modal.Header>
+			<Modal>
+				<Modal.Backdrop isOpen={isOpen} onOpenChange={handleCloseDialog}>
+					<Modal.Container placement="center">
+						<Modal.Dialog className="sm:max-w-md">
+							<Modal.CloseTrigger />
+							<Modal.Header>
+								<Modal.Heading>Create API Key</Modal.Heading>
+								<p className="text-sm text-white/60">
+									{apiKey
+										? "Copy your API Key and save it securely. It will not be shown again."
+										: "Create a key to access Lurkr's API."}
+								</p>
+							</Modal.Header>
 
-						{apiKey ? (
-							<>
-								<Modal.Body className="pt-4">
-									<div className="space-y-3">
-										<div className="flex items-center gap-2">
-											<input
-												className="flex-1 rounded-lg border border-white/10 bg-white/5 px-3 py-2 font-mono text-sm"
-												readOnly
-												value={apiKey}
-											/>
-											<Button
-												aria-label="Copy API Key to clipboard"
-												onPress={() => handleCopyApiKey(apiKey)}
-												variant="secondary"
-											>
-												<Copy className="size-4" />
-											</Button>
+							{apiKey ? (
+								<>
+									<Modal.Body className="pt-4">
+										<div className="space-y-3">
+											<div className="flex items-center gap-2">
+												<input
+													className="flex-1 rounded-lg border border-white/10 bg-white/5 px-3 py-2 font-mono text-sm"
+													readOnly
+													value={apiKey}
+												/>
+												<Button
+													aria-label="Copy API Key to clipboard"
+													onPress={() => handleCopyApiKey(apiKey)}
+													variant="secondary"
+												>
+													<Copy className="size-4" />
+												</Button>
+											</div>
+
+											<p className="text-sm text-white/50">
+												After securing your API Key, grant it access to guilds using the actions menu.
+											</p>
 										</div>
+									</Modal.Body>
+									<Modal.Footer>
+										<Button onPress={() => handleCloseDialog(false)} variant="secondary">
+											Close
+										</Button>
+									</Modal.Footer>
+								</>
+							) : (
+								<form onSubmit={handleCreateApiKey}>
+									<Modal.Body className="overflow-visible pt-4">
+										<div className="space-y-4">
+											<TextField isRequired name="name">
+												<Label>Name</Label>
+												<Input placeholder="Enter a name" />
+											</TextField>
 
-										<p className="text-sm text-white/50">
-											After securing your API Key, grant it access to guilds using the actions menu.
-										</p>
-									</div>
-								</Modal.Body>
-								<Modal.Footer>
-									<Button onPress={() => handleCloseDialog(false)} variant="secondary">
-										Close
-									</Button>
-								</Modal.Footer>
-							</>
-						) : (
-							<form onSubmit={handleCreateApiKey}>
-								<Modal.Body className="overflow-visible pt-4">
-									<div className="space-y-4">
-										<TextField isRequired name="name">
-											<Label>Name</Label>
-											<Input placeholder="Enter a name" />
-										</TextField>
-
-										<Select
-											className="w-full"
-											onSelectionChange={(key) => {
-												if (key) setPermission(key as ApiKeyPermission);
-											}}
-											placeholder="Select permission"
-											selectedKey={permission}
-										>
-											<Label>Permission</Label>
-											<Select.Trigger>
-												<Select.Value />
-												<Select.Indicator />
-											</Select.Trigger>
-											<Select.Popover>
-												<ListBox>
-													<ListBox.Item id={ApiKeyPermission.Read} textValue="Read">
-														Read
-														<ListBox.ItemIndicator />
-													</ListBox.Item>
-													<ListBox.Item id={ApiKeyPermission.Write} textValue="Read/Write">
-														Read/Write
-														<ListBox.ItemIndicator />
-													</ListBox.Item>
-												</ListBox>
-											</Select.Popover>
-										</Select>
-
-										<Select
-											className="w-full"
-											onSelectionChange={(key) => {
-												if (key) setExpiration(key as string);
-											}}
-											selectedKey={expiration}
-										>
-											<Label>Expiration</Label>
-											<Select.Trigger>
-												<Select.Value />
-												<Select.Indicator />
-											</Select.Trigger>
-											<Select.Popover>
-												<ListBox>
-													{EXPIRATION_OPTIONS.map((option) => (
-														<ListBox.Item id={option.id} key={option.id} textValue={option.label}>
-															{option.label}
+											<Select
+												className="w-full"
+												onSelectionChange={(key) => {
+													if (key) setPermission(key as ApiKeyPermission);
+												}}
+												placeholder="Select permission"
+												selectedKey={permission}
+											>
+												<Label>Permission</Label>
+												<Select.Trigger>
+													<Select.Value />
+													<Select.Indicator />
+												</Select.Trigger>
+												<Select.Popover>
+													<ListBox>
+														<ListBox.Item id={ApiKeyPermission.Read} textValue="Read">
+															Read
 															<ListBox.ItemIndicator />
 														</ListBox.Item>
-													))}
-												</ListBox>
-											</Select.Popover>
-										</Select>
-									</div>
-								</Modal.Body>
-								<Modal.Footer>
-									<Button onPress={() => handleCloseDialog(false)} variant="secondary">
-										Cancel
-									</Button>
-									<Button type="submit" variant="primary">
-										Create
-									</Button>
-								</Modal.Footer>
-							</form>
-						)}
-					</Modal.Dialog>
-				</Modal.Container>
-			</Modal.Backdrop>
+														<ListBox.Item id={ApiKeyPermission.Write} textValue="Read/Write">
+															Read/Write
+															<ListBox.ItemIndicator />
+														</ListBox.Item>
+													</ListBox>
+												</Select.Popover>
+											</Select>
+
+											<Select
+												className="w-full"
+												onSelectionChange={(key) => {
+													if (key) setExpiration(key as string);
+												}}
+												selectedKey={expiration}
+											>
+												<Label>Expiration</Label>
+												<Select.Trigger>
+													<Select.Value />
+													<Select.Indicator />
+												</Select.Trigger>
+												<Select.Popover>
+													<ListBox>
+														{EXPIRATION_OPTIONS.map((option) => (
+															<ListBox.Item id={option.id} key={option.id} textValue={option.label}>
+																{option.label}
+																<ListBox.ItemIndicator />
+															</ListBox.Item>
+														))}
+													</ListBox>
+												</Select.Popover>
+											</Select>
+										</div>
+									</Modal.Body>
+									<Modal.Footer>
+										<Button onPress={() => handleCloseDialog(false)} variant="secondary">
+											Cancel
+										</Button>
+										<Button type="submit" variant="primary">
+											Create
+										</Button>
+									</Modal.Footer>
+								</form>
+							)}
+						</Modal.Dialog>
+					</Modal.Container>
+				</Modal.Backdrop>
+			</Modal>
 		</>
 	);
 }

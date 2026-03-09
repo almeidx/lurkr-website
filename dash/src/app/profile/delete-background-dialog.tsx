@@ -2,6 +2,8 @@
 
 import { Button, Modal } from "@heroui/react";
 import { useState } from "react";
+import { toast } from "sonner";
+import { extractErrorMessage } from "@/utils/extract-error-message.ts";
 
 export function DeleteBackgroundDialog({ onConfirm, onClose }: DeleteBackgroundDialogProps) {
 	const [isDeleting, setIsDeleting] = useState(false);
@@ -11,7 +13,8 @@ export function DeleteBackgroundDialog({ onConfirm, onClose }: DeleteBackgroundD
 
 		try {
 			await onConfirm();
-		} catch {
+		} catch (error) {
+			toast.error(extractErrorMessage(error, "Failed to delete background."));
 			setIsDeleting(false);
 		}
 	}

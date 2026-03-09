@@ -6,11 +6,11 @@ import { getCurrentUser, PremiumTier } from "@/lib/auth.ts";
 import type { UserGuildInfo } from "@/lib/guild.ts";
 import { userAvatar } from "@/utils/discord-cdn.ts";
 import { greeting } from "@/utils/greeting.ts";
-import { AccentColorPicker } from "./accent-color-picker.tsx";
-import { ApiKeys } from "./api-keys.tsx";
-import { BackgroundManager } from "./background-manager.tsx";
+import { BackgroundManager } from "./10-background-manager.tsx";
+import { AccentColorPicker } from "./20-accent-color-picker.tsx";
+import { PremiumGuildManager } from "./30-premium-guild-manager.tsx";
+import { ApiKeys } from "./40-api-keys.tsx";
 import { getUserBackground } from "./get-user-background.ts";
-import { PremiumGuildManager } from "./premium-guild-manager.tsx";
 
 export default async function ProfilePage() {
 	const [userResult, backgroundResult, guildsResult] = await Promise.allSettled([
@@ -123,14 +123,12 @@ function NotLoggedIn() {
 
 async function getUserGuilds() {
 	try {
-		const guilds = await api
+		return await api
 			.get("users/@me/guilds", {
 				next: { revalidate: 60 },
 				searchParams: { botIn: "true", isAdmin: "true" },
 			})
 			.json<UserGuildInfo[]>();
-
-		return guilds.filter((guild) => guild.botIn);
 	} catch {
 		return [];
 	}
