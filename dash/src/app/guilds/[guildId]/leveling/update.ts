@@ -42,6 +42,7 @@ import {
 	MAX_XP_ANNOUNCE_MULTIPLE_OF,
 	MAX_XP_CHANNELS,
 	MAX_XP_CHANNELS_PREMIUM,
+	MAX_XP_CURVE_COEFFICIENTS,
 	MAX_XP_DISALLOWED_PREFIX_LENGTH,
 	MAX_XP_DISALLOWED_PREFIXES,
 	MAX_XP_DISALLOWED_PREFIXES_PREMIUM,
@@ -55,10 +56,12 @@ import {
 	MIN_XP_ANNOUNCE_LEVEL,
 	MIN_XP_ANNOUNCE_MINIMUM_LEVEL,
 	MIN_XP_ANNOUNCE_MULTIPLE_OF,
+	MIN_XP_CURVE_COEFFICIENTS,
 	MIN_XP_GAIN_INTERVAL,
 	MIN_XP_MESSAGE_LENGTH,
 	MIN_XP_PER_MESSAGE,
 } from "@/lib/guild-config.ts";
+import { validateXpCurve } from "@/lib/validate-xp-curve.ts";
 import {
 	EMBED_AUTHOR_NAME_MAX_LENGTH,
 	EMBED_DESCRIPTION_MAX_LENGTH,
@@ -140,7 +143,14 @@ export async function update(guildId: string, premium: boolean, _currentState: u
 		};
 	}
 
-	// Validate that xpPerMessageMin <= xpPerMessageMax
+	const curveValidation = validateXpCurve(settings.xpCurve);
+	if (!curveValidation.valid) {
+		return {
+			error: ServerActionError.ManualValidationFail,
+			issue: curveValidation.error ?? "Invalid XP curve",
+		};
+	}
+
 	if (settings.xpPerMessageMin > settings.xpPerMessageMax) {
 		return {
 			error: ServerActionError.ManualValidationFail,
@@ -189,6 +199,13 @@ function createSchema(premium: boolean) {
 			xpAnnounceOnlyXpRoles: toggle,
 			xpChannelMode: enum_(XpChannelMode),
 			xpChannels: createSnowflakesValidator(premium ? MAX_XP_CHANNELS_PREMIUM : MAX_XP_CHANNELS),
+			xpCurve: pipe(
+				string(),
+				transform((value) => JSON.parse(value)),
+				array(number()),
+				minLength(MIN_XP_CURVE_COEFFICIENTS),
+				maxLength(MAX_XP_CURVE_COEFFICIENTS),
+			),
 			xpDisallowedPrefixes: pipe(
 				string(),
 				transform((value) => JSON.parse(value)),

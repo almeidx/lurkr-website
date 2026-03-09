@@ -54,6 +54,19 @@ export const MAX_XP_ANNOUNCE_MULTIPLE_OF = 250;
 export const MAX_XP_CHANNELS = 30;
 export const MAX_XP_CHANNELS_PREMIUM = 50;
 
+export const MIN_XP_CURVE_COEFFICIENTS = 2;
+export const MAX_XP_CURVE_COEFFICIENTS = 5;
+
+export const DEFAULT_XP_CURVE: readonly number[] = [150, -100, 50];
+
+export const XP_CURVE_PRESETS = {
+	amari: [55, -40, 20],
+	lurkr: [150, -100, 50],
+	mee6: [0, 455 / 6, 45 / 2, 5 / 3],
+} as const satisfies Record<string, number[]>;
+
+export type XpCurvePresetName = keyof typeof XP_CURVE_PRESETS;
+
 export const MAX_XP_DISALLOWED_PREFIXES = 10;
 export const MAX_XP_DISALLOWED_PREFIXES_PREMIUM = 25;
 export const MAX_XP_DISALLOWED_PREFIX_LENGTH = 25;

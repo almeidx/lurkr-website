@@ -110,6 +110,7 @@ export interface GuildSettings {
 	xpAnnounceOnlyXpRoles: boolean;
 	xpChannelMode: XpChannelMode;
 	xpChannels: Snowflake[];
+	xpCurve: number[];
 	xpDisallowedPrefixes: string[];
 	xpFromCommands: boolean;
 	xpGainInterval: number;

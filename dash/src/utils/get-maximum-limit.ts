@@ -120,6 +120,7 @@ type LimitedKey =
 			| "xpAnnounceMultipleOf"
 			| "xpAnnounceOnlyXpRoles"
 			| "xpChannelMode"
+			| "xpCurve"
 			| "xpFromCommands"
 			| "xpGainInterval"
 			| "xpGlobalMultiplier"
