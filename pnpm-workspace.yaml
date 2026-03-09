@@ -5,7 +5,9 @@ allowBuilds:
   "@biomejs/biome": true
   "@tailwindcss/oxide": true
   esbuild: true
+  rclone.js: true
   sharp: true
+  workerd: true
 patchedDependencies:
   p-retry: patches/p-retry.patch
 overrides:

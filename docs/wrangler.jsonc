@@ -1,0 +1,17 @@
+{
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"assets": {
+		"binding": "ASSETS",
+		"directory": ".open-next/assets"
+	},
+	"compatibility_date": "2026-04-21",
+	"compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
+	"main": ".open-next/worker.js",
+	"name": "lurkr-docs",
+	"observability": {
+		"enabled": true,
+		"logs": {
+			"enabled": true
+		}
+	}
+}
