@@ -9,17 +9,31 @@ import {
 	useSelectStore,
 	useStoreState,
 } from "@ariakit/react";
+import type { StaticImport } from "next/dist/shared/lib/get-img-props";
 import Image from "next/image";
 import amariIcon from "@/assets/bots/amari.webp";
 import mee6Icon from "@/assets/bots/mee6.svg";
 import polarisIcon from "@/assets/bots/polaris.svg";
 import { LevelingImportBot } from "@/lib/guild.ts";
+import { SUPPORT_SERVER_INVITE } from "@/shared-links.ts";
 
-const bots = [
+interface BotEntry {
+	icon: StaticImport;
+	name: LevelingImportBot;
+	disabled?: boolean;
+	disabledReason?: string;
+}
+
+const bots: BotEntry[] = [
 	{ icon: mee6Icon, name: LevelingImportBot.Mee6 },
-	{ icon: amariIcon, name: LevelingImportBot.Amari },
-	{ icon: polarisIcon, name: LevelingImportBot.Polaris },
-] as const;
+	{ disabled: true, disabledReason: "Amari's API has been taken down", icon: amariIcon, name: LevelingImportBot.Amari },
+	{
+		disabled: true,
+		disabledReason: "Polaris' API has been retired",
+		icon: polarisIcon,
+		name: LevelingImportBot.Polaris,
+	},
+];
 
 export function BotSelector() {
 	const select = useSelectStore({ defaultValue: "" });
@@ -75,18 +89,32 @@ export function BotSelector() {
 					Select your current bot
 				</SelectItem>
 
-				{bots.map(({ name, icon }) => (
+				{bots.map(({ name, icon, disabled, disabledReason }) => (
 					<SelectItem
-						className="flex cursor-default items-center gap-2 text-lg text-white/75 tracking-tight data-active-item:text-white"
+						className="flex cursor-default items-center gap-2 text-lg text-white/75 tracking-tight aria-disabled:cursor-not-allowed aria-disabled:opacity-50 data-active-item:text-white"
+						disabled={disabled}
 						key={name}
 						store={select}
 						value={name}
 					>
 						<Image alt={`${name} icon`} className="size-5 rounded-full" height={20} src={icon} width={20} />
-						{name}
+						<span className="flex flex-col">
+							<span>{name}</span>
+							{disabledReason && <span className="text-white/40 text-xs">{disabledReason}</span>}
+						</span>
 					</SelectItem>
 				))}
 			</SelectPopover>
+
+			{value === "" ? (
+				<p className="text-sm text-white/40">
+					For Polaris imports, you can request a manual import with your JSON data in our{" "}
+					<a className="text-blue underline" href={SUPPORT_SERVER_INVITE} rel="noopener noreferrer" target="_blank">
+						support server
+					</a>
+					.
+				</p>
+			) : null}
 		</div>
 	);
 }
