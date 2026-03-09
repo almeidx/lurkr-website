@@ -4,18 +4,21 @@ import { Palette } from "@gravity-ui/icons";
 import { Button, ColorArea, ColorField, ColorPicker, ColorSlider, ColorSwatch, Label, parseColor } from "@heroui/react";
 import { useState } from "react";
 import { api } from "@/lib/api.ts";
+import { averageImageColor } from "@/utils/average-image-color.ts";
 import { DEFAULT_ACCENT_COLOR } from "@/utils/constants.ts";
 import { extractErrorMessage } from "@/utils/extract-error-message.ts";
 
 interface AccentColorPickerProps {
+	readonly avatarUrl: string | null;
 	readonly initialColor: string | null;
 }
 
-export function AccentColorPicker({ initialColor }: AccentColorPickerProps) {
+export function AccentColorPicker({ avatarUrl, initialColor }: AccentColorPickerProps) {
 	const [savedColor, setSavedColor] = useState(initialColor);
 	const [color, setColor] = useState(parseColor(initialColor ?? DEFAULT_ACCENT_COLOR));
 	const [isSaving, setIsSaving] = useState(false);
 	const [isResetting, setIsResetting] = useState(false);
+	const [isInferring, setIsInferring] = useState(false);
 	const [error, setError] = useState<string | null>(null);
 
 	const currentHex = color.toString("hex").toLowerCase();
@@ -35,6 +38,22 @@ export function AccentColorPicker({ initialColor }: AccentColorPickerProps) {
 			setError(extractErrorMessage(error, "Failed to update accent color."));
 		} finally {
 			setIsSaving(false);
+		}
+	}
+
+	async function handleInferFromAvatar() {
+		if (!avatarUrl) return;
+
+		setError(null);
+		setIsInferring(true);
+
+		try {
+			const hex = await averageImageColor(avatarUrl);
+			setColor(parseColor(hex));
+		} catch (error) {
+			setError(extractErrorMessage(error, "Failed to get average color from avatar."));
+		} finally {
+			setIsInferring(false);
 		}
 	}
 
@@ -66,7 +85,7 @@ export function AccentColorPicker({ initialColor }: AccentColorPickerProps) {
 				<p className="text-sm text-white/50">Used as the progress bar color of your rank card.</p>
 			</div>
 
-			<div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+			<div className="flex flex-col gap-3 sm:flex-row sm:items-start">
 				<ColorPicker
 					onChange={(c) => {
 						setColor(c);
@@ -106,7 +125,7 @@ export function AccentColorPicker({ initialColor }: AccentColorPickerProps) {
 					</ColorPicker.Popover>
 				</ColorPicker>
 
-				<div className="flex gap-2">
+				<div className="flex flex-wrap gap-2">
 					{hasChanges && (
 						<Button isDisabled={isSaving} onPress={handleSave} variant="primary">
 							{isSaving ? "Saving..." : "Save"}
@@ -115,6 +134,11 @@ export function AccentColorPicker({ initialColor }: AccentColorPickerProps) {
 					{savedColor && (
 						<Button isDisabled={isResetting} onPress={handleReset} variant="danger">
 							{isResetting ? "Resetting..." : "Reset"}
+						</Button>
+					)}
+					{avatarUrl && (
+						<Button isDisabled={isInferring} onPress={handleInferFromAvatar} variant="secondary">
+							{isInferring ? "Calculating..." : "Use Average Avatar Color"}
 						</Button>
 					)}
 				</div>

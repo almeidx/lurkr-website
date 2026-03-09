@@ -98,7 +98,7 @@ export default async function ProfilePage() {
 
 			<Card className="border border-white/10">
 				<Card.Content className="space-y-4 p-6">
-					<AccentColorPicker initialColor={user.accentColour} />
+					<AccentColorPicker avatarUrl={avatarUrl} initialColor={user.accentColour} />
 				</Card.Content>
 			</Card>
 
