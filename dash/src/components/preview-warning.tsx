@@ -2,9 +2,9 @@
 
 import { TriangleExclamation } from "@gravity-ui/icons";
 import { CloseButton } from "@heroui/react";
+import { linkVariants } from "@heroui/styles";
 import clsx from "clsx";
 import { useEffect, useState } from "react";
-import { ExternalLink } from "./ExternalLink.tsx";
 
 export function PreviewWarning() {
 	const [isClosed, setIsClosed] = useState(false);
@@ -22,8 +22,8 @@ export function PreviewWarning() {
 		return null;
 	}
 
-	const isBeta = process.env.PUBLIC_ENVIRONMENT === "beta";
-	const isPtb = process.env.ENVIROMENT === "ptb";
+	const isBeta = process.env.NEXT_PUBLIC_ENVIRONMENT === "beta";
+	const isPtb = process.env.NEXT_PUBLIC_ENVIRONMENT === "ptb";
 
 	const versionName = isBeta ? "Beta Preview" : isPtb ? "Public Test Build" : "Unstable Preview";
 
@@ -40,10 +40,10 @@ export function PreviewWarning() {
 		>
 			<TriangleExclamation className="size-4 shrink-0" />
 			<span>
-				<strong>{versionName}</strong> — Go to{" "}
-				<ExternalLink className="underline" href="https://lurkr.gg">
+				<span className="font-bold">{versionName}</span> — Go to{" "}
+				<a className={linkVariants().base()} href="https://lurkr.gg" rel="external noopener noreferrer" target="_blank">
 					lurkr.gg
-				</ExternalLink>{" "}
+				</a>{" "}
 				for the stable version
 			</span>
 			<CloseButton className="ml-auto shrink-0" onPress={() => setIsClosed(true)} />

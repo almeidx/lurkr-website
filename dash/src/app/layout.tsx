@@ -9,12 +9,12 @@ import { CookieNoticeHandler } from "@/components/cookie-notice-handler.tsx";
 import { Footer } from "@/components/footer.tsx";
 import { Navbar } from "@/components/Navbar.tsx";
 import { NavbarUserButton } from "@/components/NavbarUserButton.tsx";
-import { PreviewWarning } from "@/components/PreviewWarning.tsx";
+import { PreviewWarning } from "@/components/preview-warning.tsx";
 import { SignInButton } from "@/components/SignIn.tsx";
 import { SvgGradients } from "@/components/svg-gradients.tsx";
 import { BRAND_COLOR, DESCRIPTION, PUBLIC_URL } from "@/utils/constants.ts";
 
-const isPreview = process.env.PUBLIC_ENVIRONMENT !== "prod" && process.env.NODE_ENV !== "development";
+const isPreview = process.env.NEXT_PUBLIC_ENVIRONMENT !== "prod" && process.env.NODE_ENV !== "development";
 
 export default function RootLayout({ children }: PropsWithChildren) {
 	return (

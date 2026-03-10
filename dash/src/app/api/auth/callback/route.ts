@@ -15,7 +15,7 @@ export async function GET(request: NextRequest) {
 		body: JSON.stringify({ code }),
 		headers: {
 			"Content-Type": "application/json",
-			"X-Environment": process.env.PUBLIC_ENVIRONMENT ?? "prod",
+			"X-Environment": process.env.NEXT_PUBLIC_ENVIRONMENT ?? "prod",
 		},
 		method: "POST",
 	});
