@@ -1,4 +1,4 @@
-import { SignInButton } from "@/components/SignIn.tsx";
+import { SignInButton } from "@/components/navigation/sign-in.tsx";
 
 export function SignInRequired() {
 	return (

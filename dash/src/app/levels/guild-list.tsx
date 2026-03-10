@@ -8,7 +8,7 @@ import type { GuildInfo } from "@/app/levels/page.tsx";
 import fallbackAvatarImg from "@/assets/fallback-avatar.webp";
 import { ImageWithFallback } from "@/components/ImageWithFallback.tsx";
 import { Send } from "@/components/icons/mdi/send.tsx";
-import { SignInButton } from "@/components/SignIn.tsx";
+import { SignInButton } from "@/components/navigation/sign-in.tsx";
 import { guildIcon } from "@/utils/discord-cdn.ts";
 import { isSnowflake } from "@/utils/is-snowflake.ts";
 

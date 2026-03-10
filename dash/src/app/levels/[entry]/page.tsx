@@ -14,7 +14,7 @@ import fallbackAvatarImg from "@/assets/fallback-avatar.webp";
 import { ErrorState } from "@/components/error-state.tsx";
 import { ImageWithFallback } from "@/components/ImageWithFallback.tsx";
 import { SidebarSection } from "@/components/leaderboard/SidebarSection.tsx";
-import { SignInButton } from "@/components/SignIn.tsx";
+import { SignInButton } from "@/components/navigation/sign-in.tsx";
 import type { Guild } from "@/lib/guild.ts";
 import { MAX_WINDOW_TITLE_LENGTH, TOKEN_COOKIE } from "@/utils/constants.ts";
 import { guildIcon, type Snowflake } from "@/utils/discord-cdn.ts";

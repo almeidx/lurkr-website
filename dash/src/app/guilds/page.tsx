@@ -4,7 +4,7 @@ import { DashboardGuildList } from "@/app/guilds/guild-list.tsx";
 import fallbackAvatarImg from "@/assets/fallback-avatar.webp";
 import { ErrorState } from "@/components/error-state.tsx";
 import { ImageWithFallback } from "@/components/ImageWithFallback.tsx";
-import { SignInButton } from "@/components/SignIn.tsx";
+import { SignInButton } from "@/components/navigation/sign-in.tsx";
 import type { User } from "@/lib/auth.ts";
 import { TOKEN_COOKIE } from "@/utils/constants.ts";
 import { type Snowflake, userAvatar } from "@/utils/discord-cdn.ts";
