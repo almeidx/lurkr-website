@@ -1,13 +1,13 @@
 "use client";
 
 import { ArrowRight, Person } from "@gravity-ui/icons";
-import { SearchField } from "@heroui/react";
+import { SearchField, Surface } from "@heroui/react";
 import { matchSorter } from "match-sorter";
 import { useRouter } from "next/navigation";
 import { type KeyboardEvent, useState } from "react";
 import type { GuildInfo } from "@/app/levels/page.tsx";
 import { GuildCard, GuildGrid, GuildSectionHeader } from "@/components/guild-list";
-import { SignInButton } from "@/components/SignIn.tsx";
+import { SignInButton } from "@/components/navigation/sign-in.tsx";
 import { isSnowflake } from "@/utils/is-snowflake.ts";
 
 export function LeaderboardGuildList({ guilds }: { readonly guilds: GuildInfo[] }) {
@@ -112,22 +112,18 @@ export function LeaderboardGuildInput() {
 				</button>
 			</div>
 
-			<div className="rounded-xl border border-white/10 bg-surface/30 p-6">
-				<div className="flex items-start gap-4">
-					<div className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-blurple/20">
-						<Person className="size-5 text-blurple" />
-					</div>
-					<div className="flex-1">
-						<p className="font-medium text-white">Sign in to see your servers</p>
-						<p className="mt-1 text-sm text-white/60">
-							Connect with Discord to quickly access leaderboards for servers where you have leveling enabled.
-						</p>
-						<div className="mt-3">
-							<SignInButton />
-						</div>
-					</div>
+			<Surface className="flex flex-col items-center gap-4 rounded-2xl px-6 py-8 text-center">
+				<div className="flex size-12 items-center justify-center rounded-full bg-white/5">
+					<Person className="size-6 text-white/60" />
 				</div>
-			</div>
+				<div>
+					<p className="font-semibold text-lg text-white">Sign in to see your servers</p>
+					<p className="mt-1 text-sm text-white/60">
+						Connect with Discord to quickly access leaderboards for servers where you have leveling enabled.
+					</p>
+				</div>
+				<SignInButton />
+			</Surface>
 		</div>
 	);
 }

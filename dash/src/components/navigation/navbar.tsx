@@ -1,12 +1,11 @@
 "use client";
 
-import { Button, CloseButton, Separator } from "@heroui/react";
+import { Button, Drawer, Separator } from "@heroui/react";
 import clsx from "clsx";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { type PropsWithChildren, useEffect, useState } from "react";
-import { Drawer } from "vaul";
 import logoSmallImg from "@/assets/logo-small.webp";
 import { ArrowBackIos } from "@/components/icons/mdi/arrow-back-ios.tsx";
 import { AutoStories } from "@/components/icons/mdi/auto-stories.tsx";
@@ -79,7 +78,7 @@ export function Navbar({ children }: PropsWithChildren) {
 		<>
 			<header className="sticky top-0 z-50 border-white/10 border-b bg-background/80 backdrop-blur-lg">
 				<div className="container mx-auto flex items-center justify-between px-4 py-2.5 md:grid md:grid-cols-[1fr_auto_1fr]">
-					<Link className="flex items-center gap-2.5" href="/">
+					<Link className="flex w-fit items-center gap-2.5" href="/">
 						<Image alt="Lurkr logo" className="size-9" height={36} priority quality={100} src={logoSmallImg} />
 						<span className="font-semibold text-lg">Lurkr</span>
 					</Link>
@@ -115,25 +114,14 @@ export function Navbar({ children }: PropsWithChildren) {
 				</div>
 			</header>
 
-			<Drawer.Root autoFocus direction="right" modal onOpenChange={setMenuOpen} open={menuOpen}>
-				<Drawer.Portal>
-					<Drawer.Overlay className="fixed inset-0 z-100 bg-black/50 backdrop-blur-sm" />
-
-					<Drawer.Content
-						aria-label="Mobile navigation"
-						className="fixed inset-y-0 right-0 z-101 flex w-80 max-w-[calc(100vw-3rem)] flex-col border-white/10 border-l bg-background shadow-2xl outline-none"
-					>
-						<Drawer.Title className="sr-only">Navigation menu</Drawer.Title>
-						<Drawer.Description className="sr-only">Site navigation and user actions</Drawer.Description>
-
-						<div className="flex items-center justify-between border-white/10 border-b px-5 py-3">
-							<span className="font-semibold text-white/80">Menu</span>
-							<Drawer.Close asChild>
-								<CloseButton aria-label="Close menu" />
-							</Drawer.Close>
-						</div>
-
-						<nav className="flex-1 overflow-y-auto px-3 py-4">
+			<Drawer.Backdrop isOpen={menuOpen} onOpenChange={setMenuOpen} variant="blur">
+				<Drawer.Content placement="right">
+					<Drawer.Dialog>
+						<Drawer.CloseTrigger />
+						<Drawer.Header>
+							<Drawer.Heading>Menu</Drawer.Heading>
+						</Drawer.Header>
+						<Drawer.Body className="py-4">
 							{showDashboardLinks && guildId ? (
 								<>
 									<p className="mb-2 px-3 font-medium text-white/40 text-xs uppercase tracking-wider">Dashboard</p>
@@ -143,12 +131,11 @@ export function Navbar({ children }: PropsWithChildren) {
 								</>
 							) : null}
 							<MobileNavLinks activeNavHref={activeNavHref} />
-						</nav>
-
-						<div className="border-white/10 border-t px-3 py-3">{children}</div>
-					</Drawer.Content>
-				</Drawer.Portal>
-			</Drawer.Root>
+						</Drawer.Body>
+						<Drawer.Footer className="block">{children}</Drawer.Footer>
+					</Drawer.Dialog>
+				</Drawer.Content>
+			</Drawer.Backdrop>
 		</>
 	);
 }
