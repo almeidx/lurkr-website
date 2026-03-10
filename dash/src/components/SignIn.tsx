@@ -1,13 +1,10 @@
-import { Discord } from "@/components/icons/Discord.tsx";
+import { ArrowRightToSquare } from "@gravity-ui/icons";
 import { SIGN_IN_URL } from "@/utils/constants.ts";
 
 export function SignInButton() {
 	return (
-		<a
-			className="flex w-fit flex-nowrap items-center justify-center gap-2 whitespace-nowrap rounded-lg bg-blurple px-2 py-1"
-			href={SIGN_IN_URL}
-		>
-			<Discord aria-hidden className="size-5" />
+		<a className="button button--primary w-full md:w-auto" href={SIGN_IN_URL}>
+			<ArrowRightToSquare className="size-5" />
 			Log in
 		</a>
 	);
