@@ -1,5 +1,5 @@
 import { ChartLine, Check, Xmark } from "@gravity-ui/icons";
-import { Card, Chip, Link as HeroLink } from "@heroui/react";
+import { Card, Chip } from "@heroui/react";
 import clsx from "clsx";
 import type { StaticImageData } from "next/image";
 import Image from "next/image";
@@ -164,9 +164,9 @@ function CardContent({
 
 			<Card.Footer className="px-6 pt-4 pb-6">
 				{isExternal ? (
-					<HeroLink className={buttonClasses} href={href} rel="external noopener noreferrer" target="_blank">
+					<a className={buttonClasses} href={href} rel="external noopener noreferrer" target="_blank">
 						{buttonText}
-					</HeroLink>
+					</a>
 				) : (
 					<Link className={buttonClasses} href={href} prefetch={false}>
 						{buttonText}

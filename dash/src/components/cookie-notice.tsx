@@ -1,9 +1,13 @@
 "use client";
 
+import { Button, Surface } from "@heroui/react";
+import { linkVariants } from "@heroui/styles";
 import Cookies from "js-cookie";
-import Link from "next/link";
+import NextLink from "next/link";
 import { useState } from "react";
 import { COOKIE_NOTICE_ACK, COOKIE_NOTICE_COOKIE } from "@/utils/constants.ts";
+
+const linkClasses = linkVariants().base();
 
 export function CookieNotice({ defaultHasConsented }: { readonly defaultHasConsented: boolean }) {
 	const [hasConsented, setHasConsented] = useState(defaultHasConsented);
@@ -23,25 +27,21 @@ export function CookieNotice({ defaultHasConsented }: { readonly defaultHasConse
 	}
 
 	return (
-		<div className="fixed right-8 bottom-8 left-8 z-100003 flex flex-col rounded-md border border-white/25 bg-darker px-3 py-2 sm:left-auto sm:max-w-xl">
-			<p className="mb-2 font-bold text-xl">Cookies</p>
+		<Surface className="fixed right-4 bottom-4 left-4 z-100003 rounded-xl border border-white/10 p-4 sm:left-auto sm:max-w-md">
+			<p className="font-semibold text-lg">Cookies</p>
 
-			<p>
+			<p className="mt-1 text-sm text-white/70">
 				We use functional cookies to provide you with the best experience on our website. For more information, please
 				refer to our{" "}
-				<Link className="text-blue-400 hover:text-blue-600" href="/privacy">
+				<NextLink className={linkClasses} href="/privacy">
 					Privacy Policy
-				</Link>
+				</NextLink>
 				.
 			</p>
 
-			<button
-				className="mt-2 w-fit rounded-md bg-primary px-3 py-1 hover:bg-primary/75"
-				onClick={acceptCookies}
-				type="button"
-			>
+			<Button className="mt-3" onPress={acceptCookies} size="sm">
 				Okay
-			</button>
-		</div>
+			</Button>
+		</Surface>
 	);
 }

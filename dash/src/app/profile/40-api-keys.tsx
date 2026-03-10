@@ -2,6 +2,7 @@
 
 import { Key } from "@gravity-ui/icons";
 import { Chip, Table } from "@heroui/react";
+import { linkVariants } from "@heroui/styles";
 import Link from "next/link";
 import { useState } from "react";
 import { ApiKeyPermission, type UserGuildInfo } from "@/lib/guild.ts";
@@ -12,6 +13,7 @@ import { GuildAccessApiKeyDialog } from "./guild-access-api-key-dialog.tsx";
 import { TableRowActions } from "./table-row-actions.tsx";
 
 const MAX_API_KEYS = 5;
+const linkClasses = linkVariants().base();
 
 export function ApiKeys({ guilds, initialKeys }: ApiKeysProps) {
 	const [keys, setKeys] = useState<GetUserApiKeysResult["keys"]>(initialKeys);
@@ -50,7 +52,7 @@ export function ApiKeys({ guilds, initialKeys }: ApiKeysProps) {
 
 				<p className="text-sm text-white/50">
 					Overview of all registered API keys. Learn more about the API{" "}
-					<Link className="text-primary hover:underline" href="/docs/api">
+					<Link className={linkClasses} href="/docs/api">
 						here
 					</Link>
 					.

@@ -1,13 +1,17 @@
 "use client";
 
 import { Briefcase, ThumbsUp } from "@gravity-ui/icons";
-import { Link as HeroLink, Tooltip } from "@heroui/react";
+import { Tooltip } from "@heroui/react";
+import { buttonVariants, linkVariants } from "@heroui/styles";
 import Image from "next/image";
 import Link from "next/link";
 import logoImg from "@/assets/logo.webp";
 import { Discord } from "@/components/icons/Discord.tsx";
 import { GitHub } from "@/components/icons/GitHub.tsx";
 import { BOT_INVITE, GITHUB_REPOSITORY_URL, SUPPORT_SERVER_INVITE, TOPGG_URL } from "@/shared-links.ts";
+
+const footerLinkClasses = `${linkVariants().base()} text-white/50 no-underline hover:text-white`;
+const footerIconLinkClasses = `${buttonVariants({ isIconOnly: true, variant: "ghost" })} bg-white/5 text-white/60`;
 
 export function Footer() {
 	return (
@@ -28,21 +32,16 @@ export function Footer() {
 						<div className="flex flex-col items-start gap-3">
 							<p className="font-semibold text-sm text-white/70">Product</p>
 							<div className="flex flex-col gap-2 text-left md:grid md:grid-cols-2 md:gap-x-6 md:gap-y-2">
-								<HeroLink
-									className="text-sm text-white/50 no-underline transition-colors hover:text-white"
-									href={BOT_INVITE}
-									rel="external noopener noreferrer"
-									target="_blank"
-								>
+								<a className={footerLinkClasses} href={BOT_INVITE} rel="external noopener noreferrer" target="_blank">
 									Invite
-								</HeroLink>
-								<Link className="text-sm text-white/50 transition-colors hover:text-white" href="/docs/changelog">
+								</a>
+								<Link className={footerLinkClasses} href="/docs/changelog">
 									Changelog
 								</Link>
-								<Link className="text-sm text-white/50 transition-colors hover:text-white" href="/docs">
+								<Link className={footerLinkClasses} href="/docs">
 									Docs
 								</Link>
-								<Link className="text-sm text-white/50 transition-colors hover:text-white" href="/status">
+								<Link className={footerLinkClasses} href="/status">
 									Status
 								</Link>
 							</div>
@@ -51,10 +50,10 @@ export function Footer() {
 						<div className="flex flex-col items-start gap-3">
 							<p className="font-semibold text-sm text-white/70">Legal</p>
 							<div className="flex flex-col gap-2 text-left">
-								<Link className="text-sm text-white/50 transition-colors hover:text-white" href="/privacy">
+								<Link className={footerLinkClasses} href="/privacy">
 									Privacy
 								</Link>
-								<Link className="text-sm text-white/50 transition-colors hover:text-white" href="/terms">
+								<Link className={footerLinkClasses} href="/terms">
 									Terms
 								</Link>
 							</div>
@@ -64,53 +63,53 @@ export function Footer() {
 					<div className="flex w-full items-center justify-start gap-3 md:w-auto">
 						<Tooltip>
 							<Tooltip.Trigger>
-								<HeroLink
-									className="flex size-10 items-center justify-center rounded-lg bg-white/5 text-white/60 no-underline transition-all hover:bg-[#5865F2]/20 hover:text-[#5865F2]"
+								<a
+									className={`${footerIconLinkClasses} hover:bg-[#5865F2]/20 hover:text-[#5865F2]`}
 									href={SUPPORT_SERVER_INVITE}
 									rel="external noopener noreferrer"
 									target="_blank"
 								>
 									<Discord aria-label="Discord" className="size-5" />
-								</HeroLink>
+								</a>
 							</Tooltip.Trigger>
 							<Tooltip.Content>Discord</Tooltip.Content>
 						</Tooltip>
 						<Tooltip>
 							<Tooltip.Trigger>
-								<HeroLink
-									className="flex size-10 items-center justify-center rounded-lg bg-white/5 text-white/60 no-underline transition-all hover:bg-white/10 hover:text-white"
+								<a
+									className={`${footerIconLinkClasses} hover:bg-white/10 hover:text-white`}
 									href={GITHUB_REPOSITORY_URL}
 									rel="external noopener noreferrer"
 									target="_blank"
 								>
 									<GitHub aria-label="GitHub" className="size-5" />
-								</HeroLink>
+								</a>
 							</Tooltip.Trigger>
 							<Tooltip.Content>GitHub</Tooltip.Content>
 						</Tooltip>
 						<Tooltip>
 							<Tooltip.Trigger>
-								<HeroLink
-									className="flex size-10 items-center justify-center rounded-lg bg-white/5 text-white/60 no-underline transition-all hover:bg-[#FF3366]/20 hover:text-[#FF3366]"
+								<a
+									className={`${footerIconLinkClasses} hover:bg-[#FF3366]/20 hover:text-[#FF3366]`}
 									href={`${TOPGG_URL}&utm_campaign=footer`}
 									rel="external noopener noreferrer"
 									target="_blank"
 								>
 									<ThumbsUp aria-label="Vote on Top.gg" className="size-5" />
-								</HeroLink>
+								</a>
 							</Tooltip.Trigger>
 							<Tooltip.Content>Vote on Top.gg</Tooltip.Content>
 						</Tooltip>
 						<Tooltip>
 							<Tooltip.Trigger>
-								<HeroLink
-									className="flex size-10 items-center justify-center rounded-lg bg-white/5 text-white/60 no-underline transition-all hover:bg-white/10 hover:text-white"
+								<a
+									className={`${footerIconLinkClasses} hover:bg-white/10 hover:text-white`}
 									href="https://forms.gle/CMBktm14LfnyekbQ9"
 									rel="external noopener noreferrer"
 									target="_blank"
 								>
 									<Briefcase aria-label="Backend developer application" className="size-5" />
-								</HeroLink>
+								</a>
 							</Tooltip.Trigger>
 							<Tooltip.Content>Backend developer application</Tooltip.Content>
 						</Tooltip>
