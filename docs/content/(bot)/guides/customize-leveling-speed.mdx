@@ -27,6 +27,46 @@ Otherwise, make sure that the maximum XP number is larger than the minimum XP nu
 
 ---
 
+## XP Curve
+
+The XP curve determines how much XP is required to reach each level. By default, Lurkr uses a polynomial formula, but
+you can change it to match other popular bots or define your own custom curve.
+
+### How It Works
+
+The XP required to reach level **n** is calculated using a polynomial formula:
+
+`xp(n) = c₀ + c₁·n + c₂·n² + c₃·n³ + ...`
+
+Where `c₀`, `c₁`, `c₂`, etc. are the coefficients you configure. You can use between 2 and 5 coefficients.
+
+### Presets
+
+Lurkr provides three built-in presets so you can match the leveling curve of other popular bots:
+
+| Preset          | Formula                   |
+| --------------- | ------------------------- |
+| Lurkr (Default) | 50n² − 100n + 150         |
+| Amari           | 20n² − 40n + 55           |
+| MEE6            | ≈1.67n³ + 22.5n² + 75.83n |
+
+<Callout type="info">
+	You can also define a fully custom polynomial curve with your own coefficients for complete control over leveling
+	progression.
+</Callout>
+
+### How to Change the XP Curve
+
+You can change the XP curve in two ways:
+
+- **Dashboard:** Go to your [server's dashboard](/../guilds), select the **Leveling** category, and scroll to the **XP
+  Curve** section. You can pick a preset or enter custom coefficients, and a chart will preview the curve.
+- **Command:** Use `/config set` with the **XP Curve Formula** option.
+
+To reset the XP curve back to the Lurkr default, use `/config delete` with the **XP Curve Formula** option.
+
+---
+
 ## Final Words
 
 And that's it! You've successfully set your leveling speed with Lurkr!

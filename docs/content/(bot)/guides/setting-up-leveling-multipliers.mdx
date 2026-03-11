@@ -39,32 +39,45 @@ will take away XP.**
 
 ## Understanding the Hierarchy
 
-When you have more than one multiplier currently active, a hierarchy is established to decide which multiplier is used
-in which circumstance. Role multiplier hierarchy is a bit different and will be explained in the
-[changing role multiplier hierarchy section](#changing-role-multiplier-hierarchy).
+Lurkr supports three types of multipliers: **global**, **channel**, and **role**. When a user sends a message, at most
+one multiplier of each type can apply. These multipliers **stack by multiplication**, meaning the final XP gained is:
 
-Lets say that we have a global multiplier of x1.1, a channel multiplier of x1.5 in #Channel-A, a channel multiplier of
-x0.75 in #Channel-B and another #Channel-C with no multiplier:
+`gained_xp × global_multiplier × channel_multiplier × role_multiplier`
 
-| Multiplier | Application |
-| ---------- | ----------- |
-| x1.1       | Global      |
-| x1.5       | #Channel-A  |
-| x0.75      | #Channel-B  |
-| None       | #Channel-C  |
+If a multiplier type has no active value, it defaults to x1 (no effect).
 
-Based on this, we now want to know what multiplier will be used in each channel.
+### How Each Type Is Resolved
 
-If we talk in #Channel-A, the multiplier of #Channel-A will be used, since it is the highest one currently applicable.
+- **Global multiplier:** There is only one global multiplier for the entire server. If set, it always applies.
+- **Channel multiplier:** If the message is sent in a channel that has a multiplier, that multiplier is used. If
+  multiple channel multipliers could apply, the one with the highest value is used.
+- **Role multiplier:** If a user has multiple roles with multipliers, by default the role with the **highest multiplier
+  value** is used. This behaviour can be changed — see
+  [Changing Role Multiplier Hierarchy](#changing-role-multiplier-hierarchy).
 
-If we talk in #Channel-B, the global multiplier will be used, since the channel multiplier is lower than the global one.
+### Example
 
-If we talk in #Channel-C, the global multiplier will be used, since there is no channel multiplier set at all.
+Let's say we have these multipliers configured:
+
+| Multiplier | Type    | Application |
+| ---------- | ------- | ----------- |
+| x1.1       | Global  | Everywhere  |
+| x1.5       | Channel | #Channel-A  |
+| x0.75      | Channel | #Channel-B  |
+| x2.0       | Role    | @Booster    |
+
+A user with the @Booster role sends a message and would normally gain `34` XP. Here is what happens in each channel:
+
+- **#Channel-A:** `34 × 1.1 × 1.5 × 2.0 = 112 XP` — all three multiplier types stack.
+- **#Channel-B:** `34 × 1.1 × 0.75 × 2.0 = 56 XP` — the channel multiplier is below 1, but it still stacks with the
+  others.
+- **#Channel-C** (no channel multiplier): `34 × 1.1 × 2.0 = 75 XP` — only global and role multipliers apply.
 
 <Callout type="default">
 **Important to Remember!**
 
-Whenever applicable, the highest multiplier will always be used!
+Multipliers of different types (global, channel, role) **stack with each other** by multiplication. Within the same
+type, only the single highest-priority multiplier is used.
 
 </Callout>
 
@@ -82,11 +95,9 @@ A modal-box will then appear, in which you can then enter the global multiplier 
 ![Global multiplier modal](../../_assets/Discord_6e1IeynbEU.png)
 
 <Callout type="info">
-Using Global Multipliers you can change the leveling curve to match that of other popular bots!
-*Assuming Default Leveling Options & Multipliers*
-
-**AmariBot •** x0.09 **Polaris •** x1.1 **Arcane •** Approx. Equal **MEE6 •** x0.32
-
+	Previously, the only way to match another bot's leveling curve was to use a global multiplier. Now Lurkr supports
+	custom XP curves with built-in presets for popular bots! Check out the [XP Curve
+	section](./customize-leveling-speed#xp-curve) for details.
 </Callout>
 
 ---
