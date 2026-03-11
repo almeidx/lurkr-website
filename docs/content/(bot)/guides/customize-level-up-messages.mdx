@@ -20,7 +20,7 @@ can completely customize it!
 <center>![The `/config set option:Level Up Message` command](../../_assets/config-set-level-up-message.png)</center>
 
 This will then open a modal dialog box, in which you can then type and send-off your written out level-up message! When
-you're done, and are sure that the message is within the 1,000 character limit, click on the submit button!
+you're done, and are sure that the message is within the 1,800 character limit, click on the submit button!
 
 <center>![The modal dialog box for setting the Level Up Message](../../_assets/set-level-up-message-modal.png)</center>
 
@@ -35,14 +35,18 @@ _You must include the `{}` brackets in your message for the tags to show up!_
 | User Profile Picture (🖼️)      | `{user.avatar}`        |
 | User Tag (User#1234)           | `{user.tag}`           |
 | User Discriminator (1234)      | `{user.discriminator}` |
+| Username (User)                | `{user.username}`      |
 | User ID (99787644430475264)    | `{user.id}`            |
 | Server Name (My Cool Server)   | `{guild.name}`         |
+| Server Name (My Cool Server)   | `{guild}`              |
 | Server ID (493351982887862283) | `{guild.id}`           |
 | Server Icon Picture (🖼️)       | `{guild.icon}`         |
 | Level Reached (5)              | `{level}`              |
 | Total XP Gained (30,183)       | `{xp}`                 |
 | Role Reward Gained (Level 10)  | `{roleRewardNames}`    |
 | Role Reward Gained (@Level 10) | `{roleRewardMentions}` |
+
+`{roleRewards}` is also available as a legacy alias for `{roleRewardNames}`.
 
 ---
 
@@ -133,19 +137,20 @@ Leveling Role attached to them.
 	command](../../_assets/config-toggle-only-announce-level-ups-together-with-role-rewards.png)
 </center>
 
-The following table shows you the hierarchy of all of these settings and when they go into effect if you've set multiple
-of them. Please refer to this when you're troubleshooting why a certain level isn't being announced.
+All active announcement filters must be satisfied **simultaneously** (AND logic) for a level-up to be announced. If you
+have multiple settings enabled, a level must pass **every** check to trigger an announcement.
 
-| Level Announcement Setting | Hierarchy of Announcement |
-| -------------------------- | ------------------------- |
-| Minimum Level              | 1                         |
-| Manually Set Levels        | 2                         |
-| Only Leveling Roles        | 3                         |
-| Multiple (Factor) Of       | 4                         |
+| Level Announcement Setting | What it checks                                       |
+| -------------------------- | ---------------------------------------------------- |
+| Minimum Level              | The level must be at or above this threshold         |
+| Manually Set Levels        | The level must be in the specified list              |
+| Only Leveling Roles        | The level must have a role reward attached to it     |
+| Multiple (Factor) Of       | The level must be a multiple of the specified number |
 
-<Callout type="info">
-	By this table, if you have manually set levels **1**, **2** & **3** to have an announcement, but also set a **multiple
-	of 5**, the only level that would be left out with be **level 4**.
+<Callout type="warning">
+	Because all active filters are combined with AND logic, setting specific levels **1**, **2** & **3** together with a
+	**multiple of 5** would mean **no levels are announced** — since no level satisfies both conditions at once. Only use
+	multiple announcement filters together when they are compatible.
 </Callout>
 
 ---

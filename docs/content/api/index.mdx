@@ -48,8 +48,8 @@ To create and manage your API keys, visit your [profile page](/../profile).
 
 ## Rate Limiting
 
-The API enforces rate limits to ensure fair usage and system stability. You can make 1500 requests per minute per API
-key.
+The API enforces rate limits to ensure fair usage and system stability. You can make 1500 requests per minute per
+identity (API key, authenticated user, or IP address).
 
 ### Rate Limit Headers
 
@@ -65,7 +65,7 @@ Each response includes the following headers to help you manage your API usage:
 ### Handling Rate Limits
 
 When you hit the rate limit, you'll receive a `429 Too Many Requests` response. The `Retry-After` header will tell you
-how long to wait before making new requests.
+how long to wait before making new requests. If you continue hitting rate limits, you will be temporarily banned.
 
 ## Error Handling
 
@@ -86,6 +86,7 @@ Common error codes:
 - `401`: Unauthorized - Missing or invalid API key
 - `403`: Forbidden - Insufficient permissions
 - `404`: Not Found - Resource doesn't exist
+- `409`: Conflict - Resource already exists
 - `429`: Too Many Requests - Rate limit exceeded
 
 ## API Documentation

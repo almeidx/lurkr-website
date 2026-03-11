@@ -13,8 +13,8 @@ This command can be used to create emojis or emotes on your server. It is most u
 Discord User Interface can be a bit clunky and hard to navigate, although the command works perfectly fine on desktop
 and browser versions.
 
-The emoji name can be anything you want, as long as it is alphanumeric (Contains only letters and numbers) and does not
-contain spaces.
+The emoji name can be anything you want, as long as it only contains letters, numbers, and underscores, is between 2 and
+32 characters long, and does not contain spaces.
 
 The image you want to create as an emoji needs to be less than 256 kilobytes in size, which you can check by going into
 the properties of the file you're trying to upload.
@@ -22,12 +22,12 @@ the properties of the file you're trying to upload.
 ### Command Structure
 
 ```
-/emoji create <image:> [name:]
+/emoji create <image:> <name:>
 ```
 
 ![](../../../_assets/Zm3N8Wg.png)
 
 ### Permission
 
-- `Manage Emojis` **(User)**
-- `Manage Emojis` **(Bot)**
+- `Manage Guild Expressions` **(User)**
+- `Manage Guild Expressions` **(Bot)**

@@ -44,8 +44,8 @@ triggered at.
 The interval is the number of members between each milestone, and by default it is set to **100**. This means that every
 100 members, a milestone is triggered, such as **200**, **300**, **400**, etc.
 
-The milestone interval can be any number within reason as long as it is a _**multiple of 10**_. Conceivably, the
-interval can be set to 10, or it can be set to **100,000**.
+The milestone interval can be any number within reason as long as it is a _**multiple of 5**_. Conceivably, the interval
+can be set to 5, or it can be set to **100,000**.
 
 To set your interval, type the following command:
 
@@ -64,7 +64,7 @@ By default, the message looks as follows:
 ![](../../_assets/HF9vv9h.png)
 
 You may include any number of emojis (As long as the bot can access them), formatting, line breaks, special characters
-and even role mentions as long as it is within the 2000-character limit of all messages.
+and even role mentions as long as it is within the 1,800-character limit.
 
 To set your milestone message, type the following command:
 
@@ -92,7 +92,9 @@ _You must include the {} brackets in your message for the tags to show up!_
 | User Discriminator (1234)      | `{user.discriminator}` |
 | User ID (99787644430475264)    | `{user.id}`            |
 | Server Name (My Cool Server)   | `{guild.name}`         |
+| Server Name (My Cool Server)   | `{guild}`              |
 | Server ID (493351982887862283) | `{guild.id}`           |
+| Server Member Count (1,234)    | `{guild.memberCount}`  |
 | Milestone Achieved (100)       | `{milestone}`          |
 
 ## Setting the Milestones Role
