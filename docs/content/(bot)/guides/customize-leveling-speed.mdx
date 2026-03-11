@@ -40,8 +40,8 @@ The XP required to reach level **n** is calculated using a polynomial formula:
 
 Where `c₀`, `c₁`, `c₂`, etc. are the coefficients you configure. You can use between 2 and 5 coefficients.
 
-The computed value is rounded to the nearest whole number and clamped to a minimum of 0 XP. This means curves with
-fractional coefficients still produce integer XP requirements, and any negative results are treated as 0 XP.
+The computed value is rounded to the nearest whole number, so curves with fractional coefficients still produce integer
+XP requirements. Curves that would result in negative or non-increasing XP are rejected by the dashboard.
 
 ### Presets
 
