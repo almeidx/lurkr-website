@@ -48,7 +48,7 @@ export function Navbar({ children }: PropsWithChildren) {
 	}
 
 	return (
-		<header className="mx-4 mt-4 flex max-w-7xl items-center justify-between rounded-lg border border-white/25 px-4 py-1 xl:mx-auto">
+		<header className="mx-4 mt-4 flex max-w-7xl items-center justify-between rounded-lg border border-white/25 px-4 py-1 xl:mx-auto xl:w-full">
 			<Link className={clsx("flex flex-1 items-center gap-2", menuOpen ? "fixed top-5 left-8 z-100000" : "")} href="/">
 				<Image alt="Lurkr logo" className="size-11" height={44} priority quality={100} src={logoSmallImg} />
 

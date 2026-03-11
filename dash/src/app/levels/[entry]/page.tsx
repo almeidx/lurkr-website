@@ -1,3 +1,4 @@
+import { buttonVariants } from "@heroui/styles";
 import type { Metadata } from "next";
 import { cookies } from "next/headers";
 import Link from "next/link";
@@ -10,8 +11,10 @@ import {
 	PageSelector,
 } from "@/app/levels/[entry]/page-selector.tsx";
 import fallbackAvatarImg from "@/assets/fallback-avatar.webp";
+import { ErrorState } from "@/components/error-state.tsx";
 import { ImageWithFallback } from "@/components/ImageWithFallback.tsx";
 import { SidebarSection } from "@/components/leaderboard/SidebarSection.tsx";
+import { SignInButton } from "@/components/SignIn.tsx";
 import type { Guild } from "@/lib/guild.ts";
 import { MAX_WINDOW_TITLE_LENGTH, TOKEN_COOKIE } from "@/utils/constants.ts";
 import { guildIcon, type Snowflake } from "@/utils/discord-cdn.ts";
@@ -20,7 +23,6 @@ import { isSnowflake } from "@/utils/is-snowflake.ts";
 import { makeApiRequest } from "@/utils/make-api-request.ts";
 import type { RoleReward } from "./03-role-reward.tsx";
 import type { Multiplier } from "./04-multiplier.tsx";
-import { MustLogIn, NotViewable } from "./leaderboard-errors.tsx";
 import { SortableMultipliers } from "./sortable-multipliers.tsx";
 import { SortableRoleRewards } from "./sortable-role-rewards.tsx";
 
@@ -36,19 +38,40 @@ export default async function Leaderboard({ params, searchParams }: LeaderboardP
 	if ("error" in data) {
 		switch (data.error) {
 			case GetLeaderboardError.MustBeLoggedIn:
-				return <MustLogIn description="You must be logged in to view this leaderboard." statusCode={401} />;
+				return (
+					<ErrorState
+						description="You must be logged in to view this leaderboard."
+						statusCode={401}
+						title="Sign in required"
+					>
+						<SignInButton />
+					</ErrorState>
+				);
 
 			case GetLeaderboardError.MustBeAMemberOfGuild:
 				return (
-					<NotViewable description="You must be a member of this server to view this leaderboard." statusCode={403} />
+					<ErrorState
+						description="You must be a member of this server to view this leaderboard."
+						statusCode={403}
+						title="Access denied"
+					>
+						<Link className={buttonVariants({ variant: "primary" })} href="/levels">
+							Back to leaderboards
+						</Link>
+					</ErrorState>
 				);
 
 			default:
 				return (
-					<NotViewable
-						description="This server does not exist or does not have the leveling system enabled"
+					<ErrorState
+						description="This server does not exist or does not have the leveling system enabled."
 						statusCode={404}
-					/>
+						title="Leaderboard not found"
+					>
+						<Link className={buttonVariants({ variant: "primary" })} href="/levels">
+							Back to leaderboards
+						</Link>
+					</ErrorState>
 				);
 		}
 	}

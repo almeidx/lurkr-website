@@ -3,6 +3,7 @@
 import { Briefcase, ThumbsUp } from "@gravity-ui/icons";
 import { Tooltip } from "@heroui/react";
 import { buttonVariants, linkVariants } from "@heroui/styles";
+import clsx from "clsx";
 import Image from "next/image";
 import Link from "next/link";
 import logoImg from "@/assets/logo.webp";
@@ -10,8 +11,8 @@ import { Discord } from "@/components/icons/Discord.tsx";
 import { GitHub } from "@/components/icons/GitHub.tsx";
 import { BOT_INVITE, GITHUB_REPOSITORY_URL, SUPPORT_SERVER_INVITE, TOPGG_URL } from "@/shared-links.ts";
 
-const footerLinkClasses = `${linkVariants().base()} text-white/50 no-underline hover:text-white`;
-const footerIconLinkClasses = `${buttonVariants({ isIconOnly: true, variant: "ghost" })} bg-white/5 text-white/60`;
+const footerLinkClasses = clsx(linkVariants().base(), "text-white/50 no-underline hover:text-white");
+const footerIconLinkClasses = clsx(buttonVariants({ isIconOnly: true, variant: "ghost" }), "bg-white/5 text-white/60");
 
 export function Footer() {
 	return (

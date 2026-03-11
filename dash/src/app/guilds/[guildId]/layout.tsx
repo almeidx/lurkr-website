@@ -15,13 +15,13 @@ export default async function DashboardLayout({
 
 	const token = (await cookies()).get(TOKEN_COOKIE)?.value;
 	if (!token) {
-		return <UnknownGuildOrMissingAccess>{children}</UnknownGuildOrMissingAccess>;
+		return <UnknownGuildOrMissingAccess />;
 	}
 
 	const { guild, guilds } = await getData(guildId, token);
 
 	if (!guild) {
-		return <UnknownGuildOrMissingAccess>{children}</UnknownGuildOrMissingAccess>;
+		return <UnknownGuildOrMissingAccess />;
 	}
 
 	return (

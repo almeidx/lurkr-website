@@ -27,7 +27,7 @@ export function CookieNotice({ defaultHasConsented }: { readonly defaultHasConse
 	}
 
 	return (
-		<Surface className="fixed right-4 bottom-4 left-4 z-100003 rounded-xl border border-white/10 p-4 sm:left-auto sm:max-w-md">
+		<Surface className="fixed right-4 bottom-4 left-4 z-100003 rounded-xl p-4 sm:left-auto sm:max-w-md">
 			<p className="font-semibold text-lg">Cookies</p>
 
 			<p className="mt-1 text-sm text-white/70">

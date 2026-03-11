@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { cookies } from "next/headers";
 import { DashboardGuildList } from "@/app/guilds/guild-list.tsx";
 import fallbackAvatarImg from "@/assets/fallback-avatar.webp";
+import { ErrorState } from "@/components/error-state.tsx";
 import { ImageWithFallback } from "@/components/ImageWithFallback.tsx";
 import { SignInButton } from "@/components/SignIn.tsx";
 import type { User } from "@/lib/auth.ts";
@@ -16,12 +17,13 @@ export default async function GuildList() {
 
 	if (!data) {
 		return (
-			<div className="flex flex-col items-center gap-2 py-4">
-				<div className="mt-6 flex flex-col items-center gap-2 text-center text-white/75 text-xl tracking-tight">
-					If you wish to see the servers you have access to, please login.
-					<SignInButton />
-				</div>
-			</div>
+			<ErrorState
+				description="Connect with Discord to see all the servers you can configure Lurkr on."
+				statusCode={401}
+				title="Sign in to view your servers"
+			>
+				<SignInButton />
+			</ErrorState>
 		);
 	}
 

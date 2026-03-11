@@ -1,12 +1,15 @@
 import "@/app/globals.css";
 
-import { Text } from "@/components/dashboard/Text.tsx";
+import { buttonVariants } from "@heroui/styles";
+import Link from "next/link";
+import { ErrorState } from "@/components/error-state.tsx";
 
 export default function NotFound() {
 	return (
-		<div className="mt-16 flex flex-col items-center gap-12">
-			<h1 className="font-bold text-9xl tracking-widest">404</h1>
-			<Text>Whoops… Page not found.</Text>
-		</div>
+		<ErrorState description="The page you're looking for doesn't exist." statusCode={404} title="Page not found">
+			<Link className={buttonVariants({ variant: "primary" })} href="/">
+				Back to home
+			</Link>
+		</ErrorState>
 	);
 }

@@ -130,6 +130,10 @@ button[disabled] {
 	.accordion__panel {
 		@apply px-4;
 	}
+
+	.surface--default {
+		border: 1px solid oklch(100% 0 0 / 8%);
+	}
 }
 
 @utility bg-gradient-lurkr {

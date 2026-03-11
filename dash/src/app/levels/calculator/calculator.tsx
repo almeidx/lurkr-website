@@ -143,7 +143,7 @@ export function Calculator() {
 				</div>
 
 				<div className="flex w-full shrink-0 flex-col gap-4 lg:sticky lg:top-8 lg:w-96">
-					<Surface className="rounded-3xl border border-white/5 bg-linear-to-br from-primary/10 to-transparent p-8 backdrop-blur-md">
+					<Surface className="rounded-3xl bg-linear-to-br from-primary/10 to-transparent p-8 backdrop-blur-md">
 						<div className="mb-2 flex items-center gap-2 text-small text-zinc-400 uppercase tracking-wider">
 							Approximate Messages
 							<ResponsiveTooltip

@@ -6,9 +6,9 @@ import { type PropsWithChildren, Suspense } from "react";
 import { openSans } from "@/app/fonts.ts";
 import { Providers } from "@/app/providers.tsx";
 import { CookieNoticeHandler } from "@/components/cookie-notice-handler.tsx";
-import { Footer } from "@/components/footer.tsx";
 import { Navbar } from "@/components/Navbar.tsx";
 import { NavbarUserButton } from "@/components/NavbarUserButton.tsx";
+import { Footer } from "@/components/navigation/footer.tsx";
 import { PreviewWarning } from "@/components/preview-warning.tsx";
 import { SignInButton } from "@/components/SignIn.tsx";
 import { SvgGradients } from "@/components/svg-gradients.tsx";
@@ -27,7 +27,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
 			>
 				<Providers>
 					{isPreview && <PreviewWarning />}
-					<div className="flex-1">
+					<div className="flex flex-1 flex-col">
 						<Navbar>
 							<Suspense fallback={<SignInButton />}>
 								<NavbarUserButton />

@@ -36,7 +36,7 @@ export default async function ProfilePage() {
 	return (
 		<div className="container mx-auto w-full max-w-4xl space-y-6 px-4 py-8">
 			<Card className="border border-white/10">
-				<Card.Content className="px-6 py-6 sm:px-8">
+				<Card.Content className="p-4 sm:p-6">
 					<div className="flex flex-col items-center gap-4 sm:flex-row sm:items-center">
 						<div className="shrink-0 overflow-hidden rounded-full">
 							<ImageWithFallback
@@ -91,25 +91,25 @@ export default async function ProfilePage() {
 			</Card>
 
 			<Card className="border border-white/10">
-				<Card.Content className="space-y-4 p-6">
+				<Card.Content className="space-y-4 p-4 sm:p-6">
 					<BackgroundManager initialUrl={backgroundUrl} />
 				</Card.Content>
 			</Card>
 
 			<Card className="border border-white/10">
-				<Card.Content className="space-y-4 p-6">
+				<Card.Content className="space-y-4 p-4 sm:p-6">
 					<AccentColorPicker avatarUrl={avatarUrl} initialColor={user.accentColour} />
 				</Card.Content>
 			</Card>
 
 			<Card className="border border-white/10">
-				<Card.Content className="space-y-4 p-6">
+				<Card.Content className="space-y-4 p-4 sm:p-6">
 					<PremiumGuildManager guilds={guilds} premium={user.premium} premiumGuild={user.premiumGuild} />
 				</Card.Content>
 			</Card>
 
 			<Card className="border border-white/10">
-				<Card.Content className="space-y-4 p-6">
+				<Card.Content className="space-y-4 p-4 sm:p-6">
 					<ApiKeys guilds={guilds} initialKeys={apiKeys} />
 				</Card.Content>
 			</Card>

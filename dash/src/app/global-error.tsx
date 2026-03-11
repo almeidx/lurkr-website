@@ -2,9 +2,11 @@
 
 import "@/app/globals.css";
 
+import { Button } from "@heroui/react";
 import clsx from "clsx";
 import type { Metadata, Viewport } from "next";
 import { openSans } from "@/app/fonts.ts";
+import { ErrorState } from "@/components/error-state.tsx";
 import { BRAND_COLOR, DESCRIPTION, PUBLIC_URL } from "@/utils/constants.ts";
 
 export default function GlobalError({ error, reset }: GlobalErrorProps) {
@@ -15,22 +17,14 @@ export default function GlobalError({ error, reset }: GlobalErrorProps) {
 			<body
 				className={clsx(
 					openSans.variable,
-					"scroll-smooth bg-background font-sans text-white antialiased selection:bg-primary selection:text-white",
+					"flex min-h-screen flex-col scroll-smooth bg-background font-sans text-white antialiased selection:bg-primary selection:text-white",
 				)}
 			>
-				<div className="flex flex-col">
-					<div className="min-h-[calc(100vh-6.9rem)]">
-						<div className="mt-16 flex flex-col items-center gap-12">
-							<h1 className="font-bold text-9xl tracking-widest">500</h1>
-							<p className="text-center">
-								Whoops… An error occurred.{" "}
-								<button onClick={reset} type="button">
-									Try again
-								</button>
-							</p>
-						</div>
-					</div>
-				</div>
+				<ErrorState description="An unexpected error occurred." statusCode={500} title="Something went wrong">
+					<Button onPress={reset} variant="primary">
+						Try again
+					</Button>
+				</ErrorState>
 			</body>
 		</html>
 	);
