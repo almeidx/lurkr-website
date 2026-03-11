@@ -22,9 +22,9 @@ need guidance in doing so, please follow our [Setting Up Server Leveling guide](
 ## Understanding Multipliers
 
 Multipliers might take some getting used to, but don't worry! That's what this guide is for! Multipliers essentially
-take the amount of XP a user would normal receive for a valid message, and multiply it by however much the multiplier is
-set to. For example if a user gains `34` XP for one message, but the server has a global multiplier of x1.5, they will
-actually receive `51` XP.
+take the amount of XP a user would normally receive for a valid message, and multiply it by however much the multiplier
+is set to. For example if a user gains `34` XP for one message, but the server has a global multiplier of x1.5, they
+will actually receive `51` XP.
 
 However, multipliers can also be set below 1, meaning a multiplier of x0.5 is valid, but that does signify a 50% XP
 gain, but rather a 50% XP loss. **Any multiplier that is above 1 will give more XP, and any multiplier that is below 1
@@ -68,16 +68,19 @@ Let's say we have these multipliers configured:
 
 A user with the @Booster role sends a message and would normally gain `34` XP. Here is what happens in each channel:
 
-- **#Channel-A:** `34 × 1.1 × 1.5 × 2.0 = 112 XP` — all three multiplier types stack.
-- **#Channel-B:** `34 × 1.1 × 0.75 × 2.0 = 56 XP` — the channel multiplier is below 1, but it still stacks with the
+- **#Channel-A:** `34 × 1.1 × 1.5 × 2.0 ≈ 112 XP` — all three multiplier types stack.
+- **#Channel-B:** `34 × 1.1 × 0.75 × 2.0 ≈ 56 XP` — the channel multiplier is below 1, but it still stacks with the
   others.
-- **#Channel-C** (no channel multiplier): `34 × 1.1 × 2.0 = 75 XP` — only global and role multipliers apply.
+- **#Channel-C** (no channel multiplier): `34 × 1.1 × 2.0 ≈ 74 XP` — only global and role multipliers apply.
 
 <Callout type="default">
 **Important to Remember!**
 
 Multipliers of different types (global, channel, role) **stack with each other** by multiplication. Within the same
 type, only the single highest-priority multiplier is used.
+
+The final XP value is always **rounded down** (floored), and the minimum XP gain per message is **1** — even if
+multipliers would reduce it below 1.
 
 </Callout>
 
