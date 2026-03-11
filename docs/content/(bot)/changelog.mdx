@@ -15,6 +15,46 @@ Despite our efforts, this page is not always so up-to-date. For the most recent 
 <ExternalLink href={UPDATES_CHANNEL_LINK}>#updates</ExternalLink> channel in our
 <ExternalLink href={SUPPORT_SERVER_INVITE}>Discord Server</ExternalLink>.
 
+## Quality of Life
+
+10 March 2026
+
+### Discord Bot [!toc]
+
+- Added configurable XP leveling curves via `/config set option:XP Curve Formula`.
+  - Choose between presets (Lurkr, Amari, MEE6, Linear) or set a custom polynomial curve.
+  - Adjusts how much XP is needed to level up, giving you full control over your server's leveling pace.
+
+- Added new level up message placeholders: `{roleRewardMentions}` and `{roleRewardNames}`.
+  - `{roleRewardMentions}` renders role rewards as clickable mentions.
+  - `{roleRewardNames}` displays role reward names as plain text.
+  - `{roleRewards}` still works as an alias for `{roleRewardNames}`.
+
+- Disabled Amari and Polaris leveling imports.
+  - Amari's API has been taken down.
+  - Polaris' API has been retired - if you have your Polaris data as a JSON file, you can request a manual import in our support server.
+
+- Fixed leveling progress bar bounds not being clamped correctly.
+- Fixed missing permission error not being shown to the user in level commands.
+
+### Dashboard [!toc]
+
+- Added configurable XP leveling curves to the Leveling dashboard.
+  - Choose between presets (Lurkr, Amari, MEE6, Linear) or set a custom polynomial curve.
+  - Adjusts how much XP is needed to level up, giving you full control over your server's leveling pace.
+
+- Redesigned the [profile page](https://lurkr.gg/profile).
+  - New accent color picker with a **Use Average Avatar Color** button to set your accent color based on your avatar.
+  - Background image cropping to the 4:1 aspect ratio on upload.
+  - API key management directly from the profile page.
+
+- Added a Lurkr backup import section to the Import page.
+  - Upload a JSON backup file exported from the Danger Zone tab to restore your leveling data.
+
+- Added `{roleRewardMentions}` and `{roleRewardNames}` placeholders to the level up message dashboard editor.
+
+- Fixed the leveling calculator erroring when the desired level was lower than the current level.
+
 ## Lurkr Wrapped & Role Rewards Sync
 
 25 December 2025
