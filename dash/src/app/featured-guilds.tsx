@@ -27,25 +27,25 @@ function FeaturedGuild({ id, icon, name, memberCount, partner, verified, index }
 	const alt = verified ? "Verified guild badge" : partner ? "Partner guild badge" : "Discoverable guild badge";
 
 	return (
-		<div className="flex select-none items-center gap-4 rounded-lg border border-white/25 bg-darker px-3 py-2 md:gap-6">
+		<div className="flex select-none items-center gap-3 rounded-xl border border-white/[0.08] bg-darker px-4 py-3">
 			<ImageWithFallback
 				alt={`${name}'s icon`}
-				className="no-drag size-14 rounded-full md:size-16"
-				height={64}
+				className="no-drag size-11 rounded-full md:size-13"
+				height={52}
 				priority={index < 4}
 				src={guildIcon(id, icon, { format: "webp", size: 64 })}
-				width={64}
+				width={52}
 			/>
 
-			<div className="flex flex-col">
+			<div className="flex flex-col gap-0.5">
 				<p
-					className="flex max-w-[70%] items-center gap-2 overflow-hidden text-ellipsis whitespace-nowrap font-bold text-lg sm:max-w-64 sm:text-xl md:max-w-64 lg:text-2xl"
+					className="flex min-w-0 max-w-40 items-center gap-1.5 font-semibold text-sm sm:max-w-48 sm:text-base"
 					title={name}
 				>
-					<Image alt={alt} className="no-drag size-5 rounded-full" height={20} src={iconSrc} width={20} />
-					{name}
+					<Image alt={alt} className="no-drag size-4 shrink-0 rounded-full" height={16} src={iconSrc} width={16} />
+					<span className="truncate">{name}</span>
 				</p>
-				<p className="text-md text-white/50 md:text-lg">
+				<p className="text-white/40 text-xs">
 					{formatToNearestOrderOfMagnitude(memberCount).toLocaleString("en")} members
 				</p>
 			</div>

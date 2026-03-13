@@ -54,6 +54,10 @@
 	--lurkr-ultimate-gradient: 90deg, #a2fbec 1%, #f985ff 33%, #904dff 66%, #4d54fe 100%;
 	--patreon-gradient: 93.24deg, #ff424d 0%, #ff7077 100%;
 
+	/* Aurora blobs used via animate-* Tailwind utilities — keep in @theme */
+	--animate-hp-aurora-1: hp-aurora-1 25s ease-in-out infinite;
+	--animate-hp-aurora-2: hp-aurora-2 20s ease-in-out infinite;
+
 	@keyframes pulse-success {
 		0%,
 		100% {
@@ -62,6 +66,108 @@
 		50% {
 			background-color: rgba(62, 162, 94, 0.6);
 		}
+	}
+
+	@keyframes hp-aurora-1 {
+		0%,
+		100% {
+			transform: translate(0, 0) scale(1);
+		}
+		33% {
+			transform: translate(60px, -40px) scale(1.08);
+		}
+		66% {
+			transform: translate(-30px, 25px) scale(0.94);
+		}
+	}
+
+	@keyframes hp-aurora-2 {
+		0%,
+		100% {
+			transform: translate(0, 0) scale(1);
+		}
+		33% {
+			transform: translate(-50px, 30px) scale(0.92);
+		}
+		66% {
+			transform: translate(35px, -20px) scale(1.06);
+		}
+	}
+}
+
+/* ─── Keyframes referenced by name in inline styles ─────────────────────────
+   Must live OUTSIDE @theme so Tailwind always emits them unconditionally.    */
+
+@keyframes dc-msg-in {
+	from {
+		opacity: 0;
+		transform: translateY(10px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+@keyframes dc-typing-fade {
+	0% {
+		max-height: 2rem;
+		opacity: 0;
+	}
+	15% {
+		max-height: 2rem;
+		opacity: 1;
+	}
+	75% {
+		max-height: 2rem;
+		opacity: 1;
+	}
+	100% {
+		max-height: 0;
+		opacity: 0;
+	}
+}
+
+@keyframes dc-dot {
+	0%,
+	60%,
+	100% {
+		opacity: 0.2;
+		transform: translateY(0);
+	}
+	30% {
+		opacity: 1;
+		transform: translateY(-3px);
+	}
+}
+
+@keyframes dc-thinking {
+	0% {
+		max-height: 60px;
+		opacity: 1;
+	}
+	38% {
+		max-height: 60px;
+		opacity: 1;
+	}
+	68% {
+		max-height: 0;
+		opacity: 0;
+	}
+	100% {
+		max-height: 0;
+		opacity: 0;
+	}
+}
+
+@keyframes dc-rank-in {
+	from {
+		max-height: 0;
+		opacity: 0;
+	}
+	to {
+		max-height: 300px;
+		opacity: 1;
 	}
 }
 
@@ -146,6 +252,13 @@ button[disabled] {
 
 @utility bg-gradient-lurkr-ultimate {
 	background-image: linear-gradient(to right, #a2fbec, #f985ff, #4d54fe);
+}
+
+@utility text-gradient-lurkr {
+	color: transparent;
+	background-image: linear-gradient(92.52deg, #ff7077 0%, #ffe87c 100%);
+	-webkit-background-clip: text;
+	background-clip: text;
 }
 
 @utility text-gradient-lurkr-max {
