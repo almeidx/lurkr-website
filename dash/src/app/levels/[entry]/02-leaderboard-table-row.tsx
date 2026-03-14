@@ -22,7 +22,7 @@ export function LeaderboardTableRow({ guildId, row, isManager }: LeaderboardTabl
 	return (
 		<DisclosureProvider>
 			<div>
-				<Disclosure className="flex w-full items-center gap-1 rounded-lg border border-white/25 bg-dark-gray px-2 py-1.5 hover:bg-dark-gray/50 aria-expanded:mb-0 aria-expanded:rounded-t-lg aria-expanded:rounded-b-none">
+				<Disclosure className="flex w-full items-center gap-1 rounded-lg border border-white/25 bg-dark-gray px-2 py-3 hover:bg-dark-gray/50 aria-expanded:mb-0 aria-expanded:rounded-t-lg aria-expanded:rounded-b-none">
 					<div className="flex min-w-14 max-w-[15%] justify-center rounded-s-lg">
 						<div
 							className="flex size-8 items-center justify-center rounded-full font-bold text-shadow-regular"
