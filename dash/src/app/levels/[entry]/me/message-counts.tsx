@@ -52,7 +52,7 @@ export function MessageCounts({ data }: BarsProps) {
 }
 
 function CustomTooltip({ active, payload }: TooltipContentProps) {
-	if (active && payload && payload.length) {
+	if (active && payload?.length) {
 		const data = payload[0]!.payload;
 		return (
 			<div className="rounded-md border border-[#555] bg-[#333] p-2">

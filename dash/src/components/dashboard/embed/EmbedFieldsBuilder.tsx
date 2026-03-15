@@ -124,7 +124,7 @@ export function EmbedFieldsBuilder({ fields, setFields, emojis, roles, placehold
 							</div>
 						</div>
 
-						{index !== self.length - 1 ? <Separator /> : null}
+						{index === self.length - 1 ? null : <Separator />}
 					</Fragment>
 				))}
 			</div>

@@ -35,7 +35,24 @@ export function PremiumPlan({
 			)}
 
 			{/* Gradient border wrapper */}
-			{tier !== 0 ? (
+			{tier === 0 ? (
+				<Card className="h-full border border-white/20">
+					<CardContent
+						buttonText={buttonText}
+						funny={funny}
+						href={href}
+						img={img}
+						isCurrent={isCurrent}
+						isExternal={isExternal}
+						isPopular={isPopular}
+						name={name}
+						perks={perks}
+						price={price}
+						regular={regular}
+						tier={tier}
+					/>
+				</Card>
+			) : (
 				<div
 					className={clsx(
 						"overflow-hidden rounded-2xl p-0.5",
@@ -60,23 +77,6 @@ export function PremiumPlan({
 						/>
 					</Card>
 				</div>
-			) : (
-				<Card className="h-full border border-white/20">
-					<CardContent
-						buttonText={buttonText}
-						funny={funny}
-						href={href}
-						img={img}
-						isCurrent={isCurrent}
-						isExternal={isExternal}
-						isPopular={isPopular}
-						name={name}
-						perks={perks}
-						price={price}
-						regular={regular}
-						tier={tier}
-					/>
-				</Card>
 			)}
 		</div>
 	);

@@ -5,14 +5,14 @@ import { SortableSection } from "./sortable-section.tsx";
 
 export function SortableMultipliers({ globalMultiplier, multipliers }: SortableMultipliersProps) {
 	const headerContent =
-		globalMultiplier !== 1 ? (
+		globalMultiplier === 1 ? null : (
 			<div className="flex items-center gap-4">
 				<span className="flex size-9 items-center justify-center rounded-lg border border-white/25 bg-darker text-[#fff]">
 					{globalMultiplier}
 				</span>
 				<p className="text-sm">Global</p>
 			</div>
-		) : null;
+		);
 
 	return (
 		<SortableSection
