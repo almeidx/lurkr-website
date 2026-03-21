@@ -21,7 +21,13 @@ export function EditLeaderboardVisibility({ defaultValue, guildId }: EditLeaderb
 		<div className="flex flex-col gap-2">
 			<SelectLabel className="text-lg text-white/75 tracking-tight md:text-xl" store={select}>
 				Choose the visibility for the{" "}
-				<Link className="text-blurple" href={`/levels/${guildId}`} prefetch={false} target="_blank">
+				<Link
+					className="text-blurple"
+					href={`/levels/${guildId}`}
+					prefetch={false}
+					rel="noopener noreferrer"
+					target="_blank"
+				>
 					web leaderboard
 				</Link>
 				:
