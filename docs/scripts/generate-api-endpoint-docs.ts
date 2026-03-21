@@ -23,7 +23,10 @@ await generateFiles({
 			// There are more properties, but we don't care about them
 		};
 
-		return `${operation.tags[0]}/${slugify(operation.summary).toLowerCase()}`;
+		const tag = slugify(operation.tags[0] ?? "api", { lower: true, strict: true, trim: true });
+		const summary = slugify(operation.summary, { lower: true, strict: true, trim: true });
+
+		return `${tag}/${summary}`;
 	},
 	output,
 });
