@@ -2,6 +2,8 @@ import ky, { type Hooks } from "ky";
 import { TOKEN_COOKIE } from "@/utils/constants";
 import { getCookie } from "@/utils/cookies";
 
+const isServer = typeof window === "undefined";
+
 if (!process.env.NEXT_PUBLIC_API_URL) {
 	throw new Error("NEXT_PUBLIC_API_URL is not defined");
 }
@@ -42,39 +44,33 @@ const sharedHooks: Hooks = {
 };
 
 export const api = ky.create({
+	credentials: "include",
 	hooks: {
 		...sharedHooks,
 		afterResponse: [
 			async (_request, _options, response) => {
-				if (response.headers.get("x-auth-error") === "malformed") {
+				if (response.headers.get("x-auth-error") === "malformed" && isServer) {
 					// Clear the invalid token so the user isn't stuck in a broken auth state.
-					if (typeof window === "undefined") {
-						const { cookies } = await import("next/headers");
-						const store = await cookies();
-						try {
-							store.delete(TOKEN_COOKIE);
-						} catch {
-							// This can fail if it runs outside a Server Action or API route. e.g. RSC rendering
-						}
-					} else {
-						const { default: Cookies } = await import("js-cookie");
-						Cookies.remove(TOKEN_COOKIE);
+					const { cookies } = await import("next/headers");
+					const store = await cookies();
+					try {
+						store.delete(TOKEN_COOKIE);
+					} catch {
+						// This can fail if it runs outside a Server Action or API route. e.g. RSC rendering
 					}
 				}
 			},
 		],
 		beforeRequest: [
 			async (request, _options) => {
-				// Populate the Authorization header with the token if it is not already set and exists.
-				if (!request.headers.has("Authorization")) {
+				// Server-side: read the cookie from next/headers and set Authorization header
+				// Client-side: browser sends the HttpOnly cookie automatically via credentials: "include"
+				if (isServer && !request.headers.has("Authorization")) {
 					const token = await getCookie(TOKEN_COOKIE);
 					if (token) {
 						request.headers.set("Authorization", `Bearer ${token}`);
 					}
-				}
 
-				// If we're running on the server, add user-agent header
-				if (typeof window === "undefined") {
 					if (!request.headers.has("User-Agent")) {
 						request.headers.set("User-Agent", `LurkrWebsite/1.0 Node.js/${process.version}`);
 					}
