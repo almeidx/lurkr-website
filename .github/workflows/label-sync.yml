@@ -1,5 +1,4 @@
 name: Label sync
-
 on:
   schedule:
     - cron: "0 0 * * SUN"
@@ -8,13 +7,14 @@ on:
     branches:
       - main
     paths:
-      - ".github/labels.yml"
-
+      - .github/labels.yml
+permissions:
+  contents: write
+  issues: write
 jobs:
   label-sync:
     name: Label sync
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v6
 
