@@ -4,7 +4,6 @@
 		"allowJs": true,
 		"allowUnreachableCode": false,
 		"allowUnusedLabels": false,
-		"downlevelIteration": true,
 		"esModuleInterop": true,
 		"forceConsistentCasingInFileNames": true,
 		"incremental": true,
@@ -24,6 +23,7 @@
 		"skipLibCheck": true,
 		"strict": true,
 		"target": "ES2017",
+		"types": ["node"],
 		"useUnknownInCatchVariables": true
 	},
 	"exclude": ["node_modules"]
