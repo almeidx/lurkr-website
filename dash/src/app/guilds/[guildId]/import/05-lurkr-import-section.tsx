@@ -9,7 +9,7 @@ import { ErrorOutline } from "@/components/icons/mdi/error-outline.tsx";
 import { SystemUpdate } from "@/components/icons/mdi/system-update.tsx";
 import { Upload } from "@/components/icons/mdi/upload.tsx";
 import { LoadingSpinner } from "@/components/LoadingSpinner.tsx";
-import { API_URL, TOKEN_COOKIE } from "@/utils/constants.ts";
+import { API_URL } from "@/utils/constants.ts";
 import type { Snowflake } from "@/utils/discord-cdn.ts";
 
 type ImportState =
@@ -75,24 +75,12 @@ export function LurkrImportSection({ guildId }: { guildId: Snowflake }) {
 		setImportState({ status: "uploading" });
 
 		try {
-			const token = document.cookie
-				.split("; ")
-				.find((row) => row.startsWith(`${TOKEN_COOKIE}=`))
-				?.split("=")[1];
-
-			if (!token) {
-				setImportState({ message: "Authentication required. Please sign in again.", status: "error" });
-				return;
-			}
-
 			const formData = new FormData();
 			formData.append("file", file);
 
 			const response = await fetch(`${API_URL}/levels/${guildId}/import/lurkr`, {
 				body: formData,
-				headers: {
-					Authorization: `Bearer ${token}`,
-				},
+				credentials: "include",
 				method: "POST",
 			});
 
