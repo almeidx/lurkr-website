@@ -168,8 +168,8 @@ importers:
         specifier: ^14.2.11
         version: 14.2.11(@types/mdast@4.0.4)(@types/mdx@2.0.13)(@types/react@19.2.14)(fumadocs-core@16.7.7(@mdx-js/mdx@3.1.1)(@types/estree-jsx@1.0.5)(@types/hast@3.0.4)(@types/mdast@4.0.4)(@types/react@19.2.14)(lucide-react@1.7.0(react@19.2.4))(next@16.2.1(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(zod@4.3.6))(next@16.2.1(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(react@19.2.4)
       fumadocs-openapi:
-        specifier: ^10.6.0
-        version: 10.6.0(98d979a37df97cece21155dba34a93b2)
+        specifier: ^10.6.1
+        version: 10.6.1(98d979a37df97cece21155dba34a93b2)
       fumadocs-ui:
         specifier: ^16.7.7
         version: 16.7.7(@types/mdx@2.0.13)(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(fumadocs-core@16.7.7(@mdx-js/mdx@3.1.1)(@types/estree-jsx@1.0.5)(@types/hast@3.0.4)(@types/mdast@4.0.4)(@types/react@19.2.14)(lucide-react@1.7.0(react@19.2.4))(next@16.2.1(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(zod@4.3.6))(next@16.2.1(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(shiki@4.0.2)(tailwindcss@4.2.2)
@@ -2576,8 +2576,8 @@ packages:
       vite:
         optional: true
 
-  fumadocs-openapi@10.6.0:
-    resolution: {integrity: sha512-1UYG/IFO+0EcDfvTzhQzmzTiV2OweTcx1ZvB/Dmiasath/w9oPb1+tWKVpNbBNKk80INorAnpaeM1eOQUxoNYg==}
+  fumadocs-openapi@10.6.1:
+    resolution: {integrity: sha512-mtAFWtW6W6DfqIJ2w55SyREW/ZzC6MF29hX+zem5/5T88JKnOyCwG26V+4Q37rOW916aNVaaDjHn5Tp6HbatMQ==}
     peerDependencies:
       '@scalar/api-client-react': '*'
       '@types/react': '*'
@@ -6300,7 +6300,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  fumadocs-openapi@10.6.0(98d979a37df97cece21155dba34a93b2):
+  fumadocs-openapi@10.6.1(98d979a37df97cece21155dba34a93b2):
     dependencies:
       '@fastify/deepmerge': 3.2.1
       '@fumari/json-schema-ts': 0.0.2
