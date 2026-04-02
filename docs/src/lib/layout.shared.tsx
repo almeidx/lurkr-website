@@ -1,5 +1,6 @@
 import type { BaseLayoutProps } from "fumadocs-ui/layouts/shared";
 import logoSmall from "@/assets/logo-small.webp";
+import { GitHubInfoLink } from "@/components/github-info-link.tsx";
 import { GITHUB_REPOSITORY_URL } from "@/shared-links.ts";
 
 export function baseOptions(): BaseLayoutProps {
@@ -11,8 +12,8 @@ export function baseOptions(): BaseLayoutProps {
 				url: "/../",
 			},
 			{
-				text: "GitHub",
-				url: GITHUB_REPOSITORY_URL,
+				children: <GitHubInfoLink />,
+				type: "custom",
 			},
 		],
 		nav: {
