@@ -1,6 +1,6 @@
-"use client";
+import type { ErrorComponentProps } from "@tanstack/react-router";
 
-export default function ErrorComponent({ error }: { readonly error: Error }) {
+export function ErrorBoundary({ error }: ErrorComponentProps) {
 	console.error(error);
 
 	return (

@@ -1,7 +1,8 @@
-import { docs } from "fumadocs-mdx:collections/server";
+import { docs } from "collections/server";
 import { type InferPageType, loader } from "fumadocs-core/source";
 import { openapiPlugin } from "fumadocs-openapi/server";
 import { createElement } from "react";
+import { resolvePageUrl } from "@/lib/shared.ts";
 
 export const source = loader({
 	baseUrl: "/",
@@ -28,8 +29,4 @@ export async function getLLMText(page: InferPageType<typeof source>) {
 	return `# ${page.data.title} (${resolvePageUrl(page.url)})
 
 ${processed}`;
-}
-
-export function resolvePageUrl(pageUrl: string) {
-	return `/docs${pageUrl.replace(/\/$/, "")}`;
 }

@@ -1,16 +1,15 @@
 {
 	"compilerOptions": {
+		"baseUrl": ".",
+		"ignoreDeprecations": "6.0",
+		"jsx": "react-jsx",
 		"paths": {
 			"@/*": ["./src/*"],
-			"fumadocs-mdx:collections/*": ["./.source/*"]
+			"collections/*": ["./.source/*"]
 		},
-		"plugins": [
-			{
-				"name": "next"
-			}
-		],
+		"target": "ES2022",
 		"types": ["node", "react"]
 	},
 	"extends": "../tsconfig.json",
-	"include": ["./next-env.d.ts", "./src/**/*.ts", "./src/**/*.tsx", "./.next/types/**/*.ts", ".next/types/**/*.ts"]
+	"include": ["./source.config.ts", "./vite.config.ts", "./src/**/*.ts", "./src/**/*.tsx", "./.source/**/*.ts"]
 }

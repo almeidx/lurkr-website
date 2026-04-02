@@ -1,0 +1,10 @@
+{
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"compatibility_date": "2026-03-29",
+	"compatibility_flags": ["nodejs_compat"],
+	"main": "@tanstack/react-start/server-entry",
+	"name": "lurkr-docs",
+	"observability": {
+		"enabled": true
+	}
+}
