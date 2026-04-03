@@ -4,13 +4,19 @@ import { useState } from "react";
 import { Section } from "@/components/dashboard/Section.tsx";
 import { Text } from "@/components/dashboard/Text.tsx";
 import { Separator } from "@/components/Separator.tsx";
-import type { Guild, GuildSettings } from "@/lib/guild.ts";
+import type { Channel, Role, XpMultiplier } from "@/lib/guild.ts";
 import { RoleMultipliers } from "./11-role-multipliers.tsx";
 import { RoleMultiplierPriority } from "./12-role-multiplier-priority.tsx";
 import { ChannelMultipliers } from "./13-channel-multipliers.tsx";
 
-export function MultipliersWithTargets({ guild, settings }: MultipliersProps) {
-	const [multiplierCount, setMultiplierCount] = useState(settings.xpMultipliers.length);
+export function MultipliersWithTargets({
+	channels,
+	multipliers,
+	premium,
+	prioritiseMultiplierRoleHierarchy,
+	roles,
+}: MultipliersProps) {
+	const [multiplierCount, setMultiplierCount] = useState(multipliers.length);
 
 	return (
 		<>
@@ -25,9 +31,9 @@ export function MultipliersWithTargets({ guild, settings }: MultipliersProps) {
 
 				<RoleMultipliers
 					multiplierCount={multiplierCount}
-					multipliers={settings.xpMultipliers}
-					premium={guild.premium}
-					roles={guild.roles}
+					multipliers={multipliers}
+					premium={premium}
+					roles={roles}
 					setMultiplierCount={setMultiplierCount}
 				/>
 
@@ -40,7 +46,7 @@ export function MultipliersWithTargets({ guild, settings }: MultipliersProps) {
 					When more than one role multiplier applies, use the one with…
 				</Text>
 
-				<RoleMultiplierPriority defaultValue={settings.prioritiseMultiplierRoleHierarchy} />
+				<RoleMultiplierPriority defaultValue={prioritiseMultiplierRoleHierarchy} />
 			</Section>
 
 			<Section name="Channel Multipliers">
@@ -53,10 +59,10 @@ export function MultipliersWithTargets({ guild, settings }: MultipliersProps) {
 				</Text>
 
 				<ChannelMultipliers
-					channels={guild.channels}
+					channels={channels}
 					multiplierCount={multiplierCount}
-					multipliers={settings.xpMultipliers}
-					premium={guild.premium}
+					multipliers={multipliers}
+					premium={premium}
 					setMultiplierCount={setMultiplierCount}
 				/>
 			</Section>
@@ -65,6 +71,9 @@ export function MultipliersWithTargets({ guild, settings }: MultipliersProps) {
 }
 
 interface MultipliersProps {
-	readonly guild: Guild;
-	readonly settings: GuildSettings;
+	readonly channels: Channel[];
+	readonly multipliers: XpMultiplier[];
+	readonly premium: boolean;
+	readonly prioritiseMultiplierRoleHierarchy: boolean;
+	readonly roles: Role[];
 }

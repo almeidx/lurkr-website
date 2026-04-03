@@ -41,7 +41,13 @@ export default async function Multipliers({ params }: { readonly params: Promise
 				<VoteBoost defaultValue={settings.voteBoostedXp} />
 			</Section>
 
-			<MultipliersWithTargets guild={guild} settings={settings} />
+			<MultipliersWithTargets
+				channels={guild.channels}
+				multipliers={settings.xpMultipliers}
+				premium={guild.premium}
+				prioritiseMultiplierRoleHierarchy={settings.prioritiseMultiplierRoleHierarchy}
+				roles={guild.roles}
+			/>
 		</Form>
 	);
 }
