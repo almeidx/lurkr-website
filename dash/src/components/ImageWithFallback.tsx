@@ -1,7 +1,7 @@
 "use client";
 
 import Image, { type StaticImageData } from "next/image";
-import { type ComponentProps, useEffect, useState } from "react";
+import { type ComponentProps, useRef, useState } from "react";
 import fallbackAvatarImg from "@/assets/fallback-avatar.webp";
 
 /**
@@ -11,14 +11,16 @@ import fallbackAvatarImg from "@/assets/fallback-avatar.webp";
  * Uses `fallback` if `src` is nullable.
  */
 export function ImageWithFallback({ src, fallback = fallbackAvatarImg, ...props }: ImageWithFallbackProps) {
-	const [image, setImage] = useState(src ?? fallback);
+	const [hasError, setHasError] = useState(false);
+	const currentSrc = hasError ? fallback : (src ?? fallback);
 
-	// biome-ignore lint/correctness/useExhaustiveDependencies: This is intended
-	useEffect(() => {
-		setImage(src ?? fallback);
-	}, [src]);
+	const prevSrcRef = useRef(src);
+	if (prevSrcRef.current !== src) {
+		prevSrcRef.current = src;
+		setHasError(false);
+	}
 
-	return <Image {...props} onError={() => setImage(fallback)} src={image} />;
+	return <Image {...props} onError={() => setHasError(true)} src={currentSrc} />;
 }
 
 type NextImageProps = ComponentProps<typeof Image>;
