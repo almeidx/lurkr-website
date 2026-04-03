@@ -119,7 +119,7 @@ export function Footer() {
 
 				<div className="h-px w-full bg-white/10" />
 
-				<p className="text-center text-white/40 text-xs">
+				<p className="text-center text-white/40 text-xs" suppressHydrationWarning>
 					© {new Date().getFullYear()} Lurkr Team. All rights reserved.
 				</p>
 			</div>

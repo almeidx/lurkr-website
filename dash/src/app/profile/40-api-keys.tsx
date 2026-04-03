@@ -89,13 +89,17 @@ export function ApiKeys({ guilds, initialKeys }: ApiKeysProps) {
 									</Table.Cell>
 									<Table.Cell className="xs:table-cell hidden">{item.guildAccess.length}</Table.Cell>
 									<Table.Cell className="hidden md:table-cell">
-										{new Date(item.createdAt).toLocaleDateString()}
+										<span suppressHydrationWarning>{new Date(item.createdAt).toLocaleDateString()}</span>
 									</Table.Cell>
 									<Table.Cell className="hidden md:table-cell">
-										{item.expiresAt ? new Date(item.expiresAt).toLocaleDateString() : "Never"}
+										<span suppressHydrationWarning>
+											{item.expiresAt ? new Date(item.expiresAt).toLocaleDateString() : "Never"}
+										</span>
 									</Table.Cell>
 									<Table.Cell className="hidden sm:table-cell">
-										{item.lastUsedAt ? new Date(item.lastUsedAt).toLocaleDateString() : "Never"}
+										<span suppressHydrationWarning>
+											{item.lastUsedAt ? new Date(item.lastUsedAt).toLocaleDateString() : "Never"}
+										</span>
 									</Table.Cell>
 									<Table.Cell className="text-right">
 										<TableRowActions
