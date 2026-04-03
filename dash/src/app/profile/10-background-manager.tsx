@@ -2,13 +2,18 @@
 
 import { ArrowUpFromLine, Picture, TrashBin } from "@gravity-ui/icons";
 import { Button } from "@heroui/react";
-import clsx from "clsx";
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import { type ChangeEvent, type DragEvent, useRef, useState } from "react";
 import { api } from "@/lib/api.ts";
-import { CropBackgroundDialog } from "./crop-background-dialog.tsx";
-import { DeleteBackgroundDialog } from "./delete-background-dialog.tsx";
 import { getUserBackground } from "./get-user-background.ts";
+
+const CropBackgroundDialog = dynamic(() =>
+	import("./crop-background-dialog.tsx").then((mod) => ({ default: mod.CropBackgroundDialog })),
+);
+const DeleteBackgroundDialog = dynamic(() =>
+	import("./delete-background-dialog.tsx").then((mod) => ({ default: mod.DeleteBackgroundDialog })),
+);
 
 const MAX_FILE_SIZE = 5 * 1024 * 1024;
 const ACCEPTED_TYPES = ["image/jpeg", "image/png", "image/webp"];
@@ -18,7 +23,8 @@ export function BackgroundManager({ initialUrl }: { readonly initialUrl: string 
 	const [error, setError] = useState<string | null>(null);
 	const [pendingFile, setPendingFile] = useState<File | null>(null);
 	const [deleteModalOpen, setDeleteModalOpen] = useState(false);
-	const [isDragging, setIsDragging] = useState(false);
+	const isDragging = useRef(false);
+	const dropzoneRef = useRef<HTMLButtonElement>(null);
 	const fileInputRef = useRef<HTMLInputElement>(null);
 
 	function validateAndOpenCrop(file: File) {
@@ -66,19 +72,27 @@ export function BackgroundManager({ initialUrl }: { readonly initialUrl: string 
 
 	function handleDrop(event: DragEvent) {
 		event.preventDefault();
-		setIsDragging(false);
+		isDragging.current = false;
+		dropzoneRef.current?.classList.remove("border-primary", "bg-primary/10");
+		dropzoneRef.current?.classList.add("border-white/15", "bg-white/3");
 		const file = event.dataTransfer.files[0];
 		if (file) validateAndOpenCrop(file);
 	}
 
 	function handleDragOver(event: DragEvent) {
 		event.preventDefault();
-		setIsDragging(true);
+		if (!isDragging.current) {
+			isDragging.current = true;
+			dropzoneRef.current?.classList.add("border-primary", "bg-primary/10");
+			dropzoneRef.current?.classList.remove("border-white/15", "bg-white/3");
+		}
 	}
 
 	function handleDragLeave(event: DragEvent) {
 		event.preventDefault();
-		setIsDragging(false);
+		isDragging.current = false;
+		dropzoneRef.current?.classList.remove("border-primary", "bg-primary/10");
+		dropzoneRef.current?.classList.add("border-white/15", "bg-white/3");
 	}
 
 	return (
@@ -127,16 +141,12 @@ export function BackgroundManager({ initialUrl }: { readonly initialUrl: string 
 				</div>
 			) : (
 				<button
-					className={clsx(
-						"flex aspect-4/2 w-full cursor-pointer items-center justify-center rounded-xl border-2 border-dashed transition-colors sm:aspect-4/1",
-						isDragging
-							? "border-primary bg-primary/10"
-							: "border-white/15 bg-white/3 hover:border-white/30 hover:bg-white/5",
-					)}
+					className="flex aspect-4/2 w-full cursor-pointer items-center justify-center rounded-xl border-2 border-white/15 border-dashed bg-white/3 transition-colors hover:border-white/30 hover:bg-white/5 sm:aspect-4/1"
 					onClick={() => fileInputRef.current?.click()}
 					onDragLeave={handleDragLeave}
 					onDragOver={handleDragOver}
 					onDrop={handleDrop}
+					ref={dropzoneRef}
 					type="button"
 				>
 					<div className="flex flex-col items-center gap-2 text-white/40">
