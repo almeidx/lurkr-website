@@ -10,9 +10,10 @@ export function AutomaticallyPublishChannels({ channels, defaultValues, premium 
 		(channel) => channel.type === ChannelType.GuildAnnouncement || channel.type === ChannelType.GuildCategory,
 	);
 
-	const defaultValue = defaultValues
-		.map((channelId) => announcementChannels.find((channel) => channel.id === channelId)!)
-		.filter((channel) => channel !== undefined);
+	const defaultValue = defaultValues.flatMap((channelId) => {
+		const channel = announcementChannels.find((c) => c.id === channelId);
+		return channel ? [channel] : [];
+	});
 
 	return (
 		<ChannelSelector

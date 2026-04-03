@@ -49,12 +49,11 @@ export async function update(guildId: string, premium: boolean, _currentState: u
 
 	const settings = {
 		...parsed.output,
-		autoRoleFlags: Object.entries(rawData)
-			.filter(([key]) => key.startsWith("autoRoleFlags-"))
-			.map(([key, value]) => ({
-				...parse(autoRoleFlagsKeySchema, key),
-				roleIds: parse(autoRoleFlagRolesSchema, value),
-			})),
+		autoRoleFlags: Object.entries(rawData).flatMap(([key, value]) =>
+			key.startsWith("autoRoleFlags-")
+				? [{ ...parse(autoRoleFlagsKeySchema, key), roleIds: parse(autoRoleFlagRolesSchema, value) }]
+				: [],
+		),
 	} satisfies Partial<GuildSettings>;
 
 	return action(guildId, settings, `settings:${guildId}:roles`, premium);

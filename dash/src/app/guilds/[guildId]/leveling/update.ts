@@ -119,13 +119,17 @@ export async function update(guildId: string, premium: boolean, _currentState: u
 	const settings = {
 		...parsed,
 		autoResetLevels: transformAutoResetLevels(autoResetLevelsLeave, autoResetLevelsBan),
-		xpRoleRewards: Object.entries(rawData)
-			.filter(([key]) => key.startsWith("xpRoleRewards-") && !key.endsWith("-stack"))
-			.map(([key, value]) => ({
-				...parse(xpRoleRewardsKeySchema, key),
-				roleIds: parse(xpRoleRewardRolesSchema, value),
-				stack: rawData[`${key}-stack`] === "on",
-			})),
+		xpRoleRewards: Object.entries(rawData).flatMap(([key, value]) =>
+			key.startsWith("xpRoleRewards-") && !key.endsWith("-stack")
+				? [
+						{
+							...parse(xpRoleRewardsKeySchema, key),
+							roleIds: parse(xpRoleRewardRolesSchema, value),
+							stack: rawData[`${key}-stack`] === "on",
+						},
+					]
+				: [],
+		),
 	} satisfies Partial<GuildSettings>;
 
 	if (settings.xpAnnounceChannelType === XpAnnouncementChannelType.Custom && !settings.xpAnnounceChannel) {

@@ -59,14 +59,13 @@ export async function update(guildId: string, premium: boolean, _currentState: u
 
 	const settings = {
 		...parsed.output,
-		xpMultipliers: Object.entries(rawData)
-			.filter(([key]) => key.startsWith("xpMultipliers-"))
-			.map(([key, value]) => {
-				const keyData = parse(xpMultipliersKeySchema, key);
-				const targets = parse(multiplierTargetsSchema, value);
+		xpMultipliers: Object.entries(rawData).flatMap(([key, value]) => {
+			if (!key.startsWith("xpMultipliers-")) return [];
+			const keyData = parse(xpMultipliersKeySchema, key);
+			const targets = parse(multiplierTargetsSchema, value);
 
-				return { ...keyData, targets };
-			}),
+			return [{ ...keyData, targets }];
+		}),
 	} satisfies Partial<GuildSettings>;
 
 	const maxXpMultipliers = premium ? MAX_XP_MULTIPLIERS_PREMIUM : MAX_XP_MULTIPLIERS;
