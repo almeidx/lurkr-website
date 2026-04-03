@@ -1,6 +1,7 @@
 "use server";
 
 import { cookies } from "next/headers";
+import { after } from "next/server";
 import { enum_, maxValue, minValue, object, parse, pipe } from "valibot";
 import { LevelingImportBot } from "@/lib/guild.ts";
 import { TOKEN_COOKIE } from "@/utils/constants.ts";
@@ -40,7 +41,10 @@ export async function importBotData(rawGuildId: string, _currentState: unknown, 
 			return { error: StartImportError.RateLimited };
 		}
 
-		console.error("Failed to start leveling import", response.status, await response.text());
+		const clonedResponse = response.clone();
+		after(async () => {
+			console.error("Failed to start leveling import", clonedResponse.status, await clonedResponse.text());
+		});
 		return { error: StartImportError.Unknown };
 	}
 

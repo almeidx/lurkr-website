@@ -2,6 +2,7 @@
 
 import { updateTag } from "next/cache";
 import { cookies } from "next/headers";
+import { after } from "next/server";
 import { parse } from "valibot";
 import type { GuildSettings } from "@/lib/guild.ts";
 import { TOKEN_COOKIE } from "@/utils/constants.ts";
@@ -27,11 +28,13 @@ export async function action(rawGuildId: string, data: Partial<GuildSettings>, t
 	});
 
 	if (!response.ok) {
-		const error = response.headers.get("content-type")?.includes("application/json")
-			? await response.json()
-			: await response.text();
-
-		console.error(`Failed to update guild ${guildId} settings:`, error);
+		const clonedResponse = response.clone();
+		after(async () => {
+			const error = clonedResponse.headers.get("content-type")?.includes("application/json")
+				? await clonedResponse.json()
+				: await clonedResponse.text();
+			console.error(`Failed to update guild ${guildId} settings:`, error);
+		});
 
 		return false;
 	}
