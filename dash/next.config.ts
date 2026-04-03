@@ -20,6 +20,18 @@ const apiDomain = process.env.NEXT_PUBLIC_API_URL?.split("://")[1] ?? "";
 const backgroundBucketDomain = process.env.BACKGROUNDS_BUCKET_DOMAIN ?? "";
 
 const nextConfig = {
+	experimental: {
+		optimizePackageImports: [
+			"@ariakit/react",
+			"@gravity-ui/icons",
+			"@heroui/react",
+			"@heroui/styles",
+			"@remixicon/react",
+			"date-fns",
+			"react-colorful",
+			"recharts",
+		],
+	},
 	// cacheComponents: true,
 	async headers() {
 		const extraConnectSrc: string[] = [];
