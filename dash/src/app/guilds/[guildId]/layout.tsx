@@ -11,9 +11,9 @@ export default async function DashboardLayout({
 	children,
 	params,
 }: PropsWithChildren<{ params: Promise<{ guildId: Snowflake }> }>) {
-	const { guildId } = await params;
+	const [{ guildId }, cookieStore] = await Promise.all([params, cookies()]);
 
-	const token = (await cookies()).get(TOKEN_COOKIE)?.value;
+	const token = cookieStore.get(TOKEN_COOKIE)?.value;
 	if (!token) {
 		return <UnknownGuildOrMissingAccess />;
 	}

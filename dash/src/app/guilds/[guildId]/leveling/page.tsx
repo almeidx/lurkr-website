@@ -37,9 +37,9 @@ import { EditLeaderboardVisibility } from "./71-leaderboard-visibility.tsx";
 import { update } from "./update.ts";
 
 export default async function Leveling({ params }: { readonly params: Promise<{ guildId: Snowflake }> }) {
-	const { guildId } = await params;
+	const [{ guildId }, cookieStore] = await Promise.all([params, cookies()]);
 
-	const token = (await cookies()).get(TOKEN_COOKIE)?.value;
+	const token = cookieStore.get(TOKEN_COOKIE)?.value;
 	if (!token) {
 		return <SignInRequired />;
 	}

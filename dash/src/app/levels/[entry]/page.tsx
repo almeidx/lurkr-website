@@ -27,12 +27,11 @@ import { SortableMultipliers } from "./sortable-multipliers.tsx";
 import { SortableRoleRewards } from "./sortable-role-rewards.tsx";
 
 export default async function Leaderboard({ params, searchParams }: LeaderboardProps) {
-	const { page: rawPage } = await searchParams;
-	const { entry } = await params;
+	const [{ page: rawPage }, { entry }, cookieStore] = await Promise.all([searchParams, params, cookies()]);
 
 	const page = parsePage(rawPage);
 
-	const token = (await cookies()).get(TOKEN_COOKIE)?.value;
+	const token = cookieStore.get(TOKEN_COOKIE)?.value;
 	const data = await getData(entry, token, page);
 
 	if ("error" in data) {
@@ -163,7 +162,7 @@ export default async function Leaderboard({ params, searchParams }: LeaderboardP
 }
 
 export async function generateMetadata({ params, searchParams }: LeaderboardProps): Promise<Metadata> {
-	const { entry } = await params;
+	const [{ entry }, { page: rawPage }] = await Promise.all([params, searchParams]);
 
 	const defaultMetadata = {
 		description: "View the leveling leaderboard of a Discord server, including rewards and multipliers!",
@@ -196,7 +195,6 @@ export async function generateMetadata({ params, searchParams }: LeaderboardProp
 
 	const guild = (await response.json()) as LevelsGuildMetadataResponse;
 
-	const { page: rawPage } = await searchParams;
 	const page = parsePage(rawPage);
 
 	const previousUrl = page === 1 ? null : `/levels/${entry}?page=${page - 1}`;

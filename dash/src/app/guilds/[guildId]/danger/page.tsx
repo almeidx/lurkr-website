@@ -12,9 +12,9 @@ import { DownloadLevelingData } from "./01-download-leveling-data.tsx";
 import { ResetGuildData } from "./02-reset-guild-data.tsx";
 
 export default async function DangerZone({ params }: { readonly params: Promise<{ guildId: Snowflake }> }) {
-	const { guildId } = await params;
+	const [{ guildId }, cookieStore] = await Promise.all([params, cookies()]);
 
-	const token = (await cookies()).get(TOKEN_COOKIE)?.value;
+	const token = cookieStore.get(TOKEN_COOKIE)?.value;
 	if (!token) {
 		return <SignInRequired />;
 	}

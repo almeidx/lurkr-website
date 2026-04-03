@@ -14,8 +14,8 @@ import { resolveOverviewStatuses } from "./resolve-overview-statuses.ts";
 import { SignInRequired } from "./sign-in-required.tsx";
 
 export default async function Dashboard({ params }: { readonly params: Promise<{ guildId: string }> }) {
-	const { guildId } = await params;
-	const token = (await cookies()).get(TOKEN_COOKIE)?.value;
+	const [{ guildId }, cookieStore] = await Promise.all([params, cookies()]);
+	const token = cookieStore.get(TOKEN_COOKIE)?.value;
 	const data = await getData(guildId, token);
 
 	if (!data) {

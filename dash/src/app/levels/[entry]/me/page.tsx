@@ -4,9 +4,9 @@ import { TOKEN_COOKIE } from "@/utils/constants.ts";
 import { makeApiRequest } from "@/utils/make-api-request.ts";
 
 export default async function MyLevel({ params }: { params: Promise<{ entry: string }> }) {
-	const { entry } = await params;
+	const [{ entry }, cookieStore] = await Promise.all([params, cookies()]);
 
-	const token = (await cookies()).get(TOKEN_COOKIE)?.value;
+	const token = cookieStore.get(TOKEN_COOKIE)?.value;
 	if (!token) {
 		return <NotLoggedIn />;
 	}

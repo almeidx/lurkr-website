@@ -8,9 +8,9 @@ import { type GetImportStatusResponse, ImportForm } from "./01-leveling-import.t
 import { LurkrImportSection } from "./05-lurkr-import-section.tsx";
 
 export default async function Miscellaneous({ params }: { readonly params: Promise<{ guildId: Snowflake }> }) {
-	const { guildId } = await params;
+	const [{ guildId }, cookieStore] = await Promise.all([params, cookies()]);
 
-	const token = (await cookies()).get(TOKEN_COOKIE)?.value;
+	const token = cookieStore.get(TOKEN_COOKIE)?.value;
 	if (!token) {
 		return <SignInRequired />;
 	}
