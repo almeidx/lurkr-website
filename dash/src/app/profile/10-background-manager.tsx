@@ -70,29 +70,30 @@ export function BackgroundManager({ initialUrl }: { readonly initialUrl: string 
 		if (file) validateAndOpenCrop(file);
 	}
 
+	function setDragActive(active: boolean) {
+		isDragging.current = active;
+		if (!dropzoneRef.current) return;
+		dropzoneRef.current.classList.toggle("border-primary", active);
+		dropzoneRef.current.classList.toggle("bg-primary/10", active);
+		dropzoneRef.current.classList.toggle("border-white/15", !active);
+		dropzoneRef.current.classList.toggle("bg-white/3", !active);
+	}
+
 	function handleDrop(event: DragEvent) {
 		event.preventDefault();
-		isDragging.current = false;
-		dropzoneRef.current?.classList.remove("border-primary", "bg-primary/10");
-		dropzoneRef.current?.classList.add("border-white/15", "bg-white/3");
+		setDragActive(false);
 		const file = event.dataTransfer.files[0];
 		if (file) validateAndOpenCrop(file);
 	}
 
 	function handleDragOver(event: DragEvent) {
 		event.preventDefault();
-		if (!isDragging.current) {
-			isDragging.current = true;
-			dropzoneRef.current?.classList.add("border-primary", "bg-primary/10");
-			dropzoneRef.current?.classList.remove("border-white/15", "bg-white/3");
-		}
+		if (!isDragging.current) setDragActive(true);
 	}
 
 	function handleDragLeave(event: DragEvent) {
 		event.preventDefault();
-		isDragging.current = false;
-		dropzoneRef.current?.classList.remove("border-primary", "bg-primary/10");
-		dropzoneRef.current?.classList.add("border-white/15", "bg-white/3");
+		setDragActive(false);
 	}
 
 	return (

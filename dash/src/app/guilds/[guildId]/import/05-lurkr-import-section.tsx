@@ -20,9 +20,10 @@ type ImportState =
 
 export function LurkrImportSection({ guildId }: { guildId: Snowflake }) {
 	const [file, setFile] = useState<File | null>(null);
-	const [isDragging, setIsDragging] = useState(false);
+	const isDragging = useRef(false);
 	const [importState, setImportState] = useState<ImportState>({ status: "idle" });
 	const inputRef = useRef<HTMLInputElement>(null);
+	const dropzoneRef = useRef<HTMLDivElement>(null);
 
 	function handleFileSelect(selectedFile: File | null) {
 		if (!selectedFile) {
@@ -44,20 +45,28 @@ export function LurkrImportSection({ guildId }: { guildId: Snowflake }) {
 		handleFileSelect(selectedFile);
 	}
 
+	function setDragActive(active: boolean) {
+		isDragging.current = active;
+		if (!dropzoneRef.current) return;
+		dropzoneRef.current.classList.toggle("border-green", active);
+		dropzoneRef.current.classList.toggle("bg-green/10", active);
+		dropzoneRef.current.classList.toggle("border-white/25", !active);
+		dropzoneRef.current.classList.toggle("hover:border-white/50", !active);
+	}
+
 	function handleDragOver(event: DragEvent<HTMLDivElement>) {
 		event.preventDefault();
-		setIsDragging(true);
+		if (!isDragging.current) setDragActive(true);
 	}
 
 	function handleDragLeave(event: DragEvent<HTMLDivElement>) {
 		event.preventDefault();
-		setIsDragging(false);
+		setDragActive(false);
 	}
 
 	function handleDrop(event: DragEvent<HTMLDivElement>) {
 		event.preventDefault();
-		setIsDragging(false);
-
+		setDragActive(false);
 		const droppedFile = event.dataTransfer.files[0] ?? null;
 		handleFileSelect(droppedFile);
 	}
@@ -125,9 +134,7 @@ export function LurkrImportSection({ guildId }: { guildId: Snowflake }) {
 			<div className="mt-2 flex flex-col gap-4">
 				{/* biome-ignore lint/a11y/useSemanticElements: div required for drag and drop support */}
 				<div
-					className={`flex cursor-pointer flex-col items-center justify-center gap-3 rounded-lg border-2 border-dashed p-6 transition-colors ${
-						isDragging ? "border-green bg-green/10" : "border-white/25 hover:border-white/50"
-					}`}
+					className="flex cursor-pointer flex-col items-center justify-center gap-3 rounded-lg border-2 border-white/25 border-dashed p-6 transition-colors hover:border-white/50"
 					onClick={handleClick}
 					onDragLeave={handleDragLeave}
 					onDragOver={handleDragOver}
@@ -137,6 +144,7 @@ export function LurkrImportSection({ guildId }: { guildId: Snowflake }) {
 							handleClick();
 						}
 					}}
+					ref={dropzoneRef}
 					role="button"
 					tabIndex={0}
 				>
