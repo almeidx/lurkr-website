@@ -4,14 +4,14 @@
 	"homepage": "https://lurkr.gg",
 	"type": "module",
 	"scripts": {
-		"build": "next build --experimental-next-config-strip-types",
+		"build": "next build",
 		"build:typecheck": "tsc --noEmit",
-		"dev": "next dev --experimental-next-config-strip-types",
+		"dev": "next dev",
 		"fmt": "biome check --write --unsafe",
 		"format": "pnpm run fmt",
 		"postinstall": "next typegen",
 		"lint": "biome check",
-		"start": "next start --experimental-next-config-strip-types"
+		"start": "next start"
 	},
 	"dependencies": {
 		"@ariakit/react": "^0.4.24",

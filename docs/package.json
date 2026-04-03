@@ -4,15 +4,15 @@
 	"homepage": "https://lurkr.gg/docs",
 	"type": "module",
 	"scripts": {
-		"build": "next build --experimental-next-config-strip-types",
+		"build": "next build",
 		"build:typecheck": "tsc --noEmit",
-		"dev": "next dev --experimental-next-config-strip-types",
+		"dev": "next dev",
 		"fmt": "biome check --write --unsafe",
 		"fmt:content": "pnpm dlx prettier --print-width=120 --use-tabs=true --prose-wrap=always --write \"content/**/*.mdx\"",
 		"format": "pnpm run fmt",
 		"postinstall": "next typegen && fumadocs-mdx && node scripts/generate-api-endpoint-docs.ts",
 		"lint": "biome check",
-		"start": "next start --experimental-next-config-strip-types"
+		"start": "next start"
 	},
 	"dependencies": {
 		"@radix-ui/react-popover": "^1.1.15",
