@@ -1,9 +1,50 @@
 "use client";
 
 import { type PropsWithChildren, useState } from "react";
-import Select, { components, type GroupBase, type OptionProps } from "react-select";
+import Select, { components, type GroupBase, type OptionProps, type StylesConfig } from "react-select";
 import type { Role } from "@/lib/guild.ts";
 import { decimalRoleColorToHex } from "@/utils/decimal-to-hex-color.ts";
+import { baseSelectStyles } from "./select-styles.ts";
+
+const roleSelectStyles: StylesConfig<RoleWithResolvedColor, true> = {
+	...baseSelectStyles,
+	multiValue: (baseStyles, state) => ({
+		...baseStyles,
+		backgroundColor: "transparent",
+		border: `1px solid ${state.data.resolvedColor}`,
+		borderRadius: "20px",
+		maxWidth: "50vw",
+	}),
+	multiValueLabel: (baseStyles, state) => ({
+		...baseStyles,
+		":before": {
+			backgroundColor: state.data.resolvedColor,
+			borderRadius: "50%",
+			content: "''",
+			display: "block",
+			flexShrink: "0",
+			height: "14px",
+			margin: "0 0.1rem",
+			width: "14px",
+		},
+		alignItems: "center",
+		color: "#e2e2e2",
+		display: "flex",
+		gap: "0.2rem",
+	}),
+	multiValueRemove: (baseStyles, state) => ({
+		...baseStyles,
+		":hover": {
+			backgroundColor: state.data.resolvedColor,
+			color: "#2d2d2d",
+		},
+		borderBottomRightRadius: "20px",
+		borderTopRightRadius: "20px",
+		color: "#e2e2e2",
+	}),
+};
+
+const selectComponents = { Option } as const;
 
 export function RoleSelector({
 	children,
@@ -37,7 +78,7 @@ export function RoleSelector({
 
 				<Select
 					closeMenuOnSelect={false}
-					components={{ Option }}
+					components={selectComponents}
 					getOptionLabel={(option) => option.name}
 					getOptionValue={(option) => option.id}
 					inputId={inputId}
@@ -52,76 +93,7 @@ export function RoleSelector({
 					}}
 					options={roleOptions}
 					placeholder="e.g. Member"
-					styles={{
-						control: (baseStyles) => ({
-							...baseStyles,
-							backgroundColor: "#474747",
-							border: "none",
-							borderRadius: "0.375rem",
-							boxShadow: "0px 0px 10px 0px #00000080 inset",
-							color: "#e2e2e2",
-							maxWidth: "48rem",
-							minWidth: "16rem",
-							padding: "0.2rem",
-						}),
-						input: (baseStyles) => ({
-							...baseStyles,
-							color: "#e2e2e2",
-						}),
-						menu: (baseStyles) => ({
-							...baseStyles,
-							backgroundColor: "#2d2d2d",
-							borderRadius: "0.375rem",
-							color: "#e2e2e2",
-							maxWidth: "48rem",
-							minWidth: "16rem",
-						}),
-						multiValue: (baseStyles, state) => ({
-							...baseStyles,
-							backgroundColor: "transparent",
-							border: `1px solid ${state.data.resolvedColor}`,
-							borderRadius: "20px",
-							maxWidth: "50vw",
-						}),
-						multiValueLabel: (baseStyles, state) => ({
-							...baseStyles,
-
-							":before": {
-								backgroundColor: state.data.resolvedColor,
-								borderRadius: "50%",
-								content: "''",
-								display: "block",
-								flexShrink: "0",
-								height: "14px",
-								margin: "0 0.1rem",
-								width: "14px",
-							},
-							alignItems: "center",
-							color: "#e2e2e2",
-
-							display: "flex",
-							gap: "0.2rem",
-						}),
-						multiValueRemove: (baseStyles, state) => ({
-							...baseStyles,
-							":hover": {
-								backgroundColor: state.data.resolvedColor,
-								color: "#2d2d2d",
-							},
-							borderBottomRightRadius: "20px",
-							borderTopRightRadius: "20px",
-							color: "#e2e2e2",
-						}),
-						option: (baseStyles, state) => ({
-							...baseStyles,
-							backgroundColor: state.isFocused ? "#474747" : "#2d2d2d",
-							color: "#e2e2e2",
-						}),
-						placeholder: (baseStyles) => ({
-							...baseStyles,
-							color: "#e2e2e280",
-						}),
-					}}
+					styles={roleSelectStyles}
 					value={values}
 				/>
 			</label>

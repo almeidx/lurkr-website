@@ -1,10 +1,29 @@
 "use client";
 
 import { type KeyboardEventHandler, type PropsWithChildren, useState } from "react";
+import type { StylesConfig } from "react-select";
 import CreatableSelect from "react-select/creatable";
+import { baseSelectStyles, selectControlStyles, selectMenuStyles } from "./select-styles.ts";
 
-const components = {
+const creatableComponents = {
 	DropdownIndicator: null,
+};
+
+const creatableSelectStyles: StylesConfig<string, true> = {
+	...baseSelectStyles,
+	control: (baseStyles) => ({
+		...selectControlStyles(baseStyles),
+		minWidth: undefined,
+	}),
+	menu: (baseStyles) => ({
+		...selectMenuStyles(baseStyles),
+		maxWidth: undefined,
+		minWidth: undefined,
+	}),
+	multiValueLabel: (baseStyles) => ({
+		...baseStyles,
+		color: "#e2e2e2",
+	}),
 };
 
 export function CreatableList({ children, defaultValues, inputId, max, placeholder, settingId }: CreatableListProps) {
@@ -32,7 +51,7 @@ export function CreatableList({ children, defaultValues, inputId, max, placehold
 				{children}
 
 				<CreatableSelect
-					components={components}
+					components={creatableComponents}
 					getOptionLabel={(option) => option}
 					getOptionValue={(option) => option}
 					inputId={inputId}
@@ -49,58 +68,7 @@ export function CreatableList({ children, defaultValues, inputId, max, placehold
 					onInputChange={(newValue) => setInputValue(newValue)}
 					onKeyDown={handleKeyDown}
 					placeholder={placeholder}
-					styles={{
-						control: (baseStyles) => ({
-							...baseStyles,
-							backgroundColor: "#474747",
-							border: "none",
-							borderRadius: "0.375rem",
-							boxShadow: "0px 0px 10px 0px #00000080 inset",
-							color: "#e2e2e2",
-							maxWidth: "48rem",
-							padding: "0.2rem",
-						}),
-						input: (baseStyles) => ({
-							...baseStyles,
-							color: "#e2e2e2",
-						}),
-						menu: (baseStyles) => ({
-							...baseStyles,
-							backgroundColor: "#2d2d2d",
-							borderRadius: "0.375rem",
-							color: "#e2e2e2",
-						}),
-						multiValue: (baseStyles) => ({
-							...baseStyles,
-							backgroundColor: "transparent",
-							border: "1px solid #e2e2e2bf",
-							borderRadius: "20px",
-							maxWidth: "50vw",
-						}),
-						multiValueLabel: (baseStyles) => ({
-							...baseStyles,
-							color: "#e2e2e2",
-						}),
-						multiValueRemove: (baseStyles) => ({
-							...baseStyles,
-							":hover": {
-								backgroundColor: "#e2e2e2",
-								color: "#2d2d2d",
-							},
-							borderBottomRightRadius: "20px",
-							borderTopRightRadius: "20px",
-							color: "#e2e2e2",
-						}),
-						option: (baseStyles, state) => ({
-							...baseStyles,
-							backgroundColor: state.isFocused ? "#474747" : "#2d2d2d",
-							color: "#e2e2e2",
-						}),
-						placeholder: (baseStyles) => ({
-							...baseStyles,
-							color: "#e2e2e280",
-						}),
-					}}
+					styles={creatableSelectStyles}
 					value={values}
 				/>
 			</label>

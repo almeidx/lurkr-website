@@ -1,9 +1,26 @@
 "use client";
 
 import { type PropsWithChildren, useMemo, useState } from "react";
-import Select from "react-select";
+import Select, { type StylesConfig } from "react-select";
 import { type Channel, ChannelType } from "@/lib/guild.ts";
 import { mapChannelIdsToChannels } from "@/utils/map-channel-ids-to-channels.ts";
+import { baseSelectStyles, selectMenuStyles } from "./select-styles.ts";
+
+const baseChannelSelectStyles: StylesConfig<Channel, true> = {
+	...baseSelectStyles,
+	menu: (baseStyles) => ({
+		...selectMenuStyles(baseStyles),
+		zIndex: "999999",
+	}),
+	multiValueLabel: (baseStyles) => ({
+		...baseStyles,
+		":before": {
+			content: "'#'",
+			margin: "0 0.2rem",
+		},
+		color: "#e2e2e2",
+	}),
+};
 
 export function ChannelSelector({
 	channels,
@@ -49,6 +66,14 @@ export function ChannelSelector({
 			});
 	}, [channels]);
 
+	const channelSelectStyles: StylesConfig<Channel, true> = {
+		...baseChannelSelectStyles,
+		container: (baseStyles) => ({
+			...baseStyles,
+			opacity: disabled ? 0.5 : 1,
+		}),
+	};
+
 	return (
 		<>
 			<input
@@ -80,73 +105,7 @@ export function ChannelSelector({
 					options={channelOptions}
 					placeholder="e.g. general"
 					required={required}
-					styles={{
-						container: (baseStyles) => ({
-							...baseStyles,
-							opacity: disabled ? 0.5 : 1,
-						}),
-						control: (baseStyles) => ({
-							...baseStyles,
-							backgroundColor: "#474747",
-							border: "none",
-							borderRadius: "0.375rem",
-							boxShadow: "0px 0px 10px 0px #00000080 inset",
-							color: "#e2e2e2",
-							maxWidth: "48rem",
-							minWidth: "16rem",
-							padding: "0.2rem",
-						}),
-						input: (baseStyles) => ({
-							...baseStyles,
-							color: "#e2e2e2",
-						}),
-						menu: (baseStyles) => ({
-							...baseStyles,
-							backgroundColor: "#2d2d2d",
-							borderRadius: "0.375rem",
-							color: "#e2e2e2",
-							maxWidth: "48rem",
-							minWidth: "16rem",
-							zIndex: "999999",
-						}),
-						multiValue: (baseStyles) => ({
-							...baseStyles,
-							backgroundColor: "transparent",
-							border: "1px solid #e2e2e2bf",
-							borderRadius: "20px",
-							maxWidth: "50vw",
-						}),
-						multiValueLabel: (baseStyles) => ({
-							...baseStyles,
-							":before": {
-								content: "'#'",
-								margin: "0 0.2rem",
-							},
-							color: "#e2e2e2",
-						}),
-						multiValueRemove: (baseStyles) => ({
-							...baseStyles,
-							":hover": {
-								backgroundColor: "#e2e2e2",
-								color: "#2d2d2d",
-							},
-							borderBottomRightRadius: "20px",
-							borderTopRightRadius: "20px",
-							color: "#e2e2e2",
-						}),
-						option: (baseStyles) => ({
-							...baseStyles,
-							":hover": {
-								backgroundColor: "#474747",
-							},
-							backgroundColor: "#2d2d2d",
-							color: "#e2e2e2",
-						}),
-						placeholder: (baseStyles) => ({
-							...baseStyles,
-							color: "#e2e2e280",
-						}),
-					}}
+					styles={channelSelectStyles}
 					value={values}
 				/>
 			</label>
