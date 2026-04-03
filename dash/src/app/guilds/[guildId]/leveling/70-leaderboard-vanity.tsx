@@ -9,12 +9,12 @@ import { MAX_VANITY_LENGTH, MIN_VANITY_LENGTH, VANITY_REGEX_SOURCE } from "@/lib
 import { TOKEN_COOKIE } from "@/utils/constants.ts";
 import { makeApiRequest } from "@/utils/make-api-request.ts";
 
+const vanityRegex = new RegExp(VANITY_REGEX_SOURCE);
+
 export function LeaderboardVanity({ defaultValue }: { defaultValue: string | null }) {
 	const [vanity, setVanity] = useState(defaultValue ?? "");
 	const [available, setAvailable] = useState<boolean | null>(null);
 	const timeoutId = useRef<NodeJS.Timeout | null>(null);
-
-	const vanityRegex = new RegExp(VANITY_REGEX_SOURCE);
 
 	async function verifyAvailability(value: string) {
 		const token = Cookies.get(TOKEN_COOKIE);
