@@ -168,8 +168,8 @@ importers:
         specifier: ^14.2.11
         version: 14.2.11(@types/mdast@4.0.4)(@types/mdx@2.0.13)(@types/react@19.2.14)(fumadocs-core@16.7.10(@mdx-js/mdx@3.1.1)(@types/estree-jsx@1.0.5)(@types/hast@3.0.4)(@types/mdast@4.0.4)(@types/react@19.2.14)(lucide-react@1.7.0(react@19.2.4))(next@16.2.2(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(zod@4.3.6))(next@16.2.2(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(react@19.2.4)
       fumadocs-openapi:
-        specifier: ^10.6.5
-        version: 10.6.5(f88d27a495e485dbfec144bfa2ae6bf3)
+        specifier: ^10.6.6
+        version: 10.6.6(f88d27a495e485dbfec144bfa2ae6bf3)
       fumadocs-ui:
         specifier: ^16.7.10
         version: 16.7.10(@types/mdx@2.0.13)(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(fumadocs-core@16.7.10(@mdx-js/mdx@3.1.1)(@types/estree-jsx@1.0.5)(@types/hast@3.0.4)(@types/mdast@4.0.4)(@types/react@19.2.14)(lucide-react@1.7.0(react@19.2.4))(next@16.2.2(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(zod@4.3.6))(next@16.2.2(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(shiki@4.0.2)(tailwindcss@4.2.2)
@@ -629,8 +629,8 @@ packages:
       json-schema-typed:
         optional: true
 
-  '@fumari/stf@1.0.3':
-    resolution: {integrity: sha512-rSHaCnCREbDFTD4BNU40ZNjvkhg5wcKzJ1OPsPeKbFzVo9gmm1JE2lGhqsfPhDhuBOV+ZNqZy9+5T+JudKY1NA==}
+  '@fumari/stf@1.0.4':
+    resolution: {integrity: sha512-ozyRDo4GjOEuE+XZlcMSP/7lwoAMwP4tZI+hdwhVWS1MeCSJqVpHFWIKucocXUUhusX2oqZb3K5ip1J79mR6zw==}
     peerDependencies:
       '@types/react': '*'
       react: ^19.2.0
@@ -2698,8 +2698,8 @@ packages:
       vite:
         optional: true
 
-  fumadocs-openapi@10.6.5:
-    resolution: {integrity: sha512-AgqPbO3AER/nCemRWC8P3emJ6mA+N3xjcUYLpogw4u8Aj1tDduIw2vB4wV8BRF/yGDf/VLibQWan7oyZMgCH8A==}
+  fumadocs-openapi@10.6.6:
+    resolution: {integrity: sha512-d9BJKKLNbox6Z+nCu3/a70G18t4ZM+Yr18E0IE6nnYcanMYzolgK9OZfF7nRizzOpTLvjdCRPgZ241KM60C4bg==}
     peerDependencies:
       '@scalar/api-client-react': '*'
       '@types/react': '*'
@@ -4111,7 +4111,7 @@ snapshots:
     dependencies:
       esrap: 2.2.4
 
-  '@fumari/stf@1.0.3(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)':
+  '@fumari/stf@1.0.4(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)':
     dependencies:
       react: 19.2.4
       react-dom: 19.2.4(react@19.2.4)
@@ -6481,11 +6481,11 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  fumadocs-openapi@10.6.5(f88d27a495e485dbfec144bfa2ae6bf3):
+  fumadocs-openapi@10.6.6(f88d27a495e485dbfec144bfa2ae6bf3):
     dependencies:
       '@fastify/deepmerge': 3.2.1
       '@fumari/json-schema-ts': 0.0.2
-      '@fumari/stf': 1.0.3(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+      '@fumari/stf': 1.0.4(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       '@radix-ui/react-accordion': 1.2.12(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       '@radix-ui/react-dialog': 1.1.15(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       '@radix-ui/react-select': 2.2.6(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
