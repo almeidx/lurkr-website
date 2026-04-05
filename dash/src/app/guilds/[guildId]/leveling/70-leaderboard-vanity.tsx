@@ -1,13 +1,11 @@
 "use client";
 
-import Cookies from "js-cookie";
 import { type ChangeEvent, useRef, useState } from "react";
 import { Input } from "@/components/dashboard/Input.tsx";
 import { Check } from "@/components/icons/mdi/check.tsx";
 import { Close } from "@/components/icons/mdi/close.tsx";
 import { MAX_VANITY_LENGTH, MIN_VANITY_LENGTH, VANITY_REGEX_SOURCE } from "@/lib/guild-config.ts";
-import { TOKEN_COOKIE } from "@/utils/constants.ts";
-import { makeApiRequest } from "@/utils/make-api-request.ts";
+import { API_URL } from "@/utils/constants.ts";
 
 const vanityRegex = new RegExp(VANITY_REGEX_SOURCE);
 
@@ -17,13 +15,10 @@ export function LeaderboardVanity({ defaultValue }: { defaultValue: string | nul
 	const timeoutId = useRef<NodeJS.Timeout | null>(null);
 
 	async function verifyAvailability(value: string) {
-		const token = Cookies.get(TOKEN_COOKIE);
-		if (!token) {
-			return;
-		}
-
 		const query = new URLSearchParams({ vanity: value });
-		const response = await makeApiRequest(`/vanity/check?${query.toString()}`, token);
+		const response = await fetch(`${API_URL}/vanity/check?${query.toString()}`, {
+			credentials: "include",
+		});
 
 		if (!response.ok) {
 			setAvailable(false);
