@@ -1,4 +1,4 @@
-import ky, { type Hooks } from "ky";
+import ky, { type Hooks, isHTTPError } from "ky";
 import { TOKEN_COOKIE } from "@/utils/constants";
 import { getCookie } from "@/utils/cookies";
 
@@ -19,23 +19,21 @@ const timeout = 30 * 1_000;
 
 const sharedHooks: Hooks = {
 	beforeError: [
-		async (error) => {
-			const { response } = error;
+		async ({ error }) => {
+			if (!isHTTPError(error)) {
+				return error;
+			}
+
+			const { data, response } = error;
 
 			let message = response.statusText || response.status.toString();
-
-			try {
-				const json = await response.json();
-				if (typeof json === "object" && json !== null && "message" in json && typeof json.message === "string") {
-					message += `: ${json.message}`;
-				}
-			} catch {
-				// Ignore JSON parsing errors
+			if (typeof data === "object" && data !== null && "message" in data && typeof data.message === "string") {
+				message += `: ${data.message}`;
 			}
 
 			// TODO: Show toast?
-
 			error.message = message;
+
 			return error;
 		},
 	],
@@ -45,7 +43,7 @@ export const api = ky.create({
 	hooks: {
 		...sharedHooks,
 		afterResponse: [
-			async (_request, _options, response) => {
+			async ({ response }) => {
 				if (response.headers.get("x-auth-error") === "malformed") {
 					// Clear the invalid token so the user isn't stuck in a broken auth state.
 					if (typeof window === "undefined") {
@@ -64,7 +62,7 @@ export const api = ky.create({
 			},
 		],
 		beforeRequest: [
-			async (request, _options) => {
+			async ({ request }) => {
 				// Populate the Authorization header with the token if it is not already set and exists.
 				if (!request.headers.has("Authorization")) {
 					const token = await getCookie(TOKEN_COOKIE);
@@ -82,7 +80,7 @@ export const api = ky.create({
 			},
 		],
 	},
-	prefixUrl: process.env.NEXT_PUBLIC_API_URL,
+	prefix: process.env.NEXT_PUBLIC_API_URL,
 	retry: {
 		limit: 3,
 		statusCodes: retryableStatusCodes,
@@ -92,7 +90,7 @@ export const api = ky.create({
 
 export const localApi = ky.create({
 	hooks: sharedHooks,
-	prefixUrl: "/",
+	prefix: "/",
 	retry: {
 		limit: 3,
 		statusCodes: retryableStatusCodes,
