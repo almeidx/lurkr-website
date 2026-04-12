@@ -7,9 +7,6 @@ settings:
 overrides:
   react-is: ^19.2.6
 
-patchedDependencies:
-  p-retry: 0c6f6d8001ec71275bedc59774a9278dfbdec1bd21093afc1ec1ebc6c76d6034
-
 importers:
 
   .:
@@ -70,7 +67,7 @@ importers:
         version: 2.4.7
       p-retry:
         specifier: ^8.0.0
-        version: 8.0.0(patch_hash=0c6f6d8001ec71275bedc59774a9278dfbdec1bd21093afc1ec1ebc6c76d6034)
+        version: 8.0.0
       parse-duration:
         specifier: ^2.1.6
         version: 2.1.6
@@ -9274,7 +9271,7 @@ snapshots:
       '@oxfmt/binding-win32-ia32-msvc': 0.48.0
       '@oxfmt/binding-win32-x64-msvc': 0.48.0
 
-  p-retry@8.0.0(patch_hash=0c6f6d8001ec71275bedc59774a9278dfbdec1bd21093afc1ec1ebc6c76d6034):
+  p-retry@8.0.0:
     dependencies:
       is-network-error: 1.3.2
 
