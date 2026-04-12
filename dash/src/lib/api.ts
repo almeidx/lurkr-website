@@ -50,7 +50,8 @@ export const api = ky.create({
 					const { cookies } = await import("next/headers");
 					const store = await cookies();
 					try {
-						store.delete(TOKEN_COOKIE);
+						const domain = process.env.NEXT_PUBLIC_COOKIE_DOMAIN;
+						store.delete({ name: TOKEN_COOKIE, path: "/", ...(domain ? { domain } : {}) });
 					} catch {
 						// This can fail if it runs outside a Server Action or API route. e.g. RSC rendering
 					}
@@ -61,10 +62,12 @@ export const api = ky.create({
 			async ({ request }) => {
 				// Server-side: read the cookie from next/headers and set Authorization header
 				// Client-side: browser sends the HttpOnly cookie automatically via credentials: "include"
-				if (typeof window === "undefined" && !request.headers.has("Authorization")) {
-					const token = await getCookie(TOKEN_COOKIE);
-					if (token) {
-						request.headers.set("Authorization", `Bearer ${token}`);
+				if (typeof window === "undefined") {
+					if (!request.headers.has("Authorization")) {
+						const token = await getCookie(TOKEN_COOKIE);
+						if (token) {
+							request.headers.set("Authorization", `Bearer ${token}`);
+						}
 					}
 
 					if (!request.headers.has("User-Agent")) {
