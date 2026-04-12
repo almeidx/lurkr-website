@@ -8,7 +8,7 @@ import { LoadingSpinner } from "@/components/LoadingSpinner.tsx";
 import type { Snowflake } from "@/utils/discord-cdn.ts";
 import { makeApiRequest } from "@/utils/make-api-request.ts";
 
-export function DownloadLevelingData({ guildId, levelingSystemEnabled, token }: DownloadLevelingDataProps) {
+export function DownloadLevelingData({ guildId, levelingSystemEnabled }: DownloadLevelingDataProps) {
 	const [dataExport, setDataExport] = useState<DataExportResult | null>(null);
 	const [isLoading, setIsLoading] = useState(true);
 
@@ -16,7 +16,7 @@ export function DownloadLevelingData({ guildId, levelingSystemEnabled, token }: 
 	useEffect(() => {
 		(async () => {
 			try {
-				const response = await makeApiRequest(`/levels/${guildId}/export`, token);
+				const response = await makeApiRequest(`/levels/${guildId}/export`);
 
 				if (response.ok) {
 					const data = (await response.json()) as DataExportResult;
@@ -38,7 +38,7 @@ export function DownloadLevelingData({ guildId, levelingSystemEnabled, token }: 
 		setIsLoading(true);
 
 		try {
-			const response = await makeApiRequest(`/levels/${guildId}/export`, token, { method: "POST" });
+			const response = await makeApiRequest(`/levels/${guildId}/export`, undefined, { method: "POST" });
 			if (response.ok) {
 				const data = (await response.json()) as DataExportResult;
 				setDataExport(data);
@@ -96,5 +96,4 @@ interface DataExportResult {
 interface DownloadLevelingDataProps {
 	readonly guildId: Snowflake;
 	readonly levelingSystemEnabled: boolean;
-	readonly token: string;
 }

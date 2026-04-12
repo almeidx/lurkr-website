@@ -1,6 +1,6 @@
 import { buttonVariants } from "@heroui/styles";
+import { isHTTPError } from "ky";
 import type { Metadata } from "next";
-import { cookies } from "next/headers";
 import Link from "next/link";
 import { RedirectType, redirect } from "next/navigation";
 import prettyMilliseconds from "pretty-ms";
@@ -15,8 +15,9 @@ import { ErrorState } from "@/components/error-state.tsx";
 import { ImageWithFallback } from "@/components/ImageWithFallback.tsx";
 import { SidebarSection } from "@/components/leaderboard/SidebarSection.tsx";
 import { SignInButton } from "@/components/navigation/sign-in.tsx";
+import { api } from "@/lib/api.ts";
 import type { Guild } from "@/lib/guild.ts";
-import { MAX_WINDOW_TITLE_LENGTH, TOKEN_COOKIE } from "@/utils/constants.ts";
+import { MAX_WINDOW_TITLE_LENGTH } from "@/utils/constants.ts";
 import { guildIcon, type Snowflake } from "@/utils/discord-cdn.ts";
 import { ellipsis } from "@/utils/ellipsis.ts";
 import { isSnowflake } from "@/utils/is-snowflake.ts";
@@ -27,12 +28,11 @@ import { SortableMultipliers } from "./sortable-multipliers.tsx";
 import { SortableRoleRewards } from "./sortable-role-rewards.tsx";
 
 export default async function Leaderboard({ params, searchParams }: LeaderboardProps) {
-	const [{ page: rawPage }, { entry }, cookieStore] = await Promise.all([searchParams, params, cookies()]);
+	const [{ page: rawPage }, { entry }] = await Promise.all([searchParams, params]);
 
 	const page = parsePage(rawPage);
 
-	const token = cookieStore.get(TOKEN_COOKIE)?.value;
-	const data = await getData(entry, token, page);
+	const data = await getData(entry, page);
 
 	if ("error" in data) {
 		switch (data.error) {
@@ -218,33 +218,25 @@ export async function generateMetadata({ params, searchParams }: LeaderboardProp
 	};
 }
 
-async function getData(entry: string, token: string | undefined, page: number) {
+async function getData(entry: string, page: number) {
 	try {
-		const response = await makeApiRequest(`/levels/${entry}?page=${page}`, token, {
-			next: {
-				revalidate: 60,
-				tags: [`levels:${entry}`],
-			},
-		});
-
-		if (!response.ok) {
-			return { error: GetLeaderboardError.Generic };
-		}
-
-		return response.json() as Promise<GetLevelsResponse>;
+		return await api
+			.get(`levels/${entry}`, {
+				next: { revalidate: 60, tags: [`levels:${entry}`] },
+				searchParams: { page },
+			})
+			.json<GetLevelsResponse>();
 	} catch (error) {
-		if (error instanceof Error && error.cause) {
-			const response = error.cause as Response;
-
-			if (response.status === 401) {
+		if (isHTTPError(error)) {
+			if (error.response.status === 401) {
 				return { error: GetLeaderboardError.MustBeLoggedIn };
 			}
 
-			if (response.status === 403) {
+			if (error.response.status === 403) {
 				return { error: GetLeaderboardError.MustBeAMemberOfGuild };
 			}
 
-			if (response.status === 404) {
+			if (error.response.status === 404) {
 				return { error: GetLeaderboardError.UnknownGuildOrDisabled };
 			}
 		}
