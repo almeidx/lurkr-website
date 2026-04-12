@@ -27,7 +27,7 @@ export async function importBotData(rawGuildId: string, _currentState: unknown, 
 				return { error: StartImportError.RateLimited };
 			}
 
-			console.error("Failed to start leveling import", error.response.status, await error.response.text());
+			console.error("Failed to start leveling import", error.response.status, error.data);
 		}
 
 		return { error: StartImportError.Unknown };
