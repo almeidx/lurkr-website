@@ -1,7 +1,7 @@
 import pRetry, { AbortError } from "p-retry";
 import { API_URL } from "@/utils/constants.ts";
 
-export async function makeApiRequest(route: string, token: string | null | undefined, init: RequestInit = {}) {
+export async function makeApiRequest(route: string, token?: string | null | undefined, init: RequestInit = {}) {
 	return pRetry(
 		async () => {
 			if (token && !(init.headers as Record<string, string> | undefined)?.Authorization) {
@@ -10,6 +10,8 @@ export async function makeApiRequest(route: string, token: string | null | undef
 					Authorization: `Bearer ${token}`,
 				};
 			}
+
+			init.credentials = "include";
 
 			const fullUrl = route.startsWith("http") ? route : `${API_URL}${route}`;
 
@@ -30,7 +32,7 @@ export async function makeApiRequest(route: string, token: string | null | undef
 					}
 				}
 
-				throw new AbortError(message, { cause: response });
+				throw new AbortError(message);
 			}
 
 			const authErrorHeader = response.headers.get("x-auth-error");

@@ -57,7 +57,9 @@ function getRedirectToValue(redirectTo: string | undefined, origin: string) {
 }
 
 function getSetCookieHeader(token: string, maxAge: number) {
-	return `${TOKEN_COOKIE}=${token}; Path=/; Max-Age=${maxAge}; Secure; SameSite=Lax` as const;
+	const domain = process.env.NEXT_PUBLIC_COOKIE_DOMAIN ?? "";
+	const domainAttr = domain ? `; Domain=${domain}` : "";
+	return `${TOKEN_COOKIE}=${token}; Path=/; HttpOnly; Max-Age=${maxAge}; Secure; SameSite=Lax${domainAttr}`;
 }
 
 interface RegisterResponse {
