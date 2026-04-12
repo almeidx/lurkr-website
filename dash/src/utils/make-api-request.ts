@@ -30,7 +30,7 @@ export async function makeApiRequest(route: string, token: string | null | undef
 					}
 				}
 
-				throw new AbortError(message, { cause: response });
+				throw new AbortError(message);
 			}
 
 			const authErrorHeader = response.headers.get("x-auth-error");
