@@ -36,13 +36,13 @@ export function Footer() {
 								<a className={footerLinkClasses} href={BOT_INVITE} rel="external noopener noreferrer" target="_blank">
 									Invite
 								</a>
-								<Link className={footerLinkClasses} href="/docs/changelog">
+								<Link className={footerLinkClasses} href="/docs/changelog" prefetch={false}>
 									Changelog
 								</Link>
-								<Link className={footerLinkClasses} href="/docs">
+								<Link className={footerLinkClasses} href="/docs" prefetch={false}>
 									Docs
 								</Link>
-								<Link className={footerLinkClasses} href="/status">
+								<Link className={footerLinkClasses} href="/status" prefetch={false}>
 									Status
 								</Link>
 							</div>
