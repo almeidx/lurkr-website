@@ -20,8 +20,8 @@ shared/  → Shared utilities (not a package, import via relative paths)
 
 ## Key Decisions
 
-- **Package manager**: pnpm v10
-- **UI components**: HeroUI v3 (Beta) for new components
+- **Package manager**: pnpm v11
+- **UI components**: HeroUI v3 for new components
 - **Styling**: TailwindCSS v4
 
 ## Detailed Guidelines
