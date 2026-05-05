@@ -94,29 +94,6 @@ const nextConfig = {
 			},
 		];
 	},
-	async rewrites() {
-		const docsRewriteUrl = process.env.DOCS_REWRITE_URL;
-		if (!docsRewriteUrl) {
-			return [];
-		}
-
-		return {
-			beforeFiles: [
-				{
-					destination: `${docsRewriteUrl}/docs`,
-					source: "/docs",
-				},
-				{
-					destination: `${docsRewriteUrl}/docs.mdx`,
-					source: "/docs.mdx",
-				},
-				{
-					destination: `${docsRewriteUrl}/docs/:match*`,
-					source: "/docs/:match*",
-				},
-			],
-		};
-	},
 } as const satisfies NextConfig;
 
 export default nextConfig;

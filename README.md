@@ -45,7 +45,7 @@ running, which is currently not publicly available.
 
 ### Deployment
 
-The deployment of the website is all automated by [Vercel]
+The dashboard (`dash/`) is deployed on [Vercel], while the documentation site (`docs/`) is deployed on [Cloudflare Workers]. Both deployments are automated.
 
 ---
 
@@ -59,6 +59,7 @@ The deployment of the website is all automated by [Vercel]
 [git]: https://git-scm.com/
 [node.js]: https://nodejs.org
 [vercel]: https://vercel.com
+[cloudflare workers]: https://workers.cloudflare.com/
 [pnpm]: https://pnpm.io/
 [gnu agplv3]: https://github.com/almeidx/lurkr-website/blob/main/LICENSE
 [almeidx]: https://almeidx.dev
