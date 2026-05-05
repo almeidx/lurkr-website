@@ -1,24 +1,12 @@
 packages:
   - dash
   - docs
-
-minimumReleaseAge: 1440
-
-minimumReleaseAgeExclude:
-  - '@heroui/*'
-  - '@next/*'
-  - next
-  - react
-  - react-dom
-
-onlyBuiltDependencies:
-  - "@biomejs/biome"
-  - "@tailwindcss/oxide"
-  - esbuild
-  - sharp
-
-overrides:
-  react-is: ^19.2.5
-
+allowBuilds:
+  "@biomejs/biome": true
+  "@tailwindcss/oxide": true
+  esbuild: true
+  sharp: true
 patchedDependencies:
   p-retry: patches/p-retry.patch
+overrides:
+  react-is: ^19.2.5
