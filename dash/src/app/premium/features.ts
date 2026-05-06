@@ -46,7 +46,7 @@ export const configLimitFeatures: ConfigLimitComparison[] = [
 	{ free: MAX_NO_ROLE_REWARD_ROLES, name: "No Role Reward Roles", suffix: "roles", ultimate: MAX_NO_ROLE_REWARD_ROLES_PREMIUM },
 	{ free: MAX_XP_MULTIPLIERS, name: "Leveling Multipliers", suffix: "multipliers total", ultimate: MAX_XP_MULTIPLIERS_PREMIUM },
 	{ free: MAX_XP_MULTIPLIER_TARGETS, name: "Multiplier Channels/Roles", suffix: "per multiplier", ultimate: MAX_XP_MULTIPLIER_TARGETS_PREMIUM },
-	{ free: MAX_MENTION_COOLDOWN, name: "Role Mention Cooldown", suffix: "minutes", ultimate: MAX_MENTION_COOLDOWN_PREMIUM },
+	{ free: MAX_MENTION_COOLDOWN / 60, name: "Role Mention Cooldown", suffix: "hours", ultimate: MAX_MENTION_COOLDOWN_PREMIUM / 60 },
 	{ free: 100, name: "Leveling Leaderboard", suffix: "users", ultimate: 200 },
 	{ free: MAX_XP_CHANNELS, name: "Leveling Channels", suffix: "channels", ultimate: MAX_XP_CHANNELS_PREMIUM },
 	{ free: MAX_NO_TOP_XP_ROLES, name: "No Top Leveling Roles", suffix: "roles", ultimate: MAX_NO_TOP_XP_ROLES_PREMIUM },
