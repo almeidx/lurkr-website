@@ -37,7 +37,7 @@ Both sites are hosted at `lurkr.gg`:
 - Dashboard at root (`/`)
 - Docs at `/docs`
 
-The dashboard rewrites `/docs` requests to the docs site (configured in `dash/next.config.ts`).
+The dashboard rewrites `/docs` requests to the docs site (configured in `dash/next.config.mts`).
 
 ## Dashboard Routes
 
