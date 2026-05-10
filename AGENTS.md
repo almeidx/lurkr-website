@@ -1,4 +1,4 @@
-# AGENTS.md
+# Lurkr Website
 
 TypeScript monorepo for Lurkr Discord bot's web dashboard and documentation site, built with Next.js 16.
 
