@@ -1,11 +1,17 @@
 import { Time } from "./time.ts";
 
+const rtfCache = new Map<string, Intl.RelativeTimeFormat>();
+
+function getRtf(locale: string) {
+	return rtfCache.getOrInsertComputed(locale, () => new Intl.RelativeTimeFormat(locale, { numeric: "auto" }));
+}
+
 // Adapted from https://stackoverflow.com/a/62029040/11252146
 export function dateToRelativeTimeAgo(timestamp: Date, locale: string) {
 	const current = Date.now();
 	const elapsed = current - timestamp.getTime();
 
-	const rtf = new Intl.RelativeTimeFormat(locale, { numeric: "auto" });
+	const rtf = getRtf(locale);
 
 	if (elapsed < Time.Minutes) {
 		return rtf.format(-Math.floor(elapsed / Time.Seconds), "seconds");
