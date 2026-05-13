@@ -15,7 +15,7 @@ interface AccentColorPickerProps {
 
 export function AccentColorPicker({ avatarUrl, initialColor }: AccentColorPickerProps) {
 	const [savedColor, setSavedColor] = useState(initialColor);
-	const [color, setColor] = useState(parseColor(initialColor ?? DEFAULT_ACCENT_COLOR));
+	const [color, setColor] = useState(() => parseColor(initialColor ?? DEFAULT_ACCENT_COLOR));
 	const [isSaving, setIsSaving] = useState(false);
 	const [isResetting, setIsResetting] = useState(false);
 	const [isInferring, setIsInferring] = useState(false);
