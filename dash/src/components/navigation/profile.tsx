@@ -14,15 +14,15 @@ import { SUPPORT_SERVER_INVITE } from "@/shared-links.ts";
 import { userAvatar } from "@/utils/discord-cdn.ts";
 
 export function ProfileButton({ avatar, globalName, id, username }: User) {
-	const router = useRouter();
+	const { push } = useRouter();
 
 	function handleAction(key: string | number) {
 		switch (key) {
 			case "profile":
-				router.push("/profile");
+				push("/profile");
 				break;
 			case "servers":
-				router.push("/guilds");
+				push("/guilds");
 				break;
 			case "support":
 				window.open(SUPPORT_SERVER_INVITE, "_blank", "noopener,noreferrer");
