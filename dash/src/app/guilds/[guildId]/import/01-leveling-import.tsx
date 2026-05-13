@@ -19,6 +19,8 @@ export function ImportForm({ guildId, data }: { guildId: Snowflake; data: GetImp
 	const intervalRef = useRef<NodeJS.Timeout>(null);
 
 	const importStatus = importStatusState ?? data;
+	const importStatusCreatedAt = importStatus ? new Date(importStatus.createdAt) : null;
+	const importStatusCompletedAt = importStatus?.completedAt ? new Date(importStatus.completedAt) : null;
 
 	const lastImportIsWithinHour = !!data && dateIsYoungerThanHours(new Date(data.createdAt), 1);
 	const importOngoing = importStatusState?.completedAt === null;
@@ -86,11 +88,8 @@ export function ImportForm({ guildId, data }: { guildId: Snowflake; data: GetImp
 					<div className="flex flex-wrap items-center gap-4">
 						<h3 className="flex items-center font-semibold text-xl md:text-[1.4rem]">Import Status</h3>
 
-						{importStatus && (
-							<ImportStatusTitle
-								completedAt={importStatus.completedAt ? new Date(importStatus.completedAt) : null}
-								createdAt={new Date(importStatus.createdAt)}
-							/>
+						{importStatus && importStatusCreatedAt && (
+							<ImportStatusTitle completedAt={importStatusCompletedAt} createdAt={importStatusCreatedAt} />
 						)}
 					</div>
 
