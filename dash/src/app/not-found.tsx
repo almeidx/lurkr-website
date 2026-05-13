@@ -1,8 +1,14 @@
 import "@/app/globals.css";
 
 import { buttonVariants } from "@heroui/styles";
+import type { Metadata } from "next";
 import Link from "next/link";
 import { ErrorState } from "@/components/error-state.tsx";
+
+export const metadata: Metadata = {
+	description: "The page you're looking for could not be found.",
+	title: "Page Not Found",
+};
 
 export default function NotFound() {
 	return (

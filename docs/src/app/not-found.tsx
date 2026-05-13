@@ -1,3 +1,10 @@
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+	description: "The page you're looking for could not be found.",
+	title: "Page Not Found",
+};
+
 export default function NotFound() {
 	return (
 		<div className="flex flex-1 flex-col items-center justify-center gap-4">
