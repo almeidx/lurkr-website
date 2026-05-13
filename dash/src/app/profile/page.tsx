@@ -1,5 +1,6 @@
 import { Fingerprint, Globe, Person } from "@gravity-ui/icons";
 import { Card, Chip } from "@heroui/react";
+import type { Metadata } from "next";
 import { ImageWithFallback } from "@/components/ImageWithFallback.tsx";
 import { api } from "@/lib/api.ts";
 import { getCurrentUser, PremiumTier } from "@/lib/auth.ts";
@@ -119,11 +120,16 @@ export default async function ProfilePage() {
 
 function NotLoggedIn() {
 	return (
-		<div className="flex w-full flex-col gap-5 px-4 py-4">
+		<div className="flex w-full flex-col gap-5 p-4">
 			<p>You must be logged in to view your profile.</p>
 		</div>
 	);
 }
+
+export const metadata: Metadata = {
+	description: "Manage your Lurkr profile settings and rank card customization.",
+	title: "Profile",
+};
 
 async function getUserGuilds() {
 	try {

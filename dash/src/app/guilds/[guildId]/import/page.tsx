@@ -18,7 +18,7 @@ export default async function Miscellaneous({ params }: { readonly params: Promi
 	const data = await getData(guildId, token);
 
 	return (
-		<div className="flex w-full flex-col gap-5 px-4 py-4">
+		<div className="flex w-full flex-col gap-5 p-4">
 			<div className="space-y-2">
 				<h2 className="font-semibold text-2xl">Import Bots</h2>
 			</div>

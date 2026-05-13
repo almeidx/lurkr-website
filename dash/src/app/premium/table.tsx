@@ -65,13 +65,13 @@ export function ComparisonTable({ section, features }: ComparisonTableProps) {
 									{selectedTab === PremiumTier.Guild && <span className="text-gradient-lurkr-ultimate">Ultimate</span>}
 								</th>
 								{/* Desktop: show all columns */}
-								<th className="hidden w-32 border-white/10 border-b bg-white/5 px-4 py-4 text-center font-medium text-sm text-white/60 uppercase tracking-wider md:table-cell">
+								<th className="hidden w-32 border-white/10 border-b bg-white/5 p-4 text-center font-medium text-sm text-white/60 uppercase tracking-wider md:table-cell">
 									Free
 								</th>
-								<th className="hidden w-32 border-white/10 border-b bg-white/5 px-4 py-4 text-center font-medium text-sm uppercase tracking-wider md:table-cell">
+								<th className="hidden w-32 border-white/10 border-b bg-white/5 p-4 text-center font-medium text-sm uppercase tracking-wider md:table-cell">
 									<span className="text-gradient-lurkr-max">Max</span>
 								</th>
-								<th className="relative z-20 hidden w-32 border-white/10 border-b bg-white/5 px-4 py-4 text-center font-medium text-sm uppercase tracking-wider md:table-cell">
+								<th className="relative z-20 hidden w-32 border-white/10 border-b bg-white/5 p-4 text-center font-medium text-sm uppercase tracking-wider md:table-cell">
 									<span className="text-gradient-lurkr-ultimate">Ultimate</span>
 								</th>
 							</tr>

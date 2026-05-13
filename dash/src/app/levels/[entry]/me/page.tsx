@@ -1,7 +1,13 @@
+import type { Metadata } from "next";
 import { cookies } from "next/headers";
 import { type GetMyMonthlyProgressResponse, MessageCounts } from "@/app/levels/[entry]/me/message-counts.tsx";
 import { TOKEN_COOKIE } from "@/utils/constants.ts";
 import { makeApiRequest } from "@/utils/make-api-request.ts";
+
+export const metadata: Metadata = {
+	description: "View your leveling progress over time.",
+	title: "Your Leveling Progress",
+};
 
 export default async function MyLevel({ params }: { params: Promise<{ entry: string }> }) {
 	const [{ entry }, cookieStore] = await Promise.all([params, cookies()]);
@@ -35,7 +41,7 @@ export default async function MyLevel({ params }: { params: Promise<{ entry: str
 
 function NotLoggedIn() {
 	return (
-		<div className="flex w-full flex-col gap-5 px-4 py-4">
+		<div className="flex w-full flex-col gap-5 p-4">
 			<p>You must be logged in to view your leveling progress.</p>
 		</div>
 	);

@@ -28,7 +28,7 @@ export default async function DangerZone({ params }: { readonly params: Promise<
 	const { settings } = guildData;
 
 	return (
-		<div className="flex w-full flex-col gap-5 px-4 py-4">
+		<div className="flex w-full flex-col gap-5 p-4">
 			<div className="space-y-2">
 				<h2 className="font-semibold text-2xl">Danger Zone</h2>
 				<p className="text-white/75">

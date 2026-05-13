@@ -8,7 +8,7 @@ export function ShardDisplay({ guilds, members, ping, shardId, uptime, highlight
 	return (
 		<ResponsiveTooltip
 			content={
-				<div className="px-1 py-1">
+				<div className="p-1">
 					<div className="flex items-center gap-2 font-bold text-small">
 						<div className={clsx("size-2 rounded-full", isHighPing ? "bg-warning" : "bg-success")} />
 						Shard {shardId}

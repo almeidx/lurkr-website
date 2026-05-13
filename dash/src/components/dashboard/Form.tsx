@@ -37,7 +37,7 @@ export function Form({ title, action, children, description, settingId, defaultV
 	return (
 		// If this form is updated, the change must be replicated with the one on
 		// /app/(dashboard)/guilds/[guildId]/import/01-leveling-import.tsx
-		<div className="flex w-full flex-col gap-5 px-4 py-4">
+		<div className="flex w-full flex-col gap-5 p-4">
 			<div className="space-y-2">
 				<h2 className="font-semibold text-2xl">{title}</h2>
 				{description && <p className="text-white/75">{description}</p>}
