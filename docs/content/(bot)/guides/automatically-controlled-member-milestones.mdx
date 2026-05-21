@@ -97,6 +97,44 @@ _You must include the {} brackets in your message for the tags to show up!_
 | Server Member Count (1,234)    | `{guild.memberCount}`  |
 | Milestone Achieved (100)       | `{milestone}`          |
 
+### Conditional Variables
+
+Just like with [level up messages](./customize-level-up-messages#conditional-variables), you can show different parts of
+your milestone message depending on which milestone was reached.
+
+Wrap a section in `{#milestone.N}…{/milestone.N}` to only show it when the server hits **exactly** the `N`-th member,
+and use `{^milestone.N}…{/milestone.N}` for the opposite check.
+
+#### Different messages for specific milestones
+
+Stack one section per milestone — each is independent and only fires for its own number:
+
+```
+🎉 {user} is our {milestone}th member!
+{#milestone.500}Thanks for getting us to 500 — drinks on us!{/milestone.500}
+{#milestone.1000}Welcome to the four-digit club 🎂{/milestone.1000}
+{#milestone.10000}10k members! This is wild ❤️{/milestone.10000}
+```
+
+The first line (`🎉 {user} is our {milestone}th member!`) is shown for every milestone. The lines inside
+`{#milestone.N}` blocks only appear when their specific milestone is hit.
+
+#### A separate fallback message
+
+If you want a default that **only** shows when none of the specific milestones match, nest a negative section for each
+milestone you've configured:
+
+```
+{#milestone.500}Thanks for getting us to 500 — drinks on us!{/milestone.500}
+{#milestone.1000}Welcome to the four-digit club 🎂{/milestone.1000}
+{^milestone.500}{^milestone.1000}🎉 {user} is our {milestone}th member!{/milestone.1000}{/milestone.500}
+```
+
+The `{^…}` sections must be **nested** (closing tags in reverse order, like brackets), and you need one negative entry
+per milestone that has its own message. See the
+[level up messages guide](./customize-level-up-messages#a-different-default-message-for-everything-else) for a deeper
+walkthrough.
+
 ## Setting the Milestones Role
 
 Lastly, you can also reward users who conveniently joined at exactly the right time by granted them a role or several.

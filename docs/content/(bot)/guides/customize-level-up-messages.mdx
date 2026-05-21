@@ -52,18 +52,87 @@ _You must include the `{}` brackets in your message for the tags to show up!_
 
 ### Conditional Variables
 
-You can toggle whether or not a certain section of your level up message shows up by using conditional variables!
+You can show or hide parts of your level up message depending on certain conditions. There are two flavours:
 
-Simply use a variable at the start and end of the message you'd like to conditionally show, and add a `#` and `/` to the
-start and end of the conditional variables respectfully.
+1. **Toggle on a variable** – show text only when a variable has a value (or only when it doesn't).
+2. **Match a specific level** – show different text depending on which level the user reached.
 
-Lurkr will then check if the variable you've select is `true` or `false`, and will only show the message if it's true.
+#### Toggle on a variable
 
-Example:
+Wrap the section you want to conditionally show in `{#variable}…{/variable}`. The text inside will only appear if the
+variable has a value.
 
 ```
-{#roleRewardNames}You gained the {roleRewardNames} roles!{/roleRewardNames}
+{#roleRewardNames}You gained the {roleRewardNames} role rewards!{/roleRewardNames}
 ```
+
+In this example the "You gained…" line only shows up when the level the user reached actually has role rewards attached.
+On levels without role rewards, the whole section is hidden.
+
+Use `{^variable}…{/variable}` for the opposite check — the text inside is shown when the variable is **empty**.
+
+```
+{#roleRewardNames}You gained the {roleRewardNames} role rewards!{/roleRewardNames}
+{^roleRewardNames}Keep grinding to unlock a role reward!{/roleRewardNames}
+```
+
+#### Match a specific level
+
+You can write different messages for different levels using `{#level.N}…{/level.N}`, where `N` is the level you want to
+match. The section is only rendered when the user reaches **exactly** that level.
+
+```
+{#level.10}🎉 You hit level 10! Welcome to the club.{/level.10}
+```
+
+That message will only ever show up for the level-10 announcement. For every other level, the bot falls back to the rest
+of your message.
+
+##### Multiple levels with their own messages
+
+To handle several levels, just stack them one after another. Each section is independent:
+
+```
+{user} just leveled up to **level {level}**!
+{#level.10}🎉 You hit level 10! Welcome to the club.{/level.10}
+{#level.25}🏅 25 already? You're flying.{/level.25}
+{#level.50}🚀 Halfway to 100 — keep going!{/level.50}
+{#level.100}👑 You made it to 100. Legend status unlocked.{/level.100}
+```
+
+On level 10 the user sees the base message plus the level 10 line. On level 25, the level 25 line. On any level that
+isn't in the list (1, 5, 99, …) only the base message is sent.
+
+<Callout type="info" title="Defaults: the easy way">
+	If you're happy to **always** include a base line and only **add extra text** at specific levels, the example above is
+	all you need. The base line lives outside the conditional sections, so it's shown every time.
+</Callout>
+
+##### A different "default" message for everything else
+
+If instead of an always-present base line you want a separate fallback message that **only shows when none of your
+special levels matched**, you need to combine the negative form `{^level.N}…{/level.N}` for each level you've
+configured. The fallback only renders when **none** of those conditions are true, so the `{^…}` sections must be nested
+inside each other:
+
+```
+{#level.10}🎉 You hit level 10!{/level.10}
+{#level.25}🏅 25 already?{/level.25}
+{#level.50}🚀 Halfway to 100!{/level.50}
+{^level.10}{^level.25}{^level.50}{user} just leveled up to **level {level}**!{/level.50}{/level.25}{/level.10}
+```
+
+Read the last line as: "if the level is **not** 10, **and not** 25, **and not** 50 → show this default message".
+
+<Callout type="warning" title="Easy to get wrong">
+	Every `{^level.N}` needs a matching `{/level.N}` and they must be **nested**, not chained. The closing tags appear
+	in reverse order of the opening tags, exactly like brackets. If a level is missing from the chain, its announcement
+	will show **both** the matched message and the fallback.
+</Callout>
+
+The same syntax works for any single-value placeholder. For example, on milestones you can use
+`{#milestone.1000}…{/milestone.1000}`. See the
+[Milestones guide](./automatically-controlled-member-milestones#conditional-variables) for details.
 
 ---
 
