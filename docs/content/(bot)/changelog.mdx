@@ -18,6 +18,44 @@ Despite our efforts, this page is not always so up-to-date. For the most recent 
 
 {/* prettier-ignore-end */}
 
+## Conditional Messages & Polish
+
+23 May 2026
+
+### Discord Bot [!toc]
+
+- Added conditional sections to level up and milestone messages.
+  - Use `{#level.10}You hit 10!{/level.10}` to show text only when the user reaches that specific level.
+  - Use `{^level.10}...{/level.10}` for a fallback when the level doesn't match.
+  - Same syntax works for milestones, e.g. `{#milestone.1000}Welcome to 1k!{/milestone.1000}`.
+  - See the [level up messages guide](./guides/customize-level-up-messages#conditional-variables) for the full details.
+
+- Raised the role mention cooldown limits.
+  - Free: up to 6 hours (was 30 minutes).
+  - [Lurkr Ultimate](/../premium): up to 24 hours (was 6 hours).
+
+- Improved Unicode handling in `/emoji download`.
+
+- Removed the minimum XP threshold for Top XP — any member with XP can now qualify for the all-time top leveling role.
+  - Previously only users level 10 or above were eligible for the all-time top leveling role.
+
+- Fixed level up messages occasionally being dropped when the same user leveled up to the same level across multiple
+  servers in a short time.
+- Fixed role mention cooldowns sometimes getting stuck "unmentionable" when Discord rate-limited the bot.
+- Fixed XP overflow on very large servers when applying multipliers.
+- Restricted `/background view` to viewing only your own background.
+- Fixed missing permission checks on `/milestone`, `/predict`, `/rank`, `/stats`, and `/config`.
+- Fixed formatting issues regarding names in all leveling commands.
+
+### Dashboard [!toc]
+
+- Redesigned the dashboard navbar.
+- Redesigned the cookie notice and footer.
+- Standardised the error and not-found pages across the dashboard.
+- The role mention cooldown slider now supports the new higher limits, and you can type durations directly (e.g. `2h`,
+  `30m`).
+- Improved security regarding logged-in sessions.
+
 ## Configurable XP Curve
 
 10 March 2026
