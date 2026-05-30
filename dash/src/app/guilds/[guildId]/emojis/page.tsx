@@ -46,8 +46,6 @@ export default async function Emojis({ params }: { readonly params: Promise<{ gu
 				</Text>
 
 				<EmojiListChannel channels={guild.channels} defaultValue={settings.emojiListChannel} />
-
-				{/* <UpdateEmojiList /> */}
 			</Section>
 		</Form>
 	);
