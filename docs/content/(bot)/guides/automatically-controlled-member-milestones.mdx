@@ -103,7 +103,8 @@ Just like with [level up messages](./customize-level-up-messages#conditional-var
 your milestone message depending on which milestone was reached.
 
 Wrap a section in `{#milestone.N}…{/milestone.N}` to only show it when the server hits **exactly** the `N`-th member,
-and use `{^milestone.N}…{/milestone.N}` for the opposite check.
+and use `{^milestone.N}…{/milestone.N}` for the opposite check. Write `N` as a plain number (`{#milestone.1000}`, not
+`{#milestone.1,000}`) — even though `{milestone}` itself is displayed with thousands separators.
 
 #### Different messages for specific milestones
 

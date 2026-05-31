@@ -85,8 +85,18 @@ match. The section is only rendered when the user reaches **exactly** that level
 {#level.10}🎉 You hit level 10! Welcome to the club.{/level.10}
 ```
 
-That message will only ever show up for the level-10 announcement. For every other level, the bot falls back to the rest
-of your message.
+That line only appears on the level-10 announcement — at every other level it's left out. Blocks like this **add** text
+at a specific level; anything you write outside them always shows, so they don't replace the rest of your message.
+
+To show a **different** message on the other levels, add the inverted form `{^level.N}` — it shows only when the level
+**isn't** `N`:
+
+```
+{#level.10}🎉 {user}, you hit level 10! Welcome to the club.{/level.10}
+{^level.10}{user} just leveled up to **level {level}**!{/level.10}
+```
+
+Level 10 gets the first line; every other level gets the second.
 
 ##### Multiple levels with their own messages
 
@@ -130,8 +140,9 @@ Read the last line as: "if the level is **not** 10, **and not** 25, **and not** 
 	will show **both** the matched message and the fallback.
 </Callout>
 
-The same syntax works for any single-value placeholder. For example, on milestones you can use
-`{#milestone.1000}…{/milestone.1000}`. See the
+This number-matching syntax is limited to `{level}` here (and `{milestone}` in milestone messages) — they're the only
+placeholders Lurkr can match against a specific number, so something like `{#xp.1000}` won't work. On milestones you'd
+write `{#milestone.1000}…{/milestone.1000}`; see the
 [Milestones guide](./automatically-controlled-member-milestones#conditional-variables) for details.
 
 ---
