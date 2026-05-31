@@ -29,7 +29,7 @@ export function LeaderboardVanity({ defaultValue }: { defaultValue: string | nul
 		setAvailable(data.available);
 	}
 
-	async function handleChange(event: ChangeEvent<HTMLInputElement>) {
+	async function updateVanityInput(event: ChangeEvent<HTMLInputElement>) {
 		const value = event.target.value.toLowerCase();
 		setVanity(value);
 
@@ -55,7 +55,7 @@ export function LeaderboardVanity({ defaultValue }: { defaultValue: string | nul
 				id="vanity"
 				maxLength={MAX_VANITY_LENGTH}
 				minLength={MIN_VANITY_LENGTH}
-				onChange={handleChange}
+				onChange={updateVanityInput}
 				pattern={VANITY_REGEX_SOURCE}
 				placeholder="Enter a vanity URL…"
 				value={vanity}
