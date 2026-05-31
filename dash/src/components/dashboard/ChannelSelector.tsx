@@ -1,6 +1,6 @@
 "use client";
 
-import { type PropsWithChildren, useMemo, useState } from "react";
+import { type PropsWithChildren, useState } from "react";
 import Select, { type StylesConfig } from "react-select";
 import { type Channel, ChannelType } from "@/lib/guild.ts";
 import { mapChannelIdsToChannels } from "@/utils/map-channel-ids-to-channels.ts";
@@ -36,35 +36,33 @@ export function ChannelSelector({
 }: ChannelSelectorProps) {
 	const [values, setValues] = useState(defaultValues as Readonly<typeof defaultValues>);
 
-	const channelOptions = useMemo(() => {
-		const nonCategorizedName = "Non categorized";
+	const nonCategorizedName = "Non categorized";
 
-		const categorized = channels.reduce((acc, channel) => {
-			const parent = mapChannelIdsToChannels(channel.parentId, channels)[0] ?? null;
+	const categorized = channels.reduce((acc, channel) => {
+		const parent = mapChannelIdsToChannels(channel.parentId, channels)[0] ?? null;
 
-			if (channel.type !== ChannelType.GuildCategory) {
-				if (acc.has(parent)) {
-					acc.get(parent)!.push(channel);
-				} else {
-					acc.set(parent, [channel]);
-				}
+		if (channel.type !== ChannelType.GuildCategory) {
+			if (acc.has(parent)) {
+				acc.get(parent)!.push(channel);
+			} else {
+				acc.set(parent, [channel]);
 			}
+		}
 
-			return acc;
-		}, new Map<Channel | null, Channel[]>());
+		return acc;
+	}, new Map<Channel | null, Channel[]>());
 
-		return Array.from(categorized.entries())
-			.map(([parent, items]) => ({
-				label: parent?.name ?? nonCategorizedName,
-				options: items,
-			}))
-			.sort((a, b) => {
-				if (a.label === nonCategorizedName) return -1;
-				if (b.label === nonCategorizedName) return 1;
+	const channelOptions = Array.from(categorized.entries())
+		.map(([parent, items]) => ({
+			label: parent?.name ?? nonCategorizedName,
+			options: items,
+		}))
+		.sort((a, b) => {
+			if (a.label === nonCategorizedName) return -1;
+			if (b.label === nonCategorizedName) return 1;
 
-				return a.label.localeCompare(b.label);
-			});
-	}, [channels]);
+			return a.label.localeCompare(b.label);
+		});
 
 	const channelSelectStyles: StylesConfig<Channel, true> = {
 		...baseChannelSelectStyles,

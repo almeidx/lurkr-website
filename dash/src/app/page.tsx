@@ -103,7 +103,7 @@ export default async function Homepage() {
 						Trusted by Discord Servers <span className="italic">you</span> know!
 					</p>
 
-					<div className="container flex flex-col space-y-4">
+					<div className="container flex flex-col gap-y-4">
 						{featured.length > 8 ? (
 							<>
 								<FeaturedGuilds guilds={featured1} speed={40} />

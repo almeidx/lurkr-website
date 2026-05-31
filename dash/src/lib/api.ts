@@ -84,13 +84,3 @@ export const api = ky.create({
 	},
 	timeout,
 });
-
-export const localApi = ky.create({
-	hooks: sharedHooks,
-	prefix: "/",
-	retry: {
-		limit: 3,
-		statusCodes: retryableStatusCodes,
-	},
-	timeout,
-});

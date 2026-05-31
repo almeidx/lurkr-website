@@ -16,7 +16,7 @@ export default async function Page(props: PageProps<"/[[...slug]]">) {
 	const page = source.getPage(params.slug);
 	if (!page) notFound();
 
-	const MDX = page.data.body;
+	const MdxContent = page.data.body;
 
 	const pageUrl = resolvePageUrl(page.url);
 
@@ -38,7 +38,7 @@ export default async function Page(props: PageProps<"/[[...slug]]">) {
 			</div>
 
 			<DocsBody>
-				<MDX components={getMDXComponents({ a: createRelativeLink(source, page) })} />
+				<MdxContent components={getMDXComponents({ a: createRelativeLink(source, page) })} />
 			</DocsBody>
 		</DocsPage>
 	);

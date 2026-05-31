@@ -57,8 +57,6 @@ export const MAX_XP_CHANNELS_PREMIUM = 50;
 export const MIN_XP_CURVE_COEFFICIENTS = 2;
 export const MAX_XP_CURVE_COEFFICIENTS = 5;
 
-export const DEFAULT_XP_CURVE: readonly number[] = [150, -100, 50];
-
 export const XP_CURVE_PRESETS = {
 	amari: [55, -40, 20],
 	lurkr: [150, -100, 50],

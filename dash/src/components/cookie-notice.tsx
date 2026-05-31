@@ -40,7 +40,7 @@ export function CookieNotice({ defaultHasConsented }: { readonly defaultHasConse
 			</p>
 
 			<Button className="mt-3" onPress={acceptCookies} size="sm">
-				Okay
+				Accept cookies
 			</Button>
 		</Surface>
 	);

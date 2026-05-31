@@ -4,7 +4,7 @@ export const BRAND_COLOR = "#ff7077";
 
 export const MAX_WINDOW_TITLE_LENGTH = 60;
 
-export const BASE_URL =
+const BASE_URL =
 	process.env.NEXT_PUBLIC_URL ||
 	(process.env.VERCEL_PROJECT_PRODUCTION_URL && `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`) ||
 	"https://lurkr.gg";

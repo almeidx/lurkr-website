@@ -1,7 +1,7 @@
 "use client";
 
 import Image, { type StaticImageData } from "next/image";
-import { type ComponentProps, useRef, useState } from "react";
+import { type ComponentProps, useState } from "react";
 import fallbackAvatarImg from "@/assets/fallback-avatar.webp";
 
 /**
@@ -11,16 +11,11 @@ import fallbackAvatarImg from "@/assets/fallback-avatar.webp";
  * Uses `fallback` if `src` is nullable.
  */
 export function ImageWithFallback({ src, fallback = fallbackAvatarImg, ...props }: ImageWithFallbackProps) {
-	const [hasError, setHasError] = useState(false);
-	const currentSrc = hasError ? fallback : (src ?? fallback);
+	const [failedSrc, setFailedSrc] = useState<NextImageProps["src"] | null>(null);
+	const shouldUseFallback = !src || failedSrc === src;
+	const currentSrc = shouldUseFallback ? fallback : src!;
 
-	const prevSrcRef = useRef(src);
-	if (prevSrcRef.current !== src) {
-		prevSrcRef.current = src;
-		setHasError(false);
-	}
-
-	return <Image {...props} onError={() => setHasError(true)} src={currentSrc} />;
+	return <Image {...props} onError={() => !shouldUseFallback && src && setFailedSrc(src)} src={currentSrc} />;
 }
 
 type NextImageProps = ComponentProps<typeof Image>;

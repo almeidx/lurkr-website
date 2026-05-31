@@ -45,14 +45,15 @@ export function GuildAccessApiKeyDialog({
 				else next.add(guildId);
 				return next;
 			});
+
 			toast.error(extractErrorMessage(error, "Failed to update guild access"));
-		} finally {
-			setPendingGuilds((prev) => {
-				const next = new Set(prev);
-				next.delete(guildId);
-				return next;
-			});
 		}
+
+		setPendingGuilds((prev) => {
+			const next = new Set(prev);
+			next.delete(guildId);
+			return next;
+		});
 	}
 
 	function handleClose(isOpen: boolean) {
@@ -113,7 +114,7 @@ export function GuildAccessApiKeyDialog({
 						</Modal.Body>
 						<Modal.Footer>
 							<Button onPress={() => handleClose(false)} variant="secondary">
-								Done
+								Close
 							</Button>
 						</Modal.Footer>
 					</Modal.Dialog>

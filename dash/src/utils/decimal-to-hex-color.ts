@@ -1,4 +1,4 @@
-export const DEFAULT_ROLE_COLOR = "#99aab5";
+const DEFAULT_ROLE_COLOR = "#99aab5";
 
 /**
  * Converts a decimal role color to a hex color.

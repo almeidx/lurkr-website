@@ -20,7 +20,7 @@ import type { Emoji, Role } from "@/lib/guild.ts";
 import { decimalRoleColorToHex } from "@/utils/decimal-to-hex-color.ts";
 import { emojiImage } from "@/utils/discord-cdn.ts";
 
-const triggers = ["@", ":", "{"];
+const triggers = new Set(["@", ":", "{"]);
 
 export function Textarea({
 	id,
@@ -147,7 +147,7 @@ export function Textarea({
 				>
 					{matches.map((value) => (
 						<ComboboxItem
-							className="flex items-center gap-2 data-active-item:bg-black"
+							className="flex items-center gap-2 data-active-item:bg-gray-950"
 							data-id={value.id}
 							focusOnHover
 							key={value.id}
@@ -198,7 +198,7 @@ function getTriggerOffset(element: HTMLTextAreaElement) {
 	const { value, selectionStart } = element;
 	for (let idx = selectionStart; idx >= 0; idx--) {
 		const char = value[idx];
-		if (char && triggers.includes(char)) {
+		if (char && triggers.has(char)) {
 			return idx;
 		}
 	}
@@ -212,7 +212,7 @@ function getTrigger(element: HTMLTextAreaElement) {
 	const previousChar = value[selectionStart - 1];
 	if (!previousChar) return null;
 
-	return triggers.includes(previousChar) ? previousChar : null;
+	return triggers.has(previousChar) ? previousChar : null;
 }
 
 function getSearchValue(element: HTMLTextAreaElement) {

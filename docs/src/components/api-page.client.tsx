@@ -2,4 +2,6 @@
 
 import { defineClientConfig } from "fumadocs-openapi/ui/client";
 
-export default defineClientConfig();
+const apiPageClientConfig = defineClientConfig();
+
+export default apiPageClientConfig;

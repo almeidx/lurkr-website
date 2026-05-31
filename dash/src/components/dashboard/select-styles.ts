@@ -1,5 +1,15 @@
 import type { CSSObjectWithLabel, StylesConfig } from "react-select";
 
+export const baseSelectStyles: StylesConfig<any, true> = {
+	control: selectControlStyles,
+	input: selectInputStyles,
+	menu: selectMenuStyles,
+	multiValue: selectMultiValueStyles,
+	multiValueRemove: selectMultiValueRemoveStyles,
+	option: selectOptionStyles,
+	placeholder: selectPlaceholderStyles,
+};
+
 export function selectControlStyles(baseStyles: CSSObjectWithLabel) {
 	return {
 		...baseStyles,
@@ -14,13 +24,6 @@ export function selectControlStyles(baseStyles: CSSObjectWithLabel) {
 	};
 }
 
-export function selectInputStyles(baseStyles: CSSObjectWithLabel) {
-	return {
-		...baseStyles,
-		color: "#e2e2e2",
-	};
-}
-
 export function selectMenuStyles(baseStyles: CSSObjectWithLabel) {
 	return {
 		...baseStyles,
@@ -32,7 +35,14 @@ export function selectMenuStyles(baseStyles: CSSObjectWithLabel) {
 	};
 }
 
-export function selectMultiValueStyles(baseStyles: CSSObjectWithLabel) {
+function selectInputStyles(baseStyles: CSSObjectWithLabel) {
+	return {
+		...baseStyles,
+		color: "#e2e2e2",
+	};
+}
+
+function selectMultiValueStyles(baseStyles: CSSObjectWithLabel) {
 	return {
 		...baseStyles,
 		backgroundColor: "transparent",
@@ -42,7 +52,7 @@ export function selectMultiValueStyles(baseStyles: CSSObjectWithLabel) {
 	};
 }
 
-export function selectMultiValueRemoveStyles(baseStyles: CSSObjectWithLabel) {
+function selectMultiValueRemoveStyles(baseStyles: CSSObjectWithLabel) {
 	return {
 		...baseStyles,
 		":hover": {
@@ -55,7 +65,7 @@ export function selectMultiValueRemoveStyles(baseStyles: CSSObjectWithLabel) {
 	};
 }
 
-export function selectOptionStyles(baseStyles: CSSObjectWithLabel) {
+function selectOptionStyles(baseStyles: CSSObjectWithLabel) {
 	return {
 		...baseStyles,
 		":hover": {
@@ -66,19 +76,9 @@ export function selectOptionStyles(baseStyles: CSSObjectWithLabel) {
 	};
 }
 
-export function selectPlaceholderStyles(baseStyles: CSSObjectWithLabel) {
+function selectPlaceholderStyles(baseStyles: CSSObjectWithLabel) {
 	return {
 		...baseStyles,
 		color: "#e2e2e280",
 	};
 }
-
-export const baseSelectStyles: StylesConfig<any, true> = {
-	control: selectControlStyles,
-	input: selectInputStyles,
-	menu: selectMenuStyles,
-	multiValue: selectMultiValueStyles,
-	multiValueRemove: selectMultiValueRemoveStyles,
-	option: selectOptionStyles,
-	placeholder: selectPlaceholderStyles,
-};

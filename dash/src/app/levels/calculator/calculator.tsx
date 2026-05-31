@@ -11,7 +11,7 @@ import {
 	Thunderbolt,
 } from "@gravity-ui/icons";
 import { Surface } from "@heroui/react";
-import { useState } from "react";
+import { useReducer } from "react";
 import { ResponsiveTooltip } from "@/components/responsive-tooltip.tsx";
 import {
 	MAX_XP_GAIN_INTERVAL,
@@ -36,13 +36,18 @@ import {
 
 const MAX_LEVEL = 6_554;
 
+const initialCalculatorState = {
+	currentLevel: "0",
+	desiredLevel: "",
+	multiplier: "1",
+	xpGainInterval: "60",
+	xpPerMessageMax: "40",
+	xpPerMessageMin: "15",
+};
+
 export function Calculator() {
-	const [desiredLevel, setDesiredLevel] = useState("");
-	const [currentLevel, setCurrentLevel] = useState("0");
-	const [multiplier, setMultiplier] = useState("1");
-	const [xpGainInterval, setXpGainInterval] = useState("60");
-	const [xpPerMessageMin, setXpPerMessageMin] = useState("15");
-	const [xpPerMessageMax, setXpPerMessageMax] = useState("40");
+	const [state, dispatch] = useReducer(calculatorReducer, initialCalculatorState);
+	const { currentLevel, desiredLevel, multiplier, xpGainInterval, xpPerMessageMax, xpPerMessageMin } = state;
 
 	const { approxMessages, estimatedTime, expRequired } = calculate(
 		desiredLevel,
@@ -54,6 +59,10 @@ export function Calculator() {
 	);
 
 	const formattedEstimatedTime = prettySeconds(estimatedTime);
+
+	function getUpdaterForField(field: keyof CalculatorState) {
+		return (value: string) => dispatch({ field, value });
+	}
 
 	return (
 		<div className="flex w-full flex-col gap-8">
@@ -67,7 +76,7 @@ export function Calculator() {
 								label="Current Level"
 								max={MAX_LEVEL}
 								min={0}
-								onValueChange={setCurrentLevel}
+								onValueChange={getUpdaterForField("currentLevel")}
 								placeholder="e.g. 5"
 								startContent={<SquareChartColumn />}
 								value={currentLevel}
@@ -82,7 +91,7 @@ export function Calculator() {
 								label="Desired Level"
 								max={MAX_LEVEL}
 								min={1}
-								onValueChange={setDesiredLevel}
+								onValueChange={getUpdaterForField("desiredLevel")}
 								placeholder="e.g. 100"
 								startContent={<Flag />}
 								value={desiredLevel}
@@ -96,7 +105,7 @@ export function Calculator() {
 							label="Cooldown (sec)"
 							max={MAX_XP_GAIN_INTERVAL / 1000}
 							min={MIN_XP_GAIN_INTERVAL / 1000}
-							onValueChange={setXpGainInterval}
+							onValueChange={getUpdaterForField("xpGainInterval")}
 							placeholder="e.g. 60"
 							startContent={<Stopwatch />}
 							tooltip={XP_GAIN_INTERVAL_TOOLTIP}
@@ -108,7 +117,7 @@ export function Calculator() {
 							label="Multiplier (x)"
 							max={MAX_XP_MULTIPLIER_VALUE}
 							min={MIN_XP_MULTIPLIER_VALUE}
-							onValueChange={setMultiplier}
+							onValueChange={getUpdaterForField("multiplier")}
 							placeholder="e.g. 1"
 							startContent={<Thunderbolt />}
 							step={MIN_XP_MULTIPLIER_VALUE}
@@ -121,7 +130,7 @@ export function Calculator() {
 							label="Min XP per msg."
 							max={MAX_XP_PER_MESSAGE}
 							min={MIN_XP_PER_MESSAGE}
-							onValueChange={setXpPerMessageMin}
+							onValueChange={getUpdaterForField("xpPerMessageMin")}
 							placeholder="e.g. 15"
 							startContent={<ArrowDown />}
 							tooltip={XP_RANGE_TOOLTIP}
@@ -133,7 +142,7 @@ export function Calculator() {
 							label="Max XP per msg."
 							max={MAX_XP_PER_MESSAGE}
 							min={MIN_XP_PER_MESSAGE}
-							onValueChange={setXpPerMessageMax}
+							onValueChange={getUpdaterForField("xpPerMessageMax")}
 							placeholder="e.g. 40"
 							startContent={<ArrowUp />}
 							tooltip={XP_RANGE_TOOLTIP}
@@ -182,6 +191,17 @@ export function Calculator() {
 			</div>
 		</div>
 	);
+}
+
+function calculatorReducer(state: CalculatorState, action: CalculatorAction): CalculatorState {
+	return { ...state, [action.field]: action.value };
+}
+
+type CalculatorState = typeof initialCalculatorState;
+
+interface CalculatorAction {
+	readonly field: keyof CalculatorState;
+	readonly value: string;
 }
 
 function calculate(

@@ -27,18 +27,6 @@ import {
 	MAX_XP_ROLE_REWARDS_PREMIUM,
 } from "@/lib/guild-config.ts";
 
-export const levelingFeatures: LevelingFeature[] = [
-	{ free: true, max: true, name: "Unlimited Leveling", ultimate: true },
-	{ free: true, max: true, name: "Role Rewards", ultimate: true },
-	{ free: true, max: true, name: "Import Leaderboard from Bots", ultimate: true },
-	{ free: true, max: true, name: "Multipliers (Custom Leveling Speed)", ultimate: true },
-	{ free: true, max: true, name: "Custom Level Up Message", ultimate: true },
-	{ free: true, max: true, name: "Custom Leveling Card", ultimate: true },
-	{ free: true, max: true, name: "Command Access to /level & /xp", ultimate: true },
-	{ free: false, max: true, name: "Premium Lurkr for You", ultimate: true },
-	{ free: false, max: false, name: "Premium Lurkr for a Server", ultimate: true },
-];
-
 // biome-ignore format: Doesn't look so good
 export const configLimitFeatures: ConfigLimitComparison[] = [
 	{ free: MAX_XP_ROLE_REWARD_ROLES, name: "Leveling Rewards Roles (Per Level)", suffix: "per level", ultimate: MAX_XP_ROLE_REWARD_ROLES_PREMIUM },

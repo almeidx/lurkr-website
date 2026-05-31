@@ -40,7 +40,7 @@ export function PreviewWarning() {
 		>
 			<TriangleExclamation className="size-4 shrink-0" />
 			<span>
-				<span className="font-bold">{versionName}</span> — Go to{" "}
+				<span className="font-bold">{versionName}</span>, go to{" "}
 				<a className={linkVariants().base()} href="https://lurkr.gg" rel="external noopener noreferrer" target="_blank">
 					lurkr.gg
 				</a>{" "}

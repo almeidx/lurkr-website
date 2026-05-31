@@ -16,11 +16,9 @@ import {
 import { MAX_VANITY_LENGTH, MIN_VANITY_LENGTH, VANITY_REGEX_SOURCE } from "@/lib/guild-config.ts";
 import { Time } from "@/utils/time.ts";
 
-export const SELECT_VALUE_SCHEMA = pipe(string(), regex(/^(\d{17,19},)*\d{17,19}$/));
-
 export const UUID_REGEX = /\w{8}(?:-\w{4}){3}-\w{12}/;
 
-export const SNOWFLAKE_REGEX_SCHEMA = regex(/^[1-9]\d{16,18}$/);
+const SNOWFLAKE_REGEX_SCHEMA = regex(/^[1-9]\d{16,18}$/);
 
 export const vanitySchema = pipe(
 	string(),
