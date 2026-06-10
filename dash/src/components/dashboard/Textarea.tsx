@@ -113,7 +113,7 @@ export function Textarea({
 					<textarea
 						className={clsx(
 							"w-full max-w-3xl rounded-lg bg-light-gray px-3 py-2 leading-relaxed shadow-dim-inner",
-							emulateInput ? "h-10 resize-none overflow-y-hidden" : "max-h-64 min-h-10 resize-y",
+							emulateInput ? "h-10 resize-none overflow-y-hidden" : "max-h-256 min-h-10 resize-y",
 						)}
 						id={id}
 						maxLength={max}
