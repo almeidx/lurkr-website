@@ -1,15 +1,16 @@
 import { docs } from "fumadocs-mdx:collections/server";
 import { type InferPageType, loader } from "fumadocs-core/source";
-import { openapiPlugin } from "fumadocs-openapi/server";
 import { createElement } from "react";
+import { openapi } from "@/lib/openapi.ts";
 
 export const source = loader({
+	// The Next app itself is mounted at /docs via basePath, so Fumadocs links stay app-local.
 	baseUrl: "/",
 	icon(icon) {
 		if (!icon) return undefined;
 		return createElement("span", { key: icon }, icon);
 	},
-	plugins: [openapiPlugin()],
+	plugins: [openapi.loaderPlugin()],
 	source: docs.toFumadocsSource(),
 });
 
