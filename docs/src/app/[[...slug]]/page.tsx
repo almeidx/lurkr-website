@@ -2,8 +2,10 @@ import { createRelativeLink } from "fumadocs-ui/mdx";
 import { DocsBody, DocsDescription, DocsPage, DocsTitle } from "fumadocs-ui/page";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { OpenAPIPage } from "@/components/api-page.tsx";
 import { LLMCopyButton, ViewOptions } from "@/components/page-actions";
 import { cn } from "@/lib/cn.ts";
+import { openapi } from "@/lib/openapi.ts";
 import { getPageImage, resolvePageUrl, source } from "@/lib/source.ts";
 import { getMDXComponents } from "@/mdx-components.tsx";
 import { GITHUB_REPOSITORY_URL } from "@/shared-links";
@@ -38,7 +40,12 @@ export default async function Page(props: PageProps<"/[[...slug]]">) {
 			</div>
 
 			<DocsBody>
-				<MdxContent components={getMDXComponents({ a: createRelativeLink(source, page) })} />
+				<MdxContent
+					components={getMDXComponents({
+						a: createRelativeLink(source, page),
+						OpenAPIPage: async (props) => <OpenAPIPage {...(await openapi.preloadOpenAPIPage(page))} {...props} />,
+					})}
+				/>
 			</DocsBody>
 		</DocsPage>
 	);
