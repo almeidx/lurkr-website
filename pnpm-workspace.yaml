@@ -8,5 +8,11 @@ allowBuilds:
   rclone.js: true
   sharp: true
   workerd: true
+minimumReleaseAgeExclude:
+  - '@fuma-translate/react@1.0.1'
+  - '@fumadocs/api-docs@0.0.2'
+  - fumadocs-core@16.10.1
+  - fumadocs-openapi@11.0.2
+  - fumadocs-ui@16.10.1
 overrides:
   react-is: ^19.2.7
