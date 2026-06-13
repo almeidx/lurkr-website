@@ -2,7 +2,7 @@
 	"$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
 	"assist": {
 		"actions": {
-			"recommended": true,
+			"preset": "recommended",
 			"source": {
 				"useSortedAttributes": "on",
 				"useSortedKeys": "on",
@@ -40,7 +40,7 @@
 			"nursery": {
 				"useSortedClasses": "warn"
 			},
-			"recommended": true,
+			"preset": "recommended",
 			"style": {
 				"noInferrableTypes": "error",
 				"noNamespace": "error",
