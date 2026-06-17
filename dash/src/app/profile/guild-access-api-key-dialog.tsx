@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, Checkbox, Label, Modal } from "@heroui/react";
+import { Button, Checkbox, Modal } from "@heroui/react";
 import { useRef, useState } from "react";
 import { toast } from "sonner";
 import { ImageWithFallback } from "@/components/ImageWithFallback.tsx";
@@ -85,11 +85,11 @@ export function GuildAccessApiKeyDialog({
 											key={guild.id}
 											onChange={(checked) => handleCheckedChange(guild.id, checked)}
 										>
-											<Checkbox.Control>
-												<Checkbox.Indicator />
-											</Checkbox.Control>
 											<Checkbox.Content>
-												<Label className="flex items-center gap-2">
+												<Checkbox.Control>
+													<Checkbox.Indicator />
+												</Checkbox.Control>
+												<span className="flex min-w-0 items-center gap-2">
 													{iconUrl ? (
 														<ImageWithFallback
 															alt=""
@@ -105,7 +105,7 @@ export function GuildAccessApiKeyDialog({
 														</span>
 													)}
 													<span className="truncate">{guild.name}</span>
-												</Label>
+												</span>
 											</Checkbox.Content>
 										</Checkbox>
 									);
