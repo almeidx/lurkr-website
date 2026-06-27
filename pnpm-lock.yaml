@@ -33,8 +33,8 @@ importers:
         specifier: ^0.4.30
         version: 0.4.30(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       '@gravity-ui/icons':
-        specifier: ^2.18.0
-        version: 2.18.0(react@19.2.7)
+        specifier: ^2.19.0
+        version: 2.19.0(react@19.2.7)
       '@heroui/react':
         specifier: 3.2.1
         version: 3.2.1(@react-spectrum/provider@3.11.1(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(@types/react-dom@19.2.3(@types/react@19.2.17))(@types/react@19.2.17)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(tailwindcss@4.3.1)
@@ -1154,8 +1154,8 @@ packages:
       '@types/react':
         optional: true
 
-  '@gravity-ui/icons@2.18.0':
-    resolution: {integrity: sha512-JoRc/4Ch9GLaufZfpGd2ePRRisMXEjMI+r3y8kPKyYIAdQZz07jpIXEgsft1gvBxjSht2MS2uu5+vfhe1WP0ow==}
+  '@gravity-ui/icons@2.19.0':
+    resolution: {integrity: sha512-3zlppopf5LgVtcZ6YsHgJPgvSRYOGXjoNrQqGMU23YP1a6RtSFp74ggDb42aQc6ZJeKWBEXlQZB1GMDFAS6lxg==}
     peerDependencies:
       react: '*'
     peerDependenciesMeta:
@@ -5800,7 +5800,7 @@ snapshots:
     optionalDependencies:
       '@types/react': 19.2.17
 
-  '@gravity-ui/icons@2.18.0(react@19.2.7)':
+  '@gravity-ui/icons@2.19.0(react@19.2.7)':
     dependencies:
       tslib: 2.8.1
     optionalDependencies:
