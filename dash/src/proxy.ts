@@ -1,9 +1,9 @@
-import { isbot } from "isbot";
+import { isBot } from "isbot";
 import { type NextRequest, NextResponse } from "next/server";
 import { REDIRECT_TO_COOKIE, SIGN_IN_URL } from "@/utils/constants.ts";
 
 export function proxy(request: NextRequest) {
-	if (isbot(request.headers.get("user-agent"))) {
+	if (isBot(request.headers.get("user-agent"))) {
 		return NextResponse.next();
 	}
 
