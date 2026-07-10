@@ -11,8 +11,5 @@ export const openSans = Open_Sans({
 		"Segoe UI Symbol",
 		"Noto Color Emoji",
 	],
-	style: "normal",
-	subsets: ["latin"],
 	variable: "--font-sans",
-	weight: ["300", "400", "500", "600", "700", "800"],
 });
