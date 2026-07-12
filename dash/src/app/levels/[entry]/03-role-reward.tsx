@@ -4,7 +4,7 @@ import { decimalRoleColorToHex } from "@/utils/decimal-to-hex-color.ts";
 export function RoleRewardDisplay({ level, roles }: RoleReward) {
 	return (
 		<div className="flex items-center gap-4">
-			<span className="flex size-9 items-center justify-center rounded-lg border border-white/25 bg-darker text-[#fff]">
+			<span className="flex h-9 min-w-9 items-center justify-center rounded-lg border border-white/25 bg-darker px-2 text-[#fff]">
 				{level}
 			</span>
 

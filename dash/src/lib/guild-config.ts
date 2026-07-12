@@ -69,6 +69,12 @@ export const MAX_XP_DISALLOWED_PREFIXES = 10;
 export const MAX_XP_DISALLOWED_PREFIXES_PREMIUM = 25;
 export const MAX_XP_DISALLOWED_PREFIX_LENGTH = 25;
 
+export const MIN_XP_GAIN_INTERVAL = 10 * 1000; // 10 seconds
+export const MAX_XP_GAIN_INTERVAL = 24 * 60 * 60 * 1000; // 24 hours
+
+export const MIN_XP_PER_MESSAGE = 1;
+export const MAX_XP_PER_MESSAGE = 1000;
+
 export const DEFAULT_XP_MESSAGE = "<:icon_levelup:1086286977118261318> {user} has reached level **{level}**";
 export const MIN_XP_MESSAGE_LENGTH = 10;
 export const MAX_XP_MESSAGE_LENGTH = 1_800;
@@ -83,12 +89,6 @@ export const MAX_XP_MULTIPLIER_TARGETS_PREMIUM = 50;
 export const MAX_XP_ROLE_REWARDS = 50;
 export const MAX_XP_ROLE_REWARDS_PREMIUM = 100;
 export const MIN_XP_ROLE_REWARD_LEVEL = 1;
-export const MAX_XP_ROLE_REWARD_LEVEL = 500;
+export const MAX_XP_ROLE_REWARD_LEVEL = 10_000;
 export const MAX_XP_ROLE_REWARD_ROLES = 3;
 export const MAX_XP_ROLE_REWARD_ROLES_PREMIUM = 10;
-
-export const MIN_XP_GAIN_INTERVAL = 10 * 1000; // 10 seconds
-export const MAX_XP_GAIN_INTERVAL = 24 * 60 * 60 * 1000; // 24 hours
-
-export const MIN_XP_PER_MESSAGE = 1;
-export const MAX_XP_PER_MESSAGE = 1000;

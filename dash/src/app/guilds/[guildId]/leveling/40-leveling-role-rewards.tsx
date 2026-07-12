@@ -132,11 +132,11 @@ function RoleRewardDisplay({ id, level, premium, roleIds, onDelete, roles, stack
 	return (
 		<div className="flex flex-wrap items-center gap-4">
 			<button
-				className="group relative flex size-9 items-center justify-center rounded-lg border border-white bg-darker text-[#fff]"
+				className="group relative flex h-9 min-w-9 items-center justify-center rounded-lg border border-white bg-darker px-2 text-[#fff]"
 				onClick={() => onDelete(id)}
 				type="button"
 			>
-				<div className="absolute hidden size-9 items-center justify-center rounded-lg border border-white bg-darker group-hover:flex">
+				<div className="absolute inset-0 hidden items-center justify-center rounded-lg border border-white bg-darker group-hover:flex">
 					<Delete className="size-5 text-[#ed4245]" />
 				</div>
 
