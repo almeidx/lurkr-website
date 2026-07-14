@@ -30,6 +30,7 @@ const nextConfig = {
 			"react-colorful",
 		],
 		turbopackRustReactCompiler: true,
+		useTypeScriptCli: true,
 	},
 	// cacheComponents: true,
 	async headers() {

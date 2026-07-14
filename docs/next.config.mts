@@ -6,6 +6,7 @@ const nextConfig = {
 	basePath: "/docs",
 	experimental: {
 		turbopackRustReactCompiler: true,
+		useTypeScriptCli: true,
 	},
 	// cacheComponents: true,
 	async headers() {
