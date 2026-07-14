@@ -29,6 +29,7 @@ const nextConfig = {
 			"@remixicon/react",
 			"react-colorful",
 		],
+		turbopackRustReactCompiler: true,
 	},
 	// cacheComponents: true,
 	async headers() {

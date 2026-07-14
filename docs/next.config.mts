@@ -4,6 +4,9 @@ import { getNextConfigHeaders } from "../shared/common.ts";
 
 const nextConfig = {
 	basePath: "/docs",
+	experimental: {
+		turbopackRustReactCompiler: true,
+	},
 	// cacheComponents: true,
 	async headers() {
 		return getNextConfigHeaders();
