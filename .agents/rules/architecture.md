@@ -1,49 +1,16 @@
 # Architecture
 
-## Repository Structure
+- `dash/` owns the dashboard at the site root.
+- `docs/` owns the documentation site mounted at `/docs`.
+- `shared/` contains source shared by both applications. It is not a package;
+  import it with the existing relative-path pattern rather than adding a
+  package dependency or a second copy.
 
-```
-lurkr-website/
-├── dash/                    # Web dashboard (@lurkr/dashboard)
-│   ├── src/
-│   └── public/
-├── docs/                    # Documentation site (@lurkr/docs)
-│   ├── content/             # MDX documentation
-│   ├── src/
-│   └── scripts/
-├── shared/                  # Shared utilities (NOT a package)
-│   ├── common.ts
-│   └── shared-links.ts
-└── biome.json
-```
+The dashboard forwards `/docs` requests to the docs deployment through
+`dash/next.config.mts`. Changes to that mount point must be checked in both
+applications, including asset and internal-link paths.
 
-## Shared Utilities
-
-The `shared/` directory is **not a package**. Import via relative paths:
-
-```typescript
-import { BASE_URL } from "../../shared/shared-links.ts";
-```
-
-Key exports in `shared/shared-links.ts`:
-- `BASE_URL`: https://lurkr.gg
-- `SUPPORT_SERVER_INVITE`: Discord support server
-- `GITHUB_REPOSITORY_URL`: This repository
-- `BOT_INVITE`: Discord bot invite link
-
-## Domain Configuration
-
-Both sites are hosted at `lurkr.gg`:
-- Dashboard at root (`/`)
-- Docs at `/docs`
-
-The dashboard rewrites `/docs` requests to the docs site (configured in `dash/next.config.mts`).
-
-## Dashboard Routes
-
-Guild configuration pages follow the pattern:
-```
-dash/src/app/guilds/[guildId]/<feature>/page.tsx
-```
-
-Features: leveling, roles, multipliers, milestones, emojis, etc.
+Guild settings routes follow
+`dash/src/app/guilds/[guildId]/<feature>/page.tsx`. Keep feature-specific code
+near its route and move code into `shared/` only when both applications truly
+consume it.

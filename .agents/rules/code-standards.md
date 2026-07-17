@@ -1,19 +1,13 @@
-# Code Standards
+# Code standards
 
-## Before Committing
+For code changes, run the checks that cover the affected application. The root
+CI-equivalent checks are:
 
-Run `pnpm run fmt` from root. This uses Biome for formatting and linting.
-
-For documentation content changes, also run:
-```bash
-cd docs && pnpm run fmt:content
+```sh
+pnpm lint
+pnpm build:typecheck
 ```
 
-## CI Pipeline
-
-The CI workflow (`.github/workflows/ci.yml`) runs:
-
-1. `pnpm biome ci` — Lint check
-2. `pnpm run build:typecheck` — Type checking
-
-Both must pass before merging.
+Use `pnpm fmt` when formatting fixes are intended, then review the resulting
+diff because it writes changes across the workspace. Build the affected app
+when routing, server behavior, or production bundling changes.

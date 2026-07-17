@@ -1,15 +1,12 @@
-# UI Guidelines
+# UI guidelines
 
-## Component Libraries
+Prefer existing HeroUI v3 and Tailwind patterns when they meet the interaction
+and accessibility requirements. Reuse local wrappers before adding another
+component abstraction.
 
-| Library | Usage |
-|---------|-------|
-| HeroUI v3 (Beta) | All components |
+HeroUI's standard `Tooltip` is not tap-accessible on mobile. For content that
+must be available on touch devices, use the existing wrapper:
 
-## Tooltips on Mobile
-
-Standard HeroUI `Tooltip` doesn't support tap interaction on mobile. Use:
-
-```typescript
+```ts
 import { ResponsiveTooltip } from "@/components/responsive-tooltip.tsx";
 ```

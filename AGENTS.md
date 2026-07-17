@@ -1,33 +1,17 @@
 # Lurkr Website
 
-TypeScript monorepo for Lurkr Discord bot's web dashboard and documentation site, built with Next.js 16.
+This pnpm monorepo contains the Lurkr dashboard (`dash/`), documentation site
+(`docs/`), and shared source files (`shared/`). Both applications use Next.js
+and are published under `lurkr.gg`.
 
-## Quick Reference
+Use `README.md` for local setup and the root `package.json` for current scripts.
+Keep changes within the owning application unless a behavior is deliberately
+shared.
 
-| Command | Purpose |
-|---------|---------|
-| `pnpm run build` | Build all packages |
-| `pnpm run fmt` | Format and lint (run before commits) |
-| `pnpm run lint` | Check without auto-fixing |
+## Project-specific guidance
 
-## Monorepo Structure
-
-```
-dash/    → Web dashboard (lurkr.gg)
-docs/    → Documentation site (lurkr.gg/docs)
-shared/  → Shared utilities (not a package, import via relative paths)
-```
-
-## Key Decisions
-
-- **Package manager**: pnpm v11
-- **UI components**: HeroUI v3 for new components
-- **Styling**: TailwindCSS v4
-
-## Detailed Guidelines
-
-- [Development Setup](.agents/rules/development-setup.md) — Environment, dependencies, dev servers
-- [Code Standards](.agents/rules/code-standards.md) — Formatting, linting, CI
-- [Architecture](.agents/rules/architecture.md) — Repository structure, routing, shared utilities
-- [UI Guidelines](.agents/rules/ui-guidelines.md) — HeroUI, Tailwind, component patterns
-- [Documentation](.agents/rules/documentation.md) — MDX content, linking
+- [Code standards](.agents/rules/code-standards.md) — validation and formatting
+- [Architecture](.agents/rules/architecture.md) — application boundaries and
+  routing
+- [UI guidelines](.agents/rules/ui-guidelines.md) — shared component choices
+- [Documentation](.agents/rules/documentation.md) — MDX formatting and links

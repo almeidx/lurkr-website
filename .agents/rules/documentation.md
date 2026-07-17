@@ -1,21 +1,11 @@
-# Documentation Guidelines
+# Documentation
 
-## Content Location
+MDX content lives under `docs/content/`. After changing it, run:
 
-MDX files are in `docs/content/`.
-
-## Formatting
-
-After modifying MDX files:
-```bash
-cd docs && pnpm run fmt:content
+```sh
+pnpm --dir docs fmt:content
 ```
 
-## Linking to Dashboard
-
-Use relative paths from docs to dashboard:
-```markdown
-[Link text](/../some-dashboard-path)
-```
-
-This avoids hardcoding the domain.
+Links from documentation to dashboard routes should stay domain-independent.
+Use the existing `/../<dashboard-path>` form instead of hard-coding
+`https://lurkr.gg`.
