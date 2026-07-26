@@ -1,5 +1,9 @@
 @import "tailwindcss";
-
 @import "fumadocs-ui/css/neutral.css";
 @import "fumadocs-ui/css/preset.css";
+@import "fumapress/css/preset.css";
 @import "fumadocs-openapi/css/preset.css";
+
+@theme {
+	--default-font-family: "Open Sans", ui-sans-serif, system-ui, sans-serif;
+}
