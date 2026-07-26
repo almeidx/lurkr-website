@@ -1,0 +1,26 @@
+diff --git a/dist/lib/utils/path.js b/dist/lib/utils/path.js
+--- a/dist/lib/utils/path.js
++++ b/dist/lib/utils/path.js
+@@ -62,6 +62,10 @@ export const extname = (filePath)=>{
+ // basePath config is ensured to have trailing slash (see plugin)
+ export function removeBase(url, base) {
+     if (base !== '/') {
++        const baseRoot = base.slice(0, -1);
++        if (url === baseRoot || url.startsWith(baseRoot + '?') || url.startsWith(baseRoot + '#')) {
++            return '/' + url.slice(baseRoot.length);
++        }
+         if (!url.startsWith(base)) {
+             throw new Error('pathname must start with basePath: ' + url);
+         }
+@@ -72,6 +76,10 @@ export function removeBase(url, base) {
+ export function addBase(url, base) {
+     if (base !== '/' && url.startsWith('/')) {
+-        return base.slice(0, -1) + url;
++        const baseRoot = base.slice(0, -1);
++        if (url === '/' || url.startsWith('/?') || url.startsWith('/#')) {
++            return baseRoot + url.slice(1);
++        }
++        return baseRoot + url;
+     }
+     return url;
+ }
