@@ -1,17 +1,17 @@
 {
 	"$schema": "node_modules/wrangler/config-schema.json",
 	"assets": {
-		"binding": "ASSETS",
-		"directory": ".open-next/assets"
+		"directory": "./dist/public",
+		// Keep docs URLs slashless, matching the dashboard. The Waku patch lets
+		// the exact `/docs` base path hydrate as the application root.
+		"html_handling": "drop-trailing-slash",
+		"not_found_handling": "404-page"
 	},
 	"compatibility_date": "2026-04-21",
-	"compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
-	"main": ".open-next/worker.js",
+	// Static-only deployment: Waku prerenders the whole site (mode: "static") to
+	// `dist/public`, which is served directly as Cloudflare assets — no Worker.
 	"name": "lurkr-docs",
 	"observability": {
-		"enabled": true,
-		"logs": {
-			"enabled": true
-		}
+		"enabled": true
 	}
 }
