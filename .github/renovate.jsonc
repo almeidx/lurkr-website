@@ -5,7 +5,7 @@
 	"extends": ["config:recommended"],
 	"lockFileMaintenance": {
 		"enabled": true,
-		"schedule": ["* 5-9 * * SUN"]
+		"schedule": ["* 0-8 * * 6"]
 	},
 	"minimumReleaseAge": "1 day",
 	"packageRules": [
@@ -13,7 +13,7 @@
 			"groupName": "patch/minor dependencies",
 			"groupSlug": "all-non-major",
 			"matchUpdateTypes": ["patch", "minor"],
-			"schedule": ["* 5-9 * * *", "* * * * SAT,SUN"]
+			"schedule": ["* 0-8 * * 6"]
 		},
 		{
 			"enabled": true,
@@ -33,5 +33,6 @@
 	"postUpdateOptions": ["pnpmDedupe"],
 	"prHourlyLimit": 0,
 	"rangeStrategy": "bump",
+	"schedule": ["* 0-8 * * 6"],
 	"timezone": "Europe/Lisbon"
 }
