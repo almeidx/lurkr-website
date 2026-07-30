@@ -50,14 +50,6 @@ export const metadata: Metadata = {
 		type: "website",
 	},
 
-	other: {
-		"msapplication-square70x70logo": "/static/mstile-icon-128.png",
-		"msapplication-square150x150logo": "/static/mstile-icon-270.png",
-		"msapplication-square310x310logo": "/static/mstile-icon-558.png",
-		"msapplication-TileColor": BRAND_COLOR,
-		"msapplication-wide310x150logo": "/static/mstile-icon-558-270.png",
-	},
-
 	title: {
 		default: "Lurkr",
 		template: "%s • Lurkr",
