@@ -65,7 +65,7 @@ export function Footer() {
 						<Tooltip>
 							<Tooltip.Trigger>
 								<a
-									className={`${footerIconLinkClasses} hover:bg-[#5865F2]/20 hover:text-[#5865F2]`}
+									className={`${footerIconLinkClasses} hover:bg-blurple/20 hover:text-blurple`}
 									href={SUPPORT_SERVER_INVITE}
 									rel="external noopener noreferrer"
 									target="_blank"
