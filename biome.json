@@ -17,7 +17,7 @@
 	},
 	"files": {
 		"ignoreUnknown": true,
-		"includes": ["**", "!.claude/*"]
+		"includes": ["**", "!.claude/*", "!.agents/skills/*", "!skills-lock.json"]
 	},
 	"formatter": {
 		"lineEnding": "auto",
