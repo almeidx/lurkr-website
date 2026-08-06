@@ -83,14 +83,14 @@ export function PremiumGuildManager({ guilds, premium, premiumGuild }: PremiumGu
 					<div className="flex flex-col gap-3 sm:flex-row sm:items-center">
 						<Select
 							className="flex-1"
-							onSelectionChange={(key) => {
+							onChange={(key) => {
 								if (key) {
 									setSelectedGuildId(key as string);
 									setError(null);
 								}
 							}}
 							placeholder="Select a server"
-							selectedKey={selectedGuildId}
+							value={selectedGuildId}
 						>
 							<Select.Trigger>
 								<Select.Value />

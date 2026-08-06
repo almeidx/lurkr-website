@@ -121,11 +121,11 @@ export function CreateApiKeyDialog({ revalidateApiKeys }: { revalidateApiKeys: (
 
 											<Select
 												className="w-full"
-												onSelectionChange={(key) => {
+												onChange={(key) => {
 													if (key) setPermission(key as ApiKeyPermission);
 												}}
 												placeholder="Select permission"
-												selectedKey={permission}
+												value={permission}
 											>
 												<Label>Permission</Label>
 												<Select.Trigger>
@@ -148,10 +148,10 @@ export function CreateApiKeyDialog({ revalidateApiKeys }: { revalidateApiKeys: (
 
 											<Select
 												className="w-full"
-												onSelectionChange={(key) => {
+												onChange={(key) => {
 													if (key) setExpiration(key as string);
 												}}
-												selectedKey={expiration}
+												value={expiration}
 											>
 												<Label>Expiration</Label>
 												<Select.Trigger>
