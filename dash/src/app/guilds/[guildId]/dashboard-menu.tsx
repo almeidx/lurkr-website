@@ -4,12 +4,14 @@ import { Menu, MenuButton, MenuButtonArrow, MenuItem, MenuProvider } from "@aria
 import clsx from "clsx";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import type { PropsWithChildren } from "react";
+import type { PropsWithChildren, ReactNode } from "react";
 import type { GuildInfo } from "@/app/guilds/page.tsx";
 import fallbackAvatarImg from "@/assets/fallback-avatar.webp";
+import { NewBadge } from "@/components/dashboard/NewBadge.tsx";
 import { ImageWithFallback } from "@/components/ImageWithFallback.tsx";
 import { EmojiEmotions } from "@/components/icons/mdi/emoji-emotions.tsx";
 import { FormatListBulleted } from "@/components/icons/mdi/format-list-bulleted.tsx";
+import { Mic } from "@/components/icons/mdi/mic.tsx";
 import { MiscellaneousServices } from "@/components/icons/mdi/miscellaneous-services.tsx";
 import { RocketLaunch } from "@/components/icons/mdi/rocket-launch.tsx";
 import { Settings } from "@/components/icons/mdi/settings.tsx";
@@ -98,6 +100,15 @@ export function DashboardMenu({ guild, guilds }: DashboardMenuProps) {
 						<Item guildId={guild.id} isActive={currentDashSection === "leveling"} name="Leveling" path="leveling">
 							<TrendingUp className="size-5 text-[#ff7077]" />
 						</Item>
+						<Item
+							badge={<NewBadge />}
+							guildId={guild.id}
+							isActive={currentDashSection === "voice-leveling"}
+							name="Voice Leveling"
+							path="voice-leveling"
+						>
+							<Mic className="size-5 text-[#cba6f7]" />
+						</Item>
 						<Item guildId={guild.id} isActive={currentDashSection === "import"} name="Import Bots" path="import">
 							<SmartToy className="size-5" />
 						</Item>
@@ -136,7 +147,7 @@ export function DashboardMenu({ guild, guilds }: DashboardMenuProps) {
 	);
 }
 
-function Item({ guildId, name, path, isActive, children }: ItemProps) {
+function Item({ guildId, name, path, isActive, badge, children }: ItemProps) {
 	return (
 		<li>
 			<Link
@@ -150,6 +161,8 @@ function Item({ guildId, name, path, isActive, children }: ItemProps) {
 				<div className="flex size-9 items-center justify-center rounded-xl bg-darker">{children}</div>
 
 				<span className={clsx("font-semibold", path === "danger" && "text-red")}>{name}</span>
+
+				{badge}
 			</Link>
 		</li>
 	);
@@ -165,6 +178,7 @@ type ItemProps = PropsWithChildren<{
 	readonly name: string;
 	readonly path: Exclude<Section, "overview"> | "";
 	readonly isActive: boolean;
+	readonly badge?: ReactNode;
 }>;
 
 type Section =
@@ -176,6 +190,7 @@ type Section =
 	| "miscellaneous"
 	| "multipliers"
 	| "roles"
+	| "voice-leveling"
 	| "overview";
 
 interface DashboardMenuProps {
