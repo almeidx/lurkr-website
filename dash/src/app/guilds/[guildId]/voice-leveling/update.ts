@@ -26,7 +26,13 @@ import { ServerActionError } from "@/utils/server-action-error.ts";
 const regularSchema = createSchema(false);
 const premiumSchema = createSchema(true);
 
-export async function update(guildId: string, premium: boolean, _currentState: unknown, data: FormData) {
+export async function update(
+	guildId: string,
+	premium: boolean,
+	levelingEnabled: boolean,
+	_currentState: unknown,
+	data: FormData,
+) {
 	const schema = premium ? premiumSchema() : regularSchema();
 
 	const result = safeParse(schema, formDataToObject(data));
@@ -35,32 +41,28 @@ export async function update(guildId: string, premium: boolean, _currentState: u
 		return { error: ServerActionError.SchemaMismatch, issues: JSON.stringify(result.issues) };
 	}
 
-	// `levels` is submitted through a hidden input so we can mirror the bot's rule
-	// that voice XP requires the leveling system. It is not a voice setting, so it
-	// is stripped before the payload goes to the API.
-	const { levels, ...settings } = result.output;
-
-	if (settings.voiceXpEnabled && !levels) {
+	// `levelingEnabled` is bound server-side at render time (not submitted form
+	// data), mirroring the bot's rule that voice XP requires the leveling system.
+	if (result.output.voiceXpEnabled && !levelingEnabled) {
 		return {
 			error: ServerActionError.ManualValidationFail,
 			issue: "Voice XP requires the leveling system. Enable leveling on the Leveling page first.",
 		};
 	}
 
-	if (settings.voiceXpPerMinuteMin > settings.voiceXpPerMinuteMax) {
+	if (result.output.voiceXpPerMinuteMin > result.output.voiceXpPerMinuteMax) {
 		return {
 			error: ServerActionError.ManualValidationFail,
 			issue: "Minimum voice XP per minute must be less than or equal to maximum voice XP per minute",
 		};
 	}
 
-	return action(guildId, settings, `settings:${guildId}:voice-leveling`, premium);
+	return action(guildId, result.output, `settings:${guildId}:voice-leveling`, premium);
 }
 
 function createSchema(premium: boolean) {
 	return lazy(() =>
 		object({
-			levels: toggle,
 			voiceXpChannelMode: enum_(XpChannelMode),
 			voiceXpChannels: createSnowflakesValidator(premium ? MAX_XP_CHANNELS_PREMIUM : MAX_XP_CHANNELS),
 			voiceXpDisallowMuted: toggle,

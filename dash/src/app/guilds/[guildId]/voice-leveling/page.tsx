@@ -34,7 +34,7 @@ export default async function VoiceLeveling({ params }: { readonly params: Promi
 
 	const { guild, settings } = guildData;
 
-	const action = update.bind(null, guildId, guild.premium);
+	const action = update.bind(null, guildId, guild.premium, settings.levels);
 
 	return (
 		<Form
@@ -50,9 +50,6 @@ export default async function VoiceLeveling({ params }: { readonly params: Promi
 					any voice XP until you enable leveling on the Leveling page.
 				</WarningBanner>
 			)}
-
-			{/* Lets the server action refuse enabling voice XP while leveling is off */}
-			<input name="levels" type="hidden" value={settings.levels ? "on" : "off"} />
 
 			<Section name="Voice Leveling Channels" tooltip="Choose in which voice channels your members can gain voice XP.">
 				<VoiceChannelMode defaultValue={settings.voiceXpChannelMode} />

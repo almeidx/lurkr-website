@@ -122,7 +122,7 @@ export function VoiceMultipliers({
 			{voiceMultipliers.length ? (
 				<>
 					<Label
-						sub={`Max. ${MAX_XP_MULTIPLIER_TARGETS} channels total - Max. ${MAX_XP_MULTIPLIER_TARGETS_PREMIUM} for Premium`}
+						sub={`Max. ${MAX_XP_MULTIPLIER_TARGETS} channels per multiplier - Max. ${MAX_XP_MULTIPLIER_TARGETS_PREMIUM} for Premium`}
 					>
 						Manage your voice channel multipliers…
 					</Label>
@@ -148,6 +148,7 @@ function VoiceMultiplier({ id, multiplier, premium, onDelete, channels, targets 
 	return (
 		<div className="flex items-center gap-4">
 			<button
+				aria-label={`Delete ${multiplier} voice channel multiplier`}
 				className="group relative flex size-10 items-center justify-center rounded-lg border border-white/25 bg-darker text-[#fff] text-lg md:text-xl"
 				onClick={() => onDelete(id)}
 				type="button"
@@ -164,6 +165,7 @@ function VoiceMultiplier({ id, multiplier, premium, onDelete, channels, targets 
 				defaultValues={resolvedChannels}
 				inputId={`voice-multipliers-${id}`}
 				max={getMaximumLimit("xpMultiplierTargets", premium)}
+				required
 				settingId={`xpMultipliers-${XpMultiplierType.Voice}-${multiplier}-${id}`}
 			/>
 		</div>
