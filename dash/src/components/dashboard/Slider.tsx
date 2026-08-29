@@ -9,7 +9,7 @@ export function Slider({ defaultValue, id, max, min, mobileStepsToHide, step, st
 	const sliderRef = useRef<HTMLInputElement>(null);
 	const secondaryRef = useRef<HTMLInputElement>(null);
 
-	const initialValue = Math.min(Math.max(defaultValue, min), max);
+	const initialValue = Math.min(Math.max(Math.round((defaultValue - min) / step) * step + min, min), max);
 	const initialBackground = computeBackground(initialValue, min, max);
 	const initialText = text ? text.format(initialValue) : String(initialValue);
 
@@ -28,7 +28,10 @@ export function Slider({ defaultValue, id, max, min, mobileStepsToHide, step, st
 
 	function commit(raw: number, options?: { skipDisplay?: boolean }) {
 		if (Number.isNaN(raw)) return;
-		const clamped = Math.min(Math.max(raw, min), max);
+		// Snap to the step grid (base: min) before writing. A range input silently
+		// snaps non-conforming values on its own, and only the range input is
+		// submitted — without this the text display and the submitted value differ.
+		const clamped = Math.min(Math.max(Math.round((raw - min) / step) * step + min, min), max);
 		if (sliderRef.current) {
 			sliderRef.current.value = String(clamped);
 			sliderRef.current.style.background = computeBackground(clamped, min, max);

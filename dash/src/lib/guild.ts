@@ -101,6 +101,15 @@ export interface GuildSettings {
 	storeMilestones: boolean;
 	topXpRole: Snowflake | null;
 	vanity: string | null;
+	voiceXpChannelMode: XpChannelMode;
+	voiceXpChannels: Snowflake[];
+	voiceXpDisallowMuted: boolean;
+	voiceXpEnabled: boolean;
+	voiceXpMaxSession: number | null;
+	voiceXpMaxSessionCooldown: number | null;
+	voiceXpMinGroupCount: number;
+	voiceXpPerMinuteMax: number;
+	voiceXpPerMinuteMin: number;
 	voteBoostedXp: boolean;
 	xpAnnounceChannel: Snowflake | null;
 	xpAnnounceChannelType: XpAnnouncementChannelType;
@@ -147,6 +156,7 @@ export enum AutoResetLevels {
 export enum XpMultiplierType {
 	Channel = "Channel",
 	Role = "Role",
+	Voice = "Voice",
 }
 
 export enum ChannelType {
@@ -154,6 +164,7 @@ export enum ChannelType {
 	GuildVoice = 2,
 	GuildCategory = 4,
 	GuildAnnouncement = 5,
+	GuildStageVoice = 13,
 	GuildForum = 15,
 }
 
