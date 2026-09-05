@@ -8,5 +8,15 @@ allowBuilds:
   rclone.js: true
   sharp: true
   workerd: true
+minimumReleaseAgeExclude:
+  - "@fumadocs/base-ui@16.15.7"
+  - fumadocs-core@16.15.7
+  - fumadocs-mdx@15.4.0
+  - fumadocs-openapi@11.4.1
+  - fumapress@1.2.0
+  - waku@1.0.0-rc.0
+  - "@fumadocs/api-docs@0.2.6"
 overrides:
   react-is: ^19.2.8
+patchedDependencies:
+  waku@1.0.0-rc.0: patches/waku@1.0.0-rc.0.patch

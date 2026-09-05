@@ -1,8 +1,9 @@
 # Lurkr Website
 
 This pnpm monorepo contains the Lurkr dashboard (`dash/`), documentation site
-(`docs/`), and shared source files (`shared/`). Both applications use Next.js
-and are published under `lurkr.gg`.
+(`docs/`), and shared source files (`shared/`). The dashboard uses Next.js,
+while the documentation site uses Fumadocs Press with Waku and Vite. Both are
+published under `lurkr.gg`.
 
 Use `README.md` for local setup and the root `package.json` for current scripts.
 Keep changes within the owning application unless a behavior is deliberately
