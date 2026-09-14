@@ -9,6 +9,7 @@ import { ImageWithFallback } from "@/components/ImageWithFallback.tsx";
 import { RadialProgressBar } from "@/components/RadialProgressBar.tsx";
 import { type Snowflake, userAvatar } from "@/utils/discord-cdn.ts";
 import { formatNumber } from "@/utils/format-number.ts";
+import { isSnowflake } from "@/utils/is-snowflake.ts";
 
 const Confirmation = dynamic(() =>
 	import("@/components/Confirmation.tsx").then((mod) => ({ default: mod.Confirmation })),
@@ -73,7 +74,7 @@ export function LeaderboardTableRow({ guildId, row, isManager }: LeaderboardTabl
 						</p>
 					</div>
 
-					{isManager && (
+					{isManager && isSnowflake(row.userId) && (
 						<div>
 							<p className="mb-2 w-fit border-b text-base">Admin actions:</p>
 
