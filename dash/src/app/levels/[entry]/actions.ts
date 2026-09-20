@@ -1,6 +1,6 @@
 "use server";
 
-import { updateTag } from "next/cache";
+import { refresh } from "next/cache";
 import { cookies } from "next/headers";
 import { parse } from "valibot";
 import { TOKEN_COOKIE } from "@/utils/constants.ts";
@@ -24,5 +24,5 @@ export async function userLevelResetAction(guildIdInput: string, userIdInput: st
 		throw new Error("Failed to reset user level");
 	}
 
-	updateTag(`levels:${guildId}`);
+	refresh();
 }

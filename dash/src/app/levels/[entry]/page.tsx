@@ -222,7 +222,7 @@ async function getData(entry: string, page: number) {
 	try {
 		return await api
 			.get(`levels/${entry}`, {
-				next: { revalidate: 60, tags: [`levels:${entry}`] },
+				cache: "no-store",
 				searchParams: { page },
 			})
 			.json<GetLevelsResponse>();
