@@ -8,6 +8,7 @@ import type { Channel, Role, XpMultiplier } from "@/lib/guild.ts";
 import { RoleMultipliers } from "./11-role-multipliers.tsx";
 import { RoleMultiplierPriority } from "./12-role-multiplier-priority.tsx";
 import { ChannelMultipliers } from "./13-channel-multipliers.tsx";
+import { VoiceMultipliers } from "./14-voice-multipliers.tsx";
 
 export function MultipliersWithTargets({
 	channels,
@@ -59,6 +60,24 @@ export function MultipliersWithTargets({
 				</Text>
 
 				<ChannelMultipliers
+					channels={channels}
+					multiplierCount={multiplierCount}
+					multipliers={multipliers}
+					premium={premium}
+					setMultiplierCount={setMultiplierCount}
+				/>
+			</Section>
+
+			<Section name="Voice Channel Multipliers">
+				<Text
+					docsPath="/guides/setting-up-leveling-multipliers"
+					htmlFor="voice-channel-selector"
+					tooltip="Choose certain voice channels that, if a member is earning voice XP in one of those channels, will multiply with the global multiplier. This only applies while Voice Leveling is enabled."
+				>
+					Setup voice channel multipliers that only apply to members in those voice channels…
+				</Text>
+
+				<VoiceMultipliers
 					channels={channels}
 					multiplierCount={multiplierCount}
 					multipliers={multipliers}

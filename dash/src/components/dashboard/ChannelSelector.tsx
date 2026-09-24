@@ -1,7 +1,8 @@
 "use client";
 
 import { type PropsWithChildren, useState } from "react";
-import Select, { type StylesConfig } from "react-select";
+import Select, { components, type MultiValueGenericProps, type StylesConfig } from "react-select";
+import { VolumeUp } from "@/components/icons/mdi/volume-up.tsx";
 import { type Channel, ChannelType } from "@/lib/guild.ts";
 import { mapChannelIdsToChannels } from "@/utils/map-channel-ids-to-channels.ts";
 import { baseSelectStyles, selectMenuStyles } from "./select-styles.ts";
@@ -14,13 +15,24 @@ const baseChannelSelectStyles: StylesConfig<Channel, true> = {
 	}),
 	multiValueLabel: (baseStyles) => ({
 		...baseStyles,
-		":before": {
-			content: "'#'",
-			margin: "0 0.2rem",
-		},
 		color: "#e2e2e2",
 	}),
 };
+
+function isVoiceChannel(channel: Channel): boolean {
+	return channel.type === ChannelType.GuildVoice || channel.type === ChannelType.GuildStageVoice;
+}
+
+function ChannelMultiValueLabel(props: MultiValueGenericProps<Channel, true>) {
+	return (
+		<components.MultiValueLabel {...props}>
+			<span className="flex items-center gap-1">
+				{isVoiceChannel(props.data) ? <VolumeUp aria-hidden className="size-3.5" /> : <span aria-hidden>#</span>}
+				{props.children}
+			</span>
+		</components.MultiValueLabel>
+	);
+}
 
 export function ChannelSelector({
 	channels,
@@ -87,6 +99,7 @@ export function ChannelSelector({
 
 				<Select
 					closeMenuOnSelect={false}
+					components={{ MultiValueLabel: ChannelMultiValueLabel }}
 					getOptionLabel={(option) => option.name}
 					getOptionValue={(option) => option.id}
 					inputId={inputId}
