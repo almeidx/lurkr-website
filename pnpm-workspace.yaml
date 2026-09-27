@@ -9,13 +9,8 @@ allowBuilds:
   sharp: true
   workerd: true
 minimumReleaseAgeExclude:
-  - "@fumadocs/base-ui@16.15.12"
-  - fumadocs-core@16.15.12
-  - fumadocs-mdx@15.4.3
-  - fumadocs-openapi@11.4.3
-  - fumapress@1.4.0
+  - fumapress@1.5.0
   - waku@1.0.0-rc.1
-  - "@fumadocs/api-docs@0.2.6"
 overrides:
   react-is: ^19.3.0
 patchedDependencies:
