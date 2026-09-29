@@ -8,5 +8,10 @@ allowBuilds:
   rclone.js: true
   sharp: true
   workerd: true
+minimumReleaseAgeExclude:
+  - fumapress@1.5.0
+  - waku@1.0.0-rc.1
 overrides:
   react-is: ^19.3.0
+patchedDependencies:
+  waku@1.0.0-rc.1: patches/waku@1.0.0-rc.1.patch
