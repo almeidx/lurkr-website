@@ -7,9 +7,7 @@
 		"html_handling": "drop-trailing-slash",
 		"not_found_handling": "404-page"
 	},
-	"compatibility_date": "2026-04-21",
-	// Static-only deployment: Waku prerenders the whole site (mode: "static") to
-	// `dist/public`, which is served directly as Cloudflare assets — no Worker.
+	"compatibility_date": "2026-09-25",
 	"name": "lurkr-docs",
 	"observability": {
 		"enabled": true
