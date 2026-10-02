@@ -132,19 +132,15 @@ export function EmbedBuilder({ defaultValue, emojis, roles, placeholders }: Embe
 			return;
 		}
 
-		try {
-			const parsed = JSON.parse(json);
+		const parsed = parseEmbedFromJson(json);
 
-			if (typeof parsed !== "object" || !parsed || Array.isArray(parsed)) {
-				alert("Invalid JSON");
-				return;
-			}
-
-			setEmbedState(generateDefaultEmbedState(parsed));
-			setFields(parsed.fields ?? []);
-		} catch (_error) {
+		if (parsed === null) {
 			alert("Invalid JSON");
+			return;
 		}
+
+		setEmbedState(generateDefaultEmbedState(parsed));
+		setFields((parsed.fields ?? []) as { name: string; value: string; inline: boolean }[]);
 	}
 
 	return (
@@ -390,6 +386,20 @@ export function EmbedBuilder({ defaultValue, emojis, roles, placeholders }: Embe
 			/>
 		</div>
 	);
+}
+
+function parseEmbedFromJson(json: string): Embed | null {
+	try {
+		const parsed = JSON.parse(json);
+
+		if (typeof parsed !== "object" || !parsed || Array.isArray(parsed)) {
+			return null;
+		}
+
+		return parsed as Embed;
+	} catch {
+		return null;
+	}
 }
 
 interface EmbedBuilderProps {

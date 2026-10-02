@@ -33,10 +33,10 @@ export function GuildAccessApiKeyDialog({
 			return next;
 		});
 
+		const method = checked ? "POST" : "DELETE";
+
 		try {
-			await api(`users/@me/keys/${keyId}/guilds/${guildId}`, {
-				method: checked ? "POST" : "DELETE",
-			});
+			await api(`users/@me/keys/${keyId}/guilds/${guildId}`, { method });
 			dirtyRef.current = true;
 		} catch (error) {
 			setEnabledGuilds((prev) => {

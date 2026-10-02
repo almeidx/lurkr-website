@@ -100,7 +100,13 @@ export function LurkrImportSection({ guildId }: { guildId: Snowflake }) {
 				}
 
 				const errorData = await response.json().catch(() => null);
-				const errorMessage = errorData?.message ?? "An error occurred during import.";
+				let errorMessage = "An error occurred during import.";
+				if (errorData != null) {
+					const message = errorData.message;
+					if (message != null) {
+						errorMessage = message;
+					}
+				}
 				setImportState({ message: errorMessage, status: "error" });
 				return;
 			}
