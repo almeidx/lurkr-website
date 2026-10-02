@@ -202,7 +202,7 @@ export default async function Leveling({ params }: { readonly params: Promise<{ 
 
 				<Separator />
 
-				<EditLeaderboardVisibility defaultValue={settings.leaderboardVisibility} guildId={guildId} />
+				<EditLeaderboardVisibility defaultValue={settings.leaderboardVisibility} guildId={guildId} nsfw={guild.nsfw} />
 			</Section>
 		</Form>
 	);

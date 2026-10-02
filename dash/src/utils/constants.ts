@@ -36,4 +36,8 @@ export const COOKIE_NOTICE_ACK = "aye";
 
 export const DEFAULT_ACCENT_COLOR = "#bebebe";
 
+export const NSFW_CONSENT_COOKIE = "nsfw-consent";
+export const NSFW_CONSENT_ACK = "aye";
+export const NSFW_CONSENT_DAYS = 30;
+
 export const WRAPPED_2025_NOTICE_COOKIE = "wrapped-dismissed-2025";

@@ -24,8 +24,9 @@ export interface Guild {
 	icon: string | null;
 	id: Snowflake;
 	name: string;
-	roles: Role[];
+	nsfw: boolean;
 	premium: boolean;
+	roles: Role[];
 }
 
 export interface Channel {
