@@ -31,9 +31,11 @@ export function NsfwConsentGate({ guildName }: NsfwConsentGateProps) {
 				</p>
 
 				<div className="mt-6 flex flex-wrap justify-center gap-3">
-					<Button onPress={confirmAdult}>I'm 18 or older</Button>
+					<Button onPress={confirmAdult} variant="primary">
+						I'm 18 or older
+					</Button>
 
-					<NextLink className={buttonVariants({ variant: "primary" })} href="/levels">
+					<NextLink className={buttonVariants({ variant: "secondary" })} href="/levels">
 						Back to leaderboards
 					</NextLink>
 				</div>
