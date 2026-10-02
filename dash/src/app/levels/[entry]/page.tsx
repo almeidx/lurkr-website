@@ -17,13 +17,15 @@ import { SidebarSection } from "@/components/leaderboard/SidebarSection.tsx";
 import { SignInButton } from "@/components/navigation/sign-in.tsx";
 import { api } from "@/lib/api.ts";
 import type { Guild } from "@/lib/guild.ts";
-import { MAX_WINDOW_TITLE_LENGTH } from "@/utils/constants.ts";
+import { MAX_WINDOW_TITLE_LENGTH, NSFW_CONSENT_ACK, NSFW_CONSENT_COOKIE } from "@/utils/constants.ts";
+import { getCookie } from "@/utils/cookies.ts";
 import { guildIcon, type Snowflake } from "@/utils/discord-cdn.ts";
 import { ellipsis } from "@/utils/ellipsis.ts";
 import { isSnowflake } from "@/utils/is-snowflake.ts";
 import { makeApiRequest } from "@/utils/make-api-request.ts";
 import type { RoleReward } from "./03-role-reward.tsx";
 import type { Multiplier } from "./04-multiplier.tsx";
+import { NsfwConsentGate } from "./nsfw-consent-gate.tsx";
 import { SortableMultipliers } from "./sortable-multipliers.tsx";
 import { SortableRoleRewards } from "./sortable-role-rewards.tsx";
 
@@ -90,6 +92,10 @@ export default async function Leaderboard({ params, searchParams }: LeaderboardP
 
 	if (isSnowflake(entry) && vanity) {
 		redirect(`/levels/${vanity}?page=${page}`, RedirectType.replace);
+	}
+
+	if (guild.nsfw && (await getCookie(NSFW_CONSENT_COOKIE)) !== NSFW_CONSENT_ACK) {
+		return <NsfwConsentGate guildName={guild.name} />;
 	}
 
 	return (

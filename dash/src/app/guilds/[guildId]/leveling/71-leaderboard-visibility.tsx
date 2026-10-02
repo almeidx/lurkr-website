@@ -13,8 +13,10 @@ import Link from "next/link";
 import { LeaderboardVisibility } from "@/lib/guild.ts";
 import type { Snowflake } from "@/utils/discord-cdn.ts";
 
-export function EditLeaderboardVisibility({ defaultValue, guildId }: EditLeaderboardVisibilityProps) {
-	const select = useSelectStore({ defaultValue });
+export function EditLeaderboardVisibility({ defaultValue, guildId, nsfw }: EditLeaderboardVisibilityProps) {
+	const initialValue =
+		nsfw && defaultValue === LeaderboardVisibility.Public ? LeaderboardVisibility.MembersOnly : defaultValue;
+	const select = useSelectStore({ defaultValue: initialValue });
 	const value = useStoreState(select, "value") as LeaderboardVisibility;
 
 	return (
@@ -50,7 +52,7 @@ export function EditLeaderboardVisibility({ defaultValue, guildId }: EditLeaderb
 				sameWidth
 				store={select}
 			>
-				<SelectItem store={select} value={LeaderboardVisibility.Public}>
+				<SelectItem disabled={nsfw} store={select} value={LeaderboardVisibility.Public}>
 					Public
 				</SelectItem>
 				<SelectItem store={select} value={LeaderboardVisibility.MembersOnly}>
@@ -62,6 +64,12 @@ export function EditLeaderboardVisibility({ defaultValue, guildId }: EditLeaderb
 			</SelectPopover>
 
 			<p className="text-white/75">{getSubtitle(value)}</p>
+
+			{nsfw ? (
+				<p className="text-white/75">
+					This server is flagged as age-restricted (NSFW) by Discord, so its web leaderboard cannot be public.
+				</p>
+			) : null}
 		</div>
 	);
 }
@@ -91,4 +99,5 @@ function getSubtitle(visibility: LeaderboardVisibility) {
 interface EditLeaderboardVisibilityProps {
 	readonly defaultValue: LeaderboardVisibility;
 	readonly guildId: Snowflake;
+	readonly nsfw: boolean;
 }
