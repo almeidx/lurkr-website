@@ -24,9 +24,8 @@ export function DownloadLevelingData({ guildId, levelingSystemEnabled }: Downloa
 				}
 			} catch {
 				// Ignore errors
-			} finally {
-				setIsLoading(false);
 			}
+			setIsLoading(false);
 		})();
 	}, []);
 
@@ -43,8 +42,10 @@ export function DownloadLevelingData({ guildId, levelingSystemEnabled }: Downloa
 				const data = (await response.json()) as DataExportResult;
 				setDataExport(data);
 			}
-		} finally {
 			setIsLoading(false);
+		} catch (error) {
+			setIsLoading(false);
+			throw error;
 		}
 	}
 

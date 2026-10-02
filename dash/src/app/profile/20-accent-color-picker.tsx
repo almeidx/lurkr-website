@@ -36,9 +36,8 @@ export function AccentColorPicker({ avatarUrl, initialColor }: AccentColorPicker
 			setSavedColor(currentHex);
 		} catch (error) {
 			setError(extractErrorMessage(error, "Failed to update accent color."));
-		} finally {
-			setIsSaving(false);
 		}
+		setIsSaving(false);
 	}
 
 	async function handleInferFromAvatar() {
@@ -52,9 +51,8 @@ export function AccentColorPicker({ avatarUrl, initialColor }: AccentColorPicker
 			setColor(parseColor(hex));
 		} catch (error) {
 			setError(extractErrorMessage(error, "Failed to get average color from avatar."));
-		} finally {
-			setIsInferring(false);
 		}
+		setIsInferring(false);
 	}
 
 	async function handleReset() {
@@ -70,9 +68,8 @@ export function AccentColorPicker({ avatarUrl, initialColor }: AccentColorPicker
 			setColor(parseColor(DEFAULT_ACCENT_COLOR));
 		} catch (error) {
 			setError(extractErrorMessage(error, "Failed to reset accent color."));
-		} finally {
-			setIsResetting(false);
 		}
+		setIsResetting(false);
 	}
 
 	return (

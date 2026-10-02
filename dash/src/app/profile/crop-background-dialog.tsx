@@ -38,9 +38,8 @@ export function CropBackgroundDialog({ file, onConfirm, onClose }: CropBackgroun
 			await onConfirm(new File([blob], file.name, { type: file.type }));
 		} catch {
 			setError("Failed to upload background.");
-		} finally {
-			setIsBusy(false);
 		}
+		setIsBusy(false);
 	}
 
 	return (

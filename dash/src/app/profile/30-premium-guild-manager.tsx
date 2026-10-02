@@ -45,9 +45,8 @@ export function PremiumGuildManager({ guilds, premium, premiumGuild }: PremiumGu
 			setCurrentGuild(guild);
 		} catch (error) {
 			setError(extractErrorMessage(error, "Failed to assign premium guild."));
-		} finally {
-			setIsSaving(false);
 		}
+		setIsSaving(false);
 	}
 
 	async function handleRemove() {
@@ -61,9 +60,8 @@ export function PremiumGuildManager({ guilds, premium, premiumGuild }: PremiumGu
 			setSelectedGuildId(null);
 		} catch (error) {
 			setError(extractErrorMessage(error, "Failed to remove premium guild."));
-		} finally {
-			setIsRemoving(false);
 		}
+		setIsRemoving(false);
 	}
 
 	return (
