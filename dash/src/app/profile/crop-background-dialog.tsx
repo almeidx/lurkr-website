@@ -1,10 +1,9 @@
 "use client";
 
 import "react-image-crop/dist/ReactCrop.css";
-
 import { Button, Modal } from "@heroui/react";
 import { useCallback, useEffect, useRef, useState } from "react";
-import ReactCrop, { type Crop, centerCrop, makeAspectCrop, type PixelCrop } from "react-image-crop";
+import ReactCrop, { centerCrop, type Crop, makeAspectCrop, type PixelCrop } from "react-image-crop";
 
 const ASPECT_RATIO = 4;
 
@@ -13,14 +12,13 @@ export function CropBackgroundDialog({ file, onConfirm, onClose }: CropBackgroun
 	const [completedCrop, setCompletedCrop] = useState<PixelCrop>();
 	const [isBusy, setIsBusy] = useState(false);
 	const [error, setError] = useState<string | null>(null);
-	const [imageSrc, setImageSrc] = useState<string | null>(null);
 	const imgRef = useRef<HTMLImageElement>(null);
 
+	const imageSrc = URL.createObjectURL(file);
+
 	useEffect(() => {
-		const url = URL.createObjectURL(file);
-		setImageSrc(url);
-		return () => URL.revokeObjectURL(url);
-	}, [file]);
+		return () => URL.revokeObjectURL(imageSrc);
+	}, [imageSrc]);
 
 	const onImageLoad = useCallback((event: React.SyntheticEvent<HTMLImageElement>) => {
 		const { width, height } = event.currentTarget;
@@ -64,11 +62,11 @@ export function CropBackgroundDialog({ file, onConfirm, onClose }: CropBackgroun
 									onChange={(c) => setCrop(c)}
 									onComplete={(c) => setCompletedCrop(c)}
 								>
-									{/** biome-ignore lint/performance/noImgElement: Crop preview. No point using next/image here. */}
+									{/* oxlint-disable-next-line nextjs/no-img-element -- crop preview managed by react-image-crop via ref; next/image is unsuitable */}
 									<img alt="Crop preview" className="max-h-[60vh]" onLoad={onImageLoad} ref={imgRef} src={imageSrc} />
 								</ReactCrop>
 							)}
-							{error && <p className="mt-2 text-red text-sm">{error}</p>}
+							{error && <p className="mt-2 text-sm text-red">{error}</p>}
 						</Modal.Body>
 						<Modal.Footer>
 							<Button onPress={onClose} variant="secondary">
@@ -85,7 +83,7 @@ export function CropBackgroundDialog({ file, onConfirm, onClose }: CropBackgroun
 	);
 }
 
-function getCroppedBlob(image: HTMLImageElement, crop: PixelCrop, mimeType: string): Promise<Blob> {
+async function getCroppedBlob(image: HTMLImageElement, crop: PixelCrop, mimeType: string): Promise<Blob> {
 	const canvas = document.createElement("canvas");
 	const scaleX = image.naturalWidth / image.width;
 	const scaleY = image.naturalHeight / image.height;

@@ -1,9 +1,9 @@
-export function averageImageColor(src: string): Promise<string> {
+export async function averageImageColor(src: string): Promise<string> {
 	return new Promise<string>((resolve, reject) => {
 		const img = new Image();
 		img.crossOrigin = "anonymous";
 
-		img.onload = () => {
+		img.addEventListener("load", () => {
 			const canvas = document.createElement("canvas");
 			canvas.width = img.naturalWidth;
 			canvas.height = img.naturalHeight;
@@ -47,9 +47,9 @@ export function averageImageColor(src: string): Promise<string> {
 			resolve(
 				`#${r.toString(16).padStart(2, "0")}${g.toString(16).padStart(2, "0")}${b.toString(16).padStart(2, "0")}`,
 			);
-		};
+		});
 
-		img.onerror = () => reject(new Error("Failed to load image."));
+		img.addEventListener("error", () => reject(new Error("Failed to load image.")));
 		img.src = src;
 	});
 }

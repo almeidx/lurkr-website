@@ -5,7 +5,7 @@ export function Input({ className, id, placeholder, ...props }: InputProps) {
 	return (
 		<input
 			{...props}
-			className={clsx("min-w-48 max-w-3xl rounded-lg bg-light-gray p-2 px-3 shadow-dim-inner", className)}
+			className={clsx("max-w-3xl min-w-48 rounded-lg bg-light-gray p-2 px-3 shadow-dim-inner", className)}
 			id={id}
 			name={id}
 			placeholder={placeholder}

@@ -4,8 +4,8 @@ import { RadioProvider, useRadioContext, useStoreState } from "@ariakit/react";
 import { useMemo } from "react";
 import { ChannelSelector } from "@/components/dashboard/ChannelSelector.tsx";
 import { Radio, RadioGroup } from "@/components/dashboard/Radio.tsx";
-import { Chat } from "@/components/icons/mdi/chat.tsx";
 import { ChatBubble } from "@/components/icons/mdi/chat-bubble.tsx";
+import { Chat } from "@/components/icons/mdi/chat.tsx";
 import { DoNotDisturbAlt } from "@/components/icons/mdi/do-not-disturb.tsx";
 import { Topic } from "@/components/icons/mdi/topic.tsx";
 import { type Channel, XpAnnouncementChannelType } from "@/lib/guild.ts";
@@ -37,7 +37,7 @@ function LevelUpMessageChannelInner({ channels, defaultCustomChannel }: LevelUpM
 	return (
 		<RadioGroup className="flex w-fit flex-col gap-4">
 			<label className="flex items-center justify-between" htmlFor="xpAnnounceChannelTypeDirect">
-				<div className="flex items-center text-lg text-white/75 tracking-tight md:text-xl">
+				<div className="flex items-center text-lg tracking-tight text-white/75 md:text-xl">
 					<Chat className="mr-2 text-[#fff]" fill="url(#icon-gradient-tertiary)" />
 					Direct messages
 				</div>
@@ -45,7 +45,7 @@ function LevelUpMessageChannelInner({ channels, defaultCustomChannel }: LevelUpM
 			</label>
 
 			<label className="flex items-center justify-between" htmlFor="xpAnnounceChannelTypeSameChannel">
-				<div className="flex items-center text-lg text-white/75 tracking-tight md:text-xl">
+				<div className="flex items-center text-lg tracking-tight text-white/75 md:text-xl">
 					<Topic className="mr-2 text-[#fff]" fill="url(#icon-gradient-tertiary)" />
 					The same channel
 				</div>
@@ -57,7 +57,7 @@ function LevelUpMessageChannelInner({ channels, defaultCustomChannel }: LevelUpM
 			</label>
 
 			<label className="flex items-center justify-between" htmlFor="xpAnnounceChannelTypeNone">
-				<div className="flex items-center text-lg text-white/75 tracking-tight md:text-xl">
+				<div className="flex items-center text-lg tracking-tight text-white/75 md:text-xl">
 					<DoNotDisturbAlt className="mr-2 text-[#fff]" fill="url(#icon-gradient-tertiary)" />
 					None
 				</div>
@@ -66,7 +66,7 @@ function LevelUpMessageChannelInner({ channels, defaultCustomChannel }: LevelUpM
 
 			<div className="flex flex-col gap-2">
 				<label className="flex items-center justify-between" htmlFor="xpAnnounceChannelTypeCustom">
-					<div className="flex items-center text-lg text-white/75 tracking-tight md:text-xl">
+					<div className="flex items-center text-lg tracking-tight text-white/75 md:text-xl">
 						<ChatBubble className="mr-2 text-[#fff]" fill="url(#icon-gradient-tertiary)" />
 						Custom Channel
 					</div>

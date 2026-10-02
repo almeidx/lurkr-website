@@ -2,10 +2,7 @@
 	"$schema": "./node_modules/oxfmt/configuration_schema.json",
 	"useTabs": true,
 	"printWidth": 120,
-	"proseWrap": "always",
 	"sortImports": { "newlinesBetween": false },
 	"sortPackageJson": { "sortScripts": true },
-	"sortTailwindcss": {
-		"stylesheet": "./src/app.css",
-	},
+	"ignorePatterns": [".claude/*", ".agents/skills/*", "skills-lock.json"]
 }

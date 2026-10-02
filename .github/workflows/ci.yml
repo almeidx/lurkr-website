@@ -21,7 +21,7 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Lint
-        run: pnpm biome ci --reporter=github
+        run: pnpm run lint:ci
 
       - name: Typecheck
         run: pnpm run build:typecheck

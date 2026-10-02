@@ -6,11 +6,11 @@ export function LeaderboardTable({ data, guildId, isManager }: LeaderboardTableP
 	return (
 		<div className="flex flex-1 flex-col gap-y-4">
 			<div className="flex gap-2 text-sm">
-				<div className="min-w-14 max-w-[15%]">Rank</div>
+				<div className="max-w-[15%] min-w-14">Rank</div>
 				<div className="w-full">User</div>
-				<div className="xs:block hidden min-w-14 max-w-[15%]">Msgs</div>
-				<div className="hidden min-w-14 max-w-[15%] sm:block">Exp</div>
-				<div className="min-w-14 max-w-[15%]">Level</div>
+				<div className="hidden max-w-[15%] min-w-14 xs:block">Msgs</div>
+				<div className="hidden max-w-[15%] min-w-14 sm:block">Exp</div>
+				<div className="max-w-[15%] min-w-14">Level</div>
 			</div>
 
 			{data.map((row) => (

@@ -25,7 +25,7 @@ export function ResponsiveTooltip({ children, content, isOpen, onOpenChange, ...
 		>
 			<Tooltip.Trigger>
 				<button
-					className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+					className="focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none"
 					onBlur={() => setLocalIsOpen(false)}
 					onFocus={() => setLocalIsOpen(true)}
 					type="button"

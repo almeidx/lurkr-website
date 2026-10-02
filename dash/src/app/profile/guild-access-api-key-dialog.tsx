@@ -6,8 +6,7 @@ import { toast } from "sonner";
 import { ImageWithFallback } from "@/components/ImageWithFallback.tsx";
 import { api } from "@/lib/api.ts";
 import type { UserGuildInfo } from "@/lib/guild.ts";
-import type { Snowflake } from "@/utils/discord-cdn.ts";
-import { guildIcon } from "@/utils/discord-cdn.ts";
+import { guildIcon, type Snowflake } from "@/utils/discord-cdn.ts";
 import { extractErrorMessage } from "@/utils/extract-error-message.ts";
 import type { GetUserApiKeysResult } from "./get-user-api-keys.ts";
 
@@ -83,7 +82,9 @@ export function GuildAccessApiKeyDialog({
 											isDisabled={isPending}
 											isSelected={isChecked}
 											key={guild.id}
-											onChange={(checked) => handleCheckedChange(guild.id, checked)}
+											onChange={async (checked) => {
+												await handleCheckedChange(guild.id, checked);
+											}}
 										>
 											<Checkbox.Content>
 												<Checkbox.Control>
@@ -100,7 +101,7 @@ export function GuildAccessApiKeyDialog({
 															width={24}
 														/>
 													) : (
-														<span className="flex size-6 items-center justify-center rounded-full bg-white/10 font-medium text-[10px]">
+														<span className="flex size-6 items-center justify-center rounded-full bg-white/10 text-[10px] font-medium">
 															{guild.name.charAt(0)}
 														</span>
 													)}

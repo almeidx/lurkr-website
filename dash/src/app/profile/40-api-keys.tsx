@@ -8,7 +8,7 @@ import { useState } from "react";
 import { ApiKeyPermission, type UserGuildInfo } from "@/lib/guild.ts";
 import { CreateApiKeyDialog } from "./create-api-key-dialog.tsx";
 import { DeleteApiKeyDialog } from "./delete-api-key-dialog.tsx";
-import { type GetUserApiKeysResult, getUserApiKeys } from "./get-user-api-keys.ts";
+import { getUserApiKeys, type GetUserApiKeysResult } from "./get-user-api-keys.ts";
 import { GuildAccessApiKeyDialog } from "./guild-access-api-key-dialog.tsx";
 import { TableRowActions } from "./table-row-actions.tsx";
 
@@ -22,7 +22,7 @@ export function ApiKeys({ guilds, initialKeys }: ApiKeysProps) {
 	const [openDialog, setOpenDialog] = useState<"guild-access" | "delete" | null>(null);
 
 	function fetchKeys() {
-		getUserApiKeys().then((keys) => setKeys(keys));
+		void getUserApiKeys().then((keys) => setKeys(keys));
 	}
 
 	function handleOpenDialog(keyId: string, dialog: "guild-access" | "delete") {
@@ -45,7 +45,7 @@ export function ApiKeys({ guilds, initialKeys }: ApiKeysProps) {
 				<div className="flex items-center justify-between">
 					<div className="flex items-center gap-2">
 						<Key className="size-5 text-white/60" />
-						<h3 className="font-semibold text-xl">API Keys</h3>
+						<h3 className="text-xl font-semibold">API Keys</h3>
 					</div>
 					{keys.length < MAX_API_KEYS ? <CreateApiKeyDialog revalidateApiKeys={fetchKeys} /> : null}
 				</div>
@@ -65,7 +65,7 @@ export function ApiKeys({ guilds, initialKeys }: ApiKeysProps) {
 						<Table.Header>
 							<Table.Column isRowHeader>Name</Table.Column>
 							<Table.Column>Permission</Table.Column>
-							<Table.Column className="xs:table-cell hidden">Guilds</Table.Column>
+							<Table.Column className="hidden xs:table-cell">Guilds</Table.Column>
 							<Table.Column className="hidden md:table-cell">Created</Table.Column>
 							<Table.Column className="hidden md:table-cell">Expires</Table.Column>
 							<Table.Column className="hidden sm:table-cell">Last Used</Table.Column>
@@ -87,7 +87,7 @@ export function ApiKeys({ guilds, initialKeys }: ApiKeysProps) {
 											{item.permission === ApiKeyPermission.Read ? "Read" : "Read/Write"}
 										</Chip>
 									</Table.Cell>
-									<Table.Cell className="xs:table-cell hidden">{item.guildAccess.length}</Table.Cell>
+									<Table.Cell className="hidden xs:table-cell">{item.guildAccess.length}</Table.Cell>
 									<Table.Cell className="hidden md:table-cell">
 										<span suppressHydrationWarning>{new Date(item.createdAt).toLocaleDateString()}</span>
 									</Table.Cell>

@@ -52,7 +52,7 @@ export function ChannelSelector({
 		return acc;
 	}, new Map<Channel | null, Channel[]>());
 
-	const channelOptions = Array.from(categorized.entries())
+	const channelOptions = [...categorized.entries()]
 		.map(([parent, items]) => ({
 			label: parent?.name ?? nonCategorizedName,
 			options: items,

@@ -28,7 +28,7 @@ export function ProfileButton({ avatar, globalName, id, username }: User) {
 				window.open(SUPPORT_SERVER_INVITE, "_blank", "noopener,noreferrer");
 				break;
 			case "logout":
-				logout();
+				void logout();
 				break;
 		}
 	}
@@ -137,7 +137,7 @@ function MobileProfileMenu({
 					<li>
 						<button
 							className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-white/70 transition-colors hover:bg-white/5 hover:text-white"
-							onClick={() => logout()}
+							onClick={() => void logout()}
 							tabIndex={expanded ? undefined : -1}
 							type="button"
 						>

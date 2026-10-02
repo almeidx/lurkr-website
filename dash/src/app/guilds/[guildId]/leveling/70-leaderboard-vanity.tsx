@@ -44,7 +44,7 @@ export function LeaderboardVanity({ defaultValue }: { defaultValue: string | nul
 		}
 
 		timeoutId.current = setTimeout(() => {
-			verifyAvailability(value);
+			void verifyAvailability(value);
 		}, 500);
 	}
 

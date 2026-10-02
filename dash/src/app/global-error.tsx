@@ -1,7 +1,6 @@
 "use client";
 
 import "@/app/globals.css";
-
 import { Button } from "@heroui/react";
 import clsx from "clsx";
 import type { Metadata, Viewport } from "next";

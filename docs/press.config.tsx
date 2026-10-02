@@ -20,8 +20,8 @@ const OPENAPI_METHODS = ["get", "put", "post", "delete", "options", "head", "pat
 const slugify = (value: string) =>
 	value
 		.toLowerCase()
-		.replace(/[^a-z0-9]+/g, "-")
-		.replace(/^-+|-+$/g, "");
+		.replaceAll(/[^a-z0-9]+/g, "-")
+		.replaceAll(/^-+|-+$/g, "");
 
 const openapi = createOpenAPI({
 	input: [path.resolve("./openapi.json")],

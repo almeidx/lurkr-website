@@ -2,7 +2,6 @@
 
 import { maxValue, minValue, object, parse, pipe, regex, safeParse, string, transform } from "valibot";
 import { action } from "@/app/guilds/[guildId]/action-base.ts";
-import { type GuildSettings, XpMultiplierType } from "@/lib/guild.ts";
 import {
 	MAX_XP_MULTIPLIER_TARGETS,
 	MAX_XP_MULTIPLIER_TARGETS_PREMIUM,
@@ -11,6 +10,7 @@ import {
 	MAX_XP_MULTIPLIERS_PREMIUM,
 	MIN_XP_MULTIPLIER_VALUE,
 } from "@/lib/guild-config.ts";
+import { type GuildSettings, XpMultiplierType } from "@/lib/guild.ts";
 import { formDataToObject } from "@/utils/form-data-to-object.ts";
 import { lazy } from "@/utils/lazy.ts";
 import { booleanFlag, coerceToFloat, createSnowflakesValidator, toggle, UUID_REGEX } from "@/utils/schemas.ts";

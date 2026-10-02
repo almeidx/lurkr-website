@@ -137,8 +137,8 @@ export function XpCurve({ defaultValue }: XpCurveProps) {
 							onClick={() => handlePresetChange(option.value)}
 							type="button"
 						>
-							<span className="font-medium text-sm text-white">{option.label}</span>
-							<span className="text-white/50 text-xs">{option.description}</span>
+							<span className="text-sm font-medium text-white">{option.label}</span>
+							<span className="text-xs text-white/50">{option.description}</span>
 						</button>
 					))}
 				</div>
@@ -153,7 +153,7 @@ export function XpCurve({ defaultValue }: XpCurveProps) {
 					<div className="flex flex-wrap gap-3">
 						{COEFFICIENT_LABELS.map((label, index) => (
 							<div className="flex flex-col gap-1" key={label}>
-								<span className="text-white/50 text-xs">{label}</span>
+								<span className="text-xs text-white/50">{label}</span>
 								<Input
 									className="w-28 min-w-0!"
 									defaultValue={coefficients[index] ?? ""}
@@ -167,7 +167,7 @@ export function XpCurve({ defaultValue }: XpCurveProps) {
 						))}
 					</div>
 
-					{validationError && <p className="text-red-400 text-sm">{validationError}</p>}
+					{validationError && <p className="text-sm text-red-400">{validationError}</p>}
 				</div>
 			)}
 
@@ -217,6 +217,7 @@ export function XpCurve({ defaultValue }: XpCurveProps) {
 						/>
 
 						<Tooltip
+							// oxlint-disable-next-line react/no-unstable-nested-components -- recharts render callback, invoked as a function rather than rendered as a component
 							content={(props) => <XpCurveTooltip {...props} showComparison={showComparison} />}
 							cursor={{ stroke: "rgba(255, 255, 255, 0.2)" }}
 						/>
@@ -273,14 +274,14 @@ function XpCurveTooltip({ active, payload, showComparison }: TooltipContentProps
 	const data = payload[0]!.payload;
 	return (
 		<div className="flex flex-col gap-1 rounded-md border border-[#555] bg-[#333] p-2">
-			<p className="mb-0.5 text-white/50 text-xs">Level {data.level}</p>
+			<p className="mb-0.5 text-xs text-white/50">Level {data.level}</p>
 			<p className="text-sm text-white">
 				<span className="mr-1.5 inline-block size-2 rounded-full bg-[#0072f5]" />
 				{formatNumber(data.active)} XP
 			</p>
 			{showComparison &&
 				PRESET_NAMES.map((name) => (
-					<p className="text-white/50 text-xs" key={name}>
+					<p className="text-xs text-white/50" key={name}>
 						<span className="mr-1.5 inline-block size-1.5 rounded-full" style={{ background: PRESET_COLORS[name] }} />
 						{PRESET_LABELS[name]}: {formatNumber(data[name])} XP
 					</p>

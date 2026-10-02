@@ -1,5 +1,4 @@
 import "./globals.css";
-
 import clsx from "clsx";
 import type { Metadata, Viewport } from "next";
 import { type PropsWithChildren, Suspense } from "react";
@@ -7,8 +6,8 @@ import { openSans } from "@/app/fonts.ts";
 import { Providers } from "@/app/providers.tsx";
 import { CookieNoticeHandler } from "@/components/cookie-notice-handler.tsx";
 import { Footer } from "@/components/navigation/footer.tsx";
-import { Navbar } from "@/components/navigation/navbar.tsx";
 import { NavbarUserButton } from "@/components/navigation/navbar-user-button.tsx";
+import { Navbar } from "@/components/navigation/navbar.tsx";
 import { SignInButton } from "@/components/navigation/sign-in.tsx";
 import { PreviewWarning } from "@/components/preview-warning.tsx";
 import { SvgGradients } from "@/components/svg-gradients.tsx";

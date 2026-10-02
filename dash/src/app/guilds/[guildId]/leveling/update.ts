@@ -23,13 +23,6 @@ import {
 } from "valibot";
 import { action } from "@/app/guilds/[guildId]/action-base.ts";
 import {
-	AutoResetLevels,
-	type GuildSettings,
-	LeaderboardVisibility,
-	XpAnnouncementChannelType,
-	XpChannelMode,
-} from "@/lib/guild.ts";
-import {
 	MAX_NO_ROLE_REWARD_ROLES,
 	MAX_NO_ROLE_REWARD_ROLES_PREMIUM,
 	MAX_NO_TOP_XP_ROLES,
@@ -61,6 +54,13 @@ import {
 	MIN_XP_MESSAGE_LENGTH,
 	MIN_XP_PER_MESSAGE,
 } from "@/lib/guild-config.ts";
+import {
+	AutoResetLevels,
+	type GuildSettings,
+	LeaderboardVisibility,
+	XpAnnouncementChannelType,
+	XpChannelMode,
+} from "@/lib/guild.ts";
 import { validateXpCurve } from "@/lib/validate-xp-curve.ts";
 import {
 	EMBED_AUTHOR_NAME_MAX_LENGTH,

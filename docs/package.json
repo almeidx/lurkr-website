@@ -11,10 +11,10 @@
 		"deploy:cf": "pnpm run build && wrangler deploy",
 		"dev": "node scripts/fetch-openapi.mjs && fumapress dev",
 		"fetch:openapi": "node scripts/fetch-openapi.mjs",
-		"fmt": "biome check --write --unsafe",
+		"fmt": "oxlint --fix && oxfmt",
 		"fmt:content": "oxfmt --write content",
 		"format": "pnpm run fmt",
-		"lint": "biome check",
+		"lint": "oxlint && oxfmt --check",
 		"postinstall": "fumadocs-mdx",
 		"preview:cf": "pnpm run build && wrangler dev",
 		"start": "fumapress start"
@@ -34,13 +34,13 @@
 		"waku": "1.0.0-rc.1"
 	},
 	"devDependencies": {
-		"@biomejs/biome": "^2.5.14",
 		"@tailwindcss/vite": "^4.3.3",
 		"@types/mdx": "^2.0.14",
 		"@types/node": "^24.19.0",
 		"@types/react": "^19.3.0",
 		"@types/react-dom": "^19.3.0",
-		"oxfmt": "^0.68.0",
+		"oxfmt": "^0.71.0",
+		"oxlint": "^1.86.0",
 		"tailwindcss": "^4.3.3",
 		"typescript": "~7.0.2",
 		"vite": "^8.3.1",

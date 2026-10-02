@@ -41,7 +41,7 @@ export default async function Homepage() {
 
 			<div className="flex flex-col items-center gap-4 xl:gap-0">
 				<div className="flex flex-col items-center gap-4 xl:mr-20 xl:flex-row">
-					<p className="font-bold text-3xl text-shadow-regular xl:whitespace-nowrap xl:text-4xl">
+					<p className="text-shadow-regular text-3xl font-bold xl:text-4xl xl:whitespace-nowrap">
 						Level Up your Server.
 					</p>
 					<Image
@@ -53,14 +53,14 @@ export default async function Homepage() {
 						unoptimized
 						width={288}
 					/>
-					<p className="font-bold text-3xl text-shadow-regular xl:whitespace-nowrap xl:text-4xl">Finally, for Free.</p>
+					<p className="text-shadow-regular text-3xl font-bold xl:text-4xl xl:whitespace-nowrap">Finally, for Free.</p>
 				</div>
 
 				<div className="flex gap-5">
 					<StartLevelingButton />
 
 					<Link
-						className="hidden w-72 items-center justify-center gap-5 rounded-lg border border-white px-3 py-2 font-bold text-3xl transition-colors hover:bg-white hover:text-black xl:flex"
+						className="hidden w-72 items-center justify-center gap-5 rounded-lg border border-white px-3 py-2 text-3xl font-bold transition-colors hover:bg-white hover:text-black xl:flex"
 						href="/guilds"
 						prefetch={false} // TODO: Only disable prefetching if user is not logged in
 					>
@@ -70,36 +70,36 @@ export default async function Homepage() {
 				</div>
 			</div>
 
-			<div className="flex w-full items-center justify-center border-white/50 border-t border-b">
+			<div className="flex w-full items-center justify-center border-t border-b border-white/50">
 				<div className="grid w-full max-w-xl grid-cols-4 place-items-center px-4 py-2 md:px-8 xl:max-w-7xl xl:py-6">
 					<div className="flex flex-col xl:flex-row xl:gap-5">
-						<span className="font-extrabold text-2xl text-shadow-regular xl:text-6xl">
+						<span className="text-shadow-regular text-2xl font-extrabold xl:text-6xl">
 							{formatNumber(guildCount, false)}
 						</span>
-						<p className="text-white/50 text-xs xl:place-self-end xl:text-base">servers</p>
+						<p className="text-xs text-white/50 xl:place-self-end xl:text-base">servers</p>
 					</div>
 					<div className="flex flex-col xl:flex-row xl:gap-5">
-						<span className="font-extrabold text-2xl text-shadow-regular xl:text-6xl">
+						<span className="text-shadow-regular text-2xl font-extrabold xl:text-6xl">
 							{formatNumber(memberCount, false)}
 						</span>
-						<p className="text-white/50 text-xs xl:place-self-end xl:text-base">members</p>
+						<p className="text-xs text-white/50 xl:place-self-end xl:text-base">members</p>
 					</div>
 					<div className="flex flex-col xl:flex-row xl:gap-5">
-						<span className="font-extrabold text-2xl text-shadow-regular xl:text-6xl">{formatNumber(uptime)}%</span>
-						<p className="text-white/50 text-xs xl:place-self-end xl:text-base">uptime</p>
+						<span className="text-shadow-regular text-2xl font-extrabold xl:text-6xl">{formatNumber(uptime)}%</span>
+						<p className="text-xs text-white/50 xl:place-self-end xl:text-base">uptime</p>
 					</div>
 					<div className="flex flex-col xl:flex-row xl:gap-5">
-						<span className="font-extrabold text-2xl text-shadow-regular xl:text-6xl">
+						<span className="text-shadow-regular text-2xl font-extrabold xl:text-6xl">
 							{formatNumber(messageCount, false)}
 						</span>
-						<p className="text-white/50 text-xs xl:place-self-end xl:text-base">messages</p>
+						<p className="text-xs text-white/50 xl:place-self-end xl:text-base">messages</p>
 					</div>
 				</div>
 			</div>
 
 			{featured.length ? (
 				<>
-					<p className="mx-4 text-center font-bold text-3xl text-shadow-regular md:mx-0 xl:whitespace-nowrap xl:text-4xl">
+					<p className="text-shadow-regular mx-4 text-center text-3xl font-bold md:mx-0 xl:text-4xl xl:whitespace-nowrap">
 						Trusted by Discord Servers <span className="italic">you</span> know!
 					</p>
 
@@ -116,7 +116,7 @@ export default async function Homepage() {
 				</>
 			) : null}
 
-			<div className="flex flex-col items-center gap-2 text-balance px-6 text-center">
+			<div className="flex flex-col items-center gap-2 px-6 text-center text-balance">
 				<Showcase
 					description="Seamlessly transition to Lurkr and never look back at unreasonable paywalls."
 					imgSrc={importImg}
@@ -192,7 +192,7 @@ export default async function Homepage() {
 function StartLevelingButton() {
 	return (
 		<ExternalLink
-			className="group relative flex w-72 items-center justify-center rounded-lg p-px font-bold text-3xl"
+			className="group relative flex w-72 items-center justify-center rounded-lg p-px text-3xl font-bold"
 			href={BOT_INVITE}
 		>
 			{/* Background gradient that becomes border on hover */}

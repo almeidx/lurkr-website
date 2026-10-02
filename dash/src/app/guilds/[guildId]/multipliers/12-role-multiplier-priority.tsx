@@ -8,13 +8,13 @@ export function RoleMultiplierPriority({ defaultValue }: { readonly defaultValue
 			key={defaultValue.toString()} // Force remount when defaultValue changes
 		>
 			<RadioGroup className="flex w-fit flex-col gap-4">
-				<label className="flex text-lg text-white/75 tracking-tight md:text-xl" htmlFor="prioritiseMultiplierValue">
+				<label className="flex text-lg tracking-tight text-white/75 md:text-xl" htmlFor="prioritiseMultiplierValue">
 					<Radio id="prioritiseMultiplierValue" name="prioritiseMultiplierRoleHierarchy" rightMargin value="false" />
 					Highest multiplier value
 				</label>
 
 				<label
-					className="flex text-lg text-white/75 tracking-tight md:text-xl"
+					className="flex text-lg tracking-tight text-white/75 md:text-xl"
 					htmlFor="prioritiseMultiplierRoleHierarchy"
 				>
 					<Radio

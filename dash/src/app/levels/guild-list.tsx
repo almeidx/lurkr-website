@@ -6,8 +6,8 @@ import Link from "next/link";
 import { type ChangeEvent, useState } from "react";
 import type { GuildInfo } from "@/app/levels/page.tsx";
 import fallbackAvatarImg from "@/assets/fallback-avatar.webp";
-import { ImageWithFallback } from "@/components/ImageWithFallback.tsx";
 import { Send } from "@/components/icons/mdi/send.tsx";
+import { ImageWithFallback } from "@/components/ImageWithFallback.tsx";
 import { SignInButton } from "@/components/navigation/sign-in.tsx";
 import { guildIcon } from "@/utils/discord-cdn.ts";
 import { isSnowflake } from "@/utils/is-snowflake.ts";
@@ -117,7 +117,7 @@ export function LeaderboardGuildInput() {
 				</Link>
 			</div>
 
-			<div className="mt-6 flex flex-col items-center gap-2 text-center text-white/75 text-xl tracking-tight">
+			<div className="mt-6 flex flex-col items-center gap-2 text-center text-xl tracking-tight text-white/75">
 				If you wish to see the servers you have access to, please login.
 				<SignInButton />
 			</div>

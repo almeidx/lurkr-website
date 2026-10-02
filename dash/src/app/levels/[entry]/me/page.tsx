@@ -26,7 +26,7 @@ export default async function MyLevel({ params }: { params: Promise<{ entry: str
 	return (
 		<div className="mx-auto my-4 max-w-7xl space-y-6">
 			<header className="space-y-2">
-				<h1 className="font-bold text-xl">Leveling Progress</h1>
+				<h1 className="text-xl font-bold">Leveling Progress</h1>
 				<p>Below you can find your leveling progress in the [imagine a server name] server.</p>
 			</header>
 

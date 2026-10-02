@@ -2,7 +2,6 @@
 
 import { object, parse, pipe, regex, safeParse, string, transform } from "valibot";
 import { action } from "@/app/guilds/[guildId]/action-base.ts";
-import type { GuildSettings } from "@/lib/guild.ts";
 import {
 	MAX_AUTO_ROLE_FLAGS_ROLES,
 	MAX_AUTO_ROLE_TIMEOUT,
@@ -14,6 +13,7 @@ import {
 	MIN_AUTO_ROLE_TIMEOUT,
 	MIN_MENTION_COOLDOWN,
 } from "@/lib/guild-config.ts";
+import type { GuildSettings } from "@/lib/guild.ts";
 import { formDataToObject } from "@/utils/form-data-to-object.ts";
 import { lazy } from "@/utils/lazy.ts";
 import { createMinuteIntervalValidator, createSnowflakesValidator, UUID_REGEX } from "@/utils/schemas.ts";
@@ -33,7 +33,7 @@ const autoRoleFlagsKeySchema = pipe(
 	regex(new RegExp(`^autoRoleFlags-(${userFlagNumbers.join("|")})-${UUID_REGEX.source}$`)),
 	transform((value) => {
 		const parts = value.split("-");
-		return { flagId: Number(parts[1]) as UserFlags, id: parts.slice(2).join("-") };
+		return { flagId: Number(parts[1]), id: parts.slice(2).join("-") };
 	}),
 );
 

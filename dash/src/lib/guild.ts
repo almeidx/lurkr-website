@@ -1,11 +1,13 @@
 import type { Snowflake } from "@/utils/discord-cdn.ts";
 import type { UserFlags } from "@/utils/user-flags.ts";
 
-export enum LevelingImportBot {
-	Mee6 = "Mee6",
-	Amari = "Amari",
-	Polaris = "Polaris",
-}
+export const LevelingImportBot = {
+	Amari: "Amari",
+	Mee6: "Mee6",
+	Polaris: "Polaris",
+} as const;
+
+export type LevelingImportBot = (typeof LevelingImportBot)[keyof typeof LevelingImportBot];
 
 export const enum LevelingImportError {
 	LeaderboardNotFound = "LeaderboardNotFound",

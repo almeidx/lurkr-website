@@ -12,9 +12,8 @@
 // 2) repairs the handful of absolute URLs that lost the `/docs` prefix.
 import { mkdir, readdir, readFile, rename, writeFile } from "node:fs/promises";
 import path from "node:path";
-import { fileURLToPath } from "node:url";
 
-const scriptDir = path.dirname(fileURLToPath(import.meta.url));
+const scriptDir = import.meta.dirname;
 const publicDir = path.resolve(scriptDir, "../dist/public");
 const docsDir = path.join(publicDir, "docs");
 

@@ -92,7 +92,7 @@ export function CreateApiKeyDialog({ revalidateApiKeys }: { revalidateApiKeys: (
 												/>
 												<Button
 													aria-label="Copy API Key to clipboard"
-													onPress={() => handleCopyApiKey(apiKey)}
+													onPress={() => void handleCopyApiKey(apiKey)}
 													variant="secondary"
 												>
 													<Copy className="size-4" />

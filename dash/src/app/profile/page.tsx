@@ -52,7 +52,7 @@ export default async function ProfilePage() {
 
 						<div className="flex flex-1 flex-col items-center gap-3 pb-1 sm:items-start">
 							<div className="text-center sm:text-left">
-								<h1 className="font-bold text-2xl leading-tight">{greeting(user.globalName ?? user.username)}</h1>
+								<h1 className="text-2xl leading-tight font-bold">{greeting(user.globalName ?? user.username)}</h1>
 								<p className="text-sm text-white/50">Manage your profile settings and rank card customization.</p>
 							</div>
 

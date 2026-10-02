@@ -23,7 +23,14 @@ export function Form({ title, action, children, description, settingId, defaultV
 
 			if (state.issues) {
 				const issues = JSON.parse(state.issues) as GenericIssue[];
-				errorMessage = issues.map((issue) => `${issue.path?.[0]?.key ?? "Unknown"}: ${issue.message}`).join("\n");
+				errorMessage = issues
+					.map((issue) => {
+						const key = issue.path?.[0]?.key;
+						const label =
+							typeof key === "string" ? key : typeof key === "symbol" ? (key.description ?? "Unknown") : "Unknown";
+						return `${label}: ${issue.message}`;
+					})
+					.join("\n");
 			} else if (state.issue) {
 				errorMessage = state.issue;
 			} else {
@@ -39,7 +46,7 @@ export function Form({ title, action, children, description, settingId, defaultV
 		// /app/(dashboard)/guilds/[guildId]/import/01-leveling-import.tsx
 		<div className="flex w-full flex-col gap-5 p-4">
 			<div className="space-y-2">
-				<h2 className="font-semibold text-2xl">{title}</h2>
+				<h2 className="text-2xl font-semibold">{title}</h2>
 				{description && <p className="text-white/75">{description}</p>}
 			</div>
 
@@ -49,7 +56,7 @@ export function Form({ title, action, children, description, settingId, defaultV
 						<div className="flex w-fit gap-4 rounded-lg border border-[#ffe87c80] bg-[#ffe87c26] px-4 py-2">
 							<p>Turn this system on or off</p>
 
-							<Toggle id={settingId} initialValue={defaultValue!} />
+							<Toggle id={settingId} initialValue={defaultValue} />
 						</div>
 					) : null}
 

@@ -27,7 +27,7 @@ import {
 	MAX_XP_ROLE_REWARDS_PREMIUM,
 } from "@/lib/guild-config.ts";
 
-// biome-ignore format: Doesn't look so good
+// oxfmt-ignore
 export const configLimitFeatures: ConfigLimitComparison[] = [
 	{ free: MAX_XP_ROLE_REWARD_ROLES, name: "Leveling Rewards Roles (Per Level)", suffix: "per level", ultimate: MAX_XP_ROLE_REWARD_ROLES_PREMIUM },
 	{ free: MAX_XP_ROLE_REWARDS, name: "Leveling Rewards Roles (Total)", suffix: "roles total", ultimate: MAX_XP_ROLE_REWARDS_PREMIUM },

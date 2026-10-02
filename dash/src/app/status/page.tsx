@@ -10,11 +10,11 @@ export default async function Status() {
 	return (
 		<div className="mx-auto flex w-full max-w-7xl flex-col items-center justify-center gap-12 px-4 py-12">
 			<header className="flex flex-col items-center justify-center gap-4 text-center">
-				<h1 className="bg-linear-to-br from-white to-white/50 bg-clip-text font-bold text-4xl text-transparent">
+				<h1 className="bg-linear-to-br from-white to-white/50 bg-clip-text text-4xl font-bold text-transparent">
 					Bot Status
 				</h1>
 
-				<p className="max-w-lg text-center text-white/80 text-xl leading-relaxed tracking-tight">
+				<p className="max-w-lg text-center text-xl leading-relaxed tracking-tight text-white/80">
 					Check if the bot is online or having issues in your server!
 				</p>
 			</header>
@@ -25,7 +25,7 @@ export default async function Status() {
 				) : (
 					<div className="flex flex-col items-center justify-center gap-4 text-center">
 						<ReportProblem className="size-16 animate-pulse text-warning" />
-						<p className="font-bold text-2xl text-foreground">The bot is unreachable</p>
+						<p className="text-2xl font-bold text-foreground">The bot is unreachable</p>
 						<p>We are having trouble connecting to the bot API.</p>
 					</div>
 				)}
@@ -44,7 +44,7 @@ async function getData() {
 		next: {
 			revalidate: 30,
 		},
-	}).catch(() => undefined);
+	}).catch(() => {});
 
 	if (!response?.ok) {
 		return null;

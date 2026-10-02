@@ -1,8 +1,7 @@
 import { ChartLine, Check, Xmark } from "@gravity-ui/icons";
 import { Card, Chip } from "@heroui/react";
 import clsx from "clsx";
-import type { StaticImageData } from "next/image";
-import Image from "next/image";
+import Image, { type StaticImageData } from "next/image";
 import Link from "next/link";
 import { PATREON_URL } from "@/shared-links.ts";
 
@@ -97,7 +96,7 @@ function CardContent({
 	buttonText,
 }: CardContentProps) {
 	const buttonClasses = clsx(
-		"flex w-full items-center justify-center rounded-xl px-6 py-3 font-bold text-black text-lg transition-opacity hover:opacity-90",
+		"flex w-full items-center justify-center rounded-xl px-6 py-3 text-lg font-bold text-black transition-opacity hover:opacity-90",
 		tier === 0 && "bg-gradient-lurkr",
 		tier === 1 && "bg-gradient-lurkr-max",
 		tier === 2 && "bg-gradient-lurkr-ultimate",
@@ -122,13 +121,13 @@ function CardContent({
 					width={128}
 				/>
 
-				<Card.Title className="text-center font-bold text-2xl md:text-3xl">{name}</Card.Title>
+				<Card.Title className="text-center text-2xl font-bold md:text-3xl">{name}</Card.Title>
 			</Card.Header>
 
 			<Card.Content className="flex flex-1 flex-col gap-8 px-6">
 				<div className="text-center">
 					<div className="flex items-baseline justify-center gap-1">
-						<span className="font-bold text-5xl tracking-tight">${price}</span>
+						<span className="text-5xl font-bold tracking-tight">${price}</span>
 						<span className="text-lg text-white/60">/month</span>
 					</div>
 					<p className="mt-1 text-sm text-white/50">{price === 0 ? "Free forever" : "Billed monthly via Patreon"}</p>

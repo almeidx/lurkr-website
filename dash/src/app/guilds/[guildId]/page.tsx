@@ -40,25 +40,25 @@ export default async function Dashboard({ params }: { readonly params: Promise<{
 				/>
 
 				<div>
-					<h2 className="mb-4 font-semibold text-2xl">{greeting(user.globalName ?? user.username)}</h2>
+					<h2 className="mb-4 text-2xl font-semibold">{greeting(user.globalName ?? user.username)}</h2>
 
-					<p className="whitespace-pre-wrap text-white/75 text-xl tracking-tighter">
+					<p className="text-xl tracking-tighter whitespace-pre-wrap text-white/75">
 						What would you like to configure {getTimePeriod()}?{"\n"}
 						Below you can find a troubleshooting overview to see if any changes are necessary to your server!
 					</p>
 				</div>
 			</div>
 
-			<h3 className="mt-10 mb-4 flex items-center gap-2 font-semibold text-2xl">
+			<h3 className="mt-10 mb-4 flex items-center gap-2 text-2xl font-semibold">
 				Configuration Overview
 				<DocsBubble
 					path="/config-commands/config/troubleshoot"
 					tooltip="Learn more about the config troubleshoot system"
 				/>
-				<span className="ml-2 inline-block rounded-full bg-red px-2 font-bold text-sm text-white uppercase">BETA</span>
+				<span className="ml-2 inline-block rounded-full bg-red px-2 text-sm font-bold text-white uppercase">BETA</span>
 			</h3>
 
-			<p className="text-white/75 text-xl tracking-tighter">Click on the glowing options to find out more!</p>
+			<p className="text-xl tracking-tighter text-white/75">Click on the glowing options to find out more!</p>
 
 			<div className="mt-6 flex max-w-6xl flex-wrap gap-x-8 gap-y-6 md:mt-12 md:gap-y-10">
 				{statuses.map(({ description, name, type }) => (

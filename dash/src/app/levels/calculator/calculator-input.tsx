@@ -15,7 +15,7 @@ export function CalculatorInput({
 }: CalculatorInputProps) {
 	return (
 		<TextField className={className} type="number" variant="secondary">
-			<Label className="flex items-center gap-1.5 text-small text-zinc-400">
+			<Label className="text-small flex items-center gap-1.5 text-zinc-400">
 				{label}
 				{tooltip && (
 					<ResponsiveTooltip content={<div className="max-w-xs text-center">{tooltip}</div>} delay={100}>

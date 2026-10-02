@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { DocsBubble } from "@/components/dashboard/DocsBubble.tsx";
 import { Input } from "@/components/dashboard/Input.tsx";
 import { Label } from "@/components/dashboard/Label.tsx";
@@ -8,7 +8,6 @@ import { RoleSelector } from "@/components/dashboard/RoleSelector.tsx";
 import { AddComment } from "@/components/icons/mdi/add-comment.tsx";
 import { Delete } from "@/components/icons/mdi/delete.tsx";
 import { Toggle } from "@/components/Toggle.tsx";
-import type { Role, XpRoleReward } from "@/lib/guild.ts";
 import {
 	MAX_XP_ROLE_REWARD_LEVEL,
 	MAX_XP_ROLE_REWARD_ROLES,
@@ -17,6 +16,7 @@ import {
 	MAX_XP_ROLE_REWARDS_PREMIUM,
 	MIN_XP_ROLE_REWARD_LEVEL,
 } from "@/lib/guild-config.ts";
+import type { Role, XpRoleReward } from "@/lib/guild.ts";
 import { getMaximumLimit } from "@/utils/get-maximum-limit.ts";
 import { mapRoleIdsToRoles } from "@/utils/map-role-ids-to-roles.ts";
 
@@ -30,9 +30,11 @@ export function LevelingRoleRewards({ defaultRoleRewards, premium, roles }: Leve
 
 	const isDuplicate = roleRewards.some((roleReward) => roleReward.level === Number.parseInt(newLevel, 10));
 
-	useEffect(() => {
+	const [prevDefaultRoleRewards, setPrevDefaultRoleRewards] = useState(defaultRoleRewards);
+	if (prevDefaultRoleRewards !== defaultRoleRewards) {
+		setPrevDefaultRoleRewards(defaultRoleRewards);
 		setRoleRewards(defaultRoleRewards);
-	}, [defaultRoleRewards]);
+	}
 
 	function handleCreateRoleReward() {
 		const level = Number.parseInt(newLevel, 10);
@@ -72,7 +74,7 @@ export function LevelingRoleRewards({ defaultRoleRewards, premium, roles }: Leve
 			</Label>
 
 			<div className="flex flex-wrap items-center gap-3">
-				<p className="text-lg text-white/75 tracking-tight md:text-xl">Select your role: </p>
+				<p className="text-lg tracking-tight text-white/75 md:text-xl">Select your role: </p>
 
 				<RoleSelector
 					defaultValues={[]}
@@ -83,7 +85,7 @@ export function LevelingRoleRewards({ defaultRoleRewards, premium, roles }: Leve
 					settingId="newRoles"
 				/>
 
-				<p className="text-lg text-white/75 tracking-tight md:text-xl">and the level to reward it at: </p>
+				<p className="text-lg tracking-tight text-white/75 md:text-xl">and the level to reward it at: </p>
 
 				<Input
 					id="newLevel"

@@ -1,8 +1,6 @@
 import "client-only";
-
 // The reason for using "client-only" instead of "use client" is because of the function parameter in the component,
 // which triggers a warning since functions are not serializable.
-
 import { type Dispatch, Fragment, type SetStateAction } from "react";
 import { Close } from "@/components/icons/mdi/close.tsx";
 import { Separator } from "@/components/Separator.tsx";
@@ -49,7 +47,7 @@ export function EmbedFieldsBuilder({ fields, setFields, emojis, roles, placehold
 			</Label>
 
 			<button
-				className="rounded-lg border border-white/25 bg-light-gray px-3 py-2 transition-colors hover:bg-light-gray/50 disabled:cursor-not-allowedç disabled:opacity-50"
+				className="disabled:cursor-not-allowedç rounded-lg border border-white/25 bg-light-gray px-3 py-2 transition-colors hover:bg-light-gray/50 disabled:opacity-50"
 				disabled={fields.length >= MAX_EMBED_FIELDS}
 				onClick={handleAddNewField}
 				type="button"
@@ -60,7 +58,7 @@ export function EmbedFieldsBuilder({ fields, setFields, emojis, roles, placehold
 			<div className="flex flex-col gap-2">
 				{fields.map((field, index, self) => (
 					<Fragment
-						// biome-ignore lint/suspicious/noArrayIndexKey: There is no unique identifier for the fields
+						// oxlint-disable-next-line react/no-array-index-key -- fields have no unique identifier
 						key={`field-${index}`}
 					>
 						<div className="flex flex-col gap-4">

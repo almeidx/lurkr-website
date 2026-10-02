@@ -121,11 +121,12 @@ export function EmbedBuilder({ defaultValue, emojis, roles, placeholders }: Embe
 	}
 
 	function handleCopyEmbed() {
-		navigator.clipboard.writeText(embed);
+		void navigator.clipboard.writeText(embed);
 		toast.success("Copied to clipboard");
 	}
 
 	function handleOverwriteJson() {
+		// oxlint-disable-next-line eslint/no-alert -- intentional prompt for pasting embed JSON
 		const json = prompt("Enter the JSON you want to overwrite the embed with:", embed);
 
 		if (json === null) {
@@ -135,6 +136,7 @@ export function EmbedBuilder({ defaultValue, emojis, roles, placeholders }: Embe
 		const parsed = parseEmbedFromJson(json);
 
 		if (parsed === null) {
+			// oxlint-disable-next-line eslint/no-alert -- intentional validation feedback dialog
 			alert("Invalid JSON");
 			return;
 		}

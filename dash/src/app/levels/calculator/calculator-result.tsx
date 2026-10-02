@@ -7,7 +7,7 @@ import { ResponsiveTooltip } from "@/components/responsive-tooltip.tsx";
 export function CalculatorResult({ label, tooltip, value, title }: CalculatorResultProps) {
 	return (
 		<Surface className="rounded-3xl p-6">
-			<div className="mb-2 flex items-center gap-2 text-zinc-400 uppercase tracking-wider">
+			<div className="mb-2 flex items-center gap-2 tracking-wider text-zinc-400 uppercase">
 				{label}
 				<ResponsiveTooltip content={<div className="max-w-xs text-center">{tooltip}</div>} delay={100}>
 					<div className="cursor-help transition-colors hover:text-white">
@@ -15,7 +15,7 @@ export function CalculatorResult({ label, tooltip, value, title }: CalculatorRes
 					</div>
 				</ResponsiveTooltip>
 			</div>
-			<div className="font-semibold text-2xl text-white" title={title}>
+			<div className="text-2xl font-semibold text-white" title={title}>
 				{value}
 			</div>
 		</Surface>

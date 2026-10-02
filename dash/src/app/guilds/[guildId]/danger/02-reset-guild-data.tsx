@@ -12,7 +12,7 @@ export function ResetGuildData({ guildId }: { readonly guildId: Snowflake }) {
 	return (
 		<Confirmation
 			buttonText="Reset All"
-			className="flex w-fit items-center gap-2 rounded-lg bg-red px-2 py-1 font-semibold text-lg text-shadow-regular md:text-xl"
+			className="text-shadow-regular flex w-fit items-center gap-2 rounded-lg bg-red px-2 py-1 text-lg font-semibold md:text-xl"
 			onConfirm={handleResetAllConfirm}
 		>
 			Are you sure you want to delete all of your server settings, leveling leaderboard, member counts insights, and

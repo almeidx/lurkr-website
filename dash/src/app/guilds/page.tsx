@@ -43,14 +43,14 @@ export default async function GuildList() {
 				/>
 
 				<div>
-					<h1 className="mb-4 font-semibold text-2xl text-white">{greeting(user.globalName ?? user.username)}</h1>
+					<h1 className="mb-4 text-2xl font-semibold text-white">{greeting(user.globalName ?? user.username)}</h1>
 
-					<p className="text-white/75 text-xl tracking-tight">
+					<p className="text-xl tracking-tight text-white/75">
 						Which server would like to configure today? Below you can find a list of all of your servers you are able to
 						configure!
 					</p>
 
-					<p className="text-white/75 text-xl tracking-tight">
+					<p className="text-xl tracking-tight text-white/75">
 						Either invite Lurkr to one of them, or select a server with Lurkr already in it!
 					</p>
 				</div>

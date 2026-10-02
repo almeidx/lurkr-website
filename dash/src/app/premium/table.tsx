@@ -55,23 +55,23 @@ export function ComparisonTable({ section, features }: ComparisonTableProps) {
 					<table aria-label={`${section} comparison table`} className="w-full border-separate border-spacing-0">
 						<thead>
 							<tr>
-								<th className="w-1/2 border-white/10 border-b bg-white/5 px-4 py-4 text-left font-medium text-sm text-white/60 uppercase tracking-wider md:w-auto md:px-6">
+								<th className="w-1/2 border-b border-white/10 bg-white/5 px-4 py-4 text-left text-sm font-medium tracking-wider text-white/60 uppercase md:w-auto md:px-6">
 									Feature
 								</th>
 								{/* Mobile: show selected tab column */}
-								<th className="w-1/2 border-white/10 border-b bg-white/5 px-3 py-4 text-right font-medium text-sm uppercase tracking-wider md:hidden">
+								<th className="w-1/2 border-b border-white/10 bg-white/5 px-3 py-4 text-right text-sm font-medium tracking-wider uppercase md:hidden">
 									{selectedTab === PremiumTier.None && <span className="text-white/60">Free</span>}
 									{selectedTab === PremiumTier.Basic && <span className="text-gradient-lurkr-max">Max</span>}
 									{selectedTab === PremiumTier.Guild && <span className="text-gradient-lurkr-ultimate">Ultimate</span>}
 								</th>
 								{/* Desktop: show all columns */}
-								<th className="hidden w-32 border-white/10 border-b bg-white/5 p-4 text-center font-medium text-sm text-white/60 uppercase tracking-wider md:table-cell">
+								<th className="hidden w-32 border-b border-white/10 bg-white/5 p-4 text-center text-sm font-medium tracking-wider text-white/60 uppercase md:table-cell">
 									Free
 								</th>
-								<th className="hidden w-32 border-white/10 border-b bg-white/5 p-4 text-center font-medium text-sm uppercase tracking-wider md:table-cell">
+								<th className="hidden w-32 border-b border-white/10 bg-white/5 p-4 text-center text-sm font-medium tracking-wider uppercase md:table-cell">
 									<span className="text-gradient-lurkr-max">Max</span>
 								</th>
-								<th className="relative z-20 hidden w-32 border-white/10 border-b bg-white/5 p-4 text-center font-medium text-sm uppercase tracking-wider md:table-cell">
+								<th className="relative z-20 hidden w-32 border-b border-white/10 bg-white/5 p-4 text-center text-sm font-medium tracking-wider uppercase md:table-cell">
 									<span className="text-gradient-lurkr-ultimate">Ultimate</span>
 								</th>
 							</tr>
@@ -82,7 +82,7 @@ export function ComparisonTable({ section, features }: ComparisonTableProps) {
 								<tr className="transition-colors hover:bg-white/5" key={feature.name}>
 									<td
 										className={clsx(
-											"w-1/2 border-white/5 border-b px-4 py-4 text-sm text-white/80 md:w-auto md:px-6",
+											"w-1/2 border-b border-white/5 px-4 py-4 text-sm text-white/80 md:w-auto md:px-6",
 											index % 2 !== 0 && "bg-white/2",
 										)}
 									>
@@ -92,7 +92,7 @@ export function ComparisonTable({ section, features }: ComparisonTableProps) {
 									{/* Mobile: show selected tab value */}
 									<td
 										className={clsx(
-											"w-1/2 border-white/5 border-b px-3 py-4 text-right md:hidden",
+											"w-1/2 border-b border-white/5 px-3 py-4 text-right md:hidden",
 											index % 2 !== 0 && "bg-white/2",
 										)}
 									>
@@ -102,7 +102,7 @@ export function ComparisonTable({ section, features }: ComparisonTableProps) {
 									{/* Desktop: show all columns */}
 									<td
 										className={clsx(
-											"hidden border-white/5 border-b px-4 py-4 text-center md:table-cell",
+											"hidden border-b border-white/5 px-4 py-4 text-center md:table-cell",
 											index % 2 !== 0 && "bg-white/2",
 										)}
 									>
@@ -110,7 +110,7 @@ export function ComparisonTable({ section, features }: ComparisonTableProps) {
 									</td>
 									<td
 										className={clsx(
-											"hidden border-white/5 border-b px-4 py-4 text-center md:table-cell",
+											"hidden border-b border-white/5 px-4 py-4 text-center md:table-cell",
 											index % 2 !== 0 && "bg-white/2",
 										)}
 									>
@@ -118,7 +118,7 @@ export function ComparisonTable({ section, features }: ComparisonTableProps) {
 									</td>
 									<td
 										className={clsx(
-											"relative z-20 hidden border-white/5 border-b px-4 py-4 text-center md:table-cell",
+											"relative z-20 hidden border-b border-white/5 px-4 py-4 text-center md:table-cell",
 											index % 2 !== 0 && "bg-white/2",
 										)}
 									>
@@ -181,7 +181,7 @@ function MaxCell({ feature }: { feature: ConfigLimitComparison | LevelingFeature
 function UltimateCell({ feature }: { feature: ConfigLimitComparison | LevelingFeature }) {
 	if (isConfigLimitFeature(feature)) {
 		return (
-			<span className="font-medium text-sm text-white/80">
+			<span className="text-sm font-medium text-white/80">
 				{feature.ultimate} <span className="text-white/40">{feature.suffix}</span>
 			</span>
 		);

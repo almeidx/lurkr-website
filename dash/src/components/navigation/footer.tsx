@@ -12,17 +12,18 @@ import { GitHub } from "@/components/icons/GitHub.tsx";
 import { BOT_INVITE, GITHUB_REPOSITORY_URL, SUPPORT_SERVER_INVITE, TOPGG_URL } from "@/shared-links.ts";
 
 const footerLinkClasses = clsx(linkVariants().base(), "text-white/50 no-underline hover:text-white");
+const currentYear = new Date().getFullYear();
 const footerIconLinkClasses = clsx(buttonVariants({ isIconOnly: true, variant: "ghost" }), "bg-white/5 text-white/60");
 
 export function Footer() {
 	return (
-		<footer className="border-white/10 border-t bg-black/20">
+		<footer className="border-t border-white/10 bg-black/20">
 			<div className="mx-auto flex w-full max-w-7xl flex-col gap-8 px-4 py-10">
 				<div className="flex flex-col items-start justify-between gap-8 md:flex-row md:items-center">
 					<div className="flex w-full flex-col items-start gap-4 md:w-auto">
 						<Link className="flex items-center gap-3 transition-opacity hover:opacity-80" href="/">
 							<Image alt="Lurkr logo" className="size-10" height={40} src={logoImg} width={40} />
-							<span className="font-bold text-xl">Lurkr</span>
+							<span className="text-xl font-bold">Lurkr</span>
 						</Link>
 						<p className="max-w-xs text-left text-sm text-white/50">
 							The ultimate Discord leveling bot. Track activity, reward engagement, and build thriving communities.
@@ -31,7 +32,7 @@ export function Footer() {
 
 					<div className="grid w-full grid-cols-2 gap-6 md:flex md:w-auto md:flex-row md:gap-12">
 						<div className="flex flex-col items-start gap-3">
-							<p className="font-semibold text-sm text-white/70">Product</p>
+							<p className="text-sm font-semibold text-white/70">Product</p>
 							<div className="flex flex-col gap-2 text-left md:grid md:grid-cols-2 md:gap-x-6 md:gap-y-2">
 								<a className={footerLinkClasses} href={BOT_INVITE} rel="external noopener noreferrer" target="_blank">
 									Invite
@@ -49,7 +50,7 @@ export function Footer() {
 						</div>
 
 						<div className="flex flex-col items-start gap-3">
-							<p className="font-semibold text-sm text-white/70">Legal</p>
+							<p className="text-sm font-semibold text-white/70">Legal</p>
 							<div className="flex flex-col gap-2 text-left">
 								<Link className={footerLinkClasses} href="/privacy">
 									Privacy
@@ -119,8 +120,8 @@ export function Footer() {
 
 				<div className="h-px w-full bg-white/10" />
 
-				<p className="text-center text-white/40 text-xs" suppressHydrationWarning>
-					© {new Date().getFullYear()} Lurkr Team. All rights reserved.
+				<p className="text-center text-xs text-white/40" suppressHydrationWarning>
+					© {currentYear} Lurkr Team. All rights reserved.
 				</p>
 			</div>
 		</footer>

@@ -43,7 +43,7 @@ export function BotSelector() {
 
 	return (
 		<div className="flex flex-col gap-2 rounded-lg">
-			<SelectLabel className="text-lg text-white/75 tracking-tight md:text-xl" store={select}>
+			<SelectLabel className="text-lg tracking-tight text-white/75 md:text-xl" store={select}>
 				Select your current bot:{" "}
 			</SelectLabel>
 
@@ -79,7 +79,7 @@ export function BotSelector() {
 				store={select}
 			>
 				<SelectItem
-					className="flex cursor-pointer items-center gap-2 text-lg text-white/75 tracking-tight hover:text-white"
+					className="flex cursor-pointer items-center gap-2 text-lg tracking-tight text-white/75 hover:text-white"
 					disabled
 					hidden
 					key="none"
@@ -91,7 +91,7 @@ export function BotSelector() {
 
 				{bots.map(({ name, icon, disabled, disabledReason }) => (
 					<SelectItem
-						className="flex cursor-default items-center gap-2 text-lg text-white/75 tracking-tight aria-disabled:cursor-not-allowed aria-disabled:opacity-50 data-active-item:text-white"
+						className="flex cursor-default items-center gap-2 text-lg tracking-tight text-white/75 aria-disabled:cursor-not-allowed aria-disabled:opacity-50 data-active-item:text-white"
 						disabled={disabled}
 						key={name}
 						store={select}
@@ -100,7 +100,7 @@ export function BotSelector() {
 						<Image alt={`${name} icon`} className="size-5 rounded-full" height={20} src={icon} width={20} />
 						<span className="flex flex-col">
 							<span>{name}</span>
-							{disabledReason && <span className="text-white/40 text-xs">{disabledReason}</span>}
+							{disabledReason && <span className="text-xs text-white/40">{disabledReason}</span>}
 						</span>
 					</SelectItem>
 				))}

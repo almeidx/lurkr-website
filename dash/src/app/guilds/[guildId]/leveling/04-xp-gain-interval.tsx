@@ -41,7 +41,7 @@ export function XpGainInterval({ defaultValue }: { readonly defaultValue: number
 	return (
 		<div className="flex flex-col gap-2">
 			<div className="flex items-center">
-				<SelectLabel className="text-lg text-white/75 tracking-tight md:text-xl" store={select}>
+				<SelectLabel className="text-lg tracking-tight text-white/75 md:text-xl" store={select}>
 					Choose how long users must wait between XP-earning messages…
 				</SelectLabel>
 
@@ -73,7 +73,7 @@ export function XpGainInterval({ defaultValue }: { readonly defaultValue: number
 			>
 				{XP_GAIN_INTERVALS.map(({ value, label }) => (
 					<SelectItem
-						className="flex cursor-default items-center rounded-lg p-2 text-lg text-white/75 tracking-tight hover:bg-white/5 data-active-item:bg-white/10 data-active-item:text-white"
+						className="flex cursor-default items-center rounded-lg p-2 text-lg tracking-tight text-white/75 hover:bg-white/5 data-active-item:bg-white/10 data-active-item:text-white"
 						key={value}
 						store={select}
 						value={value.toString()}
