@@ -19,6 +19,12 @@ import {
 	MAX_NO_XP_ROLES,
 	MAX_NO_XP_ROLES_PREMIUM,
 	MAX_VANITY_LENGTH,
+	MAX_VOICE_XP_MAX_SESSION,
+	MAX_VOICE_XP_MAX_SESSION_PREMIUM,
+	MAX_VOICE_XP_MIN_GROUP_COUNT,
+	MAX_VOICE_XP_MIN_GROUP_COUNT_PREMIUM,
+	MAX_VOICE_XP_SESSION_COOLDOWN,
+	MAX_VOICE_XP_SESSION_COOLDOWN_PREMIUM,
 	MAX_XP_ANNOUNCE_LEVELS,
 	MAX_XP_CHANNELS,
 	MAX_XP_CHANNELS_PREMIUM,
@@ -69,6 +75,15 @@ export function getMaximumLimit(setting: LimitedKey, premium: boolean) {
 		case "noXpRoles":
 			return premium ? MAX_NO_XP_ROLES_PREMIUM : MAX_NO_XP_ROLES;
 
+		case "voiceXpMaxSession":
+			return premium ? MAX_VOICE_XP_MAX_SESSION_PREMIUM : MAX_VOICE_XP_MAX_SESSION;
+
+		case "voiceXpMaxSessionCooldown":
+			return premium ? MAX_VOICE_XP_SESSION_COOLDOWN_PREMIUM : MAX_VOICE_XP_SESSION_COOLDOWN;
+
+		case "voiceXpMinGroupCount":
+			return premium ? MAX_VOICE_XP_MIN_GROUP_COUNT_PREMIUM : MAX_VOICE_XP_MIN_GROUP_COUNT;
+
 		case "vanity":
 			return MAX_VANITY_LENGTH;
 
@@ -113,6 +128,12 @@ type LimitedKey =
 			| "storeMilestones"
 			| "syncRoleRewardsOnJoin"
 			| "topXpRole"
+			| "voiceXpChannelMode"
+			| "voiceXpChannels"
+			| "voiceXpDisallowMuted"
+			| "voiceXpEnabled"
+			| "voiceXpPerMinuteMax"
+			| "voiceXpPerMinuteMin"
 			| "voteBoostedXp"
 			| "xpAnnounceChannel"
 			| "xpAnnounceChannelType"

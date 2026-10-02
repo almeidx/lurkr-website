@@ -38,6 +38,23 @@ export const MAX_NO_XP_ROLES_PREMIUM = 10;
 
 export const MIN_VANITY_LENGTH = 2;
 export const MAX_VANITY_LENGTH = 32;
+
+// Voice durations are expressed in minutes, matching the other dashboard sliders.
+// The bot API stores them in milliseconds.
+export const MIN_VOICE_XP_MAX_SESSION = 1;
+export const MAX_VOICE_XP_MAX_SESSION = 24 * 60;
+export const MAX_VOICE_XP_MAX_SESSION_PREMIUM = 48 * 60;
+
+export const MIN_VOICE_XP_SESSION_COOLDOWN = 1;
+export const MAX_VOICE_XP_SESSION_COOLDOWN = 30;
+export const MAX_VOICE_XP_SESSION_COOLDOWN_PREMIUM = 2 * 60;
+
+export const MIN_VOICE_XP_MIN_GROUP_COUNT = 1;
+export const MAX_VOICE_XP_MIN_GROUP_COUNT = 25;
+export const MAX_VOICE_XP_MIN_GROUP_COUNT_PREMIUM = 99;
+
+export const MIN_VOICE_XP_PER_MINUTE = 1;
+export const MAX_VOICE_XP_PER_MINUTE = 1000;
 /** @remarks This pattern does not validate the length of the input. */
 export const VANITY_REGEX_SOURCE = "^[\\da-z]+$";
 

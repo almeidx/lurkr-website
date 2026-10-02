@@ -59,6 +59,11 @@ export default async function Leveling({ params }: { readonly params: Promise<{ 
 			action={action}
 			defaultValue={settings.levels}
 			description="Reward your member's activity with levels, role rewards and more!"
+			disabledWarning={
+				settings.voiceXpEnabled
+					? "Voice leveling is still enabled, but members will not gain any voice XP while the leveling system is turned off."
+					: undefined
+			}
 			settingId="levels"
 			title="Leveling"
 		>

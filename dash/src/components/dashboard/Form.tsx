@@ -1,15 +1,17 @@
 "use client";
 
-import { type PropsWithChildren, useActionState, useEffect } from "react";
+import { type PropsWithChildren, type ReactNode, useActionState, useEffect, useState } from "react";
 import { toast } from "sonner";
 import type { GenericIssue } from "valibot";
 import { SaveButton } from "@/components/dashboard/SaveButton.tsx";
+import { WarningBanner } from "@/components/dashboard/WarningBanner.tsx";
 import { Toggle } from "@/components/Toggle.tsx";
 import type { GuildSettings } from "@/lib/guild.ts";
 import type { ServerActionError } from "@/utils/server-action-error.ts";
 
-export function Form({ title, action, children, description, settingId, defaultValue }: FormProps) {
+export function Form({ title, action, children, description, settingId, defaultValue, disabledWarning }: FormProps) {
 	const [state, formAction, isPending] = useActionState(action, null);
+	const [isEnabled, setIsEnabled] = useState(defaultValue ?? false);
 
 	useEffect(() => {
 		if (state === false) {
@@ -49,12 +51,18 @@ export function Form({ title, action, children, description, settingId, defaultV
 						<div className="flex w-fit gap-4 rounded-lg border border-[#ffe87c80] bg-[#ffe87c26] px-4 py-2">
 							<p>Turn this system on or off</p>
 
-							<Toggle id={settingId} initialValue={defaultValue!} />
+							<Toggle
+								id={settingId}
+								initialValue={defaultValue!}
+								onChange={(event) => setIsEnabled(event.target.checked)}
+							/>
 						</div>
 					) : null}
 
 					<SaveButton pending={isPending} success={state === null ? null : state === true} />
 				</div>
+
+				{settingId && !isEnabled && disabledWarning ? <WarningBanner>{disabledWarning}</WarningBanner> : null}
 
 				{children}
 			</form>
@@ -69,6 +77,11 @@ type FormProps = PropsWithChildren<{
 	): Promise<boolean | { error: ServerActionError; issues?: string; issue?: string }>;
 	readonly defaultValue?: boolean;
 	readonly description?: string;
+	/**
+	 * Warning shown as a banner while the master toggle is turned off. Only
+	 * rendered when `settingId` is set and the page provides this text.
+	 */
+	readonly disabledWarning?: ReactNode;
 	readonly settingId?: keyof GuildSettings;
 	readonly title: string;
 }>;

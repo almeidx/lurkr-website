@@ -13,6 +13,12 @@ import {
 	MAX_NO_TOP_XP_ROLES_PREMIUM,
 	MAX_NO_XP_ROLES,
 	MAX_NO_XP_ROLES_PREMIUM,
+	MAX_VOICE_XP_MAX_SESSION,
+	MAX_VOICE_XP_MAX_SESSION_PREMIUM,
+	MAX_VOICE_XP_MIN_GROUP_COUNT,
+	MAX_VOICE_XP_MIN_GROUP_COUNT_PREMIUM,
+	MAX_VOICE_XP_SESSION_COOLDOWN,
+	MAX_VOICE_XP_SESSION_COOLDOWN_PREMIUM,
 	MAX_XP_CHANNELS,
 	MAX_XP_CHANNELS_PREMIUM,
 	MAX_XP_DISALLOWED_PREFIXES,
@@ -43,6 +49,9 @@ export const configLimitFeatures: ConfigLimitComparison[] = [
 	{ free: MAX_AUTO_ROLES, name: "On Join Roles", suffix: "roles", ultimate: MAX_AUTO_ROLES_PREMIUM },
 	{ free: MAX_AUTO_PUBLISH_CHANNELS, name: "Auto-Publish Channels", suffix: "channels", ultimate: MAX_AUTO_PUBLISH_CHANNELS_PREMIUM },
 	{ free: MAX_MILESTONES_ROLES, name: "Milestone Reward Roles", suffix: "roles", ultimate: MAX_MILESTONES_ROLES_PREMIUM },
+	{ free: MAX_VOICE_XP_MAX_SESSION / 60, name: "Voice XP Maximum Session Length", suffix: "hours", ultimate: MAX_VOICE_XP_MAX_SESSION_PREMIUM / 60 },
+	{ free: MAX_VOICE_XP_SESSION_COOLDOWN, name: "Voice XP Session Cooldown", suffix: "minutes", ultimate: MAX_VOICE_XP_SESSION_COOLDOWN_PREMIUM },
+	{ free: MAX_VOICE_XP_MIN_GROUP_COUNT, name: "Voice XP Minimum Group Count", suffix: "members", ultimate: MAX_VOICE_XP_MIN_GROUP_COUNT_PREMIUM },
 ];
 
 export const extraFeatures: LevelingFeature[] = [
