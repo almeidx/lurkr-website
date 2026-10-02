@@ -296,9 +296,6 @@ importers:
       '@types/textarea-caret':
         specifier: ^3.0.4
         version: 3.0.4
-      babel-plugin-react-compiler:
-        specifier: ^1.0.0
-        version: 1.0.0
       husky:
         specifier: ^9.1.7
         version: 9.1.7
@@ -5787,6 +5784,7 @@ snapshots:
   babel-plugin-react-compiler@1.0.0:
     dependencies:
       '@babel/types': 7.29.8
+    optional: true
 
   bail@2.0.2: {}
 
