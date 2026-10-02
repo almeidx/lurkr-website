@@ -54,7 +54,7 @@ export function RoleMultipliers({
 		}
 
 		setRoleMultipliers((prev) =>
-			[...prev, { id: crypto.randomUUID(), multiplier, targets: roleIds, type: XpMultiplierType.Role }].toSorted(
+			[...prev, { id: crypto.randomUUID(), multiplier, targets: roleIds, type: XpMultiplierType.Role }].sort(
 				(a, b) => a.multiplier - b.multiplier,
 			),
 		);

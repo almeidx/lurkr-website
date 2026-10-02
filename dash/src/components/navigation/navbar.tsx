@@ -47,7 +47,7 @@ const DASHBOARD_LINKS = [
 ];
 
 function getActiveNavHref(pathname: string): string | undefined {
-	return NAV_LINKS.filter(({ href }) => pathname === href || pathname.startsWith(`${href}/`)).toSorted(
+	return NAV_LINKS.filter(({ href }) => pathname === href || pathname.startsWith(`${href}/`)).sort(
 		(a, b) => b.href.length - a.href.length,
 	)[0]?.href;
 }

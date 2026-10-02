@@ -47,7 +47,7 @@ for await (const file of walk(docsDir)) {
 		// sitemap <loc> entries built from the (base-path-less) page url
 		.replaceAll(/<loc>https:\/\/lurkr\.gg\/(?!docs(?:[/?#<]|$))/g, "<loc>https://lurkr.gg/docs/")
 		// "Copy markdown" / view-as-markdown URLs (RSC payload, escaped and raw)
-		.replaceAll(/markdownUrl\\":\\"\/(?!docs(?:[/?#"]|\\|$))/g, String.raw`markdownUrl\":\"/docs/`)
+		.replaceAll(/markdownUrl\\":\\"\/(?!docs(?:[/?#"]|\\|$))/g, 'markdownUrl\\":\\"/docs/')
 		.replaceAll(/markdownUrl":"\/(?!docs(?:[/?#"]|\\|$))/g, 'markdownUrl":"/docs/');
 
 	// The llms.txt index and full-text export link to pages with root-relative

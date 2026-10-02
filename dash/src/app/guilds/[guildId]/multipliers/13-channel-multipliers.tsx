@@ -54,7 +54,7 @@ export function ChannelMultipliers({
 		}
 
 		setChannelMultipliers((prev) =>
-			[...prev, { id: crypto.randomUUID(), multiplier, targets: channelIds, type: XpMultiplierType.Channel }].toSorted(
+			[...prev, { id: crypto.randomUUID(), multiplier, targets: channelIds, type: XpMultiplierType.Channel }].sort(
 				(a, b) => a.multiplier - b.multiplier,
 			),
 		);

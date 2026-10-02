@@ -53,7 +53,7 @@ export function LevelingRoleRewards({ defaultRoleRewards, premium, roles }: Leve
 		}
 
 		setRoleRewards((prev) =>
-			[...prev, { id: crypto.randomUUID(), level, roleIds, stack: true }].toSorted((a, b) => a.level - b.level),
+			[...prev, { id: crypto.randomUUID(), level, roleIds, stack: true }].sort((a, b) => a.level - b.level),
 		);
 
 		setNewRoles([]);

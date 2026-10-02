@@ -3,14 +3,7 @@
 	"options": {
 		"typeAware": true
 	},
-	"plugins": [
-		"react",
-		"jsx-a11y",
-		"nextjs",
-		"typescript",
-		"unicorn",
-		"oxc"
-	],
+	"plugins": ["react", "jsx-a11y", "nextjs", "typescript", "unicorn", "oxc"],
 	"categories": {
 		"correctness": "error",
 		"nursery": "warn",
@@ -24,16 +17,10 @@
 		"browser": true,
 		"node": true
 	},
-	"ignorePatterns": [
-		".claude/",
-		".agents/",
-		"skills-lock.json"
-	],
+	"ignorePatterns": [".claude/", ".agents/", "skills-lock.json"],
 	"overrides": [
 		{
-			"files": [
-				"docs/**"
-			],
+			"files": ["docs/**"],
 			"rules": {
 				"nextjs/no-img-element": "off",
 				"nextjs/no-page-custom-font": "off"
@@ -47,10 +34,7 @@
 		"curly": "off",
 		"default-case": "off",
 		"eslint/arrow-body-style": "off",
-		"eslint/eqeqeq": [
-			"error",
-			"smart"
-		],
+		"eslint/eqeqeq": ["error", "smart"],
 		"eslint/no-eq-null": "off",
 		"eslint/no-underscore-dangle": "off",
 		"eslint/prefer-destructuring": "off",
@@ -83,10 +67,7 @@
 		"no-undefined": "off",
 		"no-void": "off",
 		"no-warning-comments": "off",
-		"one-var": [
-			"error",
-			"never"
-		],
+		"one-var": ["error", "never"],
 		"oxc/no-async-await": "off",
 		"oxc/no-async-endpoint-handlers": "off",
 		"oxc/no-const-enum": "off",
@@ -173,6 +154,7 @@
 		"unicorn/max-nested-calls": "off",
 		"unicorn/no-array-callback-reference": "off",
 		"unicorn/no-array-reduce": "off",
+		"unicorn/no-array-sort": "off",
 		"unicorn/no-await-expression-member": "off",
 		"unicorn/no-nested-ternary": "off",
 		"unicorn/no-null": "off",
@@ -181,6 +163,7 @@
 		"unicorn/numeric-separators-style": "off",
 		"unicorn/prefer-global-this": "off",
 		"unicorn/prefer-number-coercion": "off",
+		"unicorn/prefer-string-raw": "off",
 		"unicorn/switch-case-braces": "off",
 		"yoda": "off"
 	}

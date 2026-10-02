@@ -126,7 +126,6 @@ export function LurkrImportSection({ guildId }: { guildId: Snowflake }) {
 			<Label sub="Restore leveling data from a previous export">Upload your Lurkr export file</Label>
 
 			<div className="mt-2 flex flex-col gap-4">
-				{/* biome-ignore lint/a11y/useSemanticElements: div required for drag and drop support */}
 				<div
 					className="flex cursor-pointer flex-col items-center justify-center gap-3 rounded-lg border-2 border-dashed border-white/25 p-6 transition-colors hover:border-white/50"
 					onClick={handleClick}

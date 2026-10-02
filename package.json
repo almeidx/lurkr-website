@@ -8,6 +8,7 @@
 		"build:typecheck": "pnpm --recursive run build:typecheck",
 		"fmt": "oxlint --fix && oxfmt",
 		"lint": "oxlint && oxfmt --check",
+		"lint:ci": "oxlint --deny-warnings && oxfmt --check",
 		"prepare": "husky .github/husky"
 	},
 	"devDependencies": {

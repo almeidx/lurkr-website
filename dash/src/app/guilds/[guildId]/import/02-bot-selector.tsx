@@ -39,7 +39,7 @@ export function BotSelector() {
 	const select = useSelectStore({ defaultValue: "" });
 	const value = useStoreState(select, "value");
 
-	const selectedBot = bots.find((bot) => bot.name === (value as LevelingImportBot));
+	const selectedBot = bots.find((bot) => bot.name === value);
 
 	return (
 		<div className="flex flex-col gap-2 rounded-lg">

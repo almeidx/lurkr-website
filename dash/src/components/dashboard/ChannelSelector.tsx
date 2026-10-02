@@ -57,7 +57,7 @@ export function ChannelSelector({
 			label: parent?.name ?? nonCategorizedName,
 			options: items,
 		}))
-		.toSorted((a, b) => {
+		.sort((a, b) => {
 			if (a.label === nonCategorizedName) return -1;
 			if (b.label === nonCategorizedName) return 1;
 

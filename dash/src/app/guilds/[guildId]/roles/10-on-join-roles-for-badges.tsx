@@ -46,7 +46,7 @@ export function OnJoinRolesForBadges({ defaultValues, premium, roles }: OnJoinRo
 		}
 
 		setAutoRoleFlags((prev) =>
-			[...prev, { flagId, id: crypto.randomUUID(), roleIds }].toSorted((a, b) => a.flagId - b.flagId),
+			[...prev, { flagId, id: crypto.randomUUID(), roleIds }].sort((a, b) => a.flagId - b.flagId),
 		);
 
 		setNewRoles([]);
