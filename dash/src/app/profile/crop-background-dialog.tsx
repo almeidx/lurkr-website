@@ -2,7 +2,7 @@
 
 import "react-image-crop/dist/ReactCrop.css";
 import { Button, Modal } from "@heroui/react";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import ReactCrop, { centerCrop, type Crop, makeAspectCrop, type PixelCrop } from "react-image-crop";
 
 const ASPECT_RATIO = 4;
@@ -14,7 +14,7 @@ export function CropBackgroundDialog({ file, onConfirm, onClose }: CropBackgroun
 	const [error, setError] = useState<string | null>(null);
 	const imgRef = useRef<HTMLImageElement>(null);
 
-	const imageSrc = useMemo(() => URL.createObjectURL(file), [file]);
+	const imageSrc = URL.createObjectURL(file);
 
 	useEffect(() => {
 		return () => URL.revokeObjectURL(imageSrc);
