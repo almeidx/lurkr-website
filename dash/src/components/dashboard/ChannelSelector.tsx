@@ -52,12 +52,12 @@ export function ChannelSelector({
 		return acc;
 	}, new Map<Channel | null, Channel[]>());
 
-	const channelOptions = Array.from(categorized.entries())
+	const channelOptions = [...categorized.entries()]
 		.map(([parent, items]) => ({
 			label: parent?.name ?? nonCategorizedName,
 			options: items,
 		}))
-		.sort((a, b) => {
+		.toSorted((a, b) => {
 			if (a.label === nonCategorizedName) return -1;
 			if (b.label === nonCategorizedName) return 1;
 

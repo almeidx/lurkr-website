@@ -27,7 +27,7 @@ function FeaturedGuild({ id, icon, name, memberCount, partner, verified, index }
 	const alt = verified ? "Verified guild badge" : partner ? "Partner guild badge" : "Discoverable guild badge";
 
 	return (
-		<div className="flex select-none items-center gap-4 rounded-lg border border-white/25 bg-darker px-3 py-2 md:gap-6">
+		<div className="flex items-center gap-4 rounded-lg border border-white/25 bg-darker px-3 py-2 select-none md:gap-6">
 			<ImageWithFallback
 				alt={`${name}'s icon`}
 				className="no-drag size-14 rounded-full md:size-16"
@@ -39,7 +39,7 @@ function FeaturedGuild({ id, icon, name, memberCount, partner, verified, index }
 
 			<div className="flex flex-col">
 				<p
-					className="flex max-w-[70%] items-center gap-2 overflow-hidden text-ellipsis whitespace-nowrap font-bold text-lg sm:max-w-64 sm:text-xl md:max-w-64 lg:text-2xl"
+					className="flex max-w-[70%] items-center gap-2 overflow-hidden text-lg font-bold text-ellipsis whitespace-nowrap sm:max-w-64 sm:text-xl md:max-w-64 lg:text-2xl"
 					title={name}
 				>
 					<Image alt={alt} className="no-drag size-5 rounded-full" height={20} src={iconSrc} width={20} />

@@ -47,23 +47,24 @@ const DASHBOARD_LINKS = [
 ];
 
 function getActiveNavHref(pathname: string): string | undefined {
-	return NAV_LINKS.filter(({ href }) => pathname === href || pathname.startsWith(`${href}/`)).sort(
+	return NAV_LINKS.filter(({ href }) => pathname === href || pathname.startsWith(`${href}/`)).toSorted(
 		(a, b) => b.href.length - a.href.length,
 	)[0]?.href;
 }
 
 export function Navbar({ children }: PropsWithChildren) {
 	const [menuOpen, setMenuOpen] = useState(false);
-	const pathname = usePathname()!;
+	const pathname = usePathname();
 
-	const guildId = pathname.match(/^\/guilds\/(\d+)/)?.[1];
+	const guildId = /^\/guilds\/(\d+)/.exec(pathname)?.[1];
 	const showDashboardLinks = !!guildId;
 	const activeNavHref = getActiveNavHref(pathname);
 
-	// biome-ignore lint/correctness/useExhaustiveDependencies: Intentional
+	/* oxlint-disable react/set-state-in-effect, react/exhaustive-effect-dependencies -- close the mobile menu on navigation; no event to hook into, re-run only when the route changes */
 	useEffect(() => {
 		setMenuOpen(false);
 	}, [pathname]);
+	/* oxlint-enable react/set-state-in-effect, react/exhaustive-effect-dependencies */
 
 	useEffect(() => {
 		const mq = window.matchMedia("(min-width: 768px)");
@@ -76,11 +77,11 @@ export function Navbar({ children }: PropsWithChildren) {
 
 	return (
 		<>
-			<header className="sticky top-0 z-50 border-white/10 border-b bg-background/80 backdrop-blur-lg">
+			<header className="sticky top-0 z-50 border-b border-white/10 bg-background/80 backdrop-blur-lg">
 				<div className="container mx-auto flex items-center justify-between px-4 py-2.5 md:grid md:grid-cols-[1fr_auto_1fr]">
 					<Link className="flex w-fit items-center gap-2.5" href="/">
 						<Image alt="Lurkr logo" className="size-9" height={36} priority quality={100} src={logoSmallImg} />
-						<span className="font-semibold text-lg">Lurkr</span>
+						<span className="text-lg font-semibold">Lurkr</span>
 					</Link>
 
 					<nav className="hidden md:block">
@@ -124,10 +125,10 @@ export function Navbar({ children }: PropsWithChildren) {
 						<Drawer.Body className="py-4">
 							{showDashboardLinks && guildId ? (
 								<>
-									<p className="mb-2 px-3 font-medium text-white/40 text-xs uppercase tracking-wider">Dashboard</p>
+									<p className="mb-2 px-3 text-xs font-medium tracking-wider text-white/40 uppercase">Dashboard</p>
 									<DashboardMobileLinks guildId={guildId} pathname={pathname} />
 									<Separator className="my-3" />
-									<p className="mb-2 px-3 font-medium text-white/40 text-xs uppercase tracking-wider">Navigation</p>
+									<p className="mb-2 px-3 text-xs font-medium tracking-wider text-white/40 uppercase">Navigation</p>
 								</>
 							) : null}
 							<MobileNavLinks activeNavHref={activeNavHref} />

@@ -62,8 +62,8 @@ export function Textarea({
 		}
 	}, [caretOffset]);
 
-	// biome-ignore lint/correctness/useExhaustiveDependencies: This is intended
-	useEffect(combobox.render, [combobox, value]);
+	// oxlint-disable-next-line react/exhaustive-effect-dependencies -- intentional: re-render the combobox when the textarea value changes
+	useEffect(() => combobox.render(), [combobox, value]);
 
 	function onKeyDown(event: KeyboardEvent<HTMLTextAreaElement>) {
 		if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
@@ -259,7 +259,7 @@ function getList(
 	}
 }
 
-function getValue(value: Emoji | PlaceholderValue | Role, trigger: string | null) {
+function getValue(value: Emoji | PlaceholderValue | Role, trigger: string | null): string | undefined {
 	switch (trigger) {
 		case "@":
 			return `<@&${(value as Role).id}>`;
@@ -270,9 +270,10 @@ function getValue(value: Emoji | PlaceholderValue | Role, trigger: string | null
 		}
 
 		case "{":
-			return (value as PlaceholderValue).id;
+			return value.id;
 
 		default:
+			// oxlint-disable-next-line unicorn/no-useless-undefined -- noImplicitReturns requires an explicit value return on all paths
 			return undefined;
 	}
 }

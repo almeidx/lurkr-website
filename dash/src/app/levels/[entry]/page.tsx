@@ -2,7 +2,7 @@ import { buttonVariants } from "@heroui/styles";
 import { isHTTPError } from "ky";
 import type { Metadata } from "next";
 import Link from "next/link";
-import { RedirectType, redirect } from "next/navigation";
+import { redirect, RedirectType } from "next/navigation";
 import prettyMilliseconds from "pretty-ms";
 import { LeaderboardTable } from "@/app/levels/[entry]/01-leaderboard-table.tsx";
 import {
@@ -28,6 +28,13 @@ import type { Multiplier } from "./04-multiplier.tsx";
 import { NsfwConsentGate } from "./nsfw-consent-gate.tsx";
 import { SortableMultipliers } from "./sortable-multipliers.tsx";
 import { SortableRoleRewards } from "./sortable-role-rewards.tsx";
+
+enum GetLeaderboardError {
+	Generic = 0,
+	MustBeLoggedIn = 1,
+	MustBeAMemberOfGuild = 2,
+	UnknownGuildOrDisabled = 3,
+}
 
 export default async function Leaderboard({ params, searchParams }: LeaderboardProps) {
 	const [{ page: rawPage }, { entry }] = await Promise.all([searchParams, params]);
@@ -112,7 +119,7 @@ export default async function Leaderboard({ params, searchParams }: LeaderboardP
 						width={36}
 					/>
 
-					<h1 className="font-bold text-2xl text-white md:text-3xl">{guild.name}</h1>
+					<h1 className="text-2xl font-bold text-white md:text-3xl">{guild.name}</h1>
 				</div>
 
 				<p className="px-8 md:px-0">
@@ -126,7 +133,7 @@ export default async function Leaderboard({ params, searchParams }: LeaderboardP
 
 					{levels.length === 0 ? (
 						page > 2 ? (
-							<p className="mb-4 text-balance text-center">
+							<p className="mb-4 text-center text-balance">
 								There are no users in this page. Try going back to{" "}
 								<Link className="text-blurple underline" href={`/levels/${vanity ?? guild.id}?page=1`}>
 									page 1
@@ -134,7 +141,7 @@ export default async function Leaderboard({ params, searchParams }: LeaderboardP
 								?
 							</p>
 						) : page > 1 ? (
-							<p className="mb-4 text-balance text-center">There are no users in this page. Try going back</p>
+							<p className="mb-4 text-center text-balance">There are no users in this page. Try going back</p>
 						) : (
 							<p className="mb-4 text-center">There are no users with experience yet</p>
 						)
@@ -259,13 +266,6 @@ function parsePage(rawPage: string) {
 	}
 
 	return page;
-}
-
-enum GetLeaderboardError {
-	Generic = 0,
-	MustBeLoggedIn = 1,
-	MustBeAMemberOfGuild = 2,
-	UnknownGuildOrDisabled = 3,
 }
 
 interface LevelsGuildMetadataResponse {

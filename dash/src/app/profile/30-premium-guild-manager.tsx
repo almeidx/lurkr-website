@@ -69,7 +69,7 @@ export function PremiumGuildManager({ guilds, premium, premiumGuild }: PremiumGu
 			<div>
 				<div className="flex items-center gap-2">
 					<Star className="size-5 text-white/60" />
-					<h3 className="font-semibold text-xl">Premium Guild</h3>
+					<h3 className="text-xl font-semibold">Premium Guild</h3>
 				</div>
 				<p className="text-sm text-white/50">
 					Assign your premium benefits to a server for increased configuration limits.
@@ -120,7 +120,7 @@ export function PremiumGuildManager({ guilds, premium, premiumGuild }: PremiumGu
 						</div>
 					</div>
 
-					{error && <p className="text-red text-sm">{error}</p>}
+					{error && <p className="text-sm text-red">{error}</p>}
 				</>
 			) : (
 				<div className="rounded-xl border border-white/10 bg-white/3 px-4 py-3">

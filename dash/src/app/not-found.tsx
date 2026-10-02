@@ -1,5 +1,4 @@
 import "@/app/globals.css";
-
 import { buttonVariants } from "@heroui/styles";
 import type { Metadata } from "next";
 import Link from "next/link";

@@ -9,6 +9,7 @@ export async function WrappedNoticeContainer() {
 		return null;
 	}
 
+	// oxlint-disable-next-line react/purity -- server component: notice window must be evaluated per request
 	const date = new Date();
 	const currentMonth = date.getMonth();
 

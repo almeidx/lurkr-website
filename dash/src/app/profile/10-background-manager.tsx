@@ -8,10 +8,10 @@ import { type ChangeEvent, type DragEvent, useRef, useState } from "react";
 import { api } from "@/lib/api.ts";
 import { getUserBackground } from "./get-user-background.ts";
 
-const CropBackgroundDialog = dynamic(() =>
+const CropBackgroundDialog = dynamic(async () =>
 	import("./crop-background-dialog.tsx").then((mod) => ({ default: mod.CropBackgroundDialog })),
 );
-const DeleteBackgroundDialog = dynamic(() =>
+const DeleteBackgroundDialog = dynamic(async () =>
 	import("./delete-background-dialog.tsx").then((mod) => ({ default: mod.DeleteBackgroundDialog })),
 );
 
@@ -102,7 +102,7 @@ export function BackgroundManager({ initialUrl }: { readonly initialUrl: string 
 				<div>
 					<div className="flex items-center gap-2">
 						<Picture className="size-5 text-white/60" />
-						<h3 className="font-semibold text-xl">Background Image</h3>
+						<h3 className="text-xl font-semibold">Background Image</h3>
 					</div>
 					<p className="text-sm text-white/50">Used as the background of your rank card.</p>
 				</div>
@@ -142,7 +142,7 @@ export function BackgroundManager({ initialUrl }: { readonly initialUrl: string 
 				</div>
 			) : (
 				<button
-					className="flex aspect-4/2 w-full cursor-pointer items-center justify-center rounded-xl border-2 border-white/15 border-dashed bg-white/3 transition-colors hover:border-white/30 hover:bg-white/5 sm:aspect-4/1"
+					className="flex aspect-4/2 w-full cursor-pointer items-center justify-center rounded-xl border-2 border-dashed border-white/15 bg-white/3 transition-colors hover:border-white/30 hover:bg-white/5 sm:aspect-4/1"
 					onClick={() => fileInputRef.current?.click()}
 					onDragLeave={handleDragLeave}
 					onDragOver={handleDragOver}
@@ -153,12 +153,12 @@ export function BackgroundManager({ initialUrl }: { readonly initialUrl: string 
 					<div className="flex flex-col items-center gap-2 text-white/40">
 						<ArrowUpFromLine className="size-8" />
 						<p className="text-sm">Drag & drop or click to upload</p>
-						<p className="text-white/25 text-xs">JPEG, PNG, or WebP. Max 5 MB.</p>
+						<p className="text-xs text-white/25">JPEG, PNG, or WebP. Max 5 MB.</p>
 					</div>
 				</button>
 			)}
 
-			{error && <p className="text-red text-sm">{error}</p>}
+			{error && <p className="text-sm text-red">{error}</p>}
 
 			{pendingFile && (
 				<CropBackgroundDialog file={pendingFile} onClose={closeCropModal} onConfirm={handleCropConfirm} />

@@ -85,6 +85,7 @@ export function Calculator() {
 							<ArrowRight className="mt-6 hidden text-zinc-400 md:flex" />
 
 							<CalculatorInput
+								// oxlint-disable-next-line jsx-a11y/no-autofocus -- intentional initial focus on the calculator primary input
 								autoFocus
 								className="min-w-0 flex-1"
 								id="desiredLevel"
@@ -153,7 +154,7 @@ export function Calculator() {
 
 				<div className="flex w-full shrink-0 flex-col gap-4 lg:sticky lg:top-8 lg:w-96">
 					<Surface className="rounded-3xl bg-linear-to-br from-primary/10 to-transparent p-8 backdrop-blur-md">
-						<div className="mb-2 flex items-center gap-2 text-small text-zinc-400 uppercase tracking-wider">
+						<div className="text-small mb-2 flex items-center gap-2 tracking-wider text-zinc-400 uppercase">
 							Approximate Messages
 							<ResponsiveTooltip
 								content={<div className="max-w-xs text-center">{APPROXIMATE_MESSAGES_TOOLTIP}</div>}
@@ -165,14 +166,14 @@ export function Calculator() {
 							</ResponsiveTooltip>
 						</div>
 						<div
-							className="bg-linear-to-br from-white to-white/60 bg-clip-text font-bold text-6xl text-transparent tracking-tighter"
+							className="bg-linear-to-br from-white to-white/60 bg-clip-text text-6xl font-bold tracking-tighter text-transparent"
 							title={approxMessages.toString()}
 						>
 							{formatNumber(approxMessages)}
 						</div>
 					</Surface>
 
-					<div className="grid grid-cols-1 xs:grid-cols-2 gap-4">
+					<div className="grid grid-cols-1 gap-4 xs:grid-cols-2">
 						<CalculatorResult
 							label="Time"
 							title={formattedEstimatedTime}

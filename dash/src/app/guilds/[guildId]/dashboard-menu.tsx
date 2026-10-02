@@ -7,7 +7,6 @@ import { usePathname } from "next/navigation";
 import type { PropsWithChildren } from "react";
 import type { GuildInfo } from "@/app/guilds/page.tsx";
 import fallbackAvatarImg from "@/assets/fallback-avatar.webp";
-import { ImageWithFallback } from "@/components/ImageWithFallback.tsx";
 import { EmojiEmotions } from "@/components/icons/mdi/emoji-emotions.tsx";
 import { FormatListBulleted } from "@/components/icons/mdi/format-list-bulleted.tsx";
 import { MiscellaneousServices } from "@/components/icons/mdi/miscellaneous-services.tsx";
@@ -18,14 +17,15 @@ import { SmartToy } from "@/components/icons/mdi/smart-toy.tsx";
 import { TrendingUp } from "@/components/icons/mdi/trending-up.tsx";
 import { Warning } from "@/components/icons/mdi/warning.tsx";
 import { Patreon } from "@/components/icons/Patreon.tsx";
+import { ImageWithFallback } from "@/components/ImageWithFallback.tsx";
 import type { Guild, GuildSettings } from "@/lib/guild.ts";
 import { guildIcon } from "@/utils/discord-cdn.ts";
 import type { GuildMetadataResult } from "./layout.tsx";
 
 export function DashboardMenu({ guild, guilds }: DashboardMenuProps) {
-	const pathname = usePathname()!;
+	const pathname = usePathname();
 
-	const currentDashSection = (pathname.split("/")[3] ?? "overview") as Section;
+	const currentDashSection = pathname.split("/")[3] ?? "overview";
 
 	return (
 		<div className="flex flex-col items-center gap-6 bg-transparent py-0 pr-8 pl-12 md:sticky md:top-12">

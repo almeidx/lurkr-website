@@ -1,4 +1,3 @@
-import type { GuildSettings } from "@/lib/guild.ts";
 import {
 	MAX_AUTO_PUBLISH_CHANNELS,
 	MAX_AUTO_PUBLISH_CHANNELS_PREMIUM,
@@ -33,6 +32,7 @@ import {
 	MAX_XP_ROLE_REWARDS,
 	MAX_XP_ROLE_REWARDS_PREMIUM,
 } from "@/lib/guild-config.ts";
+import type { GuildSettings } from "@/lib/guild.ts";
 
 export function getMaximumLimit(setting: LimitedKey, premium: boolean) {
 	switch (setting) {

@@ -13,23 +13,23 @@ export function dateToRelativeTimeAgo(timestamp: Date, locale: string) {
 
 	const rtf = getRtf(locale);
 
-	if (elapsed < Time.Minutes) {
+	if (elapsed < (Time.Minutes as number)) {
 		return rtf.format(-Math.floor(elapsed / Time.Seconds), "seconds");
 	}
 
-	if (elapsed < Time.Hours) {
+	if (elapsed < (Time.Hours as number)) {
 		return rtf.format(-Math.floor(elapsed / Time.Minutes), "minutes");
 	}
 
-	if (elapsed < Time.Days) {
+	if (elapsed < (Time.Days as number)) {
 		return rtf.format(-Math.floor(elapsed / Time.Hours), "hours");
 	}
 
-	if (elapsed < Time.Months) {
+	if (elapsed < (Time.Months as number)) {
 		return rtf.format(-Math.floor(elapsed / Time.Days), "days");
 	}
 
-	if (elapsed < Time.Years) {
+	if (elapsed < (Time.Years as number)) {
 		return rtf.format(-Math.floor(elapsed / Time.Months), "months");
 	}
 

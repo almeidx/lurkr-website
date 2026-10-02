@@ -21,7 +21,7 @@ export function EditLeaderboardVisibility({ defaultValue, guildId, nsfw }: EditL
 
 	return (
 		<div className="flex flex-col gap-2">
-			<SelectLabel className="text-lg text-white/75 tracking-tight md:text-xl" store={select}>
+			<SelectLabel className="text-lg tracking-tight text-white/75 md:text-xl" store={select}>
 				Choose the visibility for the{" "}
 				<Link
 					className="text-blurple"

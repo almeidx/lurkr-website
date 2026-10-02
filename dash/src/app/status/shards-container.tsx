@@ -30,7 +30,7 @@ export function ShardsContainer({ shards, totalShards }: ShardsContainerProps) {
 				) : (
 					<div className="flex flex-col items-center justify-center gap-4 py-12 text-center">
 						<ReportProblem className="size-12 text-warning" />
-						<p className="font-bold text-foreground text-xl">The bot is unreachable</p>
+						<p className="text-xl font-bold text-foreground">The bot is unreachable</p>
 						<p>We are likely performing maintenance. Please check back later.</p>
 					</div>
 				)}

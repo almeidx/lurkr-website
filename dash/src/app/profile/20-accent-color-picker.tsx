@@ -77,7 +77,7 @@ export function AccentColorPicker({ avatarUrl, initialColor }: AccentColorPicker
 			<div>
 				<div className="flex items-center gap-2">
 					<Palette className="size-5 text-white/60" />
-					<h3 className="font-semibold text-xl">Accent Color</h3>
+					<h3 className="text-xl font-semibold">Accent Color</h3>
 				</div>
 				<p className="text-sm text-white/50">Used as the progress bar color of your rank card.</p>
 			</div>
@@ -141,7 +141,7 @@ export function AccentColorPicker({ avatarUrl, initialColor }: AccentColorPicker
 				</div>
 			</div>
 
-			{error && <p className="text-red text-sm">{error}</p>}
+			{error && <p className="text-sm text-red">{error}</p>}
 		</div>
 	);
 }

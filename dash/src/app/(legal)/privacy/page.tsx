@@ -17,7 +17,7 @@ export default function PrivacyPolicy() {
 	);
 
 	return (
-		<div className="prose lg:prose-lg prose-blue-400 mx-auto mt-5 px-4 prose-headings:text-white prose-strong:text-white text-white/75 md:px-0">
+		<div className="prose-blue-400 mx-auto prose mt-5 px-4 text-white/75 md:px-0 lg:prose-lg prose-headings:text-white prose-strong:text-white">
 			<h1>Privacy Policy</h1>
 
 			<p>Last modified: {lastModified}</p>

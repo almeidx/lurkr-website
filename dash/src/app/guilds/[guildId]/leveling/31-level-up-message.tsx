@@ -4,8 +4,8 @@ import { useState } from "react";
 import { Label } from "@/components/dashboard/Label.tsx";
 import { Textarea } from "@/components/dashboard/Textarea.tsx";
 import { RestartAlt } from "@/components/icons/mdi/restart-alt.tsx";
-import type { Emoji, Role } from "@/lib/guild.ts";
 import { DEFAULT_XP_MESSAGE, MAX_XP_MESSAGE_LENGTH, MIN_XP_MESSAGE_LENGTH } from "@/lib/guild-config.ts";
+import type { Emoji, Role } from "@/lib/guild.ts";
 import { levelUpMessagePlaceholders } from "./level-up-message-placeholders.ts";
 
 export function LevelUpMessage({ defaultValue, emojis, roles }: LevelUpMessageProps) {
@@ -23,7 +23,7 @@ export function LevelUpMessage({ defaultValue, emojis, roles }: LevelUpMessagePr
 				</Label>
 
 				<button
-					className="flex items-center gap-2 rounded-lg bg-red px-2 py-1 text-shadow-regular transition-colors hover:bg-red/70"
+					className="text-shadow-regular flex items-center gap-2 rounded-lg bg-red px-2 py-1 transition-colors hover:bg-red/70"
 					onClick={handleReset}
 					type="button"
 				>

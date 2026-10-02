@@ -11,7 +11,7 @@ import { type Snowflake, userAvatar } from "@/utils/discord-cdn.ts";
 import { formatNumber } from "@/utils/format-number.ts";
 import { isSnowflake } from "@/utils/is-snowflake.ts";
 
-const Confirmation = dynamic(() =>
+const Confirmation = dynamic(async () =>
 	import("@/components/Confirmation.tsx").then((mod) => ({ default: mod.Confirmation })),
 );
 
@@ -24,9 +24,9 @@ export function LeaderboardTableRow({ guildId, row, isManager }: LeaderboardTabl
 		<DisclosureProvider>
 			<div>
 				<Disclosure className="flex w-full items-center gap-1 rounded-lg border border-white/25 bg-dark-gray px-2 py-3 hover:bg-dark-gray/50 aria-expanded:mb-0 aria-expanded:rounded-t-lg aria-expanded:rounded-b-none">
-					<div className="flex min-w-14 max-w-[15%] justify-center rounded-s-lg">
+					<div className="flex max-w-[15%] min-w-14 justify-center rounded-s-lg">
 						<div
-							className="flex size-8 items-center justify-center rounded-full font-bold text-shadow-regular"
+							className="text-shadow-regular flex size-8 items-center justify-center rounded-full font-bold"
 							style={{ backgroundColor: getRankColor(row.rank) }}
 							title={row.rank.toString()}
 						>
@@ -48,16 +48,16 @@ export function LeaderboardTableRow({ guildId, row, isManager }: LeaderboardTabl
 						<p className="max-w-40 sm:max-w-96">{row.user.username}</p>
 					</div>
 
-					<div className="xs:block hidden min-w-14 max-w-[15%] text-center">{formatNumber(row.messageCount)}</div>
+					<div className="hidden max-w-[15%] min-w-14 text-center xs:block">{formatNumber(row.messageCount)}</div>
 
-					<div className="hidden min-w-14 max-w-[15%] text-center sm:block">{formatNumber(row.xp)}</div>
+					<div className="hidden max-w-[15%] min-w-14 text-center sm:block">{formatNumber(row.xp)}</div>
 
-					<div className="flex min-w-14 max-w-[15%] items-center justify-center">
+					<div className="flex max-w-[15%] min-w-14 items-center justify-center">
 						<RadialProgressBar color={row.user.accentColour} num={row.level} percentage={row.progress} />
 					</div>
 				</Disclosure>
 
-				<DisclosureContent className="mb-4 flex w-full flex-col justify-between gap-2 rounded-b-lg border-white/25 border-x border-b bg-dark-gray/50 px-2 py-1.5 md:flex-row md:gap-0">
+				<DisclosureContent className="mb-4 flex w-full flex-col justify-between gap-2 rounded-b-lg border-x border-b border-white/25 bg-dark-gray/50 px-2 py-1.5 md:flex-row md:gap-0">
 					<div>
 						<p>
 							Experience: <span className="text-white/75">{row.xp.toLocaleString("en")}</span>

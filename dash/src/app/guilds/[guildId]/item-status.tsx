@@ -45,7 +45,11 @@ function PopoverWrapper({
 	children,
 	description,
 }: PropsWithChildren<{ readonly description: string | null | undefined }>) {
-	return description ? <ItemStatusPopover description={description}>{children}</ItemStatusPopover> : children;
+	return description ? (
+		<ItemStatusPopover description={description}>{children}</ItemStatusPopover>
+	) : (
+		<span className="contents">{children}</span>
+	);
 }
 
 interface ItemStatusProps {

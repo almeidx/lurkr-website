@@ -28,11 +28,11 @@ export function WrappedNotice() {
 						</Avatar>
 					</Alert.Indicator>
 					<Alert.Content>
-						<Alert.Title className="bg-linear-to-r from-[#ff7077] to-[#ffe87c] bg-clip-text font-bold text-lg text-transparent">
+						<Alert.Title className="bg-linear-to-r from-[#ff7077] to-[#ffe87c] bg-clip-text text-lg font-bold text-transparent">
 							Lurkr Wrapped 2025 is here!
 						</Alert.Title>
 						<Alert.Description className="text-white/90">
-							Run <code className="rounded-md bg-white/10 px-2 py-0.5 font-medium font-mono">/wrapped</code> in your
+							Run <code className="rounded-md bg-white/10 px-2 py-0.5 font-mono font-medium">/wrapped</code> in your
 							server to check out your year in review!
 						</Alert.Description>
 					</Alert.Content>

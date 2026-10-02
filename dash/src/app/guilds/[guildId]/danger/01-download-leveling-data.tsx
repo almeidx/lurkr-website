@@ -12,9 +12,8 @@ export function DownloadLevelingData({ guildId, levelingSystemEnabled }: Downloa
 	const [dataExport, setDataExport] = useState<DataExportResult | null>(null);
 	const [isLoading, setIsLoading] = useState(true);
 
-	// biome-ignore lint/correctness/useExhaustiveDependencies: Intended
 	useEffect(() => {
-		(async () => {
+		void (async () => {
 			try {
 				const response = await makeApiRequest(`/levels/${guildId}/export`);
 
@@ -27,7 +26,7 @@ export function DownloadLevelingData({ guildId, levelingSystemEnabled }: Downloa
 			}
 			setIsLoading(false);
 		})();
-	}, []);
+	}, [guildId]);
 
 	async function handleCreateExport() {
 		if (!levelingSystemEnabled || isLoading) {
@@ -52,7 +51,7 @@ export function DownloadLevelingData({ guildId, levelingSystemEnabled }: Downloa
 	if (levelingSystemEnabled && dataExport?.url) {
 		return (
 			<ExternalLink
-				className="flex w-fit items-center gap-2 rounded-lg bg-light-gray px-2 py-1 font-semibold text-lg text-shadow-regular md:text-xl"
+				className="text-shadow-regular flex w-fit items-center gap-2 rounded-lg bg-light-gray px-2 py-1 text-lg font-semibold md:text-xl"
 				href={dataExport.url}
 			>
 				Download export
@@ -64,7 +63,7 @@ export function DownloadLevelingData({ guildId, levelingSystemEnabled }: Downloa
 	return (
 		<button
 			className={clsx(
-				"flex w-fit items-center gap-2 rounded-lg bg-light-gray px-2 py-1 font-semibold text-lg text-shadow-regular md:text-xl",
+				"text-shadow-regular flex w-fit items-center gap-2 rounded-lg bg-light-gray px-2 py-1 text-lg font-semibold md:text-xl",
 				(!levelingSystemEnabled || isLoading) && "pointer-events-none opacity-50",
 			)}
 			disabled={!levelingSystemEnabled || isLoading}

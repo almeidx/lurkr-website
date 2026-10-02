@@ -4,7 +4,6 @@ import { Input } from "@/components/dashboard/Input.tsx";
 import { Label } from "@/components/dashboard/Label.tsx";
 import { Text } from "@/components/dashboard/Text.tsx";
 import { Toggle } from "@/components/Toggle.tsx";
-import type { GuildSettings } from "@/lib/guild.ts";
 import {
 	MAX_XP_ANNOUNCE_LEVEL,
 	MAX_XP_ANNOUNCE_MINIMUM_LEVEL,
@@ -13,6 +12,7 @@ import {
 	MIN_XP_ANNOUNCE_MINIMUM_LEVEL,
 	MIN_XP_ANNOUNCE_MULTIPLE_OF,
 } from "@/lib/guild-config.ts";
+import type { GuildSettings } from "@/lib/guild.ts";
 import { getMaximumLimit } from "@/utils/get-maximum-limit.ts";
 
 export function LevelUpMessageConditions({ settings, premium }: LevelUpMessageConditionsProps) {
@@ -29,7 +29,7 @@ export function LevelUpMessageConditions({ settings, premium }: LevelUpMessageCo
 			>
 				<div className="mt-2 flex items-center">
 					<Label sub={`Max. ${max} levels between ${MIN_XP_ANNOUNCE_LEVEL}-${MAX_XP_ANNOUNCE_LEVEL}`}>
-						Set the <span className="font-semibold text-white tracking-tight">specific</span> levels you want the level
+						Set the <span className="font-semibold tracking-tight text-white">specific</span> levels you want the level
 						up message to be sent at…
 					</Label>
 
@@ -42,7 +42,7 @@ export function LevelUpMessageConditions({ settings, premium }: LevelUpMessageCo
 
 			<div className="mt-2 flex items-center">
 				<Label sub={`Between level ${MIN_XP_ANNOUNCE_MINIMUM_LEVEL}-${MAX_XP_ANNOUNCE_MINIMUM_LEVEL}`}>
-					Set the <span className="font-semibold text-white tracking-tight">minimum</span> level you want the level up
+					Set the <span className="font-semibold tracking-tight text-white">minimum</span> level you want the level up
 					message to be sent at…
 				</Label>
 
@@ -64,7 +64,7 @@ export function LevelUpMessageConditions({ settings, premium }: LevelUpMessageCo
 
 			<div className="mt-2 flex items-center">
 				<Label sub={`Between level ${MIN_XP_ANNOUNCE_MULTIPLE_OF}-${MAX_XP_ANNOUNCE_MULTIPLE_OF}`}>
-					Set the <span className="font-semibold text-white tracking-tight">factor</span> for levels you want the level
+					Set the <span className="font-semibold tracking-tight text-white">factor</span> for levels you want the level
 					up message to be sent at…
 				</Label>
 

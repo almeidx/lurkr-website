@@ -30,7 +30,7 @@ export default async function DangerZone({ params }: { readonly params: Promise<
 	return (
 		<div className="flex w-full flex-col gap-5 p-4">
 			<div className="space-y-2">
-				<h2 className="font-semibold text-2xl">Danger Zone</h2>
+				<h2 className="text-2xl font-semibold">Danger Zone</h2>
 				<p className="text-white/75">
 					Dangerous actions that can have irreversible consequences. Please be careful when using these options.
 				</p>
@@ -56,7 +56,7 @@ export default async function DangerZone({ params }: { readonly params: Promise<
 						Reset all settings, leveling database, member counts, and milestones for your server…
 					</Text>
 
-					<p className="text-lg text-red tracking-tighter md:text-xl">
+					<p className="text-lg tracking-tighter text-red md:text-xl">
 						CAUTION: This action is irreversible! Please make sure you want to do this before proceeding.
 					</p>
 

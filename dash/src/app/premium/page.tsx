@@ -21,11 +21,11 @@ export default async function Premium() {
 	return (
 		<div className="mx-auto flex w-full max-w-7xl flex-col items-center justify-center gap-12 px-4 py-12">
 			<header className="flex flex-col items-center justify-center gap-4 text-center">
-				<h1 className="bg-linear-to-br from-white to-white/50 bg-clip-text font-bold text-4xl text-transparent">
+				<h1 className="bg-linear-to-br from-white to-white/50 bg-clip-text text-4xl font-bold text-transparent">
 					Support Lurkr Development
 				</h1>
 
-				<p className="max-w-lg text-center text-white/80 text-xl leading-relaxed tracking-tight">
+				<p className="max-w-lg text-center text-xl leading-relaxed tracking-tight text-white/80">
 					All features are free, forever. Supporting us just gets you increased limits and helps keep Lurkr running.
 				</p>
 			</header>
@@ -66,7 +66,7 @@ export default async function Premium() {
 				/>
 			</div>
 
-			<p className="max-w-prose text-balance text-center text-sm text-white/50">
+			<p className="max-w-prose text-center text-sm text-balance text-white/50">
 				Purchases are subject to our{" "}
 				<Link className="text-white/50 underline decoration-white/30 hover:text-white/70" href="/terms">
 					Terms of Service
@@ -98,7 +98,7 @@ export default async function Premium() {
 
 			<div className="flex w-full flex-col items-center gap-8">
 				<div className="text-center">
-					<h2 className="font-bold text-2xl md:text-3xl">Compare Plans</h2>
+					<h2 className="text-2xl font-bold md:text-3xl">Compare Plans</h2>
 					<p className="mt-2 text-white/60">See the increased limits you get for supporting us</p>
 				</div>
 
@@ -109,7 +109,7 @@ export default async function Premium() {
 			</div>
 
 			<div className="flex w-full max-w-3xl flex-col items-center gap-6">
-				<h2 className="font-bold text-2xl md:text-3xl">Frequently Asked Questions</h2>
+				<h2 className="text-2xl font-bold md:text-3xl">Frequently Asked Questions</h2>
 
 				<Accordion className="w-full">
 					<Accordion.Item id="subscription-expiry">

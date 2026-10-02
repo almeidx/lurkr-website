@@ -36,7 +36,7 @@ export function CreatableList({ children, defaultValues, inputId, max, placehold
 		switch (event.key) {
 			case "Enter":
 			case "Tab": {
-				setValues((prev) => Array.from(new Set([...prev, inputValue])));
+				setValues((prev) => [...new Set([...prev, inputValue])]);
 				setInputValue("");
 				event.preventDefault();
 			}

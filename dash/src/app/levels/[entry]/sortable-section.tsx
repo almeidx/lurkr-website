@@ -32,7 +32,7 @@ export function SortableSection<T>({
 		data.length > 0 ? (
 			<button
 				aria-label={`Sort ${sortAscending ? "descending" : "ascending"}`}
-				className="flex items-center gap-1 text-gray-400 text-sm transition-colors hover:text-white"
+				className="flex items-center gap-1 text-sm text-gray-400 transition-colors hover:text-white"
 				onClick={toggleSort}
 				type="button"
 			>

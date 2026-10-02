@@ -4,12 +4,12 @@ import { useState } from "react";
 import { Label } from "@/components/dashboard/Label.tsx";
 import { type PlaceholderValue, Textarea } from "@/components/dashboard/Textarea.tsx";
 import { RestartAlt } from "@/components/icons/mdi/restart-alt.tsx";
-import type { Emoji, Role } from "@/lib/guild.ts";
 import {
 	DEFAULT_MILESTONES_MESSAGE,
 	MAX_MILESTONES_MESSAGE_LENGTH,
 	MIN_MILESTONES_MESSAGE_LENGTH,
 } from "@/lib/guild-config.ts";
+import type { Emoji, Role } from "@/lib/guild.ts";
 
 const placeholders = [
 	{ id: "{user}", name: "{user} • @user" },
@@ -37,7 +37,7 @@ export function MilestoneMessage({ defaultValue, emojis, roles }: MilestoneMessa
 				</Label>
 
 				<button
-					className="flex items-center gap-2 rounded-lg bg-red px-2 py-1 text-shadow-regular transition-colors hover:bg-red/70"
+					className="text-shadow-regular flex items-center gap-2 rounded-lg bg-red px-2 py-1 transition-colors hover:bg-red/70"
 					onClick={handleReset}
 					type="button"
 				>

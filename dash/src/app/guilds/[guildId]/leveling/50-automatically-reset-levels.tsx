@@ -10,7 +10,7 @@ export function AutomaticallyResetLevels({ defaultValue }: { readonly defaultVal
 					id="autoResetLevelsLeave"
 				/>
 
-				<p className="text-lg text-white/75 tracking-tight md:text-xl">When the user leaves</p>
+				<p className="text-lg tracking-tight text-white/75 md:text-xl">When the user leaves</p>
 			</label>
 
 			<label className="flex items-center gap-2" htmlFor="autoResetLevelsBan">
@@ -19,7 +19,7 @@ export function AutomaticallyResetLevels({ defaultValue }: { readonly defaultVal
 					id="autoResetLevelsBan"
 				/>
 
-				<p className="text-lg text-white/75 tracking-tight md:text-xl">When the user is banned</p>
+				<p className="text-lg tracking-tight text-white/75 md:text-xl">When the user is banned</p>
 			</label>
 		</div>
 	);

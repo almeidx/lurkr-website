@@ -4,7 +4,7 @@ import { ExpandMore } from "@/components/icons/mdi/expand-more.tsx";
 import type { Embed, Emoji, Role } from "@/lib/guild.ts";
 import { levelUpMessagePlaceholders } from "./level-up-message-placeholders.ts";
 
-const EmbedBuilder = dynamic(() =>
+const EmbedBuilder = dynamic(async () =>
 	import("@/components/dashboard/embed/EmbedBuilder.tsx").then((mod) => ({ default: mod.EmbedBuilder })),
 );
 

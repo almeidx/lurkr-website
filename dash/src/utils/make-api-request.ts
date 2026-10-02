@@ -1,12 +1,12 @@
 import pRetry, { AbortError } from "p-retry";
 import { API_URL } from "@/utils/constants.ts";
 
-export async function makeApiRequest(route: string, token?: string | null | undefined, init: RequestInit = {}) {
+export async function makeApiRequest(route: string, token?: string | null, init: RequestInit = {}) {
 	return pRetry(
 		async () => {
 			if (token && !(init.headers as Record<string, string> | undefined)?.Authorization) {
 				init.headers = {
-					...init.headers,
+					...(init.headers as Record<string, string> | undefined),
 					Authorization: `Bearer ${token}`,
 				};
 			}

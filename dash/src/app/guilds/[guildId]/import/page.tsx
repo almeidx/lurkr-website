@@ -20,7 +20,7 @@ export default async function Miscellaneous({ params }: { readonly params: Promi
 	return (
 		<div className="flex w-full flex-col gap-5 p-4">
 			<div className="space-y-2">
-				<h2 className="font-semibold text-2xl">Import Bots</h2>
+				<h2 className="text-2xl font-semibold">Import Bots</h2>
 			</div>
 
 			<div className="mb-12 flex flex-col gap-4">
@@ -49,7 +49,7 @@ async function getData(guildId: Snowflake, token: string) {
 			return null;
 		}
 
-		return response.json() as Promise<GetImportStatusResponse>;
+		return await (response.json() as Promise<GetImportStatusResponse>);
 	} catch {
 		return null;
 	}

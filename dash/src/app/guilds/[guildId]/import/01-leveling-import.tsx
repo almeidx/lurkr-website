@@ -26,7 +26,6 @@ export function ImportForm({ guildId, data }: { guildId: Snowflake; data: GetImp
 	const importOngoing = importStatusState?.completedAt === null;
 	const isRateLimited = !!formState && "error" in formState && formState?.error === StartImportError.RateLimited;
 
-	// biome-ignore lint/correctness/useExhaustiveDependencies: Intended
 	useEffect(() => {
 		async function updateData() {
 			const data = await getOngoingImportStatus(guildId);
@@ -61,7 +60,7 @@ export function ImportForm({ guildId, data }: { guildId: Snowflake; data: GetImp
 			stopInterval();
 			document.removeEventListener("visibilitychange", handleVisibilityChange);
 		};
-	}, []);
+	}, [guildId]);
 
 	return (
 		<form action={formAction} className="flex flex-col gap-4">
@@ -86,7 +85,7 @@ export function ImportForm({ guildId, data }: { guildId: Snowflake; data: GetImp
 			{formState && "error" in formState ? null : formState !== null || importStatus ? (
 				<Section>
 					<div className="flex flex-wrap items-center gap-4">
-						<h3 className="flex items-center font-semibold text-xl md:text-[1.4rem]">Import Status</h3>
+						<h3 className="flex items-center text-xl font-semibold md:text-[1.4rem]">Import Status</h3>
 
 						{importStatus && importStatusCreatedAt && (
 							<ImportStatusTitle completedAt={importStatusCompletedAt} createdAt={importStatusCreatedAt} />

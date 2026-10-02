@@ -13,7 +13,7 @@ import fallbackAvatarImg from "@/assets/fallback-avatar.webp";
 export function ImageWithFallback({ src, fallback = fallbackAvatarImg, ...props }: ImageWithFallbackProps) {
 	const [failedSrc, setFailedSrc] = useState<NextImageProps["src"] | null>(null);
 	const shouldUseFallback = !src || failedSrc === src;
-	const currentSrc = shouldUseFallback ? fallback : src!;
+	const currentSrc = shouldUseFallback ? fallback : src;
 
 	return <Image {...props} onError={() => !shouldUseFallback && src && setFailedSrc(src)} src={currentSrc} />;
 }

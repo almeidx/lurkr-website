@@ -128,7 +128,7 @@ export function LurkrImportSection({ guildId }: { guildId: Snowflake }) {
 			<div className="mt-2 flex flex-col gap-4">
 				{/* biome-ignore lint/a11y/useSemanticElements: div required for drag and drop support */}
 				<div
-					className="flex cursor-pointer flex-col items-center justify-center gap-3 rounded-lg border-2 border-white/25 border-dashed p-6 transition-colors hover:border-white/50"
+					className="flex cursor-pointer flex-col items-center justify-center gap-3 rounded-lg border-2 border-dashed border-white/25 p-6 transition-colors hover:border-white/50"
 					onClick={handleClick}
 					onDragLeave={handleDragLeave}
 					onDragOver={handleDragOver}
@@ -139,6 +139,7 @@ export function LurkrImportSection({ guildId }: { guildId: Snowflake }) {
 						}
 					}}
 					ref={dropzoneRef}
+					// oxlint-disable-next-line jsx-a11y/prefer-tag-over-role -- drag-and-drop dropzone; a button element cannot host drop handlers
 					role="button"
 					tabIndex={0}
 				>
@@ -181,7 +182,7 @@ export function LurkrImportSection({ guildId }: { guildId: Snowflake }) {
 							</>
 						)
 					}
-					className="flex w-fit items-center justify-between gap-3 rounded-lg bg-green px-2 py-1 font-semibold text-lg text-shadow-regular transition-colors hover:bg-green/90 disabled:bg-green/50 md:text-xl"
+					className="text-shadow-regular flex w-fit items-center justify-between gap-3 rounded-lg bg-green px-2 py-1 text-lg font-semibold transition-colors hover:bg-green/90 disabled:bg-green/50 md:text-xl"
 					disabled={!file || isUploading}
 					onConfirm={handleImport}
 				>

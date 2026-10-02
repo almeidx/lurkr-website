@@ -13,7 +13,7 @@ export function BeginImportButton({ isRateLimited, importOngoing }: BeginImportB
 					<SystemUpdate className="size-5 drop-shadow-regular" />
 				</>
 			}
-			className="flex w-fit items-center justify-between gap-3 rounded-lg bg-green px-2 py-1 font-semibold text-lg text-shadow-regular transition-colors hover:bg-green/90 disabled:bg-green/50 md:text-xl"
+			className="text-shadow-regular flex w-fit items-center justify-between gap-3 rounded-lg bg-green px-2 py-1 text-lg font-semibold transition-colors hover:bg-green/90 disabled:bg-green/50 md:text-xl"
 			disabled={disabled}
 			useSubmitButton
 		>

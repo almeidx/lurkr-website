@@ -29,20 +29,65 @@ import {
 
 // biome-ignore format: Doesn't look so good
 export const configLimitFeatures: ConfigLimitComparison[] = [
-	{ free: MAX_XP_ROLE_REWARD_ROLES, name: "Leveling Rewards Roles (Per Level)", suffix: "per level", ultimate: MAX_XP_ROLE_REWARD_ROLES_PREMIUM },
-	{ free: MAX_XP_ROLE_REWARDS, name: "Leveling Rewards Roles (Total)", suffix: "roles total", ultimate: MAX_XP_ROLE_REWARDS_PREMIUM },
-	{ free: MAX_NO_ROLE_REWARD_ROLES, name: "No Role Reward Roles", suffix: "roles", ultimate: MAX_NO_ROLE_REWARD_ROLES_PREMIUM },
-	{ free: MAX_XP_MULTIPLIERS, name: "Leveling Multipliers", suffix: "multipliers total", ultimate: MAX_XP_MULTIPLIERS_PREMIUM },
-	{ free: MAX_XP_MULTIPLIER_TARGETS, name: "Multiplier Channels/Roles", suffix: "per multiplier", ultimate: MAX_XP_MULTIPLIER_TARGETS_PREMIUM },
-	{ free: MAX_MENTION_COOLDOWN / 60, name: "Role Mention Cooldown", suffix: "hours", ultimate: MAX_MENTION_COOLDOWN_PREMIUM / 60 },
+	{
+		free: MAX_XP_ROLE_REWARD_ROLES,
+		name: "Leveling Rewards Roles (Per Level)",
+		suffix: "per level",
+		ultimate: MAX_XP_ROLE_REWARD_ROLES_PREMIUM,
+	},
+	{
+		free: MAX_XP_ROLE_REWARDS,
+		name: "Leveling Rewards Roles (Total)",
+		suffix: "roles total",
+		ultimate: MAX_XP_ROLE_REWARDS_PREMIUM,
+	},
+	{
+		free: MAX_NO_ROLE_REWARD_ROLES,
+		name: "No Role Reward Roles",
+		suffix: "roles",
+		ultimate: MAX_NO_ROLE_REWARD_ROLES_PREMIUM,
+	},
+	{
+		free: MAX_XP_MULTIPLIERS,
+		name: "Leveling Multipliers",
+		suffix: "multipliers total",
+		ultimate: MAX_XP_MULTIPLIERS_PREMIUM,
+	},
+	{
+		free: MAX_XP_MULTIPLIER_TARGETS,
+		name: "Multiplier Channels/Roles",
+		suffix: "per multiplier",
+		ultimate: MAX_XP_MULTIPLIER_TARGETS_PREMIUM,
+	},
+	{
+		free: MAX_MENTION_COOLDOWN / 60,
+		name: "Role Mention Cooldown",
+		suffix: "hours",
+		ultimate: MAX_MENTION_COOLDOWN_PREMIUM / 60,
+	},
 	{ free: 100, name: "Leveling Leaderboard", suffix: "users", ultimate: 200 },
 	{ free: MAX_XP_CHANNELS, name: "Leveling Channels", suffix: "channels", ultimate: MAX_XP_CHANNELS_PREMIUM },
 	{ free: MAX_NO_TOP_XP_ROLES, name: "No Top Leveling Roles", suffix: "roles", ultimate: MAX_NO_TOP_XP_ROLES_PREMIUM },
 	{ free: MAX_NO_XP_ROLES, name: "No Leveling Roles", suffix: "roles", ultimate: MAX_NO_XP_ROLES_PREMIUM },
-	{ free: MAX_XP_DISALLOWED_PREFIXES, name: "Ignored Leveling Bot Prefixes", suffix: "prefixes", ultimate: MAX_XP_DISALLOWED_PREFIXES_PREMIUM },
+	{
+		free: MAX_XP_DISALLOWED_PREFIXES,
+		name: "Ignored Leveling Bot Prefixes",
+		suffix: "prefixes",
+		ultimate: MAX_XP_DISALLOWED_PREFIXES_PREMIUM,
+	},
 	{ free: MAX_AUTO_ROLES, name: "On Join Roles", suffix: "roles", ultimate: MAX_AUTO_ROLES_PREMIUM },
-	{ free: MAX_AUTO_PUBLISH_CHANNELS, name: "Auto-Publish Channels", suffix: "channels", ultimate: MAX_AUTO_PUBLISH_CHANNELS_PREMIUM },
-	{ free: MAX_MILESTONES_ROLES, name: "Milestone Reward Roles", suffix: "roles", ultimate: MAX_MILESTONES_ROLES_PREMIUM },
+	{
+		free: MAX_AUTO_PUBLISH_CHANNELS,
+		name: "Auto-Publish Channels",
+		suffix: "channels",
+		ultimate: MAX_AUTO_PUBLISH_CHANNELS_PREMIUM,
+	},
+	{
+		free: MAX_MILESTONES_ROLES,
+		name: "Milestone Reward Roles",
+		suffix: "roles",
+		ultimate: MAX_MILESTONES_ROLES_PREMIUM,
+	},
 ];
 
 export const extraFeatures: LevelingFeature[] = [

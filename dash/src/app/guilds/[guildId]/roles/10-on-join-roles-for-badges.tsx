@@ -16,8 +16,8 @@ import { RoleSelector, type RoleWithResolvedColor } from "@/components/dashboard
 import { Text } from "@/components/dashboard/Text.tsx";
 import { Delete } from "@/components/icons/mdi/delete.tsx";
 import { PersonAdd } from "@/components/icons/mdi/person-add.tsx";
-import type { AutoRoleFlag, Role } from "@/lib/guild.ts";
 import { MAX_AUTO_ROLE_FLAGS_ROLES } from "@/lib/guild-config.ts";
+import type { AutoRoleFlag, Role } from "@/lib/guild.ts";
 import { getMaximumLimit } from "@/utils/get-maximum-limit.ts";
 import { mapRoleIdsToRoles } from "@/utils/map-role-ids-to-roles.ts";
 import { BadgeInfo, UserFlags } from "@/utils/user-flags.ts";
@@ -46,7 +46,7 @@ export function OnJoinRolesForBadges({ defaultValues, premium, roles }: OnJoinRo
 		}
 
 		setAutoRoleFlags((prev) =>
-			[...prev, { flagId, id: crypto.randomUUID(), roleIds }].sort((a, b) => a.flagId - b.flagId),
+			[...prev, { flagId, id: crypto.randomUUID(), roleIds }].toSorted((a, b) => a.flagId - b.flagId),
 		);
 
 		setNewRoles([]);
@@ -74,7 +74,7 @@ export function OnJoinRolesForBadges({ defaultValues, premium, roles }: OnJoinRo
 					settingId="newRoles"
 				/>
 
-				<SelectLabel className="text-lg text-white/75 tracking-tight md:text-xl" store={select}>
+				<SelectLabel className="text-lg tracking-tight text-white/75 md:text-xl" store={select}>
 					and the badge it will be applied on:{" "}
 				</SelectLabel>
 
@@ -98,7 +98,7 @@ export function OnJoinRolesForBadges({ defaultValues, premium, roles }: OnJoinRo
 				>
 					{Object.entries(BadgeInfo).map(([flag, { icon, name }]) => (
 						<SelectItem
-							className="flex cursor-pointer items-center gap-2 text-lg text-white/75 tracking-tight hover:text-white md:text-xl"
+							className="flex cursor-pointer items-center gap-2 text-lg tracking-tight text-white/75 hover:text-white md:text-xl"
 							key={`${flag}-badge-select`}
 							store={select}
 							value={flag}
@@ -146,7 +146,7 @@ function OnJoinRoleBadge({ flagId, id, premium, onDelete, roleIds, roles }: OnJo
 	return (
 		<div className="flex items-center gap-4">
 			<button
-				className="group relative flex size-10 items-center justify-center rounded-lg border border-white bg-darker text-[#fff] text-lg md:text-xl"
+				className="group relative flex size-10 items-center justify-center rounded-lg border border-white bg-darker text-lg text-[#fff] md:text-xl"
 				onClick={() => onDelete(id)}
 				type="button"
 			>

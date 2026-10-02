@@ -30,7 +30,7 @@ export function PreviewWarning() {
 	return (
 		<div
 			className={clsx(
-				"fixed top-0 right-0 left-0 z-50 flex items-center justify-center gap-2 border-white/10 border-b px-4 py-2 text-center text-sm",
+				"fixed top-0 right-0 left-0 z-50 flex items-center justify-center gap-2 border-b border-white/10 px-4 py-2 text-center text-sm",
 				{
 					"bg-gray-600": isBeta,
 					"bg-red-700": !isBeta && !isPtb,

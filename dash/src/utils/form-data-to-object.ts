@@ -4,6 +4,6 @@
  * @param data - The FormData to convert
  */
 export function formDataToObject(data: FormData) {
-	const entries = Array.from(data.entries());
+	const entries = [...data.entries()];
 	return Object.fromEntries(entries);
 }

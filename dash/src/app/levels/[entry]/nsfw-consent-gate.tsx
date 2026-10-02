@@ -23,7 +23,7 @@ export function NsfwConsentGate({ guildName }: NsfwConsentGateProps) {
 	return (
 		<div className="container mx-auto flex min-h-[60vh] items-center justify-center px-4 py-8">
 			<Surface className="w-full max-w-xl rounded-xl p-6 text-center">
-				<h1 className="font-bold text-2xl text-white">Age-restricted leaderboard</h1>
+				<h1 className="text-2xl font-bold text-white">Age-restricted leaderboard</h1>
 
 				<p className="mt-3">
 					{guildName} is flagged as an age-restricted (NSFW) server by Discord. You must be 18 or older to view its

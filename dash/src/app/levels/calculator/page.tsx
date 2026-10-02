@@ -7,11 +7,11 @@ export default function CalculatorPage() {
 	return (
 		<div className="mx-auto flex w-full max-w-7xl flex-col items-center justify-center gap-12 px-4 py-12">
 			<header className="flex flex-col items-center justify-center gap-4 text-center">
-				<h1 className="bg-linear-to-br from-white to-white/50 bg-clip-text font-bold text-4xl text-transparent">
+				<h1 className="bg-linear-to-br from-white to-white/50 bg-clip-text text-4xl font-bold text-transparent">
 					Level Calculator
 				</h1>
 
-				<p className="max-w-lg text-center text-white/80 text-xl leading-relaxed tracking-tight">
+				<p className="max-w-lg text-center text-xl leading-relaxed tracking-tight text-white/80">
 					Calculate how much you need to chat instead of lurking in order to reach the level you want!
 				</p>
 			</header>
@@ -21,7 +21,7 @@ export default function CalculatorPage() {
 			</main>
 
 			<div className="flex w-full max-w-3xl flex-col items-center gap-6">
-				<h2 className="font-bold text-2xl md:text-3xl">Frequently Asked Questions</h2>
+				<h2 className="text-2xl font-bold md:text-3xl">Frequently Asked Questions</h2>
 
 				<Accordion className="w-full">
 					<Accordion.Item>

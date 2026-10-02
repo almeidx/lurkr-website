@@ -12,9 +12,8 @@
 // 2) repairs the handful of absolute URLs that lost the `/docs` prefix.
 import { mkdir, readdir, readFile, rename, writeFile } from "node:fs/promises";
 import path from "node:path";
-import { fileURLToPath } from "node:url";
 
-const scriptDir = path.dirname(fileURLToPath(import.meta.url));
+const scriptDir = import.meta.dirname;
 const publicDir = path.resolve(scriptDir, "../dist/public");
 const docsDir = path.join(publicDir, "docs");
 
@@ -48,7 +47,7 @@ for await (const file of walk(docsDir)) {
 		// sitemap <loc> entries built from the (base-path-less) page url
 		.replaceAll(/<loc>https:\/\/lurkr\.gg\/(?!docs(?:[/?#<]|$))/g, "<loc>https://lurkr.gg/docs/")
 		// "Copy markdown" / view-as-markdown URLs (RSC payload, escaped and raw)
-		.replaceAll(/markdownUrl\\":\\"\/(?!docs(?:[/?#"]|\\|$))/g, 'markdownUrl\\":\\"/docs/')
+		.replaceAll(/markdownUrl\\":\\"\/(?!docs(?:[/?#"]|\\|$))/g, String.raw`markdownUrl\":\"/docs/`)
 		.replaceAll(/markdownUrl":"\/(?!docs(?:[/?#"]|\\|$))/g, 'markdownUrl":"/docs/');
 
 	// The llms.txt index and full-text export link to pages with root-relative

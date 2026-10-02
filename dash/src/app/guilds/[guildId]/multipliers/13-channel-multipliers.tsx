@@ -1,8 +1,6 @@
 import "client-only";
-
 // The reason for using "client-only" instead of "use client" is because of the function parameter in the component,
 // which triggers a warning since functions are not serializable.
-
 import { type Dispatch, type SetStateAction, useState } from "react";
 import { ChannelSelector } from "@/components/dashboard/ChannelSelector.tsx";
 import { Input } from "@/components/dashboard/Input.tsx";
@@ -10,13 +8,13 @@ import { Label } from "@/components/dashboard/Label.tsx";
 import { Text } from "@/components/dashboard/Text.tsx";
 import { AddComment } from "@/components/icons/mdi/add-comment.tsx";
 import { Delete } from "@/components/icons/mdi/delete.tsx";
-import { type Channel, type XpMultiplier, XpMultiplierType } from "@/lib/guild.ts";
 import {
 	MAX_XP_MULTIPLIER_TARGETS,
 	MAX_XP_MULTIPLIER_TARGETS_PREMIUM,
 	MAX_XP_MULTIPLIER_VALUE,
 	MIN_XP_MULTIPLIER_VALUE,
 } from "@/lib/guild-config.ts";
+import { type Channel, type XpMultiplier, XpMultiplierType } from "@/lib/guild.ts";
 import { getMaximumLimit } from "@/utils/get-maximum-limit.ts";
 import { mapChannelIdsToChannels } from "@/utils/map-channel-ids-to-channels.ts";
 import { CreateMultiplierButton } from "./create-multiplier-button.tsx";
@@ -56,7 +54,7 @@ export function ChannelMultipliers({
 		}
 
 		setChannelMultipliers((prev) =>
-			[...prev, { id: crypto.randomUUID(), multiplier, targets: channelIds, type: XpMultiplierType.Channel }].sort(
+			[...prev, { id: crypto.randomUUID(), multiplier, targets: channelIds, type: XpMultiplierType.Channel }].toSorted(
 				(a, b) => a.multiplier - b.multiplier,
 			),
 		);
@@ -140,7 +138,7 @@ function ChannelMultiplier({ id, multiplier, premium, onDelete, channels, target
 	return (
 		<div className="flex items-center gap-4">
 			<button
-				className="group relative flex size-10 items-center justify-center rounded-lg border border-white/25 bg-darker text-[#fff] text-lg md:text-xl"
+				className="group relative flex size-10 items-center justify-center rounded-lg border border-white/25 bg-darker text-lg text-[#fff] md:text-xl"
 				onClick={() => onDelete(id)}
 				type="button"
 			>

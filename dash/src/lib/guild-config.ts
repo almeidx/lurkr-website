@@ -39,7 +39,7 @@ export const MAX_NO_XP_ROLES_PREMIUM = 10;
 export const MIN_VANITY_LENGTH = 2;
 export const MAX_VANITY_LENGTH = 32;
 /** @remarks This pattern does not validate the length of the input. */
-export const VANITY_REGEX_SOURCE = "^[\\da-z]+$";
+export const VANITY_REGEX_SOURCE = String.raw`^[\da-z]+$`;
 
 export const MAX_XP_ANNOUNCE_LEVELS = 100;
 export const MIN_XP_ANNOUNCE_LEVEL = 1;
