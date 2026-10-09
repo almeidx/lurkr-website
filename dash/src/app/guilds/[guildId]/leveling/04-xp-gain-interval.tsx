@@ -1,12 +1,12 @@
 "use client";
 
 import {
-	Select,
-	SelectArrow,
-	SelectItem,
-	SelectLabel,
-	SelectPopover,
-	useSelectStore,
+	ComboboxItem,
+	ComboboxPopover,
+	ComboboxSelect,
+	ComboboxSelectArrow,
+	ComboboxSelectLabel,
+	useComboboxStore,
 	useStoreState,
 } from "@ariakit/react";
 import { DocsBubble } from "@/components/dashboard/DocsBubble.tsx";
@@ -33,17 +33,17 @@ const XP_GAIN_INTERVALS = [
 ] as const;
 
 export function XpGainInterval({ defaultValue }: { readonly defaultValue: number }) {
-	const select = useSelectStore({ defaultValue: defaultValue.toString() });
-	const value = useStoreState(select, "value");
+	const combobox = useComboboxStore({ defaultSelectedValue: defaultValue.toString() });
+	const selectedValue = useStoreState(combobox, "selectedValue");
 
-	const selectedInterval = XP_GAIN_INTERVALS.find((interval) => interval.value.toString() === value);
+	const selectedInterval = XP_GAIN_INTERVALS.find((interval) => interval.value.toString() === selectedValue);
 
 	return (
 		<div className="flex flex-col gap-2">
 			<div className="flex items-center">
-				<SelectLabel className="text-lg tracking-tight text-white/75 md:text-xl" store={select}>
+				<ComboboxSelectLabel className="text-lg tracking-tight text-white/75 md:text-xl" store={combobox}>
 					Choose how long users must wait between XP-earning messages…
-				</SelectLabel>
+				</ComboboxSelectLabel>
 
 				<DocsBubble
 					path="/guides/leveling-automation#xp-gain-cooldown"
@@ -51,10 +51,10 @@ export function XpGainInterval({ defaultValue }: { readonly defaultValue: number
 				/>
 			</div>
 
-			<Select
+			<ComboboxSelect
 				className="flex h-10 w-48 items-center justify-between rounded-lg bg-light-gray px-3 py-2 shadow-dim-inner"
 				name="xpGainInterval"
-				store={select}
+				store={combobox}
 			>
 				{selectedInterval ? (
 					<span className="font-medium text-white">{selectedInterval.label}</span>
@@ -62,26 +62,26 @@ export function XpGainInterval({ defaultValue }: { readonly defaultValue: number
 					"Select cooldown time"
 				)}
 
-				<SelectArrow />
-			</Select>
+				<ComboboxSelectArrow />
+			</ComboboxSelect>
 
-			<SelectPopover
+			<ComboboxPopover
 				className="z-10000 flex max-h-64 w-48 flex-col gap-2 overflow-y-auto rounded-lg bg-light-gray px-3 py-2 shadow-dim-inner"
 				gutter={8}
 				sameWidth
-				store={select}
+				store={combobox}
 			>
 				{XP_GAIN_INTERVALS.map(({ value, label }) => (
-					<SelectItem
+					<ComboboxItem
 						className="flex cursor-default items-center rounded-lg p-2 text-lg tracking-tight text-white/75 hover:bg-white/5 data-active-item:bg-white/10 data-active-item:text-white"
 						key={value}
-						store={select}
+						store={combobox}
 						value={value.toString()}
 					>
 						<span className="font-medium text-white">{label}</span>
-					</SelectItem>
+					</ComboboxItem>
 				))}
-			</SelectPopover>
+			</ComboboxPopover>
 		</div>
 	);
 }

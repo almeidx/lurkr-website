@@ -1,12 +1,12 @@
 "use client";
 
 import {
-	Select,
-	SelectArrow,
-	SelectItem,
-	SelectLabel,
-	SelectPopover,
-	useSelectStore,
+	ComboboxItem,
+	ComboboxPopover,
+	ComboboxSelect,
+	ComboboxSelectArrow,
+	ComboboxSelectLabel,
+	useComboboxStore,
 	useStoreState,
 } from "@ariakit/react";
 import Image from "next/image";
@@ -26,8 +26,8 @@ export function OnJoinRolesForBadges({ defaultValues, premium, roles }: OnJoinRo
 	const [autoRoleFlags, setAutoRoleFlags] = useState<readonly AutoRoleFlag[]>(defaultValues);
 	const [newRoles, setNewRoles] = useState<readonly RoleWithResolvedColor[]>([]);
 
-	const select = useSelectStore({ defaultValue: UserFlags.ActiveDeveloper.toString() });
-	const flag = useStoreState(select, "value");
+	const combobox = useComboboxStore({ defaultSelectedValue: UserFlags.ActiveDeveloper.toString() });
+	const flag = useStoreState(combobox, "selectedValue");
 
 	const maxAutoRoleFlags = getMaximumLimit("autoRoleFlags", premium);
 
@@ -50,7 +50,7 @@ export function OnJoinRolesForBadges({ defaultValues, premium, roles }: OnJoinRo
 		);
 
 		setNewRoles([]);
-		select.setValue(UserFlags.ActiveDeveloper.toString());
+		combobox.setSelectedValue(UserFlags.ActiveDeveloper.toString());
 	}
 
 	function handleDelete(id: string) {
@@ -74,40 +74,40 @@ export function OnJoinRolesForBadges({ defaultValues, premium, roles }: OnJoinRo
 					settingId="newRoles"
 				/>
 
-				<SelectLabel className="text-lg tracking-tight text-white/75 md:text-xl" store={select}>
+				<ComboboxSelectLabel className="text-lg tracking-tight text-white/75 md:text-xl" store={combobox}>
 					and the badge it will be applied on:{" "}
-				</SelectLabel>
+				</ComboboxSelectLabel>
 
-				<Select
+				<ComboboxSelect
 					className="flex h-10 w-64 items-center justify-between rounded-lg bg-light-gray px-3 py-2 shadow-dim-inner"
-					store={select}
+					store={combobox}
 				>
 					<div className="flex items-center gap-2 truncate">
 						<Image alt={`${selectedBadgeInfo.name} badge`} height={22} src={selectedBadgeInfo.icon} width={22} />
 						{selectedBadgeInfo.name}
 					</div>
 
-					<SelectArrow />
-				</Select>
+					<ComboboxSelectArrow />
+				</ComboboxSelect>
 
-				<SelectPopover
+				<ComboboxPopover
 					className="z-10000 flex w-80 flex-col gap-2 rounded-lg bg-light-gray px-3 py-2 shadow-dim-inner"
 					gutter={8}
 					sameWidth
-					store={select}
+					store={combobox}
 				>
 					{Object.entries(BadgeInfo).map(([flag, { icon, name }]) => (
-						<SelectItem
+						<ComboboxItem
 							className="flex cursor-pointer items-center gap-2 text-lg tracking-tight text-white/75 hover:text-white md:text-xl"
 							key={`${flag}-badge-select`}
-							store={select}
+							store={combobox}
 							value={flag}
 						>
 							<Image alt={`${name} badge`} height={22} src={icon} width={22} />
 							{name}
-						</SelectItem>
+						</ComboboxItem>
 					))}
-				</SelectPopover>
+				</ComboboxPopover>
 
 				<button
 					className="rounded-lg bg-green p-1 transition-colors not-disabled:hover:bg-green/75"

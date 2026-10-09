@@ -84,7 +84,7 @@ export function Textarea({
 		}
 
 		setValue(event.target.value);
-		combobox.setValue(searchValue);
+		combobox.setInputValue(searchValue);
 	}
 
 	function onItemClick(value: Emoji | PlaceholderValue | Role | undefined) {
