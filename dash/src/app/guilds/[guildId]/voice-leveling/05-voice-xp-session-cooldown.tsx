@@ -28,7 +28,10 @@ export function VoiceXpSessionCooldown({ defaultValue, premium }: VoiceXpSession
 			/>
 
 			<div className="text-sm text-white/60">
-				<p>Set to 0 for no cooldown.</p>
+				<p>
+					Set to 0 for no cooldown. It starts when a member leaves voice, unless they rejoin within the rejoin grace
+					period below.
+				</p>
 
 				{defaultValueInMinutes > max ? (
 					<p>

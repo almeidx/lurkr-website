@@ -16,6 +16,7 @@ import { VoiceXpMaxSession } from "./04-voice-xp-max-session.tsx";
 import { VoiceXpSessionCooldown } from "./05-voice-xp-session-cooldown.tsx";
 import { VoiceChannelMode } from "./06-voice-channel-mode.tsx";
 import { VoiceXpChannels } from "./07-voice-xp-channels.tsx";
+import { VoiceXpRejoinGracePeriod } from "./08-voice-xp-rejoin-grace-period.tsx";
 import { update } from "./update.ts";
 
 export default async function VoiceLeveling({ params }: { readonly params: Promise<{ guildId: Snowflake }> }) {
@@ -75,6 +76,10 @@ export default async function VoiceLeveling({ params }: { readonly params: Promi
 				<Separator />
 
 				<VoiceXpSessionCooldown defaultValue={settings.voiceXpMaxSessionCooldown} premium={guild.premium} />
+
+				<Separator />
+
+				<VoiceXpRejoinGracePeriod defaultValue={settings.voiceXpRejoinGracePeriod} />
 			</Section>
 		</Form>
 	);

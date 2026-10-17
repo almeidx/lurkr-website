@@ -9,6 +9,7 @@ import {
 	MAX_VOICE_XP_MIN_GROUP_COUNT,
 	MAX_VOICE_XP_MIN_GROUP_COUNT_PREMIUM,
 	MAX_VOICE_XP_PER_MINUTE,
+	MAX_VOICE_XP_REJOIN_GRACE_PERIOD,
 	MAX_VOICE_XP_SESSION_COOLDOWN,
 	MAX_VOICE_XP_SESSION_COOLDOWN_PREMIUM,
 	MAX_XP_CHANNELS,
@@ -16,6 +17,7 @@ import {
 	MIN_VOICE_XP_MAX_SESSION,
 	MIN_VOICE_XP_MIN_GROUP_COUNT,
 	MIN_VOICE_XP_PER_MINUTE,
+	MIN_VOICE_XP_REJOIN_GRACE_PERIOD,
 	MIN_VOICE_XP_SESSION_COOLDOWN,
 } from "@/lib/guild-config.ts";
 import { formDataToObject } from "@/utils/form-data-to-object.ts";
@@ -84,6 +86,11 @@ function createSchema(premium: boolean) {
 			),
 			voiceXpPerMinuteMax: pipe(coerceToInt, minValue(MIN_VOICE_XP_PER_MINUTE), maxValue(MAX_VOICE_XP_PER_MINUTE)),
 			voiceXpPerMinuteMin: pipe(coerceToInt, minValue(MIN_VOICE_XP_PER_MINUTE), maxValue(MAX_VOICE_XP_PER_MINUTE)),
+			voiceXpRejoinGracePeriod: createMinuteIntervalValidator(
+				MIN_VOICE_XP_REJOIN_GRACE_PERIOD,
+				MAX_VOICE_XP_REJOIN_GRACE_PERIOD,
+				"Voice XP rejoin grace period",
+			),
 		}),
 	);
 }

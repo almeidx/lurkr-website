@@ -134,6 +134,7 @@ type LimitedKey =
 			| "voiceXpEnabled"
 			| "voiceXpPerMinuteMax"
 			| "voiceXpPerMinuteMin"
+			| "voiceXpRejoinGracePeriod"
 			| "voteBoostedXp"
 			| "xpAnnounceChannel"
 			| "xpAnnounceChannelType"

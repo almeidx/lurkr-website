@@ -110,6 +110,7 @@ export interface GuildSettings {
 	voiceXpMinGroupCount: number;
 	voiceXpPerMinuteMax: number;
 	voiceXpPerMinuteMin: number;
+	voiceXpRejoinGracePeriod: number | null;
 	voteBoostedXp: boolean;
 	xpAnnounceChannel: Snowflake | null;
 	xpAnnounceChannelType: XpAnnouncementChannelType;

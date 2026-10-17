@@ -22,13 +22,18 @@ export function VoiceXpMaxSession({ defaultValue, premium }: VoiceXpMaxSessionPr
 				max={max}
 				min={0}
 				mobileStepsToHide={[1, 3]}
-				step={60}
+				// Whole minutes, like the bot command: a coarser step would silently round
+				// stored values on save (e.g. 20m to 0, which removes the limit)
+				step={1}
 				steps={premium ? PREMIUM_STEPS : FREE_STEPS}
 				text={{ format: formatMinutes, parse: parseMinutes }}
 			/>
 
 			<div className="text-sm text-white/60">
-				<p>Set to 0 for no limit. After hitting the limit, the session cooldown below applies.</p>
+				<p>
+					Set to 0 for no limit. Leaving voice ends the session, unless the member rejoins within the rejoin grace
+					period below.
+				</p>
 
 				{defaultValueInMinutes > max ? (
 					<p>

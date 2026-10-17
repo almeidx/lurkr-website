@@ -9,7 +9,7 @@ export function Slider({ defaultValue, id, max, min, mobileStepsToHide, step, st
 	const sliderRef = useRef<HTMLInputElement>(null);
 	const secondaryRef = useRef<HTMLInputElement>(null);
 
-	const initialValue = Math.min(Math.max(Math.round((defaultValue - min) / step) * step + min, min), max);
+	const initialValue = snapToStep(defaultValue, min, max, step);
 	const initialBackground = computeBackground(initialValue, min, max);
 	const initialText = text ? text.format(initialValue) : String(initialValue);
 
@@ -31,7 +31,7 @@ export function Slider({ defaultValue, id, max, min, mobileStepsToHide, step, st
 		// Snap to the step grid (base: min) before writing. A range input silently
 		// snaps non-conforming values on its own, and only the range input is
 		// submitted — without this the text display and the submitted value differ.
-		const clamped = Math.min(Math.max(Math.round((raw - min) / step) * step + min, min), max);
+		const clamped = snapToStep(raw, min, max, step);
 		if (sliderRef.current) {
 			sliderRef.current.value = String(clamped);
 			sliderRef.current.style.background = computeBackground(clamped, min, max);
@@ -117,6 +117,17 @@ export function Slider({ defaultValue, id, max, min, mobileStepsToHide, step, st
 			)}
 		</div>
 	);
+}
+
+function snapToStep(value: number, min: number, max: number, step: number): number {
+	const snapped = Math.round((value - min) / step) * step + min;
+	// Fractional steps accumulate floating point noise (0.07 would become 0.06999999999999999)
+	const decimals = Math.max(countDecimals(step), countDecimals(min));
+	return Math.min(Math.max(Number(snapped.toFixed(decimals)), min), max);
+}
+
+function countDecimals(value: number): number {
+	return String(value).split(".")[1]?.length ?? 0;
 }
 
 function computeBackground(value: number, min: number, max: number): string {
