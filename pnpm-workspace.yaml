@@ -8,6 +8,6 @@ allowBuilds:
   sharp: true
   workerd: true
 overrides:
-  react-is: ^19.3.0
+  react-is: ^19.3.1
 patchedDependencies:
   waku@1.0.0-rc.1: patches/waku@1.0.0-rc.1.patch
