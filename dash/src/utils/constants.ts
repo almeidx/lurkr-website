@@ -29,6 +29,13 @@ export const API_URL = process.env.NEXT_PUBLIC_API_URL!;
 
 // The middleware `missing[0].key` must be updated manually, if this is changed
 export const TOKEN_COOKIE = "token";
+
+const cookieDomain = process.env.NEXT_PUBLIC_COOKIE_DOMAIN;
+
+export const TOKEN_COOKIE_SCOPE = cookieDomain
+	? ({ domain: cookieDomain, path: "/" } as const)
+	: ({ path: "/" } as const);
+
 export const REDIRECT_TO_COOKIE = "redirectTo";
 
 export const COOKIE_NOTICE_COOKIE = "biscuits";

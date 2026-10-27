@@ -1,5 +1,5 @@
 import ky, { type Hooks, isHTTPError } from "ky";
-import { TOKEN_COOKIE } from "@/utils/constants";
+import { TOKEN_COOKIE, TOKEN_COOKIE_SCOPE } from "@/utils/constants";
 import { getCookie } from "@/utils/cookies";
 
 if (!process.env.NEXT_PUBLIC_API_URL) {
@@ -50,8 +50,7 @@ export const api = ky.create({
 					const { cookies } = await import("next/headers");
 					const store = await cookies();
 					try {
-						const domain = process.env.NEXT_PUBLIC_COOKIE_DOMAIN;
-						store.delete({ name: TOKEN_COOKIE, path: "/", ...(domain ? { domain } : {}) });
+						store.delete({ name: TOKEN_COOKIE, ...TOKEN_COOKIE_SCOPE });
 					} catch {
 						// This can fail if it runs outside a Server Action or API route. e.g. RSC rendering
 					}

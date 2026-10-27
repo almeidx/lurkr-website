@@ -1,5 +1,5 @@
 import { type NextRequest, NextResponse } from "next/server";
-import { REDIRECT_TO_COOKIE, TOKEN_COOKIE } from "@/utils/constants.ts";
+import { REDIRECT_TO_COOKIE, TOKEN_COOKIE, TOKEN_COOKIE_SCOPE } from "@/utils/constants.ts";
 import { makeApiRequest } from "@/utils/make-api-request.ts";
 
 export async function GET(request: NextRequest) {
@@ -26,22 +26,24 @@ export async function GET(request: NextRequest) {
 		const redirectUrl = new URL("/", request.url);
 		redirectUrl.searchParams.set("login_failure", "1");
 
-		return NextResponse.redirect(redirectUrl, {
-			headers: {
-				"Set-Cookie": getSetCookieHeader("", 0),
-			},
-		});
+		const response = NextResponse.redirect(redirectUrl);
+		response.cookies.delete({ name: TOKEN_COOKIE, ...TOKEN_COOKIE_SCOPE });
+		return response;
 	}
 
 	const { token, maxAge } = (await registerResponse.json()) as RegisterResponse;
 
 	const redirectUrl = redirectTo ?? new URL("/", request.url);
 
-	return NextResponse.redirect(redirectUrl, {
-		headers: {
-			"Set-Cookie": getSetCookieHeader(token, maxAge),
-		},
+	const response = NextResponse.redirect(redirectUrl);
+	response.cookies.set(TOKEN_COOKIE, token, {
+		...TOKEN_COOKIE_SCOPE,
+		httpOnly: true,
+		maxAge,
+		sameSite: "lax",
+		secure: true,
 	});
+	return response;
 }
 
 function getRedirectToValue(redirectTo: string | undefined, origin: string) {
@@ -54,12 +56,6 @@ function getRedirectToValue(redirectTo: string | undefined, origin: string) {
 	return pathname.startsWith("/guilds") || pathname.startsWith("/profile") || /\/levels\/[^/]+\/me/.test(pathname)
 		? new URL(pathname, origin)
 		: null;
-}
-
-function getSetCookieHeader(token: string, maxAge: number) {
-	const domain = process.env.NEXT_PUBLIC_COOKIE_DOMAIN ?? "";
-	const domainAttr = domain ? `; Domain=${domain}` : "";
-	return `${TOKEN_COOKIE}=${token}; Path=/; HttpOnly; Max-Age=${maxAge}; Secure; SameSite=Lax${domainAttr}`;
 }
 
 interface RegisterResponse {
