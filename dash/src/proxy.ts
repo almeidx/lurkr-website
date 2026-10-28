@@ -14,6 +14,7 @@ export function proxy(request: NextRequest) {
 	});
 }
 
+// Keep in sync with `ALLOWED_REDIRECT_PATHNAME` in `src/app/api/auth/callback/route.ts`
 export const config = {
 	matcher: [
 		{

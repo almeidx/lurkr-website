@@ -75,16 +75,19 @@ function withStateCleared(response: NextResponse) {
 	return response;
 }
 
+// Keep in sync with `config.matcher` in `src/proxy.ts`
+const ALLOWED_REDIRECT_PATHNAME = /^\/(?:guilds(?:\/|$)|profile(?:\/|$)|levels\/[^/]+\/me$)/;
+
 function getRedirectToValue(redirectTo: string | undefined, origin: string) {
 	if (!redirectTo?.startsWith("/")) {
 		return null;
 	}
 
-	const { pathname } = new URL(redirectTo, origin);
-
-	return pathname.startsWith("/guilds") || pathname.startsWith("/profile") || /\/levels\/[^/]+\/me/.test(pathname)
-		? new URL(pathname, origin)
-		: null;
+	const url = URL.parse(redirectTo, origin);
+	if (url?.origin !== origin || !ALLOWED_REDIRECT_PATHNAME.test(url.pathname)) {
+		return null;
+	}
+	return url;
 }
 
 interface RegisterResponse {
