@@ -1,13 +1,26 @@
+import { timingSafeEqual } from "node:crypto";
 import { type NextRequest, NextResponse } from "next/server";
-import { REDIRECT_TO_COOKIE, TOKEN_COOKIE, TOKEN_COOKIE_SCOPE } from "@/utils/constants.ts";
+import {
+	AUTH_CALLBACK_PATH,
+	OAUTH_STATE_COOKIE,
+	REDIRECT_TO_COOKIE,
+	TOKEN_COOKIE,
+	TOKEN_COOKIE_SCOPE,
+} from "@/utils/constants.ts";
 import { makeApiRequest } from "@/utils/make-api-request.ts";
 
 export async function GET(request: NextRequest) {
-	if (!request.nextUrl.searchParams.has("code")) {
-		return Response.json({ message: "Missing code parameter" }, { status: 400 });
+	const expectedState = request.cookies.get(OAUTH_STATE_COOKIE)?.value;
+	const state = request.nextUrl.searchParams.get("state");
+
+	if (!isMatchingState(state, expectedState)) {
+		return withStateCleared(NextResponse.json({ message: "Invalid OAuth state" }, { status: 400 }));
 	}
 
 	const code = request.nextUrl.searchParams.get("code");
+	if (!code) {
+		return withStateCleared(NextResponse.json({ message: "Missing code parameter" }, { status: 400 }));
+	}
 
 	const redirectTo = getRedirectToValue(request.cookies.get(REDIRECT_TO_COOKIE)?.value, request.nextUrl.origin);
 
@@ -28,7 +41,7 @@ export async function GET(request: NextRequest) {
 
 		const response = NextResponse.redirect(redirectUrl);
 		response.cookies.delete({ name: TOKEN_COOKIE, ...TOKEN_COOKIE_SCOPE });
-		return response;
+		return withStateCleared(response);
 	}
 
 	const { token, maxAge } = (await registerResponse.json()) as RegisterResponse;
@@ -43,6 +56,22 @@ export async function GET(request: NextRequest) {
 		sameSite: "lax",
 		secure: true,
 	});
+	return withStateCleared(response);
+}
+
+function isMatchingState(state: string | null, expectedState: string | undefined) {
+	if (!state || !expectedState) {
+		return false;
+	}
+
+	const received = Buffer.from(state);
+	const expected = Buffer.from(expectedState);
+
+	return received.length === expected.length && timingSafeEqual(received, expected);
+}
+
+function withStateCleared(response: NextResponse) {
+	response.cookies.delete({ name: OAUTH_STATE_COOKIE, path: AUTH_CALLBACK_PATH });
 	return response;
 }
 

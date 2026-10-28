@@ -11,19 +11,10 @@ const BASE_URL =
 
 export const PUBLIC_URL = new URL(BASE_URL);
 
-const clientId = process.env.NEXT_PUBLIC_DISCORD_CLIENT_ID ?? "";
-if (!clientId) {
-	console.warn("Missing NEXT_PUBLIC_DISCORD_CLIENT_ID environment variable. Sign-in will not work.");
-}
+export const SIGN_IN_URL = "/api/auth/login";
 
-const signInUrl = new URL("https://discord.com/api/oauth2/authorize");
-signInUrl.searchParams.set("client_id", clientId);
-signInUrl.searchParams.set("redirect_uri", `${BASE_URL}/api/auth/callback`);
-signInUrl.searchParams.set("response_type", "code");
-signInUrl.searchParams.set("scope", "identify guilds");
-signInUrl.searchParams.set("prompt", "none");
-
-export const SIGN_IN_URL = signInUrl.toString();
+export const AUTH_CALLBACK_PATH = "/api/auth/callback";
+export const OAUTH_STATE_COOKIE = "oauthState";
 
 export const API_URL = process.env.NEXT_PUBLIC_API_URL!;
 

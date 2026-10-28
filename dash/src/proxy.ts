@@ -7,7 +7,7 @@ export function proxy(request: NextRequest) {
 		return NextResponse.next();
 	}
 
-	return NextResponse.redirect(SIGN_IN_URL, {
+	return NextResponse.redirect(new URL(SIGN_IN_URL, request.url), {
 		headers: {
 			"Set-Cookie": `${REDIRECT_TO_COOKIE}=${request.nextUrl.pathname}; Path=/; HttpOnly; Max-Age=60;`,
 		},
