@@ -1,22 +1,31 @@
 "use client";
 
-import { type PropsWithChildren, useActionState, useEffect } from "react";
+import { createContext, type PropsWithChildren, use, useActionState, useEffect } from "react";
 import { toast } from "sonner";
 import type { GenericIssue } from "valibot";
 import { SaveButton } from "@/components/dashboard/SaveButton.tsx";
 import { Toggle } from "@/components/Toggle.tsx";
-import type { GuildSettings } from "@/lib/guild.ts";
+import type { GuildSettings, SaveNotice } from "@/lib/guild.ts";
 import type { ServerActionError } from "@/utils/server-action-error.ts";
+
+const SaveNoticeContext = createContext<SaveNotice | null>(null);
+
+/** The notice of the last save of the surrounding `Form`, if it had one. */
+export function useSaveNotice(): SaveNotice | null {
+	return use(SaveNoticeContext);
+}
 
 export function Form({ title, action, children, description, settingId, defaultValue }: FormProps) {
 	const [state, formAction, isPending] = useActionState(action, null);
+
+	const saveNotice = typeof state === "object" && state !== null && "success" in state ? state : null;
 
 	useEffect(() => {
 		if (state === false) {
 			toast.error("Failed to save settings", {
 				description: "There is likely an issue with your configuration.",
 			});
-		} else if (state && state !== true && "error" in state) {
+		} else if (state && typeof state === "object" && "error" in state) {
 			console.error("Failed to save settings", state);
 
 			let errorMessage: string;
@@ -60,10 +69,10 @@ export function Form({ title, action, children, description, settingId, defaultV
 						</div>
 					) : null}
 
-					<SaveButton pending={isPending} success={state === null ? null : state === true} />
+					<SaveButton pending={isPending} success={state === null ? null : state === true || saveNotice !== null} />
 				</div>
 
-				{children}
+				<SaveNoticeContext value={saveNotice}>{children}</SaveNoticeContext>
 			</form>
 		</div>
 	);
@@ -73,7 +82,7 @@ type FormProps = PropsWithChildren<{
 	action(
 		currentState: unknown,
 		data: FormData,
-	): Promise<boolean | { error: ServerActionError; issues?: string; issue?: string }>;
+	): Promise<boolean | SaveNotice | { error: ServerActionError; issues?: string; issue?: string }>;
 	readonly defaultValue?: boolean;
 	readonly description?: string;
 	readonly settingId?: keyof GuildSettings;

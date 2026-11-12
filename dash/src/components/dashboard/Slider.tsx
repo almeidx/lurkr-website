@@ -5,7 +5,7 @@ import { type ChangeEvent, type FocusEvent, type KeyboardEvent, useRef } from "r
 
 const GRADIENT_TRACK = ", linear-gradient(94deg, #ffe87c 0%, #ff7077 100%)";
 
-export function Slider({ defaultValue, id, max, min, mobileStepsToHide, step, steps, text }: SliderProps) {
+export function Slider({ defaultValue, id, max, min, mobileStepsToHide, onChange, step, steps, text }: SliderProps) {
 	const sliderRef = useRef<HTMLInputElement>(null);
 	const secondaryRef = useRef<HTMLInputElement>(null);
 
@@ -36,6 +36,7 @@ export function Slider({ defaultValue, id, max, min, mobileStepsToHide, step, st
 		if (!options?.skipDisplay && secondaryRef.current) {
 			secondaryRef.current.value = text ? text.format(clamped) : String(clamped);
 		}
+		onChange?.(clamped);
 	}
 
 	function handleSliderChange(event: ChangeEvent<HTMLInputElement>) {
@@ -129,6 +130,7 @@ interface SliderProps {
 	readonly step: number;
 	readonly steps: number[] | string[];
 	readonly mobileStepsToHide?: number[];
+	onChange?(value: number): void;
 	readonly text?: {
 		readonly format: (value: number) => string;
 		readonly parse: (text: string) => number | null;

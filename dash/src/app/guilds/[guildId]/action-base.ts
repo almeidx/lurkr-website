@@ -4,12 +4,18 @@ import { updateTag } from "next/cache";
 import { cookies } from "next/headers";
 import { after } from "next/server";
 import { parse } from "valibot";
-import type { GuildSettings } from "@/lib/guild.ts";
+import type { GuildSettings, SaveNotice } from "@/lib/guild.ts";
 import { TOKEN_COOKIE } from "@/utils/constants.ts";
+import type { Snowflake } from "@/utils/discord-cdn.ts";
 import { makeApiRequest } from "@/utils/make-api-request.ts";
 import { requiredSnowflake } from "@/utils/schemas.ts";
 
-export async function action(rawGuildId: string, data: Partial<GuildSettings>, tag: string, premium: boolean) {
+export async function action(
+	rawGuildId: string,
+	data: Partial<GuildSettings>,
+	tag: string,
+	premium: boolean,
+): Promise<boolean | SaveNotice> {
 	const token = (await cookies()).get(TOKEN_COOKIE)?.value;
 	if (!token) {
 		throw new Error("Missing token");
@@ -40,6 +46,11 @@ export async function action(rawGuildId: string, data: Partial<GuildSettings>, t
 	}
 
 	updateTag(tag);
+
+	const { untrackedMentionedRoleIds } = (await response.json()) as { untrackedMentionedRoleIds?: Snowflake[] };
+	if (untrackedMentionedRoleIds?.length) {
+		return { success: true, untrackedMentionedRoleIds };
+	}
 
 	return true;
 }
