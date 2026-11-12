@@ -4,6 +4,7 @@ import parseDuration from "parse-duration";
 import prettyMilliseconds from "pretty-ms";
 import { Slider } from "@/components/dashboard/Slider.tsx";
 import { getMaximumLimit } from "@/utils/get-maximum-limit.ts";
+import { useMentionCooldownEdits } from "./mention-cooldown-context.tsx";
 
 const FREE_STEPS = ["0", "1h", "2h", "3h", "4h", "5h", "6h"];
 const PREMIUM_STEPS = ["0", "4h", "8h", "12h", "16h", "20h", "24h"];
@@ -24,6 +25,7 @@ function parseMinutes(input: string): number | null {
 
 export function MentionCooldown({ defaultValue, premium }: MentionCooldownProps) {
 	const defaultValueInMinutes = defaultValue ? defaultValue / 1_000 / 60 : 0;
+	const { setIsCooldownDisabled } = useMentionCooldownEdits();
 
 	return (
 		<Slider
@@ -32,6 +34,7 @@ export function MentionCooldown({ defaultValue, premium }: MentionCooldownProps)
 			max={getMaximumLimit("mentionCooldown", premium)}
 			min={0}
 			mobileStepsToHide={[1, 2, 4, 5]}
+			onChange={(minutes) => setIsCooldownDisabled(minutes === 0 && defaultValueInMinutes !== 0)}
 			step={1}
 			steps={premium ? PREMIUM_STEPS : FREE_STEPS}
 			text={{ format: formatMinutes, parse: parseMinutes }}

@@ -14,6 +14,8 @@ import { OnJoinRolesDelay } from "./02-on-join-roles-delay.tsx";
 import { OnJoinRolesForBadges } from "./10-on-join-roles-for-badges.tsx";
 import { MentionCooldownRoles } from "./20-mention-cooldown-roles.tsx";
 import { MentionCooldown } from "./21-mention-cooldown.tsx";
+import { MentionCooldownWarnings } from "./22-mention-cooldown-warnings.tsx";
+import { MentionCooldownEditsProvider } from "./mention-cooldown-context.tsx";
 import { update } from "./update.ts";
 
 export default async function Roles({ params }: { readonly params: Promise<{ guildId: Snowflake }> }) {
@@ -80,25 +82,32 @@ export default async function Roles({ params }: { readonly params: Promise<{ gui
 				name="Role Mention Cooldown"
 				tooltip="Choose if certain roles should be mentionable by regular members, and for how long they should not be mentionable, after having been mentioned once. This is to avoid spam pings for Moderators or Admins."
 			>
-				<Text>Set which role(s) should get a cooldown when mentioned…</Text>
+				<MentionCooldownEditsProvider>
+					<Text>Set which role(s) should get a cooldown when mentioned…</Text>
 
-				<MentionCooldownRoles
-					defaultValues={settings.mentionCooldownRoles}
-					mentionedRoleIds={guild.mentionedRoleIds}
-					premium={guild.premium}
-					roles={guild.roles}
-				/>
+					<MentionCooldownRoles
+						defaultValues={settings.mentionCooldownRoles}
+						premium={guild.premium}
+						roles={guild.roles}
+					/>
 
-				<Separator />
+					<Separator />
 
-				<Text
-					docsPath="/guides/automatic-role-mention-cooldown#setting-up-the-cooldown-time"
-					tooltip="Choose the time it takes to mention the role(s) again after they were first mentioned."
-				>
-					Set how long the roles will be unmentionable for…
-				</Text>
+					<Text
+						docsPath="/guides/automatic-role-mention-cooldown#setting-up-the-cooldown-time"
+						tooltip="Choose the time it takes to mention the role(s) again after they were first mentioned."
+					>
+						Set how long the roles will be unmentionable for…
+					</Text>
 
-				<MentionCooldown defaultValue={settings.mentionCooldown} premium={guild.premium} />
+					<MentionCooldown defaultValue={settings.mentionCooldown} premium={guild.premium} />
+
+					<MentionCooldownWarnings
+						mentionedRoleIds={guild.mentionedRoleIds}
+						roles={guild.roles}
+						savedRoleIds={settings.mentionCooldownRoles}
+					/>
+				</MentionCooldownEditsProvider>
 			</Section>
 		</Form>
 	);
