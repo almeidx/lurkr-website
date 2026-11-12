@@ -84,6 +84,7 @@ export default async function Roles({ params }: { readonly params: Promise<{ gui
 
 				<MentionCooldownRoles
 					defaultValues={settings.mentionCooldownRoles}
+					mentionedRoleIds={guild.mentionedRoleIds}
 					premium={guild.premium}
 					roles={guild.roles}
 				/>

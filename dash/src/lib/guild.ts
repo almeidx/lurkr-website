@@ -25,10 +25,22 @@ export interface Guild {
 	emojis: Emoji[];
 	icon: string | null;
 	id: Snowflake;
+	/**
+	 * Roles made unmentionable by the mention cooldown, which stay that way if taken off it. May include roles that
+	 * are not in `roles`.
+	 */
+	mentionedRoleIds: Snowflake[];
 	name: string;
 	nsfw: boolean;
 	premium: boolean;
 	roles: Role[];
+}
+
+/** A successful settings save that also has something to tell the user about. */
+export interface SaveNotice {
+	readonly success: true;
+	/** Roles the save took off the mention cooldown while unmentionable, which stay that way. */
+	readonly untrackedMentionedRoleIds: Snowflake[];
 }
 
 export interface Channel {
