@@ -14,10 +14,13 @@ export function MentionCooldownWarnings({ mentionedRoleIds, roles, savedRoleIds 
 	const { isCooldownDisabled, selectedRoleIds } = useMentionCooldownEdits();
 	const saveNotice = useSaveNotice();
 
-	// Roles on cooldown that the unsaved changes would take off it.
+	// An untouched selector submits the saved roles it could find, which is not all of them if a role is missing
+	// from `roles`.
+	const submittedRoleIds = selectedRoleIds ?? savedRoleIds.filter((roleId) => roles.some((role) => role.id === roleId));
+
+	// Roles on cooldown that saving would take off it.
 	const affectedRoleIds = mentionedRoleIds.filter(
-		(roleId) =>
-			savedRoleIds.includes(roleId) && (isCooldownDisabled || (selectedRoleIds && !selectedRoleIds.includes(roleId))),
+		(roleId) => savedRoleIds.includes(roleId) && (isCooldownDisabled || !submittedRoleIds.includes(roleId)),
 	);
 
 	return (
