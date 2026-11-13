@@ -22,11 +22,11 @@ catalog:
   "@types/textarea-caret": ^3.0.4
   clsx: ^2.1.1
   date-fns: ^4.4.0
-  fumadocs-core: ^16.18.0
-  fumadocs-mdx: ^15.5.0
-  fumadocs-openapi: 12.6.0
-  fumadocs-ui: "npm:@fumadocs/base-ui@^16.18.0"
-  fumapress: ^1.6.2
+  fumadocs-core: ^16.19.0
+  fumadocs-mdx: ^15.6.1
+  fumadocs-openapi: 12.6.2
+  fumadocs-ui: "npm:@fumadocs/base-ui@^16.19.0"
+  fumapress: ^2.0.2
   hono: ^4.13.16
   husky: ^9.1.7
   isbot: ^5.2.2
@@ -59,9 +59,6 @@ catalog:
   typescript: ~7.0.2
   valibot: ^1.5.0
   vite: ^8.3.6
-  waku: 1.0.0-rc.1
   wrangler: ^4.158.0
 overrides:
   react-is: ^19.3.1
-patchedDependencies:
-  waku@1.0.0-rc.1: patches/waku@1.0.0-rc.1.patch
