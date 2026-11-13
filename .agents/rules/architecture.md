@@ -7,9 +7,9 @@
   import it with the existing relative-path pattern rather than adding a
   package dependency or a second copy.
 
-The docs deployment serves its static export under `/docs`; Waku's `basePath`
-and `docs/scripts/postbuild.mjs` keep exported asset and internal-link paths
-aligned with that mount point.
+The docs deployment serves its static export under `/docs`. Waku's `basePath`
+prefixes every exported URL, and `docs/scripts/postbuild.mjs` moves the files
+into `dist/public/docs/` to match that mount point.
 
 Guild settings routes follow
 `dash/src/app/guilds/[guildId]/<feature>/page.tsx`. Keep feature-specific code

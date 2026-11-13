@@ -2,8 +2,7 @@
 	"$schema": "node_modules/wrangler/config-schema.json",
 	"assets": {
 		"directory": "./dist/public",
-		// Keep docs URLs slashless, matching the dashboard. The Waku patch lets
-		// the exact `/docs` base path hydrate as the application root.
+		// Keep docs URLs slashless, matching the dashboard.
 		"html_handling": "drop-trailing-slash",
 		"not_found_handling": "404-page",
 	},

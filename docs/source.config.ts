@@ -1,6 +1,6 @@
 import { defineConfig, defineDocs } from "fumadocs-mdx/config";
 import lastModified from "fumadocs-mdx/plugins/last-modified";
-import { metaSchema, pageSchema } from "fumapress/adapters/mdx/schema";
+import { metaSchema, pageSchema } from "fumapress/schema";
 
 export const docs = defineDocs({
 	dir: "content",

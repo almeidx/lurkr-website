@@ -8,9 +8,12 @@ export default defineConfig({
 	plugins: [
 		press({
 			// The docs site is served under lurkr.gg/docs (the dashboard owns the root).
-			// The custom server entry below makes this a static Cloudflare export.
-			adapter: "waku/adapters/cloudflare",
+			// On Workers Builds, Fumapress picks the Cloudflare adapter by default,
+			// whose bundle can't run static generation (a CJS `require("process")`
+			// in `yaml`). The site is fully static, so the Node.js adapter is safe.
+			adapter: "waku/adapters/node",
 			basePath: "/docs/",
+			components: "./src/components/mdx.tsx",
 		}),
 		fumadocsMdx(),
 		tailwindcss(),
