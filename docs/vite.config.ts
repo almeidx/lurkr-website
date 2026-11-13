@@ -8,10 +8,9 @@ export default defineConfig({
 	plugins: [
 		press({
 			// The docs site is served under lurkr.gg/docs (the dashboard owns the root).
-			// Every page is prerendered, so the build is a static export with no
-			// server code to deploy. Pin the Node.js adapter: on Workers Builds,
-			// Fumapress would otherwise pick the Cloudflare adapter, whose bundle
-			// cannot run the static generation (a CJS `require("process")` in `yaml`).
+			// On Workers Builds, Fumapress picks the Cloudflare adapter by default,
+			// whose bundle can't run static generation (a CJS `require("process")`
+			// in `yaml`). The site is fully static, so the Node.js adapter is safe.
 			adapter: "waku/adapters/node",
 			basePath: "/docs/",
 			components: "./src/components/mdx.tsx",

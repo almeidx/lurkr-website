@@ -83,9 +83,7 @@ export default app.config({
 			{ attrs: { content: BRAND_COLOR, name: "msapplication-TileColor" }, tag: "meta" },
 		];
 	},
-	// Orama (listed above) replaces the default FlexSearch search. RSS and
-	// robots.txt stay off, as they were in v1. Image optimization needs a server,
-	// which a static export has none of.
+	// Image optimization needs a server, which the static export doesn't have.
 	preset: recommendedPreset({ image: false, robots: false, rss: false, search: false }),
 	site: {
 		baseUrl: import.meta.env.DEV ? "http://localhost:3000/docs" : `${BASE_URL}/docs`,
