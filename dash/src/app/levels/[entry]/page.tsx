@@ -2,12 +2,14 @@ import { buttonVariants } from "@heroui/styles";
 import { isHTTPError } from "ky";
 import type { Metadata } from "next";
 import Link from "next/link";
-import { redirect, RedirectType } from "next/navigation";
+import { notFound, redirect, RedirectType } from "next/navigation";
 import prettyMilliseconds from "pretty-ms";
+import { cache } from "react";
 import { LeaderboardTable } from "@/app/levels/[entry]/01-leaderboard-table.tsx";
 import {
 	LEADERBOARD_ENTRIES_PER_PAGE,
 	LEADERBOARD_MAX_PAGE,
+	leaderboardPath,
 	PageSelector,
 } from "@/app/levels/[entry]/page-selector.tsx";
 import fallbackAvatarImg from "@/assets/fallback-avatar.webp";
@@ -30,11 +32,38 @@ import { SortableMultipliers } from "./sortable-multipliers.tsx";
 import { SortableRoleRewards } from "./sortable-role-rewards.tsx";
 
 enum GetLeaderboardError {
-	Generic = 0,
 	MustBeLoggedIn = 1,
 	MustBeAMemberOfGuild = 2,
 	UnknownGuildOrDisabled = 3,
 }
+
+const getData = cache(async (entry: string, page: number) => {
+	try {
+		return await api
+			.get(`levels/${entry}`, {
+				cache: "no-store",
+				searchParams: { page },
+			})
+			.json<GetLevelsResponse>();
+	} catch (error) {
+		if (isHTTPError(error)) {
+			if (error.response.status === 401) {
+				return { error: GetLeaderboardError.MustBeLoggedIn } as const;
+			}
+
+			if (error.response.status === 403) {
+				return { error: GetLeaderboardError.MustBeAMemberOfGuild } as const;
+			}
+
+			if (error.response.status === 404) {
+				return { error: GetLeaderboardError.UnknownGuildOrDisabled } as const;
+			}
+		}
+
+		// Let the error boundary respond with a 5xx so crawlers retry instead of treating the page as gone.
+		throw error;
+	}
+});
 
 export default async function Leaderboard({ params, searchParams }: LeaderboardProps) {
 	const [{ page: rawPage }, { entry }] = await Promise.all([searchParams, params]);
@@ -69,18 +98,8 @@ export default async function Leaderboard({ params, searchParams }: LeaderboardP
 					</ErrorState>
 				);
 
-			default:
-				return (
-					<ErrorState
-						description="This server does not exist or does not have the leveling system enabled."
-						statusCode={404}
-						title="Leaderboard not found"
-					>
-						<Link className={buttonVariants({ variant: "primary" })} href="/levels">
-							Back to leaderboards
-						</Link>
-					</ErrorState>
-				);
+			case GetLeaderboardError.UnknownGuildOrDisabled:
+				notFound();
 		}
 	}
 
@@ -98,7 +117,7 @@ export default async function Leaderboard({ params, searchParams }: LeaderboardP
 	} = data;
 
 	if (isSnowflake(entry) && vanity) {
-		redirect(`/levels/${vanity}?page=${page}`, RedirectType.replace);
+		redirect(leaderboardPath(vanity, page), RedirectType.replace);
 	}
 
 	if (guild.nsfw && (await getCookie(NSFW_CONSENT_COOKIE)) !== NSFW_CONSENT_ACK) {
@@ -135,7 +154,7 @@ export default async function Leaderboard({ params, searchParams }: LeaderboardP
 						page > 2 ? (
 							<p className="mb-4 text-center text-balance">
 								There are no users in this page. Try going back to{" "}
-								<Link className="text-blurple underline" href={`/levels/${vanity ?? guild.id}?page=1`}>
+								<Link className="text-blurple underline" href={leaderboardPath(vanity ?? guild.id, 1)}>
 									page 1
 								</Link>
 								?
@@ -177,50 +196,37 @@ export default async function Leaderboard({ params, searchParams }: LeaderboardP
 export async function generateMetadata({ params, searchParams }: LeaderboardProps): Promise<Metadata> {
 	const [{ entry }, { page: rawPage }] = await Promise.all([params, searchParams]);
 
-	const defaultMetadata = {
-		description: "View the leveling leaderboard of a Discord server, including rewards and multipliers!",
-		title: "Leaderboard",
-	};
-
-	if (!process.env.LEVELS_METADATA_KEY) {
-		console.warn("Missing LEVELS_METADATA_KEY environment variable. Leaderboard metadata will not be available.");
-		return defaultMetadata;
-	}
-
-	let response: Response;
-
-	try {
-		response = await makeApiRequest(`/levels/${entry}/metadata`, null, {
-			headers: {
-				"X-Internal-Key": process.env.LEVELS_METADATA_KEY,
-			},
-			next: {
-				revalidate: 6 * 60 * 60, // 6 hours
-			},
-		});
-
-		if (!response.ok) {
-			return defaultMetadata;
-		}
-	} catch {
-		return defaultMetadata;
-	}
-
-	const guild = (await response.json()) as LevelsGuildMetadataResponse;
-
 	const page = parsePage(rawPage);
+	const [data, guild] = await Promise.all([getData(entry, page), getLevelsMetadata(entry)]);
 
-	const previousUrl = page === 1 ? null : `/levels/${entry}?page=${page - 1}`;
+	const indexable = !("error" in data) && !data.guild.nsfw;
+	const canonicalEntry = "error" in data ? entry : (data.vanity ?? entry);
+
+	const defaultMetadata = {
+		alternates: {
+			canonical: leaderboardPath(canonicalEntry, page),
+		},
+		description: "View the leveling leaderboard of a Discord server, including rewards and multipliers!",
+		robots: indexable ? undefined : { index: false },
+		title: "Leaderboard",
+	} satisfies Metadata;
+
+	if (!guild) {
+		return defaultMetadata;
+	}
+
+	const previousUrl = page === 1 ? null : leaderboardPath(canonicalEntry, page - 1);
 	const nextUrl =
 		page === LEADERBOARD_MAX_PAGE
 			? null
 			: guild.approximateLevelsCount > page * LEADERBOARD_ENTRIES_PER_PAGE
-				? `/levels/${entry}?page=${page + 1}`
+				? leaderboardPath(canonicalEntry, page + 1)
 				: null;
 
 	const titleSuffix = " • Leaderboard";
 
 	return {
+		...defaultMetadata,
 		description: `View the leveling leaderboard of ${guild.name}, including rewards and multipliers!`,
 
 		pagination: {
@@ -231,30 +237,25 @@ export async function generateMetadata({ params, searchParams }: LeaderboardProp
 	};
 }
 
-async function getData(entry: string, page: number) {
+async function getLevelsMetadata(entry: string) {
+	if (!process.env.LEVELS_METADATA_KEY) {
+		console.warn("Missing LEVELS_METADATA_KEY environment variable. Leaderboard metadata will not be available.");
+		return null;
+	}
+
 	try {
-		return await api
-			.get(`levels/${entry}`, {
-				cache: "no-store",
-				searchParams: { page },
-			})
-			.json<GetLevelsResponse>();
-	} catch (error) {
-		if (isHTTPError(error)) {
-			if (error.response.status === 401) {
-				return { error: GetLeaderboardError.MustBeLoggedIn };
-			}
+		const response = await makeApiRequest(`/levels/${entry}/metadata`, null, {
+			headers: {
+				"X-Internal-Key": process.env.LEVELS_METADATA_KEY,
+			},
+			next: {
+				revalidate: 6 * 60 * 60, // 6 hours
+			},
+		});
 
-			if (error.response.status === 403) {
-				return { error: GetLeaderboardError.MustBeAMemberOfGuild };
-			}
-
-			if (error.response.status === 404) {
-				return { error: GetLeaderboardError.UnknownGuildOrDisabled };
-			}
-		}
-
-		return { error: GetLeaderboardError.Generic };
+		return response.ok ? ((await response.json()) as LevelsGuildMetadataResponse) : null;
+	} catch {
+		return null;
 	}
 }
 

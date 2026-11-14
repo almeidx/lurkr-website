@@ -4,6 +4,10 @@ import Link from "next/link";
 export const LEADERBOARD_ENTRIES_PER_PAGE = 100;
 export const LEADERBOARD_MAX_PAGE = 100;
 
+export function leaderboardPath(entry: string, page: number) {
+	return page === 1 ? `/levels/${entry}` : `/levels/${entry}?page=${page}`;
+}
+
 export function PageSelector({ amount, entry, page }: PageSelectorProps) {
 	const isPossiblyLastPage = amount < LEADERBOARD_ENTRIES_PER_PAGE;
 
@@ -39,7 +43,7 @@ export function PageSelector({ amount, entry, page }: PageSelectorProps) {
 							"flex size-10 items-center justify-center rounded-lg px-2 py-1 font-semibold transition-colors",
 							page === num ? "bg-light-gray hover:bg-light-gray/75" : "bg-dark-gray hover:bg-dark-gray/75",
 						)}
-						href={`/levels/${entry}?page=${num}`}
+						href={leaderboardPath(entry, num)}
 						key={`${page}-${num}`}
 						prefetch={false}
 					>

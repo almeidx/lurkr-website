@@ -90,6 +90,19 @@ const nextConfig = {
 				permanent: true,
 				source: "/support",
 			},
+			// Docs pages that used to live at the root before moving under `/docs`.
+			...[
+				"/api",
+				"/api/changelog",
+				"/api/endpoints/:path*",
+				"/changelog",
+				"/config-commands/:path*",
+				"/guides/:path*",
+				"/leveling-commands/:path*",
+				"/premium-perks",
+				"/troubleshooting",
+				"/utility-commands/:path*",
+			].map((source) => ({ destination: `/docs${source}`, permanent: true, source })),
 		];
 	},
 } as const satisfies NextConfig;
