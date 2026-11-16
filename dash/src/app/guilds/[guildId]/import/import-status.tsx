@@ -3,8 +3,7 @@ import { ErrorOutline } from "@/components/icons/mdi/error-outline.tsx";
 import { LoadingSpinner } from "@/components/LoadingSpinner.tsx";
 import { LevelingImportError } from "@/lib/guild.ts";
 import { dateToRelativeTimeAgo } from "@/utils/date-to-relative-time-ago.ts";
-import type { GetImportStatusResponse } from "./01-leveling-import.tsx";
-import type { StartLevelingImportResult } from "./actions.ts";
+import type { GetImportStatusResponse, StartImportError, StartLevelingImportResult } from "./import-api.ts";
 
 export function ImportStatusTitle({ createdAt, completedAt }: { createdAt: Date; completedAt: Date | null }) {
 	const createdAt_ = new Date(createdAt);
@@ -34,50 +33,18 @@ export function ImportStatusTitle({ createdAt, completedAt }: { createdAt: Date;
 }
 
 export function ImportStatus({ formState, importStatus }: ImportStatusProps) {
-	// User hasn't started the import yet
-	if (formState === null && !importStatus) {
-		return null;
+	if (formState && "error" in formState) {
+		return <ImportFailed message="Failed to start. Please, try again later." />;
 	}
 
-	// User has started the import
-	if (formState && !importStatus) {
-		return <p>The leveling import is starting…</p>;
-	}
-
-	// Import failed to start
-	if (formState === false) {
-		return (
-			<>
-				<p>The leveling import has failed.</p>
-
-				<div className="flex items-center gap-2">
-					<ErrorOutline className="text-red" />
-					<p>Failed to start. Please, try again later.</p>
-				</div>
-			</>
-		);
-	}
-
-	// In theory, this should never happen, so this is here to satisfy TypeScript
 	if (!importStatus) {
-		return null;
+		return formState ? <p>The leveling import is starting…</p> : null;
 	}
 
-	// Import has failed
 	if (importStatus.error) {
-		return (
-			<>
-				<p>The leveling import has failed.</p>
-
-				<div className="flex items-center gap-2">
-					<ErrorOutline className="text-red" />
-					<p>{getImportStatusErrorText(importStatus.error)}</p>
-				</div>
-			</>
-		);
+		return <ImportFailed message={getImportStatusErrorText(importStatus.error)} />;
 	}
 
-	// Import has completed
 	if (importStatus.completedAt) {
 		return (
 			<div className="flex items-center gap-2">
@@ -90,8 +57,6 @@ export function ImportStatus({ formState, importStatus }: ImportStatusProps) {
 			</div>
 		);
 	}
-
-	// Import is still in progress
 
 	const updatedAt_ = new Date(importStatus.updatedAt);
 
@@ -110,6 +75,19 @@ export function ImportStatus({ formState, importStatus }: ImportStatusProps) {
 			</div>
 
 			<p>{importStatus.progress.toLocaleString("en")} users imported so far.</p>
+		</>
+	);
+}
+
+function ImportFailed({ message }: { readonly message: string }) {
+	return (
+		<>
+			<p>The leveling import has failed.</p>
+
+			<div className="flex items-center gap-2">
+				<ErrorOutline className="text-red" />
+				<p>{message}</p>
+			</div>
 		</>
 	);
 }
@@ -137,12 +115,7 @@ function getImportStatusErrorText(error: LevelingImportError): string {
 	}
 }
 
-export enum StartImportError {
-	RateLimited = 0,
-	Unknown = 1,
-}
-
 interface ImportStatusProps {
-	readonly formState: false | StartLevelingImportResult | null;
+	readonly formState: StartLevelingImportResult | { error: StartImportError } | null;
 	readonly importStatus: GetImportStatusResponse | null;
 }

@@ -2,63 +2,32 @@
 
 import { createContext, type PropsWithChildren, use, useActionState, useEffect } from "react";
 import { toast } from "sonner";
-import type { GenericIssue } from "valibot";
+import { DashboardPage } from "@/components/dashboard/DashboardPage.tsx";
 import { SaveButton } from "@/components/dashboard/SaveButton.tsx";
 import { Toggle } from "@/components/Toggle.tsx";
-import type { GuildSettings, SaveNotice } from "@/lib/guild.ts";
-import type { ServerActionError } from "@/utils/server-action-error.ts";
+import type { GuildSettings, SaveResult } from "@/lib/guild.ts";
 
-const SaveNoticeContext = createContext<SaveNotice | null>(null);
+type SuccessfulSave = Extract<SaveResult, { ok: true }>;
 
-/** The notice of the last save of the surrounding `Form`, if it had one. */
-export function useSaveNotice(): SaveNotice | null {
-	return use(SaveNoticeContext);
+const LastSaveContext = createContext<SuccessfulSave | null>(null);
+
+/** The last successful save of the surrounding `Form`, if there was one. */
+export function useLastSave(): SuccessfulSave | null {
+	return use(LastSaveContext);
 }
 
 export function Form({ title, action, children, description, settingId, defaultValue }: FormProps) {
 	const [state, formAction, isPending] = useActionState(action, null);
 
-	const saveNotice = typeof state === "object" && state !== null && "success" in state ? state : null;
-
 	useEffect(() => {
-		if (state === false) {
-			toast.error("Failed to save settings", {
-				description: "There is likely an issue with your configuration.",
-			});
-		} else if (state && typeof state === "object" && "error" in state) {
-			console.error("Failed to save settings", state);
-
-			let errorMessage: string;
-
-			if (state.issues) {
-				const issues = JSON.parse(state.issues) as GenericIssue[];
-				errorMessage = issues
-					.map((issue) => {
-						const key = issue.path?.[0]?.key;
-						const label =
-							typeof key === "string" ? key : typeof key === "symbol" ? (key.description ?? "Unknown") : "Unknown";
-						return `${label}: ${issue.message}`;
-					})
-					.join("\n");
-			} else if (state.issue) {
-				errorMessage = state.issue;
-			} else {
-				errorMessage = "An unknown error occurred.";
-			}
-
-			toast.error("Failed to save settings", { description: errorMessage });
+		if (state?.ok === false) {
+			console.error("Failed to save settings", state.error);
+			toast.error("Failed to save settings", { description: state.error });
 		}
 	}, [state]);
 
 	return (
-		// If this form is updated, the change must be replicated with the one on
-		// /app/(dashboard)/guilds/[guildId]/import/01-leveling-import.tsx
-		<div className="flex w-full flex-col gap-5 p-4">
-			<div className="space-y-2">
-				<h2 className="text-2xl font-semibold">{title}</h2>
-				{description && <p className="text-white/75">{description}</p>}
-			</div>
-
+		<DashboardPage description={description} title={title}>
 			<form action={formAction} className="mb-12 flex flex-col gap-4">
 				<div className="flex flex-col gap-5 md:flex-row">
 					{settingId ? (
@@ -69,20 +38,17 @@ export function Form({ title, action, children, description, settingId, defaultV
 						</div>
 					) : null}
 
-					<SaveButton pending={isPending} success={state === null ? null : state === true || saveNotice !== null} />
+					<SaveButton pending={isPending} success={state?.ok ?? null} />
 				</div>
 
-				<SaveNoticeContext value={saveNotice}>{children}</SaveNoticeContext>
+				<LastSaveContext value={state?.ok ? state : null}>{children}</LastSaveContext>
 			</form>
-		</div>
+		</DashboardPage>
 	);
 }
 
 type FormProps = PropsWithChildren<{
-	action(
-		currentState: unknown,
-		data: FormData,
-	): Promise<boolean | SaveNotice | { error: ServerActionError; issues?: string; issue?: string }>;
+	action(previousState: SaveResult | null, form: FormData): Promise<SaveResult>;
 	readonly defaultValue?: boolean;
 	readonly description?: string;
 	readonly settingId?: keyof GuildSettings;

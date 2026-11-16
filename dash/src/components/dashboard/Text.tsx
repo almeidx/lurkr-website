@@ -27,11 +27,6 @@ type TextProps =
 	  });
 
 type BaseTextProps = PropsWithChildren<{
-	/**
-	 * The value of the `htmlFor` attribute of the label.
-	 *
-	 * @remarks
-	 * Makes this component a label instead of a span.
-	 */
+	/** Makes this component a label instead of a span. */
 	readonly htmlFor?: string;
 }>;

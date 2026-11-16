@@ -20,11 +20,12 @@ import {
 	XP_CURVE_PRESETS,
 	type XpCurvePresetName,
 } from "@/lib/guild-config.ts";
-import { validateXpCurve } from "@/lib/validate-xp-curve.ts";
+import { describeXpCurve, xpCurveError, xpForLevel } from "@/lib/xp-curve.ts";
 import { formatNumber } from "@/utils/format-number.ts";
 
 const COEFFICIENT_LABELS = ["Constant (c₀)", "Linear (c₁·n)", "Quadratic (c₂·n²)", "Cubic (c₃·n³)", "Quartic (c₄·n⁴)"];
-const SAMPLE_LEVELS = [1, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100];
+const CHART_LEVELS = [1, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100];
+const SUMMARY_LEVELS = [1, 10, 50, 100];
 
 const PRESET_COLORS: Record<XpCurvePresetName, string> = {
 	amari: "#f59e0b",
@@ -40,17 +41,18 @@ const PRESET_LABELS: Record<XpCurvePresetName, string> = {
 
 const PRESET_NAMES = Object.keys(XP_CURVE_PRESETS) as XpCurvePresetName[];
 
-const PRESET_OPTIONS = [
-	{ description: "50n² − 100n + 150", label: "Lurkr (Default)", value: "lurkr" as const },
-	{ description: "20n² − 40n + 55", label: "Amari", value: "amari" as const },
-	{ description: "≈1.67n³ + 22.5n² + 75.83n", label: "MEE6", value: "mee6" as const },
-	{ description: "Define your own polynomial curve", label: "Custom", value: "custom" as const },
-] as const;
+const PRESET_OPTIONS: readonly { description: string; label: string; value: XpCurvePresetName | "custom" }[] = [
+	...(["lurkr", ...PRESET_NAMES.filter((name) => name !== "lurkr")] as const).map((name) => ({
+		description: describeXpCurve(XP_CURVE_PRESETS[name]),
+		label: name === "lurkr" ? `${PRESET_LABELS[name]} (Default)` : PRESET_LABELS[name],
+		value: name,
+	})),
+	{ description: "Define your own polynomial curve", label: "Custom", value: "custom" },
+];
 
-function getRequiredXp(level: number, xpCurve: readonly number[]): number {
-	if (level <= 0) return 0;
-	const xp = xpCurve.reduce((sum, coeff, exp) => sum + coeff * level ** exp, 0);
-	return Math.max(0, Math.round(xp));
+/** An invalid custom curve can go negative; that is shown as 0. */
+function shownXp(curve: readonly number[], level: number) {
+	return Math.max(0, xpForLevel(curve, level));
 }
 
 function detectPreset(coefficients: readonly number[]): XpCurvePresetName | "custom" {
@@ -73,23 +75,20 @@ export function XpCurve({ defaultValue }: XpCurveProps) {
 		[selectedPreset, coefficients],
 	);
 
-	const validationError = useMemo(() => {
-		const result = validateXpCurve(activeCoefficients);
-		return result.valid ? null : (result.error ?? "Invalid XP curve");
-	}, [activeCoefficients]);
+	const validationError = useMemo(() => xpCurveError(activeCoefficients), [activeCoefficients]);
 
 	const [showComparison, setShowComparison] = useState(false);
 
 	const chartData = useMemo(
 		() =>
-			SAMPLE_LEVELS.map((level) => {
+			CHART_LEVELS.map((level) => {
 				const point: Record<string, number> = {
-					active: validationError ? 0 : getRequiredXp(level, activeCoefficients),
+					active: validationError ? 0 : shownXp(activeCoefficients, level),
 					level,
 				};
 				if (showComparison) {
 					for (const name of PRESET_NAMES) {
-						point[name] = getRequiredXp(level, XP_CURVE_PRESETS[name]);
+						point[name] = shownXp(XP_CURVE_PRESETS[name], level);
 					}
 				}
 				return point;
@@ -158,6 +157,7 @@ export function XpCurve({ defaultValue }: XpCurveProps) {
 									className="w-28 min-w-0!"
 									defaultValue={coefficients[index] ?? ""}
 									id={`xpCurveCoeff${index}`}
+									name={null}
 									onChange={(e) => handleCoefficientChange(index, e.target.value)}
 									placeholder="0"
 									step="any"
@@ -260,10 +260,11 @@ export function XpCurve({ defaultValue }: XpCurveProps) {
 			</div>
 
 			<div className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-white/50">
-				<span>Level 1: {formatNumber(getRequiredXp(1, activeCoefficients))} XP</span>
-				<span>Level 10: {formatNumber(getRequiredXp(10, activeCoefficients))} XP</span>
-				<span>Level 50: {formatNumber(getRequiredXp(50, activeCoefficients))} XP</span>
-				<span>Level 100: {formatNumber(getRequiredXp(100, activeCoefficients))} XP</span>
+				{SUMMARY_LEVELS.map((level) => (
+					<span key={level}>
+						Level {level}: {formatNumber(shownXp(activeCoefficients, level))} XP
+					</span>
+				))}
 			</div>
 		</div>
 	);

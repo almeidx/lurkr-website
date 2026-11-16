@@ -22,7 +22,7 @@ export function ApiKeys({ guilds, initialKeys }: ApiKeysProps) {
 	const [openDialog, setOpenDialog] = useState<"guild-access" | "delete" | null>(null);
 
 	function fetchKeys() {
-		void getUserApiKeys().then((keys) => setKeys(keys));
+		void getUserApiKeys().then(setKeys, (error: unknown) => console.error("Failed to refresh API keys", error));
 	}
 
 	function handleOpenDialog(keyId: string, dialog: "guild-access" | "delete") {

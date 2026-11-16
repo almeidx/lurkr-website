@@ -1,8 +1,7 @@
+import { isHTTPError } from "ky";
 import type { Metadata } from "next";
-import { cookies } from "next/headers";
 import { type GetMyMonthlyProgressResponse, MessageCounts } from "@/app/levels/[entry]/me/message-counts.tsx";
-import { TOKEN_COOKIE } from "@/utils/constants.ts";
-import { makeApiRequest } from "@/utils/make-api-request.ts";
+import { api } from "@/lib/api.ts";
 
 export const metadata: Metadata = {
 	description: "View your leveling progress over time.",
@@ -10,17 +9,11 @@ export const metadata: Metadata = {
 };
 
 export default async function MyLevel({ params }: { params: Promise<{ entry: string }> }) {
-	const [{ entry }, cookieStore] = await Promise.all([params, cookies()]);
-
-	const token = cookieStore.get(TOKEN_COOKIE)?.value;
-	if (!token) {
-		return <NotLoggedIn />;
-	}
-
-	const data = token ? await getData(entry, token) : null;
+	const { entry } = await params;
+	const data = await getData(entry);
 
 	if (!data) {
-		return <p>Failed to load data</p>;
+		return <NotLoggedIn />;
 	}
 
 	return (
@@ -47,17 +40,16 @@ function NotLoggedIn() {
 	);
 }
 
-async function getData(entry: string, token: string) {
-	const response = await makeApiRequest(`/levels/${entry}/users/@me/monthly-progress`, token, {
-		next: {
-			revalidate: 60,
-			tags: [`levels:${entry}:progress`],
-		},
-	});
+async function getData(entry: string) {
+	try {
+		return await api
+			.get(`levels/${entry}/users/@me/monthly-progress`, { next: { revalidate: 60 } })
+			.json<GetMyMonthlyProgressResponse>();
+	} catch (error) {
+		if (isHTTPError(error) && error.response.status === 401) {
+			return null;
+		}
 
-	if (!response.ok) {
-		return null;
+		throw error;
 	}
-
-	return response.json() as Promise<GetMyMonthlyProgressResponse>;
 }

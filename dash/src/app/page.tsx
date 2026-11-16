@@ -19,9 +19,9 @@ import { Speed } from "@/components/icons/mdi/speed.tsx";
 import { TrendingUp } from "@/components/icons/mdi/trending-up.tsx";
 import { Showcase } from "@/components/Showcase.tsx";
 import { WrappedNoticeContainer } from "@/components/wrapped-notice-container.tsx";
+import { publicApi } from "@/lib/api.ts";
 import { BOT_INVITE } from "@/shared-links.ts";
 import { formatNumber } from "@/utils/format-number.ts";
-import { makeApiRequest } from "@/utils/make-api-request.ts";
 
 export default async function Homepage() {
 	const {
@@ -134,7 +134,7 @@ export default async function Homepage() {
 					index={1}
 					title="Ultimate Leveling System"
 				>
-					<TrendingUp className="size-9 text-[#ff7077]" />
+					<TrendingUp className="size-9 text-brand" />
 				</Showcase>
 
 				<ShowcaseSeparator />
@@ -195,12 +195,9 @@ function StartLevelingButton() {
 			className="group relative flex w-72 items-center justify-center rounded-lg p-px text-3xl font-bold"
 			href={BOT_INVITE}
 		>
-			{/* Background gradient that becomes border on hover */}
 			<div className="absolute inset-0 rounded-lg bg-linear-(--lurkr-gradient) transition-all group-hover:bg-clip-padding group-hover:p-px" />
 
-			{/* Inner background that appears on hover */}
 			<div className="relative flex w-full justify-center rounded-lg px-4 py-2 transition-colors group-hover:bg-background">
-				{/* Text with background color by default, gradient on hover */}
 				<span className="text-background transition-colors group-hover:bg-linear-(--lurkr-gradient) group-hover:bg-clip-text group-hover:text-transparent">
 					Start Leveling
 				</span>
@@ -220,32 +217,18 @@ function ShowcaseSeparator() {
 }
 
 async function getData() {
-	const [statsResponse, featuredResponse] = await Promise.allSettled([
-		makeApiRequest("/stats", null, {
-			next: {
-				revalidate: 6 * 60 * 60, // 6 hours
-			},
-		}),
-		makeApiRequest("/guilds/featured", null, {
-			next: {
-				revalidate: 60 * 60, // 1 hour
-			},
-		}),
+	const [stats, featured] = await Promise.allSettled([
+		publicApi.get("stats", { next: { revalidate: 6 * 60 * 60 } }).json<StatsResponse>(),
+		publicApi.get("guilds/featured", { next: { revalidate: 60 * 60 } }).json<FeaturedGuild[]>(),
 	]);
 
-	const stats =
-		statsResponse.status === "fulfilled"
-			? ((await statsResponse.value.json()) as StatsResponse)
-			: {
-					guildCount: 31_000,
-					memberCount: 14_000_000,
-					messageCount: 580_000_000,
-					uptime: 99.9,
-				};
-	const featured =
-		featuredResponse.status === "fulfilled" ? ((await featuredResponse.value.json()) as FeaturedGuild[]) : [];
-
-	return { featured, stats };
+	return {
+		featured: featured.status === "fulfilled" ? featured.value : [],
+		stats:
+			stats.status === "fulfilled"
+				? stats.value
+				: { guildCount: 31_000, memberCount: 14_000_000, messageCount: 580_000_000, uptime: 99.9 },
+	};
 }
 
 interface StatsResponse {

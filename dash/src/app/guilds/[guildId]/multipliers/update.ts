@@ -1,78 +1,32 @@
 "use server";
 
-import { maxValue, minValue, object, parse, pipe, regex, safeParse, string, transform } from "valibot";
-import { action } from "@/app/guilds/[guildId]/action-base.ts";
-import {
-	MAX_XP_MULTIPLIER_TARGETS,
-	MAX_XP_MULTIPLIER_TARGETS_PREMIUM,
-	MAX_XP_MULTIPLIER_VALUE,
-	MAX_XP_MULTIPLIERS,
-	MAX_XP_MULTIPLIERS_PREMIUM,
-	MIN_XP_MULTIPLIER_VALUE,
-} from "@/lib/guild-config.ts";
-import { type GuildSettings, XpMultiplierType } from "@/lib/guild.ts";
-import { formDataToObject } from "@/utils/form-data-to-object.ts";
-import { lazy } from "@/utils/lazy.ts";
-import { booleanFlag, coerceToFloat, createSnowflakesValidator, toggle, UUID_REGEX } from "@/utils/schemas.ts";
-import { ServerActionError } from "@/utils/server-action-error.ts";
+import { array, enum as enum_, maxLength, maxValue, minValue, number, object, parseJson, pipe, string } from "valibot";
+import { saveSettings } from "@/app/guilds/[guildId]/settings.ts";
+import { limitFor, MAX_XP_MULTIPLIER_VALUE, MIN_XP_MULTIPLIER_VALUE } from "@/lib/guild-config.ts";
+import { type SaveResult, XpMultiplierType } from "@/lib/guild.ts";
+import { booleanFlag, coerceToFloat, requiredSnowflake, toggle } from "@/utils/schemas.ts";
 
-const schema = object({
-	prioritiseMultiplierRoleHierarchy: booleanFlag,
-	voteBoostedXp: toggle,
-	xpGlobalMultiplier: pipe(coerceToFloat, minValue(MIN_XP_MULTIPLIER_VALUE), maxValue(MAX_XP_MULTIPLIER_VALUE)),
-});
+function schema(premium: boolean) {
+	return object({
+		prioritiseMultiplierRoleHierarchy: booleanFlag,
+		voteBoostedXp: toggle,
+		xpGlobalMultiplier: pipe(coerceToFloat, minValue(MIN_XP_MULTIPLIER_VALUE), maxValue(MAX_XP_MULTIPLIER_VALUE)),
+		xpMultipliers: pipe(
+			string(),
+			parseJson(),
+			array(
+				object({
+					id: string(),
+					multiplier: pipe(number(), minValue(MIN_XP_MULTIPLIER_VALUE), maxValue(MAX_XP_MULTIPLIER_VALUE)),
+					targets: pipe(array(requiredSnowflake), maxLength(limitFor("xpMultiplierTargets", premium))),
+					type: enum_(XpMultiplierType),
+				}),
+			),
+			maxLength(limitFor("xpMultipliers", premium)),
+		),
+	});
+}
 
-const xpMultiplierType = Object.values(XpMultiplierType);
-
-const multiplierValueSchema = pipe(coerceToFloat, minValue(MIN_XP_MULTIPLIER_VALUE), maxValue(MAX_XP_MULTIPLIER_VALUE));
-
-const regularMultiplierTargetsSchema = lazy(() => createSnowflakesValidator(MAX_XP_MULTIPLIER_TARGETS));
-const premiumMultiplierTargetsSchema = lazy(() => createSnowflakesValidator(MAX_XP_MULTIPLIER_TARGETS_PREMIUM));
-
-// `xpMultipliers-${XpMultiplierType}-${number}-${UUID}`
-const xpMultipliersKeySchema = pipe(
-	string("Keys must be strings"),
-	regex(
-		new RegExp(`^xpMultipliers-(${xpMultiplierType.join("|")})-(\\d+(?:\\.\\d+)?)-${UUID_REGEX.source}$`),
-		"Multiplier key doesn't match the expected format",
-	),
-	transform((value) => {
-		const parts = value.split("-");
-		const type = parts[1] as XpMultiplierType;
-		const id = parts.slice(3).join("-");
-		const multiplier = parse(multiplierValueSchema, parts[2]);
-
-		return { id, multiplier, type };
-	}),
-);
-
-export async function update(guildId: string, premium: boolean, _currentState: unknown, data: FormData) {
-	const rawData = formDataToObject(data);
-
-	const parsed = safeParse(schema, rawData);
-
-	if (!parsed.success) {
-		return { error: ServerActionError.SchemaMismatch, issues: JSON.stringify(parsed.issues) };
-	}
-
-	const multiplierTargetsSchema = premium ? premiumMultiplierTargetsSchema() : regularMultiplierTargetsSchema();
-
-	const settings = {
-		...parsed.output,
-		xpMultipliers: Object.entries(rawData).flatMap(([key, value]) => {
-			if (!key.startsWith("xpMultipliers-")) return [];
-			const keyData = parse(xpMultipliersKeySchema, key);
-			const targets = parse(multiplierTargetsSchema, value);
-
-			return [{ ...keyData, targets }];
-		}),
-	} satisfies Partial<GuildSettings>;
-
-	const maxXpMultipliers = premium ? MAX_XP_MULTIPLIERS_PREMIUM : MAX_XP_MULTIPLIERS;
-
-	if (settings.xpMultipliers.length > maxXpMultipliers) {
-		throw new Error(`Maximum of ${maxXpMultipliers} XP multipliers exceeded`);
-	}
-
-	return action(guildId, settings, `settings:${guildId}:multipliers`, premium);
+export async function update(guildId: string, premium: boolean, _previousState: SaveResult | null, form: FormData) {
+	return saveSettings(guildId, premium, schema(premium), form);
 }

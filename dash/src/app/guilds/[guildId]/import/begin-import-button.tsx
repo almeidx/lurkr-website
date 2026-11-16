@@ -2,6 +2,21 @@ import { Tooltip, TooltipAnchor, TooltipProvider } from "@ariakit/react";
 import { Confirmation } from "@/components/Confirmation.tsx";
 import { SystemUpdate } from "@/components/icons/mdi/system-update.tsx";
 
+export const IMPORT_BUTTON_CLASS_NAME =
+	"text-shadow-regular flex w-fit items-center justify-between gap-3 rounded-lg bg-green px-2 py-1 text-lg font-semibold transition-colors hover:bg-green/90 disabled:bg-green/50 md:text-xl";
+
+export function ImportConfirmationMessage() {
+	return (
+		<>
+			Are you sure you want to import leveling data into this server?
+			<br />
+			<span className="font-bold text-red">
+				This is a destructive and irreversible operation which will overwrite any existing data.
+			</span>
+		</>
+	);
+}
+
 export function BeginImportButton({ isRateLimited, importOngoing }: BeginImportButtonProps) {
 	const disabled = isRateLimited || importOngoing;
 
@@ -13,15 +28,11 @@ export function BeginImportButton({ isRateLimited, importOngoing }: BeginImportB
 					<SystemUpdate className="size-5 drop-shadow-regular" />
 				</>
 			}
-			className="text-shadow-regular flex w-fit items-center justify-between gap-3 rounded-lg bg-green px-2 py-1 text-lg font-semibold transition-colors hover:bg-green/90 disabled:bg-green/50 md:text-xl"
+			className={IMPORT_BUTTON_CLASS_NAME}
 			disabled={disabled}
 			useSubmitButton
 		>
-			Are you sure you want to import leveling data into this server?
-			<br />
-			<span className="font-bold text-red">
-				This is a destructive and irreversible operation which will overwrite any existing data.
-			</span>
+			<ImportConfirmationMessage />
 		</Confirmation>
 	);
 

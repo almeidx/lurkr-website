@@ -118,18 +118,14 @@ function Option<
 
 interface RoleSelectorProps extends PropsWithChildren {
 	readonly defaultValues: RoleWithResolvedColor[];
-	/**
-	 * Id for the input where the user can type
-	 */
+	/** Id for the input where the user can type */
 	readonly inputId: string;
 	readonly max: number;
 	readonly menuPlacement?: "auto" | "top" | "bottom";
 	onChange?(newValues: readonly RoleWithResolvedColor[]): void;
 	readonly roles: Role[];
-	/**
-	 * Id for the input containing the channel ids (hidden)
-	 */
-	readonly settingId: string;
+	/** Form field to submit the selected ids in, comma-separated. Without it, they aren't submitted. */
+	readonly settingId?: string;
 }
 
-export type RoleWithResolvedColor = Role & { readonly resolvedColor: string };
+type RoleWithResolvedColor = Role & { readonly resolvedColor: string };

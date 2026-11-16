@@ -1,14 +1,10 @@
 import type { Metadata } from "next";
-import { cookies } from "next/headers";
-import { getGuildSettings } from "@/app/guilds/[guildId]/get-guild-data.ts";
+import { getGuildSettings } from "@/app/guilds/[guildId]/settings.ts";
 import { Form } from "@/components/dashboard/Form.tsx";
 import { Section } from "@/components/dashboard/Section.tsx";
 import { Text } from "@/components/dashboard/Text.tsx";
 import { Separator } from "@/components/Separator.tsx";
-import { TOKEN_COOKIE } from "@/utils/constants.ts";
 import type { Snowflake } from "@/utils/discord-cdn.ts";
-import { SignInRequired } from "../sign-in-required.tsx";
-import { UnknownGuildOrMissingAccess } from "../unknown-guild.tsx";
 import { OnJoinRoles } from "./01-on-join-roles.tsx";
 import { OnJoinRolesDelay } from "./02-on-join-roles-delay.tsx";
 import { OnJoinRolesForBadges } from "./10-on-join-roles-for-badges.tsx";
@@ -19,21 +15,8 @@ import { MentionCooldownEditsProvider } from "./mention-cooldown-context.tsx";
 import { update } from "./update.ts";
 
 export default async function Roles({ params }: { readonly params: Promise<{ guildId: Snowflake }> }) {
-	const [{ guildId }, cookieStore] = await Promise.all([params, cookies()]);
-
-	const token = cookieStore.get(TOKEN_COOKIE)?.value;
-	if (!token) {
-		return <SignInRequired />;
-	}
-
-	const guildData = await getGuildSettings(guildId, token, "roles");
-
-	if (!guildData) {
-		return <UnknownGuildOrMissingAccess />;
-	}
-
-	const { guild, settings } = guildData;
-
+	const { guildId } = await params;
+	const { guild, settings } = await getGuildSettings(guildId);
 	const action = update.bind(null, guildId, guild.premium);
 
 	return (
@@ -62,7 +45,7 @@ export default async function Roles({ params }: { readonly params: Promise<{ gui
 					Set the time between joining and getting the role(s)…
 				</Text>
 
-				<OnJoinRolesDelay defaultValue={settings.autoRoleTimeout} premium={guild.premium} />
+				<OnJoinRolesDelay defaultValue={settings.autoRoleTimeout} />
 			</Section>
 
 			<Section name="On Join Roles for Badges">
@@ -74,7 +57,7 @@ export default async function Roles({ params }: { readonly params: Promise<{ gui
 					Set roles to be Discord badge-specific…
 				</Text>
 
-				<OnJoinRolesForBadges defaultValues={settings.autoRoleFlags} premium={guild.premium} roles={guild.roles} />
+				<OnJoinRolesForBadges defaultValues={settings.autoRoleFlags} roles={guild.roles} />
 			</Section>
 
 			<Section
@@ -85,11 +68,7 @@ export default async function Roles({ params }: { readonly params: Promise<{ gui
 				<MentionCooldownEditsProvider>
 					<Text>Set which role(s) should get a cooldown when mentioned…</Text>
 
-					<MentionCooldownRoles
-						defaultValues={settings.mentionCooldownRoles}
-						premium={guild.premium}
-						roles={guild.roles}
-					/>
+					<MentionCooldownRoles defaultValues={settings.mentionCooldownRoles} roles={guild.roles} />
 
 					<Separator />
 

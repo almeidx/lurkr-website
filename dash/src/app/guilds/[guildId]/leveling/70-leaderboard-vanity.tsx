@@ -1,11 +1,12 @@
 "use client";
 
+import { isHTTPError } from "ky";
 import { type ChangeEvent, useRef, useState } from "react";
 import { Input } from "@/components/dashboard/Input.tsx";
 import { Check } from "@/components/icons/mdi/check.tsx";
 import { Close } from "@/components/icons/mdi/close.tsx";
+import { api } from "@/lib/api.ts";
 import { MAX_VANITY_LENGTH, MIN_VANITY_LENGTH, VANITY_REGEX_SOURCE } from "@/lib/guild-config.ts";
-import { API_URL } from "@/utils/constants.ts";
 
 const vanityRegex = new RegExp(VANITY_REGEX_SOURCE);
 
@@ -15,18 +16,18 @@ export function LeaderboardVanity({ defaultValue }: { defaultValue: string | nul
 	const timeoutId = useRef<NodeJS.Timeout | null>(null);
 
 	async function verifyAvailability(value: string) {
-		const query = new URLSearchParams({ vanity: value });
-		const response = await fetch(`${API_URL}/vanity/check?${query.toString()}`, {
-			credentials: "include",
-		});
+		try {
+			const { available } = await api
+				.get("vanity/check", { searchParams: { vanity: value } })
+				.json<{ available: boolean }>();
+			setAvailable(available);
+		} catch (error) {
+			if (!isHTTPError(error)) {
+				throw error;
+			}
 
-		if (!response.ok) {
 			setAvailable(false);
-			return;
 		}
-
-		const data = (await response.json()) as { available: boolean };
-		setAvailable(data.available);
 	}
 
 	async function updateVanityInput(event: ChangeEvent<HTMLInputElement>) {

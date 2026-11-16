@@ -4,10 +4,8 @@ import { XpChannelMode } from "@/lib/guild.ts";
 
 export function LevelingChannelMode({ defaultValue }: { readonly defaultValue: XpChannelMode }) {
 	return (
-		<RadioProvider
-			defaultValue={defaultValue} // Force remount when defaultValue changes
-			key={defaultValue}
-		>
+		// `key` is required here to prevent rollback to previous setting after saving
+		<RadioProvider defaultValue={defaultValue} key={defaultValue}>
 			<RadioGroup className="flex w-fit flex-col gap-4">
 				<label className="flex text-lg tracking-tight text-white/75 md:text-xl" htmlFor="xpChannelModeWhitelist">
 					<Radio id="xpChannelModeWhitelist" name="xpChannelMode" rightMargin value={XpChannelMode.Whitelist} />

@@ -3,12 +3,8 @@ import type { ApiKeyPermission } from "@/lib/guild.ts";
 import type { Snowflake } from "@/utils/discord-cdn.ts";
 
 export async function getUserApiKeys() {
-	try {
-		const { keys } = await api.get("users/@me/keys").json<GetUserApiKeysResult>();
-		return keys;
-	} catch {
-		return [];
-	}
+	const { keys } = await api.get("users/@me/keys").json<GetUserApiKeysResult>();
+	return keys;
 }
 
 export interface GetUserApiKeysResult {

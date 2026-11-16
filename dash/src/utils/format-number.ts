@@ -1,9 +1,3 @@
-/**
- * Adds suffixes to large numbers, e.g. 8.6k, 9.4M, 3.2B, etc.
- *
- * @param num - The number to format
- * @param withDecimal - Whether to include a decimal place
- */
 export function formatNumber(num: number, withDecimal = true) {
 	if (num < 1_000) {
 		return round(num, withDecimal);

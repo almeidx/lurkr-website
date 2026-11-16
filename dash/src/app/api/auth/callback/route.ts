@@ -1,5 +1,6 @@
 import { timingSafeEqual } from "node:crypto";
 import { type NextRequest, NextResponse } from "next/server";
+import { publicApi } from "@/lib/api.ts";
 import {
 	AUTH_CALLBACK_PATH,
 	OAUTH_STATE_COOKIE,
@@ -7,7 +8,6 @@ import {
 	TOKEN_COOKIE,
 	TOKEN_COOKIE_SCOPE,
 } from "@/utils/constants.ts";
-import { makeApiRequest } from "@/utils/make-api-request.ts";
 
 export async function GET(request: NextRequest) {
 	const expectedState = request.cookies.get(OAUTH_STATE_COOKIE)?.value;
@@ -24,18 +24,18 @@ export async function GET(request: NextRequest) {
 
 	const redirectTo = getRedirectToValue(request.cookies.get(REDIRECT_TO_COOKIE)?.value, request.nextUrl.origin);
 
-	const registerResponse = await makeApiRequest("/auth/register", null, {
-		body: JSON.stringify({ code }),
-		headers: {
-			"Content-Type": "application/json",
-			"X-Environment": process.env.NEXT_PUBLIC_ENVIRONMENT ?? "prod",
-		},
-		method: "POST",
-	});
+	const registration = await publicApi
+		.post("auth/register", {
+			headers: { "X-Environment": process.env.NEXT_PUBLIC_ENVIRONMENT ?? "prod" },
+			json: { code },
+		})
+		.json<RegisterResponse>()
+		.catch((error: unknown) => {
+			console.error("Failed to register user:", error);
+			return null;
+		});
 
-	if (!registerResponse.ok) {
-		console.error("Failed to register user:", await registerResponse.text());
-
+	if (!registration) {
 		const redirectUrl = new URL("/", request.url);
 		redirectUrl.searchParams.set("login_failure", "1");
 
@@ -44,7 +44,7 @@ export async function GET(request: NextRequest) {
 		return withStateCleared(response);
 	}
 
-	const { token, maxAge } = (await registerResponse.json()) as RegisterResponse;
+	const { token, maxAge } = registration;
 
 	const redirectUrl = redirectTo ?? new URL("/", request.url);
 

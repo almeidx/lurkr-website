@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { ReportProblem } from "@/components/icons/mdi/report-problem.tsx";
-import { makeApiRequest } from "@/utils/make-api-request.ts";
+import { publicApi } from "@/lib/api.ts";
 import type { Shard } from "./shard.tsx";
 import { ShardsContainer } from "./shards-container.tsx";
 
@@ -40,17 +40,11 @@ export const metadata: Metadata = {
 };
 
 async function getData() {
-	const response = await makeApiRequest("/status", null, {
-		next: {
-			revalidate: 30,
-		},
-	}).catch(() => {});
-
-	if (!response?.ok) {
+	try {
+		return await publicApi.get("status", { next: { revalidate: 30 } }).json<StatusResponse>();
+	} catch {
 		return null;
 	}
-
-	return response.json() as Promise<StatusResponse>;
 }
 
 interface StatusResponse {

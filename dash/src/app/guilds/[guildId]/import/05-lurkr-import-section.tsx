@@ -1,5 +1,6 @@
 "use client";
 
+import { isHTTPError } from "ky";
 import { type DragEvent, useRef, useState } from "react";
 import { Confirmation } from "@/components/Confirmation.tsx";
 import { Label } from "@/components/dashboard/Label.tsx";
@@ -9,8 +10,9 @@ import { ErrorOutline } from "@/components/icons/mdi/error-outline.tsx";
 import { SystemUpdate } from "@/components/icons/mdi/system-update.tsx";
 import { Upload } from "@/components/icons/mdi/upload.tsx";
 import { LoadingSpinner } from "@/components/LoadingSpinner.tsx";
-import { API_URL } from "@/utils/constants.ts";
+import { api } from "@/lib/api.ts";
 import type { Snowflake } from "@/utils/discord-cdn.ts";
+import { IMPORT_BUTTON_CLASS_NAME, ImportConfirmationMessage } from "./begin-import-button.tsx";
 
 type ImportState =
 	| { status: "idle" }
@@ -83,39 +85,25 @@ export function LurkrImportSection({ guildId }: { guildId: Snowflake }) {
 
 		setImportState({ status: "uploading" });
 
+		const body = new FormData();
+		body.append("file", file);
+
 		try {
-			const formData = new FormData();
-			formData.append("file", file);
-
-			const response = await fetch(`${API_URL}/levels/${guildId}/import/lurkr`, {
-				body: formData,
-				credentials: "include",
-				method: "POST",
-			});
-
-			if (!response.ok) {
-				if (response.status === 429) {
-					setImportState({ message: "Import is rate limited. Please try again later.", status: "error" });
-					return;
-				}
-
-				const errorData = await response.json().catch(() => null);
-				let errorMessage = "An error occurred during import.";
-				if (errorData != null) {
-					const message = errorData.message;
-					if (message != null) {
-						errorMessage = message;
-					}
-				}
-				setImportState({ message: errorMessage, status: "error" });
-				return;
-			}
-
-			const result = (await response.json()) as { count: number };
-			setImportState({ count: result.count, status: "success" });
+			// The response only arrives once the whole import has run, which can outlast the default timeout.
+			const { count } = await api
+				.post(`levels/${guildId}/import/lurkr`, { body, timeout: false })
+				.json<{ count: number }>();
+			setImportState({ count, status: "success" });
 			setFile(null);
-		} catch {
-			setImportState({ message: "Failed to connect to the server. Please try again.", status: "error" });
+		} catch (error) {
+			if (!isHTTPError<{ message?: string }>(error)) {
+				setImportState({ message: "Failed to connect to the server. Please try again.", status: "error" });
+			} else if (error.response.status === 429) {
+				setImportState({ message: "Import is rate limited. Please try again later.", status: "error" });
+			} else {
+				const message = typeof error.data === "object" ? error.data.message : undefined;
+				setImportState({ message: message ?? "An error occurred during import.", status: "error" });
+			}
 		}
 	}
 
@@ -181,15 +169,11 @@ export function LurkrImportSection({ guildId }: { guildId: Snowflake }) {
 							</>
 						)
 					}
-					className="text-shadow-regular flex w-fit items-center justify-between gap-3 rounded-lg bg-green px-2 py-1 text-lg font-semibold transition-colors hover:bg-green/90 disabled:bg-green/50 md:text-xl"
+					className={IMPORT_BUTTON_CLASS_NAME}
 					disabled={!file || isUploading}
 					onConfirm={handleImport}
 				>
-					Are you sure you want to import leveling data into this server?
-					<br />
-					<span className="font-bold text-red">
-						This is a destructive and irreversible operation which will overwrite any existing data.
-					</span>
+					<ImportConfirmationMessage />
 				</Confirmation>
 			</div>
 

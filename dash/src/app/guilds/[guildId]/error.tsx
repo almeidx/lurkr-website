@@ -1,6 +1,6 @@
 "use client";
 
-import { UnknownGuildOrMissingAccess } from "./[guildId]/unknown-guild.tsx";
+import { UnknownGuildOrMissingAccess } from "./unknown-guild.tsx";
 
 export default function DashboardError({ error }: DashboardErrorProps) {
 	console.error("Failed to load dashboard pages", error);

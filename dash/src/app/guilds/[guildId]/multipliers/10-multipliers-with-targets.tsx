@@ -4,22 +4,29 @@ import { useState } from "react";
 import { Section } from "@/components/dashboard/Section.tsx";
 import { Text } from "@/components/dashboard/Text.tsx";
 import { Separator } from "@/components/Separator.tsx";
-import type { Channel, Role, XpMultiplier } from "@/lib/guild.ts";
-import { RoleMultipliers } from "./11-role-multipliers.tsx";
+import { type Channel, type Role, type XpMultiplier, XpMultiplierType } from "@/lib/guild.ts";
+import { existingIds } from "@/utils/existing-ids.ts";
+import { TargetMultipliers } from "./11-target-multipliers.tsx";
 import { RoleMultiplierPriority } from "./12-role-multiplier-priority.tsx";
-import { ChannelMultipliers } from "./13-channel-multipliers.tsx";
 
 export function MultipliersWithTargets({
 	channels,
-	multipliers,
+	defaultMultipliers,
 	premium,
 	prioritiseMultiplierRoleHierarchy,
 	roles,
 }: MultipliersProps) {
-	const [multiplierCount, setMultiplierCount] = useState(multipliers.length);
+	const [multipliers, setMultipliers] = useState(() =>
+		defaultMultipliers.map((multiplier) => ({
+			...multiplier,
+			targets: existingIds(multiplier.targets, multiplier.type === XpMultiplierType.Role ? roles : channels),
+		})),
+	);
 
 	return (
 		<>
+			<input name="xpMultipliers" type="hidden" value={JSON.stringify(multipliers)} />
+
 			<Section name="Role Multipliers">
 				<Text
 					docsPath="/guides/setting-up-leveling-multipliers#setting-role-multipliers"
@@ -29,12 +36,13 @@ export function MultipliersWithTargets({
 					Setup role multipliers that only apply to members in those roles…
 				</Text>
 
-				<RoleMultipliers
-					multiplierCount={multiplierCount}
+				<TargetMultipliers
+					channels={channels}
 					multipliers={multipliers}
 					premium={premium}
 					roles={roles}
-					setMultiplierCount={setMultiplierCount}
+					setMultipliers={setMultipliers}
+					type={XpMultiplierType.Role}
 				/>
 
 				<Separator />
@@ -58,12 +66,13 @@ export function MultipliersWithTargets({
 					Setup channel multipliers that only apply to members chatting in those channels…
 				</Text>
 
-				<ChannelMultipliers
+				<TargetMultipliers
 					channels={channels}
-					multiplierCount={multiplierCount}
 					multipliers={multipliers}
 					premium={premium}
-					setMultiplierCount={setMultiplierCount}
+					roles={roles}
+					setMultipliers={setMultipliers}
+					type={XpMultiplierType.Channel}
 				/>
 			</Section>
 		</>
@@ -72,7 +81,7 @@ export function MultipliersWithTargets({
 
 interface MultipliersProps {
 	readonly channels: Channel[];
-	readonly multipliers: XpMultiplier[];
+	readonly defaultMultipliers: XpMultiplier[];
 	readonly premium: boolean;
 	readonly prioritiseMultiplierRoleHierarchy: boolean;
 	readonly roles: Role[];

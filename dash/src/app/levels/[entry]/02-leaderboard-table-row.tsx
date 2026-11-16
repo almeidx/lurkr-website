@@ -3,7 +3,7 @@
 import { Disclosure, DisclosureContent, DisclosureProvider } from "@ariakit/react";
 import dynamic from "next/dynamic";
 import { userLevelResetAction } from "@/app/levels/[entry]/actions.ts";
-import type { GetLevelsResponse } from "@/app/levels/[entry]/page.tsx";
+import type { GetLevelsResponse } from "@/app/levels/[entry]/leaderboard-types.ts";
 import fallbackAvatarImg from "@/assets/fallback-avatar.webp";
 import { ImageWithFallback } from "@/components/ImageWithFallback.tsx";
 import { RadialProgressBar } from "@/components/RadialProgressBar.tsx";

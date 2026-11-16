@@ -1,27 +1,15 @@
 "use server";
 
 import { updateTag } from "next/cache";
-import { cookies } from "next/headers";
 import { parse } from "valibot";
-import { TOKEN_COOKIE } from "@/utils/constants.ts";
-import { makeApiRequest } from "@/utils/make-api-request.ts";
-import { snowflake } from "@/utils/schemas.ts";
+import { settingsTag } from "@/app/guilds/[guildId]/settings.ts";
+import { api } from "@/lib/api.ts";
+import { requiredSnowflake } from "@/utils/schemas.ts";
 
 export async function resetGuildDataAction(guildIdInput: string) {
-	const guildId = parse(snowflake, guildIdInput);
+	const guildId = parse(requiredSnowflake, guildIdInput);
 
-	const token = (await cookies()).get(TOKEN_COOKIE)?.value;
-	if (!token) {
-		throw new Error("Unauthorized");
-	}
+	await api.delete(`guilds/${guildId}`);
 
-	const response = await makeApiRequest(`/guilds/${guildId}`, token, {
-		method: "DELETE",
-	});
-
-	if (!response.ok) {
-		throw new Error("Failed to reset guild data");
-	}
-
-	updateTag(`settings:${guildId}`);
+	updateTag(settingsTag(guildId));
 }

@@ -3,7 +3,7 @@
 import parseDuration from "parse-duration";
 import prettyMilliseconds from "pretty-ms";
 import { Slider } from "@/components/dashboard/Slider.tsx";
-import { getMaximumLimit } from "@/utils/get-maximum-limit.ts";
+import { limitFor } from "@/lib/guild-config.ts";
 import { useMentionCooldownEdits } from "./mention-cooldown-context.tsx";
 
 const FREE_STEPS = ["0", "1h", "2h", "3h", "4h", "5h", "6h"];
@@ -31,7 +31,7 @@ export function MentionCooldown({ defaultValue, premium }: MentionCooldownProps)
 		<Slider
 			defaultValue={defaultValueInMinutes}
 			id="mentionCooldown"
-			max={getMaximumLimit("mentionCooldown", premium)}
+			max={limitFor("mentionCooldown", premium)}
 			min={0}
 			mobileStepsToHide={[1, 2, 4, 5]}
 			onChange={(minutes) => setIsCooldownDisabled(minutes === 0 && defaultValueInMinutes !== 0)}

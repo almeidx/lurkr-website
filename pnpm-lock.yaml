@@ -266,9 +266,6 @@ catalogs:
     oxlint-tsgolint:
       specifier: ^7.0.2007
       version: 7.0.2007
-    p-retry:
-      specifier: ^9.0.0
-      version: 9.0.0
     parse-duration:
       specifier: ^2.1.11
       version: 2.1.11
@@ -400,9 +397,6 @@ importers:
       next-nprogress-bar:
         specifier: 'catalog:'
         version: 2.4.7
-      p-retry:
-        specifier: 'catalog:'
-        version: 9.0.0
       parse-duration:
         specifier: 'catalog:'
         version: 2.1.11
@@ -3109,10 +3103,6 @@ packages:
   is-hexadecimal@2.0.1:
     resolution: {integrity: sha512-DgZQp241c8oO6cA1SbTEWiXeoxV42vlcJxgH+B3hi1AiqqKruZR3ZGF8In3fj4+/y/7rHvlOZLZtgJ/4ttYGZg==}
 
-  is-network-error@1.3.2:
-    resolution: {integrity: sha512-PhBY86zaxNZUuWP6h13Vu5oFe0XY6/UlKzQnYFELzGVHygP3MxmvTfYSG7GN3aIab/iWudSMgjSnG9Dq+nHrgA==}
-    engines: {node: '>=16'}
-
   is-plain-obj@4.1.0:
     resolution: {integrity: sha512-+Pgi+vMuUNkJyExiMBt5IlFoMyKnr5zhJ4Uspz58WOhBF5QoIZkFyNHIbBAtHwzVAgk5RtndVNsDRN61/mmDqg==}
     engines: {node: '>=12'}
@@ -3616,10 +3606,6 @@ packages:
         optional: true
       vite-plus:
         optional: true
-
-  p-retry@9.0.0:
-    resolution: {integrity: sha512-HuEats8gYn/UUYa5uyveyQGv75mQmwdFtuMgnZlS12dj/7bdnJSO6keaTjgcZUhvkANTj5EO3lACUmV3xmgj0Q==}
-    engines: {node: '>=22'}
 
   parent-module@1.0.1:
     resolution: {integrity: sha512-GQ2EWRpQV8/o+Aw8YqtfZZPfNRWZYkbidE9k5rpl/hC3vtHHBfGm2Ifi6qWV+coDGkrUKZAxE3Lot5kcsRlh+g==}
@@ -6461,8 +6447,6 @@ snapshots:
 
   is-hexadecimal@2.0.1: {}
 
-  is-network-error@1.3.2: {}
-
   is-plain-obj@4.1.0: {}
 
   isbot@5.2.3: {}
@@ -7164,10 +7148,6 @@ snapshots:
       '@oxlint/binding-win32-ia32-msvc': 1.93.0
       '@oxlint/binding-win32-x64-msvc': 1.93.0
       oxlint-tsgolint: 7.0.2007
-
-  p-retry@9.0.0:
-    dependencies:
-      is-network-error: 1.3.2
 
   parent-module@1.0.1:
     dependencies:

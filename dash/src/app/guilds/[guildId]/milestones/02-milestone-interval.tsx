@@ -1,9 +1,12 @@
 import { Input } from "@/components/dashboard/Input.tsx";
 import { Text } from "@/components/dashboard/Text.tsx";
-import { MILESTONES_INTERVAL_MULTIPLE_OF, MIN_MILESTONES_INTERVAL } from "@/lib/guild-config.ts";
-import { getMaximumLimit } from "@/utils/get-maximum-limit.ts";
+import {
+	MAX_MILESTONES_INTERVAL,
+	MILESTONES_INTERVAL_MULTIPLE_OF,
+	MIN_MILESTONES_INTERVAL,
+} from "@/lib/guild-config.ts";
 
-export function MilestoneInterval({ defaultValue, premium }: MilestoneIntervalProps) {
+export function MilestoneInterval({ defaultValue }: { readonly defaultValue: number }) {
 	return (
 		<>
 			<Text
@@ -16,18 +19,13 @@ export function MilestoneInterval({ defaultValue, premium }: MilestoneIntervalPr
 			<Input
 				defaultValue={defaultValue}
 				id="milestonesInterval"
-				max={getMaximumLimit("milestonesInterval", premium)}
+				max={MAX_MILESTONES_INTERVAL}
 				min={MIN_MILESTONES_INTERVAL}
-				placeholder="Enter a number that is a multiple of 10…"
+				placeholder={`Enter a number that is a multiple of ${MILESTONES_INTERVAL_MULTIPLE_OF}…`}
 				required
 				step={MILESTONES_INTERVAL_MULTIPLE_OF}
 				type="number"
 			/>
 		</>
 	);
-}
-
-interface MilestoneIntervalProps {
-	readonly defaultValue: number;
-	readonly premium: boolean;
 }

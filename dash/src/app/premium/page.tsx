@@ -1,22 +1,21 @@
 import { ArrowsExpand, Clock, LockOpen, Person } from "@gravity-ui/icons";
 import { Accordion } from "@heroui/react";
+import { isHTTPError } from "ky";
 import type { Metadata } from "next";
-import { cookies } from "next/headers";
 import Link from "next/link";
+import { unstable_rethrow } from "next/navigation";
 import { configLimitFeatures, extraFeatures } from "@/app/premium/features.ts";
 import { PremiumPlan } from "@/app/premium/plan.tsx";
 import { ComparisonTable } from "@/app/premium/table.tsx";
 import lurkrFreeImg from "@/assets/premium-plans/lurkr-free.webp";
 import lurkrMaxImg from "@/assets/premium-plans/lurkr-max.webp";
 import lurkrUltimateImg from "@/assets/premium-plans/lurkr-ultimate.webp";
+import { api } from "@/lib/api.ts";
 import { PremiumTier } from "@/lib/auth.ts";
 import { SUPPORT_SERVER_INVITE } from "@/shared-links.ts";
-import { TOKEN_COOKIE } from "@/utils/constants.ts";
-import { makeApiRequest } from "@/utils/make-api-request.ts";
 
 export default async function Premium() {
-	const token = (await cookies()).get(TOKEN_COOKIE)?.value;
-	const currentPlan = token ? await getData(token) : null;
+	const currentPlan = await getCurrentPlan();
 
 	return (
 		<div className="mx-auto flex w-full max-w-7xl flex-col items-center justify-center gap-12 px-4 py-12">
@@ -196,18 +195,18 @@ export const metadata: Metadata = {
 	title: "Support Lurkr",
 };
 
-async function getData(token: string) {
-	const response = await makeApiRequest("/users/@me/premium", token, {
-		next: {
-			revalidate: 2 * 60, // 2 minutes
-		},
-	});
+async function getCurrentPlan() {
+	try {
+		return await api.get("users/@me/premium", { next: { revalidate: 2 * 60 } }).json<CurrentPlanResponse>();
+	} catch (error) {
+		unstable_rethrow(error);
+		// The page works without a current plan, so it only loses the highlight.
+		if (!isHTTPError(error) || error.response.status !== 401) {
+			console.error("Failed to load the current premium plan", error);
+		}
 
-	if (!response.ok) {
 		return null;
 	}
-
-	return response.json() as Promise<CurrentPlanResponse>;
 }
 
 interface CurrentPlanResponse {

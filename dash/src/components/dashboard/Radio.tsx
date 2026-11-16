@@ -17,4 +17,4 @@ export function Radio({
 	);
 }
 
-export { RadioGroup, useRadioStore } from "@ariakit/react";
+export { RadioGroup } from "@ariakit/react";

@@ -36,12 +36,20 @@ export interface Guild {
 	roles: Role[];
 }
 
-/** A successful settings save that also has something to tell the user about. */
-export interface SaveNotice {
-	readonly success: true;
-	/** Roles the save took off the mention cooldown while unmentionable, which stay that way. */
-	readonly untrackedMentionedRoleIds: Snowflake[];
+export interface GuildMetadata {
+	readonly id: Snowflake;
+	readonly icon: string | null;
+	readonly name: string;
+	readonly premium: boolean;
 }
+
+export type SaveResult =
+	| {
+			readonly ok: true;
+			/** Roles the save took off the mention cooldown while unmentionable, which stay that way. */
+			readonly untrackedMentionedRoleIds: Snowflake[];
+	  }
+	| { readonly error: string; readonly ok: false };
 
 export interface Channel {
 	id: Snowflake;

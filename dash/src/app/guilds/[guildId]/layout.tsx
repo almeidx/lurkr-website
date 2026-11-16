@@ -1,9 +1,9 @@
-import { cookies } from "next/headers";
+import { unstable_rethrow } from "next/navigation";
 import type { PropsWithChildren } from "react";
-import type { GuildInfo } from "@/app/guilds/page.tsx";
-import { TOKEN_COOKIE } from "@/utils/constants.ts";
+import { api } from "@/lib/api.ts";
+import { getUserGuilds } from "@/lib/auth.ts";
+import type { GuildMetadata } from "@/lib/guild.ts";
 import type { Snowflake } from "@/utils/discord-cdn.ts";
-import { makeApiRequest } from "@/utils/make-api-request.ts";
 import { DashboardMenu } from "./dashboard-menu.tsx";
 import { UnknownGuildOrMissingAccess } from "./unknown-guild.tsx";
 
@@ -11,14 +11,8 @@ export default async function DashboardLayout({
 	children,
 	params,
 }: PropsWithChildren<{ params: Promise<{ guildId: Snowflake }> }>) {
-	const [{ guildId }, cookieStore] = await Promise.all([params, cookies()]);
-
-	const token = cookieStore.get(TOKEN_COOKIE)?.value;
-	if (!token) {
-		return <UnknownGuildOrMissingAccess />;
-	}
-
-	const { guild, guilds } = await getData(guildId, token);
+	const { guildId } = await params;
+	const [guild, guilds] = await Promise.all([getGuildMetadata(guildId), getBotGuilds()]);
 
 	if (!guild) {
 		return <UnknownGuildOrMissingAccess />;
@@ -37,33 +31,24 @@ export default async function DashboardLayout({
 	);
 }
 
-async function getData(guildId: Snowflake, token: string) {
-	const [metadataResponse, guildsResponse] = await Promise.all([
-		makeApiRequest(`/guilds/${guildId}/metadata`, token, {
-			next: {
-				revalidate: 300, // 5 minutes
-			},
-		}),
-		makeApiRequest("/users/@me/guilds", token, {
-			next: {
-				revalidate: 60, // 1 minute
-			},
-		}),
-	]);
-
-	if (!metadataResponse.ok) {
-		console.error("Failed to fetch guild metadata", metadataResponse.status, await metadataResponse.text());
+// The segment's error.tsx only wraps this layout's children, so the layout handles its own failure.
+async function getGuildMetadata(guildId: Snowflake) {
+	try {
+		return await api.get(`guilds/${guildId}/metadata`, { next: { revalidate: 300 } }).json<GuildMetadata>();
+	} catch (error) {
+		unstable_rethrow(error);
+		console.error("Failed to fetch guild metadata", error);
+		return null;
 	}
-
-	const guilds = guildsResponse.ok ? ((await guildsResponse.json()) as GuildInfo[]).filter((guild) => guild.botIn) : [];
-	const guild = metadataResponse.ok ? ((await metadataResponse.json()) as GuildMetadataResult) : null;
-
-	return { guild, guilds };
 }
 
-export interface GuildMetadataResult {
-	readonly id: Snowflake;
-	readonly icon: string | null;
-	readonly name: string;
-	readonly premium: boolean;
+async function getBotGuilds() {
+	try {
+		const guilds = await getUserGuilds();
+		return guilds.filter((guild) => guild.botIn);
+	} catch (error) {
+		unstable_rethrow(error);
+		console.error("Failed to fetch the user's guilds", error);
+		return [];
+	}
 }

@@ -3,7 +3,9 @@
 import {
 	array,
 	boolean,
+	check,
 	enum_,
+	forward,
 	integer,
 	literal,
 	maxLength,
@@ -13,55 +15,42 @@ import {
 	number,
 	object,
 	optional,
-	parse,
+	parseJson,
 	pipe,
+	rawCheck,
 	regex,
-	safeParse,
 	string,
 	transform,
 	union,
 } from "valibot";
-import { action } from "@/app/guilds/[guildId]/action-base.ts";
+import { saveSettings } from "@/app/guilds/[guildId]/settings.ts";
 import {
-	MAX_NO_ROLE_REWARD_ROLES,
-	MAX_NO_ROLE_REWARD_ROLES_PREMIUM,
-	MAX_NO_TOP_XP_ROLES,
-	MAX_NO_TOP_XP_ROLES_PREMIUM,
-	MAX_NO_XP_ROLES,
-	MAX_NO_XP_ROLES_PREMIUM,
+	limitFor,
 	MAX_XP_ANNOUNCE_LEVEL,
 	MAX_XP_ANNOUNCE_LEVELS,
 	MAX_XP_ANNOUNCE_MINIMUM_LEVEL,
 	MAX_XP_ANNOUNCE_MULTIPLE_OF,
-	MAX_XP_CHANNELS,
-	MAX_XP_CHANNELS_PREMIUM,
-	MAX_XP_CURVE_COEFFICIENTS,
 	MAX_XP_DISALLOWED_PREFIX_LENGTH,
-	MAX_XP_DISALLOWED_PREFIXES,
-	MAX_XP_DISALLOWED_PREFIXES_PREMIUM,
 	MAX_XP_GAIN_INTERVAL,
 	MAX_XP_MESSAGE_LENGTH,
 	MAX_XP_PER_MESSAGE,
-	MAX_XP_ROLE_REWARD_ROLES,
-	MAX_XP_ROLE_REWARD_ROLES_PREMIUM,
-	MAX_XP_ROLE_REWARDS,
-	MAX_XP_ROLE_REWARDS_PREMIUM,
+	MAX_XP_ROLE_REWARD_LEVEL,
 	MIN_XP_ANNOUNCE_LEVEL,
 	MIN_XP_ANNOUNCE_MINIMUM_LEVEL,
 	MIN_XP_ANNOUNCE_MULTIPLE_OF,
-	MIN_XP_CURVE_COEFFICIENTS,
 	MIN_XP_GAIN_INTERVAL,
 	MIN_XP_MESSAGE_LENGTH,
 	MIN_XP_PER_MESSAGE,
+	MIN_XP_ROLE_REWARD_LEVEL,
 } from "@/lib/guild-config.ts";
 import {
 	AutoResetLevels,
-	type GuildSettings,
 	LeaderboardVisibility,
+	type SaveResult,
 	XpAnnouncementChannelType,
 	XpChannelMode,
 } from "@/lib/guild.ts";
-import { validateXpCurve } from "@/lib/validate-xp-curve.ts";
+import { xpCurveError } from "@/lib/xp-curve.ts";
 import {
 	EMBED_AUTHOR_NAME_MAX_LENGTH,
 	EMBED_DESCRIPTION_MAX_LENGTH,
@@ -70,114 +59,34 @@ import {
 	EMBED_FOOTER_TEXT_MAX_LENGTH,
 	EMBED_TITLE_MAX_LENGTH,
 	EMBED_URL_MAX_LENGTH,
+	EMBED_URL_MIN_LENGTH,
+	MAX_EMBED_FIELDS,
 } from "@/utils/embed-limits.ts";
-import { formDataToObject } from "@/utils/form-data-to-object.ts";
-import { lazy } from "@/utils/lazy.ts";
 import {
 	coerceToInt,
-	createSnowflakesValidator,
 	emptyStringToNull,
+	requiredSnowflake,
 	snowflake,
+	snowflakeList,
 	toggle,
-	UUID_REGEX,
 	vanitySchema,
 } from "@/utils/schemas.ts";
-import { ServerActionError } from "@/utils/server-action-error.ts";
 
-const regularSchema = createSchema(false);
-const premiumSchema = createSchema(true);
+const embedUrl = pipe(string(), minLength(EMBED_URL_MIN_LENGTH), maxLength(EMBED_URL_MAX_LENGTH));
 
-// `role-rewards-${number}-${UUID}`
-const xpRoleRewardsKeySchema = pipe(
-	string(),
-	regex(new RegExp(`^xpRoleRewards-\\d+-${UUID_REGEX.source}$`)),
-	transform((value) => {
-		const parts = value.split("-");
-		return { id: parts.slice(2).join("-"), level: Number(parts[1]) };
-	}),
-);
-const regularXpRoleRewardRolesSchema = lazy(() => createSnowflakesValidator(MAX_XP_ROLE_REWARD_ROLES));
-const premiumXpRoleRewardRolesSchema = lazy(() => createSnowflakesValidator(MAX_XP_ROLE_REWARD_ROLES_PREMIUM));
+const xpPerMessage = pipe(coerceToInt, minValue(MIN_XP_PER_MESSAGE), maxValue(MAX_XP_PER_MESSAGE));
 
-export async function update(guildId: string, premium: boolean, _currentState: unknown, data: FormData) {
-	const rawData = formDataToObject(data);
-	const schema = premium ? premiumSchema() : regularSchema();
-
-	const xpRoleRewardRolesSchema = premium ? premiumXpRoleRewardRolesSchema() : regularXpRoleRewardRolesSchema();
-
-	const result = safeParse(schema, rawData);
-
-	if (!result.success) {
-		return {
-			error: ServerActionError.SchemaMismatch,
-			issues: JSON.stringify(result.issues),
-		};
-	}
-
-	const { autoResetLevelsBan, autoResetLevelsLeave, ...parsed } = result.output;
-
-	const settings = {
-		...parsed,
-		autoResetLevels: transformAutoResetLevels(autoResetLevelsLeave, autoResetLevelsBan),
-		xpRoleRewards: Object.entries(rawData).flatMap(([key, value]) =>
-			key.startsWith("xpRoleRewards-") && !key.endsWith("-stack")
-				? [
-						{
-							...parse(xpRoleRewardsKeySchema, key),
-							roleIds: parse(xpRoleRewardRolesSchema, value),
-							stack: rawData[`${key}-stack`] === "on",
-						},
-					]
-				: [],
-		),
-	} satisfies Partial<GuildSettings>;
-
-	if (settings.xpAnnounceChannelType === XpAnnouncementChannelType.Custom && !settings.xpAnnounceChannel) {
-		return {
-			error: ServerActionError.ManualValidationFail,
-			issue: "Missing Level Up Message Announcement channel",
-		};
-	}
-
-	const maxXpRoleRewards = premium ? MAX_XP_ROLE_REWARDS_PREMIUM : MAX_XP_ROLE_REWARDS;
-	if (settings.xpRoleRewards.length > maxXpRoleRewards) {
-		return {
-			error: ServerActionError.ManualValidationFail,
-			issue: `Too many XP role rewards (max ${maxXpRoleRewards})`,
-		};
-	}
-
-	const curveValidation = validateXpCurve(settings.xpCurve);
-	if (!curveValidation.valid) {
-		return {
-			error: ServerActionError.ManualValidationFail,
-			issue: curveValidation.error ?? "Invalid XP curve",
-		};
-	}
-
-	if (settings.xpPerMessageMin > settings.xpPerMessageMax) {
-		return {
-			error: ServerActionError.ManualValidationFail,
-			issue: "Minimum XP per message must be less than or equal to maximum XP per message",
-		};
-	}
-
-	return action(guildId, settings, `settings:${guildId}:leveling`, premium);
-}
-
-function createSchema(premium: boolean) {
-	return lazy(() =>
+function schema(premium: boolean) {
+	return pipe(
 		object({
 			accentColour: optional(pipe(string(), regex(/^#[\da-f]{6}$/i))),
 			autoResetLevelsBan: toggle,
 			autoResetLevelsLeave: toggle,
 			leaderboardVisibility: enum_(LeaderboardVisibility),
 			levels: toggle,
-			noRoleRewardRoles: createSnowflakesValidator(
-				premium ? MAX_NO_ROLE_REWARD_ROLES_PREMIUM : MAX_NO_ROLE_REWARD_ROLES,
-			),
-			noTopXpRoles: createSnowflakesValidator(premium ? MAX_NO_TOP_XP_ROLES_PREMIUM : MAX_NO_TOP_XP_ROLES),
-			noXpRoles: createSnowflakesValidator(premium ? MAX_NO_XP_ROLES_PREMIUM : MAX_NO_XP_ROLES),
+			noRoleRewardRoles: snowflakeList(limitFor("noRoleRewardRoles", premium)),
+			noTopXpRoles: snowflakeList(limitFor("noTopXpRoles", premium)),
+			noXpRoles: snowflakeList(limitFor("noXpRoles", premium)),
 			syncRoleRewardsOnJoin: toggle,
 			topXpRole: snowflake,
 			vanity: union([emptyStringToNull, vanitySchema]),
@@ -185,7 +94,7 @@ function createSchema(premium: boolean) {
 			xpAnnounceChannelType: enum_(XpAnnouncementChannelType),
 			xpAnnounceLevels: pipe(
 				string(),
-				transform((value) => JSON.parse(value)),
+				parseJson(),
 				array(pipe(coerceToInt, minValue(MIN_XP_ANNOUNCE_LEVEL), maxValue(MAX_XP_ANNOUNCE_LEVEL))),
 				maxLength(MAX_XP_ANNOUNCE_LEVELS),
 			),
@@ -202,19 +111,23 @@ function createSchema(premium: boolean) {
 			]),
 			xpAnnounceOnlyXpRoles: toggle,
 			xpChannelMode: enum_(XpChannelMode),
-			xpChannels: createSnowflakesValidator(premium ? MAX_XP_CHANNELS_PREMIUM : MAX_XP_CHANNELS),
+			xpChannels: snowflakeList(limitFor("xpChannels", premium)),
 			xpCurve: pipe(
 				string(),
-				transform((value) => JSON.parse(value)),
+				parseJson(),
 				array(number()),
-				minLength(MIN_XP_CURVE_COEFFICIENTS),
-				maxLength(MAX_XP_CURVE_COEFFICIENTS),
+				rawCheck(({ addIssue, dataset }) => {
+					const error = dataset.typed ? xpCurveError(dataset.value) : null;
+					if (error) {
+						addIssue({ message: error });
+					}
+				}),
 			),
 			xpDisallowedPrefixes: pipe(
 				string(),
-				transform((value) => JSON.parse(value)),
+				parseJson(),
 				array(pipe(string(), maxLength(MAX_XP_DISALLOWED_PREFIX_LENGTH))),
-				maxLength(premium ? MAX_XP_DISALLOWED_PREFIXES_PREMIUM : MAX_XP_DISALLOWED_PREFIXES),
+				maxLength(limitFor("xpDisallowedPrefixes", premium)),
 			),
 			xpFromCommands: toggle,
 			xpGainInterval: pipe(coerceToInt, minValue(MIN_XP_GAIN_INTERVAL), maxValue(MAX_XP_GAIN_INTERVAL)),
@@ -230,13 +143,13 @@ function createSchema(premium: boolean) {
 				),
 				pipe(
 					string(),
-					transform((value) => JSON.parse(value)),
+					parseJson(),
 					object({
 						author: optional(
 							object({
-								icon_url: optional(pipe(string(), minLength(10), maxLength(EMBED_URL_MAX_LENGTH))),
+								icon_url: optional(embedUrl),
 								name: pipe(string(), minLength(1), maxLength(EMBED_AUTHOR_NAME_MAX_LENGTH)),
-								url: optional(pipe(string(), minLength(10), maxLength(EMBED_URL_MAX_LENGTH))),
+								url: optional(embedUrl),
 							}),
 						),
 						color: optional(pipe(number(), integer(), minValue(0), maxValue(0xffffff))),
@@ -250,37 +163,61 @@ function createSchema(premium: boolean) {
 										value: pipe(string(), minLength(1), maxLength(EMBED_FIELD_VALUE_MAX_LENGTH)),
 									}),
 								),
-								maxLength(25),
+								maxLength(MAX_EMBED_FIELDS),
 							),
 						),
 						footer: optional(
 							object({
-								icon_url: optional(pipe(string(), minLength(10), maxLength(EMBED_URL_MAX_LENGTH))),
+								icon_url: optional(embedUrl),
 								text: pipe(string(), minLength(1), maxLength(EMBED_FOOTER_TEXT_MAX_LENGTH)),
 							}),
 						),
-						image: optional(
-							object({
-								url: pipe(string(), minLength(10), maxLength(EMBED_URL_MAX_LENGTH)),
-							}),
-						),
-						thumbnail: optional(
-							object({
-								url: pipe(string(), minLength(10), maxLength(EMBED_URL_MAX_LENGTH)),
-							}),
-						),
+						image: optional(object({ url: embedUrl })),
+						thumbnail: optional(object({ url: embedUrl })),
 						title: optional(pipe(string(), maxLength(EMBED_TITLE_MAX_LENGTH))),
-						url: optional(pipe(string(), minLength(10), maxLength(EMBED_URL_MAX_LENGTH))),
+						url: optional(embedUrl),
 					}),
 				),
 			]),
-			xpPerMessageMax: pipe(coerceToInt, minValue(MIN_XP_PER_MESSAGE), maxValue(MAX_XP_PER_MESSAGE)),
-			xpPerMessageMin: pipe(coerceToInt, minValue(MIN_XP_PER_MESSAGE), maxValue(MAX_XP_PER_MESSAGE)),
+			xpPerMessageMax: xpPerMessage,
+			xpPerMessageMin: xpPerMessage,
+			xpRoleRewards: pipe(
+				string(),
+				parseJson(),
+				array(
+					object({
+						id: string(),
+						level: pipe(number(), integer(), minValue(MIN_XP_ROLE_REWARD_LEVEL), maxValue(MAX_XP_ROLE_REWARD_LEVEL)),
+						roleIds: pipe(array(requiredSnowflake), maxLength(limitFor("xpRoleRewardRoles", premium))),
+						stack: boolean(),
+					}),
+				),
+				maxLength(limitFor("xpRoleRewards", premium)),
+			),
 		}),
+		forward(
+			check(
+				({ xpAnnounceChannel, xpAnnounceChannelType }) =>
+					xpAnnounceChannelType !== XpAnnouncementChannelType.Custom || xpAnnounceChannel !== null,
+				"Missing Level Up Message Announcement channel",
+			),
+			["xpAnnounceChannel"],
+		),
+		forward(
+			check(
+				({ xpPerMessageMax, xpPerMessageMin }) => xpPerMessageMin <= xpPerMessageMax,
+				"Minimum XP per message must be less than or equal to maximum XP per message",
+			),
+			["xpPerMessageMin"],
+		),
+		transform(({ autoResetLevelsBan, autoResetLevelsLeave, ...settings }) => ({
+			...settings,
+			autoResetLevels: autoResetLevels(autoResetLevelsLeave, autoResetLevelsBan),
+		})),
 	);
 }
 
-function transformAutoResetLevels(leave: boolean | undefined, ban: boolean | undefined) {
+function autoResetLevels(leave: boolean | undefined, ban: boolean | undefined) {
 	if (leave && ban) {
 		return AutoResetLevels.BanAndLeave;
 	}
@@ -294,4 +231,13 @@ function transformAutoResetLevels(leave: boolean | undefined, ban: boolean | und
 	}
 
 	return AutoResetLevels.None;
+}
+
+export async function update(
+	guildId: string,
+	premium: boolean,
+	_previousState: SaveResult | null,
+	form: FormData,
+): Promise<SaveResult> {
+	return saveSettings(guildId, premium, schema(premium), form);
 }

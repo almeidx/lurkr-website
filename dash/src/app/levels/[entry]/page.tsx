@@ -1,6 +1,7 @@
 import { buttonVariants } from "@heroui/styles";
 import { isHTTPError } from "ky";
 import type { Metadata } from "next";
+import { cookies } from "next/headers";
 import Link from "next/link";
 import { notFound, redirect, RedirectType } from "next/navigation";
 import prettyMilliseconds from "pretty-ms";
@@ -10,23 +11,19 @@ import {
 	LEADERBOARD_ENTRIES_PER_PAGE,
 	LEADERBOARD_MAX_PAGE,
 	leaderboardPath,
-	PageSelector,
-} from "@/app/levels/[entry]/page-selector.tsx";
+} from "@/app/levels/[entry]/leaderboard-path.ts";
+import type { GetLevelsResponse } from "@/app/levels/[entry]/leaderboard-types.ts";
+import { PageSelector } from "@/app/levels/[entry]/page-selector.tsx";
 import fallbackAvatarImg from "@/assets/fallback-avatar.webp";
 import { ErrorState } from "@/components/error-state.tsx";
 import { ImageWithFallback } from "@/components/ImageWithFallback.tsx";
 import { SidebarSection } from "@/components/leaderboard/SidebarSection.tsx";
 import { SignInButton } from "@/components/navigation/sign-in.tsx";
-import { api } from "@/lib/api.ts";
-import type { Guild } from "@/lib/guild.ts";
+import { api, publicApi } from "@/lib/api.ts";
 import { MAX_WINDOW_TITLE_LENGTH, NSFW_CONSENT_ACK, NSFW_CONSENT_COOKIE } from "@/utils/constants.ts";
-import { getCookie } from "@/utils/cookies.ts";
-import { guildIcon, type Snowflake } from "@/utils/discord-cdn.ts";
+import { guildIcon } from "@/utils/discord-cdn.ts";
 import { ellipsis } from "@/utils/ellipsis.ts";
 import { isSnowflake } from "@/utils/is-snowflake.ts";
-import { makeApiRequest } from "@/utils/make-api-request.ts";
-import type { RoleReward } from "./03-role-reward.tsx";
-import type { Multiplier } from "./04-multiplier.tsx";
 import { NsfwConsentGate } from "./nsfw-consent-gate.tsx";
 import { SortableMultipliers } from "./sortable-multipliers.tsx";
 import { SortableRoleRewards } from "./sortable-role-rewards.tsx";
@@ -120,7 +117,7 @@ export default async function Leaderboard({ params, searchParams }: LeaderboardP
 		redirect(leaderboardPath(vanity, page), RedirectType.replace);
 	}
 
-	if (guild.nsfw && (await getCookie(NSFW_CONSENT_COOKIE)) !== NSFW_CONSENT_ACK) {
+	if (guild.nsfw && (await cookies()).get(NSFW_CONSENT_COOKIE)?.value !== NSFW_CONSENT_ACK) {
 		return <NsfwConsentGate guildName={guild.name} />;
 	}
 
@@ -244,17 +241,18 @@ async function getLevelsMetadata(entry: string) {
 	}
 
 	try {
-		const response = await makeApiRequest(`/levels/${entry}/metadata`, null, {
-			headers: {
-				"X-Internal-Key": process.env.LEVELS_METADATA_KEY,
-			},
-			next: {
-				revalidate: 6 * 60 * 60, // 6 hours
-			},
-		});
+		return await publicApi
+			.get(`levels/${entry}/metadata`, {
+				headers: { "X-Internal-Key": process.env.LEVELS_METADATA_KEY },
+				next: { revalidate: 6 * 60 * 60 },
+			})
+			.json<LevelsGuildMetadataResponse>();
+	} catch (error) {
+		// The page itself 404s for unknown guilds; for other failures the generic metadata is good enough.
+		if (!isHTTPError(error) || error.response.status !== 404) {
+			console.error("Failed to load leaderboard metadata", error);
+		}
 
-		return response.ok ? ((await response.json()) as LevelsGuildMetadataResponse) : null;
-	} catch {
 		return null;
 	}
 }
@@ -272,35 +270,6 @@ function parsePage(rawPage: string) {
 interface LevelsGuildMetadataResponse {
 	readonly name: string;
 	readonly approximateLevelsCount: number;
-}
-
-export interface GetLevelsResponse {
-	guild: Omit<Guild, "channels" | "emojis" | "roles">;
-	isManager: boolean;
-	vanity: string | null;
-	levels: Level[];
-	multipliers: Multiplier[];
-	roleRewards: RoleReward[];
-	xpGainInterval: number;
-	xpGlobalMultiplier: number;
-	xpPerMessageMax: number;
-	xpPerMessageMin: number;
-}
-
-interface Level {
-	readonly level: number;
-	readonly messageCount: number;
-	readonly nextLevelXp: number;
-	readonly progress: number;
-	readonly rank: number;
-	readonly user: {
-		accentColour: `#${string}` | null;
-		avatar: string | null;
-		discriminator: string;
-		username: string;
-	};
-	readonly userId: Snowflake;
-	readonly xp: number;
 }
 
 interface LeaderboardProps {

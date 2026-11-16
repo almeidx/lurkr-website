@@ -1,7 +1,7 @@
 "use client";
 
 import { Alert } from "@heroui/react";
-import { useSaveNotice } from "@/components/dashboard/Form.tsx";
+import { useLastSave } from "@/components/dashboard/Form.tsx";
 import type { Role } from "@/lib/guild.ts";
 import type { Snowflake } from "@/utils/discord-cdn.ts";
 import { useMentionCooldownEdits } from "./mention-cooldown-context.tsx";
@@ -12,7 +12,7 @@ import { useMentionCooldownEdits } from "./mention-cooldown-context.tsx";
  */
 export function MentionCooldownWarnings({ mentionedRoleIds, roles, savedRoleIds }: MentionCooldownWarningsProps) {
 	const { isCooldownDisabled, selectedRoleIds } = useMentionCooldownEdits();
-	const saveNotice = useSaveNotice();
+	const lastSave = useLastSave();
 
 	// An untouched selector submits the saved roles it could find, which is not all of them if a role is missing
 	// from `roles`.
@@ -34,7 +34,7 @@ export function MentionCooldownWarnings({ mentionedRoleIds, roles, savedRoleIds 
 
 			<UnmentionableRolesWarning
 				description="Lurkr will not make {them} mentionable again. You can do it in your server's role settings."
-				roleIds={saveNotice?.untrackedMentionedRoleIds ?? []}
+				roleIds={lastSave?.untrackedMentionedRoleIds ?? []}
 				roles={roles}
 				title="no longer on cooldown, but still unmentionable"
 			/>

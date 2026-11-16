@@ -52,7 +52,7 @@ function PopoverWrapper({
 	);
 }
 
-interface ItemStatusProps {
+export interface ItemStatusProps {
 	readonly description?: string | null;
 	readonly name: string;
 	readonly type: "disabled" | "error" | "success" | "warning";

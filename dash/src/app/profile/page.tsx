@@ -2,11 +2,9 @@ import { Fingerprint, Globe, Person } from "@gravity-ui/icons";
 import { Card, Chip } from "@heroui/react";
 import type { Metadata } from "next";
 import { ImageWithFallback } from "@/components/ImageWithFallback.tsx";
-import { api } from "@/lib/api.ts";
-import { getCurrentUser, PremiumTier } from "@/lib/auth.ts";
-import type { UserGuildInfo } from "@/lib/guild.ts";
+import { getCurrentUser, getUserGuilds, PremiumTier } from "@/lib/auth.ts";
 import { userAvatar } from "@/utils/discord-cdn.ts";
-import { greeting } from "@/utils/greeting.ts";
+import { greeting } from "@/utils/time-of-day.ts";
 import { BackgroundManager } from "./10-background-manager.tsx";
 import { AccentColorPicker } from "./20-accent-color-picker.tsx";
 import { PremiumGuildManager } from "./30-premium-guild-manager.tsx";
@@ -18,7 +16,7 @@ export default async function ProfilePage() {
 	const [userResult, backgroundResult, guildsResult, apiKeysResult] = await Promise.allSettled([
 		getCurrentUser(),
 		getUserBackground(),
-		getUserGuilds(),
+		getUserGuilds({ botIn: true, isAdmin: true }),
 		getUserApiKeys(),
 	]);
 
@@ -130,16 +128,3 @@ export const metadata: Metadata = {
 	description: "Manage your Lurkr profile settings and rank card customization.",
 	title: "Profile",
 };
-
-async function getUserGuilds() {
-	try {
-		return await api
-			.get("users/@me/guilds", {
-				next: { revalidate: 60 },
-				searchParams: { botIn: "true", isAdmin: "true" },
-			})
-			.json<UserGuildInfo[]>();
-	} catch {
-		return [];
-	}
-}

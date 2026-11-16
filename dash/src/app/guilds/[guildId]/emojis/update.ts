@@ -1,22 +1,15 @@
 "use server";
 
-import { object, safeParse } from "valibot";
-import { action } from "@/app/guilds/[guildId]/action-base.ts";
-import { formDataToObject } from "@/utils/form-data-to-object.ts";
+import { object } from "valibot";
+import { saveSettings } from "@/app/guilds/[guildId]/settings.ts";
+import type { SaveResult } from "@/lib/guild.ts";
 import { snowflake, toggle } from "@/utils/schemas.ts";
-import { ServerActionError } from "@/utils/server-action-error.ts";
 
 const schema = object({
 	emojiList: toggle,
 	emojiListChannel: snowflake,
 });
 
-export async function update(guildId: string, premium: boolean, _currentState: unknown, data: FormData) {
-	const result = safeParse(schema, formDataToObject(data));
-
-	if (!result.success) {
-		return { error: ServerActionError.SchemaMismatch, issues: JSON.stringify(result.issues) };
-	}
-
-	return action(guildId, result.output, `settings:${guildId}:emojis`, premium);
+export async function update(guildId: string, premium: boolean, _previousState: SaveResult | null, form: FormData) {
+	return saveSettings(guildId, premium, schema, form);
 }

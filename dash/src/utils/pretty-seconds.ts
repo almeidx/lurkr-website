@@ -1,4 +1,3 @@
-// Time constants in seconds
 const SECOND = 1;
 const MINUTE = 60 * SECOND;
 const HOUR = 60 * MINUTE;
@@ -6,14 +5,7 @@ const DAY = 24 * HOUR;
 const MONTH = 30 * DAY;
 const YEAR = 365 * DAY;
 
-/**
- * Converts seconds to a human readable format.
- * Returns the two largest applicable units (e.g., "1h 30m", "2d 4h", "1y 2mo")
- *
- * @param seconds - The number of seconds to convert
- * @returns A formatted string representing the duration
- * @throws {RangeError} If the input is a negative or infinite number
- */
+/** Returns the two largest applicable units, e.g. "1h 30m", "2d 4h", "1y 2mo". */
 export function prettySeconds(seconds: number): string {
 	if (!Number.isFinite(seconds) || seconds < 0) {
 		throw new RangeError("The input must be a non-negative finite number.");

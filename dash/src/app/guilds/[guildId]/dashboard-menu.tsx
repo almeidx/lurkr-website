@@ -4,28 +4,17 @@ import { Menu, MenuButton, MenuButtonArrow, MenuItem, MenuProvider } from "@aria
 import clsx from "clsx";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import type { PropsWithChildren } from "react";
-import type { GuildInfo } from "@/app/guilds/page.tsx";
 import fallbackAvatarImg from "@/assets/fallback-avatar.webp";
-import { EmojiEmotions } from "@/components/icons/mdi/emoji-emotions.tsx";
-import { FormatListBulleted } from "@/components/icons/mdi/format-list-bulleted.tsx";
-import { MiscellaneousServices } from "@/components/icons/mdi/miscellaneous-services.tsx";
-import { RocketLaunch } from "@/components/icons/mdi/rocket-launch.tsx";
-import { Settings } from "@/components/icons/mdi/settings.tsx";
-import { Signpost } from "@/components/icons/mdi/signpost.tsx";
-import { SmartToy } from "@/components/icons/mdi/smart-toy.tsx";
-import { TrendingUp } from "@/components/icons/mdi/trending-up.tsx";
-import { Warning } from "@/components/icons/mdi/warning.tsx";
 import { Patreon } from "@/components/icons/Patreon.tsx";
 import { ImageWithFallback } from "@/components/ImageWithFallback.tsx";
-import type { Guild, GuildSettings } from "@/lib/guild.ts";
+import { DASHBOARD_SECTIONS, sectionHref } from "@/components/navigation/dashboard-sections.ts";
+import type { GuildMetadata, UserGuildInfo } from "@/lib/guild.ts";
 import { guildIcon } from "@/utils/discord-cdn.ts";
-import type { GuildMetadataResult } from "./layout.tsx";
 
 export function DashboardMenu({ guild, guilds }: DashboardMenuProps) {
 	const pathname = usePathname();
 
-	const currentDashSection = pathname.split("/")[3] ?? "overview";
+	const currentPath = pathname.split("/")[3] ?? "";
 
 	return (
 		<div className="flex flex-col items-center gap-6 bg-transparent py-0 pr-8 pl-12 md:sticky md:top-12">
@@ -53,7 +42,7 @@ export function DashboardMenu({ guild, guilds }: DashboardMenuProps) {
 						<MenuItem key={guild.id}>
 							<Link
 								className="flex cursor-pointer items-center gap-2 px-1.5 py-2 hover:bg-white/10"
-								href={`/guilds/${guild.id}`}
+								href={sectionHref(guild.id, "")}
 								prefetch={guilds.length < 3}
 							>
 								<ImageWithFallback
@@ -92,43 +81,23 @@ export function DashboardMenu({ guild, guilds }: DashboardMenuProps) {
 
 				<aside className="mt-6 mb-2">
 					<ul className="flex flex-col gap-1 whitespace-nowrap">
-						<Item guildId={guild.id} isActive={currentDashSection === "overview"} name="Overview" path="">
-							<Settings className="size-5" />
-						</Item>
-						<Item guildId={guild.id} isActive={currentDashSection === "leveling"} name="Leveling" path="leveling">
-							<TrendingUp className="size-5 text-[#ff7077]" />
-						</Item>
-						<Item guildId={guild.id} isActive={currentDashSection === "import"} name="Import Bots" path="import">
-							<SmartToy className="size-5" />
-						</Item>
-						<Item
-							guildId={guild.id}
-							isActive={currentDashSection === "multipliers"}
-							name="Multipliers"
-							path="multipliers"
-						>
-							<RocketLaunch className="size-5 text-[#82cbff]" />
-						</Item>
-						<Item guildId={guild.id} isActive={currentDashSection === "roles"} name="Role Management" path="roles">
-							<FormatListBulleted className="size-5 text-[#d2ffae]" />
-						</Item>
-						<Item guildId={guild.id} isActive={currentDashSection === "milestones"} name="Milestones" path="milestones">
-							<Signpost className="size-5 text-[#804994]" />
-						</Item>
-						<Item guildId={guild.id} isActive={currentDashSection === "emojis"} name="Emoji List" path="emojis">
-							<EmojiEmotions className="size-5 text-[#ffe87c]" />
-						</Item>
-						<Item
-							guildId={guild.id}
-							isActive={currentDashSection === "miscellaneous"}
-							name="Miscellaneous"
-							path="miscellaneous"
-						>
-							<MiscellaneousServices className="size-5 text-[#73ffc4]" />
-						</Item>
-						<Item guildId={guild.id} isActive={currentDashSection === "danger"} name="Danger Zone" path="danger">
-							<Warning className="size-5 text-[#ff9254]" />
-						</Item>
+						{DASHBOARD_SECTIONS.map(({ danger, icon: Icon, iconClassName, label, path }) => (
+							<li key={path}>
+								<Link
+									className={clsx(
+										"flex items-center gap-7 rounded-xl py-2 pr-5 pl-3 transition-colors hover:bg-white/10",
+										currentPath === path && "bg-white/10",
+									)}
+									href={sectionHref(guild.id, path)}
+								>
+									<div className="flex size-9 items-center justify-center rounded-xl bg-darker">
+										<Icon className={clsx("size-5", iconClassName)} />
+									</div>
+
+									<span className={clsx("font-semibold", danger && "text-red")}>{label}</span>
+								</Link>
+							</li>
+						))}
 					</ul>
 				</aside>
 			</div>
@@ -136,49 +105,7 @@ export function DashboardMenu({ guild, guilds }: DashboardMenuProps) {
 	);
 }
 
-function Item({ guildId, name, path, isActive, children }: ItemProps) {
-	return (
-		<li>
-			<Link
-				className={clsx(
-					"flex items-center gap-7 rounded-xl py-2 pr-5 pl-3 transition-colors hover:bg-white/10",
-					isActive && "bg-white/10",
-				)}
-				href={`/guilds/${guildId}/${path}`}
-				type="button"
-			>
-				<div className="flex size-9 items-center justify-center rounded-xl bg-darker">{children}</div>
-
-				<span className={clsx("font-semibold", path === "danger" && "text-red")}>{name}</span>
-			</Link>
-		</li>
-	);
-}
-
-export interface MenuGuildData {
-	guild: Guild;
-	settings: GuildSettings;
-}
-
-type ItemProps = PropsWithChildren<{
-	readonly guildId: string;
-	readonly name: string;
-	readonly path: Exclude<Section, "overview"> | "";
-	readonly isActive: boolean;
-}>;
-
-type Section =
-	| "danger"
-	| "emojis"
-	| "import"
-	| "leveling"
-	| "milestones"
-	| "miscellaneous"
-	| "multipliers"
-	| "roles"
-	| "overview";
-
 interface DashboardMenuProps {
-	readonly guild: GuildMetadataResult;
-	readonly guilds: GuildInfo[];
+	readonly guild: GuildMetadata;
+	readonly guilds: UserGuildInfo[];
 }

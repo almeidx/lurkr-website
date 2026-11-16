@@ -1,12 +1,15 @@
 "use client";
 
 import clsx from "clsx";
+import { isHTTPError } from "ky";
 import { useEffect, useState } from "react";
+import { toast } from "sonner";
 import { ExternalLink } from "@/components/ExternalLink.tsx";
 import { FileDownload } from "@/components/icons/mdi/file-download.tsx";
 import { LoadingSpinner } from "@/components/LoadingSpinner.tsx";
+import { api } from "@/lib/api.ts";
 import type { Snowflake } from "@/utils/discord-cdn.ts";
-import { makeApiRequest } from "@/utils/make-api-request.ts";
+import { extractErrorMessage } from "@/utils/extract-error-message.ts";
 
 export function DownloadLevelingData({ guildId, levelingSystemEnabled }: DownloadLevelingDataProps) {
 	const [dataExport, setDataExport] = useState<DataExportResult | null>(null);
@@ -15,14 +18,11 @@ export function DownloadLevelingData({ guildId, levelingSystemEnabled }: Downloa
 	useEffect(() => {
 		void (async () => {
 			try {
-				const response = await makeApiRequest(`/levels/${guildId}/export`);
-
-				if (response.ok) {
-					const data = (await response.json()) as DataExportResult;
-					setDataExport(data);
+				setDataExport(await api.get(`levels/${guildId}/export`).json<DataExportResult>());
+			} catch (error) {
+				if (!isHTTPError(error) || error.response.status !== 404) {
+					console.error("Failed to fetch the leveling data export", error);
 				}
-			} catch {
-				// Ignore errors
 			}
 			setIsLoading(false);
 		})();
@@ -36,16 +36,12 @@ export function DownloadLevelingData({ guildId, levelingSystemEnabled }: Downloa
 		setIsLoading(true);
 
 		try {
-			const response = await makeApiRequest(`/levels/${guildId}/export`, undefined, { method: "POST" });
-			if (response.ok) {
-				const data = (await response.json()) as DataExportResult;
-				setDataExport(data);
-			}
-			setIsLoading(false);
+			setDataExport(await api.post(`levels/${guildId}/export`).json<DataExportResult>());
 		} catch (error) {
-			setIsLoading(false);
-			throw error;
+			toast.error(extractErrorMessage(error, "Failed to create the export."));
 		}
+
+		setIsLoading(false);
 	}
 
 	if (levelingSystemEnabled && dataExport?.url) {

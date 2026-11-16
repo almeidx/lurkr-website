@@ -115,16 +115,12 @@ interface ChannelSelectorProps extends PropsWithChildren {
 	readonly channels: Channel[];
 	readonly defaultValues: Channel[];
 	readonly disabled?: boolean;
-	/**
-	 * Id for the input where the user can type
-	 */
+	/** Id for the input where the user can type */
 	readonly inputId: string;
 	readonly max: number;
 	readonly menuPlacement?: "auto" | "top" | "bottom";
 	onChange?(newValues: readonly Channel[]): void;
-	/**
-	 * Id for the input containing the channel ids (hidden)
-	 */
-	readonly settingId: string;
+	/** Form field to submit the selected ids in, comma-separated. Without it, they aren't submitted. */
+	readonly settingId?: string;
 	readonly required?: boolean;
 }

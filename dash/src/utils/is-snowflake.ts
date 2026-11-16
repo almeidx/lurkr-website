@@ -1,10 +1,8 @@
 import type { Snowflake } from "@/utils/discord-cdn.ts";
 
-/**
- * Check if a string is roughly a valid Discord snowflake.
- *
- * @param id - The string to check
- */
+/** Roughly matches a Discord snowflake. */
+export const SNOWFLAKE_REGEX = /^[1-9]\d{16,18}$/;
+
 export function isSnowflake(id: string): id is Snowflake {
-	return /^[1-9]\d{16,18}$/.test(id);
+	return SNOWFLAKE_REGEX.test(id);
 }

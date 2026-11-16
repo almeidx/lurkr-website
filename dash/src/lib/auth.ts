@@ -1,12 +1,19 @@
+import { unstable_rethrow } from "next/navigation";
+import type { UserGuildInfo } from "@/lib/guild.ts";
 import type { Snowflake } from "@/utils/discord-cdn.ts";
 import { api } from "./api.ts";
 
 export async function getCurrentUser() {
 	try {
 		return await api.get("users/@me").json<User>();
-	} catch {
+	} catch (error) {
+		unstable_rethrow(error);
 		return null;
 	}
+}
+
+export async function getUserGuilds(searchParams?: { botIn?: boolean; isAdmin?: boolean }) {
+	return api.get("users/@me/guilds", { next: { revalidate: 60 }, searchParams }).json<UserGuildInfo[]>();
 }
 
 export interface User {

@@ -1,48 +1,21 @@
-import {
-	MAX_AUTO_PUBLISH_CHANNELS,
-	MAX_AUTO_PUBLISH_CHANNELS_PREMIUM,
-	MAX_AUTO_ROLES,
-	MAX_AUTO_ROLES_PREMIUM,
-	MAX_MENTION_COOLDOWN,
-	MAX_MENTION_COOLDOWN_PREMIUM,
-	MAX_MILESTONES_ROLES,
-	MAX_MILESTONES_ROLES_PREMIUM,
-	MAX_NO_ROLE_REWARD_ROLES,
-	MAX_NO_ROLE_REWARD_ROLES_PREMIUM,
-	MAX_NO_TOP_XP_ROLES,
-	MAX_NO_TOP_XP_ROLES_PREMIUM,
-	MAX_NO_XP_ROLES,
-	MAX_NO_XP_ROLES_PREMIUM,
-	MAX_XP_CHANNELS,
-	MAX_XP_CHANNELS_PREMIUM,
-	MAX_XP_DISALLOWED_PREFIXES,
-	MAX_XP_DISALLOWED_PREFIXES_PREMIUM,
-	MAX_XP_MULTIPLIER_TARGETS,
-	MAX_XP_MULTIPLIER_TARGETS_PREMIUM,
-	MAX_XP_MULTIPLIERS,
-	MAX_XP_MULTIPLIERS_PREMIUM,
-	MAX_XP_ROLE_REWARD_ROLES,
-	MAX_XP_ROLE_REWARD_ROLES_PREMIUM,
-	MAX_XP_ROLE_REWARDS,
-	MAX_XP_ROLE_REWARDS_PREMIUM,
-} from "@/lib/guild-config.ts";
+import { PREMIUM_LIMITS, type PremiumLimit } from "@/lib/guild-config.ts";
 
-// oxfmt-ignore
 export const configLimitFeatures: ConfigLimitComparison[] = [
-	{ free: MAX_XP_ROLE_REWARD_ROLES, name: "Leveling Rewards Roles (Per Level)", suffix: "per level", ultimate: MAX_XP_ROLE_REWARD_ROLES_PREMIUM },
-	{ free: MAX_XP_ROLE_REWARDS, name: "Leveling Rewards Roles (Total)", suffix: "roles total", ultimate: MAX_XP_ROLE_REWARDS_PREMIUM },
-	{ free: MAX_NO_ROLE_REWARD_ROLES, name: "No Role Reward Roles", suffix: "roles", ultimate: MAX_NO_ROLE_REWARD_ROLES_PREMIUM },
-	{ free: MAX_XP_MULTIPLIERS, name: "Leveling Multipliers", suffix: "multipliers total", ultimate: MAX_XP_MULTIPLIERS_PREMIUM },
-	{ free: MAX_XP_MULTIPLIER_TARGETS, name: "Multiplier Channels/Roles", suffix: "per multiplier", ultimate: MAX_XP_MULTIPLIER_TARGETS_PREMIUM },
-	{ free: MAX_MENTION_COOLDOWN / 60, name: "Role Mention Cooldown", suffix: "hours", ultimate: MAX_MENTION_COOLDOWN_PREMIUM / 60 },
-	{ free: 100, name: "Leveling Leaderboard", suffix: "users", ultimate: 200 },
-	{ free: MAX_XP_CHANNELS, name: "Leveling Channels", suffix: "channels", ultimate: MAX_XP_CHANNELS_PREMIUM },
-	{ free: MAX_NO_TOP_XP_ROLES, name: "No Top Leveling Roles", suffix: "roles", ultimate: MAX_NO_TOP_XP_ROLES_PREMIUM },
-	{ free: MAX_NO_XP_ROLES, name: "No Leveling Roles", suffix: "roles", ultimate: MAX_NO_XP_ROLES_PREMIUM },
-	{ free: MAX_XP_DISALLOWED_PREFIXES, name: "Ignored Leveling Bot Prefixes", suffix: "prefixes", ultimate: MAX_XP_DISALLOWED_PREFIXES_PREMIUM },
-	{ free: MAX_AUTO_ROLES, name: "On Join Roles", suffix: "roles", ultimate: MAX_AUTO_ROLES_PREMIUM },
-	{ free: MAX_AUTO_PUBLISH_CHANNELS, name: "Auto-Publish Channels", suffix: "channels", ultimate: MAX_AUTO_PUBLISH_CHANNELS_PREMIUM },
-	{ free: MAX_MILESTONES_ROLES, name: "Milestone Reward Roles", suffix: "roles", ultimate: MAX_MILESTONES_ROLES_PREMIUM },
+	limitRow("xpRoleRewardRoles", "Leveling Rewards Roles (Per Level)", "per level"),
+	limitRow("xpRoleRewards", "Leveling Rewards Roles (Total)", "roles total"),
+	limitRow("noRoleRewardRoles", "No Role Reward Roles", "roles"),
+	limitRow("xpMultipliers", "Leveling Multipliers", "multipliers total"),
+	limitRow("xpMultiplierTargets", "Multiplier Channels/Roles", "per multiplier"),
+	limitRow("mentionCooldown", "Role Mention Cooldown", "hours", (minutes) => minutes / 60),
+	// The bot's `/leaderboard` shows 10 pages of 10 users, or 50 pages for premium servers.
+	{ free: 100, name: "Leveling Leaderboard", suffix: "users", ultimate: 500 },
+	limitRow("xpChannels", "Leveling Channels", "channels"),
+	limitRow("noTopXpRoles", "No Top Leveling Roles", "roles"),
+	limitRow("noXpRoles", "No Leveling Roles", "roles"),
+	limitRow("xpDisallowedPrefixes", "Ignored Leveling Bot Prefixes", "prefixes"),
+	limitRow("autoRole", "On Join Roles", "roles"),
+	limitRow("autoPublishChannels", "Auto-Publish Channels", "channels"),
+	limitRow("milestonesRoles", "Milestone Reward Roles", "roles"),
 ];
 
 export const extraFeatures: LevelingFeature[] = [
@@ -51,6 +24,16 @@ export const extraFeatures: LevelingFeature[] = [
 	{ free: false, max: true, name: "Exclusive role in support server", ultimate: true },
 	{ free: false, max: true, name: "Beta access to new features", ultimate: true },
 ];
+
+function limitRow(
+	limit: PremiumLimit,
+	name: string,
+	suffix: string,
+	toUnit = (value: number) => value,
+): ConfigLimitComparison {
+	const { premium, regular } = PREMIUM_LIMITS[limit];
+	return { free: toUnit(regular), name, suffix, ultimate: toUnit(premium) };
+}
 
 export interface LevelingFeature {
 	name: string;
@@ -62,7 +45,6 @@ export interface LevelingFeature {
 export interface ConfigLimitComparison {
 	name: string;
 	free: number;
-	max?: number;
 	ultimate: number;
 	suffix: string;
 }

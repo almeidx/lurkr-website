@@ -23,7 +23,6 @@ export function ComparisonTable({ section, features }: ComparisonTableProps) {
 				<div className="h-px flex-1 bg-white/10" />
 			</div>
 
-			{/* Mobile tabs */}
 			<div className="mb-4 md:hidden">
 				<Tabs onSelectionChange={(key) => setSelectedTab(key as PremiumTier)} selectedKey={selectedTab}>
 					<Tabs.ListContainer>
@@ -58,13 +57,11 @@ export function ComparisonTable({ section, features }: ComparisonTableProps) {
 								<th className="w-1/2 border-b border-white/10 bg-white/5 px-4 py-4 text-left text-sm font-medium tracking-wider text-white/60 uppercase md:w-auto md:px-6">
 									Feature
 								</th>
-								{/* Mobile: show selected tab column */}
 								<th className="w-1/2 border-b border-white/10 bg-white/5 px-3 py-4 text-right text-sm font-medium tracking-wider uppercase md:hidden">
 									{selectedTab === PremiumTier.None && <span className="text-white/60">Free</span>}
 									{selectedTab === PremiumTier.Basic && <span className="text-gradient-lurkr-max">Max</span>}
 									{selectedTab === PremiumTier.Guild && <span className="text-gradient-lurkr-ultimate">Ultimate</span>}
 								</th>
-								{/* Desktop: show all columns */}
 								<th className="hidden w-32 border-b border-white/10 bg-white/5 p-4 text-center text-sm font-medium tracking-wider text-white/60 uppercase md:table-cell">
 									Free
 								</th>
@@ -89,7 +86,6 @@ export function ComparisonTable({ section, features }: ComparisonTableProps) {
 										{feature.name}
 									</td>
 
-									{/* Mobile: show selected tab value */}
 									<td
 										className={clsx(
 											"w-1/2 border-b border-white/5 px-3 py-4 text-right md:hidden",
@@ -99,7 +95,6 @@ export function ComparisonTable({ section, features }: ComparisonTableProps) {
 										<MobileCell feature={feature} selectedTab={selectedTab} />
 									</td>
 
-									{/* Desktop: show all columns */}
 									<td
 										className={clsx(
 											"hidden border-b border-white/5 px-4 py-4 text-center md:table-cell",
@@ -170,7 +165,7 @@ function MaxCell({ feature }: { feature: ConfigLimitComparison | LevelingFeature
 	if (isConfigLimitFeature(feature)) {
 		return (
 			<span className="text-sm text-white/60">
-				{feature.max ?? feature.free} <span className="text-white/40">{feature.suffix}</span>
+				{feature.free} <span className="text-white/40">{feature.suffix}</span>
 			</span>
 		);
 	}

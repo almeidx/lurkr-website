@@ -16,9 +16,7 @@ export const SIGN_IN_URL = "/api/auth/login";
 export const AUTH_CALLBACK_PATH = "/api/auth/callback";
 export const OAUTH_STATE_COOKIE = "oauthState";
 
-export const API_URL = process.env.NEXT_PUBLIC_API_URL!;
-
-// The middleware `missing[0].key` must be updated manually, if this is changed
+// `src/proxy.ts` matches this name literally, as Next.js requires a static matcher
 export const TOKEN_COOKIE = "token";
 
 const cookieDomain = process.env.NEXT_PUBLIC_COOKIE_DOMAIN;

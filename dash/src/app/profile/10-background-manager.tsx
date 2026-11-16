@@ -53,7 +53,11 @@ export function BackgroundManager({ initialUrl }: { readonly initialUrl: string 
 
 		await api.post("users/@me/background", { body: formData });
 
-		const url = await getUserBackground();
+		// The upload already succeeded, so failing to load the new URL only leaves the old preview.
+		const url = await getUserBackground().catch((error: unknown) => {
+			console.error("Failed to load the new background", error);
+			return null;
+		});
 		if (url) setBackgroundUrl(url);
 
 		closeCropModal();

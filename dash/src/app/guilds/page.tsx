@@ -1,21 +1,18 @@
+import { isHTTPError } from "ky";
 import type { Metadata } from "next";
-import { cookies } from "next/headers";
 import { DashboardGuildList } from "@/app/guilds/guild-list.tsx";
 import fallbackAvatarImg from "@/assets/fallback-avatar.webp";
 import { ErrorState } from "@/components/error-state.tsx";
 import { ImageWithFallback } from "@/components/ImageWithFallback.tsx";
 import { SignInButton } from "@/components/navigation/sign-in.tsx";
-import type { User } from "@/lib/auth.ts";
-import { TOKEN_COOKIE } from "@/utils/constants.ts";
-import { type Snowflake, userAvatar } from "@/utils/discord-cdn.ts";
-import { greeting } from "@/utils/greeting.ts";
-import { makeApiRequest } from "@/utils/make-api-request.ts";
+import { getCurrentUser, getUserGuilds } from "@/lib/auth.ts";
+import { userAvatar } from "@/utils/discord-cdn.ts";
+import { greeting } from "@/utils/time-of-day.ts";
 
 export default async function GuildList() {
-	const token = (await cookies()).get(TOKEN_COOKIE)?.value;
-	const data = await getGuilds(token);
+	const [user, guilds] = await Promise.all([getCurrentUser(), getGuilds()]);
 
-	if (!data) {
+	if (!user || !guilds) {
 		return (
 			<ErrorState
 				description="Connect with Discord to see all the servers you can configure Lurkr on."
@@ -26,8 +23,6 @@ export default async function GuildList() {
 			</ErrorState>
 		);
 	}
-
-	const { guilds, user } = data;
 
 	return (
 		<div className="flex flex-col items-center gap-2 py-4">
@@ -66,47 +61,14 @@ export const metadata: Metadata = {
 	title: "Dashboards",
 };
 
-async function getGuilds(token: string | undefined) {
-	if (!token) {
-		return null;
+async function getGuilds() {
+	try {
+		return await getUserGuilds();
+	} catch (error) {
+		if (isHTTPError(error) && error.response.status === 401) {
+			return null;
+		}
+
+		throw error;
 	}
-
-	const [getGuildsResponse, getCurrentUserResponse] = await Promise.all([
-		makeApiRequest("/users/@me/guilds", token, {
-			next: {
-				revalidate: 60, // 1 minute
-			},
-		}),
-		makeApiRequest("/users/@me", token, {
-			next: {
-				revalidate: 60 * 60, // 1 hour
-				tags: ["user"],
-			},
-		}),
-	]);
-
-	if (getGuildsResponse.status === 401 || !getCurrentUserResponse.ok) {
-		return null;
-	}
-
-	const user = (await getCurrentUserResponse.json()) as User;
-
-	if (!getGuildsResponse.ok) {
-		return {
-			guilds: [],
-			user,
-		};
-	}
-
-	return {
-		guilds: (await getGuildsResponse.json()) as GuildInfo[],
-		user,
-	};
-}
-
-export interface GuildInfo {
-	botIn: boolean;
-	icon: string | null;
-	id: Snowflake;
-	name: string;
 }

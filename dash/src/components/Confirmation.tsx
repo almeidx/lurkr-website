@@ -59,8 +59,6 @@ interface ConfirmationProps extends PropsWithChildren {
 	readonly buttonText: ReactNode;
 	readonly className: string;
 	onConfirm?(): void;
-	/** @defaultValue `false` */
 	disabled?: boolean;
-	/** @defaultValue `false` */
 	useSubmitButton?: boolean;
 }

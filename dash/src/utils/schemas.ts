@@ -7,6 +7,7 @@ import {
 	minValue,
 	number,
 	optional,
+	picklist,
 	pipe,
 	regex,
 	string,
@@ -14,11 +15,8 @@ import {
 	union,
 } from "valibot";
 import { MAX_VANITY_LENGTH, MIN_VANITY_LENGTH, VANITY_REGEX_SOURCE } from "@/lib/guild-config.ts";
+import { SNOWFLAKE_REGEX } from "@/utils/is-snowflake.ts";
 import { Time } from "@/utils/time.ts";
-
-export const UUID_REGEX = /\w{8}(?:-\w{4}){3}-\w{12}/;
-
-const SNOWFLAKE_REGEX_SCHEMA = regex(/^[1-9]\d{16,18}$/);
 
 export const vanitySchema = pipe(
 	string(),
@@ -43,17 +41,15 @@ export const coerceToFloat = pipe(
 	number(),
 );
 
-export const requiredSnowflake = pipe(string(), SNOWFLAKE_REGEX_SCHEMA);
+export const requiredSnowflake = pipe(string(), regex(SNOWFLAKE_REGEX));
 export const snowflake = union([emptyStringToNull, requiredSnowflake]);
 
+/**
+ * A checkbox submits `"on"` when checked and is left out of the form otherwise. `object()` drops a missing key unless
+ * its schema has a default, so the `"off"` default is what makes an unchecked box save `false`.
+ */
 export const toggle = pipe(
-	optional(
-		union([
-			literal("on"),
-			literal("off"), // This value is actually never passed, but it needs to be here for valibot to allow the default value
-		]),
-		"off",
-	),
+	optional(picklist(["on", "off"]), "off"),
 	transform((value) => value === "on"),
 );
 
@@ -62,7 +58,8 @@ export const booleanFlag = pipe(
 	transform((value) => value === "true"),
 );
 
-export function createMinuteIntervalValidator(min: number, max: number, _name: string) {
+/** Minutes, where `"0"` turns the setting off. Outputs milliseconds. */
+export function minuteInterval(min: number, max: number) {
 	return union([
 		pipe(
 			literal("0"),
@@ -77,14 +74,13 @@ export function createMinuteIntervalValidator(min: number, max: number, _name: s
 	]);
 }
 
-export function createSnowflakesValidator(max: number) {
-	// 951586951348244561,951585785440788540,1094363099479408661,...
-
+/** Comma-separated snowflakes, as submitted by the channel and role selectors. */
+export function snowflakeList(max: number) {
 	return pipe(
 		string(),
-		// `"".split(",")` => `[""]`, hence the check
+		// `"".split(",")` is `[""]`
 		transform((value) => (value ? value.split(",") : [])),
-		array(pipe(string(), SNOWFLAKE_REGEX_SCHEMA)),
+		array(requiredSnowflake),
 		maxLength(max),
 	);
 }

@@ -1,6 +1,8 @@
 import { MathOperations, SquareChartColumn, Stopwatch, Thunderbolt } from "@gravity-ui/icons";
 import { Accordion } from "@heroui/react";
 import type { Metadata } from "next";
+import { XP_CURVE_PRESETS } from "@/lib/guild-config.ts";
+import { describeXpCurve } from "@/lib/xp-curve.ts";
 import { Calculator } from "./calculator.tsx";
 
 export default function CalculatorPage() {
@@ -83,9 +85,9 @@ export default function CalculatorPage() {
 							</Accordion.Trigger>
 						</Accordion.Heading>
 						<Accordion.Panel className="text-muted">
-							Required XP for each level increases quadratically. At this time, the formula used is "100 + 50 * (level -
-							1)^2" and cannot be changed. This means higher levels require significantly more XP to reach than lower
-							levels, creating a progressive difficulty curve.
+							Required XP increases with each level, so higher levels take significantly more XP to reach. This
+							calculator uses the default curve, {describeXpCurve(XP_CURVE_PRESETS.lurkr)} XP for level n. Server admins
+							can change the curve in the dashboard.
 						</Accordion.Panel>
 					</Accordion.Item>
 				</Accordion>

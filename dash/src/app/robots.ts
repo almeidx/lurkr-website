@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { EXTERNAL_REDIRECTS } from "@/external-redirects.ts";
 import { PUBLIC_URL } from "@/utils/constants.ts";
 
 export default function robots(): MetadataRoute.Robots {
@@ -14,17 +15,7 @@ export default function robots(): MetadataRoute.Robots {
 	return {
 		rules: {
 			allow: ["/", "/guilds$"],
-			disallow: [
-				"/api/",
-				"/guilds/",
-
-				// Redirects:
-				"/invite",
-				"/patreon",
-				"/vote",
-				"/github",
-				"/support",
-			],
+			disallow: ["/api/", "/guilds/", ...EXTERNAL_REDIRECTS.map(({ source }) => source)],
 			userAgent: "*",
 		},
 		sitemap: `${PUBLIC_URL}sitemap.xml`,

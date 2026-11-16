@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
-import { cookies } from "next/headers";
-import { getGuildSettings } from "@/app/guilds/[guildId]/get-guild-data.ts";
+import { getGuildSettings } from "@/app/guilds/[guildId]/settings.ts";
 import { DocsBubble } from "@/components/dashboard/DocsBubble.tsx";
 import { Form } from "@/components/dashboard/Form.tsx";
 import { Label } from "@/components/dashboard/Label.tsx";
@@ -8,10 +7,7 @@ import { Section } from "@/components/dashboard/Section.tsx";
 import { Text } from "@/components/dashboard/Text.tsx";
 import { Separator } from "@/components/Separator.tsx";
 import { MAX_VANITY_LENGTH, MIN_VANITY_LENGTH } from "@/lib/guild-config.ts";
-import { TOKEN_COOKIE } from "@/utils/constants.ts";
 import type { Snowflake } from "@/utils/discord-cdn.ts";
-import { SignInRequired } from "../sign-in-required.tsx";
-import { UnknownGuildOrMissingAccess } from "../unknown-guild.tsx";
 import { LevelingChannelMode } from "./01-leveling-channel-mode.tsx";
 import { LevelingChannels } from "./02-leveling-channels.tsx";
 import { LevelingInThreads } from "./03-leveling-in-threads.tsx";
@@ -37,20 +33,8 @@ import { EditLeaderboardVisibility } from "./71-leaderboard-visibility.tsx";
 import { update } from "./update.ts";
 
 export default async function Leveling({ params }: { readonly params: Promise<{ guildId: Snowflake }> }) {
-	const [{ guildId }, cookieStore] = await Promise.all([params, cookies()]);
-
-	const token = cookieStore.get(TOKEN_COOKIE)?.value;
-	if (!token) {
-		return <SignInRequired />;
-	}
-
-	const guildData = await getGuildSettings(guildId, token, "leveling");
-
-	if (!guildData) {
-		return <UnknownGuildOrMissingAccess />;
-	}
-
-	const { guild, settings } = guildData;
+	const { guildId } = await params;
+	const { guild, settings } = await getGuildSettings(guildId);
 
 	const action = update.bind(null, guildId, guild.premium);
 
@@ -146,7 +130,7 @@ export default async function Leveling({ params }: { readonly params: Promise<{ 
 
 				<LevelUpMessageEmbed defaultValue={settings.xpMessageEmbed} emojis={guild.emojis} roles={guild.roles} />
 
-				<LevelUpMessageConditions premium={guild.premium} settings={settings} />
+				<LevelUpMessageConditions settings={settings} />
 			</Section>
 
 			<Section

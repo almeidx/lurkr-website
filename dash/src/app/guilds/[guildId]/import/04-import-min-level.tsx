@@ -1,5 +1,6 @@
 import { Input } from "@/components/dashboard/Input.tsx";
 import { Text } from "@/components/dashboard/Text.tsx";
+import { MAX_IMPORT_MIN_LEVEL, MIN_IMPORT_MIN_LEVEL } from "./import-api.ts";
 
 export function ImportMinLevel() {
 	return (
@@ -11,7 +12,15 @@ export function ImportMinLevel() {
 				Minimum level to be imported:
 			</Text>
 
-			<Input defaultValue={5} id="minLevel" max={20} min={3} placeholder="Level" required type="number" />
+			<Input
+				defaultValue={5}
+				id="minLevel"
+				max={MAX_IMPORT_MIN_LEVEL}
+				min={MIN_IMPORT_MIN_LEVEL}
+				placeholder="Level"
+				required
+				type="number"
+			/>
 		</div>
 	);
 }

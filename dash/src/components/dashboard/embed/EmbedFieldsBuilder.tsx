@@ -47,7 +47,7 @@ export function EmbedFieldsBuilder({ fields, setFields, emojis, roles, placehold
 			</Label>
 
 			<button
-				className="disabled:cursor-not-allowedç rounded-lg border border-white/25 bg-light-gray px-3 py-2 transition-colors hover:bg-light-gray/50 disabled:opacity-50"
+				className="rounded-lg border border-white/25 bg-light-gray px-3 py-2 transition-colors hover:bg-light-gray/50 disabled:cursor-not-allowed disabled:opacity-50"
 				disabled={fields.length >= MAX_EMBED_FIELDS}
 				onClick={handleAddNewField}
 				type="button"

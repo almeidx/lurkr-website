@@ -1,34 +1,17 @@
 import type { Metadata } from "next";
-import { cookies } from "next/headers";
-import { getGuildSettings } from "@/app/guilds/[guildId]/get-guild-data.ts";
+import { getGuildSettings } from "@/app/guilds/[guildId]/settings.ts";
 import { Form } from "@/components/dashboard/Form.tsx";
 import { Section } from "@/components/dashboard/Section.tsx";
 import { Text } from "@/components/dashboard/Text.tsx";
 import { Separator } from "@/components/Separator.tsx";
-import { TOKEN_COOKIE } from "@/utils/constants.ts";
 import type { Snowflake } from "@/utils/discord-cdn.ts";
-import { SignInRequired } from "../sign-in-required.tsx";
-import { UnknownGuildOrMissingAccess } from "../unknown-guild.tsx";
 import { StoreMemberCountData } from "./01-store-member-count-data.tsx";
 import { AutomaticallyPublishChannels } from "./02-automatically-publish-channels.tsx";
 import { update } from "./update.ts";
 
 export default async function Miscellaneous({ params }: { readonly params: Promise<{ guildId: Snowflake }> }) {
-	const [{ guildId }, cookieStore] = await Promise.all([params, cookies()]);
-
-	const token = cookieStore.get(TOKEN_COOKIE)?.value;
-	if (!token) {
-		return <SignInRequired />;
-	}
-
-	const guildData = await getGuildSettings(guildId, token, "miscellaneous");
-
-	if (!guildData) {
-		return <UnknownGuildOrMissingAccess />;
-	}
-
-	const { guild, settings } = guildData;
-
+	const { guildId } = await params;
+	const { guild, settings } = await getGuildSettings(guildId);
 	const action = update.bind(null, guildId, guild.premium);
 
 	return (

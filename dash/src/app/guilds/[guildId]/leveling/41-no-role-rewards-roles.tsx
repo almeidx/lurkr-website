@@ -1,9 +1,8 @@
 import { DocsBubble } from "@/components/dashboard/DocsBubble.tsx";
 import { Label } from "@/components/dashboard/Label.tsx";
 import { RoleSelector } from "@/components/dashboard/RoleSelector.tsx";
-import { MAX_NO_ROLE_REWARD_ROLES, MAX_NO_ROLE_REWARD_ROLES_PREMIUM } from "@/lib/guild-config.ts";
+import { limitFor, limitLabel } from "@/lib/guild-config.ts";
 import type { Role } from "@/lib/guild.ts";
-import { getMaximumLimit } from "@/utils/get-maximum-limit.ts";
 import { mapRoleIdsToRoles } from "@/utils/map-role-ids-to-roles.ts";
 
 export function NoRoleRewardsRoles({ defaultValues, premium, roles }: NoRoleRewardsRolesProps) {
@@ -13,12 +12,12 @@ export function NoRoleRewardsRoles({ defaultValues, premium, roles }: NoRoleRewa
 		<RoleSelector
 			defaultValues={defaultValue}
 			inputId="no-role-rewards-roles"
-			max={getMaximumLimit("noRoleRewardRoles", premium)}
+			max={limitFor("noRoleRewardRoles", premium)}
 			roles={roles}
 			settingId="noRoleRewardRoles"
 		>
 			<div className="flex items-center">
-				<Label sub={`Max. ${MAX_NO_ROLE_REWARD_ROLES} - Max. ${MAX_NO_ROLE_REWARD_ROLES_PREMIUM} for Premium`}>
+				<Label sub={limitLabel("noRoleRewardRoles")}>
 					Add roles that will <span className="font-semibold tracking-tight text-white">prevent</span> users getting any
 					role rewards…
 				</Label>

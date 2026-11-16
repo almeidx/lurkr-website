@@ -1,120 +1,102 @@
-import type { ComponentProps } from "react";
-import type { ItemStatus } from "./item-status.tsx";
-import type { GetGuildOverviewResult } from "./page.tsx";
+import type { ItemStatusProps } from "./item-status.tsx";
 
-export function resolveOverviewStatuses(overview: GetGuildOverviewResult) {
-	const result: ComponentProps<typeof ItemStatus>[] = [];
+export interface GuildOverview {
+	readonly autoPublishChannels: "DISABLED" | "OK";
+	readonly autoRole: "DISABLED" | "OK";
+	readonly autoRoleFlags: "DISABLED" | "OK";
+	readonly emojiList: "DISABLED" | "NO_CHANNEL" | "OK" | "SET_BUT_DISABLED";
+	readonly mentionCooldown: "DISABLED" | "NO_ROLES" | "OK";
+	readonly milestonesChannel: "DISABLED" | "NO_CHANNEL" | "OK";
+	readonly milestonesRoles: "DISABLED" | "OK";
+	readonly storeCounts: "DISABLED" | "NOT_ENOUGH_MEMBERS" | "OK";
+	readonly topXpRole: "DISABLED" | "OK" | "SET_BUT_DISABLED";
+	readonly xpAnnounceOnlyXpRoles: "DISABLED" | "NO_XP_ROLE_REWARDS" | "OK";
+	readonly xpAnnouncementChannel: "DISABLED" | "OK";
+	readonly xpChannels: "DISABLED" | "OK" | "WHITELIST_EMPTY";
+	readonly xpRoleRewards: "DISABLED" | "OK";
+}
 
-	if (overview.autoPublishChannels === "DISABLED") {
-		result.push({ description: "The system is disabled", name: "Auto-Publishing Channels", type: "disabled" });
-	} else {
-		result.push({ name: "Auto-Publishing Channels", type: "success" });
-	}
+interface Problem {
+	readonly description: string;
+	readonly type: Exclude<ItemStatusProps["type"], "success">;
+}
 
-	if (overview.autoRole === "DISABLED") {
-		result.push({ description: "The system is disabled", name: "On Join Roles", type: "disabled" });
-	} else {
-		result.push({ name: "On Join Roles", type: "success" });
-	}
+const DISABLED: Problem = { description: "The system is disabled", type: "disabled" };
 
-	if (overview.autoRoleFlags === "DISABLED") {
-		result.push({ description: "The system is disabled", name: "On Join Roles For Badges", type: "disabled" });
-	} else {
-		result.push({ name: "On Join Roles For Badges", type: "success" });
-	}
+type OverviewItems = {
+	readonly [K in keyof GuildOverview]: {
+		readonly name: string;
+		readonly problems: Record<Exclude<GuildOverview[K], "OK">, Problem>;
+	};
+};
 
-	if (overview.emojiList === "DISABLED") {
-		result.push({ description: "The system is disabled", name: "Emoji List Channel", type: "disabled" });
-	} else if (overview.emojiList === "NO_CHANNEL") {
-		result.push({ description: "The emoji list channel is not set", name: "Emoji List Channel", type: "warning" });
-	} else if (overview.emojiList === "SET_BUT_DISABLED") {
-		result.push({
-			description: "The channel is set but the system is disabled",
-			name: "Emoji List Channel",
-			type: "error",
-		});
-	} else {
-		result.push({ name: "Emoji List Channel", type: "success" });
-	}
+// oxlint-disable-next-line sort-keys -- the key order is the display order
+const OVERVIEW_ITEMS: OverviewItems = {
+	autoPublishChannels: { name: "Auto-Publishing Channels", problems: { DISABLED } },
+	autoRole: { name: "On Join Roles", problems: { DISABLED } },
+	autoRoleFlags: { name: "On Join Roles For Badges", problems: { DISABLED } },
+	emojiList: {
+		name: "Emoji List Channel",
+		problems: {
+			DISABLED,
+			NO_CHANNEL: { description: "The emoji list channel is not set", type: "warning" },
+			SET_BUT_DISABLED: { description: "The channel is set but the system is disabled", type: "error" },
+		},
+	},
+	mentionCooldown: {
+		name: "Role Mention Cooldown Roles",
+		problems: { DISABLED, NO_ROLES: { description: "No roles are set", type: "warning" } },
+	},
+	milestonesChannel: {
+		name: "Milestone Channel",
+		problems: { DISABLED, NO_CHANNEL: { description: "The milestone channel is not set", type: "warning" } },
+	},
+	milestonesRoles: { name: "Milestone Roles", problems: { DISABLED } },
+	storeCounts: {
+		name: "Member Count Tracking",
+		problems: {
+			DISABLED,
+			NOT_ENOUGH_MEMBERS: {
+				description: "System is enabled but your server does not have enough members",
+				type: "error",
+			},
+		},
+	},
+	topXpRole: {
+		name: "Daily Top Leveling Role",
+		problems: {
+			DISABLED,
+			SET_BUT_DISABLED: {
+				description: "The Top Leveling Role is set but the leveling system is disabled",
+				type: "error",
+			},
+		},
+	},
+	xpAnnounceOnlyXpRoles: {
+		name: "Only Announce Level-Ups Together",
+		problems: {
+			DISABLED: { description: "The option is disabled", type: "disabled" },
+			NO_XP_ROLE_REWARDS: { description: "No roles are set", type: "warning" },
+		},
+	},
+	xpAnnouncementChannel: { name: "Level Up Message Channel", problems: { DISABLED } },
+	xpChannels: {
+		name: "Leveling Channels",
+		problems: {
+			DISABLED,
+			WHITELIST_EMPTY: {
+				description:
+					"The Leveling Channel Mode is set to whitelist but there are no channels set. This means users cannot gain experience anywhere",
+				type: "warning",
+			},
+		},
+	},
+	xpRoleRewards: { name: "Leveling Role Rewards", problems: { DISABLED } },
+};
 
-	if (overview.mentionCooldown === "DISABLED") {
-		result.push({ description: "The system is disabled", name: "Role Mention Cooldown Roles", type: "disabled" });
-	} else if (overview.mentionCooldown === "NO_ROLES") {
-		result.push({ description: "No roles are set", name: "Role Mention Cooldown Roles", type: "warning" });
-	} else {
-		result.push({ name: "Role Mention Cooldown Roles", type: "success" });
-	}
-
-	if (overview.milestonesChannel === "DISABLED") {
-		result.push({ description: "The system is disabled", name: "Milestone Channel", type: "disabled" });
-	} else if (overview.milestonesChannel === "NO_CHANNEL") {
-		result.push({ description: "The milestone channel is not set", name: "Milestone Channel", type: "warning" });
-	} else {
-		result.push({ name: "Milestone Channel", type: "success" });
-	}
-
-	if (overview.milestonesRoles === "DISABLED") {
-		result.push({ description: "The system is disabled", name: "Milestone Roles", type: "disabled" });
-	} else {
-		result.push({ name: "Milestone Roles", type: "success" });
-	}
-
-	if (overview.storeCounts === "DISABLED") {
-		result.push({ description: "The system is disabled", name: "Member Count Tracking", type: "disabled" });
-	} else if (overview.storeCounts === "NOT_ENOUGH_MEMBERS") {
-		result.push({
-			description: "System is enabled but your server does not have enough members",
-			name: "Member Count Tracking",
-			type: "error",
-		});
-	} else {
-		result.push({ name: "Member Count Tracking", type: "success" });
-	}
-
-	if (overview.topXpRole === "DISABLED") {
-		result.push({ description: "The system is disabled", name: "Daily Top Leveling Role", type: "disabled" });
-	} else if (overview.topXpRole === "SET_BUT_DISABLED") {
-		result.push({
-			description: "The Top Leveling Role is set but the leveling system is disabled",
-			name: "Daily Top Leveling Role",
-			type: "error",
-		});
-	} else {
-		result.push({ name: "Daily Top Leveling Role", type: "success" });
-	}
-
-	if (overview.xpAnnounceOnlyXpRoles === "DISABLED") {
-		result.push({ description: "The option is disabled", name: "Only Announce Level-Ups Together", type: "disabled" });
-	} else if (overview.xpAnnounceOnlyXpRoles === "NO_XP_ROLE_REWARDS") {
-		result.push({ description: "No roles are set", name: "Only Announce Level-Ups Together", type: "warning" });
-	} else {
-		result.push({ name: "Only Announce Level-Ups Together", type: "success" });
-	}
-
-	if (overview.xpAnnouncementChannel === "DISABLED") {
-		result.push({ description: "The system is disabled", name: "Level Up Message Channel", type: "disabled" });
-	} else {
-		result.push({ name: "Level Up Message Channel", type: "success" });
-	}
-
-	if (overview.xpChannels === "DISABLED") {
-		result.push({ description: "The system is disabled", name: "Leveling Channels", type: "disabled" });
-	} else if (overview.xpChannels === "WHITELIST_EMPTY") {
-		result.push({
-			description:
-				"The Leveling Channel Mode is set to whitelist but there are no channels set. This means users cannot gain experience anywhere",
-			name: "Leveling Channels",
-			type: "warning",
-		});
-	} else {
-		result.push({ name: "Leveling Channels", type: "success" });
-	}
-
-	if (overview.xpRoleRewards === "DISABLED") {
-		result.push({ description: "The system is disabled", name: "Leveling Role Rewards", type: "disabled" });
-	} else {
-		result.push({ name: "Leveling Role Rewards", type: "success" });
-	}
-
-	return result;
+export function resolveOverviewStatuses(overview: GuildOverview): ItemStatusProps[] {
+	return Object.entries(OVERVIEW_ITEMS).map(([key, { name, problems }]) => {
+		const problem = (problems as Partial<Record<string, Problem>>)[overview[key as keyof GuildOverview]];
+		return problem ? { name, ...problem } : { name, type: "success" };
+	});
 }

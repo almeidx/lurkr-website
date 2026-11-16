@@ -35,16 +35,10 @@ export function ShardDisplay({ guilds, members, ping, shardId, uptime, highlight
 						: "border-white/5 bg-white/5 hover:-translate-y-1 hover:border-white/20 hover:bg-white/10 hover:shadow-lg hover:shadow-black/50",
 				)}
 			>
-				{/* Status Glow (Background) */}
 				<div
-					className={clsx(
-						"absolute inset-0 rounded-2xl opacity-20 blur-md transition-opacity duration-500",
-						isHighPing ? "bg-warning" : "bg-success",
-						highlight ? "opacity-0" : "opacity-0 group-hover:opacity-20",
-					)}
+					className={clsx("absolute inset-0 rounded-2xl opacity-20 blur-md", isHighPing ? "bg-warning" : "bg-success")}
 				/>
 
-				{/* Status Dot */}
 				<div
 					className={clsx(
 						"absolute top-1.5 right-1.5 size-2 rounded-full shadow-sm",

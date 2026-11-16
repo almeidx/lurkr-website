@@ -11,18 +11,11 @@ import { ArrowBackIos } from "@/components/icons/mdi/arrow-back-ios.tsx";
 import { AutoStories } from "@/components/icons/mdi/auto-stories.tsx";
 import { Calculate } from "@/components/icons/mdi/calculate.tsx";
 import { Dashboard } from "@/components/icons/mdi/dashboard.tsx";
-import { EmojiEmotions } from "@/components/icons/mdi/emoji-emotions.tsx";
-import { FormatListBulleted } from "@/components/icons/mdi/format-list-bulleted.tsx";
 import { Menu } from "@/components/icons/mdi/menu.tsx";
-import { MiscellaneousServices } from "@/components/icons/mdi/miscellaneous-services.tsx";
-import { RocketLaunch } from "@/components/icons/mdi/rocket-launch.tsx";
-import { Settings } from "@/components/icons/mdi/settings.tsx";
 import { SignalCellular3Bar } from "@/components/icons/mdi/signal-cellular3-bar.tsx";
-import { Signpost } from "@/components/icons/mdi/signpost.tsx";
-import { SmartToy } from "@/components/icons/mdi/smart-toy.tsx";
 import { TrendingUp } from "@/components/icons/mdi/trending-up.tsx";
-import { Warning } from "@/components/icons/mdi/warning.tsx";
 import { WorkspacePremium } from "@/components/icons/mdi/workspace-premium.tsx";
+import { DASHBOARD_SECTIONS, sectionHref } from "@/components/navigation/dashboard-sections.ts";
 import type { Snowflake } from "@/utils/discord-cdn.ts";
 
 const NAV_LINKS = [
@@ -32,18 +25,6 @@ const NAV_LINKS = [
 	{ href: "/status", icon: SignalCellular3Bar, label: "Status", prefetch: false as const },
 	{ href: "/premium", icon: WorkspacePremium, label: "Premium", prefetch: false as const },
 	{ href: "/docs", icon: AutoStories, label: "Docs", prefetch: false as const },
-];
-
-const DASHBOARD_LINKS = [
-	{ icon: Settings, label: "Overview", path: "" },
-	{ icon: TrendingUp, label: "Leveling", path: "leveling" },
-	{ icon: SmartToy, label: "Import Bots", path: "import" },
-	{ icon: RocketLaunch, label: "Multipliers", path: "multipliers" },
-	{ icon: FormatListBulleted, label: "Role Management", path: "roles" },
-	{ icon: Signpost, label: "Milestones", path: "milestones" },
-	{ icon: EmojiEmotions, label: "Emoji List", path: "emojis" },
-	{ icon: MiscellaneousServices, label: "Miscellaneous", path: "miscellaneous" },
-	{ icon: Warning, label: "Danger Zone", path: "danger" },
 ];
 
 function getActiveNavHref(pathname: string): string | undefined {
@@ -176,12 +157,12 @@ function DashboardMobileLinks({ guildId, pathname }: { guildId: Snowflake; pathn
 					Back
 				</Link>
 			</li>
-			{DASHBOARD_LINKS.map(({ path, label, icon: Icon }) => {
-				const href = `/guilds/${guildId}${path ? `/${path}` : ""}`;
+			{DASHBOARD_SECTIONS.map(({ path, label, icon: Icon }) => {
+				const href = sectionHref(guildId, path);
 				const isActive = pathname === href;
 
 				return (
-					<li key={path || "overview"}>
+					<li key={path}>
 						<Link
 							className={clsx(
 								"flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm transition-colors",

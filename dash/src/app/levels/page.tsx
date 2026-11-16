@@ -1,13 +1,11 @@
+import { isHTTPError } from "ky";
 import type { Metadata } from "next";
-import { cookies } from "next/headers";
-import { TOKEN_COOKIE } from "@/utils/constants.ts";
-import type { Snowflake } from "@/utils/discord-cdn.ts";
-import { makeApiRequest } from "@/utils/make-api-request.ts";
-import { LeaderboardGuildInput, LeaderboardGuildList } from "./guild-list.tsx";
+import { SignInButton } from "@/components/navigation/sign-in.tsx";
+import { api } from "@/lib/api.ts";
+import { type LeaderboardGuild, LeaderboardGuildList } from "./guild-list.tsx";
 
 export default async function Levels() {
-	const token = (await cookies()).get(TOKEN_COOKIE)?.value;
-	const data = token ? await getGuilds(token) : null;
+	const guilds = await getLevelingGuilds();
 
 	return (
 		<div className="flex flex-col items-center gap-2 py-4">
@@ -22,7 +20,14 @@ export default async function Levels() {
 				</div>
 			</header>
 
-			{data ? <LeaderboardGuildList guilds={data} /> : <LeaderboardGuildInput />}
+			<LeaderboardGuildList guilds={guilds ?? []} />
+
+			{guilds ? null : (
+				<div className="mt-6 flex flex-col items-center gap-2 text-center text-xl tracking-tight text-white/75">
+					If you wish to see the servers you have access to, please login.
+					<SignInButton />
+				</div>
+			)}
 		</div>
 	);
 }
@@ -32,23 +37,14 @@ export const metadata: Metadata = {
 	title: "Leaderboards",
 };
 
-async function getGuilds(token: string) {
-	const response = await makeApiRequest("/users/@me/guilds/leveling-enabled", token, {
-		next: {
-			revalidate: 60,
-		},
-	});
+async function getLevelingGuilds() {
+	try {
+		return await api.get("users/@me/guilds/leveling-enabled", { next: { revalidate: 60 } }).json<LeaderboardGuild[]>();
+	} catch (error) {
+		if (isHTTPError(error) && error.response.status === 401) {
+			return null;
+		}
 
-	if (!response.ok) {
-		return [];
+		throw error;
 	}
-
-	return response.json() as Promise<GuildInfo[]>;
-}
-
-export interface GuildInfo {
-	icon: string | null;
-	id: Snowflake;
-	name: string;
-	vanity: string | null;
 }

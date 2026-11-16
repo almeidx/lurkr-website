@@ -1,41 +1,22 @@
 import type { Metadata } from "next";
-import { cookies } from "next/headers";
-import { getGuildSettings } from "@/app/guilds/[guildId]/get-guild-data.ts";
+import { getGuildSettings } from "@/app/guilds/[guildId]/settings.ts";
+import { DashboardPage } from "@/components/dashboard/DashboardPage.tsx";
 import { Section } from "@/components/dashboard/Section.tsx";
 import { Text } from "@/components/dashboard/Text.tsx";
 import { Separator } from "@/components/Separator.tsx";
-import { TOKEN_COOKIE } from "@/utils/constants.ts";
 import type { Snowflake } from "@/utils/discord-cdn.ts";
-import { SignInRequired } from "../sign-in-required.tsx";
-import { UnknownGuildOrMissingAccess } from "../unknown-guild.tsx";
 import { DownloadLevelingData } from "./01-download-leveling-data.tsx";
 import { ResetGuildData } from "./02-reset-guild-data.tsx";
 
 export default async function DangerZone({ params }: { readonly params: Promise<{ guildId: Snowflake }> }) {
-	const [{ guildId }, cookieStore] = await Promise.all([params, cookies()]);
-
-	const token = cookieStore.get(TOKEN_COOKIE)?.value;
-	if (!token) {
-		return <SignInRequired />;
-	}
-
-	const guildData = await getGuildSettings(guildId, token, "danger");
-
-	if (!guildData) {
-		return <UnknownGuildOrMissingAccess />;
-	}
-
-	const { settings } = guildData;
+	const { guildId } = await params;
+	const { settings } = await getGuildSettings(guildId);
 
 	return (
-		<div className="flex w-full flex-col gap-5 p-4">
-			<div className="space-y-2">
-				<h2 className="text-2xl font-semibold">Danger Zone</h2>
-				<p className="text-white/75">
-					Dangerous actions that can have irreversible consequences. Please be careful when using these options.
-				</p>
-			</div>
-
+		<DashboardPage
+			description="Dangerous actions that can have irreversible consequences. Please be careful when using these options."
+			title="Danger Zone"
+		>
 			<div className="mb-12 flex flex-col gap-4">
 				<Section>
 					<Text
@@ -63,7 +44,7 @@ export default async function DangerZone({ params }: { readonly params: Promise<
 					<ResetGuildData guildId={guildId} />
 				</Section>
 			</div>
-		</div>
+		</DashboardPage>
 	);
 }
 

@@ -1,12 +1,10 @@
 import clsx from "clsx";
 import Link from "next/link";
-
-export const LEADERBOARD_ENTRIES_PER_PAGE = 100;
-export const LEADERBOARD_MAX_PAGE = 100;
-
-export function leaderboardPath(entry: string, page: number) {
-	return page === 1 ? `/levels/${entry}` : `/levels/${entry}?page=${page}`;
-}
+import {
+	LEADERBOARD_ENTRIES_PER_PAGE,
+	LEADERBOARD_MAX_PAGE,
+	leaderboardPath,
+} from "@/app/levels/[entry]/leaderboard-path.ts";
 
 export function PageSelector({ amount, entry, page }: PageSelectorProps) {
 	const isPossiblyLastPage = amount < LEADERBOARD_ENTRIES_PER_PAGE;

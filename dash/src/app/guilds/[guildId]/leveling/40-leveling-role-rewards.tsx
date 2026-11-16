@@ -8,32 +8,33 @@ import { RoleSelector } from "@/components/dashboard/RoleSelector.tsx";
 import { AddComment } from "@/components/icons/mdi/add-comment.tsx";
 import { Delete } from "@/components/icons/mdi/delete.tsx";
 import { Toggle } from "@/components/Toggle.tsx";
-import {
-	MAX_XP_ROLE_REWARD_LEVEL,
-	MAX_XP_ROLE_REWARD_ROLES,
-	MAX_XP_ROLE_REWARD_ROLES_PREMIUM,
-	MAX_XP_ROLE_REWARDS,
-	MAX_XP_ROLE_REWARDS_PREMIUM,
-	MIN_XP_ROLE_REWARD_LEVEL,
-} from "@/lib/guild-config.ts";
+import { limitFor, limitLabel, MAX_XP_ROLE_REWARD_LEVEL, MIN_XP_ROLE_REWARD_LEVEL } from "@/lib/guild-config.ts";
 import type { Role, XpRoleReward } from "@/lib/guild.ts";
-import { getMaximumLimit } from "@/utils/get-maximum-limit.ts";
+import { existingIds } from "@/utils/existing-ids.ts";
 import { mapRoleIdsToRoles } from "@/utils/map-role-ids-to-roles.ts";
 
+/** Role ids of deleted roles aren't shown, so they aren't saved either. */
+function withExistingRoles(roleRewards: XpRoleReward[], roles: Role[]): XpRoleReward[] {
+	return roleRewards.map((roleReward) => ({
+		...roleReward,
+		roleIds: existingIds(roleReward.roleIds, roles),
+	}));
+}
+
 export function LevelingRoleRewards({ defaultRoleRewards, premium, roles }: LevelingRoleRewardsProps) {
-	const [roleRewards, setRoleRewards] = useState<XpRoleReward[]>(defaultRoleRewards);
+	const [roleRewards, setRoleRewards] = useState(() => withExistingRoles(defaultRoleRewards, roles));
 	const [newRoles, setNewRoles] = useState<readonly Role[]>([]);
 	const [newLevel, setNewLevel] = useState("");
 
-	const maxRoleRewards = getMaximumLimit("xpRoleRewards", premium);
-	const maxRoleRewardRoles = getMaximumLimit("xpRoleRewardRoles", premium);
+	const maxRoleRewards = limitFor("xpRoleRewards", premium);
+	const maxRoleRewardRoles = limitFor("xpRoleRewardRoles", premium);
 
 	const isDuplicate = roleRewards.some((roleReward) => roleReward.level === Number.parseInt(newLevel, 10));
 
 	const [prevDefaultRoleRewards, setPrevDefaultRoleRewards] = useState(defaultRoleRewards);
 	if (prevDefaultRoleRewards !== defaultRoleRewards) {
 		setPrevDefaultRoleRewards(defaultRoleRewards);
-		setRoleRewards(defaultRoleRewards);
+		setRoleRewards(withExistingRoles(defaultRoleRewards, roles));
 	}
 
 	function handleCreateRoleReward() {
@@ -47,7 +48,7 @@ export function LevelingRoleRewards({ defaultRoleRewards, premium, roles }: Leve
 			level > MAX_XP_ROLE_REWARD_LEVEL ||
 			roleIds.length === 0 ||
 			roleIds.length > maxRoleRewardRoles ||
-			roleRewards.length > maxRoleRewards
+			roleRewards.length >= maxRoleRewards
 		) {
 			return;
 		}
@@ -60,16 +61,19 @@ export function LevelingRoleRewards({ defaultRoleRewards, premium, roles }: Leve
 		setNewLevel("");
 	}
 
+	function handleUpdateRoleReward(updated: XpRoleReward) {
+		setRoleRewards((prev) => prev.map((roleReward) => (roleReward.id === updated.id ? updated : roleReward)));
+	}
+
 	function handleDeleteRoleReward(id: string) {
 		setRoleRewards((prev) => prev.filter((roleReward) => roleReward.id !== id));
 	}
 
 	return (
 		<>
-			<Label
-				htmlFor="newXpRoleRewardLevel"
-				sub={`Max. ${MAX_XP_ROLE_REWARD_ROLES} roles per level - Max. ${MAX_XP_ROLE_REWARD_ROLES_PREMIUM} for Premium`}
-			>
+			<input name="xpRoleRewards" type="hidden" value={JSON.stringify(roleRewards)} />
+
+			<Label htmlFor="newXpRoleRewardLevel" sub={limitLabel("xpRoleRewardRoles", "roles per level")}>
 				Create your role rewards…
 			</Label>
 
@@ -79,18 +83,18 @@ export function LevelingRoleRewards({ defaultRoleRewards, premium, roles }: Leve
 				<RoleSelector
 					defaultValues={[]}
 					inputId="role-rewards-sel"
-					max={getMaximumLimit("xpRoleRewardRoles", premium)}
+					max={maxRoleRewardRoles}
 					onChange={(newRoles) => setNewRoles(newRoles)}
 					roles={roles}
-					settingId="newRoles"
 				/>
 
 				<p className="text-lg tracking-tight text-white/75 md:text-xl">and the level to reward it at: </p>
 
 				<Input
-					id="newLevel"
+					id="newXpRoleRewardLevel"
 					max={MAX_XP_ROLE_REWARD_LEVEL}
-					min={1}
+					min={MIN_XP_ROLE_REWARD_LEVEL}
+					name={null}
 					onChange={(event) => setNewLevel(event.target.value)}
 					placeholder="Enter a level…"
 					type="number"
@@ -109,16 +113,15 @@ export function LevelingRoleRewards({ defaultRoleRewards, premium, roles }: Leve
 
 			{roleRewards.length ? (
 				<>
-					<Label sub={`Max. ${MAX_XP_ROLE_REWARDS} rewards total - Max. ${MAX_XP_ROLE_REWARDS_PREMIUM} for Premium`}>
-						Manage your role rewards…
-					</Label>
+					<Label sub={limitLabel("xpRoleRewards", "rewards total")}>Manage your role rewards…</Label>
 
 					{roleRewards.map((roleReward) => (
 						<RoleRewardDisplay
 							key={roleReward.id}
-							{...roleReward}
+							maxRoles={maxRoleRewardRoles}
+							onChange={handleUpdateRoleReward}
 							onDelete={handleDeleteRoleReward}
-							premium={premium}
+							roleReward={roleReward}
 							roles={roles}
 						/>
 					))}
@@ -128,8 +131,8 @@ export function LevelingRoleRewards({ defaultRoleRewards, premium, roles }: Leve
 	);
 }
 
-function RoleRewardDisplay({ id, level, premium, roleIds, onDelete, roles, stack }: RoleRewardDisplayProps) {
-	const resolvedRoles = mapRoleIdsToRoles(roleIds, roles);
+function RoleRewardDisplay({ maxRoles, onChange, onDelete, roleReward, roles }: RoleRewardDisplayProps) {
+	const { id, level, roleIds, stack } = roleReward;
 
 	return (
 		<div className="flex flex-wrap items-center gap-4">
@@ -146,7 +149,7 @@ function RoleRewardDisplay({ id, level, premium, roleIds, onDelete, roles, stack
 			</button>
 
 			<div className="flex items-center gap-2 rounded-lg bg-darker p-2">
-				<Toggle id={`xpRoleRewards-${level}-${id}-stack`} initialValue={stack} />
+				<Toggle checked={stack} onChange={(event) => onChange({ ...roleReward, stack: event.target.checked })} />
 
 				<span className="text-sm text-white/75">Stack</span>
 
@@ -157,21 +160,23 @@ function RoleRewardDisplay({ id, level, premium, roleIds, onDelete, roles, stack
 			</div>
 
 			<RoleSelector
-				defaultValues={resolvedRoles}
+				defaultValues={mapRoleIdsToRoles(roleIds, roles)}
 				inputId={`role-rewards-${id}`}
-				max={getMaximumLimit("xpRoleRewardRoles", premium)}
+				max={maxRoles}
+				onChange={(newRoles) => onChange({ ...roleReward, roleIds: newRoles.map((role) => role.id) })}
 				roles={roles}
-				settingId={`xpRoleRewards-${level}-${id}`}
 			/>
 		</div>
 	);
 }
 
-type RoleRewardDisplayProps = XpRoleReward & {
+interface RoleRewardDisplayProps {
+	readonly maxRoles: number;
+	onChange(roleReward: XpRoleReward): void;
 	onDelete(id: string): void;
-	readonly premium: boolean;
+	readonly roleReward: XpRoleReward;
 	readonly roles: Role[];
-};
+}
 
 interface LevelingRoleRewardsProps {
 	readonly defaultRoleRewards: XpRoleReward[];

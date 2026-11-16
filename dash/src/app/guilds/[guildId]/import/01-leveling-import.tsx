@@ -3,7 +3,6 @@
 import { useActionState, useEffect, useRef, useState } from "react";
 import { Label } from "@/components/dashboard/Label.tsx";
 import { Section } from "@/components/dashboard/Section.tsx";
-import type { LevelingImportBot, LevelingImportError } from "@/lib/guild.ts";
 import type { Snowflake } from "@/utils/discord-cdn.ts";
 import { Time } from "@/utils/time.ts";
 import { BotSelector } from "./02-bot-selector.tsx";
@@ -11,7 +10,8 @@ import { IncludeRoleRewards } from "./03-include-role-rewards.tsx";
 import { ImportMinLevel } from "./04-import-min-level.tsx";
 import { getOngoingImportStatus, importBotData } from "./actions.ts";
 import { BeginImportButton } from "./begin-import-button.tsx";
-import { ImportStatus, ImportStatusTitle, StartImportError } from "./import-status.tsx";
+import { type GetImportStatusResponse, StartImportError } from "./import-api.ts";
+import { ImportStatus, ImportStatusTitle } from "./import-status.tsx";
 
 export function ImportForm({ guildId, data }: { guildId: Snowflake; data: GetImportStatusResponse | null }) {
 	const [importStatusState, setImportStatusState] = useState<GetImportStatusResponse | null>(null);
@@ -82,7 +82,7 @@ export function ImportForm({ guildId, data }: { guildId: Snowflake; data: GetImp
 				<BeginImportButton importOngoing={importOngoing} isRateLimited={isRateLimited || lastImportIsWithinHour} />
 			</Section>
 
-			{formState && "error" in formState ? null : formState !== null || importStatus ? (
+			{!isRateLimited && (formState !== null || importStatus) ? (
 				<Section>
 					<div className="flex flex-wrap items-center gap-4">
 						<h3 className="flex items-center text-xl font-semibold md:text-[1.4rem]">Import Status</h3>
@@ -101,14 +101,4 @@ export function ImportForm({ guildId, data }: { guildId: Snowflake; data: GetImp
 
 function dateIsYoungerThanHours(date: Date, hours: number) {
 	return Date.now() - date.getTime() < hours * Time.Hours;
-}
-
-export interface GetImportStatusResponse {
-	createdAt: string;
-	updatedAt: string;
-	completedAt: string | null;
-	progress: number;
-	rewardsCount: number;
-	bot: LevelingImportBot;
-	error: LevelingImportError | null;
 }

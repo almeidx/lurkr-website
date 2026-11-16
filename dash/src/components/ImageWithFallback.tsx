@@ -4,12 +4,6 @@ import Image, { type StaticImageData } from "next/image";
 import { type ComponentProps, useState } from "react";
 import fallbackAvatarImg from "@/assets/fallback-avatar.webp";
 
-/**
- * A wrapper around Next.js' Image component that allows for a fallback image to be used if the original image fails to load.
- *
- * @remarks
- * Uses `fallback` if `src` is nullable.
- */
 export function ImageWithFallback({ src, fallback = fallbackAvatarImg, ...props }: ImageWithFallbackProps) {
 	const [failedSrc, setFailedSrc] = useState<NextImageProps["src"] | null>(null);
 	const shouldUseFallback = !src || failedSrc === src;

@@ -1,9 +1,8 @@
 import { Label } from "@/components/dashboard/Label.tsx";
 import { RoleSelector } from "@/components/dashboard/RoleSelector.tsx";
-import { MAX_NO_XP_ROLES, MAX_NO_XP_ROLES_PREMIUM } from "@/lib/guild-config.ts";
+import { limitFor, limitLabel } from "@/lib/guild-config.ts";
 import type { Role } from "@/lib/guild.ts";
 import type { Snowflake } from "@/utils/discord-cdn.ts";
-import { getMaximumLimit } from "@/utils/get-maximum-limit.ts";
 import { mapRoleIdsToRoles } from "@/utils/map-role-ids-to-roles.ts";
 
 export function NoLevelingRoles({ defaultValues, premium, roles }: NoLevelingRolesProps) {
@@ -13,11 +12,11 @@ export function NoLevelingRoles({ defaultValues, premium, roles }: NoLevelingRol
 		<RoleSelector
 			defaultValues={defaultValue}
 			inputId="no-leveling-roles"
-			max={getMaximumLimit("noXpRoles", premium)}
+			max={limitFor("noXpRoles", premium)}
 			roles={roles}
 			settingId="noXpRoles"
 		>
-			<Label sub={`Max. ${MAX_NO_XP_ROLES} - Max. ${MAX_NO_XP_ROLES_PREMIUM} for Premium`}>Roles</Label>
+			<Label sub={limitLabel("noXpRoles")}>Roles</Label>
 		</RoleSelector>
 	);
 }

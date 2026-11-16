@@ -20,7 +20,9 @@ import {
 	MIN_XP_GAIN_INTERVAL,
 	MIN_XP_MULTIPLIER_VALUE,
 	MIN_XP_PER_MESSAGE,
+	XP_CURVE_PRESETS,
 } from "@/lib/guild-config.ts";
+import { xpForLevel } from "@/lib/xp-curve.ts";
 import { formatNumber } from "@/utils/format-number.ts";
 import { prettySeconds } from "@/utils/pretty-seconds.ts";
 import { CalculatorInput } from "./calculator-input.tsx";
@@ -238,15 +240,12 @@ function calculate(
 		return { approxMessages: 0, estimatedTime: 0, expRequired: 0 };
 	}
 
-	const expRequired = getRequiredXp(desiredLevel_) - getRequiredXp(currentLevel_);
+	const expRequired =
+		xpForLevel(XP_CURVE_PRESETS.lurkr, desiredLevel_) - xpForLevel(XP_CURVE_PRESETS.lurkr, currentLevel_);
 	const avgXpPerMessage = (xpPerMessageMin_ + xpPerMessageMax_) / 2;
 
 	const approxMessages = Math.ceil(expRequired / avgXpPerMessage / multiplier_);
 	const estimatedTime = approxMessages * xpGainInterval_;
 
 	return { approxMessages, estimatedTime, expRequired };
-}
-
-function getRequiredXp(level: number): number {
-	return level === 0 ? 0 : 100 + 50 * (level - 1) ** 2;
 }

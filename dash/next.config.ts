@@ -1,12 +1,5 @@
 import type { NextConfig } from "next";
-import { getNextConfigHeaders } from "../shared/common.ts";
-import {
-	BOT_INVITE,
-	GITHUB_REPOSITORY_URL,
-	PATREON_URL,
-	SUPPORT_SERVER_INVITE,
-	TOPGG_URL,
-} from "./src/shared-links.ts";
+import { EXTERNAL_REDIRECTS } from "./src/external-redirects.ts";
 
 if (!process.env.NEXT_PUBLIC_API_URL) {
 	console.warn("NEXT_PUBLIC_API_URL environment variable is not set. API requests will fail.");
@@ -32,17 +25,46 @@ const nextConfig = {
 		turbopackRustReactCompiler: true,
 	},
 	async headers() {
-		const extraConnectSrc: string[] = [];
-		if (apiDomain) {
-			extraConnectSrc.push(process.env.NODE_ENV === "development" ? `http://${apiDomain}/` : `https://${apiDomain}/`);
-		}
+		const isProduction = process.env.NODE_ENV === "production";
+		const apiSrc = apiDomain ? `${process.env.NODE_ENV === "development" ? "http" : "https"}://${apiDomain}/` : "";
+		const bucketSrc = backgroundBucketDomain ? `https://${backgroundBucketDomain}` : "";
 
-		const extraImgSrc: string[] = ["https://cdn.discordapp.com"];
-		if (backgroundBucketDomain) {
-			extraImgSrc.push(`https://${backgroundBucketDomain}`);
-		}
+		const csp = `
+			default-src 'self';
+			script-src 'self' 'unsafe-inline' ${isProduction ? "" : "'unsafe-eval'"} https://static.cloudflareinsights.com;
+			style-src 'self' 'unsafe-inline';
+			img-src 'self' https://cdn.discordapp.com ${bucketSrc} blob: data:;
+			font-src 'self';
+			object-src 'none';
+			base-uri 'self';
+			form-action 'self';
+			connect-src 'self' ${apiSrc};
+			frame-ancestors 'none';
+			upgrade-insecure-requests;
+		`;
 
-		return getNextConfigHeaders({ extraConnectSrc, extraImgSrc });
+		const permissionsPolicy = `
+			accelerometer=(),
+			camera=(),
+			geolocation=(),
+			gyroscope=(),
+			magnetometer=(),
+			microphone=(),
+			payment=(),
+			usb=()
+		`;
+
+		return [
+			{
+				headers: [
+					{ key: "Content-Security-Policy", value: trimHeaderValue(csp) },
+					{ key: "X-Content-Type-Options", value: "nosniff" },
+					{ key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+					{ key: "Permissions-Policy", value: trimHeaderValue(permissionsPolicy) },
+				],
+				source: "/(.*)",
+			},
+		];
 	},
 	images: {
 		qualities: [80, 100],
@@ -65,31 +87,7 @@ const nextConfig = {
 	reactCompiler: true,
 	async redirects() {
 		return [
-			{
-				destination: BOT_INVITE,
-				permanent: false,
-				source: "/invite",
-			},
-			{
-				destination: PATREON_URL,
-				permanent: false,
-				source: "/patreon",
-			},
-			{
-				destination: `${TOPGG_URL}&utm_campaign=redirect`,
-				permanent: true,
-				source: "/vote",
-			},
-			{
-				destination: GITHUB_REPOSITORY_URL,
-				permanent: true,
-				source: "/github",
-			},
-			{
-				destination: SUPPORT_SERVER_INVITE,
-				permanent: true,
-				source: "/support",
-			},
+			...EXTERNAL_REDIRECTS,
 			// Docs pages that used to live at the root before moving under `/docs`.
 			...[
 				"/api",
@@ -108,3 +106,7 @@ const nextConfig = {
 } as const satisfies NextConfig;
 
 export default nextConfig;
+
+function trimHeaderValue(value: string) {
+	return value.replaceAll(/\t|^\s+|\s+$/g, "").replaceAll(/\n|\s{2,}/g, " ");
+}

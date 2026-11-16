@@ -55,7 +55,6 @@ function FeaturedGuild({ id, icon, name, memberCount, partner, verified, index }
 
 interface FeaturedGuildsProps {
 	readonly guilds: readonly FeaturedGuild[];
-	readonly startDelay?: number;
 	readonly speed: number;
 	readonly direction?: "left" | "right";
 }

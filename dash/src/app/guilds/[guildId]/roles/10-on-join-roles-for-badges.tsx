@@ -12,44 +12,47 @@ import {
 import Image from "next/image";
 import { useState } from "react";
 import { Label } from "@/components/dashboard/Label.tsx";
-import { RoleSelector, type RoleWithResolvedColor } from "@/components/dashboard/RoleSelector.tsx";
+import { RoleSelector } from "@/components/dashboard/RoleSelector.tsx";
 import { Text } from "@/components/dashboard/Text.tsx";
 import { Delete } from "@/components/icons/mdi/delete.tsx";
 import { PersonAdd } from "@/components/icons/mdi/person-add.tsx";
-import { MAX_AUTO_ROLE_FLAGS_ROLES } from "@/lib/guild-config.ts";
+import { MAX_AUTO_ROLE_FLAG_ROLES, MAX_AUTO_ROLE_FLAGS } from "@/lib/guild-config.ts";
 import type { AutoRoleFlag, Role } from "@/lib/guild.ts";
-import { getMaximumLimit } from "@/utils/get-maximum-limit.ts";
+import type { Snowflake } from "@/utils/discord-cdn.ts";
+import { existingIds } from "@/utils/existing-ids.ts";
 import { mapRoleIdsToRoles } from "@/utils/map-role-ids-to-roles.ts";
 import { BadgeInfo, UserFlags } from "@/utils/user-flags.ts";
 
-export function OnJoinRolesForBadges({ defaultValues, premium, roles }: OnJoinRolesForBadgesProps) {
-	const [autoRoleFlags, setAutoRoleFlags] = useState<readonly AutoRoleFlag[]>(defaultValues);
-	const [newRoles, setNewRoles] = useState<readonly RoleWithResolvedColor[]>([]);
+export function OnJoinRolesForBadges({ defaultValues, roles }: OnJoinRolesForBadgesProps) {
+	const [autoRoleFlags, setAutoRoleFlags] = useState(() =>
+		defaultValues.map((autoRoleFlag) => ({
+			...autoRoleFlag,
+			roleIds: existingIds(autoRoleFlag.roleIds, roles),
+		})),
+	);
+	const [newRoleIds, setNewRoleIds] = useState<Snowflake[]>([]);
 
 	const combobox = useComboboxStore({ defaultSelectedValue: UserFlags.ActiveDeveloper.toString() });
 	const flag = useStoreState(combobox, "selectedValue");
 
-	const maxAutoRoleFlags = getMaximumLimit("autoRoleFlags", premium);
-
 	function handleCreate() {
 		const flagId = Number.parseInt(flag, 10);
-		const roleIds = newRoles.map(({ id }) => id);
 
 		if (
 			Number.isNaN(flagId) ||
 			!(flagId in BadgeInfo) ||
-			roleIds.length === 0 ||
-			roleIds.length >= MAX_AUTO_ROLE_FLAGS_ROLES ||
-			autoRoleFlags.length >= maxAutoRoleFlags
+			newRoleIds.length === 0 ||
+			newRoleIds.length > MAX_AUTO_ROLE_FLAG_ROLES ||
+			autoRoleFlags.length >= MAX_AUTO_ROLE_FLAGS
 		) {
 			return;
 		}
 
 		setAutoRoleFlags((prev) =>
-			[...prev, { flagId, id: crypto.randomUUID(), roleIds }].sort((a, b) => a.flagId - b.flagId),
+			[...prev, { flagId, id: crypto.randomUUID(), roleIds: newRoleIds }].sort((a, b) => a.flagId - b.flagId),
 		);
 
-		setNewRoles([]);
+		setNewRoleIds([]);
 		combobox.setSelectedValue(UserFlags.ActiveDeveloper.toString());
 	}
 
@@ -57,21 +60,28 @@ export function OnJoinRolesForBadges({ defaultValues, premium, roles }: OnJoinRo
 		setAutoRoleFlags((prev) => prev.filter((autoRoleFlag) => autoRoleFlag.id !== id));
 	}
 
+	function handleChangeRoles(id: string, roleIds: Snowflake[]) {
+		setAutoRoleFlags((prev) =>
+			prev.map((autoRoleFlag) => (autoRoleFlag.id === id ? { ...autoRoleFlag, roleIds } : autoRoleFlag)),
+		);
+	}
+
 	const selectedBadgeInfo =
 		flag in BadgeInfo ? BadgeInfo[flag as unknown as keyof typeof BadgeInfo] : BadgeInfo[UserFlags.ActiveDeveloper];
 
 	return (
 		<>
+			<input name="autoRoleFlags" type="hidden" value={JSON.stringify(autoRoleFlags)} />
+
 			<div className="flex flex-wrap items-center gap-3">
 				<Text>Select your roles: </Text>
 
 				<RoleSelector
 					defaultValues={[]}
 					inputId="role-selector"
-					max={getMaximumLimit("autoRoleFlags", premium)}
-					onChange={(newRoles) => setNewRoles(newRoles)}
+					max={MAX_AUTO_ROLE_FLAG_ROLES}
+					onChange={(newRoles) => setNewRoleIds(newRoles.map(({ id }) => id))}
 					roles={roles}
-					settingId="newRoles"
 				/>
 
 				<ComboboxSelectLabel className="text-lg tracking-tight text-white/75 md:text-xl" store={combobox}>
@@ -111,7 +121,7 @@ export function OnJoinRolesForBadges({ defaultValues, premium, roles }: OnJoinRo
 
 				<button
 					className="rounded-lg bg-green p-1 transition-colors not-disabled:hover:bg-green/75"
-					disabled={autoRoleFlags.length >= maxAutoRoleFlags || !newRoles.length || !flag}
+					disabled={autoRoleFlags.length >= MAX_AUTO_ROLE_FLAGS || !newRoleIds.length || !flag}
 					onClick={handleCreate}
 					type="button"
 				>
@@ -121,61 +131,47 @@ export function OnJoinRolesForBadges({ defaultValues, premium, roles }: OnJoinRo
 
 			{autoRoleFlags.length ? (
 				<>
-					<Label sub={`Max. ${MAX_AUTO_ROLE_FLAGS_ROLES} roles`}>Manage your Badge-specific roles…</Label>
+					<Label sub={`Max. ${MAX_AUTO_ROLE_FLAG_ROLES} roles`}>Manage your Badge-specific roles…</Label>
 
-					{autoRoleFlags.map((autoRoleFlag) => (
-						<OnJoinRoleBadge
-							key={autoRoleFlag.id}
-							{...autoRoleFlag}
-							onDelete={handleDelete}
-							premium={premium}
-							roles={roles}
-						/>
-					))}
+					{autoRoleFlags.map(({ flagId, id, roleIds }) => {
+						const badgeInfo = BadgeInfo[flagId];
+
+						return (
+							<div className="flex items-center gap-4" key={id}>
+								<button
+									className="group relative flex size-10 items-center justify-center rounded-lg border border-white bg-darker text-lg text-[#fff] md:text-xl"
+									onClick={() => handleDelete(id)}
+									type="button"
+								>
+									<div className="absolute hidden size-10 items-center justify-center rounded-lg border border-white bg-darker group-hover:flex">
+										<Delete className="size-5 text-[#ed4245]" />
+									</div>
+
+									<Image alt={`${badgeInfo.name} badge`} height={22} src={badgeInfo.icon} width={22} />
+								</button>
+
+								<RoleSelector
+									defaultValues={mapRoleIdsToRoles(roleIds, roles)}
+									inputId={`on-join-roles-for-badges-${id}`}
+									max={MAX_AUTO_ROLE_FLAG_ROLES}
+									onChange={(newRoles) =>
+										handleChangeRoles(
+											id,
+											newRoles.map(({ id }) => id),
+										)
+									}
+									roles={roles}
+								/>
+							</div>
+						);
+					})}
 				</>
 			) : null}
 		</>
 	);
 }
 
-function OnJoinRoleBadge({ flagId, id, premium, onDelete, roleIds, roles }: OnJoinRoleBadgeProps) {
-	const resolvedRoles = mapRoleIdsToRoles(roleIds, roles);
-
-	const badgeInfo = BadgeInfo[flagId];
-
-	return (
-		<div className="flex items-center gap-4">
-			<button
-				className="group relative flex size-10 items-center justify-center rounded-lg border border-white bg-darker text-lg text-[#fff] md:text-xl"
-				onClick={() => onDelete(id)}
-				type="button"
-			>
-				<div className="absolute hidden size-10 items-center justify-center rounded-lg border border-white bg-darker group-hover:flex">
-					<Delete className="size-5 text-[#ed4245]" />
-				</div>
-
-				<Image alt={`${badgeInfo.name} badge`} height={22} src={badgeInfo.icon} width={22} />
-			</button>
-
-			<RoleSelector
-				defaultValues={resolvedRoles}
-				inputId={`on-join-roles-for-badges-${id}`}
-				max={getMaximumLimit("autoRoleFlags", premium)}
-				roles={roles}
-				settingId={`autoRoleFlags-${flagId}-${id}`}
-			/>
-		</div>
-	);
-}
-
-type OnJoinRoleBadgeProps = AutoRoleFlag & {
-	onDelete(id: string): void;
-	readonly premium: boolean;
-	readonly roles: Role[];
-};
-
 interface OnJoinRolesForBadgesProps {
 	readonly defaultValues: AutoRoleFlag[];
-	readonly premium: boolean;
 	readonly roles: Role[];
 }

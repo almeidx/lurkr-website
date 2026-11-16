@@ -1,12 +1,8 @@
 import { api } from "@/lib/api.ts";
 
-export async function getUserBackground(): Promise<string | null> {
-	try {
-		const { url } = await api.get("users/@me/background").json<GetCurrentUserBackgroundResponse>();
-		return url;
-	} catch {
-		return null;
-	}
+export async function getUserBackground() {
+	const { url } = await api.get("users/@me/background").json<GetCurrentUserBackgroundResponse>();
+	return url;
 }
 
 interface GetCurrentUserBackgroundResponse {

@@ -105,7 +105,6 @@ export function EmbedBuilder({ defaultValue, emojis, roles, placeholders }: Embe
 			}));
 		}
 
-		// Check if the only key is color
 		if (Object.keys(embed).length === 1 && embed.color) {
 			return "{}";
 		}

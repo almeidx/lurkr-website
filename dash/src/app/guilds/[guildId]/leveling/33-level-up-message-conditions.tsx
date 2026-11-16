@@ -6,6 +6,7 @@ import { Text } from "@/components/dashboard/Text.tsx";
 import { Toggle } from "@/components/Toggle.tsx";
 import {
 	MAX_XP_ANNOUNCE_LEVEL,
+	MAX_XP_ANNOUNCE_LEVELS,
 	MAX_XP_ANNOUNCE_MINIMUM_LEVEL,
 	MAX_XP_ANNOUNCE_MULTIPLE_OF,
 	MIN_XP_ANNOUNCE_LEVEL,
@@ -13,22 +14,21 @@ import {
 	MIN_XP_ANNOUNCE_MULTIPLE_OF,
 } from "@/lib/guild-config.ts";
 import type { GuildSettings } from "@/lib/guild.ts";
-import { getMaximumLimit } from "@/utils/get-maximum-limit.ts";
 
-export function LevelUpMessageConditions({ settings, premium }: LevelUpMessageConditionsProps) {
-	const max = getMaximumLimit("xpAnnounceLevels", premium);
-
+export function LevelUpMessageConditions({ settings }: LevelUpMessageConditionsProps) {
 	return (
 		<>
 			<CreatableList
 				defaultValues={settings.xpAnnounceLevels.map(String)}
 				inputId="level-up-message-levels"
-				max={max}
+				max={MAX_XP_ANNOUNCE_LEVELS}
 				placeholder="Type something and press enter, e.g. 10"
 				settingId="xpAnnounceLevels"
 			>
 				<div className="mt-2 flex items-center">
-					<Label sub={`Max. ${max} levels between ${MIN_XP_ANNOUNCE_LEVEL}-${MAX_XP_ANNOUNCE_LEVEL}`}>
+					<Label
+						sub={`Max. ${MAX_XP_ANNOUNCE_LEVELS} levels between ${MIN_XP_ANNOUNCE_LEVEL}-${MAX_XP_ANNOUNCE_LEVEL}`}
+					>
 						Set the <span className="font-semibold tracking-tight text-white">specific</span> levels you want the level
 						up message to be sent at…
 					</Label>
@@ -53,12 +53,12 @@ export function LevelUpMessageConditions({ settings, premium }: LevelUpMessageCo
 			</div>
 
 			<Input
+				// 0 is the API default but not an allowed input, so it shows as empty
 				defaultValue={settings.xpAnnounceMinimumLevel === 0 ? "" : settings.xpAnnounceMinimumLevel}
 				id="xpAnnounceMinimumLevel"
 				max={MAX_XP_ANNOUNCE_MINIMUM_LEVEL}
 				min={MIN_XP_ANNOUNCE_MINIMUM_LEVEL}
 				placeholder="Write the minimum level you want…"
-				// Special case: 0 is not allowed, but it's the default value
 				type="number"
 			/>
 
@@ -100,5 +100,4 @@ export function LevelUpMessageConditions({ settings, premium }: LevelUpMessageCo
 
 interface LevelUpMessageConditionsProps {
 	readonly settings: GuildSettings;
-	readonly premium: boolean;
 }

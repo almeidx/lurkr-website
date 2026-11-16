@@ -78,14 +78,8 @@ export function CreatableList({ children, defaultValues, inputId, max, placehold
 
 interface CreatableListProps extends PropsWithChildren {
 	readonly defaultValues: readonly string[];
-	/**
-	 * Id for the input where the user can type
-	 */
 	readonly inputId: string;
 	readonly max: number;
 	readonly placeholder: string;
-	/**
-	 * Id for the input containing the channel ids (hidden)
-	 */
 	readonly settingId: string;
 }

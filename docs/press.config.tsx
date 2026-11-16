@@ -5,7 +5,7 @@ import { createPress, type HeadTag, recommendedPreset } from "fumapress";
 import { oramaSearchPlugin } from "fumapress/plugins/orama-search";
 import logoSmall from "@/assets/logo-small.webp";
 import { OpenAPIPage } from "@/openapi.tsx";
-import { BASE_URL } from "@/shared-links.ts";
+import { BASE_URL, GITHUB_REPOSITORY_NAME, GITHUB_REPOSITORY_OWNER } from "@/shared-links.ts";
 import { docs } from "./.source/server";
 
 const BRAND_COLOR = "#ff7077";
@@ -89,9 +89,9 @@ export default app.config({
 		baseUrl: import.meta.env.DEV ? "http://localhost:3000/docs" : `${BASE_URL}/docs`,
 		git: {
 			branch: "main",
-			repo: "lurkr-website",
+			repo: GITHUB_REPOSITORY_NAME,
 			rootDir: "docs",
-			user: "almeidx",
+			user: GITHUB_REPOSITORY_OWNER,
 		},
 		name: "Lurkr Docs",
 	},

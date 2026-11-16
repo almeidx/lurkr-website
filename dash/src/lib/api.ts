@@ -1,85 +1,79 @@
-import ky, { type Hooks, isHTTPError } from "ky";
-import { TOKEN_COOKIE, TOKEN_COOKIE_SCOPE } from "@/utils/constants";
-import { getCookie } from "@/utils/cookies";
+import ky, { type AfterResponseHook, type BeforeErrorHook, type BeforeRequestHook, isHTTPError } from "ky";
+import { TOKEN_COOKIE, TOKEN_COOKIE_SCOPE } from "@/utils/constants.ts";
 
 if (!process.env.NEXT_PUBLIC_API_URL) {
 	throw new Error("NEXT_PUBLIC_API_URL is not defined");
 }
 
-const retryableStatusCodes = [
-	// 408, // Request Timeout
-	429, // Too Many Requests
-	500, // Internal Server Error
-	502, // Bad Gateway
-	503, // Service Unavailable
-	504, // Gateway Timeout
-];
+const isServer = typeof window === "undefined";
 
-const timeout = 30 * 1_000;
+const appendApiMessage: BeforeErrorHook = ({ error }) => {
+	if (!isHTTPError(error)) {
+		return error;
+	}
 
-const sharedHooks: Hooks = {
-	beforeError: [
-		async ({ error }) => {
-			if (!isHTTPError(error)) {
-				return error;
-			}
+	const { data, response } = error;
 
-			const { data, response } = error;
+	error.message = response.statusText || response.status.toString();
+	if (typeof data === "object" && data !== null && "message" in data && typeof data.message === "string") {
+		error.message += `: ${data.message}`;
+	}
 
-			let message = response.statusText || response.status.toString();
-			if (typeof data === "object" && data !== null && "message" in data && typeof data.message === "string") {
-				message += `: ${data.message}`;
-			}
-
-			// TODO: Show toast?
-			error.message = message;
-
-			return error;
-		},
-	],
+	return error;
 };
 
-export const api = ky.create({
-	credentials: "include",
-	hooks: {
-		...sharedHooks,
-		afterResponse: [
-			async ({ response }) => {
-				if (typeof window === "undefined" && response.headers.get("x-auth-error") === "malformed") {
-					// Clear the invalid token so the user isn't stuck in a broken auth state.
-					const { cookies } = await import("next/headers");
-					const store = await cookies();
-					try {
-						store.delete({ name: TOKEN_COOKIE, ...TOKEN_COOKIE_SCOPE });
-					} catch {
-						// This can fail if it runs outside a Server Action or API route. e.g. RSC rendering
-					}
-				}
-			},
-		],
-		beforeRequest: [
-			async ({ request }) => {
-				// Server-side: read the cookie from next/headers and set Authorization header
-				// Client-side: browser sends the HttpOnly cookie automatically via credentials: "include"
-				if (typeof window === "undefined") {
-					if (!request.headers.has("Authorization")) {
-						const token = await getCookie(TOKEN_COOKIE);
-						if (token) {
-							request.headers.set("Authorization", `Bearer ${token}`);
-						}
-					}
+// `next/headers` is imported lazily because this module is also bundled for the browser, where it doesn't exist.
+async function serverCookies() {
+	const { cookies } = await import("next/headers");
+	return cookies();
+}
 
-					if (!request.headers.has("User-Agent")) {
-						request.headers.set("User-Agent", `LurkrWebsite/1.0 Node.js/${process.version}`);
-					}
-				}
-			},
-		],
-	},
+const forwardTokenCookie: BeforeRequestHook = async ({ request }) => {
+	if (!isServer) {
+		return;
+	}
+
+	const token = (await serverCookies()).get(TOKEN_COOKIE)?.value;
+	if (token) {
+		request.headers.set("Authorization", `Bearer ${token}`);
+	}
+};
+
+const clearMalformedToken: AfterResponseHook = async ({ response }) => {
+	if (!isServer || response.headers.get("x-auth-error") !== "malformed") {
+		return;
+	}
+
+	const store = await serverCookies();
+	try {
+		store.delete({ name: TOKEN_COOKIE, ...TOKEN_COOKIE_SCOPE });
+	} catch {
+		// Cookies can only be modified in Server Actions and Route Handlers, not while rendering.
+	}
+};
+
+/**
+ * Anonymous requests. They carry no credentials, so their responses can be shared through Next's fetch cache.
+ */
+export const publicApi = ky.create({
+	headers: isServer ? { "User-Agent": `LurkrWebsite/1.0 Node.js/${process.version}` } : undefined,
+	hooks: { beforeError: [appendApiMessage] },
 	prefix: process.env.NEXT_PUBLIC_API_URL,
 	retry: {
 		limit: 3,
-		statusCodes: retryableStatusCodes,
+		statusCodes: [429, 500, 502, 503, 504],
 	},
-	timeout,
+	timeout: 30_000,
+});
+
+/**
+ * Requests on behalf of the signed-in user. Browsers send the HttpOnly token cookie themselves; on the server it is
+ * forwarded as a bearer token.
+ */
+export const api = publicApi.extend({
+	credentials: "include",
+	hooks: {
+		afterResponse: [clearMalformedToken],
+		beforeRequest: [forwardTokenCookie],
+	},
 });

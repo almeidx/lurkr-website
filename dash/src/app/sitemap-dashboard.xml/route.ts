@@ -1,5 +1,5 @@
 import type { NextRequest } from "next/server";
-import { PUBLIC_URL } from "@/utils/constants";
+import { PUBLIC_URL } from "@/utils/constants.ts";
 
 export const revalidate = false;
 

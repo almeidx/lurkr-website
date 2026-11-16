@@ -3,10 +3,7 @@ import { Radio, RadioGroup } from "@/components/dashboard/Radio.tsx";
 
 export function RoleMultiplierPriority({ defaultValue }: { readonly defaultValue: boolean }) {
 	return (
-		<RadioProvider
-			defaultValue={defaultValue.toString()}
-			key={defaultValue.toString()} // Force remount when defaultValue changes
-		>
+		<RadioProvider defaultValue={defaultValue.toString()} key={defaultValue.toString()}>
 			<RadioGroup className="flex w-fit flex-col gap-4">
 				<label className="flex text-lg tracking-tight text-white/75 md:text-xl" htmlFor="prioritiseMultiplierValue">
 					<Radio id="prioritiseMultiplierValue" name="prioritiseMultiplierRoleHierarchy" rightMargin value="false" />
