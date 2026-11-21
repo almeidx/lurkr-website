@@ -22,11 +22,11 @@ catalog:
   "@types/textarea-caret": ^3.0.4
   clsx: ^2.1.1
   date-fns: ^4.4.0
-  fumadocs-core: ^16.19.5
+  fumadocs-core: ^16.19.6
   fumadocs-mdx: ^15.6.4
-  fumadocs-openapi: 12.6.6
-  fumadocs-ui: "npm:@fumadocs/base-ui@^16.19.5"
-  fumapress: ^2.0.2
+  fumadocs-openapi: 12.6.7
+  fumadocs-ui: "npm:@fumadocs/base-ui@^16.19.6"
+  fumapress: ^2.0.3
   hono: ^4.13.19
   husky: ^9.1.7
   isbot: ^5.2.3
@@ -59,5 +59,12 @@ catalog:
   valibot: ^1.5.0
   vite: ^8.3.8
   wrangler: ^4.165.0
+minimumReleaseAgeExclude:
+  - "@fumadocs/base-ui@16.19.6"
+  - "@fumadocs/json-schema@0.3.6"
+  - "@fumapress/core@0.2.0"
+  - fumadocs-core@16.19.6
+  - fumadocs-openapi@12.6.7
+  - fumapress@2.0.3
 overrides:
   react-is: ^19.3.1
