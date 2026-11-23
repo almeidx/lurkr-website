@@ -1,0 +1,41 @@
+---
+title: Import XP
+description: Import levels and role rewards from other leveling bots.
+---
+
+### Description
+
+This command can be used to import the leveling leaderboard of another bot into Lurkr, optionally together with its role
+rewards. For a full walkthrough, see the [Importing Levels From Other Bots](../guides/importing-levels-from-other-bots)
+guide.
+
+<Callout type="warning">
+	Importing **wipes all current Lurkr levels** of your server and replaces them with the imported ones. This action is
+	irreversible, so the command asks you to confirm before it starts.
+</Callout>
+
+While the import is running, the reply is updated with the number of members imported so far. The command can only be
+used **once every hour** per server.
+
+### Command Structure
+
+```
+/importxp <bot:> <with_role_rewards:> [min_level:]
+```
+
+| Option            | Description                                                                         | Required |
+| ----------------- | ----------------------------------------------------------------------------------- | -------- |
+| bot               | The bot to import levels from                                                       | Yes      |
+| with_role_rewards | Whether to import role rewards as well                                              | Yes      |
+| min_level         | The minimum level members need to have to be imported (Min: 3, Max: 20, Default: 5) | No       |
+
+| Bot     | Status                                                                                        |
+| ------- | --------------------------------------------------------------------------------------------- |
+| MEE6    | Supported. The MEE6 leaderboard of your server must be public                                 |
+| Amari   | Currently unavailable, as Amari's API has been taken down                                     |
+| Polaris | Unavailable, as Polaris's API has been retired. Ask for a manual import in our support server |
+
+### Permission
+
+- `Administrator` **(User)**
+- N/A **(Bot)**
