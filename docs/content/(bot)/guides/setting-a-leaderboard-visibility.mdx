@@ -27,6 +27,10 @@ if you have a [Vanity URL](./setting-a-leaderboard-vanity-url) set or not.
 | Members-only      | Only logged-in members of this server can see it. This is the default setting. This means your leaderboard will not be indexed on the web.            |
 | Managers-only     | Only people with Manage Messages, Manage Server, or Administrator permissions can see it. This means your leaderboard will not be indexed on the web. |
 
+<Callout type="warning">
+	Servers that Discord flags as NSFW or age-restricted can choose between Members-only and Managers-only.
+</Callout>
+
 ---
 
 ## Setting a Visibility
@@ -39,6 +43,9 @@ category.
 Scroll all the way down to the **Web Leaderboard** section, and select your visibility option of choice.
 
 ![](../../_assets/aJk2z8C.png)
+
+You can also run `/config set option:Leaderboard Visibility` in your server and pick the visibility from the select
+menu.
 
 ---
 
