@@ -46,6 +46,13 @@ API requests are authenticated using API keys. These keys must be included in th
 
 To create and manage your API keys, visit your [profile page](/../profile).
 
+### Leaderboard Access
+
+[`GET /levels/{guildId}`](/api/endpoints/levels/get-leaderboard) follows the server's
+[leaderboard visibility](/guides/setting-a-leaderboard-visibility). Public leaderboards can be fetched without any
+authentication. Members-only (the default) and managers-only leaderboards respond with `401` to unauthenticated
+requests, and with `403` unless your API key was granted access to that server.
+
 ## Rate Limiting
 
 The API enforces rate limits to ensure fair usage and system stability. You can make 1500 requests per minute per

@@ -5,6 +5,37 @@ description:
   can expect no breaking changes in v2.
 ---
 
+## Leaderboard access for API keys
+
+Date: 2026-11-12
+
+API keys can now read members-only and managers-only leaderboards through
+[`GET /levels/{guildId}`](endpoints/levels/get-leaderboard), as long as the key was granted access to the server.
+Requests without a grant keep receiving `403`, and unauthenticated requests to a non-public leaderboard receive `401`.
+
+## NSFW flag on the Leaderboard endpoint
+
+Date: 2026-10-01
+
+Added `guild.nsfw` to the result of the [`GET /levels/{guildId}`](endpoints/levels/get-leaderboard) endpoint. Servers
+that Discord flags as NSFW or age-restricted can no longer have a public leaderboard: theirs is treated as members-only.
+
+## Anonymized leaderboard entries
+
+Date: 2026-09-14
+
+Members who opted out of public leaderboards are now fully anonymized on the
+[`GET /levels/{guildId}`](endpoints/levels/get-leaderboard) endpoint. Their `userId` is a position-based identifier in
+the form `anonymous:<rank>` instead of a Discord user ID.
+
+## Stricter authentication
+
+Date: 2026-03-21
+
+- Expired API keys are now rejected with `401`.
+- [`GET /guilds/{guildId}/role-rewards/level`](endpoints/guilds/get-the-role-rewards-changes-for-a-specific-level) now
+  requires authentication and access to the server.
+
 ## Rank on Get User Level endpoint
 
 Date: 2025-10-18
