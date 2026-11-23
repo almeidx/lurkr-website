@@ -185,8 +185,8 @@ field enter the custom channel you want to use.
 By default, Lurkr will send the Level-Up message after every level increase no matter what. However, you can also
 configure the bot to send the message at different times and for different reasons/levels.
 
-This first command lets you set exactly which levels should be announced and which shouldn't. You can include as many
-levels as you want, within reason.
+This first command lets you set exactly which levels should be announced and which shouldn't. You can include up to 100
+levels, each between level 1 and level 100.
 
 Only these levels will then be announced, regardless of where the level-up message will be sent.
 
@@ -197,7 +197,7 @@ Only these levels will then be announced, regardless of where the level-up messa
 The next command lets you set from what level on-wards you want the levels to be announced.
 
 This means that any and all levels below this threshold won't be announced, but all of them including the minimum level
-will be announced.
+will be announced. The threshold can be at most level 500.
 
 <center>
 	![The `/config set option:Minimum Level Announcement Threshold`
@@ -208,7 +208,7 @@ The next command lets you set if you want levels to only be announced if they ar
 number.
 
 For example if you only want to announce the levels `5`, `10`, `15` and so on, you would set this command to a multiple
-of 5.
+of 5. The factor can be at most 250.
 
 <center>
 	![The `/config set option:Factor For Leveling Announcements`
