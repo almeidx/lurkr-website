@@ -61,14 +61,14 @@ You can enter as many roles as your current server plan will allow. You can chec
 
 ### Adding the Daily Top Leveling Role
 
-You can also reward a user for having the most XP by letting the bot assign a Top Leveling role. This role is given out
-at 00:00 UTC, and is only ever given to one person on the server. If a user had the Top Leveling role previously, it
-will be taken off of them.
+You can also reward the member with the most XP on the server by letting the bot assign a Top Leveling role. The
+dashboard calls it **Daily Top Leveling Role**, and the `/config` command **All-Time Leaderboard Champion Role**. The
+role is re-evaluated once a day, shortly after 00:00 UTC, and is only ever held by one person on the server. If a
+different member had the Top Leveling role previously, it will be taken off of them.
 
 <Callout type="info">
-	The Top Leveling Role will only be assigned if the qualified person has at least 4,150 XP (equivalent to level 10 with
-	the default Lurkr XP curve). If your server uses a custom XP curve, the effective minimum level may differ. This is
-	done to prevent unfair level gain by other members in the lower levels where gaining levels is easier.
+	The role goes to the member with the most XP on the server. If that member has one of the **No Top Leveling Roles**,
+	it goes to the next member in line.
 </Callout>
 
 This feature is a quick and easy way to give users a long-term goal to work towards.
@@ -79,7 +79,7 @@ the Top Leveling role, you can type the following command:
 <center>![](../../_assets/uizbhw6.png)</center>
 
 <Callout type="warn">
-    It is **highly** suggested that you also set the Top Leveling role as a [No Leveling role](#adding-the-no-role-reward-roles) aswell.
+    It is **highly** suggested that you also set the Top Leveling role as a [No Leveling role](#no-leveling-roles) aswell.
 
     Not doing so might lead to the situation that only one person ever receives the Top Leveling role since during their day on the Top they keep gaining levels.
 
