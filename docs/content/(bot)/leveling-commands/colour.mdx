@@ -8,16 +8,22 @@ description: Customize rank card colors.
 This command can be used to change the colour of the progression bar in the [level](./rank) command. The colour change
 is global, no matter on which server you use the command.
 
-By default, the progression bar is set to the **average** value, which will calculate the average colour of your profile
-picture and use it as the bar colour. If you have a GIF profile picture, it will calculate the average colour from the
-first frame.
+By default, the progression bar uses the
+[server-wide rank card colour](../guides/leveling-automation#server-wide-rank-card-colour) if the server has set one,
+and a light grey (`#bebebe`) otherwise.
+
+You can set the progression bar to the **avatar** value, which will calculate the average colour of your profile picture
+and use it as the bar colour. If you have a GIF profile picture, it will calculate the average colour from the first
+frame.
 
 You can also set the progression bar to the **role** value. This will take your top-most role that has a colour
-(Transparent roles, or roles with the "Default" colour don't count) and use it as the bar colour.
+(Transparent roles, or roles with the "Default" colour don't count) in the server where you run the command and use it
+as the bar colour.
 
-If you set this value the colour will change between servers, depending on the role colour that you have. If you don't
-have any roles, or only have transparent or "Default" roles, the bot will revert to using your profile picture to
-calculate an average value.
+<Callout type="warning">
+	Both **avatar** and **role** are resolved when you run the command and saved as a fixed colour. Run the command again
+	to refresh it.
+</Callout>
 
 Lastly, you can also set the progression bar to a **custom colour** value. This lets you completely customize the bar
 colour to whatever colour you want, provided you give a correct [hex code](https://www.color-hex.com/).
@@ -43,7 +49,7 @@ If you set your rank progress colour to a hex code, it will also show up on the 
 | Avatar                  | Sets the colour to the average colour of your profile picture |
 | Role                    |       Sets the colour to the role colour of your highest role |
 
-Omitting the colour parameter resets it to the default (average colour of your profile picture).
+Omitting the colour parameter removes your colour, so the server-wide colour (or the default grey) is used again.
 
 ![](../../_assets/UApCxnW.png)
 
