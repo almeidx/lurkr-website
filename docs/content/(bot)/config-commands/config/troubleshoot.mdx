@@ -12,8 +12,8 @@ description: Check if features of Lurkr have been correctly configured.
 This method of the [config](./) command can be used to check if features of Lurkr have been correctly configured either
 using the dashboard or some of the other methods of the config command.
 
-The troubleshoot embed can tell you whether everything is configured correctly, if a features is turned off (and
-therefore won't be checked) or if there is a problem, what is causing it, letting you deduce how you can fix it!
+The troubleshoot message sorts every feature into **Problems**, **Looks good** or **Not in use** (turned off, and
+therefore not checked). For each problem it tells you what is causing it, letting you deduce how you can fix it!
 
 ### Command Structure
 
@@ -32,7 +32,7 @@ This table can also show you in more detail what is meant by each error and how 
 | Error                          |                                                                       Meaning                                                                       |                                                                                                                                                                                Fix |
 | ------------------------------ | :-------------------------------------------------------------------------------------------------------------------------------------------------: | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
 | Channel not found              |                                                    The channel doesn't exist or never did exist.                                                    |                                                Set a channel that does exist to Lurkr. Use channel ID's to tell exactly which channel should be used if there are duplicate names. |
-| Invalid channel types          |                         The channel can't be used in this context. For example, voice channels can't be leveling channels.                          |                                                                                                Set a channel that Lurkr does support, like normal text channels or forum channels. |
+| Channel not text based         |           The channel can't hold messages, so it can't be used in this context. For example, a category can't be the milestones channel.            |                                                                                Set a channel that members can send messages in, like a text, announcement, voice or forum channel. |
 | Missing permissions on channel |                                               Lurkr doesn't have necessary permission for the channel                                               |                                                                                                       Give Lurkr either server-wide or in the channel the [needed permissions](/). |
 | Role not found                 |                                                     The role doesn't exist or never did exist.                                                      |                                                         Set a role that does exist to Lurkr. Use role ID's to tell exactly which role should be used if there are duplicate names. |
 | Role not editable              |                                     The role cannot be edited by Lurkr, and therefore can't be given to users.                                      | This cannot be fixed as it happens with integration [managed roles](https://support.discord.com/hc/en-us/articles/360045093012-Server-Integrations-Page). Choose a different role. |
