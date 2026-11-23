@@ -41,9 +41,10 @@ will take away XP.**
 Lurkr supports three types of multipliers: **global**, **channel**, and **role**. When a user sends a message, at most
 one multiplier of each type can apply. These multipliers **stack by multiplication**, meaning the final XP gained is:
 
-`gained_xp × global_multiplier × channel_multiplier × role_multiplier`
+`gained_xp × vote_boost × global_multiplier × channel_multiplier × role_multiplier`
 
-If a multiplier type has no active value, it defaults to x1 (no effect).
+If a multiplier type has no active value, it defaults to x1 (no effect). The vote boost is x1.2 for members with an
+active vote and x1 for everyone else — see [Toggling Vote Boosting Leveling](#toggling-vote-boosting-leveling).
 
 ### How Each Type Is Resolved
 
@@ -80,6 +81,8 @@ type, only the single highest-priority multiplier is used.
 
 The final XP value is always **rounded down** (floored), and the minimum XP gain per message is **1** — even if
 multipliers would reduce it below 1.
+
+A single multiplier can be at most **x5**.
 
 </Callout>
 
