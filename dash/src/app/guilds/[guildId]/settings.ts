@@ -17,12 +17,9 @@ export async function getGuildSettings(guildId: Snowflake) {
 
 /**
  * Validates a settings form against `schema` and saves the result. Call it from a Server Action.
- *
- * @param premium - Whether the guild is premium, which decides the limits the API enforces.
  */
 export async function saveSettings(
 	guildId: string,
-	premium: boolean,
 	schema: GenericSchema<unknown, Partial<GuildSettings>>,
 	form: FormData,
 ): Promise<SaveResult> {
@@ -35,7 +32,7 @@ export async function saveSettings(
 
 	try {
 		const { untrackedMentionedRoleIds = [] } = await api
-			.patch(premium ? `guilds/${id}/premium` : `guilds/${id}`, { json: result.output })
+			.patch(`guilds/${id}`, { json: result.output })
 			.json<{ untrackedMentionedRoleIds?: Snowflake[] }>();
 
 		updateTag(settingsTag(id));

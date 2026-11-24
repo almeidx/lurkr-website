@@ -39,5 +39,5 @@ function schema(premium: boolean) {
 }
 
 export async function update(guildId: string, premium: boolean, _previousState: SaveResult | null, form: FormData) {
-	return saveSettings(guildId, premium, schema(premium), form);
+	return saveSettings(guildId, schema(premium), form);
 }

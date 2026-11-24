@@ -10,6 +10,6 @@ const schema = object({
 	emojiListChannel: snowflake,
 });
 
-export async function update(guildId: string, premium: boolean, _previousState: SaveResult | null, form: FormData) {
-	return saveSettings(guildId, premium, schema, form);
+export async function update(guildId: string, _previousState: SaveResult | null, form: FormData) {
+	return saveSettings(guildId, schema, form);
 }

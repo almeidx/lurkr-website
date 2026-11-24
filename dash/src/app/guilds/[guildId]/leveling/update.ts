@@ -239,5 +239,5 @@ export async function update(
 	_previousState: SaveResult | null,
 	form: FormData,
 ): Promise<SaveResult> {
-	return saveSettings(guildId, premium, schema(premium), form);
+	return saveSettings(guildId, schema(premium), form);
 }
