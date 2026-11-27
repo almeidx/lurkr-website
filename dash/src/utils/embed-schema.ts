@@ -26,9 +26,6 @@ import {
 
 const embedUrl = pipe(string(), minLength(EMBED_URL_MIN_LENGTH), maxLength(EMBED_URL_MAX_LENGTH));
 
-/**
- * Validates an already decoded embed object. Decoding the submitted form value is left to the caller.
- */
 export const embedSchema = object({
 	author: optional(
 		object({
