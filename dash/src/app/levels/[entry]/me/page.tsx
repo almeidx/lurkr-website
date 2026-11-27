@@ -1,5 +1,7 @@
 import { isHTTPError } from "ky";
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
+import { isLeaderboardEntry } from "@/app/levels/[entry]/leaderboard-entry.ts";
 import { type GetMyMonthlyProgressResponse, MessageCounts } from "@/app/levels/[entry]/me/message-counts.tsx";
 import { api } from "@/lib/api.ts";
 
@@ -10,6 +12,11 @@ export const metadata: Metadata = {
 
 export default async function MyLevel({ params }: { params: Promise<{ entry: string }> }) {
 	const { entry } = await params;
+
+	if (!isLeaderboardEntry(entry)) {
+		notFound();
+	}
+
 	const data = await getData(entry);
 
 	if (!data) {
