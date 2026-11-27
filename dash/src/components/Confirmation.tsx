@@ -2,8 +2,6 @@
 
 import { Dialog, DialogDescription, DialogDismiss, DialogHeading, useDialogStore } from "@ariakit/react";
 import type { MouseEvent, PropsWithChildren, ReactNode } from "react";
-import { toast } from "sonner";
-import { extractErrorMessage } from "@/utils/extract-error-message.ts";
 
 export function Confirmation({
 	className,
@@ -18,10 +16,7 @@ export function Confirmation({
 	function handleConfirm(_event: MouseEvent<HTMLButtonElement>) {
 		dialog.setState("open", false);
 
-		Promise.resolve(onConfirm?.()).catch((error: unknown) => {
-			console.error("Confirmed action failed:", error);
-			toast.error(extractErrorMessage(error, "Something went wrong."));
-		});
+		void onConfirm?.();
 	}
 
 	return (
