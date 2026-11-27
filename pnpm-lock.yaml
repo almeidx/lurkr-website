@@ -188,9 +188,6 @@ catalogs:
     '@heroui/styles':
       specifier: 3.2.7
       version: 3.2.7
-    '@remixicon/react':
-      specifier: ^4.9.0
-      version: 4.9.0
     '@tailwindcss/postcss':
       specifier: ^4.3.5
       version: 4.3.5
@@ -221,9 +218,6 @@ catalogs:
     clsx:
       specifier: ^2.1.1
       version: 2.1.1
-    date-fns:
-      specifier: ^4.4.0
-      version: 4.4.0
     fumadocs-core:
       specifier: ^16.19.6
       version: 16.19.6
@@ -314,9 +308,6 @@ catalogs:
     sonner:
       specifier: ^2.0.8
       version: 2.0.8
-    tailwind-scrollbar:
-      specifier: ^4.0.2
-      version: 4.0.2
     tailwindcss:
       specifier: ^4.3.5
       version: 4.3.5
@@ -382,15 +373,9 @@ importers:
       '@heroui/styles':
         specifier: 'catalog:'
         version: 3.2.7(tailwindcss@4.3.5)
-      '@remixicon/react':
-        specifier: 'catalog:'
-        version: 4.9.0(react@19.3.1)
       clsx:
         specifier: 'catalog:'
         version: 2.1.1
-      date-fns:
-        specifier: 'catalog:'
-        version: 4.4.0
       isbot:
         specifier: 'catalog:'
         version: 5.2.3
@@ -455,9 +440,6 @@ importers:
       '@types/js-cookie':
         specifier: 'catalog:'
         version: 3.0.6
-      '@types/mdx':
-        specifier: 'catalog:'
-        version: 2.0.14
       '@types/node':
         specifier: 'catalog:'
         version: 26.6.6
@@ -470,9 +452,6 @@ importers:
       '@types/textarea-caret':
         specifier: 'catalog:'
         version: 3.0.4
-      husky:
-        specifier: 'catalog:'
-        version: 9.1.7
       oxfmt:
         specifier: 'catalog:'
         version: 0.79.0
@@ -482,9 +461,6 @@ importers:
       postcss:
         specifier: 'catalog:'
         version: 8.5.33
-      tailwind-scrollbar:
-        specifier: 'catalog:'
-        version: 4.0.2(react@19.3.1)(tailwindcss@4.3.5)
       tailwindcss:
         specifier: 'catalog:'
         version: 4.3.5
@@ -1790,11 +1766,6 @@ packages:
       react-redux:
         optional: true
 
-  '@remixicon/react@4.9.0':
-    resolution: {integrity: sha512-5/jLDD4DtKxH2B4QVXTobvV1C2uL8ab9D5yAYNtFt+w80O0Ys1xFOrspqROL3fjrZi+7ElFUWE37hBfaAl6U+Q==}
-    peerDependencies:
-      react: '>=18.2.0'
-
   '@rolldown/binding-android-arm-eabi@1.2.19':
     resolution: {integrity: sha512-e+Ebe0WT+9tbXmNKPIiC8YrWAHYwug3m6i4p3rZGGulfZri1jtI4HslT+OZnFf/OIHowWF71DTlHwXBP2SiA7A==}
     engines: {node: ^20.19.0 || >=22.12.0}
@@ -2240,9 +2211,6 @@ packages:
 
   '@types/parse-json@4.0.2':
     resolution: {integrity: sha512-dISoDXWWQwUquiKsyZ4Ng+HX2KsPL7LyHKHQwgGFEA3IaKac4Obd+h2a/a6waisAoepJlBcx9paWqjA8/HVjCw==}
-
-  '@types/prismjs@1.26.6':
-    resolution: {integrity: sha512-vqlvI7qlMvcCBbVe0AKAb4f97//Hy0EBTaiW8AalRnG/xAN5zOiWWyrNqNXeq8+KAuvRewjCVY1+IPxk4RdNYw==}
 
   '@types/react-dom@19.3.0':
     resolution: {integrity: sha512-ZI7bU42mZXXKHn/qNLEw2IrbiINU7X5+vfgdixBHkCNpYWXjKgfQ/P+uyGb5CjOLB9UcnTeg3rylQtV2hym44Q==}
@@ -3834,11 +3802,6 @@ packages:
     resolution: {integrity: sha512-6BWuxY2dCNgT45VnGzZcfNy7WeLqXiZqhhy4aHThTE6KI56R2ZBw9HQ7spPFKYchDizvJbPxTEknIpmW4FSmQA==}
     engines: {node: '>=22'}
 
-  prism-react-renderer@2.4.1:
-    resolution: {integrity: sha512-ey8Ls/+Di31eqzUxC46h8MksNuGx/n0AAC8uKpwFau4RPDYLuE3EXTp8N8G2vX2N7UC/+IXeNUnlWBGGcAG+Ig==}
-    peerDependencies:
-      react: '>=16.0.0'
-
   prop-types@15.8.1:
     resolution: {integrity: sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg==}
 
@@ -4171,12 +4134,6 @@ packages:
   supports-preserve-symlinks-flag@1.0.0:
     resolution: {integrity: sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==}
     engines: {node: '>= 0.4'}
-
-  tailwind-scrollbar@4.0.2:
-    resolution: {integrity: sha512-wAQiIxAPqk0MNTPptVe/xoyWi27y+NRGnTwvn4PQnbvB9kp8QUBiGl/wsfoVBHnQxTmhXJSNt9NHTmcz9EivFA==}
-    engines: {node: '>=12.13.0'}
-    peerDependencies:
-      tailwindcss: 4.x
 
   tailwind-variants@3.3.1:
     resolution: {integrity: sha512-4pAvwUtM4HKBiRZftncAbpn6V9Hhwoa5Fl7O2u5zbp7Z5Cvu+/o/6+176WY3WCEES209543quG8zFIcXCsc5Jw==}
@@ -4542,14 +4499,17 @@ packages:
   yuku-analyzer@0.19.0:
     resolution: {integrity: sha512-Iu7DV5cWOQ3ERSA7oBquz/RT5IEGsUyUeCivYs9lQaZ4nSjM31yD17mH616JKcTyVoVWYivsFZ+twT3UyBosTA==}
     engines: {node: '>=14.18.0'}
+    deprecated: 'Yuku is now one package with one core. Use "yuku" instead: https://yuku.fyi/javascript/. Existing installs keep working but get no more fixes.'
 
   yuku-ast@0.19.0:
     resolution: {integrity: sha512-PyCsiScaelhxBGzL8dyeJkLqvRZycoh78R31Vrt/WqYrm0hMFoKwIw/X7Dx5mBKLWAMlV9I9HEyBOHnj2gZVyw==}
     engines: {node: '>=14.18.0'}
+    deprecated: 'Yuku is now one package with one core. Use "yuku" instead: https://yuku.fyi/javascript/. Existing installs keep working but get no more fixes.'
 
   yuku-core@0.19.0:
     resolution: {integrity: sha512-kYK9e1XdfirNhkipzW0wmMcSWcVF/CWnuugodfVYRCUwvoBefweL9HzB96OiKEhsx78V5WbUxbJqlizMX869Qg==}
     engines: {node: '>=14.18.0'}
+    deprecated: 'Yuku is now one package with one core. Use "yuku" instead: https://yuku.fyi/javascript/. Existing installs keep working but get no more fixes.'
 
   zbsearch@4.0.4:
     resolution: {integrity: sha512-uajYItKQcOP6f1z+XqzJSIx1jQPe7PbXajElh7r60KGc1MoSIn/hH9d++SvtkT78GXrZB4fah/e8Ts8jFh2CGw==}
@@ -5539,10 +5499,6 @@ snapshots:
       react: 19.3.1
       react-redux: 9.3.1(@types/react@19.3.0)(react@19.3.1)(redux@5.0.1)
 
-  '@remixicon/react@4.9.0(react@19.3.1)':
-    dependencies:
-      react: 19.3.1
-
   '@rolldown/binding-android-arm-eabi@1.2.19':
     optional: true
 
@@ -5897,8 +5853,6 @@ snapshots:
       undici-types: 8.9.0
 
   '@types/parse-json@4.0.2': {}
-
-  '@types/prismjs@1.26.6': {}
 
   '@types/react-dom@19.3.0(@types/react@19.3.0)':
     dependencies:
@@ -6320,7 +6274,8 @@ snapshots:
 
   d3-timer@3.0.2: {}
 
-  date-fns@4.4.0: {}
+  date-fns@4.4.0:
+    optional: true
 
   debug@4.4.3(supports-color@10.2.2):
     dependencies:
@@ -7611,12 +7566,6 @@ snapshots:
 
   pretty-ms@10.0.0: {}
 
-  prism-react-renderer@2.4.1(react@19.3.1):
-    dependencies:
-      '@types/prismjs': 1.26.6
-      clsx: 2.1.1
-      react: 19.3.1
-
   prop-types@15.8.1:
     dependencies:
       loose-envify: 1.4.0
@@ -8049,13 +7998,6 @@ snapshots:
       has-flag: 4.0.0
 
   supports-preserve-symlinks-flag@1.0.0: {}
-
-  tailwind-scrollbar@4.0.2(react@19.3.1)(tailwindcss@4.3.5):
-    dependencies:
-      prism-react-renderer: 2.4.1(react@19.3.1)
-      tailwindcss: 4.3.5
-    transitivePeerDependencies:
-      - react
 
   tailwind-variants@3.3.1(tailwindcss@4.3.5):
     optionalDependencies:

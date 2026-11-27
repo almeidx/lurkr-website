@@ -7,6 +7,7 @@ import { notFound, redirect, RedirectType } from "next/navigation";
 import prettyMilliseconds from "pretty-ms";
 import { cache } from "react";
 import { LeaderboardTable } from "@/app/levels/[entry]/01-leaderboard-table.tsx";
+import { isLeaderboardEntry } from "@/app/levels/[entry]/leaderboard-entry.ts";
 import {
 	LEADERBOARD_ENTRIES_PER_PAGE,
 	LEADERBOARD_MAX_PAGE,
@@ -64,6 +65,10 @@ const getData = cache(async (entry: string, page: number) => {
 
 export default async function Leaderboard({ params, searchParams }: LeaderboardProps) {
 	const [{ page: rawPage }, { entry }] = await Promise.all([searchParams, params]);
+
+	if (!isLeaderboardEntry(entry)) {
+		notFound();
+	}
 
 	const page = parsePage(rawPage);
 
@@ -192,6 +197,10 @@ export default async function Leaderboard({ params, searchParams }: LeaderboardP
 
 export async function generateMetadata({ params, searchParams }: LeaderboardProps): Promise<Metadata> {
 	const [{ entry }, { page: rawPage }] = await Promise.all([params, searchParams]);
+
+	if (!isLeaderboardEntry(entry)) {
+		notFound();
+	}
 
 	const page = parsePage(rawPage);
 	const [data, guild] = await Promise.all([getData(entry, page), getLevelsMetadata(entry)]);

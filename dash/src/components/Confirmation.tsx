@@ -16,7 +16,7 @@ export function Confirmation({
 	function handleConfirm(_event: MouseEvent<HTMLButtonElement>) {
 		dialog.setState("open", false);
 
-		onConfirm?.();
+		void onConfirm?.();
 	}
 
 	return (
@@ -58,7 +58,7 @@ export function Confirmation({
 interface ConfirmationProps extends PropsWithChildren {
 	readonly buttonText: ReactNode;
 	readonly className: string;
-	onConfirm?(): void;
+	onConfirm?(): void | Promise<void>;
 	disabled?: boolean;
 	useSubmitButton?: boolean;
 }

@@ -7,11 +7,16 @@ export function proxy(request: NextRequest) {
 		return NextResponse.next();
 	}
 
-	return NextResponse.redirect(new URL(SIGN_IN_URL, request.url), {
-		headers: {
-			"Set-Cookie": `${REDIRECT_TO_COOKIE}=${request.nextUrl.pathname}; Path=/; HttpOnly; Max-Age=60;`,
-		},
+	const response = NextResponse.redirect(new URL(SIGN_IN_URL, request.url));
+	response.cookies.set(REDIRECT_TO_COOKIE, request.nextUrl.pathname, {
+		httpOnly: true,
+		maxAge: 60,
+		path: "/",
+		sameSite: "lax",
+		secure: true,
 	});
+
+	return response;
 }
 
 // Keep in sync with `ALLOWED_REDIRECT_PATHNAME` in `src/app/api/auth/callback/route.ts`

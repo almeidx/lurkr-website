@@ -1,6 +1,6 @@
 "use client";
 
-import { RiArrowDownSLine, RiArrowUpSLine } from "@remixicon/react";
+import { ChevronDown, ChevronUp } from "@gravity-ui/icons";
 import { useState } from "react";
 import { SidebarSection } from "@/components/leaderboard/SidebarSection.tsx";
 
@@ -36,7 +36,7 @@ export function SortableSection<T>({
 				onClick={toggleSort}
 				type="button"
 			>
-				{sortAscending ? <RiArrowUpSLine className="size-4" /> : <RiArrowDownSLine className="size-4" />}
+				{sortAscending ? <ChevronUp aria-hidden className="size-4" /> : <ChevronDown aria-hidden className="size-4" />}
 				{sortAscending ? "Asc" : "Desc"}
 			</button>
 		) : null;

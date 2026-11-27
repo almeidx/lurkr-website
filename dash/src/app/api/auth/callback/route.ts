@@ -3,6 +3,7 @@ import { type NextRequest, NextResponse } from "next/server";
 import { publicApi } from "@/lib/api.ts";
 import {
 	AUTH_CALLBACK_PATH,
+	LOGIN_FAILURE_PARAM,
 	OAUTH_STATE_COOKIE,
 	REDIRECT_TO_COOKIE,
 	TOKEN_COOKIE,
@@ -10,16 +11,25 @@ import {
 } from "@/utils/constants.ts";
 
 export async function GET(request: NextRequest) {
+	const homeUrl = new URL("/", request.url);
+
+	if (request.nextUrl.searchParams.get("error") === "access_denied") {
+		return withStateCleared(NextResponse.redirect(homeUrl));
+	}
+
+	const failureUrl = new URL(homeUrl);
+	failureUrl.searchParams.set(LOGIN_FAILURE_PARAM, "1");
+
 	const expectedState = request.cookies.get(OAUTH_STATE_COOKIE)?.value;
 	const state = request.nextUrl.searchParams.get("state");
 
 	if (!isMatchingState(state, expectedState)) {
-		return withStateCleared(NextResponse.json({ message: "Invalid OAuth state" }, { status: 400 }));
+		return withStateCleared(NextResponse.redirect(failureUrl));
 	}
 
 	const code = request.nextUrl.searchParams.get("code");
 	if (!code) {
-		return withStateCleared(NextResponse.json({ message: "Missing code parameter" }, { status: 400 }));
+		return withStateCleared(NextResponse.redirect(failureUrl));
 	}
 
 	const redirectTo = getRedirectToValue(request.cookies.get(REDIRECT_TO_COOKIE)?.value, request.nextUrl.origin);
@@ -36,19 +46,14 @@ export async function GET(request: NextRequest) {
 		});
 
 	if (!registration) {
-		const redirectUrl = new URL("/", request.url);
-		redirectUrl.searchParams.set("login_failure", "1");
-
-		const response = NextResponse.redirect(redirectUrl);
+		const response = NextResponse.redirect(failureUrl);
 		response.cookies.delete({ name: TOKEN_COOKIE, ...TOKEN_COOKIE_SCOPE });
 		return withStateCleared(response);
 	}
 
 	const { token, maxAge } = registration;
 
-	const redirectUrl = redirectTo ?? new URL("/", request.url);
-
-	const response = NextResponse.redirect(redirectUrl);
+	const response = NextResponse.redirect(redirectTo ?? homeUrl);
 	response.cookies.set(TOKEN_COOKIE, token, {
 		...TOKEN_COOKIE_SCOPE,
 		httpOnly: true,

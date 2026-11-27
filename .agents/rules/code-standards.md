@@ -10,5 +10,6 @@ pnpm test
 ```
 
 Use `pnpm fmt` when formatting fixes are intended, then review the resulting
-diff because it writes changes across the workspace. Build the affected app
-when routing, server behavior, or production bundling changes.
+diff because it writes changes across the workspace. CI also builds both
+applications; build the affected app locally when routing, server behavior, or
+production bundling changes.

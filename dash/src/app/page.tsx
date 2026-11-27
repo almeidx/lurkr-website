@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Suspense } from "react";
 import { type FeaturedGuild, FeaturedGuilds } from "@/app/featured-guilds.tsx";
+import { LoginFailureNotice } from "@/app/login-failure-notice.tsx";
 import logoImg from "@/assets/logo.webp";
 import importImg from "@/assets/showcases/import.webp";
 import levelingImg from "@/assets/showcases/leveling.webp";
@@ -35,6 +36,8 @@ export default async function Homepage() {
 
 	return (
 		<div className="mb-8 flex flex-col items-center gap-10 py-4">
+			<LoginFailureNotice />
+
 			<Suspense>
 				<WrappedNoticeContainer />
 			</Suspense>

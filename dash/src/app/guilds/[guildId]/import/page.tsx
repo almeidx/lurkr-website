@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { assertGuildId } from "@/app/guilds/[guildId]/settings.ts";
 import { DashboardPage } from "@/components/dashboard/DashboardPage.tsx";
 import type { Snowflake } from "@/utils/discord-cdn.ts";
 import { ImportForm } from "./01-leveling-import.tsx";
@@ -7,6 +8,8 @@ import { getImportStatus } from "./import-api.ts";
 
 export default async function ImportBots({ params }: { readonly params: Promise<{ guildId: Snowflake }> }) {
 	const { guildId } = await params;
+	assertGuildId(guildId);
+
 	const data = await getImportStatus(guildId);
 
 	return (

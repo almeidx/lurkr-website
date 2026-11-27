@@ -4,6 +4,7 @@ import { api } from "@/lib/api.ts";
 import { getUserGuilds } from "@/lib/auth.ts";
 import type { GuildMetadata } from "@/lib/guild.ts";
 import type { Snowflake } from "@/utils/discord-cdn.ts";
+import { isSnowflake } from "@/utils/is-snowflake.ts";
 import { DashboardMenu } from "./dashboard-menu.tsx";
 import { UnknownGuildOrMissingAccess } from "./unknown-guild.tsx";
 
@@ -12,6 +13,11 @@ export default async function DashboardLayout({
 	params,
 }: PropsWithChildren<{ params: Promise<{ guildId: Snowflake }> }>) {
 	const { guildId } = await params;
+
+	if (!isSnowflake(guildId)) {
+		return <UnknownGuildOrMissingAccess />;
+	}
+
 	const [guild, guilds] = await Promise.all([getGuildMetadata(guildId), getBotGuilds()]);
 
 	if (!guild) {
