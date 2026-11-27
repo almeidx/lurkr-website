@@ -10,8 +10,10 @@ import {
 	picklist,
 	pipe,
 	regex,
+	safeInteger,
 	string,
 	transform,
+	trim,
 	union,
 } from "valibot";
 import { MAX_VANITY_LENGTH, MIN_VANITY_LENGTH, VANITY_REGEX_SOURCE } from "@/lib/guild-config.ts";
@@ -30,10 +32,14 @@ export const emptyStringToNull = pipe(
 	transform(() => null),
 );
 
+const NOT_AN_INTEGER = "Expected a whole number";
+
+/** Accepts integers and strings that are wholly a base-10 integer, ignoring surrounding whitespace. */
 export const coerceToInt = pipe(
-	union([number(), string()]),
-	transform((value) => (typeof value === "number" ? value : Number.parseInt(value, 10))),
-	number(),
+	// The regex runs first because `Number()` reads `""` as 0 and accepts hex and exponent forms
+	union([number(), pipe(string(), trim(), regex(/^[+-]?\d+$/, NOT_AN_INTEGER))]),
+	transform(Number),
+	safeInteger(NOT_AN_INTEGER),
 );
 export const coerceToFloat = pipe(
 	union([number(), string()]),
