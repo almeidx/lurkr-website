@@ -5,10 +5,6 @@ import type { Channel } from "@/lib/guild.ts";
 import type { Snowflake } from "@/utils/discord-cdn.ts";
 import { mapChannelIdsToChannels } from "@/utils/map-channel-ids-to-channels.ts";
 
-/**
- * A channel picker for a setting capped by a premium limit. The limit's key is also the form field the channels are
- * submitted in.
- */
 export function LimitedChannelSelector({
 	channels,
 	defaultValues,
@@ -35,7 +31,6 @@ export function LimitedChannelSelector({
 interface LimitedChannelSelectorProps {
 	readonly channels: Channel[];
 	readonly defaultValues: Snowflake[];
-	/** Id for the input where the user can type */
 	readonly inputId: string;
 	readonly label: string;
 	readonly limit: "autoPublishChannels" | "xpChannels";

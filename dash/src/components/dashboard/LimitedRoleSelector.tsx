@@ -7,10 +7,6 @@ import type { Role } from "@/lib/guild.ts";
 import type { Snowflake } from "@/utils/discord-cdn.ts";
 import { mapRoleIdsToRoles } from "@/utils/map-role-ids-to-roles.ts";
 
-/**
- * A role picker for a setting capped by a premium limit. The limit's key is also the form field the roles are
- * submitted in.
- */
 export function LimitedRoleSelector(props: LimitedRoleSelectorProps) {
 	const { defaultValues, inputId, label, limit, menuPlacement, premium, roles, unit } = props;
 
@@ -47,13 +43,11 @@ type LimitedRoleSelectorProps =
 
 interface BaseLimitedRoleSelectorProps {
 	readonly defaultValues: Snowflake[];
-	/** Id for the input where the user can type */
 	readonly inputId: string;
 	readonly label: ReactNode;
 	readonly limit: "autoRole" | "milestonesRoles" | "noRoleRewardRoles" | "noTopXpRoles" | "noXpRoles";
 	readonly menuPlacement?: "auto" | "top" | "bottom";
 	readonly premium: boolean;
 	readonly roles: Role[];
-	/** What is being counted, e.g. `"roles"`. */
 	readonly unit?: string;
 }
