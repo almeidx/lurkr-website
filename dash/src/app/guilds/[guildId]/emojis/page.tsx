@@ -10,7 +10,7 @@ import { update } from "./update.ts";
 export default async function Emojis({ params }: { readonly params: Promise<{ guildId: Snowflake }> }) {
 	const { guildId } = await params;
 	const { guild, settings } = await getGuildSettings(guildId);
-	const action = update.bind(null, guildId, guild.premium);
+	const action = update.bind(null, guildId);
 
 	return (
 		<Form
