@@ -1,9 +1,10 @@
 "use client";
 
 import { Popover, PopoverDisclosure, PopoverProvider } from "@ariakit/react";
-import { useMemo, useState } from "react";
+import { type SetStateAction, useMemo, useState } from "react";
 import { HexColorInput } from "react-colorful";
 import { toast } from "sonner";
+import { getDotPath, safeParse } from "valibot";
 import { Colorize } from "@/components/icons/mdi/colorize.tsx";
 import { Separator } from "@/components/Separator.tsx";
 import type { Embed, Emoji, Role } from "@/lib/guild.ts";
@@ -16,6 +17,7 @@ import {
 	EMBED_URL_MAX_LENGTH,
 	EMBED_URL_MIN_LENGTH,
 } from "@/utils/embed-limits.ts";
+import { embedSchema } from "@/utils/embed-schema.ts";
 import { ColorPicker } from "../ColorPicker.tsx";
 import { Input } from "../Input.tsx";
 import { Label } from "../Label.tsx";
@@ -112,10 +114,10 @@ export function EmbedBuilder({ defaultValue, emojis, roles, placeholders }: Embe
 		return JSON.stringify(embed);
 	}, [embedState, fields]);
 
-	function handleChange<K extends keyof typeof embedState>(key: K, value: (typeof embedState)[K]) {
+	function handleChange(key: keyof typeof embedState, value: SetStateAction<string>) {
 		setEmbedState((prevState) => ({
 			...prevState,
-			[key]: typeof value === "function" ? (value as any)(prevState[key]) : value,
+			[key]: typeof value === "function" ? value(prevState[key]) : value,
 		}));
 	}
 
@@ -132,16 +134,16 @@ export function EmbedBuilder({ defaultValue, emojis, roles, placeholders }: Embe
 			return;
 		}
 
-		const parsed = parseEmbedFromJson(json);
+		const result = parseEmbedFromJson(json);
 
-		if (parsed === null) {
+		if (!result.ok) {
 			// oxlint-disable-next-line eslint/no-alert -- intentional validation feedback dialog
-			alert("Invalid JSON");
+			alert(result.error);
 			return;
 		}
 
-		setEmbedState(generateDefaultEmbedState(parsed));
-		setFields((parsed.fields ?? []) as { name: string; value: string; inline: boolean }[]);
+		setEmbedState(generateDefaultEmbedState(result.embed));
+		setFields(result.embed.fields?.map((field) => ({ ...field, inline: field.inline ?? false })) ?? []);
 	}
 
 	return (
@@ -212,7 +214,7 @@ export function EmbedBuilder({ defaultValue, emojis, roles, placeholders }: Embe
 						placeholder="Enter title"
 						placeholders={placeholders}
 						roles={roles}
-						setValue={(event: string) => handleChange("title", event)}
+						setValue={(value) => handleChange("title", value)}
 						value={embedState.title}
 					/>
 				</div>
@@ -246,7 +248,7 @@ export function EmbedBuilder({ defaultValue, emojis, roles, placeholders }: Embe
 					placeholder="Enter description"
 					placeholders={placeholders}
 					roles={roles}
-					setValue={(event: string) => handleChange("description", event)}
+					setValue={(value) => handleChange("description", value)}
 					value={embedState.description}
 				/>
 			</div>
@@ -254,7 +256,7 @@ export function EmbedBuilder({ defaultValue, emojis, roles, placeholders }: Embe
 			<Separator />
 
 			<div className="flex flex-col gap-2">
-				<Label htmlFor="embed-author-name" small sub="Max. 256 chars">
+				<Label htmlFor="embed-author-name" small sub={`Max. ${EMBED_AUTHOR_NAME_MAX_LENGTH} chars`}>
 					Author Name
 				</Label>
 
@@ -267,7 +269,7 @@ export function EmbedBuilder({ defaultValue, emojis, roles, placeholders }: Embe
 					placeholder="Enter author name"
 					placeholders={placeholders}
 					roles={roles}
-					setValue={(event: string) => handleChange("author_name", event)}
+					setValue={(value) => handleChange("author_name", value)}
 					value={embedState.author_name}
 				/>
 			</div>
@@ -308,7 +310,7 @@ export function EmbedBuilder({ defaultValue, emojis, roles, placeholders }: Embe
 
 			<div className="flex flex-col gap-4 md:flex-row">
 				<div className="flex flex-col gap-2 md:basis-1/2">
-					<Label htmlFor="embed-footer-text" small sub="Max. 2048 chars">
+					<Label htmlFor="embed-footer-text" small sub={`Max. ${EMBED_FOOTER_TEXT_MAX_LENGTH} chars`}>
 						Footer Text
 					</Label>
 
@@ -321,7 +323,7 @@ export function EmbedBuilder({ defaultValue, emojis, roles, placeholders }: Embe
 						placeholder="Enter footer text"
 						placeholders={placeholders}
 						roles={roles}
-						setValue={(event: string) => handleChange("footer_text", event)}
+						setValue={(value) => handleChange("footer_text", value)}
 						value={embedState.footer_text}
 					/>
 				</div>
@@ -389,18 +391,39 @@ export function EmbedBuilder({ defaultValue, emojis, roles, placeholders }: Embe
 	);
 }
 
-function parseEmbedFromJson(json: string): Embed | null {
+const MAX_REPORTED_EMBED_ISSUES = 3;
+
+function parseEmbedFromJson(json: string): { embed: Embed; ok: true } | { error: string; ok: false } {
+	let parsed: unknown;
+
 	try {
-		const parsed = JSON.parse(json);
-
-		if (typeof parsed !== "object" || !parsed || Array.isArray(parsed)) {
-			return null;
-		}
-
-		return parsed as Embed;
+		parsed = JSON.parse(json);
 	} catch {
-		return null;
+		return { error: "Invalid JSON", ok: false };
 	}
+
+	// The schema's `object()` lets arrays through, as they have no unknown-key check to fail.
+	if (Array.isArray(parsed)) {
+		return { error: "Invalid embed: expected a JSON object", ok: false };
+	}
+
+	const result = safeParse(embedSchema, parsed);
+
+	if (result.success) {
+		return { embed: result.output, ok: true };
+	}
+
+	const reasons = result.issues.slice(0, MAX_REPORTED_EMBED_ISSUES).map((issue) => {
+		const path = getDotPath(issue);
+		return path ? `${path}: ${issue.message}` : issue.message;
+	});
+	const omitted = result.issues.length - reasons.length;
+
+	if (omitted > 0) {
+		reasons.push(`…and ${omitted} more`);
+	}
+
+	return { error: `Invalid embed:\n${reasons.join("\n")}`, ok: false };
 }
 
 interface EmbedBuilderProps {
