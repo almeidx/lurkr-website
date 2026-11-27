@@ -6,6 +6,7 @@ CI-equivalent checks are:
 ```sh
 pnpm lint
 pnpm build:typecheck
+pnpm test
 ```
 
 Use `pnpm fmt` when formatting fixes are intended, then review the resulting

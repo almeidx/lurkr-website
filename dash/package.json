@@ -11,7 +11,8 @@
 		"format": "pnpm run fmt",
 		"lint": "oxlint && oxfmt --check",
 		"postinstall": "next typegen",
-		"start": "next start"
+		"start": "next start",
+		"test": "vitest run"
 	},
 	"dependencies": {
 		"@ariakit/react": "catalog:",
@@ -50,7 +51,8 @@
 		"oxlint": "catalog:",
 		"postcss": "catalog:",
 		"tailwindcss": "catalog:",
-		"typescript": "catalog:"
+		"typescript": "catalog:",
+		"vitest": "catalog:"
 	},
 	"engines": {
 		"node": ">=26.13.1"

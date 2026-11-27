@@ -33,6 +33,9 @@ jobs:
       - name: Typecheck
         run: pnpm run build:typecheck
 
+      - name: Test
+        run: pnpm run test
+
   build:
     name: Build
     runs-on: ubuntu-latest
