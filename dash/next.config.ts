@@ -19,7 +19,6 @@ const nextConfig = {
 			"@gravity-ui/icons",
 			"@heroui/react",
 			"@heroui/styles",
-			"@remixicon/react",
 			"react-colorful",
 		],
 		turbopackRustReactCompiler: true,
