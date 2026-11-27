@@ -34,7 +34,6 @@ export const emptyStringToNull = pipe(
 
 const NOT_AN_INTEGER = "Expected a whole number";
 
-/** Accepts integers and strings that are wholly a base-10 integer, ignoring surrounding whitespace. */
 export const coerceToInt = pipe(
 	// The regex runs first because `Number()` reads `""` as 0 and accepts hex and exponent forms
 	union([number(), pipe(string(), trim(), regex(/^[+-]?\d+$/, NOT_AN_INTEGER))]),
