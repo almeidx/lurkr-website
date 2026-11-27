@@ -8,10 +8,12 @@ import { type Snowflake, userAvatar } from "@/utils/discord-cdn.ts";
 import { greeting, timePeriod } from "@/utils/time-of-day.ts";
 import { ItemStatus } from "./item-status.tsx";
 import { type GuildOverview, resolveOverviewStatuses } from "./resolve-overview-statuses.ts";
-import { settingsTag } from "./settings.ts";
+import { assertGuildId, settingsTag } from "./settings.ts";
 
 export default async function Dashboard({ params }: { readonly params: Promise<{ guildId: Snowflake }> }) {
 	const { guildId } = await params;
+	assertGuildId(guildId);
+
 	const [overview, user] = await Promise.all([
 		api
 			.get(`guilds/${guildId}/overview`, { next: { revalidate: 30, tags: [settingsTag(guildId)] } })
