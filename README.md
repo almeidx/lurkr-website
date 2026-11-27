@@ -21,19 +21,15 @@ This repository houses the [lurkr.gg] website, which is the website for the Lurk
 ### Local setup
 
 This setup assumes you have [Git], and [Node.js] setup on your machine.
-This repository requires [Node.js] version 24.15 or higher (see `.node-version`), and uses the [pnpm] package manager,
-so you should have basic knowledge about how to use them.
+This repository uses the [pnpm] package manager, so you should have basic knowledge about how to use them.
 
 #### Cloning repository
 
 - `git clone git@github.com:almeidx/lurkr-website.git`
 - `cd lurkr-website`
-- `corepack install`
+- `npm install --global pnpm`
 - `pnpm install --frozen-lockfile`
 - `cp dash/.env.local.example dash/.env.local`
-- `cp docs/.env.local.example docs/.env.local`
-
-Note: If you don't have corepack enabled, you can do it with `corepack enable`.
 
 #### Running the website
 
