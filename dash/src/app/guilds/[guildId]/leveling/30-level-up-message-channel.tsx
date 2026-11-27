@@ -1,7 +1,6 @@
 "use client";
 
-import { RadioProvider, useRadioContext, useStoreState } from "@ariakit/react";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { ChannelSelector } from "@/components/dashboard/ChannelSelector.tsx";
 import { Radio, RadioGroup } from "@/components/dashboard/Radio.tsx";
 import { ChatBubble } from "@/components/icons/mdi/chat-bubble.tsx";
@@ -15,15 +14,17 @@ import { mapChannelIdsToChannels } from "@/utils/map-channel-ids-to-channels.ts"
 export function LevelUpMessageChannel({ channels, defaultValue, defaultCustomChannel }: LevelUpMessageProps) {
 	return (
 		// `key` is required here to prevent rollback to previous setting after saving
-		<RadioProvider defaultValue={defaultValue} key={defaultValue}>
-			<LevelUpMessageChannelInner channels={channels} defaultCustomChannel={defaultCustomChannel} />
-		</RadioProvider>
+		<LevelUpMessageChannelInner
+			channels={channels}
+			defaultCustomChannel={defaultCustomChannel}
+			defaultValue={defaultValue}
+			key={defaultValue}
+		/>
 	);
 }
 
-function LevelUpMessageChannelInner({ channels, defaultCustomChannel }: LevelUpMessageInnerProps) {
-	const store = useRadioContext();
-	const value = useStoreState(store, "value");
+function LevelUpMessageChannelInner({ channels, defaultCustomChannel, defaultValue }: LevelUpMessageProps) {
+	const [value, setValue] = useState(defaultValue);
 
 	const customChannel = useMemo(() => {
 		if (value === XpAnnouncementChannelType.Custom && defaultCustomChannel) {
@@ -35,60 +36,55 @@ function LevelUpMessageChannelInner({ channels, defaultCustomChannel }: LevelUpM
 	}, [channels, defaultCustomChannel, value]);
 
 	return (
-		<RadioGroup className="flex w-fit flex-col gap-4">
-			<label className="flex items-center justify-between" htmlFor="xpAnnounceChannelTypeDirect">
-				<div className="flex items-center text-lg tracking-tight text-white/75 md:text-xl">
-					<Chat className="mr-2 text-[#fff]" fill="url(#icon-gradient-tertiary)" />
-					Direct messages
-				</div>
-				<Radio id="xpAnnounceChannelTypeDirect" name="xpAnnounceChannelType" value={XpAnnouncementChannelType.Direct} />
-			</label>
+		<div className="flex w-fit flex-col gap-2">
+			<RadioGroup
+				aria-label="Level up message channel"
+				className="gap-4"
+				name="xpAnnounceChannelType"
+				onChange={(newValue) => setValue(newValue as XpAnnouncementChannelType)}
+				value={value}
+			>
+				<Radio controlPosition="end" value={XpAnnouncementChannelType.Direct}>
+					<span className="flex items-center">
+						<Chat className="mr-2 text-[#fff]" fill="url(#icon-gradient-tertiary)" />
+						Direct messages
+					</span>
+				</Radio>
 
-			<label className="flex items-center justify-between" htmlFor="xpAnnounceChannelTypeSameChannel">
-				<div className="flex items-center text-lg tracking-tight text-white/75 md:text-xl">
-					<Topic className="mr-2 text-[#fff]" fill="url(#icon-gradient-tertiary)" />
-					The same channel
-				</div>
-				<Radio
-					id="xpAnnounceChannelTypeSameChannel"
-					name="xpAnnounceChannelType"
-					value={XpAnnouncementChannelType.SameChannel}
-				/>
-			</label>
+				<Radio controlPosition="end" value={XpAnnouncementChannelType.SameChannel}>
+					<span className="flex items-center">
+						<Topic className="mr-2 text-[#fff]" fill="url(#icon-gradient-tertiary)" />
+						The same channel
+					</span>
+				</Radio>
 
-			<label className="flex items-center justify-between" htmlFor="xpAnnounceChannelTypeNone">
-				<div className="flex items-center text-lg tracking-tight text-white/75 md:text-xl">
-					<DoNotDisturbAlt className="mr-2 text-[#fff]" fill="url(#icon-gradient-tertiary)" />
-					None
-				</div>
-				<Radio id="xpAnnounceChannelTypeNone" name="xpAnnounceChannelType" value={XpAnnouncementChannelType.None} />
-			</label>
+				<Radio controlPosition="end" value={XpAnnouncementChannelType.None}>
+					<span className="flex items-center">
+						<DoNotDisturbAlt className="mr-2 text-[#fff]" fill="url(#icon-gradient-tertiary)" />
+						None
+					</span>
+				</Radio>
 
-			<div className="flex flex-col gap-2">
-				<label className="flex items-center justify-between" htmlFor="xpAnnounceChannelTypeCustom">
-					<div className="flex items-center text-lg tracking-tight text-white/75 md:text-xl">
+				<Radio controlPosition="end" value={XpAnnouncementChannelType.Custom}>
+					<span className="flex items-center">
 						<ChatBubble className="mr-2 text-[#fff]" fill="url(#icon-gradient-tertiary)" />
 						Custom Channel
-					</div>
-					<Radio
-						id="xpAnnounceChannelTypeCustom"
-						name="xpAnnounceChannelType"
-						value={XpAnnouncementChannelType.Custom}
-					/>
-				</label>
+					</span>
+				</Radio>
+			</RadioGroup>
 
-				<ChannelSelector
-					channels={channels}
-					defaultValues={customChannel}
-					disabled={value !== XpAnnouncementChannelType.Custom}
-					inputId="custom-leveling-channel"
-					key={value}
-					max={1}
-					required={value === XpAnnouncementChannelType.Custom}
-					settingId="xpAnnounceChannel"
-				/>
-			</div>
-		</RadioGroup>
+			{/* Kept out of the radio group, which would otherwise handle the arrow keys pressed in the selector. */}
+			<ChannelSelector
+				channels={channels}
+				defaultValues={customChannel}
+				disabled={value !== XpAnnouncementChannelType.Custom}
+				inputId="custom-leveling-channel"
+				key={value}
+				max={1}
+				required={value === XpAnnouncementChannelType.Custom}
+				settingId="xpAnnounceChannel"
+			/>
+		</div>
 	);
 }
 
@@ -96,9 +92,4 @@ interface LevelUpMessageProps {
 	readonly channels: Channel[];
 	readonly defaultCustomChannel: Snowflake | null;
 	readonly defaultValue: XpAnnouncementChannelType;
-}
-
-interface LevelUpMessageInnerProps {
-	readonly channels: Channel[];
-	readonly defaultCustomChannel: Snowflake | null;
 }

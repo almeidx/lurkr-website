@@ -1,20 +1,32 @@
-import { Radio as AriakitRadio } from "@ariakit/react";
+import { Radio as HeroRadio } from "@heroui/react";
 import clsx from "clsx";
-import type { ComponentProps } from "react";
+import type { PropsWithChildren } from "react";
 
-export function Radio({
-	rightMargin = false,
-	...props
-}: Omit<ComponentProps<typeof AriakitRadio>, "className"> & { rightMargin?: boolean }) {
+export function Radio({ children, controlPosition = "start", value }: RadioProps) {
 	return (
-		<AriakitRadio
-			className={clsx(
-				"grid size-6 appearance-none place-content-center rounded-full bg-white before:size-2.5 before:scale-100 before:rounded-full before:duration-150 before:ease-in-out checked:border-8 checked:border-primary checked:before:scale-100 checked:before:shadow-[inset_1em_1em_white]",
-				rightMargin ? "mr-2" : "ml-4",
-			)}
-			{...props}
-		/>
+		<HeroRadio className="group mt-0" value={value}>
+			<HeroRadio.Content
+				className={clsx(
+					"text-lg font-normal tracking-tight text-white/75 md:text-xl",
+					controlPosition === "end" ? "w-full flex-row-reverse justify-between gap-4" : "gap-2",
+				)}
+			>
+				<HeroRadio.Control className="size-6 rounded-full border-0 bg-primary shadow-none">
+					<HeroRadio.Indicator>
+						<span className="size-full rounded-full bg-white transition-transform duration-150 ease-in-out group-data-selected:scale-[calc(1/3)]" />
+					</HeroRadio.Indicator>
+				</HeroRadio.Control>
+
+				{children}
+			</HeroRadio.Content>
+		</HeroRadio>
 	);
 }
 
-export { RadioGroup } from "@ariakit/react";
+export { RadioGroup } from "@heroui/react";
+
+interface RadioProps extends PropsWithChildren {
+	/** Side of the label the radio button is on. */
+	readonly controlPosition?: "end" | "start";
+	readonly value: string;
+}

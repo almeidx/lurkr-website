@@ -1,9 +1,10 @@
 "use client";
 
-import { Menu, MenuButton, MenuButtonArrow, MenuItem, MenuProvider } from "@ariakit/react";
+import { ChevronDown } from "@gravity-ui/icons";
+import { Dropdown, Label } from "@heroui/react";
 import clsx from "clsx";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import fallbackAvatarImg from "@/assets/fallback-avatar.webp";
 import { Patreon } from "@/components/icons/Patreon.tsx";
 import { ImageWithFallback } from "@/components/ImageWithFallback.tsx";
@@ -13,13 +14,14 @@ import { guildIcon } from "@/utils/discord-cdn.ts";
 
 export function DashboardMenu({ guild, guilds }: DashboardMenuProps) {
 	const pathname = usePathname();
+	const { push } = useRouter();
 
 	const currentPath = pathname.split("/")[3] ?? "";
 
 	return (
 		<div className="flex flex-col items-center gap-6 bg-transparent py-0 pr-8 pl-12 md:sticky md:top-12">
-			<MenuProvider>
-				<MenuButton className="flex w-full max-w-66 items-center justify-between rounded-lg bg-dark-gray px-3 py-2 shadow-inner">
+			<Dropdown>
+				<Dropdown.Trigger className="flex w-full max-w-66 items-center justify-between rounded-lg bg-dark-gray px-3 py-2 shadow-inner">
 					<div className="flex items-center gap-2 rounded-lg">
 						<ImageWithFallback
 							alt={`${guild.name}'s icon`}
@@ -34,16 +36,17 @@ export function DashboardMenu({ guild, guilds }: DashboardMenuProps) {
 						<p className="line-clamp-1">{guild.name}</p>
 					</div>
 
-					<MenuButtonArrow />
-				</MenuButton>
+					<ChevronDown aria-hidden className="size-4 shrink-0" />
+				</Dropdown.Trigger>
 
-				<Menu className="z-50 flex max-h-96 flex-col overflow-y-auto rounded-lg bg-dark-gray" gutter={8} sameWidth>
-					{guilds.map((guild) => (
-						<MenuItem key={guild.id}>
-							<Link
-								className="flex cursor-pointer items-center gap-2 px-1.5 py-2 hover:bg-white/10"
-								href={sectionHref(guild.id, "")}
-								prefetch={guilds.length < 3}
+				<Dropdown.Popover className="w-(--trigger-width) rounded-lg bg-dark-gray" maxHeight={384}>
+					<Dropdown.Menu aria-label="Servers" onAction={(guildId) => push(sectionHref(guildId.toString(), ""))}>
+						{guilds.map((guild) => (
+							<Dropdown.Item
+								className="gap-2 rounded-lg px-1.5 py-2 data-focus-visible:bg-white/10 data-hovered:bg-white/10"
+								id={guild.id}
+								key={guild.id}
+								textValue={guild.name}
 							>
 								<ImageWithFallback
 									alt={`${guild.name}'s icon`}
@@ -55,12 +58,12 @@ export function DashboardMenu({ guild, guilds }: DashboardMenuProps) {
 									width={32}
 								/>
 
-								<p className="line-clamp-1">{guild.name}</p>
-							</Link>
-						</MenuItem>
-					))}
-				</Menu>
-			</MenuProvider>
+								<Label className="line-clamp-1 text-base font-normal">{guild.name}</Label>
+							</Dropdown.Item>
+						))}
+					</Dropdown.Menu>
+				</Dropdown.Popover>
+			</Dropdown>
 
 			<div>
 				<Link

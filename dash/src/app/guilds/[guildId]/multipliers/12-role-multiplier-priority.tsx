@@ -1,28 +1,16 @@
-import { RadioProvider } from "@ariakit/react";
 import { Radio, RadioGroup } from "@/components/dashboard/Radio.tsx";
 
 export function RoleMultiplierPriority({ defaultValue }: { readonly defaultValue: boolean }) {
 	return (
-		<RadioProvider defaultValue={defaultValue.toString()} key={defaultValue.toString()}>
-			<RadioGroup className="flex w-fit flex-col gap-4">
-				<label className="flex text-lg tracking-tight text-white/75 md:text-xl" htmlFor="prioritiseMultiplierValue">
-					<Radio id="prioritiseMultiplierValue" name="prioritiseMultiplierRoleHierarchy" rightMargin value="false" />
-					Highest multiplier value
-				</label>
-
-				<label
-					className="flex text-lg tracking-tight text-white/75 md:text-xl"
-					htmlFor="prioritiseMultiplierRoleHierarchy"
-				>
-					<Radio
-						id="prioritiseMultiplierRoleHierarchy"
-						name="prioritiseMultiplierRoleHierarchy"
-						rightMargin
-						value="true"
-					/>
-					Highest role in the hierarchy
-				</label>
-			</RadioGroup>
-		</RadioProvider>
+		<RadioGroup
+			aria-label="Role multiplier priority"
+			className="w-fit gap-4"
+			defaultValue={defaultValue.toString()}
+			key={defaultValue.toString()}
+			name="prioritiseMultiplierRoleHierarchy"
+		>
+			<Radio value="false">Highest multiplier value</Radio>
+			<Radio value="true">Highest role in the hierarchy</Radio>
+		</RadioGroup>
 	);
 }

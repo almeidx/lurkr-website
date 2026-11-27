@@ -1,7 +1,7 @@
 "use client";
 
-import { Dialog, DialogDescription, DialogDismiss, DialogHeading, useDialogStore } from "@ariakit/react";
-import type { MouseEvent, PropsWithChildren, ReactNode } from "react";
+import { Button, Modal } from "@heroui/react";
+import { type MouseEvent, type PropsWithChildren, type ReactNode, useRef, useState } from "react";
 
 export function Confirmation({
 	className,
@@ -11,46 +11,61 @@ export function Confirmation({
 	disabled = false,
 	useSubmitButton = false,
 }: ConfirmationProps) {
-	const dialog = useDialogStore();
+	const [isOpen, setIsOpen] = useState(false);
+	const triggerRef = useRef<HTMLButtonElement>(null);
 
-	function handleConfirm(_event: MouseEvent<HTMLButtonElement>) {
-		dialog.setState("open", false);
+	function handleOpen(event: MouseEvent<HTMLButtonElement>) {
+		// Safari does not focus a clicked button, and the modal returns focus to the focused element when it closes.
+		event.currentTarget.focus();
+		setIsOpen(true);
+	}
+
+	function handleConfirm() {
+		setIsOpen(false);
 
 		onConfirm?.();
+
+		// The modal is rendered outside of the surrounding form, so it has to be submitted through the trigger.
+		if (useSubmitButton) {
+			triggerRef.current?.form?.requestSubmit();
+		}
 	}
 
 	return (
 		<>
-			<button className={className} disabled={disabled} onClick={dialog.toggle} type="button">
+			<button className={className} disabled={disabled} onClick={handleOpen} ref={triggerRef} type="button">
 				{buttonText}
 			</button>
 
-			<Dialog
-				backdrop={
-					<div className="backdrop-blur-0 z-100001 bg-black/10 opacity-0 transition-[opacity,backdrop-filter] duration-150 ease-in-out data-enter:opacity-100 data-enter:backdrop-blur-xs" />
-				}
-				className="fixed top-20 left-1/2 z-100002 -translate-x-1/2 scale-95 rounded-lg border border-white/25 bg-dark-gray px-4 py-3 opacity-0 transition-[opacity,transform] duration-150 ease-in-out data-enter:scale-100 data-enter:opacity-100"
-				portal={!useSubmitButton}
-				store={dialog}
-			>
-				<DialogHeading className="mb-4 flex items-center gap-2 text-xl font-bold">{buttonText}</DialogHeading>
+			<Modal.Backdrop isOpen={isOpen} onOpenChange={setIsOpen} variant="blur">
+				<Modal.Container className="sm:pt-20" placement="top">
+					<Modal.Dialog className="rounded-lg border border-white/25 bg-dark-gray px-4 py-3">
+						<Modal.Header>
+							<Modal.Heading className="flex items-center gap-2 text-xl font-bold">{buttonText}</Modal.Heading>
+						</Modal.Header>
 
-				<DialogDescription className="mb-4 text-white/75">{children}</DialogDescription>
+						<Modal.Body className="mt-4 text-base text-white/75">{children}</Modal.Body>
 
-				<div className="space-x-4">
-					<button
-						className="rounded-lg bg-green px-2 py-1 transition-colors hover:bg-green/75"
-						onClick={handleConfirm}
-						type={useSubmitButton ? "submit" : "button"}
-					>
-						Confirm
-					</button>
+						<Modal.Footer className="mt-4 justify-start gap-4">
+							<Button
+								className="rounded-lg bg-green px-2 text-base font-normal text-white hover:bg-green/75"
+								onPress={handleConfirm}
+								size="sm"
+							>
+								Confirm
+							</Button>
 
-					<DialogDismiss className="rounded-lg bg-red px-2 py-1 transition-colors hover:bg-red/75">
-						Cancel
-					</DialogDismiss>
-				</div>
-			</Dialog>
+							<Button
+								className="rounded-lg bg-red px-2 text-base font-normal text-white hover:bg-red/75"
+								size="sm"
+								slot="close"
+							>
+								Cancel
+							</Button>
+						</Modal.Footer>
+					</Modal.Dialog>
+				</Modal.Container>
+			</Modal.Backdrop>
 		</>
 	);
 }

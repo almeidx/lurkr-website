@@ -1,5 +1,5 @@
-import { Tooltip, TooltipAnchor, TooltipProvider } from "@ariakit/react";
-import type { PropsWithChildren } from "react";
+import { Tooltip } from "@heroui/react";
+import { type PropsWithChildren, useState } from "react";
 
 export function CreateMultiplierButton({
 	children,
@@ -10,6 +10,8 @@ export function CreateMultiplierButton({
 	newTargets,
 	existingMultiplierValues,
 }: CreateMultiplierButtonProps) {
+	const [isTooltipOpen, setIsTooltipOpen] = useState(false);
+
 	const multiplierIsInUse = existingMultiplierValues.includes(Number.parseFloat(newMultiplier));
 	const isButtonDisabled =
 		multiplierCount >= maxMultipliers || !newTargets.length || !newMultiplier || multiplierIsInUse;
@@ -27,17 +29,21 @@ export function CreateMultiplierButton({
 
 	if (isButtonDisabled) {
 		return (
-			<TooltipProvider>
-				<TooltipAnchor>{btn}</TooltipAnchor>
+			// `ResponsiveTooltip` wraps its trigger in a button, which cannot contain this one. Opening on focus is what
+			// makes the tooltip available on touch devices.
+			<Tooltip isOpen={isTooltipOpen} onOpenChange={setIsTooltipOpen}>
+				<Tooltip.Trigger onBlur={() => setIsTooltipOpen(false)} onFocus={() => setIsTooltipOpen(true)}>
+					{btn}
+				</Tooltip.Trigger>
 
-				<Tooltip className="max-w-xs rounded-lg border bg-darker p-2 leading-relaxed tracking-tight md:max-w-prose">
+				<Tooltip.Content className="max-w-xs rounded-lg border bg-darker p-2 text-base leading-relaxed tracking-tight break-normal md:max-w-prose">
 					{multiplierCount >= maxMultipliers
 						? "You've reached the maximum number of multipliers."
 						: multiplierIsInUse
 							? "This multiplier value is already in use."
 							: "Please select, at least, one target and enter a multiplier value."}
-				</Tooltip>
-			</TooltipProvider>
+				</Tooltip.Content>
+			</Tooltip>
 		);
 	}
 

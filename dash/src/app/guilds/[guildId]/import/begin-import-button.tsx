@@ -1,4 +1,5 @@
-import { Tooltip, TooltipAnchor, TooltipProvider } from "@ariakit/react";
+import { Tooltip } from "@heroui/react";
+import { useState } from "react";
 import { Confirmation } from "@/components/Confirmation.tsx";
 import { SystemUpdate } from "@/components/icons/mdi/system-update.tsx";
 
@@ -18,6 +19,8 @@ export function ImportConfirmationMessage() {
 }
 
 export function BeginImportButton({ isRateLimited, importOngoing }: BeginImportButtonProps) {
+	const [isTooltipOpen, setIsTooltipOpen] = useState(false);
+
 	const disabled = isRateLimited || importOngoing;
 
 	const btn = (
@@ -38,13 +41,21 @@ export function BeginImportButton({ isRateLimited, importOngoing }: BeginImportB
 
 	if (disabled) {
 		return (
-			<TooltipProvider showTimeout={50}>
-				<TooltipAnchor className="w-fit">{btn}</TooltipAnchor>
+			// `ResponsiveTooltip` wraps its trigger in a button, which cannot contain this one. Opening on focus is what
+			// makes the tooltip available on touch devices.
+			<Tooltip delay={50} isOpen={isTooltipOpen} onOpenChange={setIsTooltipOpen}>
+				<Tooltip.Trigger
+					className="w-fit"
+					onBlur={() => setIsTooltipOpen(false)}
+					onFocus={() => setIsTooltipOpen(true)}
+				>
+					{btn}
+				</Tooltip.Trigger>
 
-				<Tooltip className="max-w-xs rounded-lg border bg-darker p-2 leading-relaxed tracking-tight md:max-w-prose">
+				<Tooltip.Content className="max-w-xs rounded-lg border bg-darker p-2 text-base leading-relaxed tracking-tight break-normal md:max-w-prose">
 					{importOngoing ? "An import is already in progress." : "Importing is rate limited to once per hour."}
-				</Tooltip>
-			</TooltipProvider>
+				</Tooltip.Content>
+			</Tooltip>
 		);
 	}
 

@@ -1,18 +1,19 @@
-import { Popover, PopoverArrow, PopoverDescription, PopoverDisclosure, PopoverProvider } from "@ariakit/react";
+import { Popover } from "@heroui/react";
 import type { PropsWithChildren } from "react";
 
 export function ItemStatusPopover({ children, description }: PropsWithChildren<{ readonly description: string }>) {
 	return (
-		<PopoverProvider>
-			<PopoverDisclosure>{children}</PopoverDisclosure>
+		<Popover>
+			<Popover.Trigger aria-label="Show status details" className="absolute inset-0 z-10 rounded-xl">
+				{children}
+			</Popover.Trigger>
 
-			<Popover
-				className="left-4 z-10004 flex flex-col rounded-lg border border-white/25 bg-darker px-4 py-3 shadow-md"
-				gutter={16}
-			>
-				<PopoverArrow />
-				<PopoverDescription className="max-w-[80vw] text-wrap">{description}</PopoverDescription>
-			</Popover>
-		</PopoverProvider>
+			<Popover.Content className="rounded-lg border border-white/25 bg-darker shadow-md">
+				<Popover.Dialog className="px-4 py-3">
+					<Popover.Arrow className="[&_svg]:fill-darker [&_svg]:stroke-white/25" />
+					<p className="max-w-[80vw] text-base text-wrap">{description}</p>
+				</Popover.Dialog>
+			</Popover.Content>
+		</Popover>
 	);
 }

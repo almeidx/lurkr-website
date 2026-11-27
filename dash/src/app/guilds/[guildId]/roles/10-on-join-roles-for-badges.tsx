@@ -1,14 +1,6 @@
 "use client";
 
-import {
-	ComboboxItem,
-	ComboboxPopover,
-	ComboboxSelect,
-	ComboboxSelectArrow,
-	ComboboxSelectLabel,
-	useComboboxStore,
-	useStoreState,
-} from "@ariakit/react";
+import { Label as HeroLabel, ListBox, Select } from "@heroui/react";
 import Image from "next/image";
 import { useState } from "react";
 import { Label } from "@/components/dashboard/Label.tsx";
@@ -32,8 +24,7 @@ export function OnJoinRolesForBadges({ defaultValues, roles }: OnJoinRolesForBad
 	);
 	const [newRoleIds, setNewRoleIds] = useState<Snowflake[]>([]);
 
-	const combobox = useComboboxStore({ defaultSelectedValue: UserFlags.ActiveDeveloper.toString() });
-	const flag = useStoreState(combobox, "selectedValue");
+	const [flag, setFlag] = useState(UserFlags.ActiveDeveloper.toString());
 
 	function handleCreate() {
 		const flagId = Number.parseInt(flag, 10);
@@ -53,7 +44,7 @@ export function OnJoinRolesForBadges({ defaultValues, roles }: OnJoinRolesForBad
 		);
 
 		setNewRoleIds([]);
-		combobox.setSelectedValue(UserFlags.ActiveDeveloper.toString());
+		setFlag(UserFlags.ActiveDeveloper.toString());
 	}
 
 	function handleDelete(id: string) {
@@ -65,9 +56,6 @@ export function OnJoinRolesForBadges({ defaultValues, roles }: OnJoinRolesForBad
 			prev.map((autoRoleFlag) => (autoRoleFlag.id === id ? { ...autoRoleFlag, roleIds } : autoRoleFlag)),
 		);
 	}
-
-	const selectedBadgeInfo =
-		flag in BadgeInfo ? BadgeInfo[flag as unknown as keyof typeof BadgeInfo] : BadgeInfo[UserFlags.ActiveDeveloper];
 
 	return (
 		<>
@@ -84,40 +72,39 @@ export function OnJoinRolesForBadges({ defaultValues, roles }: OnJoinRolesForBad
 					roles={roles}
 				/>
 
-				<ComboboxSelectLabel className="text-lg tracking-tight text-white/75 md:text-xl" store={combobox}>
-					and the badge it will be applied on:{" "}
-				</ComboboxSelectLabel>
-
-				<ComboboxSelect
-					className="flex h-10 w-64 items-center justify-between rounded-lg bg-light-gray px-3 py-2 shadow-dim-inner"
-					store={combobox}
+				<Select
+					className="contents"
+					onChange={(key) => {
+						if (key) setFlag(key.toString());
+					}}
+					value={flag}
 				>
-					<div className="flex items-center gap-2 truncate">
-						<Image alt={`${selectedBadgeInfo.name} badge`} height={22} src={selectedBadgeInfo.icon} width={22} />
-						{selectedBadgeInfo.name}
-					</div>
+					<HeroLabel className="text-lg font-normal tracking-tight text-white/75 md:text-xl">
+						and the badge it will be applied on:{" "}
+					</HeroLabel>
 
-					<ComboboxSelectArrow />
-				</ComboboxSelect>
+					<Select.Trigger className="h-10 w-64 items-center rounded-lg border-0 bg-light-gray shadow-dim-inner">
+						<Select.Value className="flex items-center gap-2 truncate text-base sm:text-base" />
+						<Select.Indicator />
+					</Select.Trigger>
 
-				<ComboboxPopover
-					className="z-10000 flex w-80 flex-col gap-2 rounded-lg bg-light-gray px-3 py-2 shadow-dim-inner"
-					gutter={8}
-					sameWidth
-					store={combobox}
-				>
-					{Object.entries(BadgeInfo).map(([flag, { icon, name }]) => (
-						<ComboboxItem
-							className="flex cursor-pointer items-center gap-2 text-lg tracking-tight text-white/75 hover:text-white md:text-xl"
-							key={`${flag}-badge-select`}
-							store={combobox}
-							value={flag}
-						>
-							<Image alt={`${name} badge`} height={22} src={icon} width={22} />
-							{name}
-						</ComboboxItem>
-					))}
-				</ComboboxPopover>
+					<Select.Popover className="w-80 rounded-lg bg-light-gray shadow-dim-inner">
+						<ListBox>
+							{Object.entries(BadgeInfo).map(([flag, { icon, name }]) => (
+								<ListBox.Item
+									className="gap-2 rounded-lg text-lg tracking-tight text-white/75 data-focus-visible:text-white data-hovered:text-white md:text-xl"
+									id={flag}
+									key={`${flag}-badge-select`}
+									textValue={name}
+								>
+									<Image alt={`${name} badge`} height={22} src={icon} width={22} />
+									{name}
+									<ListBox.ItemIndicator />
+								</ListBox.Item>
+							))}
+						</ListBox>
+					</Select.Popover>
+				</Select>
 
 				<button
 					className="rounded-lg bg-green p-1 transition-colors not-disabled:hover:bg-green/75"
