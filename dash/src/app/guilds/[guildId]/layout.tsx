@@ -14,7 +14,6 @@ export default async function DashboardLayout({
 }: PropsWithChildren<{ params: Promise<{ guildId: Snowflake }> }>) {
 	const { guildId } = await params;
 
-	// The page renders alongside this layout and rejects the same ids through `assertGuildId`.
 	if (!isSnowflake(guildId)) {
 		return <UnknownGuildOrMissingAccess />;
 	}
