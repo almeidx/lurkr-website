@@ -9,7 +9,8 @@
 		"fmt": "oxlint --fix && oxfmt",
 		"lint": "oxlint && oxfmt --check",
 		"lint:ci": "oxlint --deny-warnings && oxfmt --check",
-		"prepare": "husky .github/husky"
+		"prepare": "husky .github/husky",
+		"test": "pnpm --recursive run test"
 	},
 	"devDependencies": {
 		"@types/node": "catalog:",
