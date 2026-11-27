@@ -23,7 +23,6 @@ export function CreateApiKeyDialog({ revalidateApiKeys }: { revalidateApiKeys: (
 	const [permission, setPermission] = useState<ApiKeyPermission>(ApiKeyPermission.Read);
 	const [expiration, setExpiration] = useState<string>("never");
 	const [isBusy, setIsBusy] = useState(false);
-	// State updates are async, so a ref guards against two submits in the same tick.
 	const isBusyRef = useRef(false);
 
 	async function handleCreateApiKey(event: SubmitEvent<HTMLFormElement>) {
