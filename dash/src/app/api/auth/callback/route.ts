@@ -13,7 +13,6 @@ import {
 export async function GET(request: NextRequest) {
 	const homeUrl = new URL("/", request.url);
 
-	// The user cancelled on Discord's consent screen, which is not a failure worth reporting.
 	if (request.nextUrl.searchParams.get("error") === "access_denied") {
 		return withStateCleared(NextResponse.redirect(homeUrl));
 	}

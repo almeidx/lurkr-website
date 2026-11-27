@@ -16,7 +16,6 @@ export const SIGN_IN_URL = "/api/auth/login";
 export const AUTH_CALLBACK_PATH = "/api/auth/callback";
 export const OAUTH_STATE_COOKIE = "oauthState";
 
-// Set by the OAuth callback when sign-in fails; the home page reports it and removes it
 export const LOGIN_FAILURE_PARAM = "login_failure";
 
 // `src/proxy.ts` matches this name literally, as Next.js requires a static matcher
