@@ -1,3 +1,4 @@
+import { isHTTPError } from "ky";
 import { unstable_rethrow } from "next/navigation";
 import type { UserGuildInfo } from "@/lib/guild.ts";
 import type { Snowflake } from "@/utils/discord-cdn.ts";
@@ -8,7 +9,12 @@ export async function getCurrentUser() {
 		return await api.get("users/@me").json<User>();
 	} catch (error) {
 		unstable_rethrow(error);
-		return null;
+
+		if (isHTTPError(error) && error.response.status === 401) {
+			return null;
+		}
+
+		throw error;
 	}
 }
 

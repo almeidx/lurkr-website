@@ -9,6 +9,7 @@ import type { UserGuildInfo } from "@/lib/guild.ts";
 import { guildIcon, type Snowflake } from "@/utils/discord-cdn.ts";
 import { extractErrorMessage } from "@/utils/extract-error-message.ts";
 import type { GetUserApiKeysResult } from "./get-user-api-keys.ts";
+import { SectionError } from "./section-error.tsx";
 
 export function GuildAccessApiKeyDialog({
 	keyId,
@@ -71,47 +72,54 @@ export function GuildAccessApiKeyDialog({
 							<p className="text-sm text-white/60">Toggle the guilds this API key can access.</p>
 						</Modal.Header>
 						<Modal.Body>
-							<div className="flex max-h-96 flex-col gap-1 overflow-y-auto px-1">
-								{guilds.map((guild) => {
-									const isPending = pendingGuilds.has(guild.id);
-									const isChecked = enabledGuilds.has(guild.id);
-									const iconUrl = guildIcon(guild.id, guild.icon, { size: 64 });
+							{guilds ? (
+								<div className="flex max-h-96 flex-col gap-1 overflow-y-auto px-1">
+									{guilds.map((guild) => {
+										const isPending = pendingGuilds.has(guild.id);
+										const isChecked = enabledGuilds.has(guild.id);
+										const iconUrl = guildIcon(guild.id, guild.icon, { size: 64 });
 
-									return (
-										<Checkbox
-											isDisabled={isPending}
-											isSelected={isChecked}
-											key={guild.id}
-											onChange={async (checked) => {
-												await handleCheckedChange(guild.id, checked);
-											}}
-										>
-											<Checkbox.Content>
-												<Checkbox.Control>
-													<Checkbox.Indicator />
-												</Checkbox.Control>
-												<span className="flex min-w-0 items-center gap-2">
-													{iconUrl ? (
-														<ImageWithFallback
-															alt=""
-															className="size-6 rounded-full"
-															height={24}
-															src={iconUrl}
-															unoptimized
-															width={24}
-														/>
-													) : (
-														<span className="flex size-6 items-center justify-center rounded-full bg-white/10 text-[10px] font-medium">
-															{guild.name.charAt(0)}
-														</span>
-													)}
-													<span className="truncate">{guild.name}</span>
-												</span>
-											</Checkbox.Content>
-										</Checkbox>
-									);
-								})}
-							</div>
+										return (
+											<Checkbox
+												isDisabled={isPending}
+												isSelected={isChecked}
+												key={guild.id}
+												onChange={async (checked) => {
+													await handleCheckedChange(guild.id, checked);
+												}}
+											>
+												<Checkbox.Content>
+													<Checkbox.Control>
+														<Checkbox.Indicator />
+													</Checkbox.Control>
+													<span className="flex min-w-0 items-center gap-2">
+														{iconUrl ? (
+															<ImageWithFallback
+																alt=""
+																className="size-6 rounded-full"
+																height={24}
+																src={iconUrl}
+																unoptimized
+																width={24}
+															/>
+														) : (
+															<span className="flex size-6 items-center justify-center rounded-full bg-white/10 text-[10px] font-medium">
+																{guild.name.charAt(0)}
+															</span>
+														)}
+														<span className="truncate">{guild.name}</span>
+													</span>
+												</Checkbox.Content>
+											</Checkbox>
+										);
+									})}
+								</div>
+							) : (
+								<SectionError
+									description="Refresh the page to edit this key's guild access."
+									title="Your servers could not be loaded"
+								/>
+							)}
 						</Modal.Body>
 						<Modal.Footer>
 							<Button onPress={() => handleClose(false)} variant="secondary">
@@ -128,7 +136,7 @@ export function GuildAccessApiKeyDialog({
 interface GuildAccessApiKeyDialogProps {
 	keyId: string;
 	keyName: string;
-	guilds: UserGuildInfo[];
+	guilds: UserGuildInfo[] | null;
 	guildAccess: GetUserApiKeysResult["keys"][number]["guildAccess"];
 	open: boolean;
 	onOpenChange: (open: boolean) => void;

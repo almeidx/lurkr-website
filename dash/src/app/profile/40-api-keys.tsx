@@ -140,6 +140,6 @@ export function ApiKeys({ guilds, initialKeys }: ApiKeysProps) {
 }
 
 interface ApiKeysProps {
-	guilds: UserGuildInfo[];
+	guilds: UserGuildInfo[] | null;
 	initialKeys: GetUserApiKeysResult["keys"];
 }
