@@ -11,6 +11,7 @@ import { PremiumGuildManager } from "./30-premium-guild-manager.tsx";
 import { ApiKeys } from "./40-api-keys.tsx";
 import { getUserApiKeys } from "./get-user-api-keys.ts";
 import { getUserBackground } from "./get-user-background.ts";
+import { SectionError } from "./section-error.tsx";
 
 export default async function ProfilePage() {
 	const [userResult, backgroundResult, guildsResult, apiKeysResult] = await Promise.allSettled([
@@ -20,14 +21,28 @@ export default async function ProfilePage() {
 		getUserApiKeys(),
 	]);
 
-	if (userResult.status !== "fulfilled" || !userResult.value) {
+	// Only a missing session means the visitor is signed out. Anything else is left to the route's error boundary.
+	if (userResult.status === "rejected") {
+		throw userResult.reason;
+	}
+
+	if (!userResult.value) {
 		return <NotLoggedIn />;
+	}
+
+	if (guildsResult.status === "rejected") {
+		console.error("Failed to fetch the user's guilds", guildsResult.reason);
+	}
+
+	if (apiKeysResult.status === "rejected") {
+		console.error("Failed to fetch the user's API keys", apiKeysResult.reason);
 	}
 
 	const user = userResult.value;
 	const backgroundUrl = backgroundResult.status === "fulfilled" ? backgroundResult.value : null;
-	const guilds = guildsResult.status === "fulfilled" ? guildsResult.value : [];
-	const apiKeys = apiKeysResult.status === "fulfilled" ? apiKeysResult.value : [];
+	// `null` marks a failed fetch, which the sections report instead of rendering as an empty list.
+	const guilds = guildsResult.status === "fulfilled" ? guildsResult.value : null;
+	const apiKeys = apiKeysResult.status === "fulfilled" ? apiKeysResult.value : null;
 
 	const locale = user.locale ? new Intl.DisplayNames([user.locale], { type: "language" }).of(user.locale) : null;
 	const avatarUrl = userAvatar(user.id, user.avatar, { size: 256 });
@@ -109,7 +124,14 @@ export default async function ProfilePage() {
 
 			<Card className="border border-white/10">
 				<Card.Content className="space-y-4 p-4 sm:p-6">
-					<ApiKeys guilds={guilds} initialKeys={apiKeys} />
+					{apiKeys ? (
+						<ApiKeys guilds={guilds} initialKeys={apiKeys} />
+					) : (
+						<SectionError
+							description="This does not affect your existing keys. Refresh the page to try again."
+							title="Your API keys could not be loaded"
+						/>
+					)}
 				</Card.Content>
 			</Card>
 		</div>

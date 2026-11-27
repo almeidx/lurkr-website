@@ -140,6 +140,7 @@ export function ApiKeys({ guilds, initialKeys }: ApiKeysProps) {
 }
 
 interface ApiKeysProps {
-	guilds: UserGuildInfo[];
+	/** `null` when the servers could not be loaded. */
+	guilds: UserGuildInfo[] | null;
 	initialKeys: GetUserApiKeysResult["keys"];
 }

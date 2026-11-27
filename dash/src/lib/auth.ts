@@ -1,14 +1,24 @@
+import { isHTTPError } from "ky";
 import { unstable_rethrow } from "next/navigation";
 import type { UserGuildInfo } from "@/lib/guild.ts";
 import type { Snowflake } from "@/utils/discord-cdn.ts";
 import { api } from "./api.ts";
 
+/**
+ * Resolves to `null` only when the API reports that the visitor is signed out. Any other failure is thrown, so an
+ * outage is never mistaken for being signed out.
+ */
 export async function getCurrentUser() {
 	try {
 		return await api.get("users/@me").json<User>();
 	} catch (error) {
 		unstable_rethrow(error);
-		return null;
+
+		if (isHTTPError(error) && error.response.status === 401) {
+			return null;
+		}
+
+		throw error;
 	}
 }
 

@@ -8,6 +8,7 @@ import { api } from "@/lib/api.ts";
 import { PremiumTier } from "@/lib/auth.ts";
 import type { UserGuildInfo } from "@/lib/guild.ts";
 import { extractErrorMessage } from "@/utils/extract-error-message.ts";
+import { SectionError } from "./section-error.tsx";
 
 interface PremiumGuild {
 	id: string;
@@ -16,7 +17,8 @@ interface PremiumGuild {
 }
 
 interface PremiumGuildManagerProps {
-	readonly guilds: UserGuildInfo[];
+	/** `null` when the servers could not be loaded. */
+	readonly guilds: UserGuildInfo[] | null;
 	readonly premium: PremiumTier;
 	readonly premiumGuild: PremiumGuild | null;
 }
@@ -77,51 +79,58 @@ export function PremiumGuildManager({ guilds, premium, premiumGuild }: PremiumGu
 			</div>
 
 			{isGuildTier ? (
-				<>
-					<div className="flex flex-col gap-3 sm:flex-row sm:items-center">
-						<Select
-							className="flex-1"
-							onChange={(key) => {
-								if (key) {
-									setSelectedGuildId(key as string);
-									setError(null);
-								}
-							}}
-							placeholder="Select a server"
-							value={selectedGuildId}
-						>
-							<Select.Trigger>
-								<Select.Value />
-								<Select.Indicator />
-							</Select.Trigger>
-							<Select.Popover>
-								<ListBox>
-									{guilds.map((guild) => (
-										<ListBox.Item id={guild.id} key={guild.id} textValue={guild.name}>
-											{guild.name}
-											<ListBox.ItemIndicator />
-										</ListBox.Item>
-									))}
-								</ListBox>
-							</Select.Popover>
-						</Select>
+				guilds ? (
+					<>
+						<div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+							<Select
+								className="flex-1"
+								onChange={(key) => {
+									if (key) {
+										setSelectedGuildId(key as string);
+										setError(null);
+									}
+								}}
+								placeholder="Select a server"
+								value={selectedGuildId}
+							>
+								<Select.Trigger>
+									<Select.Value />
+									<Select.Indicator />
+								</Select.Trigger>
+								<Select.Popover>
+									<ListBox>
+										{guilds.map((guild) => (
+											<ListBox.Item id={guild.id} key={guild.id} textValue={guild.name}>
+												{guild.name}
+												<ListBox.ItemIndicator />
+											</ListBox.Item>
+										))}
+									</ListBox>
+								</Select.Popover>
+							</Select>
 
-						<div className="flex gap-2">
-							{hasChanges && selectedGuildId && (
-								<Button isDisabled={isSaving} onPress={handleSave} variant="primary">
-									{isSaving ? "Saving..." : "Save"}
-								</Button>
-							)}
-							{currentGuild && (
-								<Button isDisabled={isRemoving} onPress={handleRemove} variant="danger">
-									{isRemoving ? "Removing..." : "Remove"}
-								</Button>
-							)}
+							<div className="flex gap-2">
+								{hasChanges && selectedGuildId && (
+									<Button isDisabled={isSaving} onPress={handleSave} variant="primary">
+										{isSaving ? "Saving..." : "Save"}
+									</Button>
+								)}
+								{currentGuild && (
+									<Button isDisabled={isRemoving} onPress={handleRemove} variant="danger">
+										{isRemoving ? "Removing..." : "Remove"}
+									</Button>
+								)}
+							</div>
 						</div>
-					</div>
 
-					{error && <p className="text-sm text-red">{error}</p>}
-				</>
+						{error && <p className="text-sm text-red">{error}</p>}
+					</>
+				) : (
+					<SectionError
+						description="Refresh the page to manage your premium server."
+						title="Your servers could not be loaded"
+					/>
+				)
 			) : (
 				<div className="rounded-xl border border-white/10 bg-white/3 px-4 py-3">
 					<p className="text-sm text-white/70">
