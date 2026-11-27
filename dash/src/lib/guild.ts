@@ -43,6 +43,8 @@ export interface GuildMetadata {
 	readonly premium: boolean;
 }
 
+export type ActionResult = { readonly ok: true } | { readonly error: string; readonly ok: false };
+
 export type SaveResult =
 	| {
 			readonly ok: true;

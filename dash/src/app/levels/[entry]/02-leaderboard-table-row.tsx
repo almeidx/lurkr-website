@@ -2,12 +2,14 @@
 
 import { Disclosure, DisclosureContent, DisclosureProvider } from "@ariakit/react";
 import dynamic from "next/dynamic";
+import { toast } from "sonner";
 import { userLevelResetAction } from "@/app/levels/[entry]/actions.ts";
 import type { GetLevelsResponse } from "@/app/levels/[entry]/leaderboard-types.ts";
 import fallbackAvatarImg from "@/assets/fallback-avatar.webp";
 import { ImageWithFallback } from "@/components/ImageWithFallback.tsx";
 import { RadialProgressBar } from "@/components/RadialProgressBar.tsx";
 import { type Snowflake, userAvatar } from "@/utils/discord-cdn.ts";
+import { extractErrorMessage } from "@/utils/extract-error-message.ts";
 import { formatNumber } from "@/utils/format-number.ts";
 import { isSnowflake } from "@/utils/is-snowflake.ts";
 
@@ -17,7 +19,17 @@ const Confirmation = dynamic(async () =>
 
 export function LeaderboardTableRow({ guildId, row, isManager }: LeaderboardTableRowProps) {
 	async function handleResetLevelConfirm() {
-		await userLevelResetAction(guildId, row.userId);
+		try {
+			const result = await userLevelResetAction(guildId, row.userId);
+
+			if (result.ok) {
+				toast.success(`Reset ${row.user.username}'s level`);
+			} else {
+				toast.error("Failed to reset level", { description: result.error });
+			}
+		} catch (error) {
+			toast.error(extractErrorMessage(error, "Failed to reset level."));
+		}
 	}
 
 	return (
