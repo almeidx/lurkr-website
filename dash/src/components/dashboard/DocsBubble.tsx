@@ -19,7 +19,6 @@ export function DocsBubble({ tooltip, path }: DocsBubblePropos) {
 	}
 
 	return (
-		// `ResponsiveTooltip` wraps its trigger in a button, which cannot contain this link
 		<Tooltip delay={100}>
 			<Tooltip.Trigger>{link}</Tooltip.Trigger>
 

@@ -29,8 +29,6 @@ export function CreateMultiplierButton({
 
 	if (isButtonDisabled) {
 		return (
-			// `ResponsiveTooltip` wraps its trigger in a button, which cannot contain this one. Opening on focus is what
-			// makes the tooltip available on touch devices.
 			<Tooltip isOpen={isTooltipOpen} onOpenChange={setIsTooltipOpen}>
 				<Tooltip.Trigger onBlur={() => setIsTooltipOpen(false)} onFocus={() => setIsTooltipOpen(true)}>
 					{btn}

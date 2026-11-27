@@ -26,7 +26,6 @@ export function Radio({ children, controlPosition = "start", value }: RadioProps
 export { RadioGroup } from "@heroui/react";
 
 interface RadioProps extends PropsWithChildren {
-	/** Side of the label the radio button is on. */
 	readonly controlPosition?: "end" | "start";
 	readonly value: string;
 }

@@ -41,8 +41,6 @@ export function BeginImportButton({ isRateLimited, importOngoing }: BeginImportB
 
 	if (disabled) {
 		return (
-			// `ResponsiveTooltip` wraps its trigger in a button, which cannot contain this one. Opening on focus is what
-			// makes the tooltip available on touch devices.
 			<Tooltip delay={50} isOpen={isTooltipOpen} onOpenChange={setIsTooltipOpen}>
 				<Tooltip.Trigger
 					className="w-fit"
