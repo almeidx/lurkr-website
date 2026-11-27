@@ -20,20 +20,8 @@ export function EmbedFieldsBuilder({ fields, setFields, emojis, roles, placehold
 		setFields((prevState) => [...prevState, { inline: false, name: "", value: "" }]);
 	}
 
-	function handleFieldChange<K extends keyof (typeof fields)[number]>(
-		index: number,
-		key: K,
-		value: (typeof fields)[number][K],
-	) {
-		setFields((prevState) =>
-			prevState.map((field, i) => {
-				if (i === index) {
-					return { ...field, [key]: typeof value === "function" ? (value as any)(field[key]) : value };
-				}
-
-				return field;
-			}),
-		);
+	function handleFieldChange(index: number, update: (field: NonNullableFields[number]) => NonNullableFields[number]) {
+		setFields((prevState) => prevState.map((field, i) => (i === index ? update(field) : field)));
 	}
 
 	function handleDeleteField(index: number) {
@@ -82,7 +70,7 @@ export function EmbedFieldsBuilder({ fields, setFields, emojis, roles, placehold
 										id={`embed-field-name-${index}`}
 										maxLength={EMBED_FIELD_NAME_MAX_LENGTH}
 										min={1}
-										onChange={(event) => handleFieldChange(index, "name", event.target.value)}
+										onChange={(event) => handleFieldChange(index, (field) => ({ ...field, name: event.target.value }))}
 										placeholder="Enter field name"
 										required
 										value={field.name}
@@ -97,7 +85,9 @@ export function EmbedFieldsBuilder({ fields, setFields, emojis, roles, placehold
 									<Toggle
 										checked={field.inline}
 										id={`embed-field-inline-${index}`}
-										onChange={(event) => handleFieldChange(index, "inline", event.target.checked)}
+										onChange={(event) =>
+											handleFieldChange(index, (field) => ({ ...field, inline: event.target.checked }))
+										}
 									/>
 								</div>
 							</div>
@@ -116,7 +106,12 @@ export function EmbedFieldsBuilder({ fields, setFields, emojis, roles, placehold
 									placeholders={placeholders}
 									required
 									roles={roles}
-									setValue={(event: string) => handleFieldChange(index, "value", event)}
+									setValue={(value) =>
+										handleFieldChange(index, (field) => ({
+											...field,
+											value: typeof value === "function" ? value(field.value) : value,
+										}))
+									}
 									value={field.value}
 								/>
 							</div>
