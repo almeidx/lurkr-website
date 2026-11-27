@@ -2,7 +2,7 @@
 
 import { Copy } from "@gravity-ui/icons";
 import { Button, Input, Label, ListBox, Modal, Select, TextField } from "@heroui/react";
-import { type SubmitEvent, useState } from "react";
+import { type SubmitEvent, useRef, useState } from "react";
 import { toast } from "sonner";
 import { api } from "@/lib/api.ts";
 import { ApiKeyPermission } from "@/lib/guild.ts";
@@ -22,14 +22,20 @@ export function CreateApiKeyDialog({ revalidateApiKeys }: { revalidateApiKeys: (
 	const [apiKey, setApiKey] = useState<string | null>(null);
 	const [permission, setPermission] = useState<ApiKeyPermission>(ApiKeyPermission.Read);
 	const [expiration, setExpiration] = useState<string>("never");
+	const [isBusy, setIsBusy] = useState(false);
+	const isBusyRef = useRef(false);
 
 	async function handleCreateApiKey(event: SubmitEvent<HTMLFormElement>) {
 		event.preventDefault();
+		if (isBusyRef.current) return;
 
 		const data = new FormData(event.currentTarget);
 		const name = data.get("name") as string;
 		const days = EXPIRATION_OPTIONS.find((o) => o.id === expiration)?.days;
 		const expiresAt = days ? new Date(Date.now() + days * Time.Days).toISOString() : undefined;
+
+		isBusyRef.current = true;
+		setIsBusy(true);
 
 		try {
 			const result = await api
@@ -42,6 +48,9 @@ export function CreateApiKeyDialog({ revalidateApiKeys }: { revalidateApiKeys: (
 			console.error("Failed to create API key", error);
 			toast.error(extractErrorMessage(error, "Failed to create API key."));
 		}
+
+		isBusyRef.current = false;
+		setIsBusy(false);
 	}
 
 	function handleCloseDialog(open: boolean) {
@@ -175,8 +184,8 @@ export function CreateApiKeyDialog({ revalidateApiKeys }: { revalidateApiKeys: (
 										<Button onPress={() => handleCloseDialog(false)} variant="secondary">
 											Cancel
 										</Button>
-										<Button type="submit" variant="primary">
-											Create
+										<Button isDisabled={isBusy} type="submit" variant="primary">
+											{isBusy ? "Creating..." : "Create"}
 										</Button>
 									</Modal.Footer>
 								</form>
