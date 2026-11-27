@@ -43,7 +43,6 @@ export interface GuildMetadata {
 	readonly premium: boolean;
 }
 
-/** Outcome of a Server Action that reports API failures instead of throwing them. */
 export type ActionResult = { readonly ok: true } | { readonly error: string; readonly ok: false };
 
 export type SaveResult =

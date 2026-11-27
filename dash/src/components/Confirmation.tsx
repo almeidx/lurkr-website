@@ -18,7 +18,6 @@ export function Confirmation({
 	function handleConfirm(_event: MouseEvent<HTMLButtonElement>) {
 		dialog.setState("open", false);
 
-		// Last resort for callers that let a rejection escape, so it is never dropped silently.
 		Promise.resolve(onConfirm?.()).catch((error: unknown) => {
 			console.error("Confirmed action failed:", error);
 			toast.error(extractErrorMessage(error, "Something went wrong."));
