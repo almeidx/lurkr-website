@@ -2,12 +2,12 @@
 
 import { Copy } from "@gravity-ui/icons";
 import { Button, Input, Label, ListBox, Modal, Select, TextField } from "@heroui/react";
-import { addDays } from "date-fns";
 import { type SubmitEvent, useRef, useState } from "react";
 import { toast } from "sonner";
 import { api } from "@/lib/api.ts";
 import { ApiKeyPermission } from "@/lib/guild.ts";
 import { extractErrorMessage } from "@/utils/extract-error-message.ts";
+import { Time } from "@/utils/time.ts";
 
 const EXPIRATION_OPTIONS = [
 	{ days: 7, id: "7d", label: "7 days" },
@@ -32,7 +32,7 @@ export function CreateApiKeyDialog({ revalidateApiKeys }: { revalidateApiKeys: (
 		const data = new FormData(event.currentTarget);
 		const name = data.get("name") as string;
 		const days = EXPIRATION_OPTIONS.find((o) => o.id === expiration)?.days;
-		const expiresAt = days ? addDays(new Date(), days).toISOString() : undefined;
+		const expiresAt = days ? new Date(Date.now() + days * Time.Days).toISOString() : undefined;
 
 		isBusyRef.current = true;
 		setIsBusy(true);
