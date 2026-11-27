@@ -32,10 +32,6 @@ so you should have basic knowledge about how to use them.
 - `pnpm install --frozen-lockfile`
 - `cp dash/.env.local.example dash/.env.local`
 
-Note: [Node.js] no longer ships with corepack as of version 25, so pnpm has to be installed separately (see the
-[pnpm installation guide] for other ways to do it). pnpm then switches to the version pinned in the `packageManager`
-field of `package.json` by itself.
-
 #### Running the website
 
 The dashboard and docs site run separately:
@@ -66,7 +62,6 @@ The dashboard (`dash/`) is deployed on [Vercel], while the documentation site (`
 [vercel]: https://vercel.com
 [cloudflare workers]: https://workers.cloudflare.com/
 [pnpm]: https://pnpm.io/
-[pnpm installation guide]: https://pnpm.io/installation
 [gnu agplv3]: https://github.com/almeidx/lurkr-website/blob/main/LICENSE
 [almeidx]: https://almeidx.dev
 [@almeidx]: https://github.com/almeidx

@@ -58,8 +58,6 @@ jobs:
           restore-keys: |
             nextjs-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}-
 
-      # Placeholder values based on dash/.env.local.example. The build fails without NEXT_PUBLIC_API_URL and
-      # without a hostname in BACKGROUNDS_BUCKET_DOMAIN.
       - name: Build dashboard
         run: pnpm --dir dash build
         env:
@@ -68,7 +66,5 @@ jobs:
           NEXT_PUBLIC_URL: http://localhost:3000
           BACKGROUNDS_BUCKET_DOMAIN: backgrounds.example.com
 
-      # Fetches the OpenAPI document from the live API first, like the deployment build, and fails if that
-      # request does.
       - name: Build docs
         run: pnpm --dir docs build
