@@ -3,28 +3,26 @@ import { getGuildSettings } from "@/app/guilds/[guildId]/settings.ts";
 import { DocsBubble } from "@/components/dashboard/DocsBubble.tsx";
 import { Form } from "@/components/dashboard/Form.tsx";
 import { Label } from "@/components/dashboard/Label.tsx";
+import { LimitedChannelSelector } from "@/components/dashboard/LimitedChannelSelector.tsx";
+import { LimitedRoleSelector } from "@/components/dashboard/LimitedRoleSelector.tsx";
 import { Section } from "@/components/dashboard/Section.tsx";
 import { Text } from "@/components/dashboard/Text.tsx";
 import { Separator } from "@/components/Separator.tsx";
 import { MAX_VANITY_LENGTH, MIN_VANITY_LENGTH } from "@/lib/guild-config.ts";
 import type { Snowflake } from "@/utils/discord-cdn.ts";
 import { LevelingChannelMode } from "./01-leveling-channel-mode.tsx";
-import { LevelingChannels } from "./02-leveling-channels.tsx";
 import { LevelingInThreads } from "./03-leveling-in-threads.tsx";
 import { XpGainInterval } from "./04-xp-gain-interval.tsx";
 import { XpPerMessageRange } from "./05-xp-per-message-range.tsx";
 import { XpFromCommands } from "./06-xp-from-commands.tsx";
 import { XpCurve } from "./07-xp-curve.tsx";
-import { NoLevelingRoles } from "./10-no-leveling-roles.tsx";
 import { DisallowedLevelingPrefixes } from "./11-disallowed-leveling-prefixes.tsx";
 import { TopLevelingRole } from "./20-top-leveling-role.tsx";
-import { NoTopLevelingRoles } from "./21-no-top-leveling-roles.tsx";
 import { LevelUpMessageChannel } from "./30-level-up-message-channel.tsx";
 import { LevelUpMessage } from "./31-level-up-message.tsx";
 import { LevelUpMessageEmbed } from "./32-level-up-message-embed.tsx";
 import { LevelUpMessageConditions } from "./33-level-up-message-conditions.tsx";
 import { LevelingRoleRewards } from "./40-leveling-role-rewards.tsx";
-import { NoRoleRewardsRoles } from "./41-no-role-rewards-roles.tsx";
 import { SyncRoleRewardsOnJoin } from "./42-sync-role-rewards-on-join.tsx";
 import { AutomaticallyResetLevels } from "./50-automatically-reset-levels.tsx";
 import { DefaultRankCardColor } from "./60-default-rank-card-color.tsx";
@@ -53,7 +51,14 @@ export default async function Leveling({ params }: { readonly params: Promise<{ 
 			>
 				<LevelingChannelMode defaultValue={settings.xpChannelMode} />
 
-				<LevelingChannels channels={guild.channels} defaultValues={settings.xpChannels} premium={guild.premium} />
+				<LimitedChannelSelector
+					channels={guild.channels}
+					defaultValues={settings.xpChannels}
+					inputId="leveling-channels"
+					label="Channels"
+					limit="xpChannels"
+					premium={guild.premium}
+				/>
 
 				<Separator />
 
@@ -85,7 +90,14 @@ export default async function Leveling({ params }: { readonly params: Promise<{ 
 					Set roles that won't be able to gain any levels…
 				</Text>
 
-				<NoLevelingRoles defaultValues={settings.noXpRoles} premium={guild.premium} roles={guild.roles} />
+				<LimitedRoleSelector
+					defaultValues={settings.noXpRoles}
+					inputId="no-leveling-roles"
+					label="Roles"
+					limit="noXpRoles"
+					premium={guild.premium}
+					roles={guild.roles}
+				/>
 
 				<Separator />
 
@@ -112,7 +124,14 @@ export default async function Leveling({ params }: { readonly params: Promise<{ 
 
 				<Text>Set roles that won't be able to get the top leveling role…</Text>
 
-				<NoTopLevelingRoles defaultValues={settings.noTopXpRoles} premium={guild.premium} roles={guild.roles} />
+				<LimitedRoleSelector
+					defaultValues={settings.noTopXpRoles}
+					inputId="no-top-leveling-roles"
+					label="Roles"
+					limit="noTopXpRoles"
+					premium={guild.premium}
+					roles={guild.roles}
+				/>
 			</Section>
 
 			<Section
@@ -143,7 +162,21 @@ export default async function Leveling({ params }: { readonly params: Promise<{ 
 
 				<Separator />
 
-				<NoRoleRewardsRoles defaultValues={settings.noRoleRewardRoles} premium={guild.premium} roles={guild.roles} />
+				<LimitedRoleSelector
+					defaultValues={settings.noRoleRewardRoles}
+					docsPath="/guides/leveling-role-rewards#adding-the-no-role-reward-roles"
+					inputId="no-role-rewards-roles"
+					label={
+						<>
+							Add roles that will <span className="font-semibold tracking-tight text-white">prevent</span> users getting
+							any role rewards…
+						</>
+					}
+					limit="noRoleRewardRoles"
+					premium={guild.premium}
+					roles={guild.roles}
+					tooltip="Select roles that, irrespective of other roles a member holds, will prevent them from receiving role rewards."
+				/>
 
 				<Separator />
 

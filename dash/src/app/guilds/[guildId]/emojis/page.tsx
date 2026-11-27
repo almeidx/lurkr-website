@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import { getGuildSettings } from "@/app/guilds/[guildId]/settings.ts";
 import { Form } from "@/components/dashboard/Form.tsx";
 import { Section } from "@/components/dashboard/Section.tsx";
+import { SingleChannelSelector } from "@/components/dashboard/SingleChannelSelector.tsx";
 import { Text } from "@/components/dashboard/Text.tsx";
 import type { Snowflake } from "@/utils/discord-cdn.ts";
-import { EmojiListChannel } from "./01-emoji-list-channel.tsx";
 import { update } from "./update.ts";
 
 export default async function Emojis({ params }: { readonly params: Promise<{ guildId: Snowflake }> }) {
@@ -28,7 +28,12 @@ export default async function Emojis({ params }: { readonly params: Promise<{ gu
 					Set the channel where the emoji list will be posted…
 				</Text>
 
-				<EmojiListChannel channels={guild.channels} defaultValue={settings.emojiListChannel} />
+				<SingleChannelSelector
+					channels={guild.channels}
+					defaultValue={settings.emojiListChannel}
+					inputId="emoji-list-channel"
+					settingId="emojiListChannel"
+				/>
 			</Section>
 		</Form>
 	);
