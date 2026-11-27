@@ -1,67 +1,79 @@
 "use client";
 
-import {
-	ComboboxItem,
-	ComboboxPopover,
-	ComboboxSelect,
-	ComboboxSelectArrow,
-	ComboboxSelectLabel,
-	useComboboxStore,
-	useStoreState,
-} from "@ariakit/react";
+import { Label, ListBox, Select } from "@heroui/react";
 import Link from "next/link";
+import { useState } from "react";
 import { LeaderboardVisibility } from "@/lib/guild.ts";
 import type { Snowflake } from "@/utils/discord-cdn.ts";
+
+const ITEM_CLASS_NAME = "rounded-lg text-base data-focus-visible:bg-white/10 data-hovered:bg-white/5";
 
 export function EditLeaderboardVisibility({ defaultValue, guildId, nsfw }: EditLeaderboardVisibilityProps) {
 	const initialValue =
 		nsfw && defaultValue === LeaderboardVisibility.Public ? LeaderboardVisibility.MembersOnly : defaultValue;
-	const combobox = useComboboxStore({ defaultSelectedValue: initialValue });
-	const value = useStoreState(combobox, "selectedValue") as LeaderboardVisibility;
+
+	return (
+		// `key` is required here to prevent rollback to previous setting after saving
+		<LeaderboardVisibilitySelect guildId={guildId} initialValue={initialValue} key={initialValue} nsfw={nsfw} />
+	);
+}
+
+function LeaderboardVisibilitySelect({ guildId, initialValue, nsfw }: LeaderboardVisibilitySelectProps) {
+	const [value, setValue] = useState(initialValue);
 
 	return (
 		<div className="flex flex-col gap-2">
-			<ComboboxSelectLabel className="text-lg tracking-tight text-white/75 md:text-xl" store={combobox}>
-				Choose the visibility for the{" "}
-				<Link
-					className="text-blurple"
-					href={`/levels/${guildId}`}
-					prefetch={false}
-					rel="noopener noreferrer"
-					target="_blank"
-				>
-					web leaderboard
-				</Link>
-				:
-			</ComboboxSelectLabel>
-
-			<ComboboxSelect
-				className="flex h-10 w-56 items-center justify-between rounded-lg bg-light-gray px-3 py-2 shadow-dim-inner"
-				name="leaderboardVisibility"
-				required
-				store={combobox}
+			<Select
+				className="gap-2"
+				onChange={(key) => {
+					if (key) setValue(key as LeaderboardVisibility);
+				}}
+				value={value}
 			>
-				<span>{getLabel(value)}</span>
+				{/* Submitted from here, as the form reset that follows a save empties the select element of `Select` */}
+				<input name="leaderboardVisibility" type="hidden" value={value} />
 
-				<ComboboxSelectArrow />
-			</ComboboxSelect>
+				<Label className="text-lg font-normal tracking-tight text-white/75 md:text-xl">
+					Choose the visibility for the{" "}
+					<Link
+						className="text-blurple"
+						href={`/levels/${guildId}`}
+						prefetch={false}
+						rel="noopener noreferrer"
+						target="_blank"
+					>
+						web leaderboard
+					</Link>
+					:
+				</Label>
 
-			<ComboboxPopover
-				className="z-10000 flex w-40 flex-col gap-2 rounded-lg bg-light-gray px-3 py-2 shadow-dim-inner md:w-56"
-				gutter={8}
-				sameWidth
-				store={combobox}
-			>
-				<ComboboxItem disabled={nsfw} store={combobox} value={LeaderboardVisibility.Public}>
-					Public
-				</ComboboxItem>
-				<ComboboxItem store={combobox} value={LeaderboardVisibility.MembersOnly}>
-					Members-only
-				</ComboboxItem>
-				<ComboboxItem store={combobox} value={LeaderboardVisibility.ManagersOnly}>
-					Managers-only
-				</ComboboxItem>
-			</ComboboxPopover>
+				<Select.Trigger className="h-10 w-56 items-center rounded-lg border-0 bg-light-gray shadow-dim-inner">
+					<Select.Value className="text-base sm:text-base" />
+					<Select.Indicator />
+				</Select.Trigger>
+
+				<Select.Popover className="rounded-lg bg-light-gray shadow-dim-inner">
+					<ListBox>
+						<ListBox.Item
+							className={ITEM_CLASS_NAME}
+							id={LeaderboardVisibility.Public}
+							isDisabled={nsfw}
+							textValue="Public"
+						>
+							Public
+							<ListBox.ItemIndicator />
+						</ListBox.Item>
+						<ListBox.Item className={ITEM_CLASS_NAME} id={LeaderboardVisibility.MembersOnly} textValue="Members-only">
+							Members-only
+							<ListBox.ItemIndicator />
+						</ListBox.Item>
+						<ListBox.Item className={ITEM_CLASS_NAME} id={LeaderboardVisibility.ManagersOnly} textValue="Managers-only">
+							Managers-only
+							<ListBox.ItemIndicator />
+						</ListBox.Item>
+					</ListBox>
+				</Select.Popover>
+			</Select>
 
 			<p className="text-white/75">{getSubtitle(value)}</p>
 
@@ -72,17 +84,6 @@ export function EditLeaderboardVisibility({ defaultValue, guildId, nsfw }: EditL
 			) : null}
 		</div>
 	);
-}
-
-function getLabel(visibility: LeaderboardVisibility) {
-	switch (visibility) {
-		case LeaderboardVisibility.Public:
-			return "Public";
-		case LeaderboardVisibility.MembersOnly:
-			return "Members-only";
-		case LeaderboardVisibility.ManagersOnly:
-			return "Managers-only";
-	}
 }
 
 function getSubtitle(visibility: LeaderboardVisibility) {
@@ -99,5 +100,11 @@ function getSubtitle(visibility: LeaderboardVisibility) {
 interface EditLeaderboardVisibilityProps {
 	readonly defaultValue: LeaderboardVisibility;
 	readonly guildId: Snowflake;
+	readonly nsfw: boolean;
+}
+
+interface LeaderboardVisibilitySelectProps {
+	readonly guildId: Snowflake;
+	readonly initialValue: LeaderboardVisibility;
 	readonly nsfw: boolean;
 }

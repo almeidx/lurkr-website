@@ -1,14 +1,7 @@
 "use client";
 
-import {
-	ComboboxItem,
-	ComboboxPopover,
-	ComboboxSelect,
-	ComboboxSelectArrow,
-	ComboboxSelectLabel,
-	useComboboxStore,
-	useStoreState,
-} from "@ariakit/react";
+import { Label, ListBox, Select } from "@heroui/react";
+import { useState } from "react";
 import { DocsBubble } from "@/components/dashboard/DocsBubble.tsx";
 
 const XP_GAIN_INTERVALS = [
@@ -33,17 +26,31 @@ const XP_GAIN_INTERVALS = [
 ] as const;
 
 export function XpGainInterval({ defaultValue }: { readonly defaultValue: number }) {
-	const combobox = useComboboxStore({ defaultSelectedValue: defaultValue.toString() });
-	const selectedValue = useStoreState(combobox, "selectedValue");
+	return (
+		// `key` is required here to prevent rollback to previous setting after saving
+		<XpGainIntervalSelect initialValue={defaultValue.toString()} key={defaultValue} />
+	);
+}
 
-	const selectedInterval = XP_GAIN_INTERVALS.find((interval) => interval.value.toString() === selectedValue);
+function XpGainIntervalSelect({ initialValue }: { readonly initialValue: string }) {
+	const [value, setValue] = useState(initialValue);
 
 	return (
-		<div className="flex flex-col gap-2">
+		<Select
+			className="gap-2"
+			onChange={(key) => {
+				if (key) setValue(key.toString());
+			}}
+			placeholder="Select cooldown time"
+			value={value}
+		>
+			{/* Submitted from here, as the form reset that follows a save empties the select element of `Select` */}
+			<input name="xpGainInterval" type="hidden" value={value} />
+
 			<div className="flex items-center">
-				<ComboboxSelectLabel className="text-lg tracking-tight text-white/75 md:text-xl" store={combobox}>
+				<Label className="text-lg font-normal tracking-tight text-white/75 md:text-xl">
 					Choose how long users must wait between XP-earning messages…
-				</ComboboxSelectLabel>
+				</Label>
 
 				<DocsBubble
 					path="/guides/leveling-automation#xp-gain-cooldown"
@@ -51,37 +58,26 @@ export function XpGainInterval({ defaultValue }: { readonly defaultValue: number
 				/>
 			</div>
 
-			<ComboboxSelect
-				className="flex h-10 w-48 items-center justify-between rounded-lg bg-light-gray px-3 py-2 shadow-dim-inner"
-				name="xpGainInterval"
-				store={combobox}
-			>
-				{selectedInterval ? (
-					<span className="font-medium text-white">{selectedInterval.label}</span>
-				) : (
-					"Select cooldown time"
-				)}
+			<Select.Trigger className="h-10 w-48 items-center rounded-lg border-0 bg-light-gray shadow-dim-inner">
+				<Select.Value className="text-base font-medium text-white sm:text-base" />
+				<Select.Indicator />
+			</Select.Trigger>
 
-				<ComboboxSelectArrow />
-			</ComboboxSelect>
-
-			<ComboboxPopover
-				className="z-10000 flex max-h-64 w-48 flex-col gap-2 overflow-y-auto rounded-lg bg-light-gray px-3 py-2 shadow-dim-inner"
-				gutter={8}
-				sameWidth
-				store={combobox}
-			>
-				{XP_GAIN_INTERVALS.map(({ value, label }) => (
-					<ComboboxItem
-						className="flex cursor-default items-center rounded-lg p-2 text-lg tracking-tight text-white/75 hover:bg-white/5 data-active-item:bg-white/10 data-active-item:text-white"
-						key={value}
-						store={combobox}
-						value={value.toString()}
-					>
-						<span className="font-medium text-white">{label}</span>
-					</ComboboxItem>
-				))}
-			</ComboboxPopover>
-		</div>
+			<Select.Popover className="rounded-lg bg-light-gray shadow-dim-inner" maxHeight={256}>
+				<ListBox>
+					{XP_GAIN_INTERVALS.map(({ value, label }) => (
+						<ListBox.Item
+							className="rounded-lg text-lg font-medium tracking-tight text-white data-focus-visible:bg-white/10 data-hovered:bg-white/5"
+							id={value.toString()}
+							key={value}
+							textValue={label}
+						>
+							{label}
+							<ListBox.ItemIndicator />
+						</ListBox.Item>
+					))}
+				</ListBox>
+			</Select.Popover>
+		</Select>
 	);
 }

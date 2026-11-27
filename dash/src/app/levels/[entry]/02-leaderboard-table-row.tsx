@@ -1,6 +1,6 @@
 "use client";
 
-import { Disclosure, DisclosureContent, DisclosureProvider } from "@ariakit/react";
+import { Disclosure } from "@heroui/react";
 import dynamic from "next/dynamic";
 import { userLevelResetAction } from "@/app/levels/[entry]/actions.ts";
 import type { GetLevelsResponse } from "@/app/levels/[entry]/leaderboard-types.ts";
@@ -21,43 +21,44 @@ export function LeaderboardTableRow({ guildId, row, isManager }: LeaderboardTabl
 	}
 
 	return (
-		<DisclosureProvider>
-			<div>
-				<Disclosure className="flex w-full items-center gap-1 rounded-lg border border-white/25 bg-dark-gray px-2 py-3 hover:bg-dark-gray/50 aria-expanded:mb-0 aria-expanded:rounded-t-lg aria-expanded:rounded-b-none">
-					<div className="flex max-w-[15%] min-w-14 justify-center rounded-s-lg">
-						<div
-							className="text-shadow-regular flex size-8 items-center justify-center rounded-full font-bold"
-							style={{ backgroundColor: getRankColor(row.rank) }}
-							title={row.rank.toString()}
-						>
-							{row.rank > 999 ? ":D" : row.rank}
-						</div>
+		<Disclosure>
+			<Disclosure.Trigger className="flex w-full items-center gap-1 rounded-lg border border-white/25 bg-dark-gray px-2 py-3 hover:bg-dark-gray/50 aria-expanded:mb-0 aria-expanded:rounded-t-lg aria-expanded:rounded-b-none">
+				<div className="flex max-w-[15%] min-w-14 justify-center rounded-s-lg">
+					<div
+						className="text-shadow-regular flex size-8 items-center justify-center rounded-full font-bold"
+						style={{ backgroundColor: getRankColor(row.rank) }}
+						title={row.rank.toString()}
+					>
+						{row.rank > 999 ? ":D" : row.rank}
 					</div>
+				</div>
 
-					<div className="flex w-full items-center truncate">
-						<ImageWithFallback
-							alt={`${row.user.username} avatar`}
-							className="mr-4 size-8 rounded-full"
-							fallback={fallbackAvatarImg}
-							height={32}
-							src={userAvatar(row.userId, row.user.avatar, { format: "webp", size: 32 })}
-							unoptimized={Boolean(row.user.avatar)}
-							width={32}
-						/>
+				<div className="flex w-full items-center truncate">
+					<ImageWithFallback
+						alt={`${row.user.username} avatar`}
+						className="mr-4 size-8 rounded-full"
+						fallback={fallbackAvatarImg}
+						height={32}
+						src={userAvatar(row.userId, row.user.avatar, { format: "webp", size: 32 })}
+						unoptimized={Boolean(row.user.avatar)}
+						width={32}
+					/>
 
-						<p className="max-w-40 sm:max-w-96">{row.user.username}</p>
-					</div>
+					<p className="max-w-40 sm:max-w-96">{row.user.username}</p>
+				</div>
 
-					<div className="hidden max-w-[15%] min-w-14 text-center xs:block">{formatNumber(row.messageCount)}</div>
+				<div className="hidden max-w-[15%] min-w-14 text-center xs:block">{formatNumber(row.messageCount)}</div>
 
-					<div className="hidden max-w-[15%] min-w-14 text-center sm:block">{formatNumber(row.xp)}</div>
+				<div className="hidden max-w-[15%] min-w-14 text-center sm:block">{formatNumber(row.xp)}</div>
 
-					<div className="flex max-w-[15%] min-w-14 items-center justify-center">
-						<RadialProgressBar color={row.user.accentColour} num={row.level} percentage={row.progress} />
-					</div>
-				</Disclosure>
+				<div className="flex max-w-[15%] min-w-14 items-center justify-center">
+					<RadialProgressBar color={row.user.accentColour} num={row.level} percentage={row.progress} />
+				</div>
+			</Disclosure.Trigger>
 
-				<DisclosureContent className="mb-4 flex w-full flex-col justify-between gap-2 rounded-b-lg border-x border-b border-white/25 bg-dark-gray/50 px-2 py-1.5 md:flex-row md:gap-0">
+			{/* A flex container keeps the bottom margin of its child inside of the animated height */}
+			<Disclosure.Content className="flex flex-col">
+				<div className="mb-4 flex w-full flex-col justify-between gap-2 rounded-b-lg border-x border-b border-white/25 bg-dark-gray/50 px-2 py-1.5 md:flex-row md:gap-0">
 					<div>
 						<p>
 							Experience: <span className="text-white/75">{row.xp.toLocaleString("en")}</span>
@@ -87,9 +88,9 @@ export function LeaderboardTableRow({ guildId, row, isManager }: LeaderboardTabl
 							</Confirmation>
 						</div>
 					)}
-				</DisclosureContent>
-			</div>
-		</DisclosureProvider>
+				</div>
+			</Disclosure.Content>
+		</Disclosure>
 	);
 }
 

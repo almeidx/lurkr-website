@@ -1,4 +1,4 @@
-import { Tooltip, TooltipAnchor, TooltipProvider } from "@ariakit/react";
+import { Tooltip } from "@heroui/react";
 import Link from "next/link";
 import { Help } from "@/components/icons/mdi/help.tsx";
 
@@ -19,11 +19,13 @@ export function DocsBubble({ tooltip, path }: DocsBubblePropos) {
 	}
 
 	return (
-		<TooltipProvider showTimeout={100}>
-			<TooltipAnchor>{link}</TooltipAnchor>
+		<Tooltip delay={100}>
+			<Tooltip.Trigger>{link}</Tooltip.Trigger>
 
-			<Tooltip className="max-w-prose rounded-lg border border-white/25 bg-darker px-3 py-2">{tooltip}</Tooltip>
-		</TooltipProvider>
+			<Tooltip.Content className="max-w-prose rounded-lg border border-white/25 bg-darker px-3 py-2 text-base break-normal">
+				{tooltip}
+			</Tooltip.Content>
+		</Tooltip>
 	);
 }
 
