@@ -4,10 +4,6 @@ import type { UserGuildInfo } from "@/lib/guild.ts";
 import type { Snowflake } from "@/utils/discord-cdn.ts";
 import { api } from "./api.ts";
 
-/**
- * Resolves to `null` only when the API reports that the visitor is signed out. Any other failure is thrown, so an
- * outage is never mistaken for being signed out.
- */
 export async function getCurrentUser() {
 	try {
 		return await api.get("users/@me").json<User>();

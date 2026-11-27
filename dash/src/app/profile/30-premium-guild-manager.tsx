@@ -17,7 +17,6 @@ interface PremiumGuild {
 }
 
 interface PremiumGuildManagerProps {
-	/** `null` when the servers could not be loaded. */
 	readonly guilds: UserGuildInfo[] | null;
 	readonly premium: PremiumTier;
 	readonly premiumGuild: PremiumGuild | null;

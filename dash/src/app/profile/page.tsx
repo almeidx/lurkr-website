@@ -21,7 +21,6 @@ export default async function ProfilePage() {
 		getUserApiKeys(),
 	]);
 
-	// Only a missing session means the visitor is signed out. Anything else is left to the route's error boundary.
 	if (userResult.status === "rejected") {
 		throw userResult.reason;
 	}
@@ -40,7 +39,6 @@ export default async function ProfilePage() {
 
 	const user = userResult.value;
 	const backgroundUrl = backgroundResult.status === "fulfilled" ? backgroundResult.value : null;
-	// `null` marks a failed fetch, which the sections report instead of rendering as an empty list.
 	const guilds = guildsResult.status === "fulfilled" ? guildsResult.value : null;
 	const apiKeys = apiKeysResult.status === "fulfilled" ? apiKeysResult.value : null;
 

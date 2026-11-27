@@ -136,7 +136,6 @@ export function GuildAccessApiKeyDialog({
 interface GuildAccessApiKeyDialogProps {
 	keyId: string;
 	keyName: string;
-	/** `null` when the servers could not be loaded. */
 	guilds: UserGuildInfo[] | null;
 	guildAccess: GetUserApiKeysResult["keys"][number]["guildAccess"];
 	open: boolean;

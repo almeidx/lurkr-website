@@ -1,8 +1,5 @@
 import { Alert } from "@heroui/react";
 
-/**
- * Stands in for the part of a profile section whose data could not be loaded.
- */
 export function SectionError({ description, title }: SectionErrorProps) {
 	return (
 		<Alert status="danger">
