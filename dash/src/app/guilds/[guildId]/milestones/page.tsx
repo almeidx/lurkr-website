@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
 import { getGuildSettings } from "@/app/guilds/[guildId]/settings.ts";
 import { Form } from "@/components/dashboard/Form.tsx";
+import { LimitedRoleSelector } from "@/components/dashboard/LimitedRoleSelector.tsx";
 import { Section } from "@/components/dashboard/Section.tsx";
+import { SingleChannelSelector } from "@/components/dashboard/SingleChannelSelector.tsx";
 import { Text } from "@/components/dashboard/Text.tsx";
 import { Separator } from "@/components/Separator.tsx";
 import type { Snowflake } from "@/utils/discord-cdn.ts";
-import { MilestonesChannel } from "./01-milestones-channel.tsx";
 import { MilestoneInterval } from "./02-milestone-interval.tsx";
 import { MilestoneMessage } from "./03-milestone-message.tsx";
-import { MilestoneRoles } from "./04-milestone-roles.tsx";
 import { update } from "./update.ts";
 
 export default async function Milestones({ params }: { readonly params: Promise<{ guildId: Snowflake }> }) {
@@ -36,7 +36,12 @@ export default async function Milestones({ params }: { readonly params: Promise<
 					Set the channel where milestone announcements will be posted…
 				</Text>
 
-				<MilestonesChannel channels={guild.channels} defaultValue={settings.milestonesChannel} />
+				<SingleChannelSelector
+					channels={guild.channels}
+					defaultValue={settings.milestonesChannel}
+					inputId="milestones-channel"
+					settingId="milestonesChannel"
+				/>
 
 				<Separator />
 
@@ -55,7 +60,16 @@ export default async function Milestones({ params }: { readonly params: Promise<
 					Set the milestone reward roles…
 				</Text>
 
-				<MilestoneRoles defaultValues={settings.milestonesRoles} premium={guild.premium} roles={guild.roles} />
+				<LimitedRoleSelector
+					defaultValues={settings.milestonesRoles}
+					inputId="milestone-roles"
+					label="Roles"
+					limit="milestonesRoles"
+					menuPlacement="top"
+					premium={guild.premium}
+					roles={guild.roles}
+					unit="roles"
+				/>
 			</Section>
 		</Form>
 	);

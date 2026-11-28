@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import { getGuildSettings } from "@/app/guilds/[guildId]/settings.ts";
 import { Form } from "@/components/dashboard/Form.tsx";
+import { LimitedRoleSelector } from "@/components/dashboard/LimitedRoleSelector.tsx";
 import { Section } from "@/components/dashboard/Section.tsx";
 import { Text } from "@/components/dashboard/Text.tsx";
 import { Separator } from "@/components/Separator.tsx";
 import type { Snowflake } from "@/utils/discord-cdn.ts";
-import { OnJoinRoles } from "./01-on-join-roles.tsx";
 import { OnJoinRolesDelay } from "./02-on-join-roles-delay.tsx";
 import { OnJoinRolesForBadges } from "./10-on-join-roles-for-badges.tsx";
 import { MentionCooldownRoles } from "./20-mention-cooldown-roles.tsx";
@@ -34,7 +34,14 @@ export default async function Roles({ params }: { readonly params: Promise<{ gui
 					Automatically assign <span className="font-semibold text-white">every</span> user who joins a role(s)…
 				</Text>
 
-				<OnJoinRoles defaultValues={settings.autoRole} premium={guild.premium} roles={guild.roles} />
+				<LimitedRoleSelector
+					defaultValues={settings.autoRole}
+					inputId="on-join-roles"
+					label="Roles"
+					limit="autoRole"
+					premium={guild.premium}
+					roles={guild.roles}
+				/>
 
 				<Separator />
 

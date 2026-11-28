@@ -1,26 +1,26 @@
 import { ChannelSelector } from "@/components/dashboard/ChannelSelector.tsx";
 import { Label } from "@/components/dashboard/Label.tsx";
-import type { Channel } from "@/lib/guild.ts";
+import type { Channel, GuildSettings } from "@/lib/guild.ts";
 import type { Snowflake } from "@/utils/discord-cdn.ts";
 import { mapChannelIdsToChannels } from "@/utils/map-channel-ids-to-channels.ts";
 
-export function EmojiListChannel({ channels, defaultValue }: EmojiListChannelProps) {
-	const defaultValues = mapChannelIdsToChannels(defaultValue, channels);
-
+export function SingleChannelSelector({ channels, defaultValue, inputId, settingId }: SingleChannelSelectorProps) {
 	return (
 		<ChannelSelector
 			channels={channels}
-			defaultValues={defaultValues}
-			inputId="emoji-list-channel"
+			defaultValues={mapChannelIdsToChannels(defaultValue, channels)}
+			inputId={inputId}
 			max={1}
-			settingId="emojiListChannel"
+			settingId={settingId}
 		>
 			<Label sub="Max. 1">Channel</Label>
 		</ChannelSelector>
 	);
 }
 
-interface EmojiListChannelProps {
+interface SingleChannelSelectorProps {
 	readonly channels: Channel[];
 	readonly defaultValue: Snowflake | null;
+	readonly inputId: string;
+	readonly settingId: keyof Pick<GuildSettings, "emojiListChannel" | "milestonesChannel">;
 }
